@@ -22,6 +22,10 @@ node_modules/
 .env.development.local
 .env.test.local
 .env.production.local
+.env.example
+.env.local.example
+.env.local.examle
+.env.production
 
 # Debug
 npm-debug.log*
