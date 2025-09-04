@@ -32,7 +32,9 @@
     "vercel:check": "node scripts/check-vercel-setup.js",
     "vercel:deploy": "./scripts/vercel-deploy.sh",
     "vercel:deploy:prod": "./scripts/vercel-deploy.sh production",
-    "vercel:deploy:preview": "./scripts/vercel-deploy.sh preview"
+    "vercel:deploy:preview": "./scripts/vercel-deploy.sh preview",
+    "dev:workflow": "./scripts/dev-workflow.sh",
+    "dev:safe": "npm run check-styles && npm run dev"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
