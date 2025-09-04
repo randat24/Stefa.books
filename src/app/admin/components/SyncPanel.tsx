@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Cloud, Download, Upload, RefreshCw, CheckCircle, AlertCircle, Info, ExternalLink, Users } from "lucide-react"
+import { Cloud, Download, Upload, RefreshCw, CheckCircle, Info, ExternalLink, Users, BookOpen, Globe } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/Badge"
@@ -15,6 +15,14 @@ interface SyncStatus {
   sync_needed: boolean
 }
 
+interface BooksSyncStatus {
+  totalBooks: number
+  availableBooks: number
+  totalCategories: number
+  lastCheck: string
+  syncStatus: string
+}
+
 interface SyncResponse {
   success: boolean
   message?: string
@@ -24,11 +32,13 @@ interface SyncResponse {
 
 export function SyncPanel() {
   const [status, setStatus] = useState<SyncStatus | null>(null) 
+  const [booksStatus, setBooksStatus] = useState<BooksSyncStatus | null>(null)
   const [loading, setLoading] = useState(true)
   const [syncing, setSyncing] = useState(false)
   const [lastAction, setLastAction] = useState<string | null>(null)
   const [creatingTestData, setCreatingTestData] = useState(false)
   const [clearingTestData, setClearingTestData] = useState(false)
+  const [syncingBooks, setSyncingBooks] = useState(false)
 
   // ============================================================================
   // ЗАГРУЗКА СТАТУСА
@@ -37,13 +47,24 @@ export function SyncPanel() {
   async function loadSyncStatus() {
     try {
       setLoading(true)
-      const response = await fetch('/api/sync')
-      const data = await response.json()
+      const [syncResponse, booksResponse] = await Promise.all([
+        fetch('/api/sync'),
+        fetch('/api/admin/sync-books')
+      ])
       
-      if (data.success) {
-        setStatus(data.data)
+      const syncData = await syncResponse.json()
+      const booksData = await booksResponse.json()
+      
+      if (syncData.success) {
+        setStatus(syncData.data)
       } else {
-        console.error('Failed to load sync status:', data.error)
+        console.error('Failed to load sync status:', syncData.error)
+      }
+      
+      if (booksData.success) {
+        setBooksStatus(booksData.data)
+      } else {
+        console.error('Failed to load books status:', booksData.error)
       }
     } catch (error) {
       console.error('Error loading sync status:', error)
@@ -93,6 +114,40 @@ export function SyncPanel() {
 
   const handleBackup = () => handleSync('backup_to_sheets')
   const handleImport = () => handleSync('import_from_sheets')
+
+  // ============================================================================
+  // СИНХРОНИЗАЦИЯ КНИГ С САЙТОМ
+  // ============================================================================
+
+  async function handleSyncBooksToSite() {
+    if (syncingBooks) return
+
+    try {
+      setSyncingBooks(true)
+      setLastAction(null)
+
+      const response = await fetch('/api/admin/sync-books', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setLastAction(`✅ ${data.message}`)
+        // Обновляем статус после успешной синхронизации
+        await loadSyncStatus()
+      } else {
+        setLastAction(`❌ Помилка: ${data.error}`)
+      }
+    } catch (error) {
+      setLastAction(`❌ Помилка мережі: ${error instanceof Error ? error.message : 'Невідома помилка'}`)
+    } finally {
+      setSyncingBooks(false)
+    }
+  }
 
   // ============================================================================
   // СОЗДАНИЕ ТЕСТОВЫХ ДАННЫХ
@@ -192,32 +247,30 @@ export function SyncPanel() {
       <CardContent className="space-y-4">
         
         {/* СТАТУС СИНХРОНИЗАЦИИ */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="text-center p-3 border rounded-lg">
-            <div className="text-2xl font-bold text-blue-600">{status?.supabase_count || 0}</div>
-            <div className="text-sm text-muted-foreground">Книг в Supabase</div>
+            <div className="text-2xl font-bold text-blue-600">{booksStatus?.totalBooks || 0}</div>
+            <div className="text-sm text-muted-foreground">Всього книг в БД</div>
           </div>
           
           <div className="text-center p-3 border rounded-lg">
-            <div className="text-2xl font-bold text-green-600">{status?.sheets_count || 0}</div>
-            <div className="text-sm text-muted-foreground">Книг в Google Sheets</div>
+            <div className="text-2xl font-bold text-green-600">{booksStatus?.availableBooks || 0}</div>
+            <div className="text-sm text-muted-foreground">Доступних книг</div>
+          </div>
+          
+          <div className="text-center p-3 border rounded-lg">
+            <div className="text-2xl font-bold text-purple-600">{booksStatus?.totalCategories || 0}</div>
+            <div className="text-sm text-muted-foreground">Категорій</div>
           </div>
           
           <div className="text-center p-3 border rounded-lg">
             <div className="flex items-center justify-center gap-2">
-              {status?.sheets_available ? (
-                <Badge variant="default" className="bg-green-100 text-green-800">
-                  <CheckCircle className="h-3 w-3 mr-1" />
-                  Подключено
-                </Badge>
-              ) : (
-                <Badge variant="destructive">
-                  <AlertCircle className="h-3 w-3 mr-1" />
-                  Не доступно
-                </Badge>
-              )}
+              <Badge variant="default" className="bg-green-100 text-green-800">
+                <CheckCircle className="h-3 w-3 mr-1" />
+                Готово
+              </Badge>
             </div>
-            <div className="text-sm text-muted-foreground mt-1">Статус подключения</div>
+            <div className="text-sm text-muted-foreground mt-1">Статус синхронізації</div>
           </div>
         </div>
 
@@ -238,6 +291,40 @@ export function SyncPanel() {
             <AlertDescription>{lastAction}</AlertDescription>
           </Alert>
         )}
+
+        {/* СИНХРОНИЗАЦИЯ КНИГ С САЙТОМ */}
+        <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
+          <div className="flex items-center gap-2 mb-3">
+            <Globe className="h-5 w-5 text-blue-600" />
+            <h3 className="font-semibold text-blue-900">Синхронізація з сайтом</h3>
+          </div>
+          <p className="text-sm text-blue-700 mb-4">
+            Вивантажити всі {booksStatus?.totalBooks || 0} книг з бази даних на сайт для відображення в каталозі
+          </p>
+          <div className="flex gap-3">
+            <Button
+              onClick={handleSyncBooksToSite}
+              disabled={syncingBooks || !booksStatus?.totalBooks}
+              className="flex-1"
+              variant="primary"
+            >
+              {syncingBooks ? (
+                <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+              ) : (
+                <BookOpen className="h-4 w-4 mr-2" />
+              )}
+              {syncingBooks ? 'Синхронізація...' : 'Вивантажити книги на сайт'}
+            </Button>
+            <Button
+              onClick={loadSyncStatus}
+              disabled={syncingBooks}
+              variant="outline"
+              size="md"
+            >
+              <RefreshCw className={`h-4 w-4 ${syncingBooks ? 'animate-spin' : ''}`} />
+            </Button>
+          </div>
+        </div>
 
         {/* КНОПКИ ДЕЙСТВИЙ */}
         <div className="space-y-3">
@@ -352,11 +439,15 @@ export function SyncPanel() {
           <h4 className="font-medium mb-2">Доступные действия:</h4>
           <ul className="text-sm text-muted-foreground space-y-1">
             <li className="flex items-start gap-2">
-              <Upload className="h-3 w-3 mt-0.5 text-blue-500" />
+              <BookOpen className="h-3 w-3 mt-0.5 text-blue-500" />
+              <span><strong>Синхронизация с сайтом:</strong> Выгружает все книги из базы данных на сайт для отображения в каталоге</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <Upload className="h-3 w-3 mt-0.5 text-green-500" />
               <span><strong>Резервная копия:</strong> Сохраняет все книги из Supabase в Google Sheets (заменяет существующие данные)</span>
             </li>
             <li className="flex items-start gap-2">
-              <Download className="h-3 w-3 mt-0.5 text-green-500" />
+              <Download className="h-3 w-3 mt-0.5 text-purple-500" />
               <span><strong>Импорт:</strong> Загружает книги из Google Sheets в Supabase (заменяет существующие данные)</span>
             </li>
           </ul>

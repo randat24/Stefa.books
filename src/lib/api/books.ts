@@ -87,7 +87,7 @@ export async function fetchBooks(filters: BooksFilter = {}): Promise<BooksRespon
 
     // Use absolute URL for server-side rendering
     const serverBaseUrl = typeof window === 'undefined' 
-      ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3001')
+      ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
       : '';
     const baseUrl = `${serverBaseUrl}/api/books`;
     const queryString = searchParams.toString();
@@ -100,9 +100,9 @@ export async function fetchBooks(filters: BooksFilter = {}): Promise<BooksRespon
         'Content-Type': 'application/json',
       },
       // Add cache control headers
-      cache: 'force-cache',
+      cache: 'no-store',
       next: {
-        revalidate: filters.search ? 300 : 600, // 5-10 minutes
+        revalidate: 0, // No cache for now
       },
     });
 
@@ -137,7 +137,7 @@ export async function fetchBook(id: string): Promise<BookResponse> {
 
     // Use absolute URL for server-side rendering
     const baseUrl = typeof window === 'undefined' 
-      ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3001')
+      ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
       : '';
     const url = `${baseUrl}/api/books/${id}`;
 
@@ -189,7 +189,7 @@ export async function fetchCategories(): Promise<CategoriesResponse> {
 
     // Use absolute URL for server-side rendering
     const serverBaseUrl = typeof window === 'undefined' 
-      ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3001')
+      ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
       : '';
     const url = `${serverBaseUrl}/api/categories`;
 
@@ -234,7 +234,7 @@ export async function fetchCategoriesStats(): Promise<CategoriesStatsResponse> {
   try {
     // Use absolute URL for server-side rendering
     const serverBaseUrl = typeof window === 'undefined' 
-      ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3001')
+      ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
       : '';
     const url = `${serverBaseUrl}/api/books`;
 

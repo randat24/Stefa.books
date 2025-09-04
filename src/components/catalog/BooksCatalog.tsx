@@ -301,15 +301,6 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
         />
       )}
 
-      {/* Additional Pagination Info at Bottom */}
-      <div className="text-center">
-        <PaginationInfo
-          currentPage={currentPage}
-          itemsPerPage={BOOKS_PER_PAGE}
-          totalItems={totalCount}
-          className="text-center"
-        />
-      </div>
     </div>
   );
 }

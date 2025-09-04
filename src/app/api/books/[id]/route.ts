@@ -26,7 +26,7 @@ export async function GET(
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     
-    if (!supabaseUrl || !supabaseKey || supabaseUrl === 'https://your-project.supabase.co' || supabaseKey === 'your_supabase_anon_key') {
+    if (!supabaseUrl || !supabaseKey) {
       logger.warn('Missing Supabase environment variables, returning mock data');
       
       // Fallback: возвращаем моковую книгу

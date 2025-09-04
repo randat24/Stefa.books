@@ -322,114 +322,12 @@ export default function Categories() {
 					categoryStats.sort((a, b) => b.total - a.total)
 					setCategories(categoryStats)
 				} else {
-					// Fallback: используем моковые данные если API недоступен
-					console.warn('API недоступен, используем моковые данные для категорий')
-					const mockCategories: CategoryWithStats[] = [
-						{
-							id: '1',
-							name: 'Казки',
-							description: 'Чарівні історії для дітей',
-							Icon: Crown,
-							total: 25,
-							available: 20
-						},
-						{
-							id: '2',
-							name: 'Психологія і саморозвиток',
-							description: 'Розвиток особистості та самопізнання',
-							Icon: Brain,
-							total: 18,
-							available: 15
-						},
-						{
-							id: '3',
-							name: 'Найменші',
-							description: 'Книги для найменших читачів',
-							Icon: Baby,
-							total: 22,
-							available: 18
-						},
-						{
-							id: '4',
-							name: 'Дошкільний вік',
-							description: 'Книги для дошкільнят',
-							Icon: GraduationCap,
-							total: 30,
-							available: 25
-						},
-						{
-							id: '5',
-							name: 'Пригоди',
-							description: 'Захоплюючі пригодницькі історії',
-							Icon: Compass,
-							total: 16,
-							available: 12
-						},
-						{
-							id: '6',
-							name: 'Фентезі',
-							description: 'Подорожі у неймовірні світи',
-							Icon: Sparkles,
-							total: 14,
-							available: 10
-						}
-					]
-					setCategories(mockCategories)
+					console.error('Failed to load categories from API')
+					setCategories([])
 				}
 			} catch (error) {
 				console.error('Error loading categories:', error)
-				// Fallback при ошибке
-				const mockCategories: CategoryWithStats[] = [
-					{
-						id: '1',
-						name: 'Казки',
-						description: 'Чарівні історії для дітей',
-						Icon: Crown,
-						total: 25,
-						available: 20
-					},
-					{
-						id: '2',
-						name: 'Психологія і саморозвиток',
-						description: 'Розвиток особистості та самопізнання',
-						Icon: Brain,
-						total: 18,
-						available: 15
-					},
-					{
-						id: '3',
-						name: 'Найменші',
-						description: 'Книги для найменших читачів',
-						Icon: Baby,
-						total: 22,
-						available: 18
-					},
-					{
-						id: '4',
-						name: 'Дошкільний вік',
-						description: 'Книги для дошкільнят',
-						Icon: GraduationCap,
-						total: 30,
-						available: 25
-					},
-					{
-						id: '5',
-						name: 'Пригоди',
-						description: 'Захоплюючі пригодницькі історії',
-						Icon: Compass,
-						total: 16,
-						available: 12
-					},
-					{
-						id: '6',
-						name: 'Фентезі',
-						description: 'Подорожі у неймовірні світи',
-						Icon: Sparkles,
-						total: 14,
-						available: 10
-					}
-				]
-				setCategories(mockCategories)
+				setCategories([])
 			} finally {
 				setLoading(false)
 			}
