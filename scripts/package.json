@@ -1,0 +1,34 @@
+{
+  "name": "stefa-books-import-scripts",
+  "version": "2.0.0",
+  "description": "Скрипты для полного импорта книг из Google Sheets с загрузкой обложек в Cloudinary",
+  "main": "complete-import.js",
+  "scripts": {
+    "import": "node complete-import.js",
+    "test": "node test-connections.js",
+    "upload-covers": "node auto-upload-covers.js",
+    "quick-import": "node quick-import.js",
+    "fetch-sheets": "node fetch-google-sheets.js",
+    "install-deps": "npm install"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "axios": "^1.11.0",
+    "cloudinary": "^1.41.0",
+    "googleapis": "^128.0.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1"
+  },
+  "keywords": [
+    "cloudinary",
+    "google-drive",
+    "google-sheets",
+    "supabase",
+    "book-covers",
+    "import",
+    "upload"
+  ],
+  "author": "Stefa Books",
+  "license": "MIT"
+}

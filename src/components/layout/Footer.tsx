@@ -1,0 +1,188 @@
+import { Mail, Phone, MapPin, BookOpen, Users, Truck } from "lucide-react";
+import Image from 'next/image';
+import Link from 'next/link';
+
+export function Footer() {
+  return (
+    <footer className="w-full border-t" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface)' }}>
+      <div className="container py-12 lg:py-16">
+        <div className="grid gap-8 lg:gap-12 md:grid-cols-2 lg:grid-cols-4">
+          {/* Про компанію */}
+          <section className="space-y-4 md:col-span-2 lg:col-span-1">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-full bg-slate-100 grid place-items-center">
+                <Image 
+                  src="/logo.svg" 
+                  alt="Stefa.books logo" 
+                  width={28} 
+                  height={28}
+                  className="text-slate-700"
+                  onError={(e) => {
+                    // Fallback to a simple div with text if image fails to load
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                    const parent = target.parentElement;
+                    if (parent) {
+                      const fallback = document.createElement('div');
+                      fallback.className = 'text-slate-700 font-bold text-xs';
+                      fallback.textContent = 'S';
+                      parent.appendChild(fallback);
+                    }
+                  }}
+                />
+              </div>
+              <h3 className="text-xl font-bold" style={{ color: 'var(--ink)' }}>
+                Stefa.books
+              </h3>
+            </div>
+            <p className="text-sm leading-relaxed text-muted max-w-xs">
+              Книжкова підписка у Миколаєві. Читай більше — плати менше. 
+              Відкривай нові світи разом з нами!
+            </p>
+            <div className="flex flex-col gap-2">
+              <a 
+                href="mailto:info@stefa.books" 
+                className="inline-flex items-center gap-2 text-sm hover:text-[var(--accent)] transition-colors"
+                style={{ color: 'var(--text-muted)' }}
+              >
+                <Mail size={16} />
+                info@stefa.books
+              </a>
+              <a 
+                href="tel:+380501234567" 
+                className="inline-flex items-center gap-2 text-sm hover:text-[var(--accent)] transition-colors"
+                style={{ color: 'var(--text-muted)' }}
+              >
+                <Phone size={16} />
+                +38 (050) 123-45-67
+              </a>
+              <div className="inline-flex items-center gap-2 text-sm text-muted">
+                <MapPin size={16} />
+                Миколаїв, Україна
+              </div>
+            </div>
+          </section>
+
+          {/* Навігація */}
+          <nav className="space-y-4">
+            <h4 className="font-semibold" style={{ color: 'var(--ink)' }}>Навігація</h4>
+            <ul className="space-y-2">
+              <li>
+                <Link 
+                  href="/" 
+                  className="text-sm transition-colors hover:text-[var(--accent)]"
+                  style={{ color: 'var(--text-muted)' }}
+                >
+                  Головна
+                </Link>
+              </li>
+              <li>
+                <a 
+                  href="/catalog" 
+                  className="text-sm transition-colors hover:text-[var(--accent)]"
+                  style={{ color: 'var(--text-muted)' }}
+                >
+                  Каталог книг
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/plans" 
+                  className="text-sm transition-colors hover:text-[var(--accent)]"
+                  style={{ color: 'var(--text-muted)' }}
+                >
+                  Тарифи та підписки
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/subscribe" 
+                  className="text-sm transition-colors hover:text-[var(--accent)]"
+                  style={{ color: 'var(--text-muted)' }}
+                >
+                  Оформити підписку
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          {/* Послуги */}
+          <nav className="space-y-4">
+            <h4 className="font-semibold" style={{ color: 'var(--ink)' }}>Послуги</h4>
+            <ul className="space-y-2">
+              <li className="inline-flex items-center gap-2 text-sm text-muted">
+                <Truck size={14} />
+                Доставка додому
+              </li>
+              <li className="inline-flex items-center gap-2 text-sm text-muted">
+                <MapPin size={14} />
+                Самовивіз
+              </li>
+              <li className="inline-flex items-center gap-2 text-sm text-muted">
+                <Users size={14} />
+                Корпоративні підписки
+              </li>
+              <li className="inline-flex items-center gap-2 text-sm text-muted">
+                <BookOpen size={14} />
+                Консультації з вибору
+              </li>
+            </ul>
+          </nav>
+
+          {/* Підписка на новини */}
+          <section className="space-y-4">
+            <h4 className="font-semibold" style={{ color: 'var(--ink)' }}>Новини</h4>
+            <p className="text-sm text-muted">
+              Підпишіться на розсилку, щоб дізнаватися про нові книги першими
+            </p>
+            <div className="space-y-2">
+              <input 
+                type="email" 
+                placeholder="Ваш email"
+                className="input w-full text-sm h-10 px-3"
+              />
+              <button className="inline-flex items-center justify-center rounded-full font-semibold w-full h-10 px-4 text-sm bg-yellow-500 text-slate-900 hover:bg-yellow-400 transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2">
+                Підписатися
+              </button>
+            </div>
+          </section>
+        </div>
+        
+        {/* Нижня частина */}
+        <div 
+          className="mt-8 lg:mt-12 pt-6 lg:pt-8 border-t text-center lg:text-left"
+          style={{ borderColor: 'var(--border)' }}
+        >
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <p className="text-xs" style={{ color: 'var(--text-light)' }}>
+              © 2025 Stefa.books. Усі права захищені.
+            </p>
+            <nav className="flex flex-wrap justify-center lg:justify-end gap-4 lg:gap-6">
+              <a 
+                href="/privacy" 
+                className="text-xs transition-colors hover:text-[var(--accent)]"
+                style={{ color: 'var(--text-light)' }}
+              >
+                Політика конфіденційності
+              </a>
+              <a 
+                href="/terms" 
+                className="text-xs transition-colors hover:text-[var(--accent)]"
+                style={{ color: 'var(--text-light)' }}
+              >
+                Умови використання
+              </a>
+              <a 
+                href="/support" 
+                className="text-xs transition-colors hover:text-[var(--accent)]"
+                style={{ color: 'var(--text-light)' }}
+              >
+                Підтримка
+              </a>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

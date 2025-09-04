@@ -1,0 +1,110 @@
+---
+alwaysApply: true
+---
+
+PROJECT_RULES
+Tech Stack
+
+The Stefa.Books project uses the following stack, and all developers must adhere to it:
+
+Frontend: Next.js 15.4.6 (App Router), React 19.1.0, TypeScript 5
+
+UI/Styling: Tailwind CSS 4, shadcn/ui, Lucide React
+
+Animations: Framer Motion 12.23.12
+
+Backend & Database: Supabase (PostgreSQL + Edge Functions, RLS)
+
+File & Media storage: Cloudinary
+
+Infrastructure: Vercel (deploy, CDN)
+
+Code Quality: ESLint + Prettier
+
+Security: Row Level Security (RLS), input validation, .env for secrets
+
+Development Checklists
+1. Code Style & Structure
+
+ Use TypeScript for all files
+
+ Avoid any unless strictly necessary
+
+ Components must follow folder structure: ui/, sections/, forms/, layouts/
+
+ Shared components → /components/ui
+
+ Custom hooks → /lib/hooks
+
+ Animations must be done via Framer Motion
+
+ Icons must use Lucide React (no emojis allowed)
+
+2. Layout & Responsiveness
+
+ Always use mobile-first approach
+
+ Use rem and em instead of px
+
+ Test layouts on 320px, 768px, 1024px, 1440px breakpoints
+
+ Avoid fixed widths — use max-w, min-w, flex, grid
+
+ Add skeleton-loading states for content
+
+ All images must use lazy-loading
+
+3. API & Supabase
+ All database requests must go through supabase.ts (no direct fetch in components)
+
+ RLS (Row Level Security) must be enabled for all tables
+
+ Validate API input with Zod
+
+ Store all keys in .env only
+
+ Ensure security policies exist for books, users, subscriptions, rentals
+
+4. UI/UX Guidelines
+
+ Books are the main focus of the UI
+
+ Color palette: warm tones (beige, sand, emerald accent)
+
+ Typography: Literata (headings), Manrope (body text)
+
+ All buttons and cards must have hover effects
+
+ Header should be transparent with blur
+
+ Book cards must include: cover, title, author, status, button
+
+ Use micro-animations (scale/fade) for interactivity
+
+5. Security
+
+ Never hardcode Supabase/Cloudinary keys in code
+
+ Use .env.local and .env.production
+
+ Remove unused environment variables
+
+ Do not expose private keys in API routes
+
+ Validate all form inputs both client-side and server-side
+
+ Restrict access to the admin panel by role (is_admin)
+
+ SQL functions must explicitly define SECURITY DEFINER or INVOKER as required
+
+6. Git & Repository
+
+ Use Conventional Commits (feat:, fix:, chore:)
+
+ All changes must go through Pull Requests
+
+ Run ESLint and Prettier before pushing (pnpm lint && pnpm format)
+
+ Run build check before pushing (pnpm build)
+
+ Do not commit temporary or unnecessary files

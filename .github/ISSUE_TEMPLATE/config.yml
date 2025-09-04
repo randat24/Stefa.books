@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions & Discussions
+    url: https://github.com/your-org/stefa-books/discussions
+    about: Вопросы и общие обсуждения проекта
+  - name: Documentation
+    url: https://github.com/your-org/stefa-books/tree/main/docs
+    about: Документация проекта
+  - name: Roadmap
+    url: https://github.com/your-org/stefa-books/projects
+    about: Дорожная карта и планирование

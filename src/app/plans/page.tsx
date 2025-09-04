@@ -1,0 +1,82 @@
+import { Metadata } from 'next';
+import { SubscriptionStructuredData } from '@/components/seo/SubscriptionStructuredData';
+import { ChevronRight } from 'lucide-react';
+import Link from 'next/link';
+
+export async function generateMetadata(): Promise<Metadata> {
+  const title = 'Тарифи підписки - Stefa.books';
+  const description = 'Оберіть зручний тариф підписки на українські дитячі книги. Орендуйте книги онлайн з доставкою. Гнучкі умови скасування підписки.';
+  
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      locale: 'uk_UA',
+      url: 'https://stefa-books.com.ua/plans',
+      siteName: 'Stefa.books',
+      images: [
+        {
+          url: '/images/og-image.jpg',
+          width: 1200,
+          height: 630,
+          alt: 'Тарифи підписки на дитячі книги - Stefa.books'
+        }
+      ]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: ['/images/og-image.jpg'],
+    }
+  };
+}
+
+export default function PlansPage() {
+	return (
+		<div className="container-default py-8">
+			<SubscriptionStructuredData 
+				name="Підписка на дитячі книги"
+				description="Орендуйте українські дитячі книги онлайн з доставкою"
+				price={300}
+				currency="UAH"
+			/>
+			{/* Breadcrumbs */}
+			<div className="mb-6">
+				<nav className="flex items-center space-x-2 text-sm text-gray-600">
+					<Link href="/" className="hover:text-gray-900">Головна</Link>
+					<ChevronRight className="h-4 w-4" />
+					<span className="text-gray-900 font-medium">Тарифи</span>
+				</nav>
+			</div>
+			
+			<h1 className="h1">Тарифи підписки</h1>
+			<div className="grid md:grid-cols-2 gap-6 mt-6">
+				<div className="card p-6">
+					<h3 className="text-xl font-semibold">Mini</h3>
+					<p className="text-3xl font-bold text-blue-600 mt-2">300 ₴/міс</p>
+					<p className="text-muted mt-2">1 книга за раз</p>
+					<ul className="mt-4 space-y-2">
+						<li>✓ Безкоштовна доставка</li>
+						<li>✓ Можна змінювати книгу</li>
+						<li>✓ Скасування в будь-який час</li>
+					</ul>
+				</div>
+				<div className="card p-6">
+					<h3 className="text-xl font-semibold">Maxi</h3>
+					<p className="text-3xl font-bold text-blue-600 mt-2">500 ₴/міс</p>
+					<p className="text-muted mt-2">2 книги за раз</p>
+					<ul className="mt-4 space-y-2">
+						<li>✓ Безкоштовна доставка</li>
+						<li>✓ Можна змінювати книгу</li>
+						<li>✓ Скасування в будь-який час</li>
+						<li>✓ Пріоритетна підтримка</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	)
+}

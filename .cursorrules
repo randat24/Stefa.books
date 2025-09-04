@@ -1,0 +1,342 @@
+# Правила разработки Stefa.Books
+
+## Общие принципы
+
+### Код
+- Next.js 15 (App Router), TypeScript **strict**
+- ESLint включён, без варнингов в CI
+- Именование файлов: `UpperCamelCase` для компонентов, `kebab-case` для маршрутов
+- UI: Tailwind (utility-first), без инлайн-стилей; общие пресеты — в `globals.css`
+- Атомарные UI-компоненты — в `components/ui`
+
+### Архитектура
+- Server Components по умолчанию
+- 'use client' только при необходимости (состояние, события, браузерные API)
+- Компоненты в `src/components/`
+- Утилиты в `src/lib/`
+- Типы в `src/lib/types/` или `src/lib/database.types.ts`
+
+## Стиль кода
+
+### TypeScript
+- Строгая типизация, избегать `any`
+- Интерфейсы для объектов, типы для примитивов
+- Экспорт типов из `database.types.ts` для Supabase
+- Использовать `zod` для валидации
+
+### React
+- Функциональные компоненты с TypeScript
+- Хуки в начале компонента
+- Деструктуризация пропсов
+- Мемоизация при необходимости (`useMemo`, `useCallback`)
+
+### CSS/Tailwind
+- Utility-first подход
+- Кастомные классы в `globals.css`
+- Адаптивный дизайн (mobile-first)
+- Использовать CSS переменные для цветов
+
+## Компоненты
+
+### Структура компонента
+```tsx
+'use client'; // только если нужно
+
+import { useState, useEffect } from 'react';
+import { cn } from '@/lib/cn';
+import type { ComponentProps } from './types';
+
+interface Props extends ComponentProps {
+  // типы пропсов
+}
+
+export default function ComponentName({ prop1, prop2, ...props }: Props) {
+  // хуки
+  const [state, setState] = useState();
+  
+  // эффекты
+  useEffect(() => {
+    // логика
+  }, []);
+  
+  // обработчики
+  const handleClick = () => {
+    // логика
+  };
+  
+  return (
+    <div className={cn('base-classes', props.className)}>
+      {/* JSX */}
+    </div>
+  );
+}
+```
+
+### Именование
+- Компоненты: `PascalCase` (BookCard, Header, Footer)
+- Файлы компонентов: `PascalCase.tsx`
+- Хуки: `use` + `PascalCase` (useBooks, useAuth)
+- Утилиты: `camelCase` (formatDate, validateEmail)
+- Константы: `UPPER_SNAKE_CASE` (API_ENDPOINTS, MAX_ITEMS)
+
+## Supabase интеграция
+
+### Клиент
+```tsx
+// src/lib/supabase.ts
+import { createClient } from '@supabase/supabase-js';
+import type { Database } from './database.types';
+
+export const supabase = createClient<Database>(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+```
+
+### Запросы
+```tsx
+// В компонентах
+const { data, error } = await supabase
+  .from('books')
+  .select('*')
+  .eq('available', true);
+
+if (error) {
+  console.error('Error fetching books:', error);
+  return [];
+}
+
+return data || [];
+```
+
+### Типы
+```tsx
+// Использовать типы из database.types.ts
+import type { Book, Category } from '@/lib/database.types';
+
+interface BookCardProps {
+  book: Book;
+  category?: Category;
+}
+```
+
+## API Routes
+
+### Структура
+```tsx
+// src/app/api/endpoint/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { z } from 'zod';
+
+const schema = z.object({
+  // валидация
+});
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const validatedData = schema.parse(body);
+    
+    // логика
+    
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Validation failed' },
+      { status: 400 }
+    );
+  }
+}
+```
+
+### Обработка ошибок
+- Всегда оборачивать в try-catch
+- Возвращать структурированные ошибки
+- Логировать ошибки для отладки
+- Не раскрывать внутренние детали
+
+## Безопасность
+
+### RLS (Row Level Security)
+- Все таблицы с RLS политиками
+- Deny-by-default подход
+- Публичный доступ только на чтение
+- Запись через сервисный ключ
+
+### Валидация
+- Валидация на клиенте (Zod)
+- Валидация на сервере (Zod)
+- Санитизация входных данных
+- Rate limiting для API
+
+### Переменные окружения
+- Секреты только в `.env.local`
+- `NEXT_PUBLIC_` только для публичных данных
+- Проверка наличия переменных при старте
+
+## Производительность
+
+### Изображения
+```tsx
+import Image from 'next/image';
+
+<Image
+  src={book.cover_url}
+  alt={book.title}
+  width={300}
+  height={400}
+  className="object-cover"
+  priority={isAboveFold}
+  sizes="(max-width: 768px) 100vw, 300px"
+/>
+```
+
+### Оптимизация
+- Lazy loading для компонентов
+- Динамические импорты для больших компонентов
+- Кэширование запросов
+- Оптимизация изображений
+
+### Bundle size
+- Анализ размера бандла
+- Tree shaking
+- Code splitting
+- Минимизация зависимостей
+
+## Тестирование
+
+### Unit тесты
+```tsx
+// __tests__/components/BookCard.test.tsx
+import { render, screen } from '@testing-library/react';
+import BookCard from '@/components/BookCard';
+
+describe('BookCard', () => {
+  it('renders book title', () => {
+    render(<BookCard book={mockBook} />);
+    expect(screen.getByText(mockBook.title)).toBeInTheDocument();
+  });
+});
+```
+
+### E2E тесты
+```tsx
+// e2e/catalog.test.ts
+import { test, expect } from '@playwright/test';
+
+test('user can browse catalog', async ({ page }) => {
+  await page.goto('/catalog');
+  await expect(page.getByRole('heading')).toContainText('Каталог');
+});
+```
+
+## Доступность
+
+### ARIA
+```tsx
+<button
+  aria-label="Добавить в избранное"
+  aria-pressed={isFavorited}
+  onClick={handleToggleFavorite}
+>
+  <Heart className={cn('h-5 w-5', isFavorited && 'fill-current')} />
+</button>
+```
+
+### Семантика
+- Использовать семантические HTML теги
+- Правильная структура заголовков
+- Альтернативный текст для изображений
+- Поддержка клавиатурной навигации
+
+### Контрастность
+- Минимальный контраст 4.5:1
+- Проверка через инструменты доступности
+- Поддержка тёмной темы
+
+## Git workflow
+
+### Коммиты
+- Conventional Commits: `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`
+- Описательные сообщения
+- Ссылки на issues/PR
+
+### Ветки
+- `main` — продакшн
+- `develop` — разработка
+- `feature/` — новые функции
+- `fix/` — исправления
+- `hotfix/` — срочные исправления
+
+### PR
+- Описание изменений
+- Скриншоты для UI изменений
+- Тесты проходят
+- Линтер без ошибок
+- Code review
+
+## Мониторинг
+
+### Логирование
+```tsx
+import { logger } from '@/lib/logger';
+
+logger.info('User subscribed', { userId, plan });
+logger.error('API error', { error, endpoint });
+```
+
+### Аналитика
+- Отслеживание пользовательских событий
+- Производительность страниц
+- Ошибки и исключения
+- Конверсия
+
+## Документация
+
+### Комментарии
+```tsx
+/**
+ * Компонент карточки книги
+ * @param book - Данные книги
+ * @param onFavorite - Обработчик добавления в избранное
+ */
+export default function BookCard({ book, onFavorite }: BookCardProps) {
+  // ...
+}
+```
+
+### README
+- Описание проекта
+- Установка и запуск
+- Структура проекта
+- API документация
+- Деплой
+
+## Специфичные для проекта правила
+
+### Stefa.Books
+- Украинский язык в интерфейсе
+- Адаптация под детские книги
+- Простота и понятность UI
+- Быстрая загрузка страниц
+- Мобильный приоритет
+
+### Компоненты
+- `BookCard` — карточка книги с hover эффектами
+- `BookPreviewModal` — модальное окно с деталями
+- `RentalForm` — форма аренды с валидацией
+- `Header` — навигация и поиск
+- `Footer` — контакты и ссылки
+
+### API
+- `/api/books` — каталог книг
+- `/api/subscribe` — заявки на подписку
+- `/api/rent` — заявки на аренду
+- `/api/categories` — категории
+- `/api/admin/*` — админ API
+
+### База данных
+- Таблица `books` — каталог
+- Таблица `categories` — категории
+- Таблица `subscription_requests` — заявки
+- RLS политики для безопасности

@@ -1,0 +1,118 @@
+
+> stefa-books-final@0.1.0 build /Users/fantomas/Documents/GitHub/Stefa-books-v2.1
+> next build
+
+   ▲ Next.js 15.5.2
+   - Environments: .env.local, .env.production
+   - Experiments (use with caution):
+     · serverActions
+     · optimizePackageImports
+     ✓ memoryBasedWorkersCount
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 13.8s
+   Skipping linting
+   Checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/64) ...
+   Generating static pages (16/64) 
+   Generating static pages (32/64) 
+   Generating static pages (48/64) 
+ ✓ Generating static pages (64/64)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      18 kB         174 kB
+├ ○ /_not-found                            220 B         102 kB
+├ ○ /account                             3.13 kB         115 kB
+├ ○ /account/favorites                   3.88 kB         121 kB
+├ ○ /account/orders                      2.61 kB         111 kB
+├ ○ /account/profile                      2.5 kB         111 kB
+├ ○ /account/settings                    6.03 kB         115 kB
+├ ○ /account/subscriptions               4.67 kB         114 kB
+├ ƒ /admin                               5.43 kB         122 kB
+├ ƒ /admin/ab-tests                      2.69 kB         115 kB
+├ ƒ /admin/ab-tests/[id]                 3.09 kB         115 kB
+├ ƒ /admin/ab-tests/new                  2.65 kB         115 kB
+├ ƒ /admin/analytics                     3.11 kB         115 kB
+├ ƒ /admin/analytics/books               2.69 kB         115 kB
+├ ƒ /admin/analytics/rentals             2.42 kB         115 kB
+├ ƒ /admin/analytics/users               2.48 kB         115 kB
+├ ƒ /admin/errors                        5.38 kB         114 kB
+├ ƒ /admin/rentals                       10.9 kB         148 kB
+├ ƒ /admin/users                         2.68 kB         115 kB
+├ ƒ /admin/users/[id]                    3.37 kB         116 kB
+├ ƒ /api/admin/analytics                   220 B         102 kB
+├ ƒ /api/admin/analytics/export            220 B         102 kB
+├ ƒ /api/admin/books                       220 B         102 kB
+├ ƒ /api/admin/categories                  220 B         102 kB
+├ ƒ /api/admin/cleanup-database            220 B         102 kB
+├ ƒ /api/admin/clear-books                 220 B         102 kB
+├ ƒ /api/admin/clear-test-data             220 B         102 kB
+├ ƒ /api/admin/migrate-categories          220 B         102 kB
+├ ƒ /api/admin/normalize-database          220 B         102 kB
+├ ƒ /api/admin/notifications               220 B         102 kB
+├ ƒ /api/admin/payments                    220 B         102 kB
+├ ƒ /api/admin/rentals                     220 B         102 kB
+├ ƒ /api/admin/sync-categories             220 B         102 kB
+├ ƒ /api/admin/test-data                   220 B         102 kB
+├ ƒ /api/admin/upload/cover                220 B         102 kB
+├ ƒ /api/admin/users                       220 B         102 kB
+├ ƒ /api/authors                           220 B         102 kB
+├ ƒ /api/books                             220 B         102 kB
+├ ƒ /api/books/[id]                        220 B         102 kB
+├ ƒ /api/categories                        220 B         102 kB
+├ ƒ /api/health                            220 B         102 kB
+├ ƒ /api/my-rentals                        220 B         102 kB
+├ ƒ /api/payments                          220 B         102 kB
+├ ƒ /api/payments/callback                 220 B         102 kB
+├ ƒ /api/rent                              220 B         102 kB
+├ ƒ /api/sitemap                           220 B         102 kB
+├ ƒ /api/subscribe                         220 B         102 kB
+├ ƒ /api/sync                              220 B         102 kB
+├ ƒ /api/test-books                        220 B         102 kB
+├ ƒ /api/users                             220 B         102 kB
+├ ○ /auth/forgot-password                2.34 kB         115 kB
+├ ○ /auth/login                          6.07 kB         155 kB
+├ ○ /auth/register                       2.57 kB         115 kB
+├ ○ /auth/reset-password                 2.54 kB         115 kB
+├ ○ /books                               4.61 kB         131 kB
+├ ƒ /books/[id]                          4.97 kB         134 kB
+├ ƒ /books/[id]/edit                     2.81 kB         115 kB
+├ ƒ /books/[id]/order                    6.87 kB         149 kB
+├ ○ /books/new                           2.43 kB         115 kB
+├ ○ /catalog                               173 B         105 kB
+├ ƒ /catalog/[category]                  2.08 kB         123 kB
+├ ○ /categories                          2.39 kB         115 kB
+├ ƒ /categories/[id]                     5.37 kB         127 kB
+├ ƒ /categories/[id]/edit                2.42 kB         115 kB
+├ ○ /categories/new                      2.26 kB         115 kB
+├ ○ /form                                1.63 kB         127 kB
+├ ○ /health                               2.4 kB         111 kB
+├ ○ /maintenance                           220 B         102 kB
+├ ○ /my-rentals                          6.12 kB         152 kB
+├ ○ /payment/checkout                    4.02 kB         113 kB
+├ ○ /payment/success                     2.75 kB         115 kB
+├ ○ /plans                                 516 B         106 kB
+├ ○ /privacy                               173 B         105 kB
+├ ○ /rent                                 2.8 kB         120 kB
+├ ○ /rent/checkout                       7.05 kB         129 kB
+├ ○ /rent/confirmation                   2.47 kB         115 kB
+├ ○ /rent/history                        2.62 kB         115 kB
+├ ○ /rental-success                      6.66 kB         119 kB
+├ ƒ /search                              12.7 kB         139 kB
+├ ○ /sitemap.xml                           220 B         102 kB
+├ ○ /subscribe                           1.92 kB         150 kB
+└ ○ /terms                                 173 B         105 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/1255-2470614406ae095f.js      45.4 kB
+  ├ chunks/4bd1b696-100b9d70ed4e49c1.js  54.2 kB
+  └ other shared chunks (total)          2.19 kB
+
+
+ƒ Middleware                               34 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

@@ -1,0 +1,22 @@
+# Build and cache directories
+.next
+node_modules
+out
+dist
+
+# Generated files
+next-env.d.ts
+public/sw.js
+*.tsbuildinfo
+
+# Scripts (JS files with require())
+scripts/
+test-db-connection.js
+jest.config.js
+tailwind.config.ts
+
+# Legacy files
+stefa-books-files/
+
+# Config files that use CommonJS
+next.config.js
