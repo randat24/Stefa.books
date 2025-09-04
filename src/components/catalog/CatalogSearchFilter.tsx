@@ -70,6 +70,13 @@ export function CatalogSearchFilter({
     }));
   };
 
+  const handleFilterClick = (key: keyof SearchFilters, value: any, closeDropdown?: () => void) => {
+    updateFilter(key, value);
+    if (closeDropdown) {
+      closeDropdown();
+    }
+  };
+
   const clearFilters = () => {
     setFilters({
       search: '',
@@ -111,7 +118,12 @@ export function CatalogSearchFilter({
             />
             {filters.search && (
               <button
-                onClick={() => updateFilter('search', '')}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  updateFilter('search', '');
+                }}
                 className="absolute right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full transition-colors"
               >
                 <X className="h-4 w-4 text-gray-400" />
@@ -120,6 +132,7 @@ export function CatalogSearchFilter({
           </div>
           
           <button
+            type="button"
             onClick={() => setShowFilters(!showFilters)}
             className={`p-3 rounded-full border-2 transition-colors relative ${
               showFilters 
@@ -144,7 +157,12 @@ export function CatalogSearchFilter({
             <h3 className="text-lg font-semibold text-gray-900">Фільтри</h3>
             {activeFilterCount > 0 && (
               <button
-                onClick={clearFilters}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  clearFilters();
+                }}
                 className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
               >
                 Очистити все
@@ -159,6 +177,7 @@ export function CatalogSearchFilter({
                 Категорія
               </label>
               <button
+                type="button"
                 onClick={() => setShowCategories(!showCategories)}
                 className="w-full p-3 text-left border border-gray-300 rounded-lg bg-white hover:bg-gray-50 transition-colors flex items-center justify-between"
               >
@@ -171,9 +190,11 @@ export function CatalogSearchFilter({
               {showCategories && (
                 <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-48 overflow-y-auto">
                   <button
-                    onClick={() => {
-                      updateFilter('category', '');
-                      setShowCategories(false);
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleFilterClick('category', '', () => setShowCategories(false));
                     }}
                     className="w-full p-3 text-left hover:bg-gray-50 transition-colors text-sm"
                   >
@@ -182,9 +203,11 @@ export function CatalogSearchFilter({
                   {categories.map(category => (
                     <button
                       key={category}
-                      onClick={() => {
-                        updateFilter('category', category);
-                        setShowCategories(false);
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleFilterClick('category', category, () => setShowCategories(false));
                       }}
                       className={`w-full p-3 text-left hover:bg-gray-50 transition-colors text-sm ${
                         filters.category === category ? 'bg-yellow-50 text-yellow-800' : ''
@@ -203,6 +226,7 @@ export function CatalogSearchFilter({
                 Автор
               </label>
               <button
+                type="button"
                 onClick={() => setShowAuthors(!showAuthors)}
                 className="w-full p-3 text-left border border-gray-300 rounded-lg bg-white hover:bg-gray-50 transition-colors flex items-center justify-between"
               >
@@ -215,9 +239,11 @@ export function CatalogSearchFilter({
               {showAuthors && (
                 <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-48 overflow-y-auto">
                   <button
-                    onClick={() => {
-                      updateFilter('author', '');
-                      setShowAuthors(false);
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleFilterClick('author', '', () => setShowAuthors(false));
                     }}
                     className="w-full p-3 text-left hover:bg-gray-50 transition-colors text-sm"
                   >
@@ -226,9 +252,11 @@ export function CatalogSearchFilter({
                   {authors.slice(0, 20).map(author => (
                     <button
                       key={author}
-                      onClick={() => {
-                        updateFilter('author', author);
-                        setShowAuthors(false);
+                      type="button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleFilterClick('author', author, () => setShowAuthors(false));
                       }}
                       className={`w-full p-3 text-left hover:bg-gray-50 transition-colors text-sm ${
                         filters.author === author ? 'bg-yellow-50 text-yellow-800' : ''
@@ -281,44 +309,60 @@ export function CatalogSearchFilter({
       {activeFilterCount > 0 && (
         <div className="flex flex-wrap gap-2 mb-4">
           {filters.category && (
-            <Badge 
-              variant="secondary"
-              className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200 cursor-pointer"
-              onClick={() => updateFilter('category', '')}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                updateFilter('category', '');
+              }}
+              className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200 cursor-pointer inline-flex items-center px-3 py-1 rounded-full text-sm font-medium transition-colors"
             >
               Категорія: {filters.category}
               <X className="h-3 w-3 ml-1" />
-            </Badge>
+            </button>
           )}
           {filters.author && (
-            <Badge 
-              variant="secondary"
-              className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200 cursor-pointer"
-              onClick={() => updateFilter('author', '')}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                updateFilter('author', '');
+              }}
+              className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200 cursor-pointer inline-flex items-center px-3 py-1 rounded-full text-sm font-medium transition-colors"
             >
               Автор: {filters.author}
               <X className="h-3 w-3 ml-1" />
-            </Badge>
+            </button>
           )}
           {filters.availableOnly && (
-            <Badge 
-              variant="secondary"
-              className="bg-green-100 text-green-800 hover:bg-green-200 cursor-pointer"
-              onClick={() => updateFilter('availableOnly', false)}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                updateFilter('availableOnly', false);
+              }}
+              className="bg-green-100 text-green-800 hover:bg-green-200 cursor-pointer inline-flex items-center px-3 py-1 rounded-full text-sm font-medium transition-colors"
             >
               Тільки доступні
               <X className="h-3 w-3 ml-1" />
-            </Badge>
+            </button>
           )}
           {filters.minRating > 0 && (
-            <Badge 
-              variant="secondary"
-              className="bg-blue-100 text-blue-800 hover:bg-blue-200 cursor-pointer"
-              onClick={() => updateFilter('minRating', 0)}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                updateFilter('minRating', 0);
+              }}
+              className="bg-blue-100 text-blue-800 hover:bg-blue-200 cursor-pointer inline-flex items-center px-3 py-1 rounded-full text-sm font-medium transition-colors"
             >
               {filters.minRating}+ ⭐
               <X className="h-3 w-3 ml-1" />
-            </Badge>
+            </button>
           )}
         </div>
       )}

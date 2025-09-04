@@ -14,7 +14,7 @@ export interface BooksFilter {
   search?: string
   limit?: number
   offset?: number
-  available_only?: boolean
+  available?: boolean
 }
 
 export interface BooksResponse {
@@ -277,7 +277,7 @@ export async function fetchCategoriesStats(): Promise<CategoriesStatsResponse> {
  */
 export async function fetchPopularBooks(limit = 8): Promise<BooksResponse> {
   return fetchBooks({
-    available_only: true,
+    available: true,
     limit
   })
 }

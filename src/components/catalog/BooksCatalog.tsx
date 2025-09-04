@@ -48,9 +48,6 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
   const BOOKS_PER_PAGE = 20;
   const currentPage = parseInt(searchParams.get('page') || '1');
   const totalPages = calculateTotalPages(totalCount, BOOKS_PER_PAGE);
-  
-  // Calculate how many pages are currently displayed (taking into account loaded books)
-  // const displayedPages = Math.ceil(books.length / BOOKS_PER_PAGE); // Will be used for pagination UI
 
   // Initialize categories and authors from initialBooks
   useEffect(() => {
@@ -92,7 +89,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
     }
     
     if (filters.availableOnly) {
-      apiFilters.available_only = true;
+      apiFilters.available = true;
     }
 
     return apiFilters;
@@ -194,7 +191,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
     } finally {
       setLoadingMore(false);
     }
-  }, [books.length, buildApiFilters, effectiveFilters, totalCount]);
+  }, [books.length, buildApiFilters, effectiveFilters, totalCount, BOOKS_PER_PAGE]);
 
   // Handle filter changes
   const handleFiltersChange = useCallback((newFilters: typeof searchFilters) => {
