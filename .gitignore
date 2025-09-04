@@ -27,6 +27,72 @@ node_modules/
 .env.local.examle
 .env.production
 
+# Sensitive files - NEVER commit these!
+# API Keys and Secrets
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.jks
+*.keystore
+secrets.json
+credentials.json
+service-account.json
+firebase.json
+google-services.json
+google-credentials.json
+config.json
+.secrets
+.secret
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+database.json
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+*.tmp
+*.temp
+
+# IDE and Editor files
+.vscode/settings.json
+.vscode/launch.json
+.idea/workspace.xml
+.idea/tasks.xml
+*.swp
+*.swo
+*~
+
+# OS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# Logs and debug files
+*.log
+logs/
+debug.log
+error.log
+access.log
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+.temp/
+
 # Debug
 npm-debug.log*
 yarn-debug.log*
