@@ -1,6 +1,6 @@
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
 	:root {
@@ -44,6 +44,11 @@
 		--brand-light: #1e293b;
 		--accent: #2563eb;
 		--accent-light: #3b82f6;
+		
+		/* Фирменные цвета */
+		--brand-yellow: #eab308; /* rgb(234 179 8) */
+		--brand-yellow-light: #facc15; /* rgb(250 204 21) */
+		--brand-yellow-dark: #ca8a04; /* rgb(202 138 4) */
 		
 		/* Семантические цвета */
 		--success: #10b981;
@@ -170,6 +175,17 @@
 		letter-spacing: -0.008em;
 	}
 	
+	/* Выделение текста - фирменный желтый */
+	::selection {
+		background-color: var(--brand-yellow);
+		color: var(--brand);
+	}
+	
+	::-moz-selection {
+		background-color: var(--brand-yellow);
+		color: var(--brand);
+	}
+	
 	.prose :where(h1,h2,h3,h4,h5,h6) { 
 		@apply tracking-[-0.025em] font-semibold;
 		color: var(--ink);
@@ -259,6 +275,23 @@
 	
 	.text-light {
 		color: var(--text-light);
+	}
+	
+	/* Выделение текста */
+	.highlight {
+		background-color: var(--brand-yellow);
+		color: var(--brand);
+		padding: 0.125em 0.25em;
+		border-radius: 0.25em;
+		font-weight: 500;
+	}
+	
+	.highlight-light {
+		background-color: var(--brand-yellow-light);
+		color: var(--brand);
+		padding: 0.125em 0.25em;
+		border-radius: 0.25em;
+		font-weight: 500;
 	}
 
 	/* Тени - системные */
@@ -478,6 +511,15 @@
 	
 	.focus-ring-accent {
 		@apply focus-ring focus-visible:ring-blue-500;
+	}
+	
+	/* Утилиты для выделения текста */
+	.selection-brand {
+		@apply selection:bg-brand-yellow selection:text-brand;
+	}
+	
+	.selection-brand-light {
+		@apply selection:bg-brand-yellow-light selection:text-brand;
 	}
 }
 

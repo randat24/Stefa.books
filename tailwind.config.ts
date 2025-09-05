@@ -24,6 +24,11 @@ export default {
           DEFAULT: "#2563eb",
           light: "#3b82f6",
         },
+        "brand-yellow": {
+          DEFAULT: "#eab308",
+          light: "#facc15",
+          dark: "#ca8a04",
+        },
         success: {
           DEFAULT: "#10b981",
           light: "#d1fae5",
