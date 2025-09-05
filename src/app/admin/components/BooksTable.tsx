@@ -54,7 +54,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
       book.title.toLowerCase().includes(search) ||
       book.author.toLowerCase().includes(search) ||
       book.code.toLowerCase().includes(search) ||
-      book.category_id.toLowerCase().includes(search) ||
+      (book.category_id?.toLowerCase().includes(search) || false) ||
       (book.description?.toLowerCase().includes(search) || false)
     )
   }, [books, searchTerm])
@@ -408,8 +408,8 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                       <TableCell className="p-4">
                         <div className="inline-flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-emerald-50 to-emerald-100 text-emerald-700 rounded-full text-xs font-semibold border border-emerald-200 shadow-sm">
                           <Tag className="size-3" />
-                          <span className="truncate max-w-[100px]" title={book.category_id}>
-                            {book.category_id}
+                          <span className="truncate max-w-[100px]" title={book.category_name || 'No category'}>
+                            {book.category_name || 'No category'}
                           </span>
                         </div>
                       </TableCell>
