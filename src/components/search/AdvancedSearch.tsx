@@ -186,7 +186,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
     
     if (filters.categories.length > 0) {
       filteredBooks = filteredBooks.filter(book => 
-        filters.categories.includes(book.category)
+        filters.categories.includes(book.category_id)
       );
     }
     
@@ -209,7 +209,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
 
   // Extract filter options from books
   const filterOptions = {
-    categories: [...new Set(books.map(book => book.category))].sort(),
+    categories: [...new Set(books.map(book => book.category_id))].sort(),
     authors: [...new Set(books.map(book => book.author))].sort(),
     maxPrice: 1000 // Default max price since books don't have price field currently
   };

@@ -82,12 +82,16 @@ export type Database = {
           id: string
           isbn: string | null
           language: string | null
+          location: string | null
           pages: number | null
           price_daily: number | null
           price_monthly: number | null
+          price_uah: number | null
           price_weekly: number | null
           publication_year: number | null
           publisher: string | null
+          qty_available: number | null
+          qty_total: number | null
           rating: number | null
           rating_count: number | null
           search_text: string | null
@@ -113,12 +117,16 @@ export type Database = {
           id?: string
           isbn?: string | null
           language?: string | null
+          location?: string | null
           pages?: number | null
           price_daily?: number | null
           price_monthly?: number | null
+          price_uah?: number | null
           price_weekly?: number | null
           publication_year?: number | null
           publisher?: string | null
+          qty_available?: number | null
+          qty_total?: number | null
           rating?: number | null
           rating_count?: number | null
           search_text?: string | null
@@ -144,12 +152,16 @@ export type Database = {
           id?: string
           isbn?: string | null
           language?: string | null
+          location?: string | null
           pages?: number | null
           price_daily?: number | null
           price_monthly?: number | null
+          price_uah?: number | null
           price_weekly?: number | null
           publication_year?: number | null
           publisher?: string | null
+          qty_available?: number | null
+          qty_total?: number | null
           rating?: number | null
           rating_count?: number | null
           search_text?: string | null
@@ -251,6 +263,48 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      payments: {
+        Row: {
+          amount: number
+          created_at: string | null
+          currency: string | null
+          description: string | null
+          id: string
+          metadata: Json | null
+          payment_method: string
+          payment_status: string | null
+          transaction_id: string | null
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          currency?: string | null
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          payment_method: string
+          payment_status?: string | null
+          transaction_id?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          currency?: string | null
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          payment_method?: string
+          payment_status?: string | null
+          transaction_id?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
       }
       rentals: {
         Row: {
@@ -509,6 +563,28 @@ export type Database = {
       is_admin: {
         Args: { user_id: string }
         Returns: boolean
+      }
+      search_books: {
+        Args: {
+          age_filter?: string
+          category_filter?: string
+          limit_count?: number
+          offset_count?: number
+          search_query?: string
+        }
+        Returns: {
+          age_range: string
+          author: string
+          available: boolean
+          category_name: string
+          cover_url: string
+          description: string
+          id: string
+          rating: number
+          search_rank: number
+          short_description: string
+          title: string
+        }[]
       }
       set_limit: {
         Args: { "": number }

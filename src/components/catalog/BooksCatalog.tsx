@@ -55,7 +55,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
   // Initialize categories and authors from initialBooks
   useEffect(() => {
     if (initialBooks.length > 0) {
-      const categories = [...new Set(initialBooks.map(book => book.category).filter(Boolean))].sort();
+      const categories = [...new Set(initialBooks.map(book => book.category_id).filter(Boolean))].sort();
       const authors = [...new Set(initialBooks.map(book => book.author).filter(Boolean))].sort();
       setAllCategories(categories);
       setAllAuthors(authors);
@@ -121,7 +121,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
 
           // Extract categories and authors for filters only on first load or when search is empty
           if (response.data.length > 0 && !effectiveFilters.search) {
-            const categories = [...new Set(response.data.map(book => book.category).filter(Boolean))].sort();
+            const categories = [...new Set(response.data.map(book => book.category_id).filter(Boolean))].sort();
             const authors = [...new Set(response.data.map(book => book.author).filter(Boolean))].sort();
             setAllCategories(categories);
             setAllAuthors(authors);

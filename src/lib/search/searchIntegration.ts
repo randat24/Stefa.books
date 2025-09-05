@@ -331,7 +331,7 @@ class IntegratedSearchSystem {
     let filtered = books;
 
     if (filters.categories?.length) {
-      filtered = filtered.filter(book => filters.categories!.includes(book.category));
+      filtered = filtered.filter(book => filters.categories!.includes(book.category_id));
     }
 
     if (filters.authors?.length) {

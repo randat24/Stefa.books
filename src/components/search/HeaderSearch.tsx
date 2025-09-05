@@ -283,7 +283,7 @@ export function HeaderSearch() {
                             >
                               <div className="text-gray-700 text-sm">{category}</div>
                               <div className="text-gray-400 text-xs ml-auto">
-                                {searchResults?.books.filter(book => book.category === category).length || 0} книг
+                                {searchResults?.books.filter(book => book.category_id === category).length || 0} книг
                               </div>
                             </button>
                           ))}

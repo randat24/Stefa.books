@@ -14,7 +14,8 @@ const mockFavorites = [
     id: 1,
     title: 'Пригоди Котигорошка',
     author: 'Олена Пчілка',
-    category: 'Народні казки',
+    category_id: 'folk-tales',
+    category_name: 'Народні казки',
     rating: 4.8,
     addedDate: '2024-01-15',
     coverUrl: '/images/books/Mini1.png'
@@ -23,7 +24,8 @@ const mockFavorites = [
     id: 2,
     title: 'Аліса в Країні Чудес',
     author: 'Льюїс Керролл',
-    category: 'Зарубіжна література',
+    category_id: 'foreign-literature',
+    category_name: 'Зарубіжна література',
     rating: 4.9,
     addedDate: '2024-01-10',
     coverUrl: '/images/books/Maxi2.png'
@@ -32,7 +34,8 @@ const mockFavorites = [
     id: 3,
     title: 'Маленький принц',
     author: 'Антуан де Сент-Екзюпері',
-    category: 'Зарубіжна література',
+    category_id: 'foreign-literature',
+    category_name: 'Зарубіжна література',
     rating: 4.7,
     addedDate: '2024-01-05',
     coverUrl: '/images/books/Mini1.png'
@@ -93,7 +96,7 @@ export default function FavoritesPage() {
                     </CardTitle>
                     <p className="text-sm text-gray-500 truncate">{book.author}</p>
                     <div className="flex items-center gap-2 mt-1">
-                      <Badge variant="secondary">{book.category}</Badge>
+                      <Badge variant="secondary">{book.category_name}</Badge>
                     </div>
                   </div>
                 </div>

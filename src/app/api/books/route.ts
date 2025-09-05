@@ -143,14 +143,14 @@ export async function GET(request: NextRequest) {
         filteredBooks = filteredBooks.filter(book => 
           book.title.toLowerCase().includes(searchQuery) ||
           book.author.toLowerCase().includes(searchQuery) ||
-          book.category.toLowerCase().includes(searchQuery) ||
+          book.category_id.toLowerCase().includes(searchQuery) ||
           book.description.toLowerCase().includes(searchQuery)
         );
       }
 
       if (category) {
         filteredBooks = filteredBooks.filter(book => 
-          book.category.toLowerCase().includes(category.toLowerCase())
+          book.category_id.toLowerCase().includes(category.toLowerCase())
         );
       }
 

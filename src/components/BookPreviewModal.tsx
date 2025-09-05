@@ -88,7 +88,7 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
               <h3 className="text-2xl font-bold text-[--ink] mb-2">{book.title}</h3>
               <p className="text-lg text-[--muted] mb-1">{book.author}</p>
               <p className="text-sm text-[--muted]">
-                {book.category}{book.age_range ? ` • ${book.age_range}` : ""}
+                {book.category_id}{book.age_range ? ` • ${book.age_range}` : ""}
               </p>
             </div>
             <div className="flex items-center gap-2">

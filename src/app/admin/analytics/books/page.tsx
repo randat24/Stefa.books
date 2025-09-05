@@ -133,7 +133,7 @@ export default function BookAnalyticsPage() {
                       <p className="text-sm text-muted-foreground">{book.author}</p>
                       <div className="flex items-center mt-1">
                         <Badge variant="secondary" className="text-xs">
-                          {book.category}
+                          {book.category_id}
                         </Badge>
                         <span className="text-xs text-muted-foreground ml-2">
                           ★ {book.rating}

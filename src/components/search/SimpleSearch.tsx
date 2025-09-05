@@ -91,7 +91,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
   // const filterOptions = {
   //   categories: categories.length > 0 
   //     ? categories.flatMap(cat => cat.subcategories?.map(sub => sub.name) || [cat.name]).sort()
-  //     : books ? [...new Set(books.map(book => book.category))].filter(Boolean).sort() : [],
+  //     : books ? [...new Set(books.map(book => book.category_id))].filter(Boolean).sort() : [],
   //   authors: books ? [...new Set(books.map(book => book.author))].filter(Boolean).sort() : []
   // }; // Will be used for filter UI
 
@@ -101,7 +101,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
     
     if (filters.categories.length > 0) {
       filteredBooks = filteredBooks.filter(book => 
-        filters.categories.includes(book.category)
+        filters.categories.includes(book.category_id)
       );
     }
     
@@ -172,7 +172,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
       
       const searchableBooks = applyFilters(books);
       const results = searchableBooks.filter((book: Book) => {
-        const searchText = `${book.title} ${book.author} ${book.category} ${book.short_description || ''}`.toLowerCase();
+        const searchText = `${book.title} ${book.author} ${book.category_id} ${book.short_description || ''}`.toLowerCase();
         return searchText.includes(normalizedQuery);
       });
 

@@ -102,7 +102,7 @@ export function SearchProvider({ children, books = [] }: SearchProviderProps) {
         Promise.resolve((() => {
           const engine = new MLAutocompleteEngine();
           booksData.forEach(book => {
-            engine.addDocument(`${book.title} ${book.author} ${book.category}`, book.id);
+            engine.addDocument(`${book.title} ${book.author} ${book.category_id}`, book.id);
           });
           return engine;
         })())
@@ -157,7 +157,7 @@ export function SearchProvider({ children, books = [] }: SearchProviderProps) {
       let searchableBooks = books;
       if (filters.categories?.length > 0 || filters.authors?.length > 0 || filters.priceRange) {
         searchableBooks = books.filter(book => {
-          const categoryMatch = !filters.categories?.length || filters.categories.includes(book.category);
+          const categoryMatch = !filters.categories?.length || filters.categories.includes(book.category_id);
           const authorMatch = !filters.authors?.length || filters.authors.includes(book.author);
           // Skip price filtering since price field doesn't exist in current data
           

@@ -20,7 +20,7 @@ export function BookStructuredData({ book }: BookStructuredDataProps) {
     "publisher": book.publisher || undefined,
     "datePublished": book.publication_year ? `${book.publication_year}-01-01` : undefined,
     "description": book.short_description || book.description,
-    "genre": book.category,
+    "genre": book.category_id,
     "image": book.cover_url || undefined,
     ...(book.rating && book.rating_count && {
       "aggregateRating": {

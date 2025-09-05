@@ -297,9 +297,9 @@ export default function Categories() {
 							// Если подкатегорий нет, используем основные категории
 							// Проверяем, есть ли книги в этой категории (учитываем множественные категории через запятую)
 							const booksInCategory = books.filter(book => {
-								if (!book.category) return false
+								if (!book.category_id) return false
 								// Разделяем категории по запятой и проверяем каждую
-								const bookCategories = book.category.split(',').map(cat => cat.trim())
+								const bookCategories = book.category_id.split(',').map(cat => cat.trim())
 								return bookCategories.includes(mainCategory.name)
 							})
 							const availableBooks = booksInCategory.filter(book => book.available)

@@ -69,7 +69,7 @@ export function BookRecommendations({
     const filtered = books.filter(book => 
       book.available && 
       !excludeIds.includes(book.id) &&
-      (!category || book.category === category)
+      (!category || book.category_id === category)
     );
 
     switch (activeType) {
@@ -99,13 +99,13 @@ export function BookRecommendations({
       
       case "category":
         // Group by categories and take variety
-        const categories = [...new Set(filtered.map(book => book.category))];
+        const categories = [...new Set(filtered.map(book => book.category_id))];
         const results: Book[] = [];
         const perCategory = Math.ceil(maxItems / categories.length);
         
         categories.forEach(cat => {
           const categoryBooks = filtered
-            .filter(book => book.category === cat)
+            .filter(book => book.category_id === cat)
             .slice(0, perCategory);
           results.push(...categoryBooks);
         });

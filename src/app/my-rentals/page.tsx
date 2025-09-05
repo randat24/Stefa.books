@@ -388,7 +388,7 @@ function MyRentalsContent() {
 															</p>
 															{rental.book?.category && (
 																<Badge variant="secondary" className="text-sm px-0">
-																	{rental.book.category}
+																	{rental.book.category_id}
 																</Badge>
 															)}
 														</div>

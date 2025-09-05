@@ -147,7 +147,7 @@ export async function GET(request: NextRequest) {
       const availableStatsMap = new Map();
       
       booksStats?.forEach(book => {
-        const categoryName = book.category || 'Без категорії';
+        const categoryName = book.category_id || 'Без категорії';
         
         // Общее количество книг
         statsMap.set(categoryName, (statsMap.get(categoryName) || 0) + 1);

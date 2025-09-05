@@ -64,7 +64,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
         title: book.title,
         author: book.author,
         author_id: book.author_id || null,
-        category: book.category,
+        category: book.category_id,
         subcategory: book.subcategory || '',
         qty_total: book.qty_total,
         price_uah: book.price_uah || undefined,

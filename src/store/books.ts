@@ -125,7 +125,7 @@ export const useBooksStore = create<BookCacheState>()(
       
       getBooksByCategory: (categoryId) => {
         const { books } = get()
-        return books.filter(book => book.category === categoryId)
+        return books.filter(book => book.category_id === categoryId)
       },
       
       getBooksByAgeCategory: (ageCategoryId) => {
@@ -153,7 +153,7 @@ export const useBooksStore = create<BookCacheState>()(
         let filteredBooks = [...books]
         
         if (filters.categoryId) {
-          filteredBooks = filteredBooks.filter(book => book.category === filters.categoryId)
+          filteredBooks = filteredBooks.filter(book => book.category_id === filters.categoryId)
         }
         
         if (filters.ageCategoryId) {

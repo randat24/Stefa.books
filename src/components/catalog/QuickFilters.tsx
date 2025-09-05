@@ -21,11 +21,11 @@ export function QuickFilters({
   className = '' 
 }: QuickFiltersProps) {
   // Извлекаем уникальные категории из книг
-  const categories = [...new Set(books.map(book => book.category).filter(Boolean))].sort();
+  const categories = [...new Set(books.map(book => book.category_id).filter(Boolean))].sort();
   
   // Подсчитываем количество книг в каждой категории
   const categoryCounts = categories.reduce((acc, category) => {
-    acc[category] = books.filter(book => book.category === category).length;
+    acc[category] = books.filter(book => book.category_id === category).length;
     return acc;
   }, {} as Record<string, number>);
 
