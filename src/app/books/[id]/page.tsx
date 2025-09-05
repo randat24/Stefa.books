@@ -113,7 +113,7 @@ export default async function BookPage({ params }: { params: Params }) {
   const book = bookResponse.data;
 
   // Get related books (same category, excluding current book)
-  const relatedBooksResponse = await fetchBooksByCategory(book.category_id, 8);
+  const relatedBooksResponse = await fetchBooksByCategory(book.category_id || '', 8);
   const relatedBooks = relatedBooksResponse.success
     ? relatedBooksResponse.data
         .filter(b => b.id !== book.id && b.available)
@@ -129,7 +129,7 @@ export default async function BookPage({ params }: { params: Params }) {
   const breadcrumbs = [
     { name: "Головна", url: "https://stefa-books.com.ua/" },
     { name: "Каталог", url: "https://stefa-books.com.ua/catalog" },
-    { name: book.category_id, url: `https://stefa-books.com.ua/categories/${book.category_id.toLowerCase()}` },
+    { name: book.category_id || 'Без категорії', url: `https://stefa-books.com.ua/categories/${(book.category_id || 'uncategorized').toLowerCase()}` },
     { name: book.title, url: `https://stefa-books.com.ua/books/${book.id}` }
   ];
 
@@ -148,8 +148,8 @@ export default async function BookPage({ params }: { params: Params }) {
           <ChevronRight className="h-4 w-4" />
           <Link href="/catalog" className="hover:text-gray-900">Каталог</Link>
           <ChevronRight className="h-4 w-4" />
-          <Link href={`/categories/${book.category_id.toLowerCase()}`} className="hover:text-gray-900">
-            {book.category_id}
+          <Link href={`/categories/${(book.category_id || 'uncategorized').toLowerCase()}`} className="hover:text-gray-900">
+            {book.category_id || 'Без категорії'}
           </Link>
           <ChevronRight className="h-4 w-4" />
           <span className="text-gray-900 font-medium">{book.title}</span>
@@ -352,7 +352,7 @@ export default async function BookPage({ params }: { params: Params }) {
                 Схожі книги
               </h2>
               <Button variant="outline" size="md" asChild>
-                <Link href={`/categories/${book.category_id.toLowerCase()}`}>
+                <Link href={`/categories/${(book.category_id || 'uncategorized').toLowerCase()}`}>
                   Дивитися всі
                 </Link>
               </Button>
@@ -370,7 +370,7 @@ export default async function BookPage({ params }: { params: Params }) {
                 Знайдіть ще більше книг у категорії &quot;{book.category_id}&quot;
               </p>
               <Button variant="outline" asChild>
-                <Link href={`/categories/${book.category_id.toLowerCase()}`}>
+                <Link href={`/categories/${(book.category_id || 'uncategorized').toLowerCase()}`}>
                   Переглянути категорію
                 </Link>
               </Button>

@@ -55,7 +55,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
   // Initialize categories and authors from initialBooks
   useEffect(() => {
     if (initialBooks.length > 0) {
-      const categories = [...new Set(initialBooks.map(book => book.category_id).filter(Boolean))].sort();
+      const categories = [...new Set(initialBooks.map(book => book.category_id).filter(Boolean) as string[])].sort();
       const authors = [...new Set(initialBooks.map(book => book.author).filter(Boolean))].sort();
       setAllCategories(categories);
       setAllAuthors(authors);
@@ -121,7 +121,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
 
           // Extract categories and authors for filters only on first load or when search is empty
           if (response.data.length > 0 && !effectiveFilters.search) {
-            const categories = [...new Set(response.data.map(book => book.category_id).filter(Boolean))].sort();
+            const categories = [...new Set(response.data.map(book => book.category_id).filter(Boolean) as string[])].sort();
             const authors = [...new Set(response.data.map(book => book.author).filter(Boolean))].sort();
             setAllCategories(categories);
             setAllAuthors(authors);
@@ -265,13 +265,19 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
           itemsPerPage={BOOKS_PER_PAGE}
           totalItems={totalCount}
         />
-        <div className="text-sm text-gray-600 mt-2 sm:mt-0">
+        <div className="text-sm text-gray-600 mt-2 sm:mt-0" aria-live="polite">
           Сторінка {currentPage} з {totalPages}
         </div>
       </div>
 
       {/* Books Grid */}
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+      <div 
+        className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
+        role="grid"
+        aria-label="Каталог книг"
+        aria-live="polite"
+        aria-busy={loading}
+      >
         {books.map((book) => (
           <BookCard key={book.id} book={book} />
         ))}

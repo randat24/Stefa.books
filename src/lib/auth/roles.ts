@@ -1,5 +1,5 @@
 import type { User } from '@supabase/supabase-js';
-import type { UserProfile } from '@/lib/types/user';
+import type { UserProfile } from '@/lib/auth/auth-service';
 
 export type UserRole = 'user' | 'admin' | 'moderator';
 

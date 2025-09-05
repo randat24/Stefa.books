@@ -87,7 +87,7 @@ export async function POST() {
     const updates = [];
     
     for (const book of books || []) {
-      const category = book.category_id?.toLowerCase() || '';
+      const category = book.category?.toLowerCase() || '';
       let subcategory = null;
       
       // Логика определения подкатегории

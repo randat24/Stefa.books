@@ -101,7 +101,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
     
     if (filters.categories.length > 0) {
       filteredBooks = filteredBooks.filter(book => 
-        filters.categories.includes(book.category_id)
+        book.category_id && filters.categories.includes(book.category_id)
       );
     }
     
@@ -316,19 +316,26 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
       {/* Search Header */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <label htmlFor="search-input" className="sr-only">
+            Пошук книг за назвою, автором або категорією
+          </label>
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
           <input
+            id="search-input"
             type="text"
             placeholder="Пошук книг за назвою, автором або категорією..."
             className="w-full pl-10 pr-4 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            aria-describedby="search-help"
+            autoComplete="off"
           />
           {query && (
             <button
               onClick={clearSearch}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
               aria-label="Очистити пошук"
+              type="button"
             >
               <X className="h-4 w-4" />
             </button>
@@ -337,16 +344,25 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
         
         <button
           onClick={() => setShowFilterPopup(true)}
-          className="inline-flex items-center gap-2 px-4 py-2 border border-input rounded-md hover:bg-muted transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 border border-input rounded-md hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          aria-label={`Відкрити фільтри${activeFilterCount > 0 ? ` (${activeFilterCount} активних)` : ''}`}
+          type="button"
         >
-          <SlidersHorizontal className="h-4 w-4" />
+          <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
           Фільтри
           {activeFilterCount > 0 && (
-            <span className="bg-primary text-primary-foreground text-xs font-medium rounded-full px-2 py-0.5">
+            <span 
+              className="bg-primary text-primary-foreground text-xs font-medium rounded-full px-2 py-0.5"
+              aria-label={`${activeFilterCount} активних фільтрів`}
+            >
               {activeFilterCount}
             </span>
           )}
         </button>
+      </div>
+      
+      <div id="search-help" className="sr-only">
+        Введіть назву книги, автора або категорію для пошуку
       </div>
 
       {/* Filter Tags - More Compact */}

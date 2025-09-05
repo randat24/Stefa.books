@@ -364,7 +364,7 @@ class SearchIndexingSystem {
       terms,
       content: content.toLowerCase(),
       metadata: {
-        category: book.category_id,
+        category: book.category_id || 'Без категорії',
         author: book.author,
         rating: book.rating || 0,
         available: book.available !== false,

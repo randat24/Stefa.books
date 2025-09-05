@@ -21,7 +21,7 @@ export function QuickFilters({
   className = '' 
 }: QuickFiltersProps) {
   // Извлекаем уникальные категории из книг
-  const categories = [...new Set(books.map(book => book.category_id).filter(Boolean))].sort();
+  const categories = [...new Set(books.map(book => book.category_id).filter(Boolean) as string[])].sort();
   
   // Подсчитываем количество книг в каждой категории
   const categoryCounts = categories.reduce((acc, category) => {

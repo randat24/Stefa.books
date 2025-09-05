@@ -94,7 +94,11 @@ export function BookRecommendations({
       case "new":
         // Recently added books (sort by created_at)
         return filtered
-          .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+          .sort((a, b) => {
+            const dateA = a.created_at ? new Date(a.created_at).getTime() : 0;
+            const dateB = b.created_at ? new Date(b.created_at).getTime() : 0;
+            return dateB - dateA;
+          })
           .slice(0, maxItems);
       
       case "category":

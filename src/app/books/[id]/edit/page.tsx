@@ -36,7 +36,7 @@ export default function EditBookPage() {
     isbn: book.isbn,
     publishedDate: book.publishedDate,
     publisher: book.publisher,
-    category: book.category_id,
+    category: book.category,
     description: book.description,
     coverImage: book.coverImage,
     price: book.price.toString(),

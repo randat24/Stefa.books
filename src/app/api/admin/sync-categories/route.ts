@@ -53,7 +53,7 @@ export async function POST() {
       }
       
       // Добавляем в список обновлений если есть изменения
-      if (book.category_id !== newCategory || book.subcategory !== newSubcategory) {
+      if (book.category !== newCategory || book.subcategory !== newSubcategory) {
         updates.push({
           id: book.id,
           category: newCategory,
@@ -113,7 +113,7 @@ export async function POST() {
       needingUpdate: processedCount,
       actuallyUpdated: updatedCount,
       samples: updatedBooks?.map(book => ({
-        old: book.category_id,
+        old: book.category,
         new: `${(book as any).main_categories?.name} -> ${(book as any).subcategories?.name}`
       }))
     }, 'Database');
@@ -126,7 +126,7 @@ export async function POST() {
         needingUpdate: processedCount,
         actuallyUpdated: updatedCount,
         samples: updatedBooks?.slice(0, 3).map(book => ({
-          category: book.category_id,
+          category: book.category,
           subcategory: book.subcategory,
           mainCategory: (book as any).main_categories?.name,
           subcategoryNew: (book as any).subcategories?.name

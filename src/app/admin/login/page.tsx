@@ -51,7 +51,7 @@ export default function AdminLoginPage() {
       } else {
         setError(response.error || 'Помилка входу');
       }
-    } catch (err) {
+    } catch {
       setError('Сталася неочікувана помилка');
     } finally {
       setIsLoading(false);

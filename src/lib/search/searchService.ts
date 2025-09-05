@@ -321,8 +321,8 @@ class SearchService {
     else if (book.author.toLowerCase().includes(lowerQuery)) score += 5;
 
     // Category match
-    if (book.category_id.toLowerCase() === lowerQuery) score += 6;
-    else if (book.category_id.toLowerCase().includes(lowerQuery)) score += 4;
+    if (book.category_id && book.category_id.toLowerCase() === lowerQuery) score += 6;
+    else if (book.category_id && book.category_id.toLowerCase().includes(lowerQuery)) score += 4;
 
     // Description match
     if (book.description && book.description.toLowerCase().includes(lowerQuery)) score += 2;

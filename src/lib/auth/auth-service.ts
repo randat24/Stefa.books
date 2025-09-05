@@ -1,7 +1,6 @@
 import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
 import type { User as SupabaseUser } from '@supabase/supabase-js';
-import type { User } from '@/lib/supabase';
 
 export interface RegisterData {
   email: string;
@@ -23,7 +22,22 @@ export interface AuthResponse {
   error?: string;
 }
 
-export type UserProfile = User;
+export interface UserProfile {
+  id: string;
+  user_id: string;
+  email: string;
+  name: string;
+  phone?: string | null;
+  address?: string | null;
+  role?: string | null;
+  status?: string | null;
+  subscription_type?: string | null;
+  subscription_start?: string | null;
+  subscription_end?: string | null;
+  notes?: string | null;
+  created_at: string | null;
+  updated_at: string | null;
+}
 
 class AuthService {
   /**

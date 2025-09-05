@@ -667,7 +667,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                   </div>
                   <div>
                     <Label className="text-sm font-medium text-gray-600">Категорія</Label>
-                    <p className="text-gray-700">{selectedBook.category}</p>
+                    <p className="text-gray-700">{selectedBook.category_name}</p>
                   </div>
                 </div>
 

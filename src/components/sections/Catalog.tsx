@@ -89,7 +89,7 @@ export function Catalog() {
       filtered = filtered.filter(book => 
         book.title.toLowerCase().includes(query) ||
         book.author.toLowerCase().includes(query) ||
-        book.category_id.toLowerCase().includes(query) ||
+        (book.category_id && book.category_id.toLowerCase().includes(query)) ||
         (book.description && book.description.toLowerCase().includes(query))
       );
     }

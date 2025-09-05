@@ -91,7 +91,7 @@ export default function RentPage() {
                 className="w-full h-48 object-cover rounded-t-lg"
               />
               <Badge className="absolute top-2 right-2" variant="secondary">
-                {book.category_id}
+                {book.category}
               </Badge>
               {!book.available && (
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center rounded-t-lg">
