@@ -11,9 +11,10 @@ import { CheckCircle } from 'lucide-react';
 
 interface ForgotPasswordFormProps {
   onBackToLogin?: () => void;
+  onSuccess?: () => void;
 }
 
-export function ForgotPasswordForm({ onBackToLogin }: ForgotPasswordFormProps) {
+export function ForgotPasswordForm({ onBackToLogin, onSuccess }: ForgotPasswordFormProps) {
   const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');

@@ -579,7 +579,7 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 														{copiedCard ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
 													</Button>
 												</div>
-												<p><strong>Отримувач:</strong> Стефанія Іванівна</p>
+												<p><strong>Отримувач:</strong> Федорова Анастасія</p>
 											</div>
 										</div>
 									</div>

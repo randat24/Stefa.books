@@ -1,6 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
-import type { User } from '@supabase/supabase-js';
+import type { User as SupabaseUser } from '@supabase/supabase-js';
+import type { User } from '@/lib/supabase';
 
 export interface RegisterData {
   email: string;
@@ -17,25 +18,12 @@ export interface LoginData {
 
 export interface AuthResponse {
   success: boolean;
-  user?: User;
+  user?: SupabaseUser;
   session?: any;
   error?: string;
 }
 
-export interface UserProfile {
-  id: string;
-  name: string;
-  email: string;
-  phone?: string | null;
-  subscription_type?: string | null;
-  subscription_start?: string | null;
-  subscription_end?: string | null;
-  status?: string | null;
-  address?: string | null;
-  notes?: string | null;
-  created_at: string;
-  updated_at: string;
-}
+export type UserProfile = User;
 
 class AuthService {
   /**
@@ -68,13 +56,16 @@ class AuthService {
 
       // If user is created, also create a profile in the database
       if (authData.user) {
-        const { error: profileError } = await (supabase
-          .from('users') as any)
+        const { error: profileError } = await supabase
+          .from('users')
           .insert({
             id: authData.user.id,
             email: data.email,
             name: `${data.firstName} ${data.lastName}`,
-            phone: data.phone
+            phone: data.phone,
+            role: 'user',
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
           });
 
         if (profileError) {
@@ -172,7 +163,7 @@ class AuthService {
   /**
    * Get current user
    */
-  async getCurrentUser(): Promise<User | null> {
+  async getCurrentUser(): Promise<SupabaseUser | null> {
     try {
       const { data: { user } } = await supabase.auth.getUser();
       return user || null;
@@ -210,8 +201,8 @@ class AuthService {
    */
   async updateUserProfile(userId: string, data: Partial<UserProfile>): Promise<{ success: boolean; error?: string }> {
     try {
-      const { error } = await (supabase
-        .from('users') as any)
+      const { error } = await supabase
+        .from('users')
         .update({
           ...data,
           updated_at: new Date().toISOString()

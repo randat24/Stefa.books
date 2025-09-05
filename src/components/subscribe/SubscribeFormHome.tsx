@@ -19,7 +19,11 @@ type FormData = {
   privacyConsent: boolean;
 };
 
-function SubscribeFormHomeContent() {
+interface SubscribeFormHomeProps {
+  defaultPlan?: 'mini' | 'maxi';
+}
+
+function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
   const [sent, setSent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'online' | null>(null);
@@ -32,7 +36,7 @@ function SubscribeFormHomeContent() {
   } = useForm<FormData>({
     mode: 'onChange',
     defaultValues: {
-      plan: "mini",
+      plan: defaultPlan || "mini",
       payment: "Онлайн оплата",
       phone: "+380",
       privacyConsent: false,
@@ -50,11 +54,17 @@ function SubscribeFormHomeContent() {
     }
   };
 
-  // авто-подстановка тарифа из URL (?plan=mini|maxi) или sessionStorage
+  // авто-подстановка тарифа из URL (?plan=mini|maxi), sessionStorage или defaultPlan
   useEffect(() => {
     const plan = searchParams.get("plan");
     if (plan === "mini" || plan === "maxi") {
       setValue("plan", plan);
+      return;
+    }
+    
+    // Проверяем defaultPlan
+    if (defaultPlan && (defaultPlan === "mini" || defaultPlan === "maxi")) {
+      setValue("plan", defaultPlan);
       return;
     }
     
@@ -70,7 +80,7 @@ function SubscribeFormHomeContent() {
         // Игнорируем ошибки sessionStorage
       }
     }
-  }, [searchParams, setValue]);
+  }, [searchParams, setValue, defaultPlan]);
 
   // авто-префікс + маска для UA
   const onPhoneInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -440,7 +450,7 @@ function SubscribeFormHomeContent() {
                   {/* Получатель */}
                   <div className="p-4 bg-white rounded-xl border border-blue-200">
                     <p className="text-base font-semibold text-gray-600 mb-1">Отримувач:</p>
-                    <p className="text-lg font-semibold text-gray-900">СТЕФА КНИГИ</p>
+                    <p className="text-lg font-semibold text-gray-900">Федорова Анастасія</p>
                   </div>
 
                   {/* Банк */}
@@ -538,10 +548,10 @@ function SubscribeFormHomeContent() {
   );
 }
 
-export default function SubscribeFormHome() {
+export default function SubscribeFormHome({ defaultPlan }: SubscribeFormHomeProps = {}) {
   return (
     <Suspense fallback={<div>Завантаження...</div>}>
-      <SubscribeFormHomeContent />
+      <SubscribeFormHomeContent defaultPlan={defaultPlan} />
     </Suspense>
   );
 }

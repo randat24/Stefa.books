@@ -233,7 +233,7 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
               {/* Получатель */}
               <div className="p-4 bg-white rounded-xl border border-blue-200">
                 <p className="text-base font-semibold text-gray-600 mb-1">Отримувач:</p>
-                <p className="text-lg font-semibold text-gray-900">СТЕФА КНИГИ</p>
+                <p className="text-lg font-semibold text-gray-900">Федорова Анастасія</p>
               </div>
 
               {/* Банк */}

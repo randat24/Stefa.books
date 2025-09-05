@@ -1,0 +1,23 @@
+
+> stefa-books-final@0.1.0 test:performance /Users/fantomas/Documents/GitHub/Stefa-books-v2.1
+> jest --testPathPatterns=performance
+
+PASS src/__tests__/performance/performance.test.ts
+  Performance Tests
+    Bundle Size Analysis
+      ✓ should have reasonable bundle size (2 ms)
+    Component Rendering Performance
+      ✓ should render BookCard quickly (1 ms)
+      ✓ should handle large book lists efficiently (1 ms)
+    Memory Usage
+      ✓ should not have memory leaks (26 ms)
+    API Performance
+      ✓ should handle API requests efficiently (12 ms)
+    Caching Performance
+      ✓ should cache data efficiently (1 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       6 passed, 6 total
+Snapshots:   0 total
+Time:        7.522 s
+Ran all test suites matching performance.
