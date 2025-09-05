@@ -272,14 +272,14 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
               onChange={(e) => setForm(prev => ({ ...prev, description: e.target.value }))}
               disabled={submitting}
             />
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-gray-500">
               Додайте цікавий опис, який допоможе батькам обрати книгу для дітей
             </p>
           </div>
         </div>
 
         {/* Кнопки */}
-        <div className="flex justify-end gap-3 pt-4 border-t border-slate-200">
+        <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
           <Button 
             variant="outline" 
             onClick={() => setOpen(false)}

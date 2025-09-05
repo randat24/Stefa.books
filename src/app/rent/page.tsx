@@ -106,7 +106,7 @@ export default function RentPage() {
             <CardContent className="pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                  <span className="text-yellow-500 mr-1">★</span>
+                  <span className="text-brand-yellow mr-1">★</span>
                   <span>{book.rating}</span>
                 </div>
                 {book.available ? (

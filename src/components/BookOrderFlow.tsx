@@ -97,13 +97,13 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
           <div className="flex items-center space-x-4">
             <div className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium ${
               currentStep === "subscription" 
-                ? "bg-blue-600 text-white" 
+                ? "bg-brand-accent-light text-white" 
                 : "bg-green-600 text-white"
             }`}>
               {currentStep === "subscription" ? "1" : <CheckCircle className="h-5 w-5" />}
             </div>
             <span className={`text-sm font-medium ${
-              currentStep === "subscription" ? "text-blue-600" : "text-green-600"
+              currentStep === "subscription" ? "text-brand-accent-light" : "text-green-600"
             }`}>
               Підписка
             </span>
@@ -118,7 +118,7 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
               currentStep === "subscription"
                 ? "bg-gray-200 text-gray-500"
                 : currentStep === "delivery"
-                ? "bg-blue-600 text-white"
+                ? "bg-brand-accent-light text-white"
                 : "bg-green-600 text-white"
             }`}>
               {currentStep === "confirmation" ? <CheckCircle className="h-5 w-5" /> : "2"}
@@ -127,7 +127,7 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
               currentStep === "subscription"
                 ? "text-gray-500"
                 : currentStep === "delivery"
-                ? "text-blue-600"
+                ? "text-brand-accent-light"
                 : "text-green-600"
             }`}>
               Доставка
@@ -141,13 +141,13 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
           <div className="flex items-center space-x-4">
             <div className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium ${
               currentStep === "confirmation"
-                ? "bg-blue-600 text-white"
+                ? "bg-brand-accent-light text-white"
                 : "bg-gray-200 text-gray-500"
             }`}>
               3
             </div>
             <span className={`text-sm font-medium ${
-              currentStep === "confirmation" ? "text-blue-600" : "text-gray-500"
+              currentStep === "confirmation" ? "text-brand-accent-light" : "text-gray-500"
             }`}>
               Підтвердження
             </span>
@@ -172,14 +172,14 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
                   key={plan.id}
                   className={`relative card p-6 cursor-pointer transition-all hover:shadow-lg ${
                     selectedPlan === plan.id
-                      ? "border-2 border-blue-600 bg-blue-50"
+                      ? "border-2 border-brand-accent-light bg-blue-50"
                       : "border border-gray-200"
                   }`}
                   onClick={() => setSelectedPlan(plan.id)}
                 >
                   {plan.popular && (
                     <div className="absolute -top-3 left-6">
-                      <Badge variant="default" className="bg-blue-600">
+                      <Badge variant="default" className="bg-brand-accent-light">
                         <Star className="h-3 w-3 mr-1" />
                         Популярний
                       </Badge>
@@ -191,12 +191,12 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
                       {plan.name}
                     </h3>
                     {selectedPlan === plan.id && (
-                      <CheckCircle className="h-6 w-6 text-blue-600" />
+                      <CheckCircle className="h-6 w-6 text-brand-accent-light" />
                     )}
                   </div>
                   
                   <div className="mb-4">
-                    <p className="text-3xl font-bold text-blue-600">
+                    <p className="text-3xl font-bold text-brand-accent-light">
                       {plan.price} ₴<span className="text-lg text-gray-500">/міс</span>
                     </p>
                     <p className="text-gray-600 mt-1">
@@ -311,8 +311,8 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
                   sizes="64px"
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
-                  <BookOpen className="h-6 w-6 text-slate-400" />
+                <div className="w-full h-full bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+                  <BookOpen className="h-6 w-6 text-gray-400" />
                 </div>
               )}
             </div>
@@ -346,7 +346,7 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
               </div>
               <div className="flex justify-between items-center mt-1">
                 <span className="text-sm text-gray-600">Вартість</span>
-                <span className="text-lg font-bold text-blue-600">
+                <span className="text-lg font-bold text-brand-accent-light">
                   {subscriptionPlans.find(p => p.id === selectedPlan)?.price} ₴/міс
                 </span>
               </div>

@@ -107,7 +107,7 @@ export default function AccountPage() {
                   <span className="ml-auto text-sm text-gray-500">2 days ago</span>
                 </li>
                 <li className="flex items-center">
-                  <div className="mr-3 h-2 w-2 rounded-full bg-blue-500"></div>
+                  <div className="mr-3 h-2 w-2 rounded-full bg-brand-accent"></div>
                   <span>Added &quot;To Kill a Mockingbird&quot; to favorites</span>
                   <span className="ml-auto text-sm text-gray-500">1 week ago</span>
                 </li>

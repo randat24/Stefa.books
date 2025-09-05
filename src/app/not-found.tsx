@@ -8,15 +8,15 @@ export default function NotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="max-w-md w-full space-y-6 text-center">
-        <div className="mx-auto w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
-          <BookOpen className="w-8 h-8 text-slate-400" />
+        <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center">
+          <BookOpen className="w-8 h-8 text-gray-400" />
         </div>
         
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold text-slate-900">
+          <h1 className="text-2xl font-bold text-gray-900">
             Сторінка не знайдена
           </h1>
-          <p className="text-slate-600">
+          <p className="text-gray-600">
             На жаль, сторінка, яку ви шукаєте, не існує або була переміщена.
           </p>
         </div>

@@ -213,7 +213,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
     return (
       <div className={`flex items-center justify-center py-12 ${className}`}>
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-yellow-500" />
+          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-brand-yellow" />
           <p className="text-gray-600">Завантаження каталогу книг...</p>
         </div>
       </div>

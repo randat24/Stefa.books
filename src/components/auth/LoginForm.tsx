@@ -84,7 +84,7 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword }: LoginFormPro
                 <button
                   type="button"
                   onClick={onForgotPassword}
-                  className="text-sm text-blue-600 hover:underline"
+                  className="text-sm text-brand-accent-light hover:underline"
                 >
                   Забули пароль?
                 </button>
@@ -130,7 +130,7 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword }: LoginFormPro
               <button
                 type="button"
                 onClick={onSwitchToRegister}
-                className="text-blue-600 hover:underline"
+                className="text-brand-accent-light hover:underline"
                 disabled={isLoading}
               >
                 Зареєструватися

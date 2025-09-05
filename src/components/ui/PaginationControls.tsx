@@ -88,7 +88,7 @@ export function PaginationControls({
               onClick={() => onPageChange(pageNumber)}
               className={`flex items-center justify-center w-10 h-10 text-sm font-medium rounded-lg transition-colors ${
                 isActive
-                  ? 'text-white bg-yellow-500 hover:bg-yellow-600'
+                  ? 'text-white bg-brand-yellow hover:bg-brand-yellow-dark'
                   : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-900'
               }`}
               aria-label={`Сторінка ${pageNumber}`}

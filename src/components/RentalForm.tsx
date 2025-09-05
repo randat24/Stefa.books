@@ -86,12 +86,12 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
       <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="name" className="block text-base font-semibold text-slate-700 mb-2">Ім&apos;я*</label>
+            <label htmlFor="name" className="block text-base font-semibold text-gray-700 mb-2">Ім&apos;я*</label>
             <input id="name" className="input px-3 py-2 text-base w-full" placeholder="Іван Петренко" {...register("name")} />
             {errors.name && <span className="text-xs text-red-600 mt-1">{errors.name.message}</span>}
           </div>
           <div>
-            <label htmlFor="phone" className="block text-base font-semibold text-slate-700 mb-2">Телефон*</label>
+            <label htmlFor="phone" className="block text-base font-semibold text-gray-700 mb-2">Телефон*</label>
             <input 
               {...register("phone")}
               id="phone" 
@@ -107,39 +107,39 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
         </div>
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="email" className="block text-base font-semibold text-slate-700 mb-2">Email*</label>
+            <label htmlFor="email" className="block text-base font-semibold text-gray-700 mb-2">Email*</label>
             <input id="email" className="input px-3 py-2 text-base w-full" placeholder="your@email.com" {...register("email")} />
             {errors.email && <span className="text-xs text-red-600 mt-1">{errors.email.message}</span>}
           </div>
           <div>
-            <label htmlFor="social" className="block text-base font-semibold text-slate-700 mb-2">Телеграм/Інстаграм</label>
+            <label htmlFor="social" className="block text-base font-semibold text-gray-700 mb-2">Телеграм/Інстаграм</label>
             <input id="social" className="input px-3 py-2 text-base w-full" placeholder="@username або t.me/username" {...register("social")} />
           </div>
         </div>
         <div className="grid sm:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="plan" className="block text-base font-semibold text-slate-700 mb-2">План</label>
+            <label htmlFor="plan" className="block text-base font-semibold text-gray-700 mb-2">План</label>
             <select id="plan" className="input px-3 py-2 text-base w-full" {...register("plan")}>
               <option>Mini</option><option>Maxi</option>
             </select>
           </div>
           <div>
-            <label htmlFor="bookId" className="block text-base font-semibold text-slate-700 mb-2">Книга (ID)</label>
+            <label htmlFor="bookId" className="block text-base font-semibold text-gray-700 mb-2">Книга (ID)</label>
             <input id="bookId" className="input px-3 py-2 text-base w-full" placeholder="наприклад: 3" {...register("bookId")} />
           </div>
         </div>
         
         {/* Способ оплаты */}
         <div>
-          <label className="block text-base font-semibold text-slate-700 mb-2">Спосіб оплати *</label>
+          <label className="block text-base font-semibold text-gray-700 mb-2">Спосіб оплати *</label>
           <div className="grid md:grid-cols-2 gap-3">
             <div
               className={`relative rounded-lg border-2 p-3 cursor-pointer transition-all ${
                 paymentMethod === 'card'
-                  ? 'border-blue-500 bg-blue-50'
+                  ? 'border-brand-accent bg-blue-50'
                   : paymentMethod === null
-                  ? 'border-slate-200 hover:border-slate-300'
-                  : 'border-slate-200 opacity-60'
+                  ? 'border-gray-200 hover:border-gray-300'
+                  : 'border-gray-200 opacity-60'
               }`}
               onClick={() => {
                 setPaymentMethod('card');
@@ -148,16 +148,16 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
             >
               <div className="flex items-center gap-2">
                 <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                  paymentMethod === 'card' ? 'border-blue-500 bg-blue-500' : 'border-slate-300'
+                  paymentMethod === 'card' ? 'border-brand-accent bg-brand-accent' : 'border-gray-300'
                 }`}>
                   {paymentMethod === 'card' && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                 </div>
-                <Building2 className={`h-5 w-5 ${paymentMethod === 'card' ? 'text-blue-600' : 'text-slate-400'}`} />
+                <Building2 className={`h-5 w-5 ${paymentMethod === 'card' ? 'text-brand-accent-light' : 'text-gray-400'}`} />
                 <div>
-                  <p className={`font-semibold text-base ${paymentMethod === 'card' ? 'text-blue-900' : 'text-slate-700'}`}>
+                  <p className={`font-semibold text-base ${paymentMethod === 'card' ? 'text-blue-900' : 'text-gray-700'}`}>
                     Переказ на карту Monobank
                   </p>
-                  <p className={`text-xs ${paymentMethod === 'card' ? 'text-blue-700' : 'text-slate-500'}`}>
+                  <p className={`text-xs ${paymentMethod === 'card' ? 'text-blue-700' : 'text-gray-500'}`}>
                     Отримаєте реквізити для оплати
                   </p>
                 </div>
@@ -169,8 +169,8 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
                 paymentMethod === 'online'
                   ? 'border-green-500 bg-green-50'
                   : paymentMethod === null
-                  ? 'border-slate-200 hover:border-slate-300'
-                  : 'border-slate-200 opacity-60'
+                  ? 'border-gray-200 hover:border-gray-300'
+                  : 'border-gray-200 opacity-60'
               }`}
               onClick={() => {
                 setPaymentMethod('online');
@@ -179,16 +179,16 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
             >
               <div className="flex items-center gap-2">
                 <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                  paymentMethod === 'online' ? 'border-green-500 bg-green-500' : 'border-slate-300'
+                  paymentMethod === 'online' ? 'border-green-500 bg-green-500' : 'border-gray-300'
                 }`}>
                   {paymentMethod === 'online' && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                 </div>
-                <CreditCard className={`h-5 w-5 ${paymentMethod === 'online' ? 'text-green-600' : 'text-slate-400'}`} />
+                <CreditCard className={`h-5 w-5 ${paymentMethod === 'online' ? 'text-green-600' : 'text-gray-400'}`} />
                 <div>
-                  <p className={`font-semibold text-base ${paymentMethod === 'online' ? 'text-green-900' : 'text-slate-700'}`}>
+                  <p className={`font-semibold text-base ${paymentMethod === 'online' ? 'text-green-900' : 'text-gray-700'}`}>
                     Онлайн оплата
                   </p>
-                  <p className={`text-xs ${paymentMethod === 'online' ? 'text-green-700' : 'text-slate-500'}`}>
+                  <p className={`text-xs ${paymentMethod === 'online' ? 'text-green-700' : 'text-gray-500'}`}>
                     Картою через інтернет
                   </p>
                 </div>
@@ -208,8 +208,8 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
               {/* Номер карты */}
               <div className="flex items-center justify-between p-4 bg-white rounded-xl border border-blue-200">
                 <div>
-                  <p className="text-base font-semibold text-slate-600 mb-1">Номер карти:</p>
-                  <p className="text-xl font-bold text-blue-600 tracking-wider">5408 8100 4185 0776</p>
+                  <p className="text-base font-semibold text-gray-600 mb-1">Номер карти:</p>
+                  <p className="text-xl font-bold text-brand-accent-light tracking-wider">5408 8100 4185 0776</p>
                 </div>
                 <button
                   type="button"
@@ -232,21 +232,21 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
 
               {/* Получатель */}
               <div className="p-4 bg-white rounded-xl border border-blue-200">
-                <p className="text-base font-semibold text-slate-600 mb-1">Отримувач:</p>
-                <p className="text-lg font-semibold text-slate-900">СТЕФА КНИГИ</p>
+                <p className="text-base font-semibold text-gray-600 mb-1">Отримувач:</p>
+                <p className="text-lg font-semibold text-gray-900">СТЕФА КНИГИ</p>
               </div>
 
               {/* Банк */}
               <div className="p-4 bg-white rounded-xl border border-blue-200">
-                <p className="text-base font-semibold text-slate-600 mb-1">Банк:</p>
-                <p className="text-lg font-semibold text-slate-900">Монобанк</p>
+                <p className="text-base font-semibold text-gray-600 mb-1">Банк:</p>
+                <p className="text-lg font-semibold text-gray-900">Монобанк</p>
               </div>
             </div>
 
             {/* Важная информация */}
             <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
               <div className="flex items-start gap-2">
-                <Info className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                <Info className="h-5 w-5 text-brand-yellow-dark flex-shrink-0 mt-0.5" />
                 <div className="text-base text-yellow-800">
                   <p className="font-semibold mb-2">Важливо:</p>
                   <ul className="space-y-1 list-disc list-inside">
@@ -263,7 +263,7 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
         {/* Скриншот для перевода на карту */}
         {paymentMethod === 'card' && (
           <div>
-            <label htmlFor="screenshot" className="block text-base font-semibold text-slate-700 mb-2">Скріншот оплати *</label>
+            <label htmlFor="screenshot" className="block text-base font-semibold text-gray-700 mb-2">Скріншот оплати *</label>
             <input
               {...register("screenshot", {
                 required: paymentMethod === 'card' ? "Скріншот оплати обов'язковий" : false
@@ -271,9 +271,9 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
               id="screenshot"
               type="file"
               accept="image/*"
-              className="w-full input file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-base file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200"
+              className="w-full input file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-base file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200"
             />
-            <p className="mt-1 text-base text-slate-500">
+            <p className="mt-1 text-base text-gray-500">
               Завантажте скріншот підтвердження переказу (JPG, PNG до 10MB)
             </p>
             {errors.screenshot && (
@@ -283,7 +283,7 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
         )}
         
         <div>
-          <label htmlFor="note" className="block text-base font-semibold text-slate-700 mb-2">Коментар</label>
+          <label htmlFor="note" className="block text-base font-semibold text-gray-700 mb-2">Коментар</label>
           <textarea id="note" className="w-full input px-3 py-2 text-base min-h-[80px]" placeholder="Побажання, час зв&apos;язку" {...register("note")} />
         </div>
         
@@ -295,7 +295,7 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
             })}
             id="privacyConsent"
             type="checkbox"
-            className="mt-1 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+            className="mt-1 w-4 h-4 text-brand-accent-light bg-gray-100 border-gray-300 rounded focus:ring-brand-accent focus:ring-2"
           />
           <label htmlFor="privacyConsent" className="text-base text-muted">
             Я погоджуюся з обробкою моїх персональних даних відповідно до політики конфіденційності

@@ -55,7 +55,7 @@ export function BookCard({
             <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
               <button 
                 onClick={handleQuickView}
-                className="inline-flex items-center gap-2 rounded-2xl bg-white/95 px-4 py-2 text-sm font-medium text-slate-900 shadow-lg backdrop-blur hover:bg-white"
+                className="inline-flex items-center gap-2 rounded-2xl bg-white/95 px-4 py-2 text-sm font-medium text-gray-900 shadow-lg backdrop-blur hover:bg-white"
               >
                 <BookOpen className="h-4 w-4" />
                 Переглянути
@@ -65,7 +65,7 @@ export function BookCard({
         </Link>
         
         {/* Статус-бейдж - показываем при наведении */}
-        <span className={`pointer-events-none absolute left-4 top-4 rounded-full border border-slate-200 px-3 py-1.5 text-xs font-medium shadow-sm backdrop-blur opacity-0 transition-opacity duration-300 group-hover:opacity-100 ${
+        <span className={`pointer-events-none absolute left-4 top-4 rounded-full border border-gray-200 px-3 py-1.5 text-xs font-medium shadow-sm backdrop-blur opacity-0 transition-opacity duration-300 group-hover:opacity-100 ${
           memoizedBook.available 
             ? "text-green-700 bg-green-100/90" 
             : "text-red-700 bg-red-100/90"
@@ -77,16 +77,16 @@ export function BookCard({
         {showActions && (
           <div className="absolute right-4 top-4 flex gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             <button
-              className="rounded-full border border-slate-200 bg-white/90 p-2.5 shadow-sm hover:bg-white"
+              className="rounded-full border border-gray-200 bg-white/90 p-2.5 shadow-sm hover:bg-white"
               aria-label="Додати в обране"
             >
-              <Bookmark className="h-4 w-4 text-slate-700" />
+              <Bookmark className="h-4 w-4 text-gray-700" />
             </button>
             <button
-              className="rounded-full border border-slate-200 bg-white/90 p-2.5 shadow-sm hover:bg-white"
+              className="rounded-full border border-gray-200 bg-white/90 p-2.5 shadow-sm hover:bg-white"
               aria-label="Поділитися"
             >
-              <Share2 className="h-4 w-4 text-slate-700" />
+              <Share2 className="h-4 w-4 text-gray-700" />
             </button>
           </div>
         )}
@@ -94,11 +94,11 @@ export function BookCard({
         {/* Контент - только название и автор */}
         <Link href={`/books/${memoizedBook.id}`} className="flex-grow flex flex-col">
           <div className="flex flex-1 flex-col gap-3 px-4 pb-5 pt-4">
-            <h3 className="line-clamp-2 text-lg font-semibold tracking-tight text-slate-900 leading-tight">
+            <h3 className="line-clamp-2 text-lg font-semibold tracking-tight text-gray-900 leading-tight">
               {memoizedBook.title}
             </h3>
 
-            <p className="text-sm text-slate-600 font-medium">{memoizedBook.author}</p>
+            <p className="text-sm text-gray-600 font-medium">{memoizedBook.author}</p>
           </div>
         </Link>
       </div>

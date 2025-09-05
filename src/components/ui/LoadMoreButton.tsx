@@ -47,7 +47,7 @@ export function LoadMoreButton({
       <button
         onClick={onLoadMore}
         disabled={isLoading}
-        className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-gray-300 transition-all duration-200"
+        className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-brand-yellow-light focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-gray-300 transition-all duration-200"
       >
         {isLoading ? (
           <>
@@ -67,7 +67,7 @@ export function LoadMoreButton({
         <div className="w-full max-w-md mx-auto">
           <div className="bg-gray-200 rounded-full h-2">
             <div
-              className="bg-yellow-500 h-2 rounded-full transition-all duration-300"
+              className="bg-brand-yellow h-2 rounded-full transition-all duration-300"
               style={{
                 width: `${Math.min((loadedCount / totalCount) * 100, 100)}%`
               }}

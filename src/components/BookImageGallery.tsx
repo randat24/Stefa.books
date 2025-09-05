@@ -31,8 +31,8 @@ export function BookImageGallery({ title, cover_url, images = [] }: BookImageGal
   if (allImages.length === 0) {
     return (
       <div className="overflow-hidden rounded-xl">
-        <div className="relative aspect-[3/4] bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
-          <BookOpen className="h-24 w-24 text-slate-400" />
+        <div className="relative aspect-[3/4] bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+          <BookOpen className="h-24 w-24 text-gray-400" />
         </div>
       </div>
     );

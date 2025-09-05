@@ -13,7 +13,7 @@ function SearchErrorFallback({ resetError }: SearchErrorFallbackProps) {
   return (
     <div className="flex flex-col items-center justify-center p-8 text-center space-y-4">
       <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-        <Search className="w-6 h-6 text-yellow-600" />
+        <Search className="w-6 h-6 text-brand-yellow-dark" />
       </div>
       
       <div className="space-y-2">

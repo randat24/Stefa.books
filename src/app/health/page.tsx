@@ -48,7 +48,7 @@ export default function HealthPage() {
       case 'healthy':
         return 'text-green-600';
       case 'degraded':
-        return 'text-yellow-600';
+        return 'text-brand-yellow-dark';
       case 'unhealthy':
         return 'text-red-600';
       default:
@@ -154,7 +154,7 @@ export default function HealthPage() {
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div 
-                    className="bg-blue-600 h-2 rounded-full" 
+                    className="bg-brand-accent-light h-2 rounded-full" 
                     style={{ width: `${healthData.system.cpu}%` }}
                   ></div>
                 </div>

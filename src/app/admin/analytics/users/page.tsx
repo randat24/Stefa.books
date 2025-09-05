@@ -99,7 +99,7 @@ export default function UserAnalyticsPage() {
               {mockUserAnalytics.userGrowth.map((data, index) => (
                 <div key={index} className="flex flex-col items-center flex-1 px-1">
                   <div 
-                    className="w-full bg-blue-500 rounded-t hover:bg-blue-600 transition-colors"
+                    className="w-full bg-brand-accent rounded-t hover:bg-brand-accent-light transition-colors"
                     style={{ height: `${(data.users / 1200) * 200}px` }}
                   ></div>
                   <div className="text-xs mt-2 text-gray-500">{data.month}</div>

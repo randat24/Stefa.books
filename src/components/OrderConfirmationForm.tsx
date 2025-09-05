@@ -129,7 +129,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
           <div>
             <span className="text-gray-600">Тариф:</span>
             <p className="font-medium">{plan.name}</p>
-            <p className="text-blue-600 font-semibold">{plan.price} ₴/міс</p>
+            <p className="text-brand-accent-light font-semibold">{plan.price} ₴/міс</p>
           </div>
           <div>
             <span className="text-gray-600">Доставка:</span>
@@ -156,7 +156,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
               <input
                 type="text"
                 {...register("firstName")}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
                   errors.firstName ? "border-red-300" : "border-gray-300"
                 }`}
                 placeholder="Ваше ім'я"
@@ -176,7 +176,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
               <input
                 type="text"
                 {...register("lastName")}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
                   errors.lastName ? "border-red-300" : "border-gray-300"
                 }`}
                 placeholder="Ваше прізвище"
@@ -206,7 +206,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
               <input
                 type="email"
                 {...register("email")}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
                   errors.email ? "border-red-300" : "border-gray-300"
                 }`}
                 placeholder="your@email.com"
@@ -226,7 +226,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
               <input
                 type="tel"
                 {...register("phone")}
-                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
                   errors.phone ? "border-red-300" : "border-gray-300"
                 }`}
                 placeholder="+380 XX XXX XX XX"
@@ -258,7 +258,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                   <input
                     type="text"
                     {...register("city")}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
                       errors.city ? "border-red-300" : "border-gray-300"
                     }`}
                     placeholder="Київ"
@@ -278,7 +278,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                   <textarea
                     {...register("address")}
                     rows={3}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
                       errors.address ? "border-red-300" : "border-gray-300"
                     }`}
                     placeholder="вул. Хрещатик, 1, кв. 10"
@@ -302,7 +302,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                   <input
                     type="text"
                     {...register("city")}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
                       errors.city ? "border-red-300" : "border-gray-300"
                     }`}
                     placeholder="Київ"
@@ -322,7 +322,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                   <input
                     type="text"
                     {...register("novaPoshtaNumber")}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
                       errors.novaPoshtaNumber ? "border-red-300" : "border-gray-300"
                     }`}
                     placeholder="№1, №2, №15..."
@@ -346,15 +346,15 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
               <input
                 type="checkbox"
                 {...register("agreeToTerms")}
-                className="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                className="mt-1 h-4 w-4 text-brand-accent-light border-gray-300 rounded focus:ring-brand-accent"
               />
               <span className="text-sm text-gray-700">
                 Я погоджуюся з{" "}
-                <a href="#" className="text-blue-600 hover:underline">
+                <a href="#" className="text-brand-accent-light hover:underline">
                   умовами використання
                 </a>{" "}
                 та{" "}
-                <a href="#" className="text-blue-600 hover:underline">
+                <a href="#" className="text-brand-accent-light hover:underline">
                   політикою конфіденційності
                 </a>{" "}
                 *
@@ -371,7 +371,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
               <input
                 type="checkbox"
                 {...register("subscribeToNewsletter")}
-                className="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                className="mt-1 h-4 w-4 text-brand-accent-light border-gray-300 rounded focus:ring-brand-accent"
               />
               <span className="text-sm text-gray-700">
                 Я хочу отримувати новини про нові книги та спеціальні пропозиції

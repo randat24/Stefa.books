@@ -61,17 +61,17 @@ export function UsersTable({ }: UsersTableProps) {
 
   if (loading) {
     return (
-      <Card className="rounded-2xl border-slate-200 shadow-sm">
+      <Card className="rounded-2xl border-gray-200 shadow-sm">
         <CardHeader>
-          <CardTitle className="text-slate-900 flex items-center gap-2">
+          <CardTitle className="text-gray-900 flex items-center gap-2">
             <Users className="size-5" />
             Користувачі
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center py-12">
-            <RefreshCw className="size-6 animate-spin text-slate-400" />
-            <span className="ml-2 text-slate-600">Завантаження користувачів...</span>
+            <RefreshCw className="size-6 animate-spin text-gray-400" />
+            <span className="ml-2 text-gray-600">Завантаження користувачів...</span>
           </div>
         </CardContent>
       </Card>
@@ -80,9 +80,9 @@ export function UsersTable({ }: UsersTableProps) {
 
   if (error) {
     return (
-      <Card className="rounded-2xl border-slate-200 shadow-sm">
+      <Card className="rounded-2xl border-gray-200 shadow-sm">
         <CardHeader>
-          <CardTitle className="text-slate-900 flex items-center gap-2">
+          <CardTitle className="text-gray-900 flex items-center gap-2">
             <Users className="size-5" />
             Користувачі
           </CardTitle>
@@ -101,10 +101,10 @@ export function UsersTable({ }: UsersTableProps) {
   }
 
   return (
-    <Card className="rounded-2xl border-slate-200 shadow-sm">
+    <Card className="rounded-2xl border-gray-200 shadow-sm">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-slate-900 flex items-center gap-2">
+          <CardTitle className="text-gray-900 flex items-center gap-2">
             <Users className="size-5" />
             Користувачі ({users.length})
           </CardTitle>
@@ -116,22 +116,22 @@ export function UsersTable({ }: UsersTableProps) {
       </CardHeader>
       <CardContent>
         {users.length === 0 ? (
-          <div className="text-center py-12 text-slate-500">
+          <div className="text-center py-12 text-gray-500">
             <Users className="size-16 mx-auto mb-4 opacity-50" />
-            <p className="text-xl font-semibold text-slate-700 mb-2">Немає користувачів</p>
-            <p className="text-slate-500">Користувачі з&apos;являться тут після реєстрації</p>
+            <p className="text-xl font-semibold text-gray-700 mb-2">Немає користувачів</p>
+            <p className="text-gray-500">Користувачі з&apos;являться тут після реєстрації</p>
           </div>
         ) : (
           <div className="space-y-4">
             {users.map((user) => (
               <div
                 key={user.id}
-                className="p-4 border border-slate-200 rounded-xl hover:shadow-sm transition-shadow"
+                className="p-4 border border-gray-200 rounded-xl hover:shadow-sm transition-shadow"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-lg font-semibold text-slate-900">{user.name}</h3>
+                      <h3 className="text-lg font-semibold text-gray-900">{user.name}</h3>
                       <Badge variant={getStatusBadgeVariant(user.status)}>
                         {user.status === 'active' ? 'Активний' : 
                          user.status === 'inactive' ? 'Неактивний' : 'Заблокований'}
@@ -142,7 +142,7 @@ export function UsersTable({ }: UsersTableProps) {
                       </Badge>
                     </div>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-slate-600">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-600">
                       <div className="flex items-center gap-2">
                         <Mail className="size-4" />
                         <span>{user.email}</span>
@@ -162,7 +162,7 @@ export function UsersTable({ }: UsersTableProps) {
                     </div>
                     
                     {user.subscription_start && user.subscription_end && (
-                      <div className="flex items-center gap-2 mt-3 text-sm text-slate-500">
+                      <div className="flex items-center gap-2 mt-3 text-sm text-gray-500">
                         <Calendar className="size-4" />
                         <span>
                           Підписка: {new Date(user.subscription_start).toLocaleDateString('uk-UA')} - {new Date(user.subscription_end).toLocaleDateString('uk-UA')}
@@ -171,7 +171,7 @@ export function UsersTable({ }: UsersTableProps) {
                     )}
                     
                     {user.notes && (
-                      <p className="mt-2 text-sm text-slate-600 bg-slate-50 p-2 rounded-lg">
+                      <p className="mt-2 text-sm text-gray-600 bg-gray-50 p-2 rounded-lg">
                         {user.notes}
                       </p>
                     )}

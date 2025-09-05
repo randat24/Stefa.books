@@ -8,7 +8,7 @@ const button = cva(
     "rounded-full font-semibold " +
     "leading-[1.1] h-12 px-6 " +                       // фиксируем line-height + высоту
     "transition-all duration-200 ease-out active:scale-[.98] shadow-md hover:shadow-lg " +
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2 " +
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-yellow focus-visible:ring-offset-2 " +
     "disabled:opacity-50 disabled:pointer-events-none " +
     "antialiased",                                     // сглаживание текста
 
@@ -16,13 +16,13 @@ const button = cva(
     variants: {
       variant: {
         primary:
-          "bg-yellow-500 text-slate-900 hover:bg-yellow-400",
+          "bg-brand-yellow text-brand hover:bg-brand-yellow-light",
         outline:
-          "bg-white text-slate-900 border border-slate-200 hover:bg-slate-50 hover:border-slate-300",
+          "bg-white text-brand border border-gray-200 hover:bg-gray-50 hover:border-gray-300",
         ghost:
-          "bg-transparent text-slate-900 hover:bg-slate-50",
+          "bg-transparent text-brand hover:bg-gray-50",
         dark:
-          "bg-slate-900 text-white hover:bg-slate-800"
+          "bg-brand text-white hover:bg-brand-light"
       },
       size: {
         md: "h-11 px-5 text-[15px]",

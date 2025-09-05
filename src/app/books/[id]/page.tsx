@@ -188,7 +188,7 @@ export default async function BookPage({ params }: { params: Params }) {
                             key={i} 
                             className={`h-4 w-4 ${
                               i < Math.floor(book.rating!) 
-                                ? 'text-yellow-400 fill-current' 
+                                ? 'text-brand-yellow-light fill-current' 
                                 : 'text-gray-300'
                             }`} 
                           />
@@ -226,7 +226,7 @@ export default async function BookPage({ params }: { params: Params }) {
                 </div>
                 <FavoriteButton id={book.id} />
               </div>
-              <p className="text-sm text-slate-600 leading-relaxed text-left">
+              <p className="text-sm text-gray-600 leading-relaxed text-left">
                 {book.short_description}
               </p>
 
@@ -323,7 +323,7 @@ export default async function BookPage({ params }: { params: Params }) {
                 </h2>
                 <div className="flex items-start gap-6">
                   <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center">
-                    <span className="text-2xl font-bold text-blue-600">
+                    <span className="text-2xl font-bold text-brand-accent-light">
                       {book.author.charAt(0)}
                     </span>
                   </div>

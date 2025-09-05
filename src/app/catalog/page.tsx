@@ -60,24 +60,24 @@ export default async function CatalogPage() {
 			
 			{/* Server-side Categories */}
 			<div className="max-w-4xl mx-auto mt-8">
-				<h2 className="text-2xl font-bold text-slate-900 mb-8">📚 Повний каталог</h2>
+				<h2 className="text-2xl font-bold text-gray-900 mb-8">📚 Повний каталог</h2>
 				{categories && !error ? (
 					<div className="space-y-6">
 						{categories.map((category: any) => (
 							<Link
 								key={category.id}
 								href={`/books?category=${encodeURIComponent(category.name)}`}
-								className="flex items-center gap-3 p-4 rounded-xl hover:bg-slate-50 transition-colors"
+								className="flex items-center gap-3 p-4 rounded-xl hover:bg-gray-50 transition-colors"
 								style={{ 
 									backgroundColor: category.color ? `${category.color}20` : '#F8FAFC',
 									borderLeft: `4px solid ${category.color || '#64748B'}` 
 								}}
 							>
 								<span className="text-2xl">{category.icon || '📚'}</span>
-								<h3 className="text-lg font-semibold text-slate-800 group-hover:text-slate-900">
+								<h3 className="text-lg font-semibold text-gray-800 group-hover:text-gray-900">
 									{category.name}
 								</h3>
-								<span className="ml-auto text-sm text-slate-500 bg-white px-2 py-1 rounded-full">
+								<span className="ml-auto text-sm text-gray-500 bg-white px-2 py-1 rounded-full">
 									Переглянути книги →
 								</span>
 							</Link>

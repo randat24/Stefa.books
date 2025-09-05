@@ -59,7 +59,7 @@ export function OfflinePage({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
         {/* Иконка */}
         <div className="mb-8">
@@ -69,12 +69,12 @@ export function OfflinePage({
         </div>
 
         {/* Заголовок */}
-        <h1 className="text-3xl font-bold text-slate-900 mb-4">
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">
           {title}
         </h1>
 
         {/* Описание */}
-        <p className="text-slate-600 mb-8 leading-relaxed">
+        <p className="text-gray-600 mb-8 leading-relaxed">
           {description}
         </p>
 
@@ -84,7 +84,7 @@ export function OfflinePage({
             <button
               onClick={handleRetry}
               disabled={isRetrying}
-              className="w-full bg-slate-900 hover:bg-slate-800 text-white py-3 px-6 rounded-lg font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full bg-gray-900 hover:bg-gray-800 text-white py-3 px-6 rounded-lg font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
             >
               {isRetrying ? (
                 <RefreshCw className="w-5 h-5 animate-spin" />
@@ -98,7 +98,7 @@ export function OfflinePage({
           {showHomeLink && (
             <Link
               href="/"
-              className="w-full bg-white hover:bg-slate-50 text-slate-900 py-3 px-6 rounded-lg font-medium border border-slate-200 transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-white hover:bg-gray-50 text-gray-900 py-3 px-6 rounded-lg font-medium border border-gray-200 transition-colors flex items-center justify-center gap-2"
             >
               <Home className="w-5 h-5" />
               На головну
@@ -109,7 +109,7 @@ export function OfflinePage({
         {/* Дополнительная информация */}
         <div className="mt-12 p-6 bg-blue-50 rounded-lg">
           <div className="flex items-start gap-3">
-            <BookOpen className="w-6 h-6 text-blue-600 mt-1" />
+            <BookOpen className="w-6 h-6 text-brand-accent-light mt-1" />
             <div className="text-left">
               <h3 className="font-medium text-blue-900 mb-2">
                 Що можна робити офлайн?
@@ -125,7 +125,7 @@ export function OfflinePage({
         </div>
 
         {/* Статус соединения */}
-        <div className="mt-6 text-sm text-slate-500">
+        <div className="mt-6 text-sm text-gray-500">
           Статус: {isOnline ? (
             <span className="text-green-600 font-medium">Онлайн</span>
           ) : (

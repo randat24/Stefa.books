@@ -58,7 +58,7 @@ export default function ForgotPasswordPage() {
               Didn&apos;t receive the email? Check your spam folder or{' '}
               <button 
                 onClick={() => setIsSubmitted(false)}
-                className="text-blue-600 hover:underline"
+                className="text-brand-accent-light hover:underline"
               >
                 try again
               </button>
@@ -104,7 +104,7 @@ export default function ForgotPasswordPage() {
             </Button>
             <p className="mt-4 text-center text-sm text-gray-500">
               Remember your password?{' '}
-              <Link href="/auth/login" className="text-blue-600 hover:underline">
+              <Link href="/auth/login" className="text-brand-accent-light hover:underline">
                 Sign in
               </Link>
             </p>

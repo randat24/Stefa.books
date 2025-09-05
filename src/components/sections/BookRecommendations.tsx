@@ -147,10 +147,10 @@ export function BookRecommendations({
   // Don't render if loading or no books
   if (loading) {
     return (
-      <section className="py-16 lg:py-24 bg-gradient-to-b from-white to-slate-50">
+      <section className="py-16 lg:py-24 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <div className="flex items-center justify-center gap-3 text-slate-600">
+            <div className="flex items-center justify-center gap-3 text-gray-600">
               <Loader2 className="w-6 h-6 animate-spin" />
               <span className="text-lg font-medium">Завантаження рекомендацій...</span>
             </div>
@@ -169,14 +169,14 @@ export function BookRecommendations({
   }
 
   return (
-    <section className="py-16 lg:py-24 bg-gradient-to-b from-white to-slate-50">
+    <section className="py-16 lg:py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8 lg:mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
             {title}
           </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             {subtitle}
           </p>
         </div>
@@ -193,8 +193,8 @@ export function BookRecommendations({
                 onClick={() => setActiveType(type.key)}
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   isActive
-                    ? "bg-yellow-500 text-slate-900 shadow-lg"
-                    : "bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 hover:border-slate-300"
+                    ? "bg-brand-yellow text-gray-900 shadow-lg"
+                    : "bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 hover:border-gray-300"
                 }`}
               >
                 <Icon className="h-4 w-4" />
@@ -206,7 +206,7 @@ export function BookRecommendations({
 
         {/* Current type description */}
         <div className="text-center mb-8">
-          <p className="text-slate-600">
+          <p className="text-gray-600">
             {types.find(t => t.key === activeType)?.description}
           </p>
         </div>

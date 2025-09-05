@@ -69,7 +69,7 @@ export function DeliveryMethodSelector({ selected, onSelect }: DeliveryMethodSel
           key={option.id}
           className={`card p-6 cursor-pointer transition-all hover:shadow-md ${
             selected === option.id
-              ? "border-2 border-blue-600 bg-blue-50"
+              ? "border-2 border-brand-accent-light bg-blue-50"
               : "border border-gray-200 hover:border-gray-300"
           }`}
           onClick={() => onSelect(option.id)}
@@ -77,7 +77,7 @@ export function DeliveryMethodSelector({ selected, onSelect }: DeliveryMethodSel
           <div className="flex items-start space-x-4">
             <div className={`flex items-center justify-center w-12 h-12 rounded-lg ${
               selected === option.id
-                ? "bg-blue-600 text-white"
+                ? "bg-brand-accent-light text-white"
                 : "bg-gray-100 text-gray-600"
             }`}>
               {option.icon}
@@ -89,7 +89,7 @@ export function DeliveryMethodSelector({ selected, onSelect }: DeliveryMethodSel
                   {option.name}
                 </h3>
                 {selected === option.id && (
-                  <CheckCircle className="h-6 w-6 text-blue-600" />
+                  <CheckCircle className="h-6 w-6 text-brand-accent-light" />
                 )}
               </div>
               

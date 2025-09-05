@@ -16,7 +16,7 @@ interface LazySectionProps {
  */
 export function LazySection({
   children,
-  placeholder = <div className="h-32 bg-slate-50 animate-pulse rounded-lg" />,
+  placeholder = <div className="h-32 bg-gray-50 animate-pulse rounded-lg" />,
   className = '',
   // threshold = 0.1 // Will be used for intersection observer configuration
 }: LazySectionProps) {

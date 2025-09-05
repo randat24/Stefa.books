@@ -21,7 +21,7 @@ export default function PlansLite() {
       <div className="max-w-4xl mx-auto text-center">
         <div className="grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
           {/* Mini */}
-          <div className="relative rounded-3xl border-2 border-slate-200 bg-white p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <div className="relative rounded-3xl border-2 border-gray-200 bg-white p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
             {/* Illustration area */}
             <div className="w-32 h-32 mx-auto mb-6">
               <Image
@@ -33,12 +33,12 @@ export default function PlansLite() {
               />
             </div>
             
-            <h4 className="text-3xl font-bold text-slate-900 mb-2">Mini</h4>
-            <p className="text-2xl font-bold text-slate-900 mb-2">300 грн/міс.</p>
+            <h4 className="text-3xl font-bold text-gray-900 mb-2">Mini</h4>
+            <p className="text-2xl font-bold text-gray-900 mb-2">300 грн/міс.</p>
 
             <button
               onClick={() => setPlanAndGo('mini')}
-              className="w-full bg-slate-900 hover:bg-slate-800 text-white py-3 px-6 rounded-2xl font-semibold transition-colors"
+              className="w-full bg-gray-900 hover:bg-gray-800 text-white py-3 px-6 rounded-2xl font-semibold transition-colors"
             >
               Обрати Mini
             </button>
@@ -57,12 +57,12 @@ export default function PlansLite() {
               />
             </div>
             
-            <h4 className="text-3xl font-bold text-slate-900 mb-2">Maxi</h4>
-            <p className="text-2xl font-bold text-yellow-600 mb-2">500 грн/міс.</p>
+            <h4 className="text-3xl font-bold text-gray-900 mb-2">Maxi</h4>
+            <p className="text-2xl font-bold text-brand-yellow-dark mb-2">500 грн/міс.</p>
 
             <button
               onClick={() => setPlanAndGo('maxi')}
-              className="w-full bg-yellow-500 hover:bg-yellow-600 text-slate-900 py-3 px-6 rounded-2xl font-semibold transition-colors"
+              className="w-full bg-brand-yellow hover:bg-brand-yellow-dark text-gray-900 py-3 px-6 rounded-2xl font-semibold transition-colors"
             >
               Обрати Maxi
             </button>
@@ -73,7 +73,7 @@ export default function PlansLite() {
         <div className="mt-8">
           <a 
             href="/form" 
-            className="inline-flex items-center text-slate-600 hover:text-slate-900 transition-colors"
+            className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors"
           >
             Оформити підписку →
           </a>

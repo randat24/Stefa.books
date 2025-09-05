@@ -113,7 +113,7 @@ function RentalSuccessContent() {
 									<h3 className="font-semibold text-blue-900 mb-2">Ваша заявка на книгу:</h3>
 									<p className="text-lg text-blue-800">
 										<strong>&quot;{bookTitle}&quot;</strong>
-										{bookAuthor && <span className="block text-sm text-blue-600 mt-1">— {bookAuthor}</span>}
+										{bookAuthor && <span className="block text-sm text-brand-accent-light mt-1">— {bookAuthor}</span>}
 									</p>
 								</div>
 							)}
@@ -121,13 +121,13 @@ function RentalSuccessContent() {
 							{rentalId && (
 								<div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200">
 									<div className="flex items-center justify-center gap-2 mb-3">
-										<FileText className="h-5 w-5 text-blue-600" />
+										<FileText className="h-5 w-5 text-brand-accent-light" />
 										<span className="font-semibold text-blue-900">Номер заявки:</span>
 									</div>
 									<p className="text-2xl font-mono font-bold text-blue-700 mb-2">
 										{rentalId}
 									</p>
-									<p className="text-sm text-blue-600">
+									<p className="text-sm text-brand-accent-light">
 										Збережіть цей номер для зв&apos;язку з нашою службою підтримки
 									</p>
 								</div>
@@ -144,14 +144,14 @@ function RentalSuccessContent() {
 					<Card className="mb-8 shadow-lg">
 						<CardHeader>
 							<CardTitle className="flex items-center gap-3 text-xl">
-								<Clock className="h-6 w-6 text-blue-600" />
+								<Clock className="h-6 w-6 text-brand-accent-light" />
 								Що далі?
 							</CardTitle>
 						</CardHeader>
 						<CardContent>
 							<div className="grid md:grid-cols-3 gap-6">
 								<div className="flex items-start gap-4 p-6 bg-blue-50 rounded-xl border border-blue-200">
-									<div className="flex-shrink-0 w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center text-lg font-bold">
+									<div className="flex-shrink-0 w-10 h-10 bg-brand-accent-light text-white rounded-full flex items-center justify-center text-lg font-bold">
 										1
 									</div>
 									<div>
@@ -163,7 +163,7 @@ function RentalSuccessContent() {
 								</div>
 
 								<div className="flex items-start gap-4 p-6 bg-yellow-50 rounded-xl border border-yellow-200">
-									<div className="flex-shrink-0 w-10 h-10 bg-yellow-600 text-white rounded-full flex items-center justify-center text-lg font-bold">
+									<div className="flex-shrink-0 w-10 h-10 bg-brand-yellow-dark text-white rounded-full flex items-center justify-center text-lg font-bold">
 										2
 									</div>
 									<div>
@@ -202,7 +202,7 @@ function RentalSuccessContent() {
 								<div className="space-y-4">
 									<div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
 										<div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-											<Phone className="h-6 w-6 text-blue-600" />
+											<Phone className="h-6 w-6 text-brand-accent-light" />
 										</div>
 										<div>
 											<p className="font-semibold text-gray-900">Телефон</p>
@@ -310,21 +310,21 @@ function RentalSuccessContent() {
 						<Card className="shadow-lg">
 							<CardHeader>
 								<CardTitle className="flex items-center gap-2 text-lg">
-									<Shield className="h-5 w-5 text-blue-500" />
+									<Shield className="h-5 w-5 text-brand-accent" />
 									Надійність та якість
 								</CardTitle>
 							</CardHeader>
 							<CardContent>
 								<div className="space-y-4">
 									<div className="flex items-center gap-3">
-										<Users className="h-5 w-5 text-blue-500" />
+										<Users className="h-5 w-5 text-brand-accent" />
 										<div>
 											<p className="font-semibold text-gray-900">10,000+</p>
 											<p className="text-sm text-gray-600">успішних оренд за рік</p>
 										</div>
 									</div>
 									<div className="flex items-center gap-3">
-										<Star className="h-5 w-5 text-yellow-500" />
+										<Star className="h-5 w-5 text-brand-yellow" />
 										<div>
 											<p className="font-semibold text-gray-900">4.9/5</p>
 											<p className="text-sm text-gray-600">середня оцінка клієнтів</p>

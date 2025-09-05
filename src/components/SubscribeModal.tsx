@@ -82,7 +82,7 @@ const PLAN_CONFIG = {
 	maxi: {
 		label: 'Maxi',
 		price: '500 ₴/міс',
-		color: 'border-yellow-500 bg-yellow-50',
+		color: 'border-brand-yellow bg-yellow-50',
 		textColor: 'text-yellow-900',
 		description: 'До 4 книг одночасно',
 		features: ['4 книги одночасно', 'Пріоритетна доставка', 'Ексклюзивні книги', 'Персональний менеджер']
@@ -309,10 +309,10 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 							<CheckCircle className="h-8 w-8 text-green-600" />
 						</div>
 						<div>
-							<h3 className="text-xl font-semibold text-slate-900 mb-2">
+							<h3 className="text-xl font-semibold text-gray-900 mb-2">
 								Заявку надіслано!
 							</h3>
-							<p className="text-slate-600">
+							<p className="text-gray-600">
 								Дякуємо за ваш інтерес! Ми зв&apos;яжемося з вами найближчим часом для оформлення підписки.
 							</p>
 						</div>
@@ -341,17 +341,17 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 		<div className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
 			<div ref={modalRef} className="relative w-full max-w-3xl max-h-[90vh] overflow-hidden bg-white rounded-2xl shadow-2xl">
 				{/* Header */}
-				<div className="flex items-center justify-between p-6 border-b border-slate-200">
+				<div className="flex items-center justify-between p-6 border-b border-gray-200">
 					<div className="flex items-center gap-3">
 						<div className="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
-							<Star className="h-5 w-5 text-yellow-600" />
+							<Star className="h-5 w-5 text-brand-yellow-dark" />
 						</div>
 						<div>
-							<h2 className="text-xl font-bold text-slate-900">
+							<h2 className="text-xl font-bold text-gray-900">
 								Оформити підписку
 							</h2>
 							{book && (
-								<p className="text-sm text-slate-600">
+								<p className="text-sm text-gray-600">
 									{book.title} — {book.author}
 								</p>
 							)}
@@ -370,7 +370,7 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 					<form onSubmit={handleSubmit(handleSubmitForm)} className="p-6 space-y-6">
 						{/* Plan Selection */}
 						<div>
-							<Label className="block text-sm font-semibold text-slate-700 mb-3">
+							<Label className="block text-sm font-semibold text-gray-700 mb-3">
 								План підписки *
 							</Label>
 							<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -381,7 +381,7 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 											"cursor-pointer transition-all hover:shadow-md",
 											watchedPlan === key
 												? config.color
-												: 'border-slate-200 hover:border-slate-300'
+												: 'border-gray-200 hover:border-gray-300'
 										)}
 										onClick={() => setValue('plan', key as 'mini' | 'maxi')}
 									>
@@ -391,29 +391,29 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 													"w-4 h-4 rounded-full border-2 flex items-center justify-center",
 													watchedPlan === key 
 														? 'border-current bg-current' 
-														: 'border-slate-300'
+														: 'border-gray-300'
 												)}>
 													{watchedPlan === key && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
 												</div>
 												<div>
 													<p className={cn(
 														"font-semibold text-sm",
-														watchedPlan === key ? config.textColor : 'text-slate-700'
+														watchedPlan === key ? config.textColor : 'text-gray-700'
 													)}>
 														{config.label}
 													</p>
 													<p className={cn(
 														"text-xs",
-														watchedPlan === key ? config.textColor : 'text-slate-500'
+														watchedPlan === key ? config.textColor : 'text-gray-500'
 													)}>
 														{config.price}
 													</p>
 												</div>
 											</div>
-											<p className="text-xs text-slate-600 mb-2">{config.description}</p>
+											<p className="text-xs text-gray-600 mb-2">{config.description}</p>
 											<ul className="space-y-1">
 												{config.features.map((feature, index) => (
-													<li key={index} className="text-xs text-slate-600 flex items-center gap-1">
+													<li key={index} className="text-xs text-gray-600 flex items-center gap-1">
 														<CheckCircle className="h-3 w-3 text-green-500" />
 														{feature}
 													</li>
@@ -435,7 +435,7 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 						{/* Personal Information */}
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 							<div>
-								<Label htmlFor="name" className="block text-sm font-semibold text-slate-700 mb-2">
+								<Label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
 									Ім&apos;я та прізвище *
 								</Label>
 								<div className="relative">
@@ -457,7 +457,7 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 							</div>
 
 							<div>
-								<Label htmlFor="phone" className="block text-sm font-semibold text-slate-700 mb-2">
+								<Label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
 									Телефон *
 								</Label>
 								<div className="relative">
@@ -481,7 +481,7 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 							<div>
-								<Label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-2">
+								<Label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
 									Email *
 								</Label>
 								<div className="relative">
@@ -503,7 +503,7 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 							</div>
 
 							<div>
-								<Label htmlFor="social" className="block text-sm font-semibold text-slate-700 mb-2">
+								<Label htmlFor="social" className="block text-sm font-semibold text-gray-700 mb-2">
 									Телеграм/Інстаграм
 								</Label>
 								<Input
@@ -523,7 +523,7 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 
 						{/* Payment Method */}
 						<div>
-							<Label className="block text-sm font-semibold text-slate-700 mb-3">
+							<Label className="block text-sm font-semibold text-gray-700 mb-3">
 								Спосіб оплати *
 							</Label>
 							<div className="space-y-3">
@@ -540,11 +540,11 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 											value={option.value}
 											checked={watchedPayment === option.value}
 											onChange={(e) => setValue('payment', e.target.value as 'Онлайн оплата' | 'Переказ на карту' | 'Готівка при отриманні')}
-											className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+											className="h-4 w-4 text-brand-accent-light focus:ring-brand-accent border-gray-300"
 										/>
 										<Label htmlFor={option.value} className="flex items-center gap-2 cursor-pointer">
-											<option.icon className="h-4 w-4 text-slate-500" />
-											<span className="text-sm text-slate-700">{option.label}</span>
+											<option.icon className="h-4 w-4 text-gray-500" />
+											<span className="text-sm text-gray-700">{option.label}</span>
 										</Label>
 									</div>
 								))}
@@ -562,7 +562,7 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 							<Card className="bg-blue-50 border-blue-200">
 								<CardContent className="p-4">
 									<div className="flex items-start gap-3">
-										<Info className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+										<Info className="h-5 w-5 text-brand-accent-light mt-0.5 flex-shrink-0" />
 										<div className="flex-1">
 											<h4 className="font-medium text-blue-900 mb-2">Реквізити для переказу</h4>
 											<div className="space-y-1 text-sm text-blue-800">
@@ -574,7 +574,7 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 														variant="ghost"
 														size="md"
 														onClick={copyCardNumber}
-														className="h-6 px-2 text-blue-600 hover:text-blue-800"
+														className="h-6 px-2 text-brand-accent-light hover:text-blue-800"
 													>
 														{copiedCard ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
 													</Button>
@@ -590,7 +590,7 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 						{/* Screenshot upload for bank transfer */}
 						{watchedPayment === "Переказ на карту" && (
 							<div>
-								<Label htmlFor="screenshot" className="block text-sm font-semibold text-slate-700 mb-2">
+								<Label htmlFor="screenshot" className="block text-sm font-semibold text-gray-700 mb-2">
 									Скріншот переказу
 								</Label>
 								<div className="relative">
@@ -602,9 +602,9 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 										onChange={handleFileChange}
 										className="pr-10"
 									/>
-									<Upload className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
+									<Upload className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
 								</div>
-								<p className="mt-1 text-xs text-slate-500">
+								<p className="mt-1 text-xs text-gray-500">
 									Додайте скріншот підтвердження переказу (максимум 5MB)
 								</p>
 								{errors.screenshot && (
@@ -618,7 +618,7 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 
 						{/* Note */}
 						<div>
-							<Label htmlFor="note" className="block text-sm font-semibold text-slate-700 mb-2">
+							<Label htmlFor="note" className="block text-sm font-semibold text-gray-700 mb-2">
 								Додаткова інформація
 							</Label>
 							<div className="relative">
@@ -646,9 +646,9 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 								checked={watchedPrivacyConsent}
 								onCheckedChange={(checked: boolean) => setValue('privacyConsent', checked)}
 							/>
-							<Label htmlFor="privacyConsent" className="text-sm text-slate-600 leading-relaxed">
+							<Label htmlFor="privacyConsent" className="text-sm text-gray-600 leading-relaxed">
 								Я погоджуюся з обробкою моїх персональних даних відповідно до{' '}
-								<Link href="/privacy" className="text-blue-600 hover:underline">
+								<Link href="/privacy" className="text-brand-accent-light hover:underline">
 									політики конфіденційності
 								</Link>
 								{errors.privacyConsent && (
@@ -669,7 +669,7 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 								</div>
 								<div className="w-full bg-gray-200 rounded-full h-2">
 									<div 
-										className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+										className="bg-brand-accent-light h-2 rounded-full transition-all duration-300"
 										style={{ width: `${uploadProgress}%` }}
 									/>
 								</div>
@@ -690,7 +690,7 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 							<Button
 								type="submit"
 								disabled={isSubmitting || !isValid}
-								className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-slate-900"
+								className="flex-1 bg-brand-yellow hover:bg-brand-yellow-dark text-gray-900"
 							>
 								{isSubmitting ? (
 									<>

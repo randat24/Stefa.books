@@ -101,8 +101,8 @@ export default function ErrorMonitoringPage() {
     switch (severity) {
       case 'critical': return <XCircle className="h-4 w-4 text-red-500" />;
       case 'high': return <AlertTriangle className="h-4 w-4 text-orange-500" />;
-      case 'medium': return <AlertCircle className="h-4 w-4 text-yellow-500" />;
-      case 'low': return <Info className="h-4 w-4 text-blue-500" />;
+      case 'medium': return <AlertCircle className="h-4 w-4 text-brand-yellow" />;
+      case 'low': return <Info className="h-4 w-4 text-brand-accent" />;
       default: return <AlertCircle className="h-4 w-4 text-gray-500" />;
     }
   };
@@ -206,7 +206,7 @@ export default function ErrorMonitoringPage() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Medium</CardTitle>
-              <AlertCircle className="h-4 w-4 text-yellow-500" />
+              <AlertCircle className="h-4 w-4 text-brand-yellow" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
@@ -219,7 +219,7 @@ export default function ErrorMonitoringPage() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Low</CardTitle>
-              <Info className="h-4 w-4 text-blue-500" />
+              <Info className="h-4 w-4 text-brand-accent" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
@@ -244,7 +244,7 @@ export default function ErrorMonitoringPage() {
                 <input
                   type="text"
                   placeholder="Search errors by message, type, or ID..."
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-accent focus:border-brand-accent"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -282,7 +282,7 @@ export default function ErrorMonitoringPage() {
               <Button 
                 variant={filter === 'low' ? 'outline' : 'outline'} 
                 onClick={() => setFilter('low')}
-                className={filter === 'low' ? 'border-blue-500 text-blue-500 hover:bg-blue-50 hover:border-blue-600' : ''}
+                className={filter === 'low' ? 'border-brand-accent text-brand-accent hover:bg-blue-50 hover:border-brand-accent-light' : ''}
               >
                 Low
               </Button>

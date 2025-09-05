@@ -7,16 +7,16 @@ export function Header() {
 
   return (
     <>
-      <header className="w-full sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200">
+      <header className="w-full sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-gray-200">
         <div className="container flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-slate-100 grid place-items-center">
+            <div className="h-10 w-10 rounded-full bg-gray-100 grid place-items-center">
               <Image 
                 src="/logo.svg" 
                 alt="Stefa.books logo" 
                 width={28} 
                 height={28}
-                className="text-slate-700"
+                className="text-gray-700"
                 priority
               />
             </div>
@@ -25,16 +25,16 @@ export function Header() {
 
           <nav className="flex items-center gap-1 sm:gap-2">
             <HeaderSearch />
-            <Link href="/" className="px-3 py-2 text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition">
+            <Link href="/" className="px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition">
               Головна
             </Link>
-            <Link href="/books" className="px-3 py-2 text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition">
+            <Link href="/books" className="px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition">
               Каталог
             </Link>
-            <Link href="/my-rentals" className="px-3 py-2 text-base font-medium text-slate-700 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition">
+            <Link href="/my-rentals" className="px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition">
               Мої оренди
             </Link>
-            <Link href="/subscribe" className="ml-2 px-4 py-2 text-base font-medium bg-yellow-500 text-slate-900 hover:bg-yellow-400 rounded-full transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2">
+            <Link href="/subscribe" className="ml-2 px-4 py-2 text-base font-medium bg-brand-yellow text-brand hover:bg-brand-yellow-light rounded-full transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-yellow focus-visible:ring-offset-2">
               Підписка
             </Link>
           </nav>

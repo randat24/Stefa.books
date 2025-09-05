@@ -54,7 +54,7 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
                   key={i} 
                   className={`h-5 w-5 ${
                     i < Math.floor(averageRating) 
-                      ? 'text-yellow-400 fill-current' 
+                      ? 'text-brand-yellow-light fill-current' 
                       : 'text-gray-300'
                   }`} 
                 />
@@ -75,10 +75,10 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
                 return (
                   <div key={stars} className="flex items-center gap-2 text-sm">
                     <span className="w-3">{stars}</span>
-                    <Star className="h-3 w-3 text-yellow-400 fill-current" />
+                    <Star className="h-3 w-3 text-brand-yellow-light fill-current" />
                     <div className="flex-1 bg-gray-200 rounded-full h-2">
                       <div 
-                        className="bg-yellow-400 h-2 rounded-full transition-all duration-300" 
+                        className="bg-brand-yellow-light h-2 rounded-full transition-all duration-300" 
                         style={{ width: `${percentage}%` }}
                       />
                     </div>
@@ -117,7 +117,7 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
                         key={i} 
                         className={`h-4 w-4 ${
                           i < review.rating 
-                            ? 'text-yellow-400 fill-current' 
+                            ? 'text-brand-yellow-light fill-current' 
                             : 'text-gray-300'
                         }`} 
                       />

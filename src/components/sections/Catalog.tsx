@@ -104,34 +104,34 @@ export function Catalog() {
     <section className="px-6">
       <header className="mb-12 text-center">
         <div className="max-w-3xl mx-auto mb-8">
-          <h2 className="h2 text-slate-900 mb-4">Каталог книг</h2>
-          <p className="text-lg text-slate-600 leading-relaxed mb-8">Оберіть потрібну книгу. Зверніть увагу, що ми постійно оновлюємо каталог. Якщо ви не знайшли бажаної книги, напишіть нам у будь-який зручний спосіб.</p>
+          <h2 className="h2 text-gray-900 mb-4">Каталог книг</h2>
+          <p className="text-lg text-gray-600 leading-relaxed mb-8">Оберіть потрібну книгу. Зверніть увагу, що ми постійно оновлюємо каталог. Якщо ви не знайшли бажаної книги, напишіть нам у будь-який зручний спосіб.</p>
           
           {/* Пошук та кнопка каталогу */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 max-w-2xl mx-auto">
             <div className="relative flex-1 max-w-md">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-slate-400" />
+                <Search className="h-5 w-5 text-gray-400" />
               </div>
               <input
                 type="text"
                 placeholder="Пошук за назвою, автором або категорією..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-12 py-3 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                className="w-full pl-12 pr-12 py-3 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-brand-accent focus:border-brand-accent transition-colors"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute inset-y-0 right-0 pr-4 flex items-center hover:text-slate-600 transition-colors"
+                  className="absolute inset-y-0 right-0 pr-4 flex items-center hover:text-gray-600 transition-colors"
                 >
-                  <X className="h-5 w-5 text-slate-400" />
+                  <X className="h-5 w-5 text-gray-400" />
                 </button>
               )}
             </div>
             <Link
               href="/books"
-              className="inline-flex items-center whitespace-nowrap rounded-2xl bg-slate-900 px-6 h-12 text-sm font-medium text-white hover:bg-slate-800 transition-colors"
+              className="inline-flex items-center whitespace-nowrap rounded-2xl bg-gray-900 px-6 h-12 text-sm font-medium text-white hover:bg-gray-800 transition-colors"
             >
               Увесь каталог →
             </Link>
@@ -148,12 +148,12 @@ export function Catalog() {
                   onClick={() => setSelectedCategory(selectedCategory === category ? '' : category)}
                   className={`inline-flex items-center px-4 py-3 rounded-full border transition-all duration-200 whitespace-nowrap ${
                     selectedCategory === category
-                      ? 'bg-slate-900 text-white border-slate-900 shadow-lg'
-                      : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300 hover:shadow-md'
+                      ? 'bg-gray-900 text-white border-gray-900 shadow-lg'
+                      : 'bg-white text-gray-700 border-gray-200 hover:border-gray-300 hover:shadow-md'
                   }`}
                 >
                   <span className={`font-medium text-sm whitespace-nowrap ${
-                    selectedCategory === category ? 'text-white' : 'text-slate-900'
+                    selectedCategory === category ? 'text-white' : 'text-gray-900'
                   }`}>
                     {category}
                   </span>
@@ -167,7 +167,7 @@ export function Catalog() {
       {/* Загрузка */}
       {loading && (
         <div className="flex items-center justify-center py-16">
-          <div className="flex items-center gap-3 text-slate-600">
+          <div className="flex items-center gap-3 text-gray-600">
             <Loader2 className="w-6 h-6 animate-spin" />
             <span className="text-lg font-medium">Завантаження книг...</span>
           </div>
@@ -181,10 +181,10 @@ export function Catalog() {
             <X className="w-4 h-4" />
             <span className="font-medium">Помилка завантаження</span>
           </div>
-          <p className="text-sm text-slate-600 mb-4">{error}</p>
+          <p className="text-sm text-gray-600 mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-slate-900 text-white rounded-full hover:bg-slate-800 transition-colors"
+            className="px-4 py-2 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-colors"
           >
             Спробувати знову
           </button>
@@ -203,15 +203,15 @@ export function Catalog() {
       {/* Пусто */}
       {!loading && !error && items.length === 0 && books && books.length > 0 && (
         <div className="text-center py-12">
-          <p className="text-lg text-slate-600 mb-4">Книги не знайдені</p>
-          <p className="text-sm text-slate-500 mb-4">Спробуйте змінити пошуковий запит або обрати іншу категорію</p>
+          <p className="text-lg text-gray-600 mb-4">Книги не знайдені</p>
+          <p className="text-sm text-gray-500 mb-4">Спробуйте змінити пошуковий запит або обрати іншу категорію</p>
           {(searchQuery || selectedCategory) && (
             <button
               onClick={() => {
                 setSearchQuery('');
                 setSelectedCategory('');
               }}
-              className="px-4 py-2 bg-slate-900 text-white rounded-full hover:bg-slate-800 transition-colors"
+              className="px-4 py-2 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-colors"
             >
               Скинути фільтри
             </button>
@@ -222,15 +222,15 @@ export function Catalog() {
       {/* Нет книг в базе */}
       {!loading && !error && (!books || books.length === 0) && (
         <div className="text-center py-12">
-          <BookOpen className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-          <p className="text-lg text-slate-600 mb-4">Каталог порожній</p>
-          <p className="text-sm text-slate-500">Книги скоро з&apos;являться у нашому каталозі</p>
+          <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+          <p className="text-lg text-gray-600 mb-4">Каталог порожній</p>
+          <p className="text-sm text-gray-500">Книги скоро з&apos;являться у нашому каталозі</p>
         </div>
       )}
       
       {/* Показуємо кількість знайдених книг */}
       {(searchQuery || selectedCategory) && (
-        <div className="mt-8 text-center text-sm text-slate-500">
+        <div className="mt-8 text-center text-sm text-gray-500">
           Показано {items.length} з {filteredBooks.length} книг
           {filteredBooks.length > 8 && (
             <span className="block mt-2">

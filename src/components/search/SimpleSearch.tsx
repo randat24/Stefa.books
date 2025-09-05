@@ -364,7 +364,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
                   }}
                   className={`px-2 py-1 text-xs font-medium rounded border transition-all text-left ${
                     filters.categories.includes(category)
-                      ? 'border-blue-500 bg-blue-500 text-white'
+                      ? 'border-brand-accent bg-brand-accent text-white'
                       : 'border-border bg-background hover:border-blue-300'
                   }`}
                 >
@@ -386,7 +386,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
                   }}
                   className={`px-2 py-1 text-xs font-medium rounded border transition-all text-left ${
                     filters.authors.includes(author)
-                      ? 'border-blue-500 bg-blue-500 text-white'
+                      ? 'border-brand-accent bg-brand-accent text-white'
                       : 'border-border bg-background hover:border-blue-300'
                   }`}
                 >
@@ -426,7 +426,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
                 const newAuthors = filters.authors.filter((a: string) => a !== author);
                 updateFilter('authors', newAuthors);
               }}
-              className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-blue-500 text-white rounded hover:bg-blue-400 transition-colors"
+              className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-brand-accent text-white rounded hover:bg-blue-400 transition-colors"
             >
               {author}
               <X className="h-3 w-3" />

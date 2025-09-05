@@ -155,7 +155,7 @@ export default function ProfilePage() {
                 <Label>Website</Label>
                 <p className="text-gray-700">
                   {user.website ? (
-                    <a href={user.website} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                    <a href={user.website} target="_blank" rel="noopener noreferrer" className="text-brand-accent-light hover:underline">
                       {user.website}
                     </a>
                   ) : (

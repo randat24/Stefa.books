@@ -76,7 +76,7 @@ export default function ConfirmationPage() {
                 </li>
                 <li className="flex items-start">
                   <div className="mr-2 mt-0.5 text-green-600">•</div>
-                  <span>You can track your rental status in your <Link href="/account/orders" className="text-blue-600 hover:underline">account</Link></span>
+                  <span>You can track your rental status in your <Link href="/account/orders" className="text-brand-accent-light hover:underline">account</Link></span>
                 </li>
               </ul>
             </div>

@@ -14,10 +14,10 @@ export default function FinalCTA() {
 							Знайдіть улюблені видання в каталозі, а ми подбаємо про решту.
 						</p>
 						<div className="mt-6 flex flex-wrap gap-3">
-							<Link href="/books#top" className="inline-flex items-center justify-center rounded-full font-semibold h-12 px-6 bg-yellow-500 text-slate-900 hover:bg-yellow-400 transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2">
+							<Link href="/books#top" className="inline-flex items-center justify-center rounded-full font-semibold h-12 px-6 bg-brand-yellow text-gray-900 hover:bg-brand-yellow-light transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-yellow focus-visible:ring-offset-2">
 								Перейти до каталогу
 							</Link>
-							<Link href="/books?rent=1#rent-form" className="inline-flex items-center justify-center rounded-full font-semibold h-12 px-6 bg-white text-slate-900 border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2">
+							<Link href="/books?rent=1#rent-form" className="inline-flex items-center justify-center rounded-full font-semibold h-12 px-6 bg-white text-gray-900 border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-yellow focus-visible:ring-offset-2">
 								Оформити підписку
 							</Link>
 						</div>
@@ -25,13 +25,13 @@ export default function FinalCTA() {
 
 					<ul className="grid gap-3 text-sm text-[--ink]">
 						<li className="flex items-center gap-2">
-							<span className="size-2 rounded-full bg-yellow-500" /> Гнучкі плани — без прихованих платежів
+							<span className="size-2 rounded-full bg-brand-yellow" /> Гнучкі плани — без прихованих платежів
 						</li>
 						<li className="flex items-center gap-2">
-							<span className="size-2 rounded-full bg-blue-500" /> Доставка або зручна точка видачі
+							<span className="size-2 rounded-full bg-brand-accent" /> Доставка або зручна точка видачі
 						</li>
 						<li className="flex items-center gap-2">
-							<span className="size-2 rounded-full bg-yellow-500" /> Вибір для дітей і дорослих
+							<span className="size-2 rounded-full bg-brand-yellow" /> Вибір для дітей і дорослих
 						</li>
 					</ul>
 				</div>

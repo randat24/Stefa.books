@@ -114,7 +114,7 @@ export function CatalogSearchFilter({
               onChange={(e) => updateFilter('search', e.target.value)}
               onKeyDown={handleSearchKeyDown}
               placeholder="Пошук по назві, автору, опису..."
-              className="w-full h-12 pl-12 pr-12 rounded-full border-2 border-gray-200 bg-white text-gray-900 placeholder:text-gray-500 focus:border-yellow-400 focus:outline-none transition-colors"
+              className="w-full h-12 pl-12 pr-12 rounded-full border-2 border-gray-200 bg-white text-gray-900 placeholder:text-gray-500 focus:border-brand-yellow-light focus:outline-none transition-colors"
             />
             {filters.search && (
               <button
@@ -136,13 +136,13 @@ export function CatalogSearchFilter({
             onClick={() => setShowFilters(!showFilters)}
             className={`p-3 rounded-full border-2 transition-colors relative ${
               showFilters 
-                ? 'bg-yellow-50 border-yellow-400 text-yellow-600' 
+                ? 'bg-yellow-50 border-brand-yellow-light text-brand-yellow-dark' 
                 : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'
             }`}
           >
             <Filter className="h-5 w-5" />
             {activeFilterCount > 0 && (
-              <Badge className="absolute -top-2 -right-2 h-5 w-5 p-0 text-xs bg-yellow-500 text-white rounded-full flex items-center justify-center">
+              <Badge className="absolute -top-2 -right-2 h-5 w-5 p-0 text-xs bg-brand-yellow text-white rounded-full flex items-center justify-center">
                 {activeFilterCount}
               </Badge>
             )}
@@ -279,7 +279,7 @@ export function CatalogSearchFilter({
                   type="checkbox"
                   checked={filters.availableOnly}
                   onChange={(e) => updateFilter('availableOnly', e.target.checked)}
-                  className="w-4 h-4 text-yellow-500 rounded border-gray-300 focus:ring-yellow-500"
+                  className="w-4 h-4 text-brand-yellow rounded border-gray-300 focus:ring-brand-yellow"
                 />
                 <span className="text-sm text-gray-700">Тільки доступні</span>
               </label>
@@ -293,7 +293,7 @@ export function CatalogSearchFilter({
               <select
                 value={filters.minRating}
                 onChange={(e) => updateFilter('minRating', Number(e.target.value))}
-                className="w-full p-3 border border-gray-300 rounded-lg bg-white focus:border-yellow-400 focus:outline-none transition-colors"
+                className="w-full p-3 border border-gray-300 rounded-lg bg-white focus:border-brand-yellow-light focus:outline-none transition-colors"
               >
                 <option value={0}>Будь-який</option>
                 <option value={3}>3+ ⭐</option>
