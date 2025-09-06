@@ -1,4 +1,4 @@
-import { MetadataRoute } from 'next'
+// import { MetadataRoute } from 'next' // Not needed for robots.txt
 
 export function GET(): Response {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://stefa-books.com.ua'

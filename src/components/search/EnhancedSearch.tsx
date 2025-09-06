@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { Search, X, SlidersHorizontal, SortAsc, SortDesc, Loader2 } from 'lucide-react';
+// import { useSearchParams, useRouter } from 'next/navigation'; // Not currently used
+import { Search, X, SlidersHorizontal, Loader2 } from 'lucide-react';
 import BookCard from '@/components/BookCard';
 import { AdvancedFilters } from '@/components/filters/AdvancedFilters';
 import { LoadMoreButton } from '@/components/ui/LoadMoreButton';
@@ -26,8 +26,8 @@ interface EnhancedSearchProps {
 }
 
 export function EnhancedSearch({ onSearchResults }: EnhancedSearchProps) {
-  const searchParams = useSearchParams();
-  const router = useRouter();
+  // const searchParams = useSearchParams(); // Not currently used
+  // const router = useRouter(); // Not currently used
   
   const [query, setQuery] = useState('');
   const [showFilters, setShowFilters] = useState(false);
@@ -311,7 +311,7 @@ export function EnhancedSearch({ onSearchResults }: EnhancedSearchProps) {
           <div className="flex flex-wrap gap-2">
             {query && (
               <Badge variant="secondary" className="flex items-center gap-1">
-                Пошук: "{query}"
+                Пошук: &quot;{query}&quot;
                 <button
                   onClick={() => setQuery('')}
                   className="ml-1 hover:text-red-600"
