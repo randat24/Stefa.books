@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import { OrganizationStructuredData } from "@/components/seo/OrganizationStructuredData";
 import { CanonicalAndHreflang } from "@/components/seo/CanonicalAndHreflang";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import CookieConsent from "@/components/analytics/CookieConsent";
 import { OfflineIndicator } from "@/components/offline/OfflineIndicator";
 
 export const metadata: Metadata = {
@@ -66,8 +67,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="uk" suppressHydrationWarning>
-      <body className="min-h-screen flex flex-col bg-white text-slate-900" suppressHydrationWarning>
+      <body className="min-h-screen flex flex-col bg-white text-gray-900" suppressHydrationWarning>
         <GoogleAnalytics />
+        <CookieConsent />
         <OrganizationStructuredData />
         <CanonicalAndHreflang 
           locale="uk" 

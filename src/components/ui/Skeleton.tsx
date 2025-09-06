@@ -16,7 +16,7 @@ export function Skeleton({
   animation = 'pulse',
   ...props
 }: SkeletonProps) {
-  const baseClasses = 'bg-slate-200 animate-pulse';
+  const baseClasses = 'bg-gray-200 animate-pulse';
   
   const variantClasses = {
     text: 'h-4 rounded',
@@ -27,7 +27,7 @@ export function Skeleton({
 
   const animationClasses = {
     pulse: 'animate-pulse',
-    wave: 'animate-pulse bg-gradient-to-r from-slate-200 via-slate-100 to-slate-200 bg-[length:200%_100%]',
+    wave: 'animate-pulse bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%]',
     none: '',
   };
 
@@ -117,7 +117,7 @@ export function SearchResultsSkeleton() {
 
 export function HeaderSkeleton() {
   return (
-    <header className="w-full sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200">
+    <header className="w-full sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-gray-200">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-3">
           <Skeleton className="h-10 w-10 rounded-full" />

@@ -1,13 +1,16 @@
 'use client';
 
 import { useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import Link from 'next/link';
 
 export default function ForgotPasswordPage() {
+  const { resetPassword } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [email, setEmail] = useState('');
@@ -18,26 +21,28 @@ export default function ForgotPasswordPage() {
     setError('');
     
     if (!email) {
-      setError('Email is required');
+      setError('Email обов\'язковий');
       return;
     }
     
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError('Invalid email format');
+      setError('Неправильний формат email');
       return;
     }
     
     setIsLoading(true);
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await resetPassword(email);
       
-      // In a real app, you would send a password reset email here
-      setIsSubmitted(true);
+      if (response.success) {
+        setIsSubmitted(true);
+      } else {
+        setError(response.error || 'Не вдалося надіслати лист для скидання пароля');
+      }
     } catch (error) {
       console.error('Password reset error:', error);
-      setError('Failed to send password reset email. Please try again.');
+      setError('Помилка підключення');
     } finally {
       setIsLoading(false);
     }
@@ -48,25 +53,25 @@ export default function ForgotPasswordPage() {
       <div className="container flex h-screen w-screen flex-col items-center justify-center">
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl text-center">Check your email</CardTitle>
+            <CardTitle className="text-2xl text-center">Перевірте пошту</CardTitle>
             <CardDescription className="text-center">
-              We&apos;ve sent a password reset link to {email}
+              Ми надіслали посилання для скидання пароля на {email}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-center text-gray-600">
-              Didn&apos;t receive the email? Check your spam folder or{' '}
+              Не отримали лист? Перевірте папку &ldquo;Спам&rdquo; або{' '}
               <button 
                 onClick={() => setIsSubmitted(false)}
-                className="text-blue-600 hover:underline"
+                className="text-brand-accent-light hover:underline"
               >
-                try again
+                спробуйте знову
               </button>
             </p>
           </CardContent>
           <CardFooter>
             <Link href="/auth/login" className="w-full">
-              <Button className="w-full">Back to login</Button>
+              <Button className="w-full">Назад до входу</Button>
             </Link>
           </CardFooter>
         </Card>
@@ -78,13 +83,19 @@ export default function ForgotPasswordPage() {
     <div className="container flex h-screen w-screen flex-col items-center justify-center">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl text-center">Forgot Password</CardTitle>
+          <CardTitle className="text-2xl text-center">Скидання пароля</CardTitle>
           <CardDescription className="text-center">
-            Enter your email address and we&apos;ll send you a link to reset your password
+            Введіть свою електронну пошту, і ми надішлемо вам посилання для скидання пароля
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="grid gap-4">
+            {error && (
+              <Alert variant="destructive">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+            
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -92,20 +103,19 @@ export default function ForgotPasswordPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@example.com"
+                placeholder="your@email.com"
                 disabled={isLoading}
               />
-              {error && <p className="text-sm text-red-500">{error}</p>}
             </div>
           </CardContent>
           <CardFooter className="flex flex-col">
             <Button className="w-full" type="submit" disabled={isLoading}>
-              {isLoading ? 'Sending...' : 'Send reset link'}
+              {isLoading ? 'Надсилання...' : 'Надіслати посилання'}
             </Button>
             <p className="mt-4 text-center text-sm text-gray-500">
-              Remember your password?{' '}
-              <Link href="/auth/login" className="text-blue-600 hover:underline">
-                Sign in
+              Пам&apos;ятаєте пароль?{' '}
+              <Link href="/auth/login" className="text-brand-accent-light hover:underline">
+                Увійти
               </Link>
             </p>
           </CardFooter>

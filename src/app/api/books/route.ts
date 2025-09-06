@@ -33,7 +33,8 @@ export async function GET(request: NextRequest) {
           code: 'MOCK001',
           title: 'Казка про принцесу',
           author: 'Анна Іванова',
-          category: 'Казки',
+          category_id: 'fairy-tales',
+          category_name: 'Казки',
           subcategory: 'Дитячі казки',
           pages: 32,
           status: 'available',
@@ -54,7 +55,8 @@ export async function GET(request: NextRequest) {
           code: 'MOCK002',
           title: 'Пригоди маленького мисливця',
           author: 'Петро Петренко',
-          category: 'Пригоди',
+          category_id: 'adventures',
+          category_name: 'Пригоди',
           subcategory: 'Дитячі пригоди',
           pages: 48,
           status: 'available',
@@ -75,7 +77,8 @@ export async function GET(request: NextRequest) {
           code: 'MOCK003',
           title: 'Математика для дошкільнят',
           author: 'Олена Коваленко',
-          category: 'Пізнавальні',
+          category_id: 'educational',
+          category_name: 'Пізнавальні',
           subcategory: 'Математика',
           pages: 64,
           status: 'available',
@@ -96,7 +99,8 @@ export async function GET(request: NextRequest) {
           code: 'MOCK004',
           title: 'Фентезійний світ',
           author: 'Михайло Соколов',
-          category: 'Фентезі',
+          category_id: 'fantasy',
+          category_name: 'Фентезі',
           subcategory: 'Дитяче фентезі',
           pages: 120,
           status: 'available',
@@ -117,7 +121,8 @@ export async function GET(request: NextRequest) {
           code: 'MOCK005',
           title: 'Психологія для дітей',
           author: 'Ірина Мельник',
-          category: 'Психологія і саморозвиток',
+          category_id: 'psychology',
+          category_name: 'Психологія і саморозвиток',
           subcategory: 'Дитяча психологія',
           pages: 80,
           status: 'available',
@@ -143,14 +148,14 @@ export async function GET(request: NextRequest) {
         filteredBooks = filteredBooks.filter(book => 
           book.title.toLowerCase().includes(searchQuery) ||
           book.author.toLowerCase().includes(searchQuery) ||
-          book.category.toLowerCase().includes(searchQuery) ||
+          book.category_id.toLowerCase().includes(searchQuery) ||
           book.description.toLowerCase().includes(searchQuery)
         );
       }
 
       if (category) {
         filteredBooks = filteredBooks.filter(book => 
-          book.category.toLowerCase().includes(category.toLowerCase())
+          book.category_id.toLowerCase().includes(category.toLowerCase())
         );
       }
 

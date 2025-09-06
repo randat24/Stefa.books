@@ -350,7 +350,7 @@ class SearchIndexingSystem {
     const content = [
       book.title,
       book.author,
-      book.category,
+      book.category_id,
       book.description || '',
       book.short_description || '',
       ...(book.tags || [])
@@ -364,7 +364,7 @@ class SearchIndexingSystem {
       terms,
       content: content.toLowerCase(),
       metadata: {
-        category: book.category,
+        category: book.category_id || 'Без категорії',
         author: book.author,
         rating: book.rating || 0,
         available: book.available !== false,

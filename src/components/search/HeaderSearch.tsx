@@ -167,10 +167,10 @@ export function HeaderSearch() {
         
         {/* Search Container */}
         <div className="relative top-20 mx-auto max-w-2xl px-4">
-          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 max-h-[80vh] overflow-hidden flex flex-col">
+          <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 max-h-[80vh] overflow-hidden flex flex-col">
               {/* Search Bar */}
               <div className="flex items-center px-4 py-3">
-                <Search className="h-5 w-5 text-slate-400 mr-3" />
+                <Search className="h-5 w-5 text-gray-400 mr-3" />
                 <input
                   ref={inputRef}
                   type="text"
@@ -178,20 +178,20 @@ export function HeaderSearch() {
                   onChange={(e) => handleInputChange(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Пошук книг за назвою, автором, категорією..."
-                  className="flex-1 bg-transparent text-slate-900 placeholder-slate-500 text-lg outline-none"
+                  className="flex-1 bg-transparent text-gray-900 placeholder-slate-500 text-lg outline-none"
                 />
                 <button
                   onClick={handleClose}
-                  className="ml-3 p-1 hover:bg-slate-100 rounded-md transition"
+                  className="ml-3 p-1 hover:bg-gray-100 rounded-md transition"
                 >
-                  <X className="h-5 w-5 text-slate-400" />
+                  <X className="h-5 w-5 text-gray-400" />
                 </button>
               </div>
               
               {/* Loading State */}
               {isSearching && (
-                <div className="border-t border-slate-100 p-4 flex-1 flex items-center justify-center">
-                  <div className="flex items-center justify-center py-8 text-slate-500">
+                <div className="border-t border-gray-100 p-4 flex-1 flex items-center justify-center">
+                  <div className="flex items-center justify-center py-8 text-gray-500">
                     <Loader2 className="w-5 h-5 animate-spin mr-2" />
                     <span>Пошук...</span>
                   </div>
@@ -202,18 +202,18 @@ export function HeaderSearch() {
               {searchResults && !isSearching && (
                 <>
                   {/* Scrollable Content */}
-                  <div className="border-t border-slate-100 p-4 space-y-4 overflow-y-auto flex-1 min-h-0">
+                  <div className="border-t border-gray-100 p-4 space-y-4 overflow-y-auto flex-1 min-h-0">
                     {/* Books */}
                     {searchResults.books.length > 0 && (
                       <div>
                         <div className="flex items-center justify-between mb-4">
-                          <h3 className="text-slate-600 text-sm font-medium">Книжки</h3>
+                          <h3 className="text-gray-600 text-sm font-medium">Книжки</h3>
                           <button 
                             onClick={() => {
                               router.push(`/books?search=${encodeURIComponent(query)}`);
                               handleClose();
                             }}
-                            className="text-slate-500 text-sm hover:text-slate-700 transition flex items-center gap-1"
+                            className="text-gray-500 text-sm hover:text-gray-700 transition flex items-center gap-1"
                           >
                             Усі →
                           </button>
@@ -226,9 +226,9 @@ export function HeaderSearch() {
                                 router.push(`/books/${book.id}`);
                                 handleClose();
                               }}
-                              className="flex items-center gap-3 p-3 hover:bg-slate-50 rounded-lg transition w-full text-left"
+                              className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg transition w-full text-left"
                             >
-                              <div className="h-16 w-12 rounded-lg overflow-hidden bg-slate-100">
+                              <div className="h-16 w-12 rounded-lg overflow-hidden bg-gray-100">
                                 {book.cover_url ? (
                                   <Image 
                                     src={book.cover_url} 
@@ -238,16 +238,16 @@ export function HeaderSearch() {
                                     className="w-full h-full object-cover"
                                   />
                                 ) : (
-                                  <div className="w-full h-full bg-slate-200 flex items-center justify-center">
-                                    <ShoppingBag className="h-6 w-6 text-slate-400" />
+                                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                                    <ShoppingBag className="h-6 w-6 text-gray-400" />
                                   </div>
                                 )}
                               </div>
                               <div className="flex-1">
-                                <div className="text-slate-900 font-medium line-clamp-1">{book.title}</div>
-                                <div className="text-slate-600 text-sm">{book.author}</div>
+                                <div className="text-gray-900 font-medium line-clamp-1">{book.title}</div>
+                                <div className="text-gray-600 text-sm">{book.author}</div>
                               </div>
-                              <div className="text-slate-400">
+                              <div className="text-gray-400">
                                 <ShoppingBag className="h-5 w-5" />
                               </div>
                             </button>
@@ -260,13 +260,13 @@ export function HeaderSearch() {
                     {searchResults.categories.length > 0 && (
                       <div>
                         <div className="flex items-center justify-between mb-4">
-                          <h3 className="text-slate-600 text-sm font-medium">Категорії</h3>
+                          <h3 className="text-gray-600 text-sm font-medium">Категорії</h3>
                           <button 
                             onClick={() => {
                               router.push('/books');
                               handleClose();
                             }}
-                            className="text-slate-500 text-sm hover:text-slate-700 transition flex items-center gap-1"
+                            className="text-gray-500 text-sm hover:text-gray-700 transition flex items-center gap-1"
                           >
                             Усі →
                           </button>
@@ -279,11 +279,11 @@ export function HeaderSearch() {
                                 router.push(`/books?category=${encodeURIComponent(category)}`);
                                 handleClose();
                               }}
-                              className="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg transition w-full text-left"
+                              className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg transition w-full text-left"
                             >
-                              <div className="text-slate-700 text-sm">{category}</div>
-                              <div className="text-slate-400 text-xs ml-auto">
-                                {searchResults?.books.filter(book => book.category === category).length || 0} книг
+                              <div className="text-gray-700 text-sm">{category}</div>
+                              <div className="text-gray-400 text-xs ml-auto">
+                                {searchResults?.books.filter(book => book.category_id === category).length || 0} книг
                               </div>
                             </button>
                           ))}
@@ -295,13 +295,13 @@ export function HeaderSearch() {
                     {searchResults.authors.length > 0 && (
                       <div>
                         <div className="flex items-center justify-between mb-4">
-                          <h3 className="text-slate-600 text-sm font-medium">Автори</h3>
+                          <h3 className="text-gray-600 text-sm font-medium">Автори</h3>
                           <button 
                             onClick={() => {
                               router.push('/books');
                               handleClose();
                             }}
-                            className="text-slate-500 text-sm hover:text-slate-700 transition flex items-center gap-1"
+                            className="text-gray-500 text-sm hover:text-gray-700 transition flex items-center gap-1"
                           >
                             Усі →
                           </button>
@@ -314,10 +314,10 @@ export function HeaderSearch() {
                                 router.push(`/books?search=${encodeURIComponent(author)}`);
                                 handleClose();
                               }}
-                              className="flex items-center gap-3 p-2 hover:bg-slate-50 rounded-lg transition w-full text-left"
+                              className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg transition w-full text-left"
                             >
-                              <div className="text-slate-700 text-sm">{author}</div>
-                              <div className="text-slate-400 text-xs ml-auto">
+                              <div className="text-gray-700 text-sm">{author}</div>
+                              <div className="text-gray-400 text-xs ml-auto">
                                 {searchResults?.books.filter(book => book.author === author).length || 0} книг
                               </div>
                             </button>
@@ -328,10 +328,10 @@ export function HeaderSearch() {
                   </div>
 
                   {/* Fixed Bottom Action */}
-                  <div className="border-t border-slate-100 p-4 bg-white">
+                  <div className="border-t border-gray-100 p-4 bg-white">
                     <button
                       onClick={handleSearch}
-                      className="w-full py-3 bg-yellow-500 text-slate-900 font-medium rounded-full hover:bg-yellow-400 transition flex items-center justify-center gap-2"
+                      className="w-full py-3 bg-brand-yellow text-gray-900 font-medium rounded-full hover:bg-brand-yellow-light transition flex items-center justify-center gap-2"
                     >
                       Усі результати
                       <Search className="h-4 w-4" />
@@ -343,14 +343,14 @@ export function HeaderSearch() {
               {/* Empty State */}
               {!searchResults && query && (
                 <>
-                  <div className="p-8 text-center border-t border-slate-100 flex-1 flex items-center justify-center">
-                    <div className="text-slate-500">Результатів не знайдено</div>
+                  <div className="p-8 text-center border-t border-gray-100 flex-1 flex items-center justify-center">
+                    <div className="text-gray-500">Результатів не знайдено</div>
                   </div>
                   {/* Fixed Bottom Action */}
-                  <div className="border-t border-slate-100 p-4 bg-white">
+                  <div className="border-t border-gray-100 p-4 bg-white">
                     <button
                       onClick={handleSearch}
-                      className="w-full py-3 bg-yellow-500 text-slate-900 font-medium rounded-full hover:bg-yellow-400 transition flex items-center justify-center gap-2"
+                      className="w-full py-3 bg-brand-yellow text-gray-900 font-medium rounded-full hover:bg-brand-yellow-light transition flex items-center justify-center gap-2"
                     >
                       Переглянути всі книги
                       <Search className="h-4 w-4" />
@@ -362,17 +362,17 @@ export function HeaderSearch() {
               {/* Initial State */}
               {!query && (
                 <>
-                  <div className="p-8 text-center border-t border-slate-100 flex-1 flex items-center justify-center">
+                  <div className="p-8 text-center border-t border-gray-100 flex-1 flex items-center justify-center">
                     <div>
-                      <div className="text-slate-500 mb-4">Введіть назву книги, автора або категорію</div>
-                      <div className="text-slate-400 text-sm">Або переглядайте весь каталог</div>
+                      <div className="text-gray-500 mb-4">Введіть назву книги, автора або категорію</div>
+                      <div className="text-gray-400 text-sm">Або переглядайте весь каталог</div>
                     </div>
                   </div>
                   {/* Fixed Bottom Action */}
-                  <div className="border-t border-slate-100 p-4 bg-white">
+                  <div className="border-t border-gray-100 p-4 bg-white">
                     <button
                       onClick={handleSearch}
-                      className="w-full py-3 bg-yellow-500 text-slate-900 font-medium rounded-full hover:bg-yellow-400 transition flex items-center justify-center gap-2"
+                      className="w-full py-3 bg-brand-yellow text-gray-900 font-medium rounded-full hover:bg-brand-yellow-light transition flex items-center justify-center gap-2"
                     >
                       Переглянути каталог
                       <Search className="h-4 w-4" />
@@ -392,7 +392,7 @@ export function HeaderSearch() {
       {/* Search Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="p-2 text-slate-700 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition"
+        className="p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition"
         aria-label="Пошук книг"
       >
         <Search className="h-5 w-5" />

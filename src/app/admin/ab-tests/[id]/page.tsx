@@ -155,7 +155,7 @@ export default function AbTestDetailsPage() {
                   <p className="text-gray-600 mb-4">{test.conversions.variantA.description}</p>
                   <div className="bg-gray-100 p-4 rounded-lg">
                     <div className="text-center">
-                      <div className="inline-block px-6 py-3 bg-blue-500 text-white rounded">
+                      <div className="inline-block px-6 py-3 bg-brand-accent text-white rounded">
                         Call to Action
                       </div>
                     </div>

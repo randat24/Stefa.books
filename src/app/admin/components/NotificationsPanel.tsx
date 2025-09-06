@@ -112,23 +112,23 @@ export function NotificationsPanel({ }: NotificationsPanelProps) {
       case 'subscription_expiring': return 'text-orange-600'
       case 'subscription_overdue': return 'text-red-600'
       case 'rental_overdue': return 'text-purple-600'
-      default: return 'text-slate-600'
+      default: return 'text-gray-600'
     }
   }
 
   if (loading) {
     return (
-      <Card className="rounded-2xl border-slate-200 shadow-sm">
+      <Card className="rounded-2xl border-gray-200 shadow-sm">
         <CardHeader>
-          <CardTitle className="text-slate-900 flex items-center gap-2">
+          <CardTitle className="text-gray-900 flex items-center gap-2">
             <Bell className="size-5" />
             Сповіщення
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center py-12">
-            <RefreshCw className="size-6 animate-spin text-slate-400" />
-            <span className="ml-2 text-slate-600">Завантаження сповіщень...</span>
+            <RefreshCw className="size-6 animate-spin text-gray-400" />
+            <span className="ml-2 text-gray-600">Завантаження сповіщень...</span>
           </div>
         </CardContent>
       </Card>
@@ -137,9 +137,9 @@ export function NotificationsPanel({ }: NotificationsPanelProps) {
 
   if (error) {
     return (
-      <Card className="rounded-2xl border-slate-200 shadow-sm">
+      <Card className="rounded-2xl border-gray-200 shadow-sm">
         <CardHeader>
-          <CardTitle className="text-slate-900 flex items-center gap-2">
+          <CardTitle className="text-gray-900 flex items-center gap-2">
             <Bell className="size-5" />
             Сповіщення
           </CardTitle>
@@ -160,10 +160,10 @@ export function NotificationsPanel({ }: NotificationsPanelProps) {
   if (!data) return null
 
   return (
-    <Card className="rounded-2xl border-slate-200 shadow-sm">
+    <Card className="rounded-2xl border-gray-200 shadow-sm">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-slate-900 flex items-center gap-2">
+          <CardTitle className="text-gray-900 flex items-center gap-2">
             <Bell className="size-5" />
             Сповіщення ({data.summary.total})
           </CardTitle>
@@ -186,8 +186,8 @@ export function NotificationsPanel({ }: NotificationsPanelProps) {
               <div className="text-xs text-orange-600">Середній пріоритет</div>
             </div>
             <div className="text-center p-3 bg-blue-50 rounded-lg">
-              <div className="text-lg font-bold text-blue-600">{data.summary.expiring_subscriptions}</div>
-              <div className="text-xs text-blue-600">Закінчуються</div>
+              <div className="text-lg font-bold text-brand-accent-light">{data.summary.expiring_subscriptions}</div>
+              <div className="text-xs text-brand-accent-light">Закінчуються</div>
             </div>
             <div className="text-center p-3 bg-purple-50 rounded-lg">
               <div className="text-lg font-bold text-purple-600">{data.summary.overdue_rentals}</div>
@@ -198,26 +198,26 @@ export function NotificationsPanel({ }: NotificationsPanelProps) {
 
         {/* Список уведомлений */}
         {data.notifications.length === 0 ? (
-          <div className="text-center py-12 text-slate-500">
+          <div className="text-center py-12 text-gray-500">
             <CheckCircle className="size-16 mx-auto mb-4 opacity-50" />
-            <p className="text-xl font-semibold text-slate-700 mb-2">Немає сповіщень</p>
-            <p className="text-slate-500">Всі підписки та оренди в порядку</p>
+            <p className="text-xl font-semibold text-gray-700 mb-2">Немає сповіщень</p>
+            <p className="text-gray-500">Всі підписки та оренди в порядку</p>
           </div>
         ) : (
           <div className="space-y-4">
             {data.notifications.map((notification) => (
               <div
                 key={notification.id}
-                className="p-4 border border-slate-200 rounded-xl hover:shadow-sm transition-shadow"
+                className="p-4 border border-gray-200 rounded-xl hover:shadow-sm transition-shadow"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className={`p-2 rounded-lg ${getTypeColor(notification.type)} bg-slate-50`}>
+                    <div className={`p-2 rounded-lg ${getTypeColor(notification.type)} bg-gray-50`}>
                       {getTypeIcon(notification.type)}
                     </div>
                     <div>
-                      <h3 className="font-semibold text-slate-900">{notification.title}</h3>
-                      <p className="text-sm text-slate-600">{notification.message}</p>
+                      <h3 className="font-semibold text-gray-900">{notification.title}</h3>
+                      <p className="text-sm text-gray-600">{notification.message}</p>
                     </div>
                   </div>
                   <Badge variant={getPriorityBadgeVariant(notification.priority)}>
@@ -230,24 +230,24 @@ export function NotificationsPanel({ }: NotificationsPanelProps) {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
-                        <User className="size-4 text-slate-500" />
+                        <User className="size-4 text-gray-500" />
                         <span className="font-medium">{notification.user.name}</span>
                         <Badge variant="outline" className="text-xs">
                           {notification.user.subscription_type}
                         </Badge>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Mail className="size-4 text-slate-500" />
+                        <Mail className="size-4 text-gray-500" />
                         <span>{notification.user.email}</span>
                       </div>
                       {notification.user.phone && (
                         <div className="flex items-center gap-2">
-                          <Phone className="size-4 text-slate-500" />
+                          <Phone className="size-4 text-gray-500" />
                           <span>{notification.user.phone}</span>
                         </div>
                       )}
                     </div>
-                    <div className="space-y-2 text-slate-600">
+                    <div className="space-y-2 text-gray-600">
                       <div>
                         <span className="font-medium">Підписка до:</span> {new Date(notification.user.subscription_end).toLocaleDateString('uk-UA')}
                       </div>
@@ -270,15 +270,15 @@ export function NotificationsPanel({ }: NotificationsPanelProps) {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm mt-3">
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
-                        <User className="size-4 text-slate-500" />
+                        <User className="size-4 text-gray-500" />
                         <span className="font-medium">{notification.rental.user_name}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <BookOpen className="size-4 text-slate-500" />
+                        <BookOpen className="size-4 text-gray-500" />
                         <span>{notification.rental.book_title} ({notification.rental.book_code})</span>
                       </div>
                     </div>
-                    <div className="space-y-2 text-slate-600">
+                    <div className="space-y-2 text-gray-600">
                       <div>
                         <span className="font-medium">Повернути до:</span> {new Date(notification.rental.due_date).toLocaleDateString('uk-UA')}
                       </div>

@@ -89,7 +89,7 @@ export function RecentViews({
       <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <div className="flex items-center justify-center gap-3 text-slate-600">
+            <div className="flex items-center justify-center gap-3 text-gray-600">
               <Loader2 className="w-5 h-5 animate-spin" />
               <span className="text-lg font-medium">Завантаження історії...</span>
             </div>
@@ -109,14 +109,14 @@ export function RecentViews({
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8 lg:mb-12 relative">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-sm font-medium mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-gray-700 text-sm font-medium mb-4">
             <History className="h-4 w-4" />
             Історія перегляду
           </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
             {title}
           </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-6">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
             {subtitle}
           </p>
           
@@ -139,7 +139,7 @@ export function RecentViews({
           {recentBooks.map((book, index) => (
             <div key={book.id} className="relative">
               {/* Recently viewed indicator */}
-              <div className="absolute -top-2 -right-2 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs font-bold z-10">
+              <div className="absolute -top-2 -right-2 w-6 h-6 bg-brand-accent text-white rounded-full flex items-center justify-center text-xs font-bold z-10">
                 {index + 1}
               </div>
               <BookCard book={book} />

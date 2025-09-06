@@ -132,7 +132,7 @@ export async function GET(request: NextRequest) {
       // Получаем статистику книг по категориям
       const { data: booksStats, error: booksError } = await supabase
         .from('books')
-        .select('category, available');
+        .select('category_id, category_name, available');
 
       if (booksError) {
         logger.error('Database error when fetching books stats', { error: booksError });
@@ -147,7 +147,7 @@ export async function GET(request: NextRequest) {
       const availableStatsMap = new Map();
       
       booksStats?.forEach(book => {
-        const categoryName = book.category || 'Без категорії';
+        const categoryName = book.category_name || 'Без категорії';
         
         // Общее количество книг
         statsMap.set(categoryName, (statsMap.get(categoryName) || 0) + 1);

@@ -41,13 +41,13 @@ export function Modal({ isOpen, onClose, children, title, className }: ModalProp
       {/* Modal */}
       <div className={`relative bg-white rounded-2xl shadow-2xl w-full mx-4 max-h-[90vh] overflow-y-auto ${className || 'max-w-2xl'}`}>
         {/* Header */}
-        <div className="sticky top-0 bg-white rounded-t-2xl border-b border-slate-200 p-4 flex items-center justify-between">
+        <div className="sticky top-0 bg-white rounded-t-2xl border-b border-gray-200 p-4 flex items-center justify-between">
           {title && <h2 className="text-xl font-semibold text-[--ink]">{title}</h2>}
           <button
             onClick={onClose}
-            className="ml-auto p-2 hover:bg-slate-100 rounded-full transition-colors"
+            className="ml-auto p-2 hover:bg-gray-100 rounded-full transition-colors"
           >
-            <X className="h-5 w-5 text-slate-600" />
+            <X className="h-5 w-5 text-gray-600" />
           </button>
         </div>
         

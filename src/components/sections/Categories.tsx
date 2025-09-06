@@ -124,7 +124,7 @@ const getCategoryColors = (category: string) => {
 			return {
 				bg: 'bg-yellow-50',
 				border: 'border-yellow-200',
-				icon: 'text-yellow-600',
+				icon: 'text-brand-yellow-dark',
 				accent: 'bg-yellow-100'
 			}
 		case 'Найменші':
@@ -138,15 +138,15 @@ const getCategoryColors = (category: string) => {
 			return {
 				bg: 'bg-blue-50',
 				border: 'border-blue-200',
-				icon: 'text-blue-600',
+				icon: 'text-brand-accent-light',
 				accent: 'bg-blue-100'
 			}
 		case 'Повний каталог':
 			return {
-				bg: 'bg-slate-50',
-				border: 'border-slate-200',
-				icon: 'text-slate-600',
-				accent: 'bg-slate-100'
+				bg: 'bg-gray-50',
+				border: 'border-gray-200',
+				icon: 'text-gray-600',
+				accent: 'bg-gray-100'
 			}
 		case 'Сучасна проза':
 			return {
@@ -248,10 +248,10 @@ const getCategoryColors = (category: string) => {
 			}
 		default:
 			return {
-				bg: 'bg-slate-50',
-				border: 'border-slate-200',
-				icon: 'text-slate-600',
-				accent: 'bg-slate-100'
+				bg: 'bg-gray-50',
+				border: 'border-gray-200',
+				icon: 'text-gray-600',
+				accent: 'bg-gray-100'
 			}
 	}
 }
@@ -297,9 +297,9 @@ export default function Categories() {
 							// Если подкатегорий нет, используем основные категории
 							// Проверяем, есть ли книги в этой категории (учитываем множественные категории через запятую)
 							const booksInCategory = books.filter(book => {
-								if (!book.category) return false
+								if (!book.category_id) return false
 								// Разделяем категории по запятой и проверяем каждую
-								const bookCategories = book.category.split(',').map(cat => cat.trim())
+								const bookCategories = book.category_id.split(',').map(cat => cat.trim())
 								return bookCategories.includes(mainCategory.name)
 							})
 							const availableBooks = booksInCategory.filter(book => book.available)
@@ -351,17 +351,17 @@ export default function Categories() {
 				<div className="flex items-end justify-between mb-5">
 					<div>
 						<h2 className="h2">Категорії</h2>
-						<p className="text-slate-600">Вибирай настрій читання — і вперед!</p>
+						<p className="text-gray-600">Вибирай настрій читання — і вперед!</p>
 					</div>
 				</div>
 				<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 					{[...Array(6)].map((_, i) => (
-						<div key={i} className="rounded-3xl border border-slate-200 bg-white p-6 animate-pulse">
+						<div key={i} className="rounded-3xl border border-gray-200 bg-white p-6 animate-pulse">
 							<div className="flex items-start gap-4">
-								<div className="size-12 rounded-2xl bg-slate-200"></div>
+								<div className="size-12 rounded-2xl bg-gray-200"></div>
 								<div className="grid gap-2 flex-1">
-									<div className="h-5 bg-slate-200 rounded w-3/4"></div>
-									<div className="h-4 bg-slate-200 rounded w-full"></div>
+									<div className="h-5 bg-gray-200 rounded w-3/4"></div>
+									<div className="h-4 bg-gray-200 rounded w-full"></div>
 								</div>
 							</div>
 						</div>
@@ -376,11 +376,11 @@ export default function Categories() {
 			<div className="flex items-end justify-between mb-5">
 				<div>
 					<h2 className="h2">Категорії</h2>
-					<p className="text-slate-600">Вибирай настрій читання — і вперед!</p>
+					<p className="text-gray-600">Вибирай настрій читання — і вперед!</p>
 				</div>
 				<button 
 					onClick={() => navigateToBooks()}
-					className="inline-flex items-center justify-center rounded-full font-semibold h-10 px-4 bg-transparent text-slate-900 hover:bg-slate-50 transition-colors"
+					className="inline-flex items-center justify-center rounded-full font-semibold h-10 px-4 bg-transparent text-gray-900 hover:bg-gray-50 transition-colors"
 				>
 					Дивитись всі книги
 				</button>
@@ -396,7 +396,7 @@ export default function Categories() {
 						<button
 							key={category.id}
 							onClick={() => navigateToBooks(category.name)}
-							className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 hover:shadow-soft transition text-left hover:scale-[1.02]"
+							className="group relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-6 hover:shadow-soft transition text-left hover:scale-[1.02]"
 						>
 							<div className="flex items-start gap-4">
 								<div className={`size-12 rounded-2xl border-2 grid place-items-center ${colors.bg} ${colors.border}`}>
@@ -404,7 +404,7 @@ export default function Categories() {
 								</div>
 								<div className="grid gap-1">
 									<h3 className="text-lg font-semibold">{category.name}</h3>
-									<p className="text-sm text-slate-600">{category.description}</p>
+									<p className="text-sm text-gray-600">{category.description}</p>
 								</div>
 							</div>
 

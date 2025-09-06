@@ -91,7 +91,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
   // const filterOptions = {
   //   categories: categories.length > 0 
   //     ? categories.flatMap(cat => cat.subcategories?.map(sub => sub.name) || [cat.name]).sort()
-  //     : books ? [...new Set(books.map(book => book.category))].filter(Boolean).sort() : [],
+  //     : books ? [...new Set(books.map(book => book.category_id))].filter(Boolean).sort() : [],
   //   authors: books ? [...new Set(books.map(book => book.author))].filter(Boolean).sort() : []
   // }; // Will be used for filter UI
 
@@ -101,7 +101,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
     
     if (filters.categories.length > 0) {
       filteredBooks = filteredBooks.filter(book => 
-        filters.categories.includes(book.category)
+        book.category_id && filters.categories.includes(book.category_id)
       );
     }
     
@@ -172,7 +172,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
       
       const searchableBooks = applyFilters(books);
       const results = searchableBooks.filter((book: Book) => {
-        const searchText = `${book.title} ${book.author} ${book.category} ${book.short_description || ''}`.toLowerCase();
+        const searchText = `${book.title} ${book.author} ${book.category_id} ${book.short_description || ''}`.toLowerCase();
         return searchText.includes(normalizedQuery);
       });
 
@@ -316,19 +316,26 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
       {/* Search Header */}
       <div className="flex flex-col sm:flex-row gap-4">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <label htmlFor="search-input" className="sr-only">
+            Пошук книг за назвою, автором або категорією
+          </label>
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
           <input
+            id="search-input"
             type="text"
             placeholder="Пошук книг за назвою, автором або категорією..."
             className="w-full pl-10 pr-4 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            aria-describedby="search-help"
+            autoComplete="off"
           />
           {query && (
             <button
               onClick={clearSearch}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
               aria-label="Очистити пошук"
+              type="button"
             >
               <X className="h-4 w-4" />
             </button>
@@ -337,16 +344,25 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
         
         <button
           onClick={() => setShowFilterPopup(true)}
-          className="inline-flex items-center gap-2 px-4 py-2 border border-input rounded-md hover:bg-muted transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2 border border-input rounded-md hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          aria-label={`Відкрити фільтри${activeFilterCount > 0 ? ` (${activeFilterCount} активних)` : ''}`}
+          type="button"
         >
-          <SlidersHorizontal className="h-4 w-4" />
+          <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
           Фільтри
           {activeFilterCount > 0 && (
-            <span className="bg-primary text-primary-foreground text-xs font-medium rounded-full px-2 py-0.5">
+            <span 
+              className="bg-primary text-primary-foreground text-xs font-medium rounded-full px-2 py-0.5"
+              aria-label={`${activeFilterCount} активних фільтрів`}
+            >
               {activeFilterCount}
             </span>
           )}
         </button>
+      </div>
+      
+      <div id="search-help" className="sr-only">
+        Введіть назву книги, автора або категорію для пошуку
       </div>
 
       {/* Filter Tags - More Compact */}
@@ -364,7 +380,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
                   }}
                   className={`px-2 py-1 text-xs font-medium rounded border transition-all text-left ${
                     filters.categories.includes(category)
-                      ? 'border-blue-500 bg-blue-500 text-white'
+                      ? 'border-brand-accent bg-brand-accent text-white'
                       : 'border-border bg-background hover:border-blue-300'
                   }`}
                 >
@@ -386,7 +402,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
                   }}
                   className={`px-2 py-1 text-xs font-medium rounded border transition-all text-left ${
                     filters.authors.includes(author)
-                      ? 'border-blue-500 bg-blue-500 text-white'
+                      ? 'border-brand-accent bg-brand-accent text-white'
                       : 'border-border bg-background hover:border-blue-300'
                   }`}
                 >
@@ -426,7 +442,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
                 const newAuthors = filters.authors.filter((a: string) => a !== author);
                 updateFilter('authors', newAuthors);
               }}
-              className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-blue-500 text-white rounded hover:bg-blue-400 transition-colors"
+              className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-brand-accent text-white rounded hover:bg-blue-400 transition-colors"
             >
               {author}
               <X className="h-3 w-3" />

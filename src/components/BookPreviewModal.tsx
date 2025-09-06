@@ -88,24 +88,24 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
               <h3 className="text-2xl font-bold text-[--ink] mb-2">{book.title}</h3>
               <p className="text-lg text-[--muted] mb-1">{book.author}</p>
               <p className="text-sm text-[--muted]">
-                {book.category}{book.age_range ? ` • ${book.age_range}` : ""}
+                {book.category_id}{book.age_range ? ` • ${book.age_range}` : ""}
               </p>
             </div>
             <div className="flex items-center gap-2">
               <button 
                 onClick={handleShare}
                 disabled={isSharing}
-                className={`p-2 rounded-full relative ${isSharing ? 'bg-slate-200' : 'bg-slate-100 hover:bg-slate-200'}`} 
+                className={`p-2 rounded-full relative ${isSharing ? 'bg-gray-200' : 'bg-gray-100 hover:bg-gray-200'}`} 
                 title={isSharing ? "Обробка..." : "Поділитися"}
               >
                 {isSharing ? (
-                  <div className="h-5 w-5 border-2 border-slate-400 border-t-transparent rounded-full animate-spin" />
+                  <div className="h-5 w-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
                 ) : shareSuccess ? (
                   <Check className="h-5 w-5 text-green-600" />
                 ) : copySuccess ? (
                   <Copy className="h-5 w-5 text-green-600" />
                 ) : (
-                  <Share2 className="h-5 w-5 text-slate-700" />
+                  <Share2 className="h-5 w-5 text-gray-700" />
                 )}
               </button>
               <FavoriteButton id={book.id} />
@@ -130,7 +130,7 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star key={i} className={`h-4 w-4 ${
                     i < Math.floor(rating) 
-                      ? "text-yellow-500 fill-yellow-500" 
+                      ? "text-brand-yellow fill-yellow-500" 
                       : "text-gray-300"
                   }`} />
                 ))}
@@ -152,7 +152,7 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
 
           {/* Short description */}
           {book.short_description && (
-            <div className="bg-slate-50 rounded-lg p-4 border-l-4 border-yellow-500">
+            <div className="bg-gray-50 rounded-lg p-4 border-l-4 border-brand-yellow">
               <p className="text-[--ink] text-sm leading-relaxed">{book.short_description}</p>
             </div>
           )}

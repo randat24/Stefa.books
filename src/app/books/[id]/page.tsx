@@ -30,6 +30,7 @@ import { BreadcrumbStructuredData } from "@/components/seo/BreadcrumbStructuredD
 
 type Params = Promise<{ id: string }>;
 
+
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { id } = await params;
   
@@ -107,18 +108,31 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function BookPage({ params }: { params: Params }) {
   const { id } = await params;
-  const bookResponse = await fetchBook(id);
-  if (!bookResponse.success || !bookResponse.data) return notFound();
+  
+  // Use direct Supabase access instead of API calls for SSR
+  const { data: book, error } = await supabase
+    .from('books')
+    .select(`
+      *,
+      category:categories(name, slug)
+    `)
+    .eq('id', id)
+    .single();
 
-  const book = bookResponse.data;
+  if (error || !book) {
+    return notFound();
+  }
 
-  // Get related books (same category, excluding current book)
-  const relatedBooksResponse = await fetchBooksByCategory(book.category, 8);
-  const relatedBooks = relatedBooksResponse.success
-    ? relatedBooksResponse.data
-        .filter(b => b.id !== book.id && b.available)
-        .slice(0, 5)
-    : [];
+  // Get related books using direct Supabase access
+  const { data: relatedBooksData } = await supabase
+    .from('books')
+    .select('*')
+    .eq('category_id', book.category_id || '')
+    .neq('id', book.id)
+    .eq('available', true)
+    .limit(5);
+    
+  const relatedBooks = relatedBooksData || [];
 
   // Use description from database, with fallback
   const fullDescription = book.description || 
@@ -129,7 +143,7 @@ export default async function BookPage({ params }: { params: Params }) {
   const breadcrumbs = [
     { name: "Головна", url: "https://stefa-books.com.ua/" },
     { name: "Каталог", url: "https://stefa-books.com.ua/catalog" },
-    { name: book.category, url: `https://stefa-books.com.ua/categories/${book.category.toLowerCase()}` },
+    { name: book.category_id || 'Без категорії', url: `https://stefa-books.com.ua/categories/${(book.category_id || 'uncategorized').toLowerCase()}` },
     { name: book.title, url: `https://stefa-books.com.ua/books/${book.id}` }
   ];
 
@@ -148,8 +162,8 @@ export default async function BookPage({ params }: { params: Params }) {
           <ChevronRight className="h-4 w-4" />
           <Link href="/catalog" className="hover:text-gray-900">Каталог</Link>
           <ChevronRight className="h-4 w-4" />
-          <Link href={`/categories/${book.category.toLowerCase()}`} className="hover:text-gray-900">
-            {book.category}
+          <Link href={`/categories/${(book.category_id || 'uncategorized').toLowerCase()}`} className="hover:text-gray-900">
+            {book.category_id || 'Без категорії'}
           </Link>
           <ChevronRight className="h-4 w-4" />
           <span className="text-gray-900 font-medium">{book.title}</span>
@@ -188,7 +202,7 @@ export default async function BookPage({ params }: { params: Params }) {
                             key={i} 
                             className={`h-4 w-4 ${
                               i < Math.floor(book.rating!) 
-                                ? 'text-yellow-400 fill-current' 
+                                ? 'text-brand-yellow-light fill-current' 
                                 : 'text-gray-300'
                             }`} 
                           />
@@ -205,9 +219,9 @@ export default async function BookPage({ params }: { params: Params }) {
                       <Hash className="h-4 w-4" />
                       {book.code}
                     </span>
-                    {book.category && (
+                    {book.category_id && (
                       <Badge variant="secondary" className="text-xs">
-                        {book.category}
+                        {book.category_id}
                       </Badge>
                     )}
                     {book.age_range && (
@@ -226,7 +240,7 @@ export default async function BookPage({ params }: { params: Params }) {
                 </div>
                 <FavoriteButton id={book.id} />
               </div>
-              <p className="text-sm text-slate-600 leading-relaxed text-left">
+              <p className="text-sm text-gray-600 leading-relaxed text-left">
                 {book.short_description}
               </p>
 
@@ -323,7 +337,7 @@ export default async function BookPage({ params }: { params: Params }) {
                 </h2>
                 <div className="flex items-start gap-6">
                   <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center">
-                    <span className="text-2xl font-bold text-blue-600">
+                    <span className="text-2xl font-bold text-brand-accent-light">
                       {book.author.charAt(0)}
                     </span>
                   </div>
@@ -352,7 +366,7 @@ export default async function BookPage({ params }: { params: Params }) {
                 Схожі книги
               </h2>
               <Button variant="outline" size="md" asChild>
-                <Link href={`/categories/${book.category.toLowerCase()}`}>
+                <Link href={`/categories/${(book.category_id || 'uncategorized').toLowerCase()}`}>
                   Дивитися всі
                 </Link>
               </Button>
@@ -367,10 +381,10 @@ export default async function BookPage({ params }: { params: Params }) {
             {/* Additional books notice */}
             <div className="mt-6 text-center">
               <p className="text-gray-600 mb-4">
-                Знайдіть ще більше книг у категорії &quot;{book.category}&quot;
+                Знайдіть ще більше книг у категорії &quot;{book.category_id}&quot;
               </p>
               <Button variant="outline" asChild>
-                <Link href={`/categories/${book.category.toLowerCase()}`}>
+                <Link href={`/categories/${(book.category_id || 'uncategorized').toLowerCase()}`}>
                   Переглянути категорію
                 </Link>
               </Button>

@@ -13,9 +13,10 @@ import { useRouter } from 'next/navigation';
 interface LoginFormProps {
   onSwitchToRegister?: () => void;
   onForgotPassword?: () => void;
+  onSuccess?: () => void;
 }
 
-export function LoginForm({ onSwitchToRegister, onForgotPassword }: LoginFormProps) {
+export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: LoginFormProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -34,9 +35,13 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword }: LoginFormPro
       const response = await login({ email, password });
       
       if (response.success) {
-        // Redirect to home page or previous page
-        router.push('/');
-        router.refresh();
+        // Call success callback if provided, otherwise redirect
+        if (onSuccess) {
+          onSuccess();
+        } else {
+          router.push('/');
+          router.refresh();
+        }
       } else {
         setError(response.error || 'Failed to login');
       }
@@ -84,7 +89,7 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword }: LoginFormPro
                 <button
                   type="button"
                   onClick={onForgotPassword}
-                  className="text-sm text-blue-600 hover:underline"
+                  className="text-sm text-brand-accent-light hover:underline"
                 >
                   Забули пароль?
                 </button>
@@ -130,7 +135,7 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword }: LoginFormPro
               <button
                 type="button"
                 onClick={onSwitchToRegister}
-                className="text-blue-600 hover:underline"
+                className="text-brand-accent-light hover:underline"
                 disabled={isLoading}
               >
                 Зареєструватися

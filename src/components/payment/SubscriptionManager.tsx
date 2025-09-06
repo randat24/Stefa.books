@@ -93,9 +93,9 @@ export function SubscriptionManager() {
   if (subscriptions.length === 0) {
     return (
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-8 text-center">
-        <CreditCard className="w-12 h-12 text-blue-500 mx-auto mb-4" />
+        <CreditCard className="w-12 h-12 text-brand-accent mx-auto mb-4" />
         <h2 className="text-xl font-semibold text-blue-800 mb-2">У вас немає активних підписок</h2>
-        <p className="text-blue-600 mb-4">
+        <p className="text-brand-accent-light mb-4">
           Щоб отримати доступ до книг, оберіть та оплатіть один із планів підписки.
         </p>
         <Button onClick={() => window.location.href = '/plans'}>

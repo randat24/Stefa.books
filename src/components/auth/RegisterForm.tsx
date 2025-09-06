@@ -12,9 +12,10 @@ import { useRouter } from 'next/navigation';
 
 interface RegisterFormProps {
   onSwitchToLogin?: () => void;
+  onSuccess?: () => void;
 }
 
-export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
+export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -58,9 +59,13 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
       });
       
       if (response.success) {
-        // Redirect to home page
-        router.push('/');
-        router.refresh();
+        // Call success callback if provided, otherwise redirect
+        if (onSuccess) {
+          onSuccess();
+        } else {
+          router.push('/');
+          router.refresh();
+        }
       } else {
         setError(response.error || 'Failed to register');
       }
@@ -207,7 +212,7 @@ export function RegisterForm({ onSwitchToLogin }: RegisterFormProps) {
               <button
                 type="button"
                 onClick={onSwitchToLogin}
-                className="text-blue-600 hover:underline"
+                className="text-brand-accent-light hover:underline"
                 disabled={isLoading}
               >
                 Увійти

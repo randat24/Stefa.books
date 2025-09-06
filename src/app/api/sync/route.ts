@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
         code: book.code || '',
         title: book.title,
         author: book.author,
-        category: book.category,
+        category: book.category_id || '',
         subcategory: book.subcategory || '',
         description: book.description || '',
         short_description: book.short_description || '',

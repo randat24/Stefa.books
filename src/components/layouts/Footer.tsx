@@ -10,13 +10,13 @@ export function Footer() {
           {/* Про компанію */}
           <section className="space-y-4 md:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-4">
-              <div className="h-14 w-14 rounded-full bg-slate-100 grid place-items-center">
+              <div className="h-14 w-14 rounded-full bg-gray-100 grid place-items-center">
                 <Image 
                   src="/logo.svg" 
                   alt="Stefa.books logo" 
                   width={36} 
                   height={36}
-                  className="text-slate-700"
+                  className="text-gray-700"
                 />
               </div>
               <h3 className="text-2xl font-bold" style={{ color: 'var(--ink)' }}>

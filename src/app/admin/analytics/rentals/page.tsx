@@ -98,7 +98,7 @@ export default function RentalAnalyticsPage() {
                 <div key={index} className="flex flex-col items-center flex-1 px-1">
                   <div className="flex items-end justify-center w-full space-x-1">
                     <div 
-                      className="w-1/2 bg-blue-500 rounded-t hover:bg-blue-600 transition-colors"
+                      className="w-1/2 bg-brand-accent rounded-t hover:bg-brand-accent-light transition-colors"
                       style={{ height: `${(data.rentals / 300) * 150}px` }}
                     ></div>
                     <div 
@@ -112,7 +112,7 @@ export default function RentalAnalyticsPage() {
             </div>
             <div className="flex justify-center space-x-4 mt-4">
               <div className="flex items-center">
-                <div className="w-3 h-3 bg-blue-500 rounded mr-2"></div>
+                <div className="w-3 h-3 bg-brand-accent rounded mr-2"></div>
                 <span className="text-xs">Rentals</span>
               </div>
               <div className="flex items-center">

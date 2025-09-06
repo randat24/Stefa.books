@@ -85,7 +85,7 @@ export function LazyImage({
   src,
   alt,
   className,
-  placeholder = <div className="w-full h-full bg-slate-200 animate-pulse" />,
+  placeholder = <div className="w-full h-full bg-gray-200 animate-pulse" />,
   ...props
 }: {
   src: string;
@@ -112,7 +112,7 @@ export function LazyImage({
 export function LazyBookCard({ ...props }: { [key: string]: any }) {
   return (
     <LazyLoad
-      placeholder={<div className="w-full h-48 bg-slate-200 animate-pulse rounded-lg" />}
+      placeholder={<div className="w-full h-48 bg-gray-200 animate-pulse rounded-lg" />}
     >
       {/* Your BookCard component here */}
       <div className="book-card" {...props}>

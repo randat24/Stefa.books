@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { AdminGuard } from '@/components/auth/AdminGuard'
 
 export const metadata: Metadata = {
   title: 'Адмін-панель - Stefa.books',
@@ -15,8 +16,10 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen">
-      {children}
-    </div>
+    <AdminGuard>
+      <div className="min-h-screen">
+        {children}
+      </div>
+    </AdminGuard>
   )
 }

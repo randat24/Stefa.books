@@ -249,7 +249,7 @@ export function SyncPanel() {
         {/* СТАТУС СИНХРОНИЗАЦИИ */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="text-center p-3 border rounded-lg">
-            <div className="text-2xl font-bold text-blue-600">{booksStatus?.totalBooks || 0}</div>
+            <div className="text-2xl font-bold text-brand-accent-light">{booksStatus?.totalBooks || 0}</div>
             <div className="text-sm text-muted-foreground">Всього книг в БД</div>
           </div>
           
@@ -295,7 +295,7 @@ export function SyncPanel() {
         {/* СИНХРОНИЗАЦИЯ КНИГ С САЙТОМ */}
         <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200">
           <div className="flex items-center gap-2 mb-3">
-            <Globe className="h-5 w-5 text-blue-600" />
+            <Globe className="h-5 w-5 text-brand-accent-light" />
             <h3 className="font-semibold text-blue-900">Синхронізація з сайтом</h3>
           </div>
           <p className="text-sm text-blue-700 mb-4">
@@ -425,7 +425,7 @@ export function SyncPanel() {
                 <a 
                   href="/GOOGLE_SHEETS_SETUP.md" 
                   target="_blank" 
-                  className="text-blue-600 hover:underline"
+                  className="text-brand-accent-light hover:underline"
                 >
                   документации
                 </a>
@@ -439,7 +439,7 @@ export function SyncPanel() {
           <h4 className="font-medium mb-2">Доступные действия:</h4>
           <ul className="text-sm text-muted-foreground space-y-1">
             <li className="flex items-start gap-2">
-              <BookOpen className="h-3 w-3 mt-0.5 text-blue-500" />
+              <BookOpen className="h-3 w-3 mt-0.5 text-brand-accent" />
               <span><strong>Синхронизация с сайтом:</strong> Выгружает все книги из базы данных на сайт для отображения в каталоге</span>
             </li>
             <li className="flex items-start gap-2">

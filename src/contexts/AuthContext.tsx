@@ -18,7 +18,7 @@ interface AuthContextType {
   updatePassword: (newPassword: string) => Promise<{ success: boolean; error?: string }>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -31,15 +31,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const checkAuthStatus = async () => {
       try {
         setIsLoading(true);
-        const currentUser = await authService.getCurrentUser();
-        
-        if (currentUser) {
-          setUser(currentUser);
-          setIsAuthenticated(true);
-          
-          // Fetch user profile
-          const userProfile = await authService.getUserProfile(currentUser.id);
-          setProfile(userProfile);
+        const response = await fetch('/api/auth/me', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          if (result.success && result.user) {
+            setUser(result.user);
+            setIsAuthenticated(true);
+            setProfile(result.profile);
+          } else {
+            setUser(null);
+            setProfile(null);
+            setIsAuthenticated(false);
+          }
         } else {
           setUser(null);
           setProfile(null);
@@ -59,40 +68,70 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = useCallback(async (data: { email: string; password: string }) => {
-    const response = await authService.login(data);
-    
-    if (response.success && response.user) {
-      setUser(response.user);
-      setIsAuthenticated(true);
-      
-      // Fetch user profile
-      const userProfile = await authService.getUserProfile(response.user.id);
-      setProfile(userProfile);
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.success && result.user) {
+        setUser(result.user);
+        setIsAuthenticated(true);
+        setProfile(result.profile);
+      }
+
+      return result;
+    } catch (error) {
+      logger.error('Login error', { error });
+      return { success: false, error: 'Помилка підключення' };
     }
-    
-    return response;
   }, []);
 
   const register = useCallback(async (data: { email: string; password: string; firstName: string; lastName: string; phone?: string }) => {
-    const response = await authService.register(data);
-    
-    if (response.success && response.user) {
-      setUser(response.user);
-      setIsAuthenticated(true);
-      
-      // Fetch user profile
-      const userProfile = await authService.getUserProfile(response.user.id);
-      setProfile(userProfile);
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.success && result.user) {
+        setUser(result.user);
+        setIsAuthenticated(true);
+        setProfile(result.profile);
+      }
+
+      return result;
+    } catch (error) {
+      logger.error('Register error', { error });
+      return { success: false, error: 'Помилка підключення' };
     }
-    
-    return response;
   }, []);
 
   const logout = useCallback(async () => {
-    await authService.logout();
-    setUser(null);
-    setProfile(null);
-    setIsAuthenticated(false);
+    try {
+      await fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    } catch (error) {
+      logger.error('Logout error', { error });
+    } finally {
+      setUser(null);
+      setProfile(null);
+      setIsAuthenticated(false);
+    }
   }, []);
 
   const updateProfile = useCallback(async (data: Partial<UserProfile>) => {
@@ -111,7 +150,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [user]);
 
   const resetPassword = useCallback(async (email: string) => {
-    return await authService.resetPassword(email);
+    try {
+      const response = await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      return await response.json();
+    } catch (error) {
+      logger.error('Reset password error', { error });
+      return { success: false, error: 'Помилка підключення' };
+    }
   }, []);
 
   const updatePassword = useCallback(async (newPassword: string) => {

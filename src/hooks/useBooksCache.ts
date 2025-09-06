@@ -8,7 +8,6 @@ export function useBooksCache() {
     lastSync,
     isSyncing,
     cacheVersion,
-    dataHash,
     getBookById,
     getBooksByCategory,
     getBooksByAgeCategory,
@@ -19,6 +18,15 @@ export function useBooksCache() {
     checkForUpdates,
     setBooks
   } = useBooksStore()
+  
+  // Проверка необходимости синхронизации
+  const shouldSync = useCallback(() => {
+    if (!lastSync) return true
+    
+    // Синхронизируем каждые 30 минут
+    const syncInterval = 30 * 60 * 1000
+    return Date.now() - lastSync > syncInterval
+  }, [lastSync])
   
   // Автоматическая синхронизация при монтировании
   useEffect(() => {
@@ -43,16 +51,7 @@ export function useBooksCache() {
     }
     
     initializeCache()
-  }, [])
-  
-  // Проверка необходимости синхронизации
-  const shouldSync = useCallback(() => {
-    if (!lastSync) return true
-    
-    // Синхронизируем каждые 30 минут
-    const syncInterval = 30 * 60 * 1000
-    return Date.now() - lastSync > syncInterval
-  }, [lastSync])
+  }, [books.length, checkForUpdates, shouldSync, syncWithServer])
   
   // Принудительная синхронизация
   const forceSync = useCallback(async () => {

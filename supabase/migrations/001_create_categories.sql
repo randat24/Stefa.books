@@ -1,5 +1,5 @@
 -- Создание таблицы категорий с иерархической структурой
-CREATE TABLE categories (
+CREATE TABLE IF NOT EXISTS categories (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name VARCHAR(255) NOT NULL,
   name_en VARCHAR(255), -- Английское название для системы
@@ -15,10 +15,10 @@ CREATE TABLE categories (
 );
 
 -- Создание индексов для быстрого поиска
-CREATE INDEX idx_categories_parent_id ON categories(parent_id);
-CREATE INDEX idx_categories_slug ON categories(slug);
-CREATE INDEX idx_categories_active ON categories(is_active);
-CREATE INDEX idx_categories_sort_order ON categories(sort_order);
+CREATE INDEX IF NOT EXISTS idx_categories_parent_id ON categories(parent_id);
+CREATE INDEX IF NOT EXISTS idx_categories_slug ON categories(slug);
+CREATE INDEX IF NOT EXISTS idx_categories_active ON categories(is_active);
+CREATE INDEX IF NOT EXISTS idx_categories_sort_order ON categories(sort_order);
 
 -- Добавление поля для связи книг с категориями
 ALTER TABLE books 
@@ -27,8 +27,8 @@ ADD COLUMN category_id UUID REFERENCES categories(id) ON DELETE SET NULL,
 ADD COLUMN age_category_id UUID REFERENCES categories(id) ON DELETE SET NULL;
 
 -- Создание индексов для книг
-CREATE INDEX idx_books_category_id ON books(category_id);
-CREATE INDEX idx_books_age_category_id ON books(age_category_id);
+CREATE INDEX IF NOT EXISTS idx_books_category_id ON books(category_id);
+CREATE INDEX IF NOT EXISTS idx_books_age_category_id ON books(age_category_id);
 
 -- Функция для автоматического обновления updated_at
 CREATE OR REPLACE FUNCTION update_updated_at_column()
@@ -102,7 +102,7 @@ WITH RECURSIVE category_tree AS (
         c.description,
         c.sort_order,
         1 as level,
-        ARRAY[c.name] as path
+        ARRAY[c.name::TEXT] as path
     FROM categories c
     WHERE 
         CASE 
@@ -125,7 +125,7 @@ WITH RECURSIVE category_tree AS (
         c.description,
         c.sort_order,
         ct.level + 1,
-        ct.path || c.name
+        ct.path || c.name::TEXT
     FROM categories c
     INNER JOIN category_tree ct ON c.parent_id = ct.id
     WHERE c.is_active = TRUE
@@ -181,12 +181,12 @@ ALTER TABLE categories ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Categories are viewable by everyone" ON categories
     FOR SELECT USING (is_active = TRUE);
 
--- Политика для изменения (только админы)
-CREATE POLICY "Categories are editable by admins only" ON categories
-    FOR ALL USING (auth.jwt() ->> 'role' = 'admin');
+-- Политика для изменения (только админы) - временно отключена для локальной разработки
+-- CREATE POLICY "Categories are editable by admins only" ON categories
+--     FOR ALL USING (auth.jwt() ->> 'role' = 'admin');
 
 -- Представление для простого получения категорий с родительскими данными
-CREATE VIEW categories_with_parent AS
+CREATE OR REPLACE VIEW categories_with_parent AS
 SELECT 
     c.id,
     c.name,

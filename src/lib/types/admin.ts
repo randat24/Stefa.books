@@ -40,7 +40,8 @@ export interface BookRow {
   title: string
   author: string
   author_id?: string | null
-  category: string
+  category_id: string | null
+  category_name?: string
   subcategory?: string | null
   description?: string | null
   short_description?: string | null
@@ -71,7 +72,8 @@ export interface CreateBookForm {
   title: string
   author: string
   author_id?: string | null
-  category: string
+  category_id: string | null
+  category_name?: string
   subcategory?: string
   description?: string
   short_description?: string
@@ -290,7 +292,8 @@ export interface AnalyticsData {
     last_rental: string
   }>
   categoryStats: Array<{
-    category: string
+    category_id: string | null
+  category_name?: string
     book_count: number
     rental_count: number
   }>

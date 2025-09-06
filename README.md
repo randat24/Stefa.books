@@ -12,11 +12,13 @@
 
 ## 🛠 Технології
 
-- **Frontend**: Next.js 15, React 19, TypeScript
-- **UI**: Tailwind CSS, shadcn/ui, Lucide React
+- **Frontend**: Next.js 15.5.2, React 19.1.1, TypeScript 5.5.4
+- **UI**: Tailwind CSS 4.1.13, shadcn/ui, Lucide React
 - **Backend**: Supabase (PostgreSQL + Edge Functions)
 - **Хостинг**: Vercel
 - **Зображення**: Cloudinary
+- **Пакетний менеджер**: pnpm 10.15.1
+- **AI Integration**: mdream (HTML to Markdown conversion)
 
 ## 📦 Встановлення
 
@@ -28,6 +30,10 @@ cd Stefa-books-v2.1
 
 2. **Встановіть залежності**
 ```bash
+# Встановіть pnpm глобально (якщо ще не встановлено)
+npm install -g pnpm
+
+# Встановіть залежності проекту
 pnpm install
 ```
 
@@ -78,7 +84,38 @@ pnpm dev
 Проект готовий для деплою на Vercel:
 
 ```bash
+# Перевірка готовності до деплою
+pnpm run vercel:check
+
+# Деплой на production
+pnpm run vercel:deploy:prod
+
+# Або через Vercel CLI
 vercel --prod
+```
+
+## 🔧 Розробка
+
+### Основні команди
+```bash
+pnpm dev              # Запуск dev сервера
+pnpm build            # Збірка проекту
+pnpm start            # Запуск production сервера
+pnpm type-check       # Перевірка TypeScript
+pnpm lint             # Перевірка коду
+pnpm test             # Запуск тестів
+```
+
+### AI Integration (mdream)
+```bash
+# Генерація markdown версії сторінки книги
+curl https://stefa-books.com.ua/books/[id].md
+
+# AI discoverability файл
+curl https://stefa-books.com.ua/api/llms.txt
+
+# HTML to Markdown API
+curl -X POST https://stefa-books.com.ua/api/markdown -d '{"html":"<h1>Test</h1>"}'
 ```
 
 ## 📝 Ліцензія

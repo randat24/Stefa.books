@@ -57,12 +57,14 @@ NEXT_PUBLIC_SITE_NAME=Stefa.Books
 
 ### Технический стек
 - **Frontend**: Next.js 15.5.2 (App Router), React 19.1.1, TypeScript 5.5.4
-- **Styling**: Tailwind CSS 3.4.10, Framer Motion 12.23.12
+- **Styling**: Tailwind CSS 4.1.13, Framer Motion 12.23.12
 - **UI Components**: Radix UI, Lucide React, shadcn/ui
 - **Backend**: Supabase (PostgreSQL + Auth + Edge Functions)
 - **Storage**: Cloudinary (изображения)
 - **Deployment**: Vercel
 - **Testing**: Jest, Playwright, React Testing Library
+- **Package Manager**: pnpm 10.15.1
+- **AI Integration**: mdream 0.10.1 (HTML to Markdown)
 
 ### Структура проекта
 ```
@@ -148,14 +150,20 @@ src/
 
 ## 📈 История изменений
 
-### v2.1 - Оптимизация и стабилизация (3 сентября 2025)
-- ✅ **Исправлено 50+ ошибок TypeScript** в 18 файлах
+### v2.1 - Оптимизация и стабилизация (5 сентября 2025)
+- ✅ **Исправлено 76+ ошибок TypeScript** в 18 файлах
 - ✅ **Очищен кэш и переустановлены зависимости**
 - ✅ **Проект успешно собран без ошибок компиляции**
 - ✅ **Локальное тестирование пройдено** - все функции работают корректно
+- ✅ **Tailwind CSS v4.1** - 5x быстрее сборка, CSS-based конфигурация
+- ✅ **pnpm Migration** - 33x быстрее установка пакетов
+- ✅ **mdream Integration** - AI-friendly HTML to Markdown conversion
 - ✅ **Статус**: готов к дальнейшей разработке
 
-**Детали оптимизации**: см. [BUILD_OPTIMIZATION_REPORT.md](../BUILD_OPTIMIZATION_REPORT.md)
+**Детали оптимизации**: 
+- [TAILWIND_V4_UPGRADE_REPORT.md](../TAILWIND_V4_UPGRADE_REPORT.md)
+- [PNPM_MIGRATION_REPORT.md](../PNPM_MIGRATION_REPORT.md)
+- [TYPESCRIPT_FIXES_REPORT.md](../TYPESCRIPT_FIXES_REPORT.md)
 
 ---
 

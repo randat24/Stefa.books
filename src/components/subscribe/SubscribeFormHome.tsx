@@ -19,7 +19,11 @@ type FormData = {
   privacyConsent: boolean;
 };
 
-function SubscribeFormHomeContent() {
+interface SubscribeFormHomeProps {
+  defaultPlan?: 'mini' | 'maxi';
+}
+
+function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
   const [sent, setSent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<'card' | 'online' | null>(null);
@@ -32,7 +36,7 @@ function SubscribeFormHomeContent() {
   } = useForm<FormData>({
     mode: 'onChange',
     defaultValues: {
-      plan: "mini",
+      plan: defaultPlan || "mini",
       payment: "Онлайн оплата",
       phone: "+380",
       privacyConsent: false,
@@ -50,11 +54,17 @@ function SubscribeFormHomeContent() {
     }
   };
 
-  // авто-подстановка тарифа из URL (?plan=mini|maxi) или sessionStorage
+  // авто-подстановка тарифа из URL (?plan=mini|maxi), sessionStorage или defaultPlan
   useEffect(() => {
     const plan = searchParams.get("plan");
     if (plan === "mini" || plan === "maxi") {
       setValue("plan", plan);
+      return;
+    }
+    
+    // Проверяем defaultPlan
+    if (defaultPlan && (defaultPlan === "mini" || defaultPlan === "maxi")) {
+      setValue("plan", defaultPlan);
       return;
     }
     
@@ -70,7 +80,7 @@ function SubscribeFormHomeContent() {
         // Игнорируем ошибки sessionStorage
       }
     }
-  }, [searchParams, setValue]);
+  }, [searchParams, setValue, defaultPlan]);
 
   // авто-префікс + маска для UA
   const onPhoneInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -155,25 +165,25 @@ function SubscribeFormHomeContent() {
     return (
       <section className="py-4 px-6" id="subscribe">
         <div className="mx-auto max-w-2xl">
-          <div className="rounded-3xl bg-white border border-slate-200 shadow-xl p-8 text-center">
+          <div className="rounded-3xl bg-white border border-gray-200 shadow-xl p-8 text-center">
             <div className="w-16 h-16 mx-auto mb-2 rounded-full bg-green-100 flex items-center justify-center">
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-2">Заявку надіслано!</h3>
-            <p className="text-slate-600 mb-6">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Заявку надіслано!</h3>
+            <p className="text-gray-600 mb-6">
               Дякуємо за заявку! Ми зв&apos;яжемося з вами найближчим часом для підтвердження підписки.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button
                 variant="outline"
                 asChild
-                className="bg-slate-100 hover:bg-slate-200 text-slate-700 border-slate-300"
+                className="bg-gray-100 hover:bg-gray-200 text-gray-700 border-gray-300"
               >
                 <Link href="/books#top">Переглянути книги</Link>
               </Button>
               <Button
                 asChild
-                className="bg-yellow-500 hover:bg-yellow-600 text-slate-900 border-0"
+                className="bg-brand-yellow hover:bg-brand-yellow-dark text-gray-900 border-0"
               >
                 <Link href="/subscribe">Обрати інший план</Link>
               </Button>
@@ -188,10 +198,10 @@ function SubscribeFormHomeContent() {
     <section className="py-4 px-6" id="subscribe">
       <div className="mx-auto max-w-2xl">
         <div className="text-center mb-6">
-          <h2 className="text-4xl font-semibold tracking-tight text-slate-900 mb-2">
+          <h2 className="text-4xl font-semibold tracking-tight text-gray-900 mb-2">
             Оформити підписку
           </h2>
-          <p className="text-lg text-slate-600">
+          <p className="text-lg text-gray-600">
             Заповніть форму і ми зв&apos;яжемося з вами найближчим часом
           </p>
           <div className="mt-4 inline-flex items-center gap-4 text-base">
@@ -204,19 +214,19 @@ function SubscribeFormHomeContent() {
           </div>
         </div>
 
-        <div className="rounded-3xl bg-white border border-slate-200 shadow-xl p-6">
+        <div className="rounded-3xl bg-white border border-gray-200 shadow-xl p-6">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Основные поля в компактном виде */}
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="name" className="block text-base font-semibold text-slate-700 mb-2">
+                <label htmlFor="name" className="block text-base font-semibold text-gray-700 mb-2">
                   Ім&apos;я та прізвище *
                 </label>
                 <input
                   {...register("name")}
                   id="name"
                   type="text"
-                  className="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent"
+                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                   placeholder="Іван Петренко"
                 />
                 {errors.name && (
@@ -225,7 +235,7 @@ function SubscribeFormHomeContent() {
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-base font-semibold text-slate-700 mb-2">
+                <label htmlFor="phone" className="block text-base font-semibold text-gray-700 mb-2">
                   Телефон *
                 </label>
                 <input
@@ -235,7 +245,7 @@ function SubscribeFormHomeContent() {
                   inputMode="tel"
                   onChange={onPhoneInput}
                   onBlur={() => trigger("phone")}
-                  className="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent"
+                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                   placeholder="+380 XX XXX XX XX"
                 />
                 {errors.phone && (
@@ -246,14 +256,14 @@ function SubscribeFormHomeContent() {
 
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="email" className="block text-base font-semibold text-slate-700 mb-2">
+                <label htmlFor="email" className="block text-base font-semibold text-gray-700 mb-2">
                   Email *
                 </label>
                 <input
                   {...register("email")}
                   id="email"
                   type="email"
-                  className="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent"
+                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                   placeholder="you@email.com"
                 />
                 {errors.email && (
@@ -262,14 +272,14 @@ function SubscribeFormHomeContent() {
               </div>
 
               <div>
-                <label htmlFor="social" className="block text-base font-semibold text-slate-700 mb-2">
+                <label htmlFor="social" className="block text-base font-semibold text-gray-700 mb-2">
                   Телеграм/Інстаграм
                 </label>
                 <input
                   {...register("social")}
                   id="social"
                   type="text"
-                  className="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent"
+                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                   placeholder="@username або t.me/username"
                 />
               </div>
@@ -277,7 +287,7 @@ function SubscribeFormHomeContent() {
 
             {/* План подписки */}
             <div>
-              <label className="block text-base font-semibold text-slate-700 mb-2">
+              <label className="block text-base font-semibold text-gray-700 mb-2">
                 План підписки *
               </label>
               <div className="grid grid-cols-2 gap-3">
@@ -285,21 +295,21 @@ function SubscribeFormHomeContent() {
                   className={`relative rounded-lg border-2 p-3 cursor-pointer transition-all ${
                     watch("plan") === 'mini'
                       ? 'border-green-500 bg-green-50'
-                      : 'border-slate-200 hover:border-slate-300'
+                      : 'border-gray-200 hover:border-gray-300'
                   }`}
                   onClick={() => setValue('plan', 'mini')}
                 >
                   <div className="flex items-center gap-2">
                     <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                      watch("plan") === 'mini' ? 'border-green-500 bg-green-500' : 'border-slate-300'
+                      watch("plan") === 'mini' ? 'border-green-500 bg-green-500' : 'border-gray-300'
                     }`}>
                       {watch("plan") === 'mini' && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                     </div>
                     <div>
-                      <p className={`font-semibold text-base ${watch("plan") === 'mini' ? 'text-green-900' : 'text-slate-700'}`}>
+                      <p className={`font-semibold text-base ${watch("plan") === 'mini' ? 'text-green-900' : 'text-gray-700'}`}>
                         Mini
                       </p>
-                      <p className={`text-xs ${watch("plan") === 'mini' ? 'text-green-700' : 'text-slate-500'}`}>
+                      <p className={`text-xs ${watch("plan") === 'mini' ? 'text-green-700' : 'text-gray-500'}`}>
                         300 ₴/міс
                       </p>
                     </div>
@@ -309,22 +319,22 @@ function SubscribeFormHomeContent() {
                 <div
                   className={`relative rounded-lg border-2 p-3 cursor-pointer transition-all ${
                     watch("plan") === 'maxi'
-                      ? 'border-yellow-500 bg-yellow-50'
-                      : 'border-slate-200 hover:border-slate-300'
+                      ? 'border-brand-yellow bg-yellow-50'
+                      : 'border-gray-200 hover:border-gray-300'
                   }`}
                   onClick={() => setValue('plan', 'maxi')}
                 >
                   <div className="flex items-center gap-2">
                     <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                      watch("plan") === 'maxi' ? 'border-yellow-500 bg-yellow-500' : 'border-slate-300'
+                      watch("plan") === 'maxi' ? 'border-brand-yellow bg-brand-yellow' : 'border-gray-300'
                     }`}>
                       {watch("plan") === 'maxi' && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                     </div>
                     <div>
-                      <p className={`font-semibold text-base ${watch("plan") === 'maxi' ? 'text-yellow-900' : 'text-slate-700'}`}>
+                      <p className={`font-semibold text-base ${watch("plan") === 'maxi' ? 'text-yellow-900' : 'text-gray-700'}`}>
                         Maxi
                       </p>
-                      <p className={`text-xs ${watch("plan") === 'maxi' ? 'text-yellow-700' : 'text-slate-500'}`}>
+                      <p className={`text-xs ${watch("plan") === 'maxi' ? 'text-yellow-700' : 'text-gray-500'}`}>
                         500 ₴/міс
                       </p>
                     </div>
@@ -336,17 +346,17 @@ function SubscribeFormHomeContent() {
 
             {/* Способ оплаты */}
             <div>
-              <label className="block text-base font-semibold text-slate-700 mb-2">
+              <label className="block text-base font-semibold text-gray-700 mb-2">
                 Спосіб оплати *
               </label>
               <div className="grid md:grid-cols-2 gap-3">
                 <div
                   className={`relative rounded-lg border-2 p-3 cursor-pointer transition-all ${
                     paymentMethod === 'card'
-                      ? 'border-blue-500 bg-blue-50'
+                      ? 'border-brand-accent bg-blue-50'
                       : paymentMethod === null
-                      ? 'border-slate-200 hover:border-slate-300'
-                      : 'border-slate-200 opacity-60'
+                      ? 'border-gray-200 hover:border-gray-300'
+                      : 'border-gray-200 opacity-60'
                   }`}
                   onClick={() => {
                     setPaymentMethod('card');
@@ -355,16 +365,16 @@ function SubscribeFormHomeContent() {
                 >
                   <div className="flex items-center gap-2">
                     <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                      paymentMethod === 'card' ? 'border-blue-500 bg-blue-500' : 'border-slate-300'
+                      paymentMethod === 'card' ? 'border-brand-accent bg-brand-accent' : 'border-gray-300'
                     }`}>
                       {paymentMethod === 'card' && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                     </div>
-                    <Building2 className={`h-5 w-5 ${paymentMethod === 'card' ? 'text-blue-600' : 'text-slate-400'}`} />
+                    <Building2 className={`h-5 w-5 ${paymentMethod === 'card' ? 'text-brand-accent-light' : 'text-gray-400'}`} />
                     <div>
-                      <p className={`font-semibold text-base ${paymentMethod === 'card' ? 'text-blue-900' : 'text-slate-700'}`}>
+                      <p className={`font-semibold text-base ${paymentMethod === 'card' ? 'text-blue-900' : 'text-gray-700'}`}>
                         Переказ на карту Monobank
                       </p>
-                      <p className={`text-xs ${paymentMethod === 'card' ? 'text-blue-700' : 'text-slate-500'}`}>
+                      <p className={`text-xs ${paymentMethod === 'card' ? 'text-blue-700' : 'text-gray-500'}`}>
                         Отримаєте реквізити для оплати
                       </p>
                     </div>
@@ -376,8 +386,8 @@ function SubscribeFormHomeContent() {
                     paymentMethod === 'online'
                       ? 'border-green-500 bg-green-50'
                       : paymentMethod === null
-                      ? 'border-slate-200 hover:border-slate-300'
-                      : 'border-slate-200 opacity-60'
+                      ? 'border-gray-200 hover:border-gray-300'
+                      : 'border-gray-200 opacity-60'
                   }`}
                   onClick={() => {
                     setPaymentMethod('online');
@@ -386,16 +396,16 @@ function SubscribeFormHomeContent() {
                 >
                   <div className="flex items-center gap-2">
                     <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                      paymentMethod === 'online' ? 'border-green-500 bg-green-500' : 'border-slate-300'
+                      paymentMethod === 'online' ? 'border-green-500 bg-green-500' : 'border-gray-300'
                     }`}>
                       {paymentMethod === 'online' && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                     </div>
-                    <CreditCard className={`h-5 w-5 ${paymentMethod === 'online' ? 'text-green-600' : 'text-slate-400'}`} />
+                    <CreditCard className={`h-5 w-5 ${paymentMethod === 'online' ? 'text-green-600' : 'text-gray-400'}`} />
                     <div>
-                      <p className={`font-semibold text-base ${paymentMethod === 'online' ? 'text-green-900' : 'text-slate-700'}`}>
+                      <p className={`font-semibold text-base ${paymentMethod === 'online' ? 'text-green-900' : 'text-gray-700'}`}>
                         Онлайн оплата
                       </p>
-                      <p className={`text-xs ${paymentMethod === 'online' ? 'text-green-700' : 'text-slate-500'}`}>
+                      <p className={`text-xs ${paymentMethod === 'online' ? 'text-green-700' : 'text-gray-500'}`}>
                         Картою через інтернет
                       </p>
                     </div>
@@ -415,8 +425,8 @@ function SubscribeFormHomeContent() {
                   {/* Номер карты */}
                   <div className="flex items-center justify-between p-4 bg-white rounded-xl border border-blue-200">
                     <div>
-                      <p className="text-base font-semibold text-slate-600 mb-1">Номер карти:</p>
-                      <p className="text-xl font-bold text-blue-600 tracking-wider">5408 8100 4185 0776</p>
+                      <p className="text-base font-semibold text-gray-600 mb-1">Номер карти:</p>
+                      <p className="text-xl font-bold text-brand-accent-light tracking-wider">5408 8100 4185 0776</p>
                     </div>
                     <button
                       type="button"
@@ -439,21 +449,21 @@ function SubscribeFormHomeContent() {
 
                   {/* Получатель */}
                   <div className="p-4 bg-white rounded-xl border border-blue-200">
-                    <p className="text-base font-semibold text-slate-600 mb-1">Отримувач:</p>
-                    <p className="text-lg font-semibold text-slate-900">СТЕФА КНИГИ</p>
+                    <p className="text-base font-semibold text-gray-600 mb-1">Отримувач:</p>
+                    <p className="text-lg font-semibold text-gray-900">Федорова Анастасія</p>
                   </div>
 
                   {/* Банк */}
                   <div className="p-4 bg-white rounded-xl border border-blue-200">
-                    <p className="text-base font-semibold text-slate-600 mb-1">Банк:</p>
-                    <p className="text-lg font-semibold text-slate-900">Монобанк</p>
+                    <p className="text-base font-semibold text-gray-600 mb-1">Банк:</p>
+                    <p className="text-lg font-semibold text-gray-900">Монобанк</p>
                   </div>
                 </div>
 
                 {/* Важная информация */}
                 <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
                   <div className="flex items-start gap-2">
-                    <Info className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                    <Info className="h-5 w-5 text-brand-yellow-dark flex-shrink-0 mt-0.5" />
                     <div className="text-base text-yellow-800">
                       <p className="font-semibold mb-2">Важливо:</p>
                       <ul className="space-y-1 list-disc list-inside">
@@ -470,7 +480,7 @@ function SubscribeFormHomeContent() {
             {/* Скриншот для перевода на карту */}
             {paymentMethod === 'card' && (
               <div>
-                <label htmlFor="screenshot" className="block text-base font-semibold text-slate-700 mb-2">
+                <label htmlFor="screenshot" className="block text-base font-semibold text-gray-700 mb-2">
                   Скріншот оплати *
                 </label>
                 <input
@@ -480,9 +490,9 @@ function SubscribeFormHomeContent() {
                   id="screenshot"
                   type="file"
                   accept="image/*"
-                  className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-slate-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-base file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-base file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200"
                 />
-                <p className="mt-1 text-base text-slate-500">
+                <p className="mt-1 text-base text-gray-500">
                   Завантажте скріншот підтвердження переказу (JPG, PNG до 10MB)
                 </p>
                 {errors.screenshot && (
@@ -493,14 +503,14 @@ function SubscribeFormHomeContent() {
 
             {/* Комментарий */}
             <div>
-              <label htmlFor="note" className="block text-base font-semibold text-slate-700 mb-2">
+              <label htmlFor="note" className="block text-base font-semibold text-gray-700 mb-2">
                 Додаткова інформація
               </label>
               <textarea
                 {...register("note")}
                 id="note"
                 rows={3}
-                className="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent"
+                className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                 placeholder="Ваші побажання або питання..."
               />
             </div>
@@ -513,9 +523,9 @@ function SubscribeFormHomeContent() {
                 })}
                 id="privacyConsent"
                 type="checkbox"
-                className="mt-1 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                className="mt-1 w-4 h-4 text-brand-accent-light bg-gray-100 border-gray-300 rounded focus:ring-brand-accent focus:ring-2"
               />
-              <label htmlFor="privacyConsent" className="text-base text-slate-600">
+              <label htmlFor="privacyConsent" className="text-base text-gray-600">
                 Я погоджуюся з обробкою моїх персональних даних відповідно до політики конфіденційності
                 {errors.privacyConsent && (
                   <span className="block text-xs text-red-600 mt-1">{errors.privacyConsent.message}</span>
@@ -527,7 +537,7 @@ function SubscribeFormHomeContent() {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-yellow-500 hover:bg-yellow-600 disabled:bg-slate-400 text-slate-900 py-3 px-6 rounded-xl text-base font-semibold transition-colors"
+              className="w-full bg-brand-yellow hover:bg-brand-yellow-dark disabled:bg-gray-400 text-gray-900 py-3 px-6 rounded-xl text-base font-semibold transition-colors"
             >
               {isSubmitting ? 'Відправляємо...' : 'Оформити підписку'}
             </Button>
@@ -538,10 +548,10 @@ function SubscribeFormHomeContent() {
   );
 }
 
-export default function SubscribeFormHome() {
+export default function SubscribeFormHome({ defaultPlan }: SubscribeFormHomeProps = {}) {
   return (
     <Suspense fallback={<div>Завантаження...</div>}>
-      <SubscribeFormHomeContent />
+      <SubscribeFormHomeContent defaultPlan={defaultPlan} />
     </Suspense>
   );
 }

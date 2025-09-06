@@ -114,7 +114,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-              <BookOpen className="h-8 w-8 text-blue-600" />
+              <BookOpen className="h-8 w-8 text-brand-accent-light" />
               {categoryDataTyped.name}
             </h1>
             {categoryDataTyped.description && (
@@ -145,7 +145,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
               </p>
               <Link 
                 href="/catalog"
-                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="inline-flex items-center px-4 py-2 bg-brand-accent-light text-white rounded-lg hover:bg-blue-700 transition-colors"
               >
                 Переглянути всі книги
               </Link>

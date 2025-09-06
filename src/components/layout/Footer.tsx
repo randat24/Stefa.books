@@ -10,13 +10,13 @@ export function Footer() {
           {/* Про компанію */}
           <section className="space-y-4 md:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-slate-100 grid place-items-center">
+              <div className="h-10 w-10 rounded-full bg-gray-100 grid place-items-center">
                 <Image 
                   src="/logo.svg" 
                   alt="Stefa.books logo" 
                   width={28} 
                   height={28}
-                  className="text-slate-700"
+                  className="text-gray-700"
                   onError={(e) => {
                     // Fallback to a simple div with text if image fails to load
                     const target = e.target as HTMLImageElement;
@@ -24,7 +24,7 @@ export function Footer() {
                     const parent = target.parentElement;
                     if (parent) {
                       const fallback = document.createElement('div');
-                      fallback.className = 'text-slate-700 font-bold text-xs';
+                      fallback.className = 'text-gray-700 font-bold text-xs';
                       fallback.textContent = 'S';
                       parent.appendChild(fallback);
                     }
@@ -77,31 +77,31 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a 
+                <Link 
                   href="/catalog" 
                   className="text-sm transition-colors hover:text-[var(--accent)]"
                   style={{ color: 'var(--text-muted)' }}
                 >
                   Каталог книг
-                </a>
+                </Link>
               </li>
               <li>
-                <a 
+                <Link 
                   href="/plans" 
                   className="text-sm transition-colors hover:text-[var(--accent)]"
                   style={{ color: 'var(--text-muted)' }}
                 >
                   Тарифи та підписки
-                </a>
+                </Link>
               </li>
               <li>
-                <a 
+                <Link 
                   href="/subscribe" 
                   className="text-sm transition-colors hover:text-[var(--accent)]"
                   style={{ color: 'var(--text-muted)' }}
                 >
                   Оформити підписку
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
@@ -141,7 +141,7 @@ export function Footer() {
                 placeholder="Ваш email"
                 className="input w-full text-sm h-10 px-3"
               />
-              <button className="inline-flex items-center justify-center rounded-full font-semibold w-full h-10 px-4 text-sm bg-yellow-500 text-slate-900 hover:bg-yellow-400 transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-500 focus-visible:ring-offset-2">
+              <button className="inline-flex items-center justify-center rounded-full font-semibold w-full h-10 px-4 text-sm bg-brand-yellow text-gray-900 hover:bg-brand-yellow-light transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-yellow focus-visible:ring-offset-2">
                 Підписатися
               </button>
             </div>

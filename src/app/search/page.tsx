@@ -1,7 +1,10 @@
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 import { SearchProvider } from '@/components/search/SearchProvider';
-import { SimpleSearch } from '@/components/search/SimpleSearch';
+import { EnhancedSearch } from '@/components/search/EnhancedSearch';
+
+// Force dynamic rendering for pages that use context
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ searchParams }: { 
   searchParams: Promise<{ q?: string; category?: string; age?: string }> 
@@ -11,34 +14,36 @@ export async function generateMetadata({ searchParams }: {
   const category = params.category || '';
   const age = params.age || '';
   
-  let title = 'Поиск книг | Stefa.books';
-  let description = 'Поиск украинских детских книг в каталоге Stefa.books. Найдите нужную книгу по названию, автору или категории.';
+  let title = 'Пошук книг | Stefa.books';
+  let description = 'Пошук українських дитячих книг в каталозі Stefa.books. Знайдіть потрібну книгу за назвою, автором або категорією.';
   
   if (query) {
-    title = `Поиск: "${query}" | Stefa.books`;
-    description = `Результаты поиска по запросу "${query}" в каталоге детских книг Stefa.books.`;
+    title = `Пошук: "${query}" | Stefa.books`;
+    description = `Результати пошуку за запитом "${query}" в каталозі дитячих книг Stefa.books.`;
   }
   
   if (category) {
-    title = `Книги категории "${category}" | Stefa.books`;
-    description = `Книги категории "${category}" для детей. Украинские детские книги в библиотеке Stefa.books.`;
+    title = `Книги категорії "${category}" | Stefa.books`;
+    description = `Книги категорії "${category}" для дітей. Українські дитячі книги в бібліотеці Stefa.books.`;
   }
   
   if (age) {
-    title = `Книги для возраста ${age} лет | Stefa.books`;
-    description = `Книги для детей ${age} лет. Подходящие по возрасту украинские детские книги.`;
+    title = `Книги для віку ${age} років | Stefa.books`;
+    description = `Книги для дітей ${age} років. Підходящі за віком українські дитячі книги.`;
   }
   
   return {
     title,
     description,
     keywords: [
-      'поиск книг',
+      'пошук книг',
       'дитячі книги',
       'українські книги',
       'книги для дітей',
       'каталог книг',
       'Stefa.books',
+      'фільтри книг',
+      'сортування книг',
       query,
       category,
       age
@@ -92,7 +97,7 @@ export default function SearchPage() {
           
           <Suspense fallback={<div>Загрузка поиска...</div>}>
             <SearchProvider>
-              <SimpleSearch />
+              <EnhancedSearch />
             </SearchProvider>
           </Suspense>
         </div>

@@ -19,11 +19,11 @@ const mockBookAnalytics = {
     { name: 'Romance', count: 78, percentage: 14 },
   ],
   popularBooks: [
-    { id: '1', title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', category: 'Fiction', rating: 4.2, rentals: 42 },
-    { id: '2', title: 'To Kill a Mockingbird', author: 'Harper Lee', category: 'Fiction', rating: 4.5, rentals: 38 },
-    { id: '3', title: '1984', author: 'George Orwell', category: 'Fiction', rating: 4.7, rentals: 35 },
-    { id: '4', title: 'Pride and Prejudice', author: 'Jane Austen', category: 'Romance', rating: 4.3, rentals: 31 },
-    { id: '5', title: 'The Catcher in the Rye', author: 'J.D. Salinger', category: 'Fiction', rating: 4.0, rentals: 29 },
+    { id: '1', title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', category_id: 'fiction', category_name: 'Fiction', rating: 4.2, rentals: 42 },
+    { id: '2', title: 'To Kill a Mockingbird', author: 'Harper Lee', category_id: 'fiction', category_name: 'Fiction', rating: 4.5, rentals: 38 },
+    { id: '3', title: '1984', author: 'George Orwell', category_id: 'fiction', category_name: 'Fiction', rating: 4.7, rentals: 35 },
+    { id: '4', title: 'Pride and Prejudice', author: 'Jane Austen', category_id: 'romance', category_name: 'Romance', rating: 4.3, rentals: 31 },
+    { id: '5', title: 'The Catcher in the Rye', author: 'J.D. Salinger', category_id: 'fiction', category_name: 'Fiction', rating: 4.0, rentals: 29 },
   ],
 };
 
@@ -104,7 +104,7 @@ export default function BookAnalyticsPage() {
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div 
-                      className="bg-blue-600 h-2 rounded-full" 
+                      className="bg-brand-accent-light h-2 rounded-full" 
                       style={{ width: `${category.percentage}%` }}
                     ></div>
                   </div>
@@ -133,7 +133,7 @@ export default function BookAnalyticsPage() {
                       <p className="text-sm text-muted-foreground">{book.author}</p>
                       <div className="flex items-center mt-1">
                         <Badge variant="secondary" className="text-xs">
-                          {book.category}
+                          {book.category_name}
                         </Badge>
                         <span className="text-xs text-muted-foreground ml-2">
                           ★ {book.rating}

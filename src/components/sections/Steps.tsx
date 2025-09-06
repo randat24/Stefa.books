@@ -49,10 +49,10 @@ export default function Steps() {
     <section className="py-16 lg:py-24" aria-labelledby="steps-title">
       <div className="container">
         <header className="text-center mb-16">
-          <h2 id="steps-title" className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 mb-4">
+          <h2 id="steps-title" className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 mb-4">
             Крок за кроком
           </h2>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Простий процес оформлення підписки на книжкову оренду
           </p>
         </header>
@@ -68,7 +68,7 @@ export default function Steps() {
               <div key={step.id} className="relative">
                 {/* Соединительная линия */}
                 {isNotLast && (
-                  <div className="absolute left-8 top-20 w-0.5 h-16 bg-gradient-to-b from-slate-300 to-slate-200" />
+                  <div className="absolute left-8 top-20 w-0.5 h-16 bg-gradient-to-b from-gray-300 to-gray-200" />
                 )}
                 
                 <article
@@ -77,7 +77,7 @@ export default function Steps() {
                       ? step.color === 'yellow'
                         ? 'bg-yellow-50 shadow-lg scale-[1.02]'
                         : 'bg-blue-50 shadow-lg scale-[1.02]'
-                      : 'hover:bg-slate-50 hover:shadow-md'
+                      : 'hover:bg-gray-50 hover:shadow-md'
                   }`}
                   onMouseEnter={() => setHoveredStep(step.id)}
                   onMouseLeave={() => setHoveredStep(null)}
@@ -87,16 +87,16 @@ export default function Steps() {
                   <div className={`relative flex items-center justify-center w-16 h-16 rounded-2xl text-xl font-bold transition-all duration-300 group-hover:scale-110 ${
                     isHovered
                       ? step.color === 'yellow'
-                        ? 'bg-yellow-500 text-slate-900 shadow-lg'
-                        : 'bg-blue-500 text-white shadow-lg'
-                      : 'bg-slate-200 text-slate-600 group-hover:bg-slate-300'
+                        ? 'bg-brand-yellow text-gray-900 shadow-lg'
+                        : 'bg-brand-accent text-white shadow-lg'
+                      : 'bg-gray-200 text-gray-600 group-hover:bg-gray-300'
                   }`}>
                     {step.id}
                     
                     {/* Пульсирующее кольцо при hover */}
                     {isHovered && (
                       <div className={`absolute inset-0 rounded-2xl animate-ping ${
-                        step.color === 'yellow' ? 'bg-yellow-400' : 'bg-blue-400'
+                        step.color === 'yellow' ? 'bg-brand-yellow-light' : 'bg-blue-400'
                       } opacity-30`} />
                     )}
                   </div>
@@ -110,22 +110,22 @@ export default function Steps() {
                           ? step.color === 'yellow'
                             ? 'bg-yellow-100 scale-110'
                             : 'bg-blue-100 scale-110'
-                          : 'bg-slate-100 group-hover:bg-slate-200'
+                          : 'bg-gray-100 group-hover:bg-gray-200'
                       }`}>
                         <Icon className={`h-6 w-6 transition-all duration-300 ${
                           isHovered
                             ? step.color === 'yellow'
-                              ? 'text-yellow-600'
-                              : 'text-blue-600'
-                            : 'text-slate-500 group-hover:text-slate-600'
+                              ? 'text-brand-yellow-dark'
+                              : 'text-brand-accent-light'
+                            : 'text-gray-500 group-hover:text-gray-600'
                         }`} />
                       </div>
                       
                       <div className="flex-1">
-                        <h3 className="text-2xl font-bold text-slate-900 mb-2 leading-tight group-hover:text-slate-800">
+                        <h3 className="text-2xl font-bold text-gray-900 mb-2 leading-tight group-hover:text-gray-800">
                           {step.title}
                         </h3>
-                        <p className="text-lg text-slate-600 leading-relaxed mb-4 max-w-lg">
+                        <p className="text-lg text-gray-600 leading-relaxed mb-4 max-w-lg">
                           {step.description}
                         </p>
                         
@@ -137,8 +137,8 @@ export default function Steps() {
                           }}
                           className={`inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transform hover:scale-105 ${
                             step.isPrimary
-                              ? 'bg-yellow-500 text-slate-900 hover:bg-yellow-400 focus:ring-yellow-500'
-                              : 'bg-white text-slate-700 border-2 border-slate-200 hover:bg-slate-50 hover:border-slate-300 focus:ring-slate-500'
+                              ? 'bg-brand-yellow text-gray-900 hover:bg-brand-yellow-light focus:ring-brand-yellow'
+                              : 'bg-white text-gray-700 border-2 border-gray-200 hover:bg-gray-50 hover:border-gray-300 focus:ring-gray-500'
                           }`}
                         >
                           {step.action}
@@ -150,9 +150,9 @@ export default function Steps() {
                   {/* Стрелка вниз для направления */}
                   {isNotLast && (
                     <div className={`absolute -bottom-3 left-8 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-                      isHovered ? 'bg-white shadow-lg' : 'bg-slate-100 group-hover:bg-white group-hover:shadow-md'
+                      isHovered ? 'bg-white shadow-lg' : 'bg-gray-100 group-hover:bg-white group-hover:shadow-md'
                     }`}>
-                      <ArrowDown className="w-4 h-4 text-slate-400" />
+                      <ArrowDown className="w-4 h-4 text-gray-400" />
                     </div>
                   )}
                 </article>

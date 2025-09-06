@@ -36,7 +36,8 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
     title: '',
     author: '',
     author_id: null,
-    category: '',
+    category_id: null,
+    category_name: '',
     qty_total: 1,
     price_uah: undefined,
     status: 'available',
@@ -68,7 +69,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
   async function handleSubmit() {
     try {
       // Валідація обов'язкових полів
-      if (!form.code.trim() || !form.title.trim() || !form.author.trim() || !form.category.trim()) {
+      if (!form.code.trim() || !form.title.trim() || !form.author.trim() || !form.category_id) {
         alert('Будь ласка, заповніть всі обов\'язкові поля')
         return
       }
@@ -81,7 +82,8 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
         code: form.code.trim(),
         title: form.title.trim(),
         author: form.author.trim(),
-        category: form.category.trim(),
+        category_id: form.category_id,
+        category_name: form.category_name,
         qty_total: Math.max(1, form.qty_total),
         price_uah: form.price_uah || undefined,
         location: form.location?.trim() || undefined,
@@ -96,7 +98,8 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
           title: '',
           author: '',
           author_id: null,
-          category: '',
+          category_id: null,
+          category_name: '',
           qty_total: 1,
           price_uah: undefined,
           status: 'available',
@@ -196,7 +199,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
             subcategoryId={subcategoryId}
             onMainCategoryChange={(categoryId, categoryName) => {
               setMainCategoryId(categoryId)
-              setForm(prev => ({ ...prev, category: categoryName }))
+              setForm(prev => ({ ...prev, category_id: categoryId, category_name: categoryName }))
             }}
             onSubcategoryChange={(subcategoryId, subcategoryName) => {
               setSubcategoryId(subcategoryId)
@@ -272,14 +275,14 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
               onChange={(e) => setForm(prev => ({ ...prev, description: e.target.value }))}
               disabled={submitting}
             />
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-gray-500">
               Додайте цікавий опис, який допоможе батькам обрати книгу для дітей
             </p>
           </div>
         </div>
 
         {/* Кнопки */}
-        <div className="flex justify-end gap-3 pt-4 border-t border-slate-200">
+        <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
           <Button 
             variant="outline" 
             onClick={() => setOpen(false)}

@@ -10,8 +10,16 @@ import type { Book } from '@/lib/supabase';
 // Type adapter for search engines
 type SearchableBook = Omit<Book, 'description'> & {
   description?: string;
+  category: string; // Map category_id to category for search engines
   [key: string]: any;
 };
+
+// Helper function to convert Book to SearchableBook
+const toSearchableBook = (book: Book): SearchableBook => ({
+  ...book,
+  description: book.description || undefined,
+  category: book.category_id || 'Без категорії'
+});
 import { logger } from '@/lib/logger';
 
 interface SearchContextType {
@@ -96,13 +104,14 @@ export function SearchProvider({ children, books = [] }: SearchProviderProps) {
       performanceMonitor.startMeasurement('engine-initialization');
       
       // Initialize engines in parallel
+      const searchableBooks = booksData.map(toSearchableBook);
       const [fuzzy, semantic, autocomplete] = await Promise.all([
-        Promise.resolve(new FuzzySearchEngine(booksData as SearchableBook[])),
-        Promise.resolve(new SemanticSearchEngine(booksData as SearchableBook[])),
+        Promise.resolve(new FuzzySearchEngine(searchableBooks)),
+        Promise.resolve(new SemanticSearchEngine(searchableBooks)),
         Promise.resolve((() => {
           const engine = new MLAutocompleteEngine();
           booksData.forEach(book => {
-            engine.addDocument(`${book.title} ${book.author} ${book.category}`, book.id);
+            engine.addDocument(`${book.title} ${book.author} ${book.category_id}`, book.id);
           });
           return engine;
         })())
@@ -154,19 +163,22 @@ export function SearchProvider({ children, books = [] }: SearchProviderProps) {
       let correctedQuery: string | undefined;
       
       // Apply filters to books if provided
-      let searchableBooks = books;
+      let filteredBooks = books;
       if (filters.categories?.length > 0 || filters.authors?.length > 0 || filters.priceRange) {
-        searchableBooks = books.filter(book => {
-          const categoryMatch = !filters.categories?.length || filters.categories.includes(book.category);
+        filteredBooks = books.filter(book => {
+          const categoryMatch = !filters.categories?.length || filters.categories.includes(book.category_id);
           const authorMatch = !filters.authors?.length || filters.authors.includes(book.author);
           // Skip price filtering since price field doesn't exist in current data
           
           return categoryMatch && authorMatch;
         });
         
+        // Convert to searchable books
+        const searchableBooks = filteredBooks.map(toSearchableBook);
+        
         // Reinitialize engines with filtered data for this search
-        const filteredFuzzy = new FuzzySearchEngine(searchableBooks as SearchableBook[]);
-        const filteredSemantic = new SemanticSearchEngine(searchableBooks as SearchableBook[]);
+        const filteredFuzzy = new FuzzySearchEngine(searchableBooks);
+        const filteredSemantic = new SemanticSearchEngine(searchableBooks);
         
         switch (mode) {
           case 'fuzzy':
@@ -341,7 +353,7 @@ export function SearchProvider({ children, books = [] }: SearchProviderProps) {
     if (!semanticEngine) return [];
     
     try {
-      const recommendations = semanticEngine.getRecommendations(book as SearchableBook, 6);
+      const recommendations = semanticEngine.getRecommendations(toSearchableBook(book), 6);
       return recommendations.map(r => r.item as Book);
     } catch (error) {
       logger.error('Error getting recommendations', error);

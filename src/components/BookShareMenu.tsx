@@ -76,7 +76,7 @@ export function BookShareMenu({ title, author, url }: BookShareMenuProps) {
             <Button
               variant="outline"
               size="md"
-              className="w-full justify-start h-9 text-blue-600 hover:text-blue-700"
+              className="w-full justify-start h-9 text-brand-accent-light hover:text-blue-700"
               onClick={() => window.open(shareVia.facebook, '_blank')}
             >
               <Facebook className="h-4 w-4 mr-2" />
@@ -98,7 +98,7 @@ export function BookShareMenu({ title, author, url }: BookShareMenuProps) {
             <Button
               variant="outline"
               size="md"
-              className="w-full justify-start h-9 text-blue-500 hover:text-blue-600"
+              className="w-full justify-start h-9 text-brand-accent hover:text-brand-accent-light"
               onClick={() => window.open(shareVia.telegram, '_blank')}
             >
               <MessageCircle className="h-4 w-4 mr-2" />

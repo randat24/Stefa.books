@@ -5,6 +5,12 @@ import type { Book } from '../supabase';
 import type { SearchFilters } from './searchService';
 import { logger } from '../logger';
 
+// Adapter to convert Book to SearchableItem
+const toSearchableItem = (book: Book) => ({
+  ...book,
+  category: book.category_id || 'Без категорії'
+});
+
 export interface IntegratedSearchOptions {
   mode?: 'local' | 'supabase' | 'hybrid';
   algorithm?: 'fuzzy' | 'semantic' | 'hybrid';
@@ -24,15 +30,15 @@ export interface IntegratedSearchResult {
 }
 
 class IntegratedSearchSystem {
-  private fuzzyEngine: FuzzySearchEngine<Book>;
-  private semanticEngine: SemanticSearchEngine<Book>;
+  private fuzzyEngine: FuzzySearchEngine<any>;
+  private semanticEngine: SemanticSearchEngine<any>;
   private searchCache: Map<string, IntegratedSearchResult> = new Map();
   private cacheExpiry: Map<string, number> = new Map();
   private readonly CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
   constructor() {
-    this.fuzzyEngine = new FuzzySearchEngine<Book>();
-    this.semanticEngine = new SemanticSearchEngine<Book>();
+    this.fuzzyEngine = new FuzzySearchEngine();
+    this.semanticEngine = new SemanticSearchEngine();
   }
 
   /**
@@ -42,8 +48,9 @@ class IntegratedSearchSystem {
     try {
       logger.search('Initializing integrated search system', { bookCount: books.length });
       
-      this.fuzzyEngine.setItems(books);
-      this.semanticEngine.setItems(books);
+      const searchableBooks = books.map(toSearchableItem);
+      this.fuzzyEngine.setItems(searchableBooks);
+      this.semanticEngine.setItems(searchableBooks);
       
       // Clear cache on re-initialization
       this.searchCache.clear();
@@ -331,7 +338,7 @@ class IntegratedSearchSystem {
     let filtered = books;
 
     if (filters.categories?.length) {
-      filtered = filtered.filter(book => filters.categories!.includes(book.category));
+      filtered = filtered.filter(book => book.category_id && filters.categories!.includes(book.category_id));
     }
 
     if (filters.authors?.length) {

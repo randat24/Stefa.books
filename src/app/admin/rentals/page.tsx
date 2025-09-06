@@ -343,7 +343,7 @@ export default function AdminRentalsPage() {
 						<Card>
 							<CardContent className="p-4">
 								<div className="flex items-center gap-3">
-									<FileText className="h-8 w-8 text-blue-500" />
+									<FileText className="h-8 w-8 text-brand-accent" />
 									<div>
 										<p className="text-2xl font-bold text-gray-900">{statistics.total}</p>
 										<p className="text-sm text-gray-600">Всего заявок</p>

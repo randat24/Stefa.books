@@ -17,7 +17,7 @@ describe('Button Component', () => {
   it('should render different variants', () => {
     const { rerender } = render(<Button variant="primary">Primary</Button>);
     let button = screen.getByRole('button');
-    expect(button).toHaveClass('bg-yellow-500');
+    expect(button).toHaveClass('bg-brand-yellow');
 
     rerender(<Button variant="outline">Outline</Button>);
     button = screen.getByRole('button');
@@ -25,11 +25,11 @@ describe('Button Component', () => {
 
     rerender(<Button variant="ghost">Ghost</Button>);
     button = screen.getByRole('button');
-    expect(button).toHaveClass('hover:bg-slate-50');
+    expect(button).toHaveClass('hover:bg-gray-50');
 
     rerender(<Button variant="dark">Dark</Button>);
     button = screen.getByRole('button');
-    expect(button).toHaveClass('bg-slate-900');
+    expect(button).toHaveClass('bg-gray-900');
   });
 
   it('should render different sizes', () => {

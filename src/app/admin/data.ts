@@ -98,7 +98,8 @@ export async function getBooks(): Promise<BookRow[]> {
       title: book.title,
       author: book.author,
       author_id: undefined, // Field doesn't exist yet
-      category: book.category,
+      category_id: book.category_id,
+      category_name: book.category_name,
       subcategory: book.subcategory,
       description: book.description,
       short_description: book.short_description,

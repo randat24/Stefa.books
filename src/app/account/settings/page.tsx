@@ -7,7 +7,6 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
-import { NotificationManager } from '@/components/notifications/NotificationManager';
 
 export default function AccountSettingsPage() {
   const [notifications, setNotifications] = useState({
@@ -110,7 +109,7 @@ export default function AccountSettingsPage() {
                 
                 {notifications.push && (
                   <div className="mt-4">
-                    <NotificationManager />
+                    <p className="text-sm text-muted-foreground">Настройки push-уведомлений появятся здесь</p>
                   </div>
                 )}
               </div>

@@ -29,13 +29,13 @@ export function Chip({
   );
 
   const variantClasses = {
-    default: "bg-slate-100 text-slate-700 border-slate-200",
+    default: "bg-gray-100 text-gray-700 border-gray-200",
     status: "border-2",
     button: cn(
       "border",
       active
-        ? "bg-slate-900 text-white border-slate-900 shadow-md"
-        : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:border-slate-300"
+        ? "bg-gray-900 text-white border-gray-900 shadow-md"
+        : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50 hover:border-gray-300"
     )
   };
 
@@ -52,7 +52,7 @@ export function Chip({
           "text-xs rounded-full px-2 py-0.5 font-bold",
           variant === 'button' && active 
             ? "bg-white/20 text-white" 
-            : "bg-slate-200 text-slate-600"
+            : "bg-gray-200 text-gray-600"
         )}>
           {count}
         </span>

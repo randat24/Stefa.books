@@ -54,7 +54,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
       book.title.toLowerCase().includes(search) ||
       book.author.toLowerCase().includes(search) ||
       book.code.toLowerCase().includes(search) ||
-      book.category.toLowerCase().includes(search) ||
+      (book.category_id?.toLowerCase().includes(search) || false) ||
       (book.description?.toLowerCase().includes(search) || false)
     )
   }, [books, searchTerm])
@@ -172,7 +172,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
         <div className={`text-2xl font-bold ${color}`}>
           {available}
         </div>
-        <div className="text-xs text-slate-500 font-medium">
+        <div className="text-xs text-gray-500 font-medium">
           з {total} шт
         </div>
         <div className={`w-16 h-2 rounded-full ${bgColor}`}>
@@ -192,20 +192,20 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
   return (
     <div className="space-y-6">
       {/* Заголовок з пошуком */}
-      <Card className="rounded-2xl border-slate-200 shadow-sm">
+      <Card className="rounded-2xl border-gray-200 shadow-sm">
         <CardHeader className="pb-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-gray-900 rounded-xl flex items-center justify-center">
                 <BookOpen className="size-6 text-white" />
               </div>
               <div>
-                <CardTitle className="text-xl text-slate-900">Управління книгами</CardTitle>
-                <p className="text-sm text-slate-600">
-                  Всього книг: <span className="font-semibold text-slate-900">{books.length}</span>
+                <CardTitle className="text-xl text-gray-900">Управління книгами</CardTitle>
+                <p className="text-sm text-gray-600">
+                  Всього книг: <span className="font-semibold text-gray-900">{books.length}</span>
                   {searchTerm && (
                     <span className="ml-2">
-                      • Знайдено: <span className="font-semibold text-slate-900">{filteredBooks.length}</span>
+                      • Знайдено: <span className="font-semibold text-gray-900">{filteredBooks.length}</span>
                     </span>
                   )}
                 </p>
@@ -219,15 +219,15 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
         <CardContent className="pt-0">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 size-4 text-slate-400" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 size-4 text-gray-400" />
               <Input
                 placeholder="Пошук по назві, автору, коду..."
                 value={searchTerm}
                 onChange={handleSearchChange}
-                className="pl-10 pr-4 h-11 border-slate-200 focus:border-slate-400 focus:ring-slate-400"
+                className="pl-10 pr-4 h-11 border-gray-200 focus:border-gray-400 focus:ring-gray-400"
               />
             </div>
-            <div className="flex items-center gap-2 text-sm text-slate-600">
+            <div className="flex items-center gap-2 text-sm text-gray-600">
               <Filter className="size-4" />
               <span>Фільтри: {filteredBooks.length} з {books.length}</span>
             </div>
@@ -236,92 +236,92 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
       </Card>
       
       {/* Таблиця */}
-      <Card className="rounded-2xl border-slate-200 shadow-sm overflow-hidden">
+      <Card className="rounded-2xl border-gray-200 shadow-sm overflow-hidden">
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <div className="min-w-[1200px] lg:min-w-full">
               <Table>
                 <TableHeader>
-                  <TableRow className="bg-slate-50 border-b-2 border-slate-200">
-                    <TableHead className="w-20 bg-slate-50 font-semibold text-slate-700 p-4">
+                  <TableRow className="bg-gray-50 border-b-2 border-gray-200">
+                    <TableHead className="w-20 bg-gray-50 font-semibold text-gray-700 p-4">
                       <div className="flex items-center gap-2">
                         <ImageIcon className="size-4" />
                         <span className="hidden sm:inline">Обкладинка</span>
                       </div>
                     </TableHead>
-                    <TableHead className="w-28 font-semibold text-slate-700 p-4">
+                    <TableHead className="w-28 font-semibold text-gray-700 p-4">
                       <div className="flex items-center gap-2">
                         <FileText className="size-4" />
                         <span className="hidden sm:inline">Код</span>
                       </div>
                     </TableHead>
-                    <TableHead className="min-w-[280px] font-semibold text-slate-700 p-4">
+                    <TableHead className="min-w-[280px] font-semibold text-gray-700 p-4">
                       <div className="flex items-center gap-2">
                         <BookOpen className="size-4" />
                         Книга
                       </div>
                     </TableHead>
-                    <TableHead className="min-w-[180px] font-semibold text-slate-700 p-4">
+                    <TableHead className="min-w-[180px] font-semibold text-gray-700 p-4">
                       <div className="flex items-center gap-2">
                         <User className="size-4" />
                         <span className="hidden lg:inline">Автор</span>
                       </div>
                     </TableHead>
-                    <TableHead className="min-w-[140px] font-semibold text-slate-700 p-4">
+                    <TableHead className="min-w-[140px] font-semibold text-gray-700 p-4">
                       <div className="flex items-center gap-2">
                         <Tag className="size-4" />
                         <span className="hidden lg:inline">Категорія</span>
                       </div>
                     </TableHead>
-                    <TableHead className="text-center w-32 font-semibold text-slate-700 p-4">
+                    <TableHead className="text-center w-32 font-semibold text-gray-700 p-4">
                       <div className="flex items-center justify-center gap-2">
                         <Hash className="size-4" />
                         <span className="hidden sm:inline">Кількість</span>
                       </div>
                     </TableHead>
-                    <TableHead className="min-w-[140px] font-semibold text-slate-700 p-4">
+                    <TableHead className="min-w-[140px] font-semibold text-gray-700 p-4">
                       <div className="flex items-center gap-2">
                         <Building className="size-4" />
                         <span className="hidden lg:inline">Видавництво</span>
                       </div>
                     </TableHead>
-                    <TableHead className="text-center w-20 font-semibold text-slate-700 p-4">
+                    <TableHead className="text-center w-20 font-semibold text-gray-700 p-4">
                       <div className="flex items-center justify-center gap-2">
                         <Package className="size-4" />
                         <span className="hidden sm:inline">Всього</span>
                       </div>
                     </TableHead>
-                    <TableHead className="text-center w-20 font-semibold text-slate-700 p-4">
+                    <TableHead className="text-center w-20 font-semibold text-gray-700 p-4">
                       <div className="flex items-center justify-center gap-2">
                         <CheckCircle className="size-4" />
                         <span className="hidden sm:inline">Доступно</span>
                       </div>
                     </TableHead>
-                    <TableHead className="text-right w-28 font-semibold text-slate-700 p-4">
+                    <TableHead className="text-right w-28 font-semibold text-gray-700 p-4">
                       <div className="flex items-center justify-end gap-2">
                         <CreditCard className="size-4" />
                         <span className="hidden sm:inline">Ціна</span>
                       </div>
                     </TableHead>
-                    <TableHead className="text-right w-28 font-semibold text-slate-700 p-4">
+                    <TableHead className="text-right w-28 font-semibold text-gray-700 p-4">
                       <div className="flex items-center justify-end gap-2">
                         <DollarSign className="size-4" />
                         <span className="hidden sm:inline">Повна ціна</span>
                       </div>
                     </TableHead>
-                    <TableHead className="w-32 font-semibold text-slate-700 p-4">
+                    <TableHead className="w-32 font-semibold text-gray-700 p-4">
                       <div className="flex items-center gap-2">
                         <Clock className="size-4" />
                         <span className="hidden lg:inline">Статус</span>
                       </div>
                     </TableHead>
-                    <TableHead className="min-w-[120px] font-semibold text-slate-700 p-4">
+                    <TableHead className="min-w-[120px] font-semibold text-gray-700 p-4">
                       <div className="flex items-center gap-2">
                         <MapPin className="size-4" />
                         <span className="hidden xl:inline">Локація</span>
                       </div>
                     </TableHead>
-                    <TableHead className="text-center w-44 bg-slate-100 font-semibold text-slate-800 p-4">
+                    <TableHead className="text-center w-44 bg-gray-100 font-semibold text-gray-800 p-4">
                       <div className="flex items-center justify-center gap-2">
                         <Settings className="size-4" />
                         Дії
@@ -333,7 +333,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                   {paginatedBooks.map((book, index) => (
                     <TableRow 
                       key={book.id} 
-                      className={`group hover:bg-slate-50 transition-all duration-200 border-b border-slate-100 ${
+                      className={`group hover:bg-gray-50 transition-all duration-200 border-b border-gray-100 ${
                         index % 2 === 0 ? 'bg-white' : 'bg-slate-25'
                       }`}
                     >
@@ -350,15 +350,15 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                                 alt={`Обкладинка: ${book.title}`}
                                 width={48}
                                 height={64}
-                                className="rounded-lg object-cover border border-slate-200 shadow-sm transition-transform group-hover/cover:scale-105"
+                                className="rounded-lg object-cover border border-gray-200 shadow-sm transition-transform group-hover/cover:scale-105"
                               />
                               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/cover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                                 <Eye className="size-4 text-white" />
                               </div>
                             </div>
                           ) : (
-                            <div className="w-12 h-16 bg-slate-100 border border-slate-200 rounded-lg flex items-center justify-center">
-                              <ImageIcon className="size-5 text-slate-400" />
+                            <div className="w-12 h-16 bg-gray-100 border border-gray-200 rounded-lg flex items-center justify-center">
+                              <ImageIcon className="size-5 text-gray-400" />
                             </div>
                           )}
                         </div>
@@ -366,7 +366,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
 
                       {/* Код книги */}
                       <TableCell className="p-4">
-                        <div className="inline-block px-3 py-2 bg-slate-100 text-slate-800 rounded-lg text-sm font-mono font-semibold border border-slate-300 shadow-sm whitespace-nowrap">
+                        <div className="inline-block px-3 py-2 bg-gray-100 text-gray-800 rounded-lg text-sm font-mono font-semibold border border-gray-300 shadow-sm whitespace-nowrap">
                           {book.code}
                         </div>
                       </TableCell>
@@ -375,7 +375,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                       <TableCell className="p-4">
                         <div className="space-y-2">
                           <div 
-                            className="font-bold text-slate-900 line-clamp-2 cursor-pointer hover:text-slate-600 transition-colors duration-200 text-sm leading-snug"
+                            className="font-bold text-gray-900 line-clamp-2 cursor-pointer hover:text-gray-600 transition-colors duration-200 text-sm leading-snug"
                             onClick={() => handleViewBook(book)}
                             title={book.title}
                           >
@@ -383,7 +383,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                           </div>
                           {book.description && (
                             <div 
-                              className="text-xs text-slate-500 line-clamp-2 leading-relaxed" 
+                              className="text-xs text-gray-500 line-clamp-2 leading-relaxed" 
                               title={book.description}
                             >
                               {book.description}
@@ -395,10 +395,10 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                       {/* Автор */}
                       <TableCell className="p-4">
                         <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center">
-                            <User className="size-4 text-slate-600" />
+                          <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                            <User className="size-4 text-gray-600" />
                           </div>
-                          <div className="text-sm text-slate-700 font-semibold truncate max-w-[140px]" title={book.author}>
+                          <div className="text-sm text-gray-700 font-semibold truncate max-w-[140px]" title={book.author}>
                             {book.author}
                           </div>
                         </div>
@@ -408,8 +408,8 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                       <TableCell className="p-4">
                         <div className="inline-flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-emerald-50 to-emerald-100 text-emerald-700 rounded-full text-xs font-semibold border border-emerald-200 shadow-sm">
                           <Tag className="size-3" />
-                          <span className="truncate max-w-[100px]" title={book.category}>
-                            {book.category}
+                          <span className="truncate max-w-[100px]" title={book.category_name || 'No category'}>
+                            {book.category_name || 'No category'}
                           </span>
                         </div>
                       </TableCell>
@@ -429,13 +429,13 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                             </span>
                           </div>
                         ) : (
-                          <span className="text-slate-400 text-sm font-medium">—</span>
+                          <span className="text-gray-400 text-sm font-medium">—</span>
                         )}
                       </TableCell>
 
                       {/* Всього */}
                       <TableCell className="text-center p-4">
-                        <div className="inline-flex items-center justify-center w-8 h-8 bg-slate-100 text-slate-700 rounded-full text-sm font-bold border border-slate-200">
+                        <div className="inline-flex items-center justify-center w-8 h-8 bg-gray-100 text-gray-700 rounded-full text-sm font-bold border border-gray-200">
                           {book.qty_total || 0}
                         </div>
                       </TableCell>
@@ -459,7 +459,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                             {book.price_uah.toLocaleString('uk-UA')} ₴
                           </div>
                         ) : (
-                          <span className="text-slate-400 text-sm font-medium">—</span>
+                          <span className="text-gray-400 text-sm font-medium">—</span>
                         )}
                       </TableCell>
 
@@ -471,7 +471,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                             {book.full_price_uah.toLocaleString('uk-UA')} ₴
                           </div>
                         ) : (
-                          <span className="text-slate-400 text-sm font-medium">—</span>
+                          <span className="text-gray-400 text-sm font-medium">—</span>
                         )}
                       </TableCell>
 
@@ -484,37 +484,37 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                       <TableCell className="p-4">
                         {book.location ? (
                           <div className="flex items-center gap-2">
-                            <div className="w-6 h-6 bg-slate-200 rounded-full flex items-center justify-center">
-                              <MapPin className="size-3 text-slate-600" />
+                            <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center">
+                              <MapPin className="size-3 text-gray-600" />
                             </div>
-                            <div className="text-sm text-slate-600 font-medium truncate max-w-[100px]" title={book.location}>
+                            <div className="text-sm text-gray-600 font-medium truncate max-w-[100px]" title={book.location}>
                               {book.location}
                             </div>
                           </div>
                         ) : (
-                          <span className="text-slate-400 text-sm font-medium">—</span>
+                          <span className="text-gray-400 text-sm font-medium">—</span>
                         )}
                       </TableCell>
 
                       {/* Дії */}
-                      <TableCell className="w-44 bg-slate-50 p-4">
+                      <TableCell className="w-44 bg-gray-50 p-4">
                         <div className="flex items-center justify-center gap-2">
                           <button
-                            className="group w-9 h-9 rounded-xl bg-slate-600 text-white hover:bg-slate-700 transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 hover:-translate-y-0.5"
+                            className="group w-9 h-9 rounded-xl bg-gray-600 text-white hover:bg-gray-700 transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 hover:-translate-y-0.5"
                             onClick={() => handleViewBook(book)}
                             title="Переглянути деталі"
                           >
                             <Eye className="size-4 group-hover:scale-110 transition-transform" />
                           </button>
                           <button
-                            className="group w-9 h-9 rounded-xl bg-slate-500 text-white hover:bg-slate-600 transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 hover:-translate-y-0.5"
+                            className="group w-9 h-9 rounded-xl bg-gray-500 text-white hover:bg-gray-600 transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 hover:-translate-y-0.5"
                             onClick={() => handleEditBook(book)}
                             title="Редагувати"
                           >
                             <Edit className="size-4 group-hover:scale-110 transition-transform" />
                           </button>
                           <button
-                            className="group w-9 h-9 rounded-xl bg-slate-800 text-white hover:bg-slate-900 transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 hover:-translate-y-0.5"
+                            className="group w-9 h-9 rounded-xl bg-gray-800 text-white hover:bg-gray-900 transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 hover:-translate-y-0.5"
                             onClick={() => handleDeleteBook(book)}
                             title="Видалити"
                           >
@@ -528,8 +528,8 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                   {paginatedBooks.length === 0 && (
                     <TableRow>
                       <TableCell colSpan={10} className="text-center py-12">
-                        <div className="flex flex-col items-center gap-3 text-slate-500">
-                          <ImageIcon className="size-12 text-slate-300" />
+                        <div className="flex flex-col items-center gap-3 text-gray-500">
+                          <ImageIcon className="size-12 text-gray-300" />
                           <p className="text-lg font-medium">Книги не знайдено</p>
                           {searchTerm ? (
                             <p className="text-sm">Спробуйте змінити пошуковий запит</p>
@@ -549,10 +549,10 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
 
       {/* Пагінація */}
       {totalPages > 1 && (
-        <Card className="rounded-2xl border-slate-200 shadow-sm">
+        <Card className="rounded-2xl border-gray-200 shadow-sm">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
-              <div className="text-sm text-slate-600">
+              <div className="text-sm text-gray-600">
                 Показано {((currentPage - 1) * itemsPerPage) + 1} - {Math.min(currentPage * itemsPerPage, filteredBooks.length)} з {filteredBooks.length} книг
               </div>
               <div className="flex items-center gap-2">
@@ -628,7 +628,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                       alt={`Обкладинка: ${selectedBook.title}`}
                       width={250}
                       height={375}
-                      className="rounded-lg object-cover border border-slate-200 shadow-lg"
+                      className="rounded-lg object-cover border border-gray-200 shadow-lg"
                     />
                                           <Button
                         size="md"
@@ -646,42 +646,42 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
               <div className="grid gap-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-sm font-medium text-slate-600">Код</Label>
-                    <p className="font-mono text-sm bg-slate-100 px-2 py-1 rounded">{selectedBook.code}</p>
+                    <Label className="text-sm font-medium text-gray-600">Код</Label>
+                    <p className="font-mono text-sm bg-gray-100 px-2 py-1 rounded">{selectedBook.code}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-slate-600">Статус</Label>
+                    <Label className="text-sm font-medium text-gray-600">Статус</Label>
                     <div className="mt-1">{getStatusBadge(selectedBook.status)}</div>
                   </div>
                 </div>
 
                 <div>
-                  <Label className="text-sm font-medium text-slate-600">Назва</Label>
-                  <p className="text-lg font-medium text-slate-900">{selectedBook.title}</p>
+                  <Label className="text-sm font-medium text-gray-600">Назва</Label>
+                  <p className="text-lg font-medium text-gray-900">{selectedBook.title}</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-sm font-medium text-slate-600">Автор</Label>
-                    <p className="font-medium text-slate-700">{selectedBook.author}</p>
+                    <Label className="text-sm font-medium text-gray-600">Автор</Label>
+                    <p className="font-medium text-gray-700">{selectedBook.author}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-slate-600">Категорія</Label>
-                    <p className="text-slate-700">{selectedBook.category}</p>
+                    <Label className="text-sm font-medium text-gray-600">Категорія</Label>
+                    <p className="text-gray-700">{selectedBook.category_name}</p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-sm font-medium text-slate-600">Кількість</Label>
-                    <p className="text-slate-700">
+                    <Label className="text-sm font-medium text-gray-600">Кількість</Label>
+                    <p className="text-gray-700">
                       <span className="font-medium">{selectedBook.qty_available}</span> доступно з{' '}
                       <span className="font-medium">{selectedBook.qty_total}</span> загалом
                     </p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-slate-600">Ціна закупки</Label>
-                    <p className="text-slate-700">
+                    <Label className="text-sm font-medium text-gray-600">Ціна закупки</Label>
+                    <p className="text-gray-700">
                       {selectedBook.price_uah ? `${selectedBook.price_uah.toLocaleString('uk-UA')} ₴` : '—'}
                     </p>
                   </div>
@@ -689,28 +689,28 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
 
                 {selectedBook.location && (
                   <div>
-                    <Label className="text-sm font-medium text-slate-600">Локація</Label>
-                    <p className="text-slate-700">{selectedBook.location}</p>
+                    <Label className="text-sm font-medium text-gray-600">Локація</Label>
+                    <p className="text-gray-700">{selectedBook.location}</p>
                   </div>
                 )}
 
                 {selectedBook.description && (
                   <div>
-                    <Label className="text-sm font-medium text-slate-600">Опис</Label>
-                    <p className="text-slate-700 text-sm leading-relaxed">{selectedBook.description}</p>
+                    <Label className="text-sm font-medium text-gray-600">Опис</Label>
+                    <p className="text-gray-700 text-sm leading-relaxed">{selectedBook.description}</p>
                   </div>
                 )}
 
                 <div className="grid grid-cols-2 gap-4 pt-2 border-t">
                   <div>
-                    <Label className="text-sm font-medium text-slate-600">Створено</Label>
-                    <p className="text-xs text-slate-500">
+                    <Label className="text-sm font-medium text-gray-600">Створено</Label>
+                    <p className="text-xs text-gray-500">
                       {selectedBook.created_at ? new Date(selectedBook.created_at).toLocaleString('uk-UA') : '—'}
                     </p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-slate-600">Оновлено</Label>
-                    <p className="text-xs text-slate-500">
+                    <Label className="text-sm font-medium text-gray-600">Оновлено</Label>
+                    <p className="text-xs text-gray-500">
                       {selectedBook.updated_at ? new Date(selectedBook.updated_at).toLocaleString('uk-UA') : '—'}
                     </p>
                   </div>
@@ -743,11 +743,11 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                 alt={`Обкладинка: ${imageViewBook.title}`}
                 width={300}
                 height={450}
-                className="rounded-lg object-cover border border-slate-200 shadow-lg"
+                className="rounded-lg object-cover border border-gray-200 shadow-lg"
               />
               <div className="text-center">
-                <p className="font-medium text-slate-900">{imageViewBook.title}</p>
-                <p className="text-sm text-slate-600">{imageViewBook.author}</p>
+                <p className="font-medium text-gray-900">{imageViewBook.title}</p>
+                <p className="text-sm text-gray-600">{imageViewBook.author}</p>
               </div>
               <Button
                 variant="outline"

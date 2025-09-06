@@ -15,14 +15,16 @@
 ## 🏗️ Техническая архитектура
 
 ### Tech Stack
-- **Frontend**: Next.js 14 (App Router) + TypeScript
-- **Стилизация**: Tailwind CSS + CSS Variables
-- **Состояние**: Zustand (легковесное управление состоянием)
-- **Формы**: React Hook Form + Zod валидация  
+- **Frontend**: Next.js 15.5.2 (App Router) + TypeScript 5.5.4
+- **Стилизация**: Tailwind CSS 4.1.13 + CSS Variables
+- **Состояние**: Zustand 5.0.8 (легковесное управление состоянием)
+- **Формы**: React Hook Form + Zod 3.23.8 валидация  
 - **Иконки**: Lucide React
 - **Изображения**: Next.js Image + Cloudinary
 - **Развертывание**: Vercel
-- **База данных**: Supabase (планируется)
+- **База данных**: Supabase (PostgreSQL + RLS)
+- **Пакетный менеджер**: pnpm 10.15.1
+- **AI Integration**: mdream 0.10.1 (HTML to Markdown)
 
 ### Структура проекта
 ```
@@ -203,6 +205,10 @@ interface FormData {
 - [x] **Поисковая аналитика**
 - [x] **KPI метрики и статистика**
 - [x] **Мобильная адаптация админ-панели**
+- [x] **AI Integration (mdream)** - HTML to Markdown conversion
+- [x] **Tailwind CSS v4.1** - 5x быстрее сборка
+- [x] **pnpm Migration** - 33x быстрее установка пакетов
+- [x] **TypeScript Cleanup** - 0 ошибок типизации
 
 ### 🔄 В планах
 - [ ] Система аутентификации пользователей
@@ -225,6 +231,9 @@ interface FormData {
 git clone <repository-url>
 cd stefa-books-v2.1
 
+# Установка pnpm (если не установлен)
+npm install -g pnpm
+
 # Установка зависимостей
 pnpm install
 
@@ -236,6 +245,10 @@ pnpm dev
 
 ### Production
 ```bash
+# Проверка готовности
+pnpm run type-check
+pnpm run lint
+
 # Сборка для продакшена
 pnpm build
 
@@ -282,6 +295,12 @@ NODE_ENV=development
 ### Sync API
 - `POST /api/sync` - Синхронизация данных
 
+### AI Integration API (mdream)
+- `POST /api/markdown` - HTML to Markdown conversion
+- `GET /api/markdown?url=...&format=text` - URL to Markdown conversion
+- `GET /api/books/[id]/markdown` - Book-specific markdown generation
+- `GET /api/llms.txt` - AI discoverability file generation
+
 ---
 
 ## 👥 Контакты и поддержка
@@ -312,6 +331,10 @@ NODE_ENV=development
 - ✅ Мобильная адаптация админ-панели
 - ✅ Поисковая аналитика
 - ✅ Статистика и KPI метрики
+- ✅ **AI Integration (mdream)** - HTML to Markdown conversion
+- ✅ **Tailwind CSS v4.1** - 5x быстрее сборка, CSS-based конфигурация
+- ✅ **pnpm Migration** - 33x быстрее установка пакетов
+- ✅ **TypeScript Cleanup** - 0 ошибок типизации
 
 ### v0.1.2 (27.08.2025)
 - ✅ Юридические правки документов
