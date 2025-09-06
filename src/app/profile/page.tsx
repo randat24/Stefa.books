@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -73,15 +73,7 @@ export default function ProfilePage() {
     newsletter: true
   });
 
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      loadProfile();
-    } else {
-      setLoading(false);
-    }
-  }, [isAuthenticated, user]);
-
-  const loadProfile = async () => {
+  const loadProfile = useCallback(async () => {
     try {
       // In a real app, you would fetch from API
       // For now, we'll use the user data from auth context
@@ -119,7 +111,15 @@ export default function ProfilePage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
+
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      loadProfile();
+    } else {
+      setLoading(false);
+    }
+  }, [isAuthenticated, user, loadProfile]);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -293,7 +293,7 @@ export default function ProfilePage() {
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <Label htmlFor="first_name">Ім'я *</Label>
+                  <Label htmlFor="first_name">Ім&apos;я *</Label>
                   <Input
                     id="first_name"
                     value={formData.first_name}

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/button"
@@ -74,7 +74,7 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
   const [error, setError] = useState<string | null>(null)
   const [timeRange, setTimeRange] = useState<'7d' | '30d' | '90d'>('30d')
 
-  const loadAnalytics = async () => {
+  const loadAnalytics = useCallback(async () => {
     try {
       setLoading(true)
       setError(null)
@@ -93,11 +93,11 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
     } finally {
       setLoading(false)
     }
-  }
+  }, [timeRange])
 
   useEffect(() => {
     loadAnalytics()
-  }, [timeRange])
+  }, [timeRange, loadAnalytics])
 
   const getTrendIcon = (current: number, previous: number) => {
     if (current > previous) return <ArrowUpRight className="size-4 text-green-600" />

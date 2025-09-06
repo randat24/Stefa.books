@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Clock, Package, CheckCircle, AlertTriangle } from 'lucide-react';
+import { MapPin, Package, CheckCircle, AlertTriangle } from 'lucide-react';
 
 export function BookReturnInstructions() {
   return (

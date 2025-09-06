@@ -7,10 +7,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { MapPin, Package, User, Phone, Mail, RotateCcw } from 'lucide-react';
+import { MapPin, User, RotateCcw } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import type { Book } from '@/lib/supabase';
 

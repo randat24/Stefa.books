@@ -53,7 +53,7 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
   // ============================================================================
 
   const filteredUsers = useMemo(() => {
-    let filtered = users.filter(user => {
+    const filtered = users.filter(user => {
       // Пошук
       if (filters.search) {
         const search = filters.search.toLowerCase()

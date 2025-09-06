@@ -42,15 +42,15 @@ export async function POST(request: NextRequest) {
 
     // Create return record
     const { data: returnRecord, error: returnError } = await supabase
-      .from('book_returns')
+      .from('rentals')
       .insert({
         book_id: validatedData.book_id,
         user_id: 'anonymous', // Will be updated when user auth is implemented
-        return_method: validatedData.return_method,
-        book_condition: validatedData.book_condition,
-        status: 'pending',
+        status: 'returned',
+        due_date: new Date().toISOString(), // Required field
         notes: `Customer: ${validatedData.customer_info.first_name} ${validatedData.customer_info.last_name}, Email: ${validatedData.customer_info.email}, Phone: ${validatedData.customer_info.phone}, Method: ${validatedData.return_method}, Condition: ${validatedData.book_condition}${validatedData.customer_info.address ? `, Address: ${validatedData.customer_info.address}` : ''}${validatedData.customer_info.notes ? `, Notes: ${validatedData.customer_info.notes}` : ''}`,
-        created_at: new Date().toISOString()
+        created_at: new Date().toISOString(),
+        return_date: new Date().toISOString()
       })
       .select()
       .single();
@@ -110,7 +110,7 @@ export async function GET(request: NextRequest) {
     // If return_id is provided, get specific return
     if (returnId) {
       const { data: returnRecord, error } = await supabase
-        .from('book_returns')
+        .from('rentals')
         .select(`
           *,
           book:books(
@@ -146,7 +146,7 @@ export async function GET(request: NextRequest) {
 
     // Get returns for customer
     const { data: returns, error } = await supabase
-      .from('book_returns')
+      .from('rentals')
       .select(`
         *,
         book:books(

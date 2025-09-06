@@ -61,7 +61,7 @@ export async function convertHtmlToMarkdown(
     logger.warn('Using fallback HTML to Markdown conversion (mdream disabled for build compatibility)');
     
     // Simple HTML to Markdown conversion fallback
-    let markdown = html
+    const markdown = html
       // Remove DOCTYPE and html/head tags
       .replace(/<!DOCTYPE[^>]*>/gi, '')
       .replace(/<html[^>]*>/gi, '')

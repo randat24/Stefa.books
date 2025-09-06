@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,14 +9,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   User, 
   BookOpen, 
-  Clock, 
-  CheckCircle, 
   RotateCcw, 
   Settings, 
   Heart,
   History,
-  Bell,
-  CreditCard
+  Bell
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -58,13 +55,7 @@ export default function AccountPage() {
   const [returns, setReturns] = useState<Return[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (isAuthenticated && user?.email) {
-      fetchUserData();
-    }
-  }, [isAuthenticated, user?.email]);
-
-  const fetchUserData = async () => {
+  const fetchUserData = useCallback(async () => {
     try {
       // Fetch rentals
       const rentalsResponse = await fetch(`/api/rentals?email=${user?.email}`);
@@ -84,7 +75,13 @@ export default function AccountPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.email]);
+
+  useEffect(() => {
+    if (isAuthenticated && user?.email) {
+      fetchUserData();
+    }
+  }, [isAuthenticated, user?.email, fetchUserData]);
 
   const getStatusBadge = (status: string, type: 'rental' | 'return') => {
     const statuses = {
@@ -104,7 +101,8 @@ export default function AccountPage() {
       }
     };
     
-    const statusConfig = statuses[type][status as keyof typeof statuses[type]];
+    const typeStatuses = statuses[type as keyof typeof statuses];
+    const statusConfig = typeStatuses?.[status as keyof typeof typeStatuses];
     return statusConfig || { label: status, variant: 'secondary' as const };
   };
 
@@ -339,7 +337,7 @@ export default function AccountPage() {
                         <h4 className="font-semibold">{returnItem.book.title}</h4>
                         <p className="text-sm text-gray-600">{returnItem.book.author}</p>
                         <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
-                          <span>Спосіб: {returnItem.return_method === 'pickup' ? 'Самовивіз' : 'Кур\'єр'}</span>
+                          <span>Спосіб: {returnItem.return_method === 'pickup' ? 'Самовивіз' : 'Кур&apos;єр'}</span>
                           <span>Стан: {returnItem.book_condition}</span>
                         </div>
                       </div>
@@ -393,7 +391,7 @@ export default function AccountPage() {
             <CardContent className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Ім'я</label>
+                  <label className="text-sm font-medium text-gray-700">Ім&apos;я</label>
                   <p className="text-sm text-gray-900">{user?.user_metadata?.first_name || 'Не вказано'}</p>
                 </div>
                 <div>

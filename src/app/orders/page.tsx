@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -49,15 +49,7 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (isAuthenticated && user?.email) {
-      fetchOrders();
-    } else {
-      setLoading(false);
-    }
-  }, [isAuthenticated, user?.email]);
-
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
       // Fetch all orders (rentals, returns, subscriptions)
       const [rentalsResponse, returnsResponse, subscriptionsResponse] = await Promise.all([
@@ -135,7 +127,15 @@ export default function OrdersPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.email]);
+
+  useEffect(() => {
+    if (isAuthenticated && user?.email) {
+      fetchOrders();
+    } else {
+      setLoading(false);
+    }
+  }, [isAuthenticated, user?.email, fetchOrders]);
 
   const getStatusBadge = (status: string, type: string) => {
     const statuses = {
@@ -161,7 +161,8 @@ export default function OrdersPage() {
       }
     };
     
-    const statusConfig = statuses[type as keyof typeof statuses]?.[status as keyof typeof statuses[type as keyof typeof statuses]];
+    const typeStatuses = statuses[type as keyof typeof statuses];
+    const statusConfig = typeStatuses?.[status as keyof typeof typeStatuses];
     return statusConfig || { label: status, variant: 'secondary' as const };
   };
 

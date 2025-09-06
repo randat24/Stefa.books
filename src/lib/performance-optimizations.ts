@@ -62,7 +62,7 @@ export function optimizeImageUrl(
     const baseUrl = url.split('/upload/')[0];
     const imagePath = url.split('/upload/')[1];
     
-    let transformations = [];
+    const transformations = [];
     
     if (width) transformations.push(`w_${width}`);
     if (height) transformations.push(`h_${height}`);

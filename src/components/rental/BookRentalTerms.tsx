@@ -70,7 +70,7 @@ export function BookRentalTerms() {
 
         {/* Contact Info */}
         <div className="text-center text-sm text-gray-500">
-          <p>Маєте питання? Зв'яжіться з нами:</p>
+          <p>Маєте питання? Зв&apos;яжіться з нами:</p>
           <p className="font-medium">📞 +380 (44) 123-45-67 | 📧 info@stefa-books.com.ua</p>
         </div>
       </CardContent>

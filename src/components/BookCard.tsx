@@ -6,7 +6,8 @@ import type { Book } from '@/lib/supabase';
 import Link from 'next/link';
 import { BookPreviewModal } from '@/components/BookPreviewModal';
 import Image from 'next/image';
-import { HoverScale, FadeIn } from '@/components/animations';
+import { FadeIn, CardHover, IconHover, ButtonRipple } from '@/components/animations';
+import { useAnalytics } from '@/hooks/useAnalytics';
 
 export type BookCardProps = {
   book: Book;
@@ -20,6 +21,7 @@ export function BookCard({
   priorityLoading = false
 }: BookCardProps) {
   const [showPreview, setShowPreview] = useState(false);
+  const { trackBookView } = useAnalytics();
 
   // Memoize the book data to prevent unnecessary re-renders
   const memoizedBook = useMemo(() => book, [book]);
@@ -28,12 +30,19 @@ export function BookCard({
     e.preventDefault();
     e.stopPropagation();
     setShowPreview(true);
+    // Отслеживание просмотра книги
+    trackBookView(memoizedBook.title, memoizedBook.id.toString());
+  };
+
+  const handleBookClick = () => {
+    // Отслеживание клика по книге
+    trackBookView(memoizedBook.title, memoizedBook.id.toString());
   };
 
   return (
     <>
       <FadeIn delay={Math.random() * 0.2}>
-        <HoverScale scale={1.02}>
+        <CardHover>
           <article 
             className="group relative bg-white rounded-xl shadow-card hover:shadow-float transition-all duration-300 overflow-hidden border border-gray-100 h-full flex flex-col"
             style={{ minHeight: '390px', maxHeight: '390px' }}
@@ -45,6 +54,7 @@ export function BookCard({
           href={`/books/${memoizedBook.id}`} 
           className="flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 rounded-xl"
           aria-label={`Переглянути деталі книги: ${memoizedBook.title} автора ${memoizedBook.author}`}
+          onClick={handleBookClick}
         >
           <div className="relative" style={{ height: '280px' }}>
             {/* Book Cover with Optimized Image */}
@@ -63,15 +73,17 @@ export function BookCard({
             
             {/* Кнопка "Переглянути" при наведении */}
             <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <button 
-                onClick={handleQuickView}
-                className="inline-flex items-center gap-2 rounded-2xl bg-white/95 px-4 py-2 text-sm font-medium text-gray-900 shadow-lg backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2"
-                aria-label={`Швидкий перегляд книги: ${memoizedBook.title}`}
-                type="button"
-              >
-                <BookOpen className="h-4 w-4" aria-hidden="true" />
-                Переглянути
-              </button>
+              <ButtonRipple>
+                <button 
+                  onClick={handleQuickView}
+                  className="inline-flex items-center gap-2 rounded-2xl bg-white/95 px-4 py-2 text-sm font-medium text-gray-900 shadow-lg backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2"
+                  aria-label={`Швидкий перегляд книги: ${memoizedBook.title}`}
+                  type="button"
+                >
+                  <BookOpen className="h-4 w-4" aria-hidden="true" />
+                  Переглянути
+                </button>
+              </ButtonRipple>
             </div>
           </div>
         </Link>
@@ -91,20 +103,24 @@ export function BookCard({
         {/* Быстрые действия - показываем при наведении */}
         {showActions && (
           <div className="absolute right-4 top-4 flex gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <button
-              className="rounded-full border border-gray-200 bg-white/90 p-2.5 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2"
-              aria-label={`Додати книгу "${memoizedBook.title}" в обране`}
-              type="button"
-            >
-              <Bookmark className="h-4 w-4 text-gray-700" aria-hidden="true" />
-            </button>
-            <button
-              className="rounded-full border border-gray-200 bg-white/90 p-2.5 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2"
-              aria-label={`Поділитися книгою "${memoizedBook.title}"`}
-              type="button"
-            >
-              <Share2 className="h-4 w-4 text-gray-700" aria-hidden="true" />
-            </button>
+            <IconHover>
+              <button
+                className="rounded-full border border-gray-200 bg-white/90 p-2.5 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2"
+                aria-label={`Додати книгу "${memoizedBook.title}" в обране`}
+                type="button"
+              >
+                <Bookmark className="h-4 w-4 text-gray-700" aria-hidden="true" />
+              </button>
+            </IconHover>
+            <IconHover>
+              <button
+                className="rounded-full border border-gray-200 bg-white/90 p-2.5 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2"
+                aria-label={`Поділитися книгою "${memoizedBook.title}"`}
+                type="button"
+              >
+                <Share2 className="h-4 w-4 text-gray-700" aria-hidden="true" />
+              </button>
+            </IconHover>
           </div>
         )}
 
@@ -130,7 +146,7 @@ export function BookCard({
           </div>
         </Link>
           </article>
-        </HoverScale>
+        </CardHover>
       </FadeIn>
       
       {/* Book Preview Modal */}

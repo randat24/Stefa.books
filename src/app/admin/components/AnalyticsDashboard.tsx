@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/button"
@@ -39,7 +39,7 @@ export function AnalyticsDashboard({ }: AnalyticsDashboardProps) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const loadAnalytics = async () => {
+  const loadAnalytics = useCallback(async () => {
     try {
       setLoading(true)
       setError(null)
@@ -91,11 +91,11 @@ export function AnalyticsDashboard({ }: AnalyticsDashboardProps) {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
 
   useEffect(() => {
     loadAnalytics()
-  }, [])
+  }, [loadAnalytics])
 
   if (loading) {
     return (

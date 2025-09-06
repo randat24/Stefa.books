@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
 
     // Get rentals for customer
     const { data: rentals, error } = await supabase
-      .from('book_rentals')
+      .from('rentals')
       .select(`
         *,
         book:books(

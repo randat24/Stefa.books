@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,9 +10,7 @@ import {
   CheckCircle, 
   Star, 
   Gift, 
-  Clock, 
   CreditCard,
-  Calendar,
   BookOpen,
   Users,
   Zap
@@ -112,15 +110,7 @@ export default function SubscriptionPage() {
   const [currentSubscription, setCurrentSubscription] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (isAuthenticated && user?.email) {
-      fetchCurrentSubscription();
-    } else {
-      setLoading(false);
-    }
-  }, [isAuthenticated, user?.email]);
-
-  const fetchCurrentSubscription = async () => {
+  const fetchCurrentSubscription = useCallback(async () => {
     try {
       const response = await fetch(`/api/subscription?email=${user?.email}`);
       const result = await response.json();
@@ -133,7 +123,15 @@ export default function SubscriptionPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user?.email]);
+
+  useEffect(() => {
+    if (isAuthenticated && user?.email) {
+      fetchCurrentSubscription();
+    } else {
+      setLoading(false);
+    }
+  }, [isAuthenticated, user?.email, fetchCurrentSubscription]);
 
   const handleSubscribe = async (planId: string) => {
     if (!isAuthenticated) {
@@ -295,7 +293,7 @@ export default function SubscriptionPage() {
 
               <Button 
                 className="w-full" 
-                variant={plan.popular ? 'default' : 'outline'}
+                variant={plan.popular ? 'primary' : 'outline'}
                 onClick={() => handleSubscribe(plan.id)}
                 disabled={selectedPlan === plan.id}
               >
@@ -364,7 +362,7 @@ export default function SubscriptionPage() {
       {/* CTA */}
       <div className="text-center mt-12">
         <p className="text-gray-600 mb-4">
-          Є питання? Зв'яжіться з нами
+          Є питання? Зв&apos;яжіться з нами
         </p>
         <div className="flex gap-4 justify-center">
           <Button variant="outline" asChild>

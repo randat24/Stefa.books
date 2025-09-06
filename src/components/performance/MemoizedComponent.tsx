@@ -219,7 +219,7 @@ export function MemoizedComputation<T>({
       console.error('Error in memoized computation:', error);
       return null;
     }
-  }, dependencies);
+  }, [compute, ...dependencies]);
 
   if (result === null) {
     return <div className={className}>{fallback}</div>;
@@ -254,7 +254,7 @@ export function MemoizedAsync<T>({
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState<Error | null>(null);
 
-  const memoizedAsyncFn = useCallback(asyncFn, dependencies);
+  const memoizedAsyncFn = useCallback(asyncFn, [asyncFn, ...dependencies]);
 
   useEffect(() => {
     let isMounted = true;
@@ -304,7 +304,7 @@ export function useMemoizedCallback<T extends (...args: any[]) => any>(
   callback: T,
   dependencies: any[]
 ): T {
-  return useCallback(callback, dependencies);
+  return useCallback(callback, [callback, ...dependencies]);
 }
 
 /**
@@ -314,5 +314,5 @@ export function useMemoizedValue<T>(
   value: T,
   dependencies: any[]
 ): T {
-  return useMemo(() => value, dependencies);
+  return useMemo(() => value, [value, ...dependencies]);
 }

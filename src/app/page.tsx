@@ -3,7 +3,8 @@ import Hero from "@/components/hero/Hero";
 import Steps from "@/components/sections/Steps";
 import { Metadata } from "next";
 import { LazySection } from "@/components/ui/LazySection";
-import { FadeIn, StaggeredList } from "@/components/animations";
+
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = 'Stefa.books - Дитяча бібліотека книг з підпискою та орендою';

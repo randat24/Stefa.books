@@ -24,8 +24,25 @@ export async function middleware(request: NextRequest) {
   //   return NextResponse.rewrite(apiUrl);
   // }
   
-  // Disable caching for admin routes to prevent static generation issues
-  if (request.nextUrl.pathname.startsWith('/admin')) {
+  // Check authentication for protected routes
+  const protectedRoutes = [
+    '/admin',
+    '/account',
+    '/profile',
+    '/orders',
+    '/my-rentals',
+    '/favorites',
+    '/subscription',
+    '/rent',
+    '/return'
+  ];
+
+  const isProtectedRoute = protectedRoutes.some(route => 
+    request.nextUrl.pathname.startsWith(route)
+  );
+
+  if (isProtectedRoute) {
+    // Disable caching for protected routes
     response.headers.set('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate');
     response.headers.set('Pragma', 'no-cache');
     response.headers.set('Expires', '0');
@@ -40,7 +57,9 @@ export async function middleware(request: NextRequest) {
     const token = request.cookies.get('sb-access-token')?.value;
     
     if (!token) {
-      return NextResponse.redirect(new URL('/auth/login?redirect=/admin', request.url));
+      const redirectUrl = new URL('/auth/login', request.url);
+      redirectUrl.searchParams.set('redirect', request.nextUrl.pathname);
+      return NextResponse.redirect(redirectUrl);
     }
 
     try {
@@ -48,23 +67,30 @@ export async function middleware(request: NextRequest) {
       const { data: { user }, error } = await supabase.auth.getUser(token);
       
       if (error || !user) {
-        return NextResponse.redirect(new URL('/auth/login?redirect=/admin', request.url));
+        const redirectUrl = new URL('/auth/login', request.url);
+        redirectUrl.searchParams.set('redirect', request.nextUrl.pathname);
+        return NextResponse.redirect(redirectUrl);
       }
 
-      // Get user profile to check role
-      const { data: profile } = await supabase
-        .from('users')
-        .select('*')
-        .eq('id', user.id)
-        .single();
+      // For admin routes, check admin permissions
+      if (request.nextUrl.pathname.startsWith('/admin')) {
+        // Get user profile to check role
+        const { data: profile } = await supabase
+          .from('users')
+          .select('*')
+          .eq('id', user.id)
+          .single();
 
-      // Check if user can access admin panel
-      if (!canAccessAdminPanel(user, profile)) {
-        return NextResponse.redirect(new URL('/auth/login?error=access_denied', request.url));
+        // Check if user can access admin panel
+        if (!canAccessAdminPanel(user, profile)) {
+          return NextResponse.redirect(new URL('/auth/login?error=access_denied', request.url));
+        }
       }
     } catch (error) {
       console.error('Middleware auth error:', error);
-      return NextResponse.redirect(new URL('/auth/login?redirect=/admin', request.url));
+      const redirectUrl = new URL('/auth/login', request.url);
+      redirectUrl.searchParams.set('redirect', request.nextUrl.pathname);
+      return NextResponse.redirect(redirectUrl);
     }
   }
   
@@ -75,6 +101,14 @@ export const config = {
   matcher: [
     '/admin/:path*',
     '/api/admin/:path*',
+    '/account/:path*',
+    '/profile/:path*',
+    '/orders/:path*',
+    '/my-rentals/:path*',
+    '/favorites/:path*',
+    '/subscription/:path*',
+    '/rent/:path*',
+    '/return/:path*',
     '/books/:path*'
   ]
 };

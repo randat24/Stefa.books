@@ -66,7 +66,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
   // ============================================================================
 
   const filteredBooks = useMemo(() => {
-    let filtered = books.filter(book => {
+    const filtered = books.filter(book => {
       // Пошук
       if (filters.search) {
         const search = filters.search.toLowerCase()

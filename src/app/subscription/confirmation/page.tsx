@@ -118,7 +118,7 @@ export default function SubscriptionConfirmationPage() {
           Підписка оформлена!
         </h1>
         <p className="text-gray-600">
-          Ваша підписка "{subscriptionData.plan_name}" успішно створена
+          Ваша підписка &quot;{subscriptionData.plan_name}&quot; успішно створена
         </p>
       </div>
 

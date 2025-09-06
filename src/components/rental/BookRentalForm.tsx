@@ -133,7 +133,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Оренда оформлена!</h3>
             <p className="text-gray-600 mb-4">
-              Ваша заявка на оренду книги "{book.title}" успішно відправлена.
+              Ваша заявка на оренду книги &ldquo;{book.title}&rdquo; успішно відправлена.
             </p>
             <p className="text-sm text-gray-500">
               Перенаправляємо на сторінку підтвердження...
@@ -203,7 +203,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
             
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="firstName">Ім'я *</Label>
+                <Label htmlFor="firstName">Ім&apos;я *</Label>
                 <Input
                   id="firstName"
                   value={formData.firstName}

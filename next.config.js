@@ -5,15 +5,12 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   trailingSlash: false,
-  // Bundle optimization
-  compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
+  output: 'standalone',
+  // Отключаем статическую генерацию для решения проблем с Html импортом
   experimental: {
     serverActions: {
       allowedOrigins: ['localhost:3000', 'localhost:3001']
-    },
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons']
+    }
   },
   // Image optimization
   images: {

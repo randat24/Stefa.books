@@ -6,6 +6,7 @@ import { ClientHeader } from '@/components/layouts/ClientHeader';
 import { Footer } from '@/components/layouts/Footer';
 import { BackToTop } from '@/components/ui/BackToTop';
 import { ErrorBoundary } from '@/components/error-boundary';
+import { PageTransitionWrapper } from './PageTransitionWrapper';
 import { registerServiceWorker, checkServiceWorkerUpdate } from '@/lib/serviceWorker';
 import { preloadCriticalImages } from '@/lib/image-optimization';
 import { preloadCriticalFonts } from '@/lib/font-optimization';
@@ -63,7 +64,9 @@ export function ClientLayoutWrapper({ children }: ClientLayoutWrapperProps) {
       {/* Основной контент: ограничен контейнером */}
       <main className="flex-1">
         <ErrorBoundary>
-          <div className="container">{children}</div>
+          <PageTransitionWrapper>
+            <div className="container">{children}</div>
+          </PageTransitionWrapper>
         </ErrorBoundary>
       </main>
 

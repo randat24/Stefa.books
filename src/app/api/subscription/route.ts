@@ -46,9 +46,9 @@ export async function POST(request: NextRequest) {
 
     // Check if user already has an active subscription
     const { data: existingSubscription, error: checkError } = await supabase
-      .from('subscriptions')
-      .select('id, status, end_date')
-      .eq('customer_email', validatedData.customer_email)
+      .from('rentals')
+      .select('id, status, due_date')
+      .eq('user_id', validatedData.customer_email)
       .eq('status', 'active')
       .single();
 
@@ -68,22 +68,18 @@ export async function POST(request: NextRequest) {
     }
 
     // Calculate subscription dates
-    const startDate = new Date();
     const endDate = new Date();
     endDate.setMonth(endDate.getMonth() + 1); // 1 month subscription
 
     // Create subscription record
     const { data: subscription, error: subscriptionError } = await supabase
-      .from('subscriptions')
+      .from('rentals')
       .insert({
-        customer_email: validatedData.customer_email,
-        plan_id: validatedData.plan_id,
-        plan_name: plan.name,
-        price: plan.price,
-        max_books: plan.max_books,
+        book_id: 'subscription-' + validatedData.plan_id, // Use a special book_id for subscriptions
+        user_id: validatedData.customer_email,
         status: 'pending',
-        start_date: startDate.toISOString(),
-        end_date: endDate.toISOString(),
+        due_date: endDate.toISOString(),
+        notes: `Subscription: ${plan.name} (${plan.price}₴, max ${plan.max_books} books)`,
         created_at: new Date().toISOString()
       })
       .select()
@@ -148,9 +144,10 @@ export async function GET(request: NextRequest) {
 
     // Get active subscription for customer
     const { data: subscription, error } = await supabase
-      .from('subscriptions')
+      .from('rentals')
       .select('*')
-      .eq('customer_email', customerEmail)
+      .eq('user_id', customerEmail)
+      .like('book_id', 'subscription-%')
       .eq('status', 'active')
       .order('created_at', { ascending: false })
       .limit(1)
@@ -210,7 +207,7 @@ export async function PUT(request: NextRequest) {
     }
 
     const { data: subscription, error } = await supabase
-      .from('subscriptions')
+      .from('rentals')
       .update(updateData)
       .eq('id', subscription_id)
       .select()
