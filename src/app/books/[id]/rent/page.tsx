@@ -4,7 +4,7 @@ import { BookRentalForm } from "@/components/rental/BookRentalForm";
 import { BookRentalInfo } from "@/components/rental/BookRentalInfo";
 import { BookRentalPricing } from "@/components/rental/BookRentalPricing";
 import { BookRentalTerms } from "@/components/rental/BookRentalTerms";
-import { ChevronLeft, BookOpen, Calendar, MapPin, CreditCard } from "lucide-react";
+import { ChevronLeft, BookOpen } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
@@ -52,7 +52,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
         ]
       }
     };
-  } catch (error) {
+  } catch {
     return {
       title: 'Оренда книги | Stefa.books',
       description: 'Орендуйте дитячі книги в Stefa.books'
