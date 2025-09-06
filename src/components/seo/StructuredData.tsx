@@ -321,10 +321,10 @@ interface ReviewStructuredDataProps {
     datePublished: string;
   }>;
   itemName: string;
-  itemType: 'Book' | 'Service' = 'Book';
+  itemType?: 'Book' | 'Service';
 }
 
-export function ReviewStructuredData({ reviews, itemName, itemType }: ReviewStructuredDataProps) {
+export function ReviewStructuredData({ reviews, itemName, itemType = 'Book' }: ReviewStructuredDataProps) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://stefa-books.com.ua';
   
   const structuredData = {

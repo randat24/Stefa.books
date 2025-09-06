@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:fix": "node scripts/build-fix.js",
+    "ts:restart": "node scripts/restart-ts.js",
+    "fix:react-types": "node scripts/fix-react-types.js",
     "start": "next start",
     "lint": "next lint",
     "check-styles": "./scripts/check-styles.sh",
@@ -45,10 +48,10 @@
     "@radix-ui/react-switch": "^1.2.6",
     "@radix-ui/react-tabs": "^1.1.13",
     "@supabase/supabase-js": "^2.56.0",
+    "@tailwindcss/postcss": "^4.1.13",
     "@tanstack/react-query": "5.59.0",
     "@types/pg": "^8.15.5",
     "axios": "^1.11.0",
-    "canvas": "^3.2.0",
     "class-variance-authority": "0.7.0",
     "cloudinary": "^2.7.0",
     "clsx": "2.1.1",
@@ -80,12 +83,12 @@
     "@typescript-eslint/parser": "^8.41.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.1",
-    "eslint-config-next": "^15.5.2",
+    "eslint-config-next": "^14.2.32",
     "jest": "^30.1.1",
     "jest-environment-jsdom": "^30.1.1",
     "playwright": "^1.55.0",
     "postcss": "8.4.47",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.1.13",
     "typescript": "5.5.4"
   }
 }

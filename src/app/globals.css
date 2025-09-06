@@ -1,6 +1,114 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+
+@theme {
+  /* Container configuration */
+  --container-center: true;
+  --container-padding: 1rem;
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1200px;
+  --container-2xl: 1280px;
+
+  /* Color palette - Stefa.Books Brand */
+  --color-brand: #0B1220;
+  --color-brand-light: #1e293b;
+  --color-brand-accent: #2563eb;
+  --color-brand-accent-light: #3b82f6;
+  --color-brand-yellow: #eab308;
+  --color-brand-yellow-light: #facc15;
+  --color-brand-yellow-dark: #ca8a04;
+  
+  /* Neutral colors */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  
+  /* Semantic colors */
+  --color-success: #10b981;
+  --color-success-light: #d1fae5;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fef3c7;
+  --color-error: #ef4444;
+  --color-error-light: #fee2e2;
+  --color-info: #3b82f6;
+  --color-info-light: #dbeafe;
+
+  /* Typography - Stefa.Books */
+  --font-family-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-family-serif: "Literata", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  
+  /* Font sizes */
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.875rem;    /* 14px */
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-xl: 1.25rem;     /* 20px */
+  --font-size-2xl: 1.5rem;     /* 24px */
+  --font-size-3xl: 1.875rem;   /* 30px */
+  --font-size-4xl: 2.25rem;    /* 36px */
+  --font-size-5xl: 3rem;       /* 48px */
+  --font-size-6xl: 3.75rem;    /* 60px */
+  
+  /* Line heights */
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 2;
+  
+  /* Font weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  
+  /* Grid system - Stefa.Books */
+  --grid-cols-1: 1;
+  --grid-cols-2: 2;
+  --grid-cols-3: 3;
+  --grid-cols-4: 4;
+  --grid-cols-5: 5;
+  --grid-cols-6: 6;
+  --grid-cols-12: 12;
+  
+  /* Breakpoints */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+  
+  /* Custom spacing */
+  --spacing-18: 4.5rem;
+  --spacing-88: 22rem;
+  --spacing-72: 18rem;
+  --spacing-96: 24rem;
+
+  /* Custom border radius */
+  --border-radius-3xl: 1.5rem;
+
+  /* Custom box shadows */
+  --box-shadow-soft: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
+  --box-shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --box-shadow-float: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Custom animations */
+  --animate-fade-in: fadeIn 0.5s ease-out;
+  --animate-slide-up: slideUp 0.5s ease-out;
+  --animate-scale-in: scaleIn 0.3s ease-out;
+}
 
 @layer base {
 	:root {
@@ -214,6 +322,111 @@
 	}
 }
 
+/* Custom utilities - moved to top level for v4 compatibility */
+@utility btn-base {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 500;
+	transition: all 0.2s ease-out;
+	
+	&:hover {
+		transform: scale(1.02);
+	}
+	
+	&:active {
+		transform: scale(0.98);
+	}
+	
+	&:focus-visible {
+		outline: none;
+		box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+	}
+	
+	&:disabled {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+}
+
+@utility btn-primary {
+	@extend .btn-base;
+	padding: 0.75em 1.5em;
+	border-radius: 9999px;
+	font-size: var(--font-size-base);
+	font-weight: 600;
+	background-color: rgb(234 179 8);
+	color: rgb(15 23 42);
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	
+	&:hover {
+		background-color: rgb(250 204 21);
+		box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	}
+}
+
+@utility btn-outline {
+	@extend .btn-base;
+	padding: 0.75em 1.5em;
+	border-radius: 9999px;
+	font-size: var(--font-size-base);
+	font-weight: 600;
+	background-color: white;
+	border: 1px solid rgb(226 232 240);
+	color: rgb(15 23 42);
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	
+	&:hover {
+		background-color: rgb(248 250 252);
+		border-color: rgb(148 163 184);
+		box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	}
+}
+
+@utility btn-ghost {
+	@extend .btn-base;
+	padding: 0.75em 1.5em;
+	border-radius: 9999px;
+	font-size: var(--font-size-base);
+	font-weight: 600;
+	background-color: transparent;
+	color: rgb(15 23 42);
+	
+	&:hover {
+		background-color: rgb(248 250 252);
+	}
+}
+
+@utility focus-ring {
+	&:focus-visible {
+		outline: none;
+		box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+	}
+}
+
+@utility focus-ring-accent {
+	&:focus-visible {
+		outline: none;
+		box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+	}
+}
+
+@utility hover-lift {
+	transition: transform 0.2s ease-out;
+	
+	&:hover {
+		transform: translateY(-2px);
+	}
+}
+
+@utility click-scale {
+	transition: transform 0.15s ease-out;
+	
+	&:active {
+		transform: scale(0.98);
+	}
+}
+
 @layer components {
 	/* Утилитарные классы */
 	.section {
@@ -257,15 +470,6 @@
 	.hero-description {
 		text-wrap: pretty;
 		line-height: 1.65;
-	}
-
-	/* Кнопки - базовые стили */
-	.btn-base {
-		@apply inline-flex items-center justify-center font-medium;
-		@apply transition-all duration-200 ease-out;
-		@apply hover:scale-[1.02] active:scale-[0.98];
-		@apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
-		@apply disabled:opacity-50 disabled:pointer-events-none;
 	}
 
 	/* Текстовые утилиты */
@@ -363,48 +567,6 @@
 		box-shadow: var(--shadow-sm);
 	}
 
-	/* Кнопки - варианты */
-	.btn-primary {
-		@apply btn-base font-semibold shadow-md hover:shadow-lg;
-		padding: 0.75em 1.5em;
-		border-radius: var(--radius-full);
-		font-size: var(--font-size-base);
-		background-color: rgb(234 179 8);
-		color: rgb(15 23 42);
-		transition: all 200ms ease-out;
-	}
-	
-	.btn-primary:hover {
-		background-color: rgb(250 204 21); /* yellow-400 */
-	}
-	
-	.btn-outline {
-		@apply btn-base border bg-white font-semibold shadow-md hover:shadow-lg;
-		padding: 0.75em 1.5em;
-		border-radius: var(--radius-full);
-		font-size: var(--font-size-base);
-		border-color: rgb(226 232 240);
-		color: rgb(15 23 42);
-		transition: all 200ms ease-out;
-	}
-	
-	.btn-outline:hover {
-		background-color: rgb(248 250 252); /* slate-50 */
-		border-color: rgb(148 163 184); /* slate-400 */
-	}
-	
-	.btn-ghost {
-		@apply btn-base bg-transparent font-semibold;
-		padding: 0.75em 1.5em;
-		border-radius: var(--radius-full);
-		font-size: var(--font-size-base);
-		color: rgb(15 23 42);
-		transition: all 200ms ease-out;
-	}
-	
-	.btn-ghost:hover {
-		background-color: rgb(248 250 252); /* slate-50 */
-	}
 }
 
 @layer utilities {
@@ -487,31 +649,7 @@
 		animation: scaleIn 0.3s ease-out;
 	}
 
-	/* Интерактивность */
-	.hover-lift {
-		@apply transition-transform duration-200 ease-out;
-	}
-	
-	.hover-lift:hover {
-		transform: translateY(-2px);
-	}
-	
-	.click-scale {
-		@apply transition-transform duration-150 ease-out;
-	}
-	
-	.click-scale:active {
-		transform: scale(0.98);
-	}
 
-	/* Фокус */
-	.focus-ring {
-		@apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
-	}
-	
-	.focus-ring-accent {
-		@apply focus-ring focus-visible:ring-blue-500;
-	}
 	
 	/* Утилиты для выделения текста */
 	.selection-brand {

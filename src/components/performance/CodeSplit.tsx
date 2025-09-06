@@ -68,7 +68,7 @@ export function withCodeSplit<P extends object>(
         delay={options?.delay}
         className={options?.className}
       >
-        <LazyComponent {...props} />
+        <LazyComponent {...(props as any)} />
       </CodeSplit>
     );
   };
@@ -104,10 +104,10 @@ export function DynamicImport({
         setIsLoading(true);
         setError(null);
 
-        const module = await importFunc();
+        const importedModule = await importFunc();
         
         if (isMounted) {
-          setComponent(() => module.default);
+          setComponent(() => importedModule.default);
           setIsLoading(false);
         }
       } catch (err) {
@@ -213,8 +213,8 @@ export function useDynamicImport<T = any>(
       setIsLoading(true);
       setError(null);
 
-      const module = await importFunc();
-      setComponent(() => module.default);
+      const importedModule = await importFunc();
+      setComponent(() => importedModule.default);
     } catch (err) {
       setError(err as Error);
     } finally {
@@ -273,10 +273,10 @@ export function ConditionalLoad({
         setIsLoading(true);
         setError(null);
 
-        const module = await importFunc();
+        const importedModule = await importFunc();
         
         if (isMounted) {
-          setComponent(() => module.default);
+          setComponent(() => importedModule.default);
           setIsLoading(false);
         }
       } catch (err) {

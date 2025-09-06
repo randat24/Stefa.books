@@ -22,9 +22,12 @@ const button = cva(
         ghost:
           "bg-transparent text-brand hover:bg-gray-50",
         dark:
-          "bg-brand text-white hover:bg-brand-light"
+          "bg-brand text-white hover:bg-brand-light",
+        destructive:
+          "bg-red-600 text-white hover:bg-red-700"
       },
       size: {
+        sm: "h-9 px-4 text-[14px]",
         md: "h-11 px-5 text-[15px]",
         lg: "h-12 px-6 text-[16px]",                   // по умолчанию
         xl: "h-[52px] px-7 text-[17px]"

@@ -7,6 +7,23 @@ export async function middleware(request: NextRequest) {
   // Create response with proper headers
   const response = NextResponse.next();
   
+  // Handle markdown generation for specific routes
+  const pathname = request.nextUrl.pathname;
+  
+  // Skip middleware for error pages to prevent build issues
+  if (pathname === '/404' || pathname === '/500' || pathname.startsWith('/_error')) {
+    return response;
+  }
+  
+  // Temporarily disabled: Auto-generate markdown versions for book pages
+  // if (pathname.startsWith('/books/') && pathname.endsWith('.md')) {
+  //   const bookId = pathname.replace('/books/', '').replace('.md', '');
+  //   const apiUrl = new URL(`/api/books/${bookId}/markdown`, request.url);
+  //   
+  //   // Redirect to API endpoint for markdown generation
+  //   return NextResponse.rewrite(apiUrl);
+  // }
+  
   // Disable caching for admin routes to prevent static generation issues
   if (request.nextUrl.pathname.startsWith('/admin')) {
     response.headers.set('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate');
@@ -57,6 +74,7 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/admin/:path*',
-    '/api/admin/:path*'
+    '/api/admin/:path*',
+    '/books/:path*'
   ]
 };

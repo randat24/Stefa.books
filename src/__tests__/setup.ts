@@ -1,26 +1,33 @@
 import '@testing-library/jest-dom'
+import React from 'react'
 
 // Mock next/head
 jest.mock('next/head', () => {
   return function Head({ children }: { children: React.ReactNode }) {
-    return <>{children}</>
+    return React.createElement(React.Fragment, null, children)
   }
 })
 
 // Mock next/image
 jest.mock('next/image', () => {
   return function Image({ src, alt, ...props }: any) {
-    return <img src={src} alt={alt} {...props} />
+    return React.createElement('img', { src, alt, ...props })
   }
 })
 
 // Mock IntersectionObserver
-global.IntersectionObserver = class IntersectionObserver {
-  constructor() {}
+global.IntersectionObserver = class MockIntersectionObserver implements IntersectionObserver {
+  root = null
+  rootMargin = ''
+  thresholds = []
+  
+  constructor(private callback: IntersectionObserverCallback, private options?: IntersectionObserverInit) {}
+  
   disconnect() {}
   observe() {}
   unobserve() {}
-}
+  takeRecords(): IntersectionObserverEntry[] { return [] }
+} as any
 
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {

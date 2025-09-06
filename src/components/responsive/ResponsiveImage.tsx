@@ -7,6 +7,8 @@ import { useBreakpoint } from './ResponsiveContainer';
 interface ResponsiveImageProps {
   src: string;
   alt: string;
+  width?: number;
+  height?: number;
   className?: string;
   priority?: boolean;
   quality?: number;
@@ -24,6 +26,8 @@ interface ResponsiveImageProps {
 export function ResponsiveImage({
   src,
   alt,
+  width,
+  height,
   className = '',
   priority = false,
   quality = 75,
@@ -62,7 +66,9 @@ export function ResponsiveImage({
     }
   };
 
-  const { width, height } = getImageDimensions();
+  const imageDimensions = getImageDimensions();
+  const finalWidth = width || imageDimensions.width;
+  const finalHeight = height || imageDimensions.height;
   const currentSrc = imageError ? fallbackSrc : src;
 
   const handleLoad = () => {
@@ -82,8 +88,8 @@ export function ResponsiveImage({
       <Image
         src={currentSrc}
         alt={alt}
-        width={width}
-        height={height}
+        width={finalWidth}
+        height={finalHeight}
         priority={priority}
         quality={quality}
         sizes={getSizes()}

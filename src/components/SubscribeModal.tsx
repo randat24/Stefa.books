@@ -120,7 +120,7 @@ export function SubscribeModal({ isOpen, onClose, book, defaultPlan }: Subscribe
 		reset,
 		trigger
 	} = useForm<SubscribeFormData>({
-		resolver: zodResolver(subscribeFormSchema),
+		resolver: zodResolver(subscribeFormSchema as any),
 		mode: 'onChange',
 		defaultValues: {
 			plan: defaultPlan || 'mini',

@@ -3,6 +3,9 @@ import { Suspense } from 'react';
 import { SearchProvider } from '@/components/search/SearchProvider';
 import { SimpleSearch } from '@/components/search/SimpleSearch';
 
+// Force dynamic rendering for pages that use context
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ searchParams }: { 
   searchParams: Promise<{ q?: string; category?: string; age?: string }> 
 }): Promise<Metadata> {

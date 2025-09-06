@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
-import { Header } from '@/components/layouts/Header';
+import { ClientHeader } from '@/components/layouts/ClientHeader';
 import { Footer } from '@/components/layouts/Footer';
 import { BackToTop } from '@/components/ui/BackToTop';
 import { ErrorBoundary } from '@/components/error-boundary';
@@ -57,7 +57,7 @@ export function ClientLayoutWrapper({ children }: ClientLayoutWrapperProps) {
           </div>
         </header>
       }>
-        <Header />
+        <ClientHeader />
       </ErrorBoundary>
 
       {/* Основной контент: ограничен контейнером */}

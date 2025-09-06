@@ -10,29 +10,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Development
 ```bash
-npm run dev          # Start development server on http://localhost:3000
-npm run build        # Production build
-npm run start        # Start production server
-npm run type-check   # TypeScript type checking without build
-npm run lint         # ESLint checking
-npm run lint:fix     # Auto-fix linting issues
-npm run clean        # Clean build artifacts
+pnpm run dev         # Start development server on http://localhost:3000
+pnpm run build       # Production build
+pnpm run start       # Start production server
+pnpm run type-check  # TypeScript type checking without build
+pnpm run lint        # ESLint checking
+pnpm run lint:fix    # Auto-fix linting issues
+pnpm run clean       # Clean build artifacts
 ```
 
 ### Testing
 ```bash
-npm run test                   # Run Jest unit tests
-npm run test:watch             # Jest in watch mode
-npm run test:coverage          # Generate test coverage report (70% threshold)
-npm run test:e2e               # Run Playwright E2E tests
-npm run test:e2e:ui            # Playwright with UI mode
-npm run test:e2e:headed        # Playwright with visible browser
-npm run test:performance       # Run performance-specific tests
-npm run test:all               # Run all tests (unit + e2e)
+pnpm run test                   # Run Jest unit tests
+pnpm run test:watch             # Jest in watch mode
+pnpm run test:coverage          # Generate test coverage report (70% threshold)
+pnpm run test:e2e               # Run Playwright E2E tests
+pnpm run test:e2e:ui            # Playwright with UI mode
+pnpm run test:e2e:headed        # Playwright with visible browser
+pnpm run test:performance       # Run performance-specific tests
+pnpm run test:all               # Run all tests (unit + e2e)
 
 # Run single test file
-npx jest src/__tests__/components/BookCard.test.tsx
-npx jest --watch BookCard  # Watch mode for specific test
+pnpm exec jest src/__tests__/components/BookCard.test.tsx
+pnpm exec jest --watch BookCard  # Watch mode for specific test
 ```
 
 ### Data Import & Management
@@ -43,28 +43,28 @@ node quick-import.js        # Import books from Google Sheets -> generates SQL
 node auto-upload-covers.js  # Upload book covers to Cloudinary
 
 # Book data management
-npm run insert-books        # Insert books directly to database
-npm run check-books         # Check book data integrity
-npm run delete-added-books  # Remove test/added books
+pnpm run insert-books        # Insert books directly to database
+pnpm run check-books         # Check book data integrity
+pnpm run delete-added-books  # Remove test/added books
 
 # Style checking
-npm run check-styles        # Check code style via script
-npm run fix-styles          # Auto-fix style issues
-npm run dev-safe            # Check styles before starting dev server
+pnpm run check-styles        # Check code style via script
+pnpm run fix-styles          # Auto-fix style issues
+pnpm run dev-safe            # Check styles before starting dev server
 ```
 
 ### Performance & Analysis
 ```bash
-npm run analyze:bundle      # Analyze bundle size with ANALYZE=true
-npm run analyze:performance # Run performance analysis script
+pnpm run analyze:bundle      # Analyze bundle size with ANALYZE=true
+pnpm run analyze:performance # Run performance analysis script
 ```
 
 ### Deployment
 ```bash
-npm run vercel:check        # Check Vercel deployment readiness
-npm run vercel:deploy       # Deploy to Vercel (preview)
-npm run vercel:deploy:prod  # Deploy to production
-npm run vercel:deploy:preview # Deploy preview build
+pnpm run vercel:check        # Check Vercel deployment readiness
+pnpm run vercel:deploy       # Deploy to Vercel (preview)
+pnpm run vercel:deploy:prod  # Deploy to production
+pnpm run vercel:deploy:preview # Deploy preview build
 ```
 
 ## Architecture & Key Concepts
@@ -74,7 +74,7 @@ npm run vercel:deploy:preview # Deploy preview build
 - **React 19.1.1** with new concurrent features
 - **TypeScript 5.5.4** in strict mode - avoid `any`, use proper typing
 - **Supabase** - PostgreSQL with Row Level Security (RLS) enabled
-- **Tailwind CSS 4.0** - utility-first styling with custom design system
+- **Tailwind CSS 4.1.13** - utility-first styling with custom design system and CSS-based configuration
 - **Cloudinary** - image storage and optimization
 - **Zustand 5.0.8** - lightweight state management
 - **React Query 5.59.0** - server state management
@@ -171,12 +171,58 @@ Based on shadcn/ui with custom variants:
 - `POST /api/rent` - Rental requests
 - `GET /api/sitemap` - Dynamic XML sitemap generation for SEO
 - `GET /api/test-books` - Test book data endpoint for development
+- `POST|GET /api/markdown` - HTML to Markdown conversion service with mdream
+- `GET /api/books/[id]/markdown` - Generate markdown version of book pages
+- `GET /api/llms.txt` - AI discoverability file generation
 
 #### Admin APIs (`src/app/api/admin/`)  
 - `/admin/users` - User management
 - `/admin/rentals` - Rental management
 - `/admin/analytics` - Usage statistics
 - `/admin/sync-categories` - Category synchronization
+
+### Markdown & AI Integration (mdream)
+
+#### HTML to Markdown Conversion
+- **mdream Library** (`^0.10.1`) - High-quality HTML to Markdown conversion optimized for AI/LLM processing
+- **Core Utility** (`src/lib/mdream.ts`) - Comprehensive utilities for markdown conversion with caching
+- **Middleware Routing** (`src/middleware.ts`) - Automatic .md URL routing for book pages
+
+#### Key Features
+- **Auto-generated Book Markdown**: Access any book page as markdown by adding `.md` extension
+  ```
+  /books/[id].md → Automatic markdown generation
+  ```
+- **API Endpoints**:
+  - `POST /api/markdown` - Convert HTML content to markdown
+  - `GET /api/markdown?url=...&format=text` - Convert URL to markdown
+  - `GET /api/books/[id]/markdown` - Generate markdown version of specific book
+- **AI Discoverability**: `GET /api/llms.txt` - Auto-generated AI discovery file with site structure
+- **Caching**: 1-hour cache for markdown conversions with configurable TTL
+- **Fallback Support**: Graceful degradation with simple markdown if mdream fails
+
+#### Usage Examples
+```typescript
+import { convertHtmlToMarkdown, generateLlmsTxt } from '@/lib/mdream';
+
+// Convert HTML to markdown
+const result = await convertHtmlToMarkdown(htmlContent, {
+  minimal: true,
+  title: 'Document Title',
+  origin: 'https://example.com',
+  metadata: { author: 'Author Name' }
+});
+
+// Generate llms.txt for AI discoverability
+const llmsTxt = await generateLlmsTxt([
+  { url: '/page1', title: 'Page 1', description: 'Description' }
+]);
+```
+
+#### URL Patterns
+- `/books/681bf8ad-736c-48a5-8247-a259ca530736.md` - Book markdown version
+- `/api/llms.txt` - AI discovery file
+- `/api/markdown?url=https://example.com&format=text` - URL to markdown
 
 ### Testing Patterns
 
@@ -238,12 +284,66 @@ CLOUDINARY_API_SECRET=your_api_secret
 - Check `BUILD_OPTIMIZATION_REPORT.md` for previous fixes
 - Ensure all required environment variables are set
 
-#### Recently Fixed Issues (2025-09-04)
-- **Book Page 404 Errors**: Fixed API functions to use absolute URLs for SSR (`src/lib/api/books.ts`)
-- **Button Component `asChild` Issue**: Fixed React.cloneElement implementation in Button component
-- **Webpack Cache Corruption**: Resolved by `rm -rf .next && npm run clean` and restart
-- **English Status Labels**: Replaced with Ukrainian ("✓ Доступна" / "✗ Видана") in BookCard
-- **Zero Character Display**: Fixed conditional render `{book.badges?.length && (...)}` → `{book.badges && book.badges.length > 0 && (...)}`
+#### Recently Fixed Issues (2025-09-05)
+- **Major TypeScript Cleanup**: Resolved 76+ TypeScript errors across the entire codebase
+- **Database Schema Mismatches**: Fixed inconsistent field names (amount_uah→amount, payment_date→created_at, returned_at→return_date)
+- **Button Component Enhancement**: Added missing size variant "sm" and "destructive" variant
+- **ResponsiveImage Component**: Added width/height props support and fixed duplicate identifier issues
+- **Framer Motion Animation**: Fixed ease property type compatibility with proper TypeScript casting
+- **Accessibility Improvements**: Fixed HTMLElement type casting in accessibility utilities
+- **Admin Components**: Created missing placeholder components (NotificationsPanel, AddBookDialog, EditBookDialog)
+- **Jest Test Setup**: Fixed IntersectionObserver mock with proper TypeScript interface implementation
+- **User Management**: Replaced missing last_login field with updated_at/created_at fallbacks
+- **Performance Optimizations**: Fixed Element/HTMLImageElement type compatibility in lazy loading utilities
+- **Tailwind CSS v4.1 Upgrade**: Migrated from v3.4.17 to v4.1.13 with CSS-based configuration
+- **mdream Integration**: Added comprehensive HTML to Markdown conversion with AI discoverability features
+- **Package Manager Migration**: Migrated from npm to pnpm for 33x faster installs and improved performance
+- **SSR Markdown Generation**: Resolved server-side rendering issues for book markdown endpoints
+
+### Tailwind CSS v4.1 Configuration
+
+#### New CSS-based Configuration Pattern
+In Tailwind v4.1, configuration moved from JavaScript (`tailwind.config.ts`) to CSS:
+
+```css
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+
+@theme {
+  /* Custom colors */
+  --color-brand: #0B1220;
+  --color-brand-yellow: #eab308;
+  
+  /* Custom spacing */
+  --spacing-18: 4.5rem;
+  --spacing-88: 22rem;
+  
+  /* Container configuration */
+  --container-center: true;
+  --container-padding: 1rem;
+}
+
+@utility btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* ... more styles */
+}
+```
+
+#### Key v4.1 Improvements
+- **5x faster builds**: New high-performance engine
+- **100x faster incremental builds**: Optimized caching
+- **Zero configuration**: Automatic content detection
+- **CSS-based configuration**: More intuitive theme customization
+- **Better plugin system**: `@plugin` directive instead of JavaScript config
+- **Modern browser focus**: Targets Safari 16.4+, Chrome 111+, Firefox 128+
+
+#### Migration Notes
+- PostCSS plugin moved to `@tailwindcss/postcss`
+- Custom utilities use `@utility` instead of `@apply` in layers
+- Plugins imported via `@plugin` in CSS instead of JS config
+- Container queries and modern CSS features built-in
 
 ### Performance Considerations
 - **Advanced Image Optimization**: Cloudinary integration with lazy loading, Intersection Observer API, and WebP/AVIF formats
@@ -256,6 +356,7 @@ CLOUDINARY_API_SECRET=your_api_secret
 - **Server Components**: Used by default (add `'use client'` only when needed)
 - **Database queries**: Cached with configurable TTL via APICache system
 - **Bundle analysis**: Available via `npm run analyze:bundle`
+- **Tailwind v4.1 Speed**: Up to 5x faster CSS generation and 100x faster incremental builds
 
 ## Key File Locations
 - **Database Types**: `src/lib/database.types.ts` (auto-generated from Supabase)
@@ -267,6 +368,10 @@ CLOUDINARY_API_SECRET=your_api_secret
 - **Performance Optimization**: `src/lib/image-optimization.ts`, `src/lib/font-optimization.ts`, `src/lib/memory-optimization.ts`
 - **Intersection Observer**: `src/lib/intersection-observer.ts` (lazy loading utility)
 - **SEO Utilities**: `src/lib/site.ts` (site configuration and metadata)
+- **Markdown Integration**: `src/lib/mdream.ts` (HTML to Markdown conversion utilities)
+- **AI Discovery**: `src/app/api/llms.txt/route.ts` (AI discoverability file generation)
+- **Book Markdown API**: `src/app/api/books/[id]/markdown/route.ts` (book-specific markdown generation)
+- **Markdown Conversion API**: `src/app/api/markdown/route.ts` (general HTML to Markdown service)
 - **Data Import**: `scripts/quick-import.js` (Google Sheets to SQL)
 - **Style Scripts**: `scripts/check-styles.sh`, `scripts/fix-styles.sh`
 - **Documentation**: `SPEED_OPTIMIZATION_PLAN.md`, `FIXES_SUMMARY.md`, `BUILD_OPTIMIZATION_REPORT.md`

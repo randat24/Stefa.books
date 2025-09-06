@@ -96,7 +96,9 @@ export function getFocusableElements(container: HTMLElement): HTMLElement[] {
   ];
   
   const elements = container.querySelectorAll(focusableSelectors.join(', '));
-  return Array.from(elements).filter(isVisibleToScreenReader) as HTMLElement[];
+  return Array.from(elements).filter((element): element is HTMLElement => 
+    element instanceof HTMLElement && isVisibleToScreenReader(element)
+  );
 }
 
 /**

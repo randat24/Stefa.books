@@ -141,6 +141,13 @@ pnpm lint && pnpm type-check && pnpm test
 pnpm lint && pnpm type-check && pnpm test && pnpm build
 ```
 
+### E2E тестирование
+```bash
+pnpm test:e2e         # Запуск E2E тестов
+pnpm test:e2e:ui      # Playwright с UI
+pnpm test:e2e:headed  # С видимым браузером
+```
+
 ### Code Review Checklist
 - [ ] ❌ Нет `any` типов
 - [ ] ❌ Нет `console.log` в production коде
@@ -165,7 +172,9 @@ pnpm start            # Запуск production сервера
 ```bash
 pnpm lint             # ESLint проверка
 pnpm type-check       # TypeScript проверка
-pnpm test             # Запуск тестов
+pnpm test             # Jest unit тесты
+pnpm test:e2e         # Playwright E2E тесты
+pnpm test:all         # Все тесты (unit + e2e)
 pnpm format           # Форматирование кода
 ```
 
@@ -174,6 +183,24 @@ pnpm format           # Форматирование кода
 pnpm analyze          # Анализ размера бандла
 pnpm lighthouse       # Lighthouse анализ
 pnpm metrics          # Метрики производительности
+```
+
+### Tailwind CSS v4.1
+```bash
+# Конфигурация теперь в CSS (globals.css)
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+
+@theme {
+  --color-brand: #0B1220;
+  --color-brand-yellow: #eab308;
+}
+
+@utility btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 ```
 
 ---

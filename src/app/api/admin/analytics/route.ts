@@ -52,29 +52,32 @@ export async function GET(request: NextRequest) {
     const overdueRentals = rentals.filter(r => r.status === 'overdue').length
 
     // Розрахунок доходів
-    const totalRevenue = payments.reduce((sum, p) => sum + (p.amount_uah || 0), 0)
+    const totalRevenue = payments.reduce((sum, p) => sum + (p.amount || 0), 0)
     const monthlyRevenue = payments
       .filter(p => {
-        const paymentDate = new Date(p.payment_date)
+        if (!p.created_at) return false
+        const paymentDate = new Date(p.created_at)
         return paymentDate.getMonth() === now.getMonth() && 
                paymentDate.getFullYear() === now.getFullYear()
       })
-      .reduce((sum, p) => sum + (p.amount_uah || 0), 0)
+      .reduce((sum, p) => sum + (p.amount || 0), 0)
     
     const weeklyRevenue = payments
       .filter(p => {
-        const paymentDate = new Date(p.payment_date)
+        if (!p.created_at) return false
+        const paymentDate = new Date(p.created_at)
         const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
         return paymentDate >= weekAgo
       })
-      .reduce((sum, p) => sum + (p.amount_uah || 0), 0)
+      .reduce((sum, p) => sum + (p.amount || 0), 0)
 
     // Розрахунок середньої тривалості оренди
-    const completedRentals = rentals.filter(r => r.status === 'completed' && r.returned_at)
+    const completedRentals = rentals.filter(r => r.status === 'completed' && r.return_date)
     const averageRentalDuration = completedRentals.length > 0 
       ? completedRentals.reduce((sum, r) => {
+          if (!r.created_at || !r.return_date) return sum
           const start = new Date(r.created_at)
-          const end = new Date(r.returned_at)
+          const end = new Date(r.return_date)
           return sum + Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))
         }, 0) / completedRentals.length
       : 0
@@ -112,7 +115,9 @@ export async function GET(request: NextRequest) {
 
     const userSpending = payments.reduce((acc, payment) => {
       const userId = payment.user_id
-      acc[userId] = (acc[userId] || 0) + (payment.amount_uah || 0)
+      if (userId) {
+        acc[userId] = (acc[userId] || 0) + (payment.amount || 0)
+      }
       return acc
     }, {} as Record<string, number>)
 
@@ -123,7 +128,7 @@ export async function GET(request: NextRequest) {
         email: user.email,
         total_rentals: userRentalCounts[user.id] || 0,
         total_spent: userSpending[user.id] || 0,
-        last_activity: user.last_login || user.created_at
+        last_activity: user.created_at
       }))
       .sort((a, b) => b.total_rentals - a.total_rentals)
       .slice(0, 10)
@@ -142,11 +147,15 @@ export async function GET(request: NextRequest) {
         id: `payment-${payment.id}`,
         type: 'payment' as const,
         user_name: users.find(u => u.id === payment.user_id)?.name || 'Невідомий',
-        amount: payment.amount_uah || 0,
-        timestamp: payment.payment_date
+        amount: payment.amount || 0,
+        timestamp: payment.created_at
       }))
     ]
-    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+    .sort((a, b) => {
+      const aTime = a.timestamp ? new Date(a.timestamp).getTime() : 0;
+      const bTime = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+      return bTime - aTime;
+    })
     .slice(0, 20)
 
     // Тренди (спрощена версія)
@@ -154,7 +163,7 @@ export async function GET(request: NextRequest) {
       userGrowth: Array.from({ length: 30 }, (_, i) => {
         const date = new Date(now.getTime() - (29 - i) * 24 * 60 * 60 * 1000)
         const dayUsers = users.filter(u => 
-          new Date(u.created_at).toDateString() === date.toDateString()
+          u.created_at && new Date(u.created_at).toDateString() === date.toDateString()
         ).length
         return {
           date: date.toISOString().split('T')[0],
@@ -164,8 +173,8 @@ export async function GET(request: NextRequest) {
       revenueGrowth: Array.from({ length: 30 }, (_, i) => {
         const date = new Date(now.getTime() - (29 - i) * 24 * 60 * 60 * 1000)
         const dayRevenue = payments
-          .filter(p => new Date(p.payment_date).toDateString() === date.toDateString())
-          .reduce((sum, p) => sum + (p.amount_uah || 0), 0)
+          .filter(p => p.created_at && new Date(p.created_at).toDateString() === date.toDateString())
+          .reduce((sum, p) => sum + (p.amount || 0), 0)
         return {
           date: date.toISOString().split('T')[0],
           amount: dayRevenue
@@ -174,7 +183,7 @@ export async function GET(request: NextRequest) {
       rentalActivity: Array.from({ length: 30 }, (_, i) => {
         const date = new Date(now.getTime() - (29 - i) * 24 * 60 * 60 * 1000)
         const dayRentals = rentals.filter(r => 
-          new Date(r.created_at).toDateString() === date.toDateString()
+          r.created_at && new Date(r.created_at).toDateString() === date.toDateString()
         ).length
         return {
           date: date.toISOString().split('T')[0],

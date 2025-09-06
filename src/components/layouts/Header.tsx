@@ -11,10 +11,12 @@ import { Button } from '@/components/ui/button';
 import { User, LogOut, Heart, BookOpen, Menu, X } from 'lucide-react';
 
 export function Header() {
-  const { user, isAuthenticated, logout } = useAuth();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isSubscriptionModalOpen, setIsSubscriptionModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Get auth state directly from useAuth hook
+  const { user, isAuthenticated, logout } = useAuth();
 
   const handleLogout = async () => {
     await logout();

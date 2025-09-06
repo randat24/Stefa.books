@@ -116,7 +116,8 @@ export function lazyLoadImages(
   if (!('IntersectionObserver' in window)) {
     // Fallback для старых браузеров
     const images = document.querySelectorAll(selector);
-    images.forEach((img: HTMLImageElement) => {
+    images.forEach((img) => {
+      if (!(img instanceof HTMLImageElement)) return;
       if (img.dataset.src) {
         img.src = img.dataset.src;
         img.removeAttribute('data-src');

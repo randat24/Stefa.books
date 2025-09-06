@@ -155,13 +155,13 @@ export function VirtualizedGrid<T>({
 
   // Получаем видимые элементы
   const visibleItems = useMemo(() => {
-    const items: Array<{ item: T; index: number; row: number; col: number }> = [];
+    const visibleItemsList: Array<{ item: T; index: number; row: number; col: number }> = [];
     
     for (let row = visibleRange.startRow; row < visibleRange.endRow; row++) {
       for (let col = visibleRange.startCol; col < visibleRange.endCol; col++) {
         const index = row * columnsPerRow + col;
         if (index < items.length) {
-          items.push({
+          visibleItemsList.push({
             item: items[index],
             index,
             row,
@@ -171,7 +171,7 @@ export function VirtualizedGrid<T>({
       }
     }
     
-    return items;
+    return visibleItemsList;
   }, [items, visibleRange, columnsPerRow]);
 
   // Обработка скролла

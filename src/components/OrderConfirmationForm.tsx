@@ -56,7 +56,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
     handleSubmit,
     formState: { errors }
   } = useForm<OrderFormData>({
-    resolver: zodResolver(orderSchema)
+    resolver: zodResolver(orderSchema as any)
   });
 
 

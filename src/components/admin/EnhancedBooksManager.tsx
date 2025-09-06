@@ -358,7 +358,11 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <AddBookDialog onBookCreated={onBookCreated} />
+              <AddBookDialog 
+                open={false} 
+                onOpenChange={() => {}}
+                onBookCreated={onBookCreated} 
+              />
               <Button onClick={handleExportBooks} variant="outline" size="md">
                 <Download className="size-4 mr-2" />
                 Експорт
@@ -925,7 +929,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
       <EditBookDialog
         book={editingBook}
         open={!!editingBook}
-        onOpenChange={(open) => !open && setEditingBook(null)}
+        onOpenChange={(open: boolean) => !open && setEditingBook(null)}
         onBookUpdated={onRefresh}
       />
 

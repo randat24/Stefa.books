@@ -1,15 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Output file tracing root to resolve lockfile warning
-  outputFileTracingRoot: __dirname,
-  // Bundle optimization
-  compiler: {
-    // Remove console statements in production
-    removeConsole: process.env.NODE_ENV === 'production',
-  },
-  // Temporarily disable ESLint during build for faster development
+  // Minimal config to fix pages-manifest.json issue
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  trailingSlash: false,
+  // Bundle optimization
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  experimental: {
+    serverActions: {
+      allowedOrigins: ['localhost:3000', 'localhost:3001']
+    },
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons']
   },
   // Image optimization
   images: {
@@ -38,7 +42,6 @@ const nextConfig = {
         port: '3001',
         pathname: '/images/**',
       },
-
     ],
     // Enhanced image optimization settings
     formats: ['image/webp', 'image/avif'],
@@ -48,16 +51,6 @@ const nextConfig = {
     // Дополнительные настройки для Cloudinary
     deviceSizes: [320, 420, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-  },
-  // Performance optimizations
-  experimental: {
-    serverActions: {
-      allowedOrigins: ['localhost:3000']
-    },
-    // Optimize package imports
-    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
-    // Enable memory optimizations
-    memoryBasedWorkersCount: true,
   },
   // Заголовки безпеки
   async headers() {

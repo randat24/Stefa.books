@@ -30,6 +30,7 @@ import { BreadcrumbStructuredData } from "@/components/seo/BreadcrumbStructuredD
 
 type Params = Promise<{ id: string }>;
 
+
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { id } = await params;
   
@@ -107,18 +108,31 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function BookPage({ params }: { params: Params }) {
   const { id } = await params;
-  const bookResponse = await fetchBook(id);
-  if (!bookResponse.success || !bookResponse.data) return notFound();
+  
+  // Use direct Supabase access instead of API calls for SSR
+  const { data: book, error } = await supabase
+    .from('books')
+    .select(`
+      *,
+      category:categories(name, slug)
+    `)
+    .eq('id', id)
+    .single();
 
-  const book = bookResponse.data;
+  if (error || !book) {
+    return notFound();
+  }
 
-  // Get related books (same category, excluding current book)
-  const relatedBooksResponse = await fetchBooksByCategory(book.category_id || '', 8);
-  const relatedBooks = relatedBooksResponse.success
-    ? relatedBooksResponse.data
-        .filter(b => b.id !== book.id && b.available)
-        .slice(0, 5)
-    : [];
+  // Get related books using direct Supabase access
+  const { data: relatedBooksData } = await supabase
+    .from('books')
+    .select('*')
+    .eq('category_id', book.category_id || '')
+    .neq('id', book.id)
+    .eq('available', true)
+    .limit(5);
+    
+  const relatedBooks = relatedBooksData || [];
 
   // Use description from database, with fallback
   const fullDescription = book.description || 

@@ -95,8 +95,8 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
           bValue = new Date(b.created_at || '').getTime()
           break
         case 'lastActivity':
-          aValue = new Date(a.last_login || '').getTime()
-          bValue = new Date(b.last_login || '').getTime()
+          aValue = new Date(a.updated_at || a.created_at || '').getTime()
+          bValue = new Date(b.updated_at || b.created_at || '').getTime()
           break
         default:
           aValue = a.name.toLowerCase()
@@ -364,8 +364,8 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                     }}
                     className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
                   >
-                    <option value="name-asc">Ім'я А-Я</option>
-                    <option value="name-desc">Ім'я Я-А</option>
+                    <option value="name-asc">Ім&apos;я А-Я</option>
+                    <option value="name-desc">Ім&apos;я Я-А</option>
                     <option value="email-asc">Email А-Я</option>
                     <option value="email-desc">Email Я-А</option>
                     <option value="created-desc">Нові спочатку</option>
@@ -506,14 +506,14 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                       {/* Реєстрація */}
                       <TableCell className="p-4">
                         <div className="text-sm text-gray-600">
-                          {formatDate(user.created_at)}
+                          {formatDate(user.created_at || null)}
                         </div>
                       </TableCell>
 
                       {/* Остання активність */}
                       <TableCell className="p-4">
                         <div className="text-sm text-gray-600">
-                          {getDaysSinceLastActivity(user.last_login)}
+                          {getDaysSinceLastActivity(user.updated_at || user.created_at || null)}
                         </div>
                       </TableCell>
 
@@ -710,11 +710,11 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label className="text-sm font-medium text-gray-600">Реєстрація</Label>
-                    <p className="text-gray-700">{formatDateTime(selectedUser.created_at)}</p>
+                    <p className="text-gray-700">{formatDateTime(selectedUser.created_at || null)}</p>
                   </div>
                   <div>
                     <Label className="text-sm font-medium text-gray-600">Остання активність</Label>
-                    <p className="text-gray-700">{formatDateTime(selectedUser.last_login)}</p>
+                    <p className="text-gray-700">{formatDateTime(selectedUser.updated_at || selectedUser.created_at || null)}</p>
                   </div>
                 </div>
               </div>

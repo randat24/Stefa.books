@@ -1,4 +1,4 @@
-// import { getDashboardStats } from './data';
+import { getDashboardStats } from './data';
 
 // Mock the Supabase client
 jest.mock('@/lib/supabase', () => ({
@@ -10,9 +10,9 @@ jest.mock('@/lib/supabase', () => ({
 }));
 
 describe('Admin Data Functions', () => {
-  describe('getAnalyticsData', () => {
+  describe('getDashboardStats', () => {
     it('should return analytics data with default values when no data is available', async () => {
-      const result = await getAnalyticsData();
+      const result = await getDashboardStats();
       
       expect(result).toEqual({
         totalBooks: 0,

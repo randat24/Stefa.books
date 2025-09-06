@@ -34,45 +34,51 @@ export async function GET(request: NextRequest) {
     const overdueRentals = rentals.filter(r => r.status === 'overdue').length
 
     // Розрахунок доходів
-    const totalRevenue = payments.reduce((sum, p) => sum + (p.amount_uah || 0), 0)
+    const totalRevenue = payments.reduce((sum, p) => sum + (p.amount || 0), 0)
     const monthlyRevenue = payments
       .filter(p => {
-        const paymentDate = new Date(p.payment_date)
+        if (!p.created_at) return false
+        const paymentDate = new Date(p.created_at)
         return paymentDate.getMonth() === now.getMonth() && 
                paymentDate.getFullYear() === now.getFullYear()
       })
-      .reduce((sum, p) => sum + (p.amount_uah || 0), 0)
+      .reduce((sum, p) => sum + (p.amount || 0), 0)
     
     const weeklyRevenue = payments
       .filter(p => {
-        const paymentDate = new Date(p.payment_date)
+        if (!p.created_at) return false
+        const paymentDate = new Date(p.created_at)
         const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
         return paymentDate >= weekAgo
       })
-      .reduce((sum, p) => sum + (p.amount_uah || 0), 0)
+      .reduce((sum, p) => sum + (p.amount || 0), 0)
 
     // Статистика за сьогодні
     const booksAddedToday = books.filter(b => {
+      if (!b.created_at) return false
       const bookDate = new Date(b.created_at)
       return bookDate >= today
     }).length
 
     const usersRegisteredToday = users.filter(u => {
+      if (!u.created_at) return false
       const userDate = new Date(u.created_at)
       return userDate >= today
     }).length
 
     const rentalsToday = rentals.filter(r => {
+      if (!r.created_at) return false
       const rentalDate = new Date(r.created_at)
       return rentalDate >= today
     }).length
 
     const revenueToday = payments
       .filter(p => {
-        const paymentDate = new Date(p.payment_date)
+        if (!p.created_at) return false
+        const paymentDate = new Date(p.created_at)
         return paymentDate >= today
       })
-      .reduce((sum, p) => sum + (p.amount_uah || 0), 0)
+      .reduce((sum, p) => sum + (p.amount || 0), 0)
 
     // Остання активність
     const recentActivity = [
@@ -88,8 +94,8 @@ export async function GET(request: NextRequest) {
         id: `payment-${payment.id}`,
         type: 'payment' as const,
         user_name: users.find(u => u.id === payment.user_id)?.name || 'Невідомий',
-        amount: payment.amount_uah || 0,
-        timestamp: payment.payment_date
+        amount: payment.amount || 0,
+        timestamp: payment.created_at
       })),
       ...users.map(user => ({
         id: `user-${user.id}`,
@@ -98,7 +104,11 @@ export async function GET(request: NextRequest) {
         timestamp: user.created_at
       }))
     ]
-    .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+    .sort((a, b) => {
+      const aTime = a.timestamp ? new Date(a.timestamp).getTime() : 0;
+      const bTime = b.timestamp ? new Date(b.timestamp).getTime() : 0;
+      return bTime - aTime;
+    })
     .slice(0, 10)
 
     // Сповіщення та попередження
@@ -116,7 +126,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Перевіряємо низьку кількість доступних книг
-    const lowStockBooks = books.filter(b => b.qty_available <= 1).length
+    const lowStockBooks = books.filter(b => (b.qty_available ?? 0) <= 1).length
     if (lowStockBooks > 0) {
       alerts.push({
         id: 'low-stock',
