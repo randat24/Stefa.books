@@ -4,22 +4,25 @@ import React from 'react';
 import { Loader2, Plus } from 'lucide-react';
 
 interface LoadMoreButtonProps {
-  onLoadMore: () => void;
+  onClick?: () => void;
+  onLoadMore?: () => void;
   isLoading?: boolean;
   hasMore?: boolean;
-  loadedCount: number;
+  loadedCount?: number;
   totalCount?: number;
   className?: string;
 }
 
 export function LoadMoreButton({
+  onClick,
   onLoadMore,
   isLoading = false,
   hasMore = true,
-  loadedCount,
+  loadedCount = 0,
   totalCount,
   className = ''
 }: LoadMoreButtonProps) {
+  const handleClick = onClick || onLoadMore;
   if (!hasMore) {
     return (
       <div className={`text-center py-8 ${className}`}>
@@ -45,7 +48,7 @@ export function LoadMoreButton({
 
       {/* Кнопка загрузки */}
       <button
-        onClick={onLoadMore}
+        onClick={handleClick}
         disabled={isLoading}
         className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-brand-yellow-light focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-gray-300 transition-all duration-200"
       >
