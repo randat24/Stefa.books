@@ -216,7 +216,7 @@ export const useBooksStore = create<BookCacheState>()(
       
       // Проверка обновлений
       checkForUpdates: async () => {
-        const { books, dataHash } = get()
+        const { dataHash } = get()
         
         try {
           // Получаем хеш данных с сервера

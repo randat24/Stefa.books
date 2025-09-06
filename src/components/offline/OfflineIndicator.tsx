@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Wifi, WifiOff, RefreshCw } from 'lucide-react';
+import { WifiOff, RefreshCw } from 'lucide-react';
 import { logger } from '@/lib/logger';
 
 export function OfflineIndicator() {
@@ -68,7 +68,7 @@ export function OfflineIndicator() {
           <div className="flex items-center gap-3">
             <WifiOff className="w-5 h-5" />
             <div>
-              <p className="font-medium">Немає з'єднання з інтернетом</p>
+              <p className="font-medium">Немає з&apos;єднання з інтернетом</p>
               <p className="text-sm text-red-100">
                 Деякі функції можуть бути недоступні. Дані збережені в кеші.
               </p>
