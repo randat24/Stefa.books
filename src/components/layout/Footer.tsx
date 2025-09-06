@@ -77,31 +77,31 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a 
+                <Link 
                   href="/catalog" 
                   className="text-sm transition-colors hover:text-[var(--accent)]"
                   style={{ color: 'var(--text-muted)' }}
                 >
                   Каталог книг
-                </a>
+                </Link>
               </li>
               <li>
-                <a 
+                <Link 
                   href="/plans" 
                   className="text-sm transition-colors hover:text-[var(--accent)]"
                   style={{ color: 'var(--text-muted)' }}
                 >
                   Тарифи та підписки
-                </a>
+                </Link>
               </li>
               <li>
-                <a 
+                <Link 
                   href="/subscribe" 
                   className="text-sm transition-colors hover:text-[var(--accent)]"
                   style={{ color: 'var(--text-muted)' }}
                 >
                   Оформити підписку
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>

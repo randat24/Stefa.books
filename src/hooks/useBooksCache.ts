@@ -8,7 +8,6 @@ export function useBooksCache() {
     lastSync,
     isSyncing,
     cacheVersion,
-    dataHash,
     getBookById,
     getBooksByCategory,
     getBooksByAgeCategory,
@@ -43,7 +42,7 @@ export function useBooksCache() {
     }
     
     initializeCache()
-  }, [])
+  }, [books.length, checkForUpdates, shouldSync, syncWithServer])
   
   // Проверка необходимости синхронизации
   const shouldSync = useCallback(() => {
