@@ -136,8 +136,7 @@ export async function fetchBook(id: string): Promise<BookResponse> {
     }
 
     // Use absolute URL for server-side rendering
-    const baseUrl = typeof window === 'undefined' 
-      ? 'http://localhost:3000'
+    const baseUrl = typeof window === 'undefined'      ? 'http://localhost:3000'
       : '';
     const url = `${baseUrl}/api/books/${id}`;
 

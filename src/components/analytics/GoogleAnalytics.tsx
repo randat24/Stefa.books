@@ -8,14 +8,23 @@ const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID
 export function GoogleAnalytics() {
   useEffect(() => {
     // Настройка согласия на cookies по умолчанию
-    if (typeof window !== 'undefined' && window.gtag) {
-      const consent = localStorage.getItem('cookie-consent')
-      window.gtag('consent', 'default', {
-        analytics_storage: consent === 'accepted' ? 'granted' : 'denied',
-        ad_storage: 'denied',
-        ad_user_data: 'denied',
-        ad_personalization: 'denied'
-      })
+    if (typeof window !== 'undefined') {
+      // Ждем загрузки gtag
+      const checkGtag = () => {
+        if (window.gtag) {
+          const consent = localStorage.getItem('cookie-consent')
+          window.gtag('consent', 'default', {
+            analytics_storage: consent === 'accepted' ? 'granted' : 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied'
+          })
+        } else {
+          // Повторяем попытку через 100ms
+          setTimeout(checkGtag, 100)
+        }
+      }
+      checkGtag()
     }
   }, [])
 

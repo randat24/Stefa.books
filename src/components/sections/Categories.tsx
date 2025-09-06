@@ -6,7 +6,6 @@ import {
 	Shield, Clock, Globe, Compass, Crown
 } from "lucide-react"
 import { useEffect, useState } from "react"
-import { fetchCategories, fetchBooks } from "@/lib/api/books"
 
 export const dynamic = 'force-dynamic'
 
@@ -17,6 +16,33 @@ type CategoryWithStats = {
 	Icon: React.ComponentType<{ className?: string }>
 	total: number             // кількість книг у категорії
 	available: number         // доступні книги
+}
+
+type Category = {
+	id: string
+	name: string
+	description: string
+	display_order: number
+	parent_id: string | null
+	icon: string | null
+	color: string | null
+	subcategories: Category[]
+}
+
+type Book = {
+	id: string
+	title: string
+	author: string
+	category: string | null
+	subcategory: string | null
+	available: boolean
+}
+
+type ApiResponse<T> = {
+	success: boolean
+	data: T
+	count?: number
+	type?: string
 }
 
 // Маппинг иконок для категорий
@@ -265,10 +291,14 @@ export default function Categories() {
 	useEffect(() => {
 		const loadCategories = async () => {
 			try {
+				console.log('Loading categories...')
 				const [categoriesResponse, booksResponse] = await Promise.all([
-					fetchCategories(),
-					fetchBooks({ limit: 200 }) // Получаем больше книг для статистики
+					fetch('/api/categories').then(res => res.json()) as Promise<ApiResponse<Category[]>>,
+					fetch('/api/books?limit=200').then(res => res.json()) as Promise<ApiResponse<Book[]>> // Получаем больше книг для статистики
 				])
+
+				console.log('Categories response:', categoriesResponse)
+				console.log('Books response:', booksResponse)
 
 				if (categoriesResponse.success && booksResponse.success) {
 					const books = booksResponse.data
@@ -276,15 +306,15 @@ export default function Categories() {
 					// Создаем статистику для основных категорий
 					const categoryStats: CategoryWithStats[] = []
 					
-					categoriesResponse.data.forEach(mainCategory => {
+					categoriesResponse.data.forEach((mainCategory: Category) => {
 						// Проверяем, есть ли подкатегории
 						if (mainCategory.subcategories && mainCategory.subcategories.length > 0) {
 							// Если есть подкатегории, используем их
-							mainCategory.subcategories.forEach(subcategory => {
-								const booksInCategory = books.filter(book => 
+							mainCategory.subcategories.forEach((subcategory: Category) => {
+								const booksInCategory = books.filter((book: Book) => 
 									book.subcategory === subcategory.name
 								)
-								const availableBooks = booksInCategory.filter(book => book.available)
+								const availableBooks = booksInCategory.filter((book: Book) => book.available)
 								
 								categoryStats.push({
 									id: subcategory.id,
@@ -297,34 +327,31 @@ export default function Categories() {
 							})
 						} else {
 							// Если подкатегорий нет, используем основные категории
-							// Проверяем, есть ли книги в этой категории (учитываем множественные категории через запятую)
-							const booksInCategory = books.filter(book => {
-								if (!book.category_id) return false
-								// Разделяем категории по запятой и проверяем каждую
-								const bookCategories = book.category_id.split(',').map(cat => cat.trim())
-								return bookCategories.includes(mainCategory.name)
+							// Проверяем, есть ли книги в этой категории
+							const booksInCategory = books.filter((book: Book) => {
+								if (!book.category) return false
+								return book.category === mainCategory.name
 							})
-							const availableBooks = booksInCategory.filter(book => book.available)
+							const availableBooks = booksInCategory.filter((book: Book) => book.available)
 							
-							// Показываем только категории, в которых есть книги
-							if (booksInCategory.length > 0) {
-								categoryStats.push({
-									id: mainCategory.id,
-									name: mainCategory.name,
-									description: getCategoryDescription(mainCategory.name),
-									Icon: getCategoryIcon(mainCategory.name),
-									total: booksInCategory.length,
-									available: availableBooks.length
-								})
-							}
+							// Показываем все категории, даже если в них нет книг
+							categoryStats.push({
+								id: mainCategory.id,
+								name: mainCategory.name,
+								description: getCategoryDescription(mainCategory.name),
+								Icon: getCategoryIcon(mainCategory.name),
+								total: booksInCategory.length,
+								available: availableBooks.length
+							})
 						}
 					})
 					
 					// Сортируем по количеству книг (больше книг = выше)
 					categoryStats.sort((a, b) => b.total - a.total)
+					console.log('Final category stats:', categoryStats)
 					setCategories(categoryStats)
 				} else {
-					console.error('Failed to load categories from API')
+					console.error('Failed to load categories from API', { categoriesResponse, booksResponse })
 					setCategories([])
 				}
 			} catch (error) {
@@ -426,3 +453,4 @@ export default function Categories() {
 		</section>
 	)
 }
+
