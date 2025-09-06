@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+
+export const dynamic = 'force-dynamic'
 import { fetchBook, fetchBooksByCategory } from "@/lib/api/books";
 import { FavoriteButton } from "@/components/favorites/FavoriteButton";
 import { Button } from "@/components/ui/button";

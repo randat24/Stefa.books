@@ -137,7 +137,7 @@ export async function fetchBook(id: string): Promise<BookResponse> {
 
     // Use absolute URL for server-side rendering
     const baseUrl = typeof window === 'undefined' 
-      ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+      ? 'http://localhost:3000'
       : '';
     const url = `${baseUrl}/api/books/${id}`;
 

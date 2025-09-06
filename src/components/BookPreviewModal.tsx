@@ -161,12 +161,11 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
           <div>
             {/* Rent and Details buttons */}
             <div className="grid grid-cols-2 gap-4">
-              <Button 
-                onClick={onClose}
-                className="w-full"
-              >
-                Взяти в оренду
-              </Button>
+              <Link href={`/books/${book.id}/rent`} className="w-full">
+                <Button className="w-full bg-brand-yellow text-brand hover:bg-brand-yellow-light">
+                  Взяти в оренду
+                </Button>
+              </Link>
               <Link href={`/books/${book.id}`} className="w-full">
                 <Button className="w-full bg-black text-white hover:bg-gray-800">
                   Детальніше про книгу

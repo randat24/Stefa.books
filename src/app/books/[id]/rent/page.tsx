@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import { fetchBook } from "@/lib/api/books";
+
+export const dynamic = 'force-dynamic'
 import { BookRentalForm } from "@/components/rental/BookRentalForm";
 import { BookRentalInfo } from "@/components/rental/BookRentalInfo";
 import { BookRentalPricing } from "@/components/rental/BookRentalPricing";

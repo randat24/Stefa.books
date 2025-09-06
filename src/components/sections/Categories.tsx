@@ -8,6 +8,8 @@ import {
 import { useEffect, useState } from "react"
 import { fetchCategories, fetchBooks } from "@/lib/api/books"
 
+export const dynamic = 'force-dynamic'
+
 type CategoryWithStats = {
 	id: string
 	name: string
