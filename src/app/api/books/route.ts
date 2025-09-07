@@ -193,25 +193,24 @@ export async function GET(request: NextRequest) {
 
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    // Базовый запрос - только публичные поля (скрываем админские: qty_total, qty_available, price_uah, full_price_uah, publisher)
+    // Базовый запрос - только существующие поля
     let queryBuilder = supabase
       .from('books')
       .select(`
-        id, code, title, author, category, subcategory, pages, status, available,
-        rating, rating_count, badges, description, short_description, age_range,
-        cover_url, language, created_at, updated_at
+        id, code, title, author, isbn, description, cover_url, category_id, available,
+        created_at, updated_at
       `)
       .order(sortBy, { ascending: sortOrder === 'asc' })
       .range(offset, offset + limit - 1);
 
     // Применяем фильтры
     if (query) {
-      // Используем поиск по подстроке в названии, авторе, категории и описании
-      queryBuilder = queryBuilder.or(`title.ilike.%${query}%,author.ilike.%${query}%,category.ilike.%${query}%,subcategory.ilike.%${query}%,description.ilike.%${query}%,short_description.ilike.%${query}%`);
+      // Используем поиск по подстроке в названии, авторе и описании
+      queryBuilder = queryBuilder.or(`title.ilike.%${query}%,author.ilike.%${query}%,description.ilike.%${query}%`);
     }
 
     if (category) {
-      queryBuilder = queryBuilder.ilike('category', `%${category}%`);
+      queryBuilder = queryBuilder.ilike('category_id', `%${category}%`);
     }
 
     if (author) {
@@ -242,26 +241,26 @@ export async function GET(request: NextRequest) {
       totalCount = total;
     }
 
-    // Логируем поисковый запрос для аналитики
-    if (query || category || author) {
-      try {
-        await supabase
-          .from('search_queries')
-          .insert({
-            query: query || '',
-            results_count: books?.length || 0,
-            filters: {
-              category,
-              author,
-              available,
-              sortBy,
-              sortOrder
-            }
-          });
-      } catch (err) {
-        logger.warn('Failed to log search query', { error: err });
-      }
-    }
+    // Логируем поисковый запрос для аналитики (временно отключено)
+    // if (query || category || author) {
+    //   try {
+    //     await supabase
+    //       .from('search_queries')
+    //       .insert({
+    //         query: query || '',
+    //         results_count: books?.length || 0,
+    //         filters: {
+    //           category,
+    //           author,
+    //           available,
+    //           sortBy,
+    //           sortOrder
+    //         }
+    //       });
+    //   } catch (err) {
+    //     logger.warn('Failed to log search query', { error: err });
+    //   }
+    // }
 
     return NextResponse.json({
       success: true,
