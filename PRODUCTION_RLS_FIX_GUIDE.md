@@ -22,65 +22,49 @@
 3. Перейдите в **SQL Editor**
 
 ### 2. Выполните SQL скрипт
-Скопируйте и выполните следующий SQL код:
+
+**Если получили ошибку "policy already exists":**
+Используйте упрощенную версию: `fix_rls_users_policy_simple.sql`
+
+**Если нужна полная версия:**
+Используйте: `fix_rls_users_policy_v2.sql`
+
+**Скопируйте и выполните следующий SQL код:**
 
 ```sql
--- Исправление RLS политики для таблицы users
--- Проблема: infinite recursion detected in policy for relation "users"
+-- Простое исправление RLS политики для таблицы users
+-- Удаляет все политики и создает новые без рекурсии
 
--- Сначала отключаем RLS для таблицы users
+-- Отключаем RLS
 ALTER TABLE public.users DISABLE ROW LEVEL SECURITY;
 
--- Удаляем все существующие политики для таблицы users
-DROP POLICY IF EXISTS "Enable read access for all users" ON public.users;
-DROP POLICY IF EXISTS "Enable insert for authenticated users only" ON public.users;
-DROP POLICY IF EXISTS "Enable update for users based on email" ON public.users;
-DROP POLICY IF EXISTS "Enable delete for users based on email" ON public.users;
-DROP POLICY IF EXISTS "Users can view own profile" ON public.users;
-DROP POLICY IF EXISTS "Users can update own profile" ON public.users;
-DROP POLICY IF EXISTS "Admin can view all users" ON public.users;
-DROP POLICY IF EXISTS "Admin can update all users" ON public.users;
-DROP POLICY IF EXISTS "Admin can delete users" ON public.users;
+-- Удаляем ВСЕ политики для таблицы users
+DO $$
+DECLARE
+    policy_name TEXT;
+BEGIN
+    FOR policy_name IN 
+        SELECT policyname 
+        FROM pg_policies 
+        WHERE tablename = 'users' AND schemaname = 'public'
+    LOOP
+        EXECUTE format('DROP POLICY IF EXISTS %I ON public.users', policy_name);
+    END LOOP;
+END $$;
 
--- Создаем простые и безопасные политики без рекурсии
--- 1. Политика для чтения - все могут читать публичные данные пользователей
-CREATE POLICY "Public read access for users" ON public.users
-    FOR SELECT USING (true);
+-- Создаем новые простые политики
+CREATE POLICY "users_select" ON public.users FOR SELECT USING (true);
+CREATE POLICY "users_insert" ON public.users FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "users_update" ON public.users FOR UPDATE USING (auth.email() = email);
+CREATE POLICY "users_delete" ON public.users FOR DELETE USING (
+    EXISTS (SELECT 1 FROM public.users WHERE email = auth.email() AND role = 'admin')
+);
 
--- 2. Политика для вставки - только аутентифицированные пользователи
-CREATE POLICY "Authenticated users can insert" ON public.users
-    FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-
--- 3. Политика для обновления - пользователи могут обновлять только свой профиль
-CREATE POLICY "Users can update own profile" ON public.users
-    FOR UPDATE USING (auth.email() = email);
-
--- 4. Политика для удаления - только админы могут удалять пользователей
-CREATE POLICY "Admin can delete users" ON public.users
-    FOR DELETE USING (
-        EXISTS (
-            SELECT 1 FROM public.users 
-            WHERE email = auth.email() 
-            AND role = 'admin'
-        )
-    );
-
--- Включаем RLS обратно
+-- Включаем RLS
 ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;
 
--- Проверяем, что политики созданы правильно
-SELECT 
-    schemaname,
-    tablename,
-    policyname,
-    permissive,
-    roles,
-    cmd,
-    qual,
-    with_check
-FROM pg_policies 
-WHERE tablename = 'users' 
-ORDER BY policyname;
+-- Проверяем результат
+SELECT policyname, cmd FROM pg_policies WHERE tablename = 'users';
 ```
 
 ### 3. Проверьте результат
