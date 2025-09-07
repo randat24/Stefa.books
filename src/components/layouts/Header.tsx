@@ -9,7 +9,7 @@ import { AdminStatus } from '@/components/auth/AdminStatus';
 import { SubscriptionModal } from '@/components/subscribe/SubscriptionModal';
 import { Button } from '@/components/ui/button';
 import { User, LogOut, Heart, BookOpen, Menu, X } from 'lucide-react';
-import { ButtonRipple, IconHover, TextUnderline } from '@/components/animations';
+// Animation components removed for build fix
 
 export function Header() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -46,70 +46,56 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
             <HeaderSearch />
-            <TextUnderline>
-              <Link href="/" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition">
-                Головна
-              </Link>
-            </TextUnderline>
-            <TextUnderline>
-              <Link href="/books" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition">
-                Каталог
-              </Link>
-            </TextUnderline>
+            <Link href="/" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition">
+              Головна
+            </Link>
+            <Link href="/books" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition">
+              Каталог
+            </Link>
             
             {isAuthenticated ? (
               <>
-                <TextUnderline>
-                  <Link href="/my-rentals" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition">
-                    Мої оренди
-                  </Link>
-                </TextUnderline>
-                <IconHover>
-                  <Link href="/favorites" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition">
-                    <Heart className="h-4 w-4" />
-                  </Link>
-                </IconHover>
+                <Link href="/my-rentals" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition">
+                  Мої оренди
+                </Link>
+                <Link href="/favorites" className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition">
+                  <Heart className="h-4 w-4" />
+                </Link>
                 <AdminStatus />
                 <div className="flex items-center gap-2 ml-2">
                   <span className="text-sm text-gray-600">
                     {user?.user_metadata?.first_name || user?.email?.split('@')[0] || 'Користувач'}
                   </span>
-                  <ButtonRipple>
-                    <Button 
-                      variant="outline" 
-                      size="md" 
-                      onClick={handleLogout}
-                      className="text-gray-600 hover:text-gray-900"
-                    >
-                      <LogOut className="h-4 w-4" />
-                      <span className="ml-1">Вийти</span>
-                    </Button>
-                  </ButtonRipple>
+                  <Button 
+                    variant="outline" 
+                    size="md" 
+                    onClick={handleLogout}
+                    className="text-gray-600 hover:text-gray-900"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    <span className="ml-1">Вийти</span>
+                  </Button>
                 </div>
               </>
             ) : (
               <div className="flex items-center gap-2 ml-2">
-                <ButtonRipple>
-                  <Button 
-                    variant="outline" 
-                    size="md"
-                    onClick={() => setIsAuthModalOpen(true)}
-                    className="text-gray-700 hover:text-gray-900"
-                  >
-                    <User className="h-4 w-4" />
-                    <span className="ml-1">Увійти</span>
-                  </Button>
-                </ButtonRipple>
-                <ButtonRipple>
-                  <Button 
-                    size="md"
-                    onClick={() => setIsSubscriptionModalOpen(true)}
-                    className="bg-brand-yellow text-brand hover:bg-brand-yellow-light"
-                  >
-                    <BookOpen className="h-4 w-4" />
-                    <span className="ml-1">Підписка</span>
-                  </Button>
-                </ButtonRipple>
+                <Button 
+                  variant="outline" 
+                  size="md"
+                  onClick={() => setIsAuthModalOpen(true)}
+                  className="text-gray-700 hover:text-gray-900"
+                >
+                  <User className="h-4 w-4" />
+                  <span className="ml-1">Увійти</span>
+                </Button>
+                <Button 
+                  size="md"
+                  onClick={() => setIsSubscriptionModalOpen(true)}
+                  className="bg-brand-yellow text-brand hover:bg-brand-yellow-light"
+                >
+                  <BookOpen className="h-4 w-4" />
+                  <span className="ml-1">Підписка</span>
+                </Button>
               </div>
             )}
           </nav>

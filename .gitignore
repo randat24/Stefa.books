@@ -11,6 +11,8 @@ node_modules/
 /.next/
 /out/
 .next/
+.next/cache/
+.next/types/
 
 # Production
 /build
@@ -133,6 +135,9 @@ jspm_packages/
 
 # Optional npm cache directory
 .npm
+
+# Node modules cache
+node_modules/.cache/
 
 # Optional eslint cache
 .eslintcache

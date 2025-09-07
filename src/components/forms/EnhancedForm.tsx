@@ -131,11 +131,10 @@ export function EnhancedForm({
               }`}
               rows={4}
             />
-            <FieldValidation 
-              isValid={!error && value.length > 0}
-              errorMessage={error}
-              successMessage={value.length > 0 ? 'Поле заповнено' : undefined}
-            />
+            <FieldValidation className="text-sm">
+              {error && <span className="text-red-500">{error}</span>}
+              {!error && value.length > 0 && <span className="text-green-500">Поле заповнено</span>}
+            </FieldValidation>
           </div>
         )
 
@@ -160,11 +159,10 @@ export function EnhancedForm({
                 </option>
               ))}
             </select>
-            <FieldValidation 
-              isValid={!error && value.length > 0}
-              errorMessage={error}
-              successMessage={value.length > 0 ? 'Опція обрана' : undefined}
-            />
+            <FieldValidation className="text-sm">
+              {error && <span className="text-red-500">{error}</span>}
+              {!error && value.length > 0 && <span className="text-green-500">Опція обрана</span>}
+            </FieldValidation>
           </div>
         )
 
@@ -173,13 +171,12 @@ export function EnhancedForm({
           <div key={field.name} className="space-y-2">
             <AnimatedCheckbox
               checked={value}
-              onChange={(checked) => handleFieldChange(field.name, checked)}
+              onChange={(checked: boolean) => handleFieldChange(field.name, checked)}
               label={field.label}
             />
-            <FieldValidation 
-              isValid={!error}
-              errorMessage={error}
-            />
+            <FieldValidation className="text-sm">
+              {error && <span className="text-red-500">{error}</span>}
+            </FieldValidation>
           </div>
         )
 
@@ -198,11 +195,10 @@ export function EnhancedForm({
                 error ? 'border-red-300' : 'border-gray-300'
               }`}
             />
-            <FieldValidation 
-              isValid={!error && value.length > 0}
-              errorMessage={error}
-              successMessage={value.length > 0 ? 'Поле заповнено' : undefined}
-            />
+            <FieldValidation className="text-sm">
+              {error && <span className="text-red-500">{error}</span>}
+              {!error && value.length > 0 && <span className="text-green-500">Поле заповнено</span>}
+            </FieldValidation>
           </div>
         )
     }
@@ -212,26 +208,30 @@ export function EnhancedForm({
     <div className={className}>
       {showProgress && (
         <FormProgress 
-          currentStep={currentStep} 
-          totalSteps={fields.length} 
+          progress={(currentStep / fields.length) * 100}
           className="mb-6"
         />
       )}
 
       {notification && (
-        <FormNotification
-          type={notification.type}
-          message={notification.message}
-          className="mb-6"
-        />
+        <FormNotification className="mb-6">
+          <div className={`p-3 rounded ${
+            notification.type === 'error' ? 'bg-red-100 text-red-700' :
+            notification.type === 'success' ? 'bg-green-100 text-green-700' :
+            notification.type === 'warning' ? 'bg-yellow-100 text-yellow-700' :
+            'bg-blue-100 text-blue-700'
+          }`}>
+            {notification.message}
+          </div>
+        </FormNotification>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {fields.map(renderField)}
 
         <AnimatedSubmitButton
-          isLoading={isSubmitting}
           className="w-full bg-brand-yellow text-brand hover:bg-brand-yellow-light font-medium py-3 px-6 rounded-lg transition-colors"
+          disabled={isSubmitting}
         >
           {isSubmitting ? 'Відправка...' : submitText}
         </AnimatedSubmitButton>

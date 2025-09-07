@@ -27,7 +27,7 @@ interface ReturnData {
 
 export default function ReturnConfirmationPage() {
   const searchParams = useSearchParams();
-  const returnId = searchParams.get('return_id');
+  const returnId = searchParams?.get('return_id');
   
   const [returnData, setReturnData] = useState<ReturnData | null>(null);
   const [loading, setLoading] = useState(true);

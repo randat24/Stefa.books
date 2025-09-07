@@ -2,7 +2,13 @@
 
 import { useCallback, useState } from 'react';
 import Image from 'next/image';
-import { SubscribeModal } from '../SubscribeModal';
+import dynamic from 'next/dynamic';
+
+// Dynamically load SubscribeModal only when needed
+const SubscribeModal = dynamic(() => import('../SubscribeModal').then(mod => ({ default: mod.SubscribeModal })), {
+  ssr: false,
+  loading: () => null // Modal doesn't need loading state
+});
 
 type PlanKey = 'mini' | 'maxi';
 

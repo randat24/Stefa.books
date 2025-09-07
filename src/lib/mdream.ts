@@ -1,6 +1,5 @@
 // Temporarily disable mdream import to fix build issues
 // import { htmlToMarkdown, parseHtml } from 'mdream';
-import { APICache, apiCache } from '@/lib/cache';
 import { logger } from '@/lib/logger';
 
 export interface MarkdownConversionOptions {
@@ -36,20 +35,10 @@ export async function convertHtmlToMarkdown(
     origin,
     minimal = true,
     title,
-    metadata = {},
-    cacheDuration = 3600 // 1 hour
+    metadata = {}
   } = options;
 
-  // Create simple cache key
-  const cacheKey = `mdream:html-to-markdown:${html.slice(0, 50).replace(/[^\w]/g, '')}_${minimal}_${title || ''}`.substring(0, 100);
-
   try {
-    // Try to get from cache first (skip for now to ensure functionality)
-    // const cached = apiCache.get<MarkdownResult>(cacheKey);
-    // if (cached) {
-    //   logger.debug('返回缓存的 Markdown 转换结果');
-    //   return cached;
-    // }
 
     logger.info('开始 HTML 到 Markdown 转换', { 
       htmlLength: html.length,
@@ -141,8 +130,6 @@ export async function convertHtmlToMarkdown(
       estimatedReadingTime
     };
 
-    // Cache the result (skip for now)
-    // apiCache.set(cacheKey, result, cacheDuration);
 
     logger.info('HTML 转换为 Markdown 完成', {
       wordCount,

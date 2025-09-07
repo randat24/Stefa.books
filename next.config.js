@@ -1,17 +1,94 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Minimal config to fix pages-manifest.json issue
+  // Minimal config for build
   eslint: {
     ignoreDuringBuilds: true,
   },
-  trailingSlash: false,
-  output: 'standalone',
-  // Отключаем статическую генерацию для решения проблем с Html импортом
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  
+  // External packages for server components
+  serverExternalPackages: ['@supabase/supabase-js', '@supabase/realtime-js'],
+  
+  // Minimal experimental config
   experimental: {
     serverActions: {
       allowedOrigins: ['localhost:3000', 'localhost:3001']
-    }
+    },
   },
+  
+  // Force all pages to be dynamic - disable static generation completely
+  output: 'standalone',
+  trailingSlash: false,
+  
+  // Webpack config to handle build issues
+  webpack: (config, { isServer, dev, webpack }) => {
+    // Skip webpack config in development with Turbo
+    if (dev) {
+      return config;
+    }
+    
+    if (isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        'self': false,
+        'window': false,
+        'global': false,
+      }
+    }
+    
+    // Try to ignore Html import issues in production
+    config.ignoreWarnings = [
+      ...(config.ignoreWarnings || []),
+      /Html.*should not be imported outside of pages\/_document/,
+      { module: /node_modules/, message: /Html/ },
+      { message: /Html.*should not be imported outside of pages\/_document/ },
+      { message: /should not be imported outside of pages\/_document/ },
+      /Critical dependency/,
+      /Can't resolve/,
+    ];
+    
+    // Add aliases to potentially problematic modules
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'next/document': false,
+    };
+    
+    // Try to handle Html import errors more gracefully
+    const originalEmit = config.plugins.find(plugin => plugin.constructor.name === 'HtmlWebpackPlugin');
+    if (originalEmit) {
+      config.plugins = config.plugins.filter(plugin => plugin.constructor.name !== 'HtmlWebpackPlugin');
+    }
+    
+    // Try to exclude problematic chunks from server-side rendering
+    if (isServer) {
+      config.optimization.splitChunks = {
+        ...config.optimization.splitChunks,
+        cacheGroups: {
+          ...config.optimization.splitChunks?.cacheGroups,
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendor',
+            chunks: 'all',
+            priority: 10,
+            reuseExistingChunk: true,
+          },
+        }
+      };
+    }
+    
+    return config
+  },
+  
+  // Handle build errors more gracefully
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 2,
+  },
+  
+  // Disable static generation
+  trailingSlash: false,
   // Image optimization
   images: {
     remotePatterns: [

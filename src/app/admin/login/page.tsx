@@ -22,8 +22,8 @@ export default function AdminLoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const redirectTo = searchParams.get('redirect') || '/admin';
-  const accessDenied = searchParams.get('error') === 'access_denied';
+  const redirectTo = searchParams?.get('redirect') || '/admin';
+  const accessDenied = searchParams?.get('error') === 'access_denied';
 
   useEffect(() => {
     // If already authenticated and can access admin panel, redirect

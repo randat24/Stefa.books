@@ -25,7 +25,7 @@ const mockBook = {
 
 export default function EditBookPage() {
   const params = useParams();
-  const bookId = params.id as string;
+  const bookId = params?.id as string;
   
   // In a real app, you would fetch the book data based on bookId
   const book = mockBook;

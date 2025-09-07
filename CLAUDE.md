@@ -57,6 +57,8 @@ pnpm run dev-safe            # Check styles before starting dev server
 ```bash
 pnpm run analyze:bundle      # Analyze bundle size with ANALYZE=true
 pnpm run analyze:performance # Run performance analysis script
+node scripts/bundle-analyzer.js        # Comprehensive bundle analysis
+node scripts/find-unused-imports.js    # Find optimization opportunities
 ```
 
 ### Deployment
@@ -79,7 +81,8 @@ pnpm run vercel:deploy:preview # Deploy preview build
 - **Zustand 5.0.8** - lightweight state management
 - **React Query 5.59.0** - server state management
 - **Zod 3.23.8** - schema validation
-- **Framer Motion** - animations
+- **Framer Motion** - animations (with dynamic loading optimization)
+- **web-vitals 5.1.0** - Core Web Vitals tracking
 
 ### Database Schema
 All types exported from `src/lib/database.types.ts` (auto-generated from Supabase):
@@ -283,6 +286,30 @@ CLOUDINARY_API_SECRET=your_api_secret
 - Run `npm run type-check` to isolate TypeScript issues
 - Check `BUILD_OPTIMIZATION_REPORT.md` for previous fixes
 - Ensure all required environment variables are set
+
+### Cache Management
+
+#### Предотвращение проблем с кешем Next.js
+Для предотвращения проблем с кешем Next.js (например, ошибки "Cannot find module" для .js файлов) настроена автоматическая система очистки:
+
+**Доступные команды:**
+- `pnpm run clean:cache` - Очистка кеша Next.js и Node.js
+- `pnpm run clean` - Полная очистка всех сборочных файлов
+- `pnpm run clean:full` - Полная очистка + переустановка зависимостей
+
+**Автоматическая очистка:**
+- При каждом `pnpm run dev` и `pnpm run build` автоматически очищается кеш
+- Pre-push git hook очищает кеш перед отправкой в репозиторий
+
+**Файлы в .gitignore:**
+- `.next/cache/` - кеш Next.js
+- `.next/types/` - типы Next.js
+- `node_modules/.cache/` - кеш Node.js модулей
+
+**Если возникают проблемы с кешем:**
+1. Запустите `pnpm run clean:cache`
+2. Если не помогает: `pnpm run clean:full`
+3. В крайнем случае: удалите `node_modules` и `.next` вручную, затем `pnpm install`
 
 #### Recently Fixed Issues (2025-09-05)
 - **Major TypeScript Cleanup**: Resolved 76+ TypeScript errors across the entire codebase

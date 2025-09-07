@@ -39,11 +39,11 @@ function RentalSuccessContent() {
 	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(() => {
-		const id = searchParams.get('rentalId')
-		const title = searchParams.get('bookTitle')
-		const author = searchParams.get('bookAuthor')
+  const id = searchParams?.get('rentalId')
+  const title = searchParams?.get('bookTitle')
+  const author = searchParams?.get('bookAuthor')
 		
-		setRentalId(id)
+		setRentalId(id || null)
 		setBookTitle(title || '')
 		setBookAuthor(author || '')
 

@@ -19,7 +19,7 @@ export function PaymentCheckout() {
   useEffect(() => {
     // In a real implementation, this would fetch payment details from the API
     // For now, we'll simulate with mock data
-    const paymentId = searchParams.get('paymentId');
+    const paymentId = searchParams?.get('paymentId');
     
     if (paymentId) {
       // Simulate fetching payment data
@@ -64,7 +64,7 @@ export function PaymentCheckout() {
     }
   };
 
-  if (!paymentData && !searchParams.get('paymentId')) {
+  if (!paymentData && !searchParams?.get('paymentId')) {
     return (
       <div className="container-default py-8">
         <Card className="max-w-2xl mx-auto">

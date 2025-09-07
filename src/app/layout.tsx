@@ -7,7 +7,12 @@ import { OrganizationStructuredData } from "@/components/seo/OrganizationStructu
 import { CanonicalAndHreflang } from "@/components/seo/CanonicalAndHreflang";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import CookieConsent from "@/components/analytics/CookieConsent";
+import WebVitalsTracker from "@/components/performance/WebVitalsTracker";
+import PerformanceDashboard from "@/components/performance/PerformanceDashboard";
 import { OfflineIndicator } from "@/components/offline/OfflineIndicator";
+
+// Force dynamic rendering to prevent static generation issues
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
@@ -70,6 +75,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen flex flex-col bg-white text-gray-900" suppressHydrationWarning>
         <GoogleAnalytics />
         <CookieConsent />
+        <WebVitalsTracker />
         <OrganizationStructuredData />
         <CanonicalAndHreflang 
           locale="uk" 
@@ -84,6 +90,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
           </Providers>
         </ErrorBoundary>
+        <PerformanceDashboard />
       </body>
     </html>
   );

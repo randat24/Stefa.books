@@ -56,7 +56,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
 
   // авто-подстановка тарифа из URL (?plan=mini|maxi), sessionStorage или defaultPlan
   useEffect(() => {
-    const plan = searchParams.get("plan");
+    const plan = searchParams?.get("plan");
     if (plan === "mini" || plan === "maxi") {
       setValue("plan", plan);
       return;

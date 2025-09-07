@@ -22,8 +22,8 @@ export default function ResetPasswordPage() {
 
   // Check if we have the necessary tokens
   useEffect(() => {
-    const accessToken = searchParams.get('access_token');
-    const refreshToken = searchParams.get('refresh_token');
+    const accessToken = searchParams?.get('access_token');
+    const refreshToken = searchParams?.get('refresh_token');
     
     if (!accessToken || !refreshToken) {
       setError('Недійсне посилання для скидання пароля');
@@ -81,7 +81,7 @@ export default function ResetPasswordPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${searchParams.get('access_token')}`,
+          'Authorization': `Bearer ${searchParams?.get('access_token')}`,
         },
         body: JSON.stringify({
           password: formData.password,

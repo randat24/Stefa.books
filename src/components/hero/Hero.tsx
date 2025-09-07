@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BookOpen } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import HeroStepsCard from "./HeroStepsCard";
-import { FadeIn, StaggeredList } from "@/components/animations";
+// import { FadeIn, StaggeredList } from "@/components/animations"; // TODO: Use when implementing animations
 
 export default function Hero() {
 	return (

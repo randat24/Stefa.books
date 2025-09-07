@@ -19,7 +19,7 @@ const mockCategory = {
 
 export default function EditCategoryPage() {
   const params = useParams();
-  const categoryId = params.id as string;
+  const categoryId = params?.id as string;
   
   // In a real app, you would fetch the category data based on categoryId
   const category = mockCategory;

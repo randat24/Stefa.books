@@ -12,7 +12,7 @@ export default function LoginPage() {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirect = searchParams.get('redirect');
+  const redirect = searchParams?.get('redirect');
 
   // Redirect if already authenticated
   useEffect(() => {

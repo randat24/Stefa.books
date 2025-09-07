@@ -34,7 +34,7 @@ interface RentalData {
 
 export default function RentalConfirmationPage() {
   const searchParams = useSearchParams();
-  const rentalId = searchParams.get('rental_id');
+  const rentalId = searchParams?.get('rental_id');
   
   const [rental, setRental] = useState<RentalData | null>(null);
   const [loading, setLoading] = useState(true);

@@ -111,9 +111,9 @@ function MyRentalsContent() {
 
 	// Инициализация из URL параметров
 	useEffect(() => {
-		const emailParam = searchParams.get('email')
-		const statusParam = searchParams.get('status')
-		const pageParam = searchParams.get('page')
+		const emailParam = searchParams?.get('email')
+		const statusParam = searchParams?.get('status')
+		const pageParam = searchParams?.get('page')
 		
 		if (emailParam) {
 			setEmail(emailParam)

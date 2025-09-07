@@ -13,7 +13,7 @@ import Link from 'next/link';
 
 export default function CategoryPage() {
   const params = useParams();
-  const categoryName = decodeURIComponent(params.id as string);
+  const categoryName = decodeURIComponent(params?.id as string);
   
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);

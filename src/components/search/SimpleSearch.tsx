@@ -195,7 +195,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
 
   // Handle URL search parameters
   useEffect(() => {
-    const urlSearch = searchParams.get('search');
+    const urlSearch = searchParams?.get('search');
     if (urlSearch && !loading) {
       setQuery(urlSearch);
       performSimpleSearch(urlSearch);

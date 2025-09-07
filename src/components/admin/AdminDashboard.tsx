@@ -9,9 +9,35 @@ import {
   AlertTriangle, Clock, Activity, Target, Award, Zap, BarChart3, Calendar,
   ArrowUpRight, ArrowDownRight, Minus, Eye, Download, Settings, Bell
 } from "lucide-react"
-import { AdvancedAnalytics } from "./AdvancedAnalytics"
-import { EnhancedBooksManager } from "./EnhancedBooksManager"
-import { UserManagement } from "./UserManagement"
+// Dynamic import for AdvancedAnalytics as well
+const AdvancedAnalytics = dynamic(() => import("./AdvancedAnalytics").then(mod => ({ default: mod.AdvancedAnalytics })), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center h-64">
+      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
+    </div>
+  )
+})
+import dynamic from 'next/dynamic'
+
+// Dynamically load heavy admin components
+const EnhancedBooksManager = dynamic(() => import("./EnhancedBooksManager").then(mod => ({ default: mod.EnhancedBooksManager })), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center h-96">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+    </div>
+  )
+})
+// Dynamic import for UserManagement
+const UserManagement = dynamic(() => import("./UserManagement").then(mod => ({ default: mod.UserManagement })), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center h-96">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+    </div>
+  )
+})
 import { NotificationsPanel } from "../admin/NotificationsPanel"
 import type { BookRow, UserRow } from "@/lib/types/admin"
 

@@ -1,7 +1,6 @@
 "use client"
 
-import { BookListSkeleton, BookDetailSkeleton, FormSkeleton, TableSkeleton, ProfileSkeleton } from '@/components/animations'
-import { LoadingSpinner } from '@/components/animations'
+import { BookListSkeleton, BookDetailSkeleton, FormSkeleton, TableSkeleton, ProfileSkeleton, LoadingSpinner } from '@/components/animations/lazy'
 
 interface LoadingStatesProps {
   type: 'book-list' | 'book-detail' | 'form' | 'table' | 'profile' | 'spinner'

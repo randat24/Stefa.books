@@ -3,6 +3,10 @@ import Hero from "@/components/hero/Hero";
 import Steps from "@/components/sections/Steps";
 import { Metadata } from "next";
 import { LazySection } from "@/components/ui/LazySection";
+import { PerformanceMonitor } from "@/components/ui/PerformanceMonitor";
+import { HomepageResourcePreloader } from "@/components/performance/ResourcePreloader";
+import { initWebVitals } from "@/lib/web-vitals";
+import { initServiceWorker } from "@/lib/service-worker";
 
 export const dynamic = 'force-dynamic'
 
@@ -50,8 +54,24 @@ const Catalog = lazy(() => import("@/components/sections/Catalog").then(mod => (
 const RecentViews = lazy(() => import("@/components/sections/RecentViews").then(mod => ({ default: mod.RecentViews })));
 
 export default function HomePage() {
+	// Initialize Web Vitals monitoring
+	if (typeof window !== 'undefined') {
+		initWebVitals();
+		// Initialize Service Worker
+		initServiceWorker({
+			enabled: true,
+			updateInterval: 30000 // Check for updates every 30 seconds
+		});
+	}
+
 	return (
 		<>
+			{/* Resource Preloader for Core Web Vitals optimization */}
+			<HomepageResourcePreloader />
+			
+			{/* Performance Monitor */}
+			<PerformanceMonitor showDetails={process.env.NODE_ENV === 'development'} />
+			
 			{/* Hero */}
 			<Hero />
 			

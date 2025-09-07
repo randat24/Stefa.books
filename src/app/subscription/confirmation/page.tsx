@@ -35,7 +35,7 @@ const PLAN_COLORS = {
 
 export default function SubscriptionConfirmationPage() {
   const searchParams = useSearchParams();
-  const subscriptionId = searchParams.get('subscription_id');
+  const subscriptionId = searchParams?.get('subscription_id');
   
   const [subscriptionData, setSubscriptionData] = useState<SubscriptionData | null>(null);
   const [loading, setLoading] = useState(true);
