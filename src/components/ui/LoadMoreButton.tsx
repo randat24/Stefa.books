@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { Loader2, Plus } from 'lucide-react';
 
 interface LoadMoreButtonProps {
