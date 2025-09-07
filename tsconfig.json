@@ -9,7 +9,11 @@
     ],
     "jsx": "preserve",
     "jsxImportSource": "react",
-    "types": ["node", "react", "react-dom"],
+    "types": [
+      "node",
+      "react",
+      "react-dom"
+    ],
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -35,9 +39,11 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "next-env.d.ts",
     ".next/types/**/*.ts",
-    "src/__tests__/jest-setup.d.ts"
+    "next-env.d.ts",
+    "next-types.d.ts",
+    "src/__tests__/jest-setup.d.ts",
+    "out/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

@@ -31,14 +31,14 @@ interface SubscriptionPlan {
 
 const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
   {
-    id: 'basic',
-    name: 'Базовий',
+    id: 'mini',
+    name: 'Mini',
     description: 'Ідеально для початківців',
-    price: 199,
+    price: 300,
     duration: 1,
     features: [
-      'До 2 книг одночасно',
-      'Стандартна доставка',
+      '1 книга з можливістю обміну',
+      'Самовивіз з точки',
       'Підтримка 24/7',
       'Мобільний додаток'
     ],
@@ -46,14 +46,14 @@ const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
     color: 'blue'
   },
   {
-    id: 'premium',
-    name: 'Преміум',
+    id: 'maxi',
+    name: 'Maxi',
     description: 'Найпопулярніший вибір',
-    price: 399,
+    price: 500,
     duration: 1,
     features: [
-      'До 5 книг одночасно',
-      'Швидка доставка',
+      '2 книги з можливістю обміну',
+      'Самовивіз з точки',
       'Пріоритетна підтримка',
       'Ексклюзивні книги',
       'Персональний куратор'
@@ -63,18 +63,19 @@ const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
     color: 'purple'
   },
   {
-    id: 'family',
-    name: 'Сімейний',
+    id: 'premium',
+    name: 'Premium',
     description: 'Для всієї родини',
-    price: 599,
-    duration: 1,
+    price: 1500,
+    duration: 6,
     features: [
-      'До 10 книг одночасно',
-      'Безкоштовна доставка',
+      '2 книги з можливістю обміну',
+      'Самовивіз з точки',
       'VIP підтримка',
       'Всі категорії книг',
       'Сімейний кабінет',
-      'Персональні рекомендації'
+      'Персональні рекомендації',
+      'Економія 500₴ за півроку'
     ],
     icon: <Users className="h-6 w-6" />,
     color: 'green'
@@ -279,7 +280,14 @@ export default function SubscriptionPage() {
                 <div className="text-4xl font-bold text-gray-900">
                   {plan.price}₴
                 </div>
-                <div className="text-gray-600">на місяць</div>
+                <div className="text-gray-600">
+                  {plan.duration === 6 ? 'за півроку' : 'на місяць'}
+                </div>
+                {plan.duration === 6 && (
+                  <div className="text-sm text-green-600 mt-1">
+                    Економія 500₴
+                  </div>
+                )}
               </div>
 
               <ul className="space-y-3">

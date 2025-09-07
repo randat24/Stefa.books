@@ -308,6 +308,7 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
                   alt={book.title}
                   fill
                   className="object-cover"
+                  unoptimized={true}
                   sizes="64px"
                 />
               ) : (

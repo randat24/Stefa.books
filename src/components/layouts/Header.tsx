@@ -34,10 +34,9 @@ export function Header() {
               <Image 
                 src="/logo.svg" 
                 alt="Stefa.books logo" 
-                width={24} 
+                width={24}
                 height={24}
                 className="text-gray-700 sm:w-7 sm:h-7"
-                priority
               />
             </div>
             <span className="text-lg sm:text-2xl font-bold">Stefa.books</span>

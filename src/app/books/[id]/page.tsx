@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 
 export const dynamic = 'force-dynamic'
-import { fetchBook, fetchBooksByCategory } from "@/lib/api/books";
 import { FavoriteButton } from "@/components/favorites/FavoriteButton";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/Badge";
@@ -39,10 +38,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   try {
     const { data: book } = await supabase
       .from('books')
-      .select(`
-        *,
-        category:categories(name, slug)
-      `)
+      .select('*')
       .eq('id', id)
       .single();
     
@@ -114,10 +110,7 @@ export default async function BookPage({ params }: { params: Params }) {
   // Use direct Supabase access instead of API calls for SSR
   const { data: book, error } = await supabase
     .from('books')
-    .select(`
-      *,
-      category:categories(name, slug)
-    `)
+    .select('*')
     .eq('id', id)
     .single();
 

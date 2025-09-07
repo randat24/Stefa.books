@@ -614,6 +614,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                                 alt={`Обкладинка: ${book.title}`}
                                 width={48}
                                 height={64}
+                                unoptimized={true}
                                 className="rounded-lg object-cover border border-gray-200 shadow-sm transition-transform group-hover/cover:scale-105"
                               />
                               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/cover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
@@ -832,6 +833,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                       alt={`Обкладинка: ${selectedBook.title}`}
                       width={250}
                       height={375}
+                      unoptimized={true}
                       className="rounded-lg object-cover border border-gray-200 shadow-lg"
                     />
                     <Button
@@ -947,6 +949,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                 alt={`Обкладинка: ${imageViewBook.title}`}
                 width={300}
                 height={450}
+                unoptimized={true}
                 className="rounded-lg object-cover border border-gray-200 shadow-lg"
               />
               <div className="text-center">

@@ -18,6 +18,7 @@ export function BookReturnInfo({ book }: BookReturnInfoProps) {
             alt={book.title}
             fill
             className="object-cover"
+            unoptimized={true}
             sizes="(max-width: 768px) 100vw, 300px"
           />
         ) : (

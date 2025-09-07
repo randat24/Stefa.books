@@ -17,6 +17,7 @@ export function Footer() {
                   width={36} 
                   height={36}
                   className="text-gray-700"
+                  unoptimized={true}
                 />
               </div>
               <h3 className="text-2xl font-bold" style={{ color: 'var(--ink)' }}>

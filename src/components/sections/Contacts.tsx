@@ -62,9 +62,15 @@ export default function Contacts() {
 									</div>
 									<div>
 										<h4 className="font-semibold text-gray-900">Адреса</h4>
-										<p className="text-gray-600">вул. Соборна, 123</p>
-										<p className="text-gray-600">Миколаїв, 54000</p>
-										<p className="text-sm text-gray-500">Україна</p>
+										<a 
+											href="https://maps.google.com/?q=вул. Маріупольська 13/2, Миколаїв"
+											target="_blank"
+											rel="noopener noreferrer"
+											className="text-gray-600 hover:text-gray-900 transition"
+										>
+											вул. Маріупольська 13/2, Миколаїв
+										</a>
+										<p className="text-sm text-gray-500">Самовивіз книг</p>
 									</div>
 								</div>
 

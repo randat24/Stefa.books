@@ -11,6 +11,11 @@
   --container-xl: 1200px;
   --container-2xl: 1280px;
 
+  /* Custom breakpoints for book grid */
+  --breakpoint-books-sm: 780px;
+  --breakpoint-books-md: 1020px;
+  --breakpoint-books-lg: 1680px;
+
   /* Color palette - Stefa.Books Brand */
   --color-brand: #0B1220;
   --color-brand-light: #1e293b;
@@ -691,4 +696,35 @@
 		opacity: 1;
 		transform: scale(1);
 	}
+}
+
+/* Custom book grid breakpoints */
+.books-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 640px) {
+  .books-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 780px) {
+  .books-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1020px) {
+  .books-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1680px) {
+  .books-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
 }

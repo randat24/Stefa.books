@@ -6,12 +6,6 @@
       "Lklhost": false
     }
   },
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/next"
-    }
-  ],
   "functions": {
     "src/app/api/**/*.ts": {
       "maxDuration": 30
@@ -66,6 +60,5 @@
       "destination": "/api/sitemap"
     }
   ],
-  "regions": ["fra1", "iad1"],
   "framework": "nextjs"
 }

@@ -24,7 +24,7 @@ export default function Hero() {
 
 							<p className="text-gray-600 hero-description" style={{fontSize: 'var(--font-size-lg)'}}>
 								Вітаємо у книгарні за підпискою. Обирай план, шукай улюблені книжки і залишай заявку на оренду.
-								Ми підготуємо і передамо у зручному місці.
+								Самовивіз з точки: вул. Маріупольська 13/2, Миколаїв.
 							</p>
 
 							{/* Краткая статистика */}
@@ -62,7 +62,7 @@ export default function Hero() {
 							<div className="flex items-center text-gray-500" style={{gap: 'var(--space-6)', paddingTop: 'var(--space-2)', fontSize: 'var(--font-size-sm)'}}>
 								<div className="flex items-center" style={{gap: 'var(--space-2)'}}>
 									<div className="size-2 rounded-full bg-brand-accent" />
-									Безкоштовна доставка
+									Самовивіз з точки
 								</div>
 								<div className="flex items-center" style={{gap: 'var(--space-2)'}}>
 									<div className="size-2 rounded-full bg-brand-yellow" />

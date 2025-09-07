@@ -69,6 +69,7 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
               alt={book.title} 
               fill 
               className="object-cover"
+              unoptimized={true}
               priority
             />
           </div>
@@ -141,11 +142,29 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
             </div>
           )}
 
-          {/* Price */}
-          <div className="flex items-center gap-3">
-            <div className="text-xl font-semibold text-[--ink]">
-              {book.price_uah && `${book.price_uah} ₴`}
+          {/* Subscription Info */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4 border border-blue-200">
+            <h4 className="font-semibold text-blue-900 mb-2">Оренда за підпискою</h4>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-blue-700">Mini:</span>
+                <span className="font-medium text-blue-900">300₴/міс (1 книга)</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-blue-700">Maxi:</span>
+                <span className="font-medium text-blue-900">500₴/міс (2 книги)</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-blue-700">Premium:</span>
+                <span className="font-medium text-blue-900">1500₴/6 міс (2 книги)</span>
+              </div>
             </div>
+            <Link 
+              href="/subscription" 
+              className="inline-block mt-3 text-blue-600 hover:text-blue-800 text-sm font-medium"
+            >
+              Переглянути всі плани →
+            </Link>
           </div>
 
           {/* Availability - removed from here */}
@@ -159,11 +178,11 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
 
           {/* Action buttons */}
           <div>
-            {/* Rent and Details buttons */}
+            {/* Subscription and Details buttons */}
             <div className="grid grid-cols-2 gap-4">
-              <Link href={`/books/${book.id}/rent`} className="w-full">
+              <Link href="/subscription" className="w-full">
                 <Button className="w-full bg-brand-yellow text-brand hover:bg-brand-yellow-light">
-                  Взяти в оренду
+                  Оформити підписку
                 </Button>
               </Link>
               <Link href={`/books/${book.id}`} className="w-full">

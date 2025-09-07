@@ -17,6 +17,7 @@ export function Footer() {
                   width={28} 
                   height={28}
                   className="text-gray-700"
+                  unoptimized={true}
                   onError={(e) => {
                     // Fallback to a simple div with text if image fails to load
                     const target = e.target as HTMLImageElement;

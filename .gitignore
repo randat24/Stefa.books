@@ -288,3 +288,4 @@ cloudinary.json
 # Performance
 performance-report.json
 bundle-analysis.html
+.vercel

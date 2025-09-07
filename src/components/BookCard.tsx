@@ -59,11 +59,9 @@ export function BookCard({
             <Image
               src={memoizedBook.cover_url || '/images/book-placeholder.svg'}
               alt={`Обкладинка книги: ${memoizedBook.title}`}
-              width={300}
-              height={400}
+              fill
+              className="object-cover"
               priority={priorityLoading}
-              className="w-full h-full object-cover"
-              loading={priorityLoading ? "eager" : "lazy"}
             />
             
             {/* Overlay при наведении */}

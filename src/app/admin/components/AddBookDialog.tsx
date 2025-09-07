@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Plus } from "lucide-react"
+import { Plus, RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -49,6 +49,32 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
   // Дополнительные состояния для категорий
   const [mainCategoryId, setMainCategoryId] = useState<string | null>(null)
   const [subcategoryId, setSubcategoryId] = useState<string | null>(null)
+
+  // ============================================================================
+  // ГЕНЕРАЦІЯ УНІКАЛЬНОГО КОДУ
+  // ============================================================================
+
+  function generateUniqueCode() {
+    // Генерируем код в формате: SB-YYYY-NNNN
+    // SB - Stefa Books, YYYY - год, NNNN - случайное число
+    const year = new Date().getFullYear()
+    const randomNum = Math.floor(Math.random() * 9000) + 1000 // 1000-9999
+    return `SB-${year}-${randomNum}`
+  }
+
+  function handleGenerateCode() {
+    const newCode = generateUniqueCode()
+    setForm(prev => ({ ...prev, code: newCode }))
+  }
+
+  // Автоматическая генерация кода при открытии диалога
+  function handleOpenChange(newOpen: boolean) {
+    setOpen(newOpen)
+    if (newOpen && !form.code) {
+      // Генерируем код только если поле пустое
+      handleGenerateCode()
+    }
+  }
 
   // ============================================================================
   // ОБРОБКА ОБКЛАДИНКИ
@@ -136,7 +162,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
   // ============================================================================
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button className="rounded-full gap-2">
           <Plus className="size-4" />
@@ -162,13 +188,30 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="code">Код книги *</Label>
-              <Input
-                id="code"
-                placeholder="DL-001"
-                value={form.code}
-                onChange={(e) => setForm(prev => ({ ...prev, code: e.target.value }))}
-                disabled={submitting}
-              />
+              <div className="flex gap-2">
+                <Input
+                  id="code"
+                  placeholder="SB-2025-1234"
+                  value={form.code}
+                  onChange={(e) => setForm(prev => ({ ...prev, code: e.target.value }))}
+                  disabled={submitting}
+                  className="flex-1"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={handleGenerateCode}
+                  disabled={submitting}
+                  title="Згенерувати унікальний код"
+                  className="px-3"
+                >
+                  <RefreshCw className="h-4 w-4" />
+                </Button>
+              </div>
+              <p className="text-xs text-gray-500">
+                Формат: SB-YYYY-NNNN (наприклад: SB-2025-1234)
+              </p>
             </div>
             <div className="space-y-2">
               <Label htmlFor="title">Назва *</Label>

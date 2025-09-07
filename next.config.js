@@ -20,7 +20,13 @@ const nextConfig = {
   
   // Force all pages to be dynamic - disable static generation completely
   output: 'standalone',
+  outputFileTracingRoot: __dirname,
   trailingSlash: false,
+  
+  // Simplified config for development workflow
+  
+  // Next.js 15 specific optimizations
+  // optimizePackageImports: ['lucide-react', 'framer-motion'], // This option is not available in Next.js 15
   
   // Webpack config to handle build issues
   webpack: (config, { isServer, dev, webpack }) => {
@@ -38,28 +44,12 @@ const nextConfig = {
       }
     }
     
-    // Try to ignore Html import issues in production
+    // Simplified webpack config for Next.js 15
     config.ignoreWarnings = [
       ...(config.ignoreWarnings || []),
-      /Html.*should not be imported outside of pages\/_document/,
-      { module: /node_modules/, message: /Html/ },
-      { message: /Html.*should not be imported outside of pages\/_document/ },
-      { message: /should not be imported outside of pages\/_document/ },
       /Critical dependency/,
       /Can't resolve/,
     ];
-    
-    // Add aliases to potentially problematic modules
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      'next/document': false,
-    };
-    
-    // Try to handle Html import errors more gracefully
-    const originalEmit = config.plugins.find(plugin => plugin.constructor.name === 'HtmlWebpackPlugin');
-    if (originalEmit) {
-      config.plugins = config.plugins.filter(plugin => plugin.constructor.name !== 'HtmlWebpackPlugin');
-    }
     
     // Try to exclude problematic chunks from server-side rendering
     if (isServer) {
@@ -89,8 +79,9 @@ const nextConfig = {
   
   // Disable static generation
   trailingSlash: false,
-  // Image optimization
+  // Image optimization - DISABLED for troubleshooting
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -159,7 +150,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://res.cloudinary.com https://images.unsplash.com; font-src 'self' data:; connect-src 'self' https://api.cloudinary.com;",
+            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://res.cloudinary.com https://images.unsplash.com blob:; font-src 'self' data:; connect-src 'self' https://api.cloudinary.com;",
           },
         ],
       },

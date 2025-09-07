@@ -16,13 +16,14 @@ export default function Footer() {
                   width={32} 
                   height={32}
                   className="text-gray-700"
+                  unoptimized={true}
                 />
               </div>
               <span className="text-2xl font-bold text-gray-900">Stefa.books</span>
             </Link>
             <p className="text-gray-600 text-sm leading-relaxed max-w-md">
-              Дитяча бібліотека з доставкою по Україні. 
-              Орендуйте книги для ваших дітей та розвивайте їхню любов до читання.
+              Дитяча бібліотека з орендою книг за підпискою. 
+              Самовивіз з точки в Миколаєві. Розвивайте любов до читання у ваших дітей.
             </p>
           </div>
 
@@ -53,31 +54,36 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Contact Info */}
           <div>
-            <h3 className="font-semibold text-gray-900 mb-4">Підтримка</h3>
-            <ul className="space-y-2">
-              <li>
+            <h3 className="font-semibold text-gray-900 mb-4">Контакти</h3>
+            <div className="space-y-3">
+              <div>
+                <p className="text-gray-600 text-sm font-medium mb-1">Адреса:</p>
+                <a 
+                  href="https://maps.google.com/?q=вул. Маріупольська 13/2, Миколаїв"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-gray-900 text-sm transition"
+                >
+                  вул. Маріупольська 13/2, Миколаїв
+                </a>
+              </div>
+              <div>
+                <p className="text-gray-600 text-sm font-medium mb-1">Телефон:</p>
+                <a 
+                  href="tel:+380638565414"
+                  className="text-gray-600 hover:text-gray-900 text-sm transition"
+                >
+                  +38 (063) 856-54-14
+                </a>
+              </div>
+              <div className="pt-2">
                 <Link href="/contact" className="text-gray-600 hover:text-gray-900 text-sm transition">
-                  Контакти
+                  Всі контакти
                 </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="text-gray-600 hover:text-gray-900 text-sm transition">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link href="/privacy" className="text-gray-600 hover:text-gray-900 text-sm transition">
-                  Конфіденційність
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="text-gray-600 hover:text-gray-900 text-sm transition">
-                  Умови використання
-                </Link>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
         </div>
 

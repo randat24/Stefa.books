@@ -235,6 +235,7 @@ export function HeaderSearch() {
                                     alt={book.title}
                                     width={48}
                                     height={64}
+                                    unoptimized={true}
                                     className="w-full h-full object-cover"
                                   />
                                 ) : (
