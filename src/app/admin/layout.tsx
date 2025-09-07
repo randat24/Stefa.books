@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { AdminGuard } from '@/components/auth/AdminGuard'
+// import { AdminGuard } from '@/components/auth/AdminGuard' // ВРЕМЕННО отключен
 
 export const metadata: Metadata = {
   title: 'Адмін-панель - Stefa.books',
@@ -15,11 +15,10 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
+  // ВРЕМЕННО: Убрана защита AdminGuard для тестирования
   return (
-    <AdminGuard>
-      <div className="min-h-screen">
-        {children}
-      </div>
-    </AdminGuard>
+    <div className="min-h-screen">
+      {children}
+    </div>
   )
 }

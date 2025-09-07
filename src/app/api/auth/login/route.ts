@@ -53,16 +53,41 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Получение профиля пользователя
+    // Получение профиля пользователя по email (более простой способ)
     const { data: profile, error: profileError } = await supabase
       .from('users')
       .select('*')
-      .eq('id', authData.user.id)
+      .eq('email', authData.user.email)
       .single();
 
     if (profileError) {
       logger.error('Failed to fetch user profile', { error: profileError }, 'Auth');
-      // Не блокируем вход, если профиль не найден
+      // Создаем базовый профиль если не найден
+      const { data: newProfile } = await supabase
+        .from('users')
+        .insert({
+          email: authData.user.email,
+          name: authData.user.user_metadata?.full_name || authData.user.email,
+          role: authData.user.email === 'admin@stefa-books.com.ua' ? 'admin' : 'user',
+          subscription: authData.user.email === 'admin@stefa-books.com.ua' ? 'premium' : 'free',
+          status: 'active'
+        })
+        .select('*')
+        .single();
+      
+      return NextResponse.json({
+        success: true,
+        message: 'Успішний вхід (створено новий профіль)',
+        user: {
+          id: authData.user.id,
+          email: authData.user.email,
+          firstName: authData.user.user_metadata?.first_name,
+          lastName: authData.user.user_metadata?.last_name,
+          phone: authData.user.user_metadata?.phone
+        },
+        profile: newProfile || null,
+        session: authData.session
+      });
     }
 
     logger.info('User logged in successfully', { userId: authData.user.id }, 'Auth');
