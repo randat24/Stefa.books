@@ -5,8 +5,8 @@ export default function TestTypographyPage() {
         
         {/* Hero Section */}
         <section className="text-center bg-white dark:bg-gray-800 rounded-3xl p-12 shadow-xl border border-gray-200 dark:border-gray-700">
-          <div className="text-display mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-            🎯 УЛУЧШЕНА ТИПОГРАФІКА для Книжного Сайту
+          <div className="text-display mb-6">
+            УЛУЧШЕНА ТИПОГРАФІКА для Книжного Сайту
           </div>
           <p className="text-lead max-w-4xl mx-auto mb-8">
             Професійна типографічна система з покращеною адаптивністю, читабельністю та UX. 
@@ -15,26 +15,26 @@ export default function TestTypographyPage() {
           </p>
           <div className="flex flex-wrap justify-center gap-4 text-small">
             <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 px-3 py-1 rounded-full">
-              📱 Мобільна адаптивність
+              Мобільна адаптивність
             </span>
             <span className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 px-3 py-1 rounded-full">
-              👁️ Покращена читабельність
+              Покращена читабельність
             </span>
             <span className="bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 px-3 py-1 rounded-full">
-              🌙 Темна тема
+              Темна тема
             </span>
             <span className="bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 px-3 py-1 rounded-full">
-              ♿ Доступність
+              Доступність
             </span>
           </div>
         </section>
 
         {/* Typography Hierarchy */}
         <section className="bg-white dark:bg-gray-800 rounded-3xl p-10 shadow-xl border border-gray-200 dark:border-gray-700">
-          <h2 className="text-h2 mb-10 text-center">📚 Ієрархія заголовків</h2>
+          <h2 className="text-h2 mb-10 text-center">Ієрархія заголовків</h2>
           
           <div className="grid gap-6 md:grid-cols-2">
-            <div className="space-y-6">
+          <div className="space-y-6">
               <div className="border-l-4 border-blue-500 pl-6 py-4 bg-gradient-to-r from-blue-50/50 to-transparent dark:from-blue-950/30 dark:to-transparent rounded-r-xl">
                 <div className="text-display mb-3">Display - Hero заголовки</div>
                 <div className="text-small text-blue-600 dark:text-blue-400 mb-2">
@@ -98,11 +98,11 @@ export default function TestTypographyPage() {
 
         {/* Additional Typography Classes */}
         <section className="bg-white dark:bg-gray-800 rounded-3xl p-10 shadow-xl border border-gray-200 dark:border-gray-700">
-          <h2 className="text-h2 mb-10 text-center">✨ Додаткові класи типографіки</h2>
+          <h2 className="text-h2 mb-10 text-center">Додаткові класи типографіки</h2>
           
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <div className="border border-gray-200 dark:border-gray-600 rounded-2xl p-6 bg-gradient-to-br from-blue-50/30 to-transparent dark:from-blue-950/20 dark:to-transparent">
-              <h3 className="text-h4 text-blue-800 dark:text-blue-300 mb-4">📖 Lead текст</h3>
+              <h3 className="text-h4 text-blue-800 dark:text-blue-300 mb-4">Lead текст</h3>
               <div className="text-lead mb-4">
                 Цей клас використовується для важливих повідомлень та вступних текстів. 
                 Має оптимальний розмір та міжрядковий інтервал для кращої читабельності.
@@ -111,9 +111,9 @@ export default function TestTypographyPage() {
                 <span className="text-code">.text-lead</span> - 18px-20px, line-height: 1.7
               </div>
             </div>
-
+            
             <div className="border border-gray-200 dark:border-gray-600 rounded-2xl p-6 bg-gradient-to-br from-green-50/30 to-transparent dark:from-green-950/20 dark:to-transparent">
-              <h3 className="text-h4 text-green-800 dark:text-green-300 mb-4">💪 Emphasis текст</h3>
+              <h3 className="text-h4 text-green-800 dark:text-green-300 mb-4">Emphasis текст</h3>
               <div className="text-emphasis mb-4">
                 Використовується для виділення важливих слів та фраз. 
                 Має підвищену вагу шрифту для привернення уваги.
@@ -122,9 +122,9 @@ export default function TestTypographyPage() {
                 <span className="text-code">.text-emphasis</span> - 16px-18px, font-weight: 600
               </div>
             </div>
-
+            
             <div className="border border-gray-200 dark:border-gray-600 rounded-2xl p-6 bg-gradient-to-br from-purple-50/30 to-transparent dark:from-purple-950/20 dark:to-transparent">
-              <h3 className="text-h4 text-purple-800 dark:text-purple-300 mb-4">🔤 Код та моноширинний</h3>
+              <h3 className="text-h4 text-purple-800 dark:text-purple-300 mb-4">Код та моноширинний</h3>
               <div className="text-small mb-4">
                 Використовується для відображення коду, команд та технічних термінів.
                 <span className="text-code">font-family: &quot;SF Mono&quot;</span> забезпечує чіткість.
@@ -133,9 +133,9 @@ export default function TestTypographyPage() {
                 <span className="text-code">.text-code</span> - 12px-14px, monospace
               </div>
             </div>
-
+            
             <div className="border border-gray-200 dark:border-gray-600 rounded-2xl p-6 bg-gradient-to-br from-orange-50/30 to-transparent dark:from-orange-950/20 dark:to-transparent">
-              <h3 className="text-h4 text-orange-800 dark:text-orange-300 mb-4">📝 Малий текст</h3>
+              <h3 className="text-h4 text-orange-800 dark:text-orange-300 mb-4">Малий текст</h3>
               <div className="text-small mb-4">
                 Ідеально підходить для підписів, приміток та додаткової інформації. 
                 Має оптимізований розмір для збереження читабельності.
@@ -144,9 +144,9 @@ export default function TestTypographyPage() {
                 <span className="text-code">.text-small</span> - 12px-14px, line-height: 1.6
               </div>
             </div>
-
+            
             <div className="border border-gray-200 dark:border-gray-600 rounded-2xl p-6 bg-gradient-to-br from-pink-50/30 to-transparent dark:from-pink-950/20 dark:to-transparent">
-              <h3 className="text-h4 text-pink-800 dark:text-pink-300 mb-4">📖 Читабельний текст</h3>
+              <h3 className="text-h4 text-pink-800 dark:text-pink-300 mb-4">Читабельний текст</h3>
               <div className="text-readable mb-4">
                 Основний клас для довгого тексту. Оптимізований для максимальної читабельності 
                 з оптимальною довжиною рядка та міжрядковим інтервалом.
@@ -155,9 +155,9 @@ export default function TestTypographyPage() {
                 <span className="text-code">.text-readable</span> - 16px-18px, max-width: 70ch
               </div>
             </div>
-
+            
             <div className="border border-gray-200 dark:border-gray-600 rounded-2xl p-6 bg-gradient-to-br from-teal-50/30 to-transparent dark:from-teal-950/20 dark:to-transparent">
-              <h3 className="text-h4 text-teal-800 dark:text-teal-300 mb-4">📚 Опис книги</h3>
+              <h3 className="text-h4 text-teal-800 dark:text-teal-300 mb-4">Опис книги</h3>
               <div className="book-description mb-4">
                 Спеціальний клас для описів книг. Має оптимальні параметри для читання 
                 довгого тексту з максимальним комфортом для очей читача.
@@ -171,7 +171,7 @@ export default function TestTypographyPage() {
 
         {/* Book-Specific Typography */}
         <section className="bg-white dark:bg-gray-800 rounded-3xl p-10 shadow-xl border border-gray-200 dark:border-gray-700">
-          <h2 className="text-h2 mb-10 text-center">📚 Спеціальні класи для книжкового контенту</h2>
+          <h2 className="text-h2 mb-10 text-center">Спеціальні класи для книжкового контенту</h2>
           
           <div className="grid gap-8 md:grid-cols-2">
             {/* Book Title */}
@@ -193,7 +193,7 @@ export default function TestTypographyPage() {
             {/* Book Author */}
             <div className="border border-blue-200 dark:border-blue-700 rounded-2xl p-8 bg-gradient-to-br from-blue-50/40 to-transparent dark:from-blue-950/30 dark:to-transparent">
               <h3 className="text-h4 text-blue-800 dark:text-blue-300 mb-4 flex items-center gap-2">
-                ✍️ Автор
+                Автор
                 <span className="text-code text-xs">.book-author</span>
               </h3>
               <div className="book-author mb-4 text-blue-900 dark:text-blue-100">
@@ -209,7 +209,7 @@ export default function TestTypographyPage() {
             {/* Book Description */}
             <div className="border border-purple-200 dark:border-purple-700 rounded-2xl p-8 bg-gradient-to-br from-purple-50/40 to-transparent dark:from-purple-950/30 dark:to-transparent md:col-span-2">
               <h3 className="text-h4 text-purple-800 dark:text-purple-300 mb-4 flex items-center gap-2">
-                📝 Опис книги
+                Опис книги
                 <span className="text-code text-xs">.book-description</span>
               </h3>
               <div className="book-description mb-4 text-purple-900 dark:text-purple-100">
@@ -225,19 +225,19 @@ export default function TestTypographyPage() {
             {/* Status Text */}
             <div className="border border-orange-200 dark:border-orange-700 rounded-2xl p-8 bg-gradient-to-br from-orange-50/40 to-transparent dark:from-orange-950/30 dark:to-transparent">
               <h3 className="text-h4 text-orange-800 dark:text-orange-300 mb-4 flex items-center gap-2">
-                🏷️ Статус книги
+                Статус книги
                 <span className="text-code text-xs">.status-text</span>
               </h3>
               <div className="flex flex-wrap gap-3 mb-4">
-                <span className="status-text bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 px-4 py-2 rounded-xl border border-green-200 dark:border-green-700">
-                  ✓ Доступна
-                </span>
-                <span className="status-text bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 px-4 py-2 rounded-xl border border-red-200 dark:border-red-700">
-                  ✗ Видана
-                </span>
-                <span className="status-text bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 px-4 py-2 rounded-xl border border-yellow-200 dark:border-yellow-700">
-                  ⏳ В очікуванні
-                </span>
+                  <span className="status-text bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300 px-4 py-2 rounded-xl border border-green-200 dark:border-green-700">
+                    Доступна
+                  </span>
+                  <span className="status-text bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300 px-4 py-2 rounded-xl border border-red-200 dark:border-red-700">
+                    Видана
+                  </span>
+                  <span className="status-text bg-yellow-100 dark:bg-yellow-900/50 text-yellow-800 dark:text-yellow-300 px-4 py-2 rounded-xl border border-yellow-200 dark:border-yellow-700">
+                    В очікуванні
+                  </span>
               </div>
               <div className="text-small text-orange-600 dark:text-orange-400 space-y-1">
                 <div><span className="text-code">clamp(0.7rem, 0.8vw, 0.75rem)</span> → 11.2px-12px</div>
@@ -249,7 +249,7 @@ export default function TestTypographyPage() {
             {/* Highlight Text */}
             <div className="border border-indigo-200 dark:border-indigo-700 rounded-2xl p-8 bg-gradient-to-br from-indigo-50/40 to-transparent dark:from-indigo-950/30 dark:to-transparent">
               <h3 className="text-h4 text-indigo-800 dark:text-indigo-300 mb-4 flex items-center gap-2">
-                💰 Ціна та важлива інформація
+                Ціна та важлива інформація
                 <span className="text-code text-xs">.highlight-text</span>
               </h3>
               <div className="space-y-3 mb-4">
@@ -271,29 +271,29 @@ export default function TestTypographyPage() {
 
         {/* Adaptive Features */}
         <section className="bg-white dark:bg-gray-800 rounded-3xl p-10 shadow-xl border border-gray-200 dark:border-gray-700">
-          <h2 className="text-h2 mb-10 text-center">📱 Адаптивні особливості</h2>
+          <h2 className="text-h2 mb-10 text-center">Адаптивні особливості</h2>
           
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <div className="border border-gray-200 dark:border-gray-600 rounded-2xl p-8 bg-gradient-to-br from-blue-50/30 to-transparent dark:from-blue-950/20 dark:to-transparent">
               <h3 className="text-h4 text-blue-800 dark:text-blue-300 mb-6 flex items-center gap-3">
-                📱 Мобільні пристрої
+                Мобільні пристрої
                 <span className="text-small text-blue-600 dark:text-blue-400">320px-480px</span>
               </h3>
               <ul className="text-small space-y-3 text-gray-700 dark:text-gray-300">
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-green-500 mt-1">•</span>
                   <span>Збільшений міжрядковий інтервал (1.85) для кращої читаємості</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-green-500 mt-1">•</span>
                   <span>Оптимізований letter-spacing для малих екранів</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-green-500 mt-1">•</span>
                   <span>Додаткові breakpoint для планшетів</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-green-500 mt-1">•</span>
                   <span>Покращена контрастність для сонячного світла</span>
                 </li>
               </ul>
@@ -301,24 +301,24 @@ export default function TestTypographyPage() {
             
             <div className="border border-gray-200 dark:border-gray-600 rounded-2xl p-8 bg-gradient-to-br from-green-50/30 to-transparent dark:from-green-950/20 dark:to-transparent">
               <h3 className="text-h4 text-green-800 dark:text-green-300 mb-6 flex items-center gap-3">
-                📟 Планшети
+                Планшети
                 <span className="text-small text-green-600 dark:text-green-400">481px-1024px</span>
               </h3>
               <ul className="text-small space-y-3 text-gray-700 dark:text-gray-300">
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-green-500 mt-1">•</span>
                   <span>Оптимізовані розміри шрифтів для середніх екранів</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-green-500 mt-1">•</span>
                   <span>Покращений line-height для комфортного читання</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-green-500 mt-1">•</span>
                   <span>Адаптивна сітка для різних орієнтацій</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-green-500 mt-1">•</span>
                   <span>Оптимізація для touch-інтерфейсу</span>
                 </li>
               </ul>
@@ -326,24 +326,24 @@ export default function TestTypographyPage() {
             
             <div className="border border-gray-200 dark:border-gray-600 rounded-2xl p-8 bg-gradient-to-br from-purple-50/30 to-transparent dark:from-purple-950/20 dark:to-transparent">
               <h3 className="text-h4 text-purple-800 dark:text-purple-300 mb-6 flex items-center gap-3">
-                🖥️ Великі екрани
+                Великі екрани
                 <span className="text-small text-purple-600 dark:text-purple-400">1025px+</span>
               </h3>
               <ul className="text-small space-y-3 text-gray-700 dark:text-gray-300">
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-green-500 mt-1">•</span>
                   <span>Максимальна ширина тексту (70-75ch) для оптимального читання</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-green-500 mt-1">•</span>
                   <span>Поліпшене text-rendering для чіткості</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-green-500 mt-1">•</span>
                   <span>Font-smoothing для кращого відображення</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-green-500 mt-1">✓</span>
+                  <span className="text-green-500 mt-1">•</span>
                   <span>Оптимізація для високих DPI екранів</span>
                 </li>
               </ul>
@@ -353,7 +353,7 @@ export default function TestTypographyPage() {
 
         {/* Dark Theme Test Section */}
         <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-3xl p-12 shadow-2xl border border-gray-700">
-          <h2 className="text-h2 text-white mb-8 text-center">🌙 Тестування темної теми</h2>
+          <h2 className="text-h2 text-white mb-8 text-center">Тестування темної теми</h2>
           <p className="text-lead text-gray-200 mb-8 text-center max-w-4xl mx-auto">
             Професійна типографічна система з SF Pro шрифтами від Apple. Розміри побудовані на модульній шкалі 1.25 (Major Third) - 
             золотий стандарт книжної типографіки. Всі класи автоматично підтримують темну тему.
@@ -362,47 +362,47 @@ export default function TestTypographyPage() {
           <div className="grid gap-8 md:grid-cols-2">
             <div className="space-y-6">
               <div className="border border-gray-700 rounded-2xl p-6 bg-gray-800/50">
-                <h3 className="text-h4 text-blue-400 mb-4">📖 Назва книги</h3>
+                <h3 className="text-h4 text-blue-400 mb-4">Назва книги</h3>
                 <div className="book-title text-white">Гаррі Поттер і філософський камінь</div>
               </div>
               
               <div className="border border-gray-700 rounded-2xl p-6 bg-gray-800/50">
-                <h3 className="text-h4 text-green-400 mb-4">✍️ Автор</h3>
+                <h3 className="text-h4 text-green-400 mb-4">Автор</h3>
                 <div className="book-author text-gray-300">Дж. К. Роулінг</div>
               </div>
               
               <div className="border border-gray-700 rounded-2xl p-6 bg-gray-800/50">
-                <h3 className="text-h4 text-purple-400 mb-4">🏷️ Статуси</h3>
+                <h3 className="text-h4 text-purple-400 mb-4">Статуси</h3>
                 <div className="flex flex-wrap gap-3">
                   <span className="status-text bg-green-900/50 text-green-300 px-4 py-2 rounded-xl border border-green-700">
-                    ✓ Доступна
+                    Доступна
                   </span>
                   <span className="status-text bg-red-900/50 text-red-300 px-4 py-2 rounded-xl border border-red-700">
-                    ✗ Видана
+                    Видана
                   </span>
                 </div>
               </div>
             </div>
             
             <div className="border border-gray-700 rounded-2xl p-6 bg-gray-800/50">
-              <h3 className="text-h4 text-orange-400 mb-4">📝 Опис книги</h3>
+              <h3 className="text-h4 text-orange-400 mb-4">Опис книги</h3>
               <div className="book-description text-gray-200">
-                Цей опис демонструє, як читається довгий текст у темній темі. 
-                Система автоматично підбирає оптимальні кольори для максимальної читаємості.
+              Цей опис демонструє, як читається довгий текст у темній темі. 
+              Система автоматично підбирає оптимальні кольори для максимальної читаємості.
                 Контрастність та яскравість налаштовані для комфортного читання в умовах слабкого освітлення.
-              </div>
+            </div>
             </div>
           </div>
         </section>
 
         {/* Technical Details */}
         <section className="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-3xl p-12 shadow-2xl border border-gray-700">
-          <h2 className="text-h2 mb-10 text-center">⚙️ Технічні деталі</h2>
+          <h2 className="text-h2 mb-10 text-center">Технічні деталі</h2>
           
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <div className="border border-gray-700 rounded-2xl p-8 bg-gray-800/50">
               <h3 className="text-h4 text-yellow-400 mb-6 flex items-center gap-2">
-                🛠️ Технології
+                Технології
               </h3>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-start gap-2">
@@ -434,7 +434,7 @@ export default function TestTypographyPage() {
             
             <div className="border border-gray-700 rounded-2xl p-8 bg-gray-800/50">
               <h3 className="text-h4 text-green-400 mb-6 flex items-center gap-2">
-                ♿ Доступність
+                Доступність
               </h3>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-start gap-2">
@@ -466,7 +466,7 @@ export default function TestTypographyPage() {
             
             <div className="border border-gray-700 rounded-2xl p-8 bg-gray-800/50 md:col-span-2 lg:col-span-1">
               <h3 className="text-h4 text-blue-400 mb-6 flex items-center gap-2">
-                🚀 Продуктивність
+                Продуктивність
               </h3>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-start gap-2">

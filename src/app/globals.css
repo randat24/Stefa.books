@@ -151,7 +151,7 @@
   text-rendering: optimizeLegibility !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
-  color: #0F172A !important;
+  color: #111827 !important;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -167,7 +167,7 @@
   text-rendering: optimizeLegibility !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
-  color: #1E293B !important;
+  color: #111827 !important;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -254,7 +254,7 @@
   text-rendering: optimizeLegibility !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
-  color: #374151 !important;
+  color: #1F2937 !important;
   max-width: 70ch; /* Оптимальная длина строки для чтения */
 }
 
@@ -372,7 +372,7 @@
   font-weight: 500 !important;
   letter-spacing: 0.005em !important;
   text-rendering: optimizeLegibility !important;
-  color: #4B5563 !important;
+  color: #374151 !important;
   max-width: 65ch;
 }
 
@@ -401,7 +401,7 @@
   line-height: 1.5 !important;
   font-weight: 600 !important;
   letter-spacing: -0.005em !important;
-  color: #1F2937 !important;
+  color: #111827 !important;
 }
 
 @media (prefers-color-scheme: dark) {
