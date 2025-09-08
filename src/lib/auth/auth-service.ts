@@ -18,6 +18,7 @@ export interface LoginData {
 export interface AuthResponse {
   success: boolean;
   user?: SupabaseUser;
+  profile?: UserProfile | null;
   session?: any;
   error?: string;
 }

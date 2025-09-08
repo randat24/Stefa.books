@@ -42,7 +42,7 @@ export default function ProfilePage() {
   return (
     <div className="container py-8">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Profile</h1>
+        <h1 className="text-h1">Profile</h1>
         {!isEditing && (
           <Button onClick={() => setIsEditing(true)}>Edit Profile</Button>
         )}
@@ -79,7 +79,7 @@ export default function ProfilePage() {
                     onChange={handleChange}
                     disabled
                   />
-                  <p className="text-sm text-gray-500">Email cannot be changed</p>
+                  <p className="text-body-sm text-gray-500">Email cannot be changed</p>
                 </div>
               </div>
               

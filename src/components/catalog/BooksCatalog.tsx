@@ -225,7 +225,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
   if (error) {
     return (
       <div className={`bg-red-50 border border-red-200 rounded-lg p-6 text-center ${className}`}>
-        <h3 className="text-lg font-medium text-red-800 mb-2">Помилка завантаження</h3>
+        <h3 className="text-body-lg font-medium text-red-800 mb-2">Помилка завантаження</h3>
         <p className="text-red-600 mb-4">{error}</p>
         <button 
           onClick={() => window.location.reload()}
@@ -241,7 +241,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
   if (!loading && books.length === 0) {
     return (
       <div className={`text-center py-12 ${className}`}>
-        <h3 className="text-xl font-semibold mb-2 text-gray-900">Книги не знайдені</h3>
+        <h3 className="text-body-lg font-semibold mb-2 text-gray-900">Книги не знайдені</h3>
         <p className="text-gray-600">
           На даний момент книг у каталозі немає. Спробуйте пізніше.
         </p>
@@ -266,7 +266,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
           itemsPerPage={BOOKS_PER_PAGE}
           totalItems={totalCount}
         />
-        <div className="text-sm text-gray-600 mt-2 sm:mt-0" aria-live="polite">
+        <div className="text-body-sm text-gray-600 mt-2 sm:mt-0" aria-live="polite">
           Сторінка {currentPage} з {totalPages}
         </div>
       </div>

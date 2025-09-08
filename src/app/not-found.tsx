@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 // Force dynamic rendering to prevent static generation issues
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -7,7 +9,7 @@ export default function NotFound() {
     <div>
       <h1>404 - Сторінка не знайдена</h1>
       <p>На жаль, сторінка, яку ви шукаєте, не існує.</p>
-      <a href="/">На головну</a>
+      <Link href="/">На головну</Link>
     </div>
   );
 }

@@ -119,7 +119,7 @@ export function EnhancedForm({
       case 'textarea':
         return (
           <div key={field.name} className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-body-sm font-medium text-gray-700">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </label>
@@ -141,7 +141,7 @@ export function EnhancedForm({
       case 'select':
         return (
           <div key={field.name} className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-body-sm font-medium text-gray-700">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </label>
@@ -183,7 +183,7 @@ export function EnhancedForm({
       default:
         return (
           <div key={field.name} className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-body-sm font-medium text-gray-700">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </label>

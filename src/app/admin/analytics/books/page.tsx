@@ -32,7 +32,7 @@ export default function BookAnalyticsPage() {
     <div className="container py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold">Book Analytics</h1>
+          <h1 className="text-h1">Book Analytics</h1>
           <p className="text-gray-500">Insights into book performance and popularity</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">
@@ -46,41 +46,41 @@ export default function BookAnalyticsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Books</CardTitle>
+            <CardTitle className="text-body-sm font-medium">Total Books</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{mockBookAnalytics.totalBooks}</div>
-            <p className="text-xs text-muted-foreground">All books in catalog</p>
+            <div className="text-h2">{mockBookAnalytics.totalBooks}</div>
+            <p className="text-caption text-muted-foreground">All books in catalog</p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">New Books</CardTitle>
+            <CardTitle className="text-body-sm font-medium">New Books</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{mockBookAnalytics.booksAdded}</div>
-            <p className="text-xs text-muted-foreground">Added in last 30 days</p>
+            <div className="text-h2">{mockBookAnalytics.booksAdded}</div>
+            <p className="text-caption text-muted-foreground">Added in last 30 days</p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Books Rented</CardTitle>
+            <CardTitle className="text-body-sm font-medium">Books Rented</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{mockBookAnalytics.booksRented}</div>
-            <p className="text-xs text-muted-foreground">Rented in last 30 days</p>
+            <div className="text-h2">{mockBookAnalytics.booksRented}</div>
+            <p className="text-caption text-muted-foreground">Rented in last 30 days</p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Average Rating</CardTitle>
+            <CardTitle className="text-body-sm font-medium">Average Rating</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{mockBookAnalytics.averageRating}</div>
-            <p className="text-xs text-muted-foreground">Across all books</p>
+            <div className="text-h2">{mockBookAnalytics.averageRating}</div>
+            <p className="text-caption text-muted-foreground">Across all books</p>
           </CardContent>
         </Card>
       </div>
@@ -102,9 +102,9 @@ export default function BookAnalyticsPage() {
                     <span className="font-medium">{category.name}</span>
                     <span>{category.count} books</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-gray-200 rounded-2xl h-2">
                     <div 
-                      className="bg-brand-accent-light h-2 rounded-full" 
+                      className="bg-brand-accent-light h-2 rounded-2xl" 
                       style={{ width: `${category.percentage}%` }}
                     ></div>
                   </div>
@@ -130,12 +130,12 @@ export default function BookAnalyticsPage() {
                     <div className="mr-3 h-16 w-12 bg-gray-200 rounded flex-shrink-0"></div>
                     <div>
                       <p className="font-medium">{book.title}</p>
-                      <p className="text-sm text-muted-foreground">{book.author}</p>
+                      <p className="text-body-sm text-muted-foreground">{book.author}</p>
                       <div className="flex items-center mt-1">
                         <Badge variant="secondary" className="text-xs">
                           {book.category_name}
                         </Badge>
-                        <span className="text-xs text-muted-foreground ml-2">
+                        <span className="text-caption text-muted-foreground ml-2">
                           ★ {book.rating}
                         </span>
                       </div>

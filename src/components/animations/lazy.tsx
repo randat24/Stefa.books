@@ -18,7 +18,7 @@ const SimpleSpinner = ({ size = 'md', className = '' }: { size?: 'sm' | 'md' | '
   }
   
   return (
-    <div className={`animate-spin rounded-full border-b-2 border-gray-900 ${sizeClasses[size]} ${className}`} />
+    <div className={`animate-spin rounded-2xl border-b-2 border-gray-900 ${sizeClasses[size]} ${className}`} />
   )
 }
 
@@ -159,7 +159,7 @@ export const ProfileSkeleton = dynamic(
     loading: () => (
       <div className="max-w-md mx-auto space-y-6">
         <div className="flex items-center space-x-4">
-          <SimpleSkeleton className="bg-gray-200 rounded-full h-20 w-20" />
+          <SimpleSkeleton className="bg-gray-200 rounded-2xl h-20 w-20" />
           <div className="space-y-2">
             <SimpleSkeleton className="bg-gray-200 rounded h-6 w-32" />
             <SimpleSkeleton className="bg-gray-200 rounded h-4 w-24" />

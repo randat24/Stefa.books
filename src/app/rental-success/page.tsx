@@ -94,26 +94,26 @@ function RentalSuccessContent() {
 
 					{/* Success Header */}
 					<div className="text-center mb-12">
-						<div className="inline-flex items-center justify-center w-24 h-24 bg-green-100 rounded-full mb-6 animate-pulse">
+						<div className="inline-flex items-center justify-center w-24 h-24 bg-green-100 rounded-2xl mb-6 animate-pulse">
 							<CheckCircle className="h-16 w-16 text-green-600" />
 						</div>
 						
-						<h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+						<h1 className="text-display font-bold text-gray-900 mb-4">
 							Заявка надіслана успішно!
 						</h1>
 						
 						<div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 max-w-2xl mx-auto">
 							<div className="flex items-center justify-center gap-3 text-green-700 mb-4">
 								<Heart className="h-6 w-6" />
-								<span className="text-xl font-semibold">Дякуємо за довіру до Stefa.books</span>
+								<span className="text-body-lg font-semibold">Дякуємо за довіру до Stefa.books</span>
 							</div>
 							
 							{bookTitle && (
 								<div className="mb-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
 									<h3 className="font-semibold text-blue-900 mb-2">Ваша заявка на книгу:</h3>
-									<p className="text-lg text-blue-800">
+									<p className="text-body-lg text-blue-800">
 										<strong>&quot;{bookTitle}&quot;</strong>
-										{bookAuthor && <span className="block text-sm text-brand-accent-light mt-1">— {bookAuthor}</span>}
+										{bookAuthor && <span className="block text-body-sm text-brand-accent-light mt-1">— {bookAuthor}</span>}
 									</p>
 								</div>
 							)}
@@ -127,7 +127,7 @@ function RentalSuccessContent() {
 									<p className="text-2xl font-mono font-bold text-blue-700 mb-2">
 										{rentalId}
 									</p>
-									<p className="text-sm text-brand-accent-light">
+									<p className="text-body-sm text-brand-accent-light">
 										Збережіть цей номер для зв&apos;язку з нашою службою підтримки
 									</p>
 								</div>
@@ -143,7 +143,7 @@ function RentalSuccessContent() {
 					{/* Next Steps */}
 					<Card className="mb-8 shadow-lg">
 						<CardHeader>
-							<CardTitle className="flex items-center gap-3 text-xl">
+							<CardTitle className="flex items-center gap-3 text-h4">
 								<Clock className="h-6 w-6 text-brand-accent-light" />
 								Що далі?
 							</CardTitle>
@@ -151,36 +151,36 @@ function RentalSuccessContent() {
 						<CardContent>
 							<div className="grid md:grid-cols-3 gap-6">
 								<div className="flex items-start gap-4 p-6 bg-blue-50 rounded-xl border border-blue-200">
-									<div className="flex-shrink-0 w-10 h-10 bg-brand-accent-light text-white rounded-full flex items-center justify-center text-lg font-bold">
+									<div className="flex-shrink-0 w-10 h-10 bg-brand-accent-light text-white rounded-2xl flex items-center justify-center text-h4">
 										1
 									</div>
 									<div>
 										<h3 className="font-semibold text-blue-900 mb-2">Підтвердження заявки</h3>
-										<p className="text-blue-800 text-sm leading-relaxed">
+										<p className="text-blue-800 text-body-sm leading-relaxed">
 											Протягом 2-4 годин ми зв&apos;яжемося з вами для підтвердження деталей оренди та уточнення способу доставки.
 										</p>
 									</div>
 								</div>
 
 								<div className="flex items-start gap-4 p-6 bg-yellow-50 rounded-xl border border-yellow-200">
-									<div className="flex-shrink-0 w-10 h-10 bg-brand-yellow-dark text-white rounded-full flex items-center justify-center text-lg font-bold">
+									<div className="flex-shrink-0 w-10 h-10 bg-brand-yellow-dark text-white rounded-2xl flex items-center justify-center text-h4">
 										2
 									</div>
 									<div>
 										<h3 className="font-semibold text-yellow-900 mb-2">Оплата оренди</h3>
-										<p className="text-yellow-800 text-sm leading-relaxed">
+										<p className="text-yellow-800 text-body-sm leading-relaxed">
 											Оберете зручний спосіб оплати: онлайн, переказ на карту або готівка при отриманні.
 										</p>
 									</div>
 								</div>
 
 								<div className="flex items-start gap-4 p-6 bg-green-50 rounded-xl border border-green-200">
-									<div className="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center text-lg font-bold">
+									<div className="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-2xl flex items-center justify-center text-h4">
 										3
 									</div>
 									<div>
 										<h3 className="font-semibold text-green-900 mb-2">Отримання книги</h3>
-										<p className="text-green-800 text-sm leading-relaxed">
+										<p className="text-green-800 text-body-sm leading-relaxed">
 											Заберіть книгу в точці видачі або отримайте доставку відповідно до обраного способу.
 										</p>
 									</div>
@@ -192,7 +192,7 @@ function RentalSuccessContent() {
 					{/* Contact Information */}
 					<Card className="mb-8 shadow-lg">
 						<CardHeader>
-							<CardTitle className="flex items-center gap-3 text-xl">
+							<CardTitle className="flex items-center gap-3 text-h4">
 								<MessageSquare className="h-6 w-6 text-purple-600" />
 								Є питання? Зв&apos;яжіться з нами
 							</CardTitle>
@@ -201,24 +201,24 @@ function RentalSuccessContent() {
 							<div className="grid md:grid-cols-2 gap-6">
 								<div className="space-y-4">
 									<div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
-										<div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+										<div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center">
 											<Phone className="h-6 w-6 text-brand-accent-light" />
 										</div>
 										<div>
 											<p className="font-semibold text-gray-900">Телефон</p>
 											<p className="text-gray-600">+38 (063) 856-54-14</p>
-											<p className="text-xs text-gray-500">Пн-Пт: 9:00-18:00</p>
+											<p className="text-caption text-gray-500">Пн-Пт: 9:00-18:00</p>
 										</div>
 									</div>
 									
 									<div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
-										<div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+										<div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center">
 											<Mail className="h-6 w-6 text-green-600" />
 										</div>
 										<div>
 											<p className="font-semibold text-gray-900">Email</p>
 											<p className="text-gray-600">info@stefa.books</p>
-											<p className="text-xs text-gray-500">Відповідаємо протягом 2 годин</p>
+											<p className="text-caption text-gray-500">Відповідаємо протягом 2 годин</p>
 										</div>
 									</div>
 								</div>
@@ -228,11 +228,11 @@ function RentalSuccessContent() {
 										<MapPin className="h-6 w-6 text-purple-600 mt-1 flex-shrink-0" />
 										<div>
 											<h4 className="font-semibold text-purple-900 mb-2">Точка видачі</h4>
-											<p className="text-purple-800 text-sm mb-2">
+											<p className="text-purple-800 text-body-sm mb-2">
 												вул. Маріупольська 13/2<br />
 												Кафе &quot;Книжкова&quot;, Миколаїв
 											</p>
-											<div className="flex items-center gap-2 text-xs text-purple-700">
+											<div className="flex items-center gap-2 text-caption text-purple-700">
 												<Calendar className="h-3 w-3" />
 												<span>Пн-Пт: 9:00-18:00, Сб: 10:00-16:00</span>
 											</div>
@@ -285,7 +285,7 @@ function RentalSuccessContent() {
 								</CardTitle>
 							</CardHeader>
 							<CardContent>
-								<ul className="space-y-3 text-sm text-gray-600">
+								<ul className="space-y-3 text-body-sm text-gray-600">
 									<li className="flex items-start gap-2">
 										<CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
 										<span>Переконайтеся, що ваш телефон увімкнений для швидкого зв&apos;язку</span>
@@ -320,21 +320,21 @@ function RentalSuccessContent() {
 										<Users className="h-5 w-5 text-brand-accent" />
 										<div>
 											<p className="font-semibold text-gray-900">10,000+</p>
-											<p className="text-sm text-gray-600">успішних оренд за рік</p>
+											<p className="text-body-sm text-gray-600">успішних оренд за рік</p>
 										</div>
 									</div>
 									<div className="flex items-center gap-3">
 										<Star className="h-5 w-5 text-brand-yellow" />
 										<div>
 											<p className="font-semibold text-gray-900">4.9/5</p>
-											<p className="text-sm text-gray-600">середня оцінка клієнтів</p>
+											<p className="text-body-sm text-gray-600">середня оцінка клієнтів</p>
 										</div>
 									</div>
 									<div className="flex items-center gap-3">
 										<CheckCircle className="h-5 w-5 text-green-500" />
 										<div>
 											<p className="font-semibold text-gray-900">100%</p>
-											<p className="text-sm text-gray-600">гарантія якості книг</p>
+											<p className="text-body-sm text-gray-600">гарантія якості книг</p>
 										</div>
 									</div>
 								</div>

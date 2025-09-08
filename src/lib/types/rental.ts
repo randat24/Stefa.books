@@ -61,7 +61,7 @@ export type RentalRequestStatus = 'pending' | 'processing' | 'completed' | 'canc
 
 export type SubscriptionPlan = 'mini' | 'maxi'
 
-export type PaymentMethod = 'Онлайн оплата' | 'Переказ на карту' | 'Готівка при отриманні'
+export type PaymentMethod = 'Онлайн оплата' | 'Переказ на карту'
 
 export type DeliveryMethod = 'pickup' | 'delivery'
 
@@ -316,6 +316,5 @@ export const SUBSCRIPTION_PLANS: Record<SubscriptionPlan, { label: string; price
 
 export const PAYMENT_METHODS: PaymentMethod[] = [
 	'Онлайн оплата',
-	'Переказ на карту',
-	'Готівка при отриманні'
+	'Переказ на карту'
 ]

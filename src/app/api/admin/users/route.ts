@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
-import { getServerSession } from '@/lib/auth/session';
+import { createClient } from '@supabase/supabase-js';
 
 // ============================================================================
 // ADMIN USER MANAGEMENT API
@@ -12,12 +12,58 @@ import { getServerSession } from '@/lib/auth/session';
  */
 export async function GET(request: NextRequest) {
   try {
-    // Check authentication
-    const session = await getServerSession();
-    if (!session?.user) {
+    // Get authorization header
+    const authHeader = request.headers.get('authorization');
+    const cookieHeader = request.headers.get('cookie');
+    const token = authHeader?.replace('Bearer ', '') || 
+      (cookieHeader?.includes('sb-access-token=') ? 
+        cookieHeader.split('sb-access-token=')[1]?.split(';')[0] : null);
+    
+    if (!token) {
       return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
+        { success: false, error: 'No authentication token provided' },
         { status: 401 }
+      );
+    }
+
+    // Create Supabase client
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+
+    // Verify the token and get user
+    const { data: { user }, error: userAuthError } = await supabaseClient.auth.getUser(token);
+    
+    if (userAuthError || !user) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid authentication token' },
+        { status: 401 }
+      );
+    }
+
+    // Check if user is admin
+    const { data: profile } = await supabaseClient
+      .from('users')
+      .select('role')
+      .eq('user_id', user.id)
+      .single();
+
+    // Check if user is admin by email or profile role
+    const isAdminByEmail = user.email === 'admin@stefabooks.com.ua' || user.email === 'admin@stefa-books.com.ua';
+    const isAdminByRole = profile?.role === 'admin';
+
+    logger.info('Admin access check', { 
+      userId: user.id, 
+      email: user.email, 
+      profileRole: profile?.role,
+      isAdminByEmail,
+      isAdminByRole
+    });
+
+    if (!isAdminByEmail && !isAdminByRole) {
+      return NextResponse.json(
+        { success: false, error: 'Admin access required' },
+        { status: 403 }
       );
     }
 
@@ -34,7 +80,7 @@ export async function GET(request: NextRequest) {
     const offset = (page - 1) * limit;
     
     // Build query
-    let query = supabase
+    let query = supabaseClient
       .from('users')
       .select('*', { count: 'exact' })
       .range(offset, offset + limit - 1)
@@ -90,12 +136,42 @@ export async function GET(request: NextRequest) {
  */
 export async function POST(request: NextRequest) {
   try {
-    // Check authentication
-    const session = await getServerSession();
-    if (!session?.user) {
+    // Get authorization header
+    const authHeader = request.headers.get('authorization');
+    const cookieHeader = request.headers.get('cookie');
+    const token = authHeader?.replace('Bearer ', '') || 
+      (cookieHeader?.includes('sb-access-token=') ? 
+        cookieHeader.split('sb-access-token=')[1]?.split(';')[0] : null);
+    
+    if (!token) {
       return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
+        { success: false, error: 'No authentication token provided' },
         { status: 401 }
+      );
+    }
+
+    // Create Supabase client
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+
+    // Verify the token and get user
+    const { data: { user }, error: userAuthError } = await supabaseClient.auth.getUser(token);
+    
+    if (userAuthError || !user) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid authentication token' },
+        { status: 401 }
+      );
+    }
+
+    // Check if user is admin by email
+    const isAdminByEmail = user.email === 'admin@stefabooks.com.ua' || user.email === 'admin@stefa-books.com.ua';
+    
+    if (!isAdminByEmail) {
+      return NextResponse.json(
+        { success: false, error: 'Admin access required' },
+        { status: 403 }
       );
     }
 
@@ -113,7 +189,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Create user in Supabase Auth
-    const { data: authData, error: authError } = await supabase.auth.admin.createUser({
+    const { data: authData, error: createAuthError } = await supabase.auth.admin.createUser({
       email: body.email,
       password: body.password || 'TempPass123!', // In a real implementation, you would generate a secure password
       email_confirm: true,
@@ -123,8 +199,15 @@ export async function POST(request: NextRequest) {
       }
     });
     
-    if (authError) {
-      logger.error('Admin users API: Failed to create auth user', { error: authError });
+    if (createAuthError) {
+      logger.error('Admin users API: Failed to create auth user', { error: createAuthError });
+      return NextResponse.json(
+        { success: false, error: 'Failed to create user account' },
+        { status: 500 }
+      );
+    }
+    
+    if (!authData?.user) {
       return NextResponse.json(
         { success: false, error: 'Failed to create user account' },
         { status: 500 }
@@ -178,12 +261,42 @@ export async function POST(request: NextRequest) {
  */
 export async function PUT(request: NextRequest) {
   try {
-    // Check authentication
-    const session = await getServerSession();
-    if (!session?.user) {
+    // Get authorization header
+    const authHeader = request.headers.get('authorization');
+    const cookieHeader = request.headers.get('cookie');
+    const token = authHeader?.replace('Bearer ', '') || 
+      (cookieHeader?.includes('sb-access-token=') ? 
+        cookieHeader.split('sb-access-token=')[1]?.split(';')[0] : null);
+    
+    if (!token) {
       return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
+        { success: false, error: 'No authentication token provided' },
         { status: 401 }
+      );
+    }
+
+    // Create Supabase client
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+
+    // Verify the token and get user
+    const { data: { user }, error: userAuthError } = await supabaseClient.auth.getUser(token);
+    
+    if (userAuthError || !user) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid authentication token' },
+        { status: 401 }
+      );
+    }
+
+    // Check if user is admin by email
+    const isAdminByEmail = user.email === 'admin@stefabooks.com.ua' || user.email === 'admin@stefa-books.com.ua';
+    
+    if (!isAdminByEmail) {
+      return NextResponse.json(
+        { success: false, error: 'Admin access required' },
+        { status: 403 }
       );
     }
 
@@ -256,12 +369,42 @@ export async function PUT(request: NextRequest) {
  */
 export async function DELETE(request: NextRequest) {
   try {
-    // Check authentication
-    const session = await getServerSession();
-    if (!session?.user) {
+    // Get authorization header
+    const authHeader = request.headers.get('authorization');
+    const cookieHeader = request.headers.get('cookie');
+    const token = authHeader?.replace('Bearer ', '') || 
+      (cookieHeader?.includes('sb-access-token=') ? 
+        cookieHeader.split('sb-access-token=')[1]?.split(';')[0] : null);
+    
+    if (!token) {
       return NextResponse.json(
-        { success: false, error: 'Unauthorized' },
+        { success: false, error: 'No authentication token provided' },
         { status: 401 }
+      );
+    }
+
+    // Create Supabase client
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+    const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+
+    // Verify the token and get user
+    const { data: { user }, error: userAuthError } = await supabaseClient.auth.getUser(token);
+    
+    if (userAuthError || !user) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid authentication token' },
+        { status: 401 }
+      );
+    }
+
+    // Check if user is admin by email
+    const isAdminByEmail = user.email === 'admin@stefabooks.com.ua' || user.email === 'admin@stefa-books.com.ua';
+    
+    if (!isAdminByEmail) {
+      return NextResponse.json(
+        { success: false, error: 'Admin access required' },
+        { status: 403 }
       );
     }
 
@@ -279,10 +422,10 @@ export async function DELETE(request: NextRequest) {
     }
     
     // Delete user from Supabase Auth
-    const { error: authError } = await supabase.auth.admin.deleteUser(userId);
+    const { error: deleteAuthError } = await supabase.auth.admin.deleteUser(userId);
     
-    if (authError) {
-      logger.error('Admin users API: Failed to delete auth user', { error: authError, userId });
+    if (deleteAuthError) {
+      logger.error('Admin users API: Failed to delete auth user', { error: deleteAuthError, userId });
       return NextResponse.json(
         { success: false, error: 'Failed to delete user account' },
         { status: 500 }

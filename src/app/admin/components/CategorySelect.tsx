@@ -338,7 +338,7 @@ export function CategorySelect({
                     onKeyDown={(e) => e.key === 'Enter' && handleAddSubcategory()}
                   />
                 </div>
-                <div className="text-sm text-muted-foreground">
+                <div className="text-body-sm text-muted-foreground">
                   Будет добавлена в категорию: <strong>{selectedMainCategory?.name}</strong>
                 </div>
                 <div className="flex justify-end gap-2">

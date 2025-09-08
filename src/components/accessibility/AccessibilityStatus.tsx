@@ -69,8 +69,8 @@ export function AccessibilityStatus({
   if (!status) {
     return (
       <div className={`flex items-center gap-2 ${className}`}>
-        <div className="w-5 h-5 border-2 border-gray-300 border-t-brand-yellow rounded-full animate-spin" />
-        <span className="text-sm text-gray-600">Перевірка доступності...</span>
+        <div className="w-5 h-5 border-2 border-gray-300 border-t-brand-yellow rounded-2xl animate-spin" />
+        <span className="text-body-sm text-gray-600">Перевірка доступності...</span>
       </div>
     );
   }
@@ -81,10 +81,10 @@ export function AccessibilityStatus({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           {getScoreIcon(status.score)}
-          <span className="text-sm font-medium">
+          <span className="text-body-sm font-medium">
             Доступність: {status.score}/100
           </span>
-          <span className={`text-xs ${getScoreColor(status.score)}`}>
+          <span className={`text-caption ${getScoreColor(status.score)}`}>
             ({getScoreLabel(status.score)})
           </span>
         </div>
@@ -94,7 +94,7 @@ export function AccessibilityStatus({
             onClick={checkAccessibility}
             disabled={isChecking}
             className="
-              text-xs text-gray-600 hover:text-gray-800
+              text-caption text-gray-600 hover:text-gray-800
               focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
               rounded px-2 py-1 transition-colors
               disabled:opacity-50 disabled:cursor-not-allowed
@@ -107,7 +107,7 @@ export function AccessibilityStatus({
             <button
               onClick={() => setShowReport(!showReport)}
               className="
-                text-xs text-gray-600 hover:text-gray-800
+                text-caption text-gray-600 hover:text-gray-800
                 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
                 rounded px-2 py-1 transition-colors
               "
@@ -119,9 +119,9 @@ export function AccessibilityStatus({
       </div>
 
       {/* Прогресс-бар */}
-      <div className="w-full bg-gray-200 rounded-full h-2">
+      <div className="w-full bg-gray-200 rounded-2xl h-2">
         <div
-          className={`h-2 rounded-full transition-all duration-500 ${
+          className={`h-2 rounded-2xl transition-all duration-500 ${
             status.score >= 90 ? 'bg-green-500' :
             status.score >= 70 ? 'bg-yellow-500' : 'bg-red-500'
           }`}
@@ -135,13 +135,13 @@ export function AccessibilityStatus({
           {/* Проблемы */}
           {status.issues.length > 0 && (
             <div>
-              <h4 className="text-sm font-medium text-red-800 mb-2 flex items-center gap-1">
+              <h4 className="text-body-sm font-medium text-red-800 mb-2 flex items-center gap-1">
                 <XCircle className="w-4 h-4" />
                 Проблеми ({status.issues.length})
               </h4>
               <ul className="space-y-1">
                 {status.issues.map((issue, index) => (
-                  <li key={index} className="text-xs text-red-700 flex items-start gap-2">
+                  <li key={index} className="text-caption text-red-700 flex items-start gap-2">
                     <span className="text-red-500 mt-0.5">•</span>
                     {issue}
                   </li>
@@ -153,13 +153,13 @@ export function AccessibilityStatus({
           {/* Рекомендации */}
           {status.suggestions.length > 0 && (
             <div>
-              <h4 className="text-sm font-medium text-blue-800 mb-2 flex items-center gap-1">
+              <h4 className="text-body-sm font-medium text-blue-800 mb-2 flex items-center gap-1">
                 <Info className="w-4 h-4" />
                 Рекомендації ({status.suggestions.length})
               </h4>
               <ul className="space-y-1">
                 {status.suggestions.map((suggestion, index) => (
-                  <li key={index} className="text-xs text-blue-700 flex items-start gap-2">
+                  <li key={index} className="text-caption text-blue-700 flex items-start gap-2">
                     <span className="text-blue-500 mt-0.5">•</span>
                     {suggestion}
                   </li>
@@ -172,7 +172,7 @@ export function AccessibilityStatus({
           {status.issues.length === 0 && status.suggestions.length === 0 && (
             <div className="text-center py-4">
               <CheckCircle className="w-8 h-8 text-green-500 mx-auto mb-2" />
-              <p className="text-sm text-green-700 font-medium">
+              <p className="text-body-sm text-green-700 font-medium">
                 Відмінно! Компонент повністю доступний
               </p>
             </div>

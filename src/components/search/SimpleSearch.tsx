@@ -299,7 +299,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
   if (error) {
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-        <h3 className="text-lg font-medium text-red-800 mb-2">Ошибка загрузки</h3>
+        <h3 className="text-body-lg font-medium text-red-800 mb-2">Ошибка загрузки</h3>
         <p className="text-red-600 mb-4">{error}</p>
         <button 
           onClick={() => window.location.reload()}
@@ -352,7 +352,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
           Фільтри
           {activeFilterCount > 0 && (
             <span 
-              className="bg-primary text-primary-foreground text-xs font-medium rounded-full px-2 py-0.5"
+              className="bg-primary text-primary-foreground text-caption font-medium rounded-2xl px-2 py-0.5"
               aria-label={`${activeFilterCount} активних фільтрів`}
             >
               {activeFilterCount}
@@ -378,7 +378,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
                     const newCategories = filters.categories.filter((c: string) => c !== category);
                     updateFilter('categories', newCategories);
                   }}
-                  className={`px-2 py-1 text-xs font-medium rounded border transition-all text-left ${
+                  className={`px-2 py-1 text-caption font-medium rounded border transition-all text-left ${
                     filters.categories.includes(category)
                       ? 'border-brand-accent bg-brand-accent text-white'
                       : 'border-border bg-background hover:border-blue-300'
@@ -400,7 +400,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
                     const newAuthors = filters.authors.filter((a: string) => a !== author);
                     updateFilter('authors', newAuthors);
                   }}
-                  className={`px-2 py-1 text-xs font-medium rounded border transition-all text-left ${
+                  className={`px-2 py-1 text-caption font-medium rounded border transition-all text-left ${
                     filters.authors.includes(author)
                       ? 'border-brand-accent bg-brand-accent text-white'
                       : 'border-border bg-background hover:border-blue-300'
@@ -462,7 +462,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
 
       {/* Search Stats - More Compact */}
       {(query || activeFilterCount > 0) && (
-        <div className="mb-3 text-xs text-muted-foreground">
+        <div className="mb-3 text-caption text-muted-foreground">
           {query 
             ? `${(displayedBooks || []).length} результатів пошуку`
             : `${(displayedBooks || []).length} з ${books?.length || 0} книг`
@@ -492,7 +492,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
       {(displayedBooks || []).length === 0 && !isSearching && (
         <div className="text-center py-12">
           <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-          <h3 className="text-lg font-medium mb-2">
+          <h3 className="text-body-lg font-medium mb-2">
             {query ? "Нічого не знайдено" : "Немає книг за вибраними фільтрами"}
           </h3>
           <p className="text-muted-foreground mb-4">

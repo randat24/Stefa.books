@@ -26,7 +26,7 @@ export function LoadMoreButton({
   if (!hasMore) {
     return (
       <div className={`text-center py-8 ${className}`}>
-        <div className="text-sm text-gray-600">
+        <div className="text-body-sm text-gray-600">
           Показано всі {loadedCount} книг
         </div>
       </div>
@@ -36,7 +36,7 @@ export function LoadMoreButton({
   return (
     <div className={`text-center py-8 space-y-4 ${className}`}>
       {/* Информация о загруженных книгах */}
-      <div className="text-sm text-gray-600">
+      <div className="text-body-sm text-gray-600">
         Показано <span className="font-medium text-gray-900">{loadedCount}</span>
         {totalCount && (
           <>
@@ -50,7 +50,7 @@ export function LoadMoreButton({
       <button
         onClick={handleClick}
         disabled={isLoading}
-        className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-brand-yellow-light focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-gray-300 transition-all duration-200"
+        className="inline-flex items-center gap-2 px-6 py-3 text-body-sm font-medium text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-brand-yellow-light focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-gray-300 transition-all duration-200"
       >
         {isLoading ? (
           <>
@@ -68,15 +68,15 @@ export function LoadMoreButton({
       {/* Индикатор прогресса (если известен общий count) */}
       {totalCount && (
         <div className="w-full max-w-md mx-auto">
-          <div className="bg-gray-200 rounded-full h-2">
+          <div className="bg-gray-200 rounded-2xl h-2">
             <div
-              className="bg-brand-yellow h-2 rounded-full transition-all duration-300"
+              className="bg-brand-yellow h-2 rounded-2xl transition-all duration-300"
               style={{
                 width: `${Math.min((loadedCount / totalCount) * 100, 100)}%`
               }}
             />
           </div>
-          <div className="text-xs text-gray-500 mt-2">
+          <div className="text-caption text-gray-500 mt-2">
             {Math.round((loadedCount / totalCount) * 100)}% завантажено
           </div>
         </div>

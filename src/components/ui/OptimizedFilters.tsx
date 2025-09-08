@@ -146,7 +146,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
                   className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   disabled={loading}
                 />
-                <span className="ml-2 text-sm text-gray-700">
+                <span className="ml-2 text-body-sm text-gray-700">
                   {option.label} {option.count && `(${option.count})`}
                 </span>
               </label>
@@ -160,7 +160,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
           <div className="space-y-4">
             <div className="flex items-center gap-4">
               <div className="flex-1">
-                <label className="block text-sm text-gray-600 mb-1">Мін</label>
+                <label className="block text-body-sm text-gray-600 mb-1">Мін</label>
                 <input
                   type="number"
                   value={rangeValue.min}
@@ -176,7 +176,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
                 />
               </div>
               <div className="flex-1">
-                <label className="block text-sm text-gray-600 mb-1">Макс</label>
+                <label className="block text-body-sm text-gray-600 mb-1">Макс</label>
                 <input
                   type="number"
                   value={rangeValue.max}
@@ -192,7 +192,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
                 />
               </div>
             </div>
-            <div className="text-sm text-gray-500">
+            <div className="text-body-sm text-gray-500">
               {rangeValue.min} - {rangeValue.max}
             </div>
           </div>
@@ -210,7 +210,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
                   className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   disabled={loading}
                 />
-                <span className="ml-2 text-sm text-gray-700">
+                <span className="ml-2 text-body-sm text-gray-700">
                   {option.label} {option.count && `(${option.count})`}
                 </span>
               </label>
@@ -229,9 +229,9 @@ const OptimizedFilters = memo(function OptimizedFilters({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Filter className="w-5 h-5 text-gray-500" />
-          <h3 className="text-lg font-medium text-gray-900">Фільтри</h3>
+          <h3 className="text-body-lg font-medium text-gray-900">Фільтри</h3>
           {activeFiltersCount > 0 && (
-            <span className="px-2 py-1 text-xs font-medium text-blue-600 bg-blue-100 rounded-full">
+            <span className="px-2 py-1 text-caption font-medium text-blue-600 bg-blue-100 rounded-2xl">
               {activeFiltersCount}
             </span>
           )}
@@ -265,7 +265,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
                 <div className="flex items-center gap-2">
                   <span className="font-medium text-gray-900">{filter.label}</span>
                   {isActive && (
-                    <span className="w-2 h-2 bg-blue-500 rounded-full" />
+                    <span className="w-2 h-2 bg-blue-500 rounded-2xl" />
                   )}
                 </div>
                 <div className="flex items-center gap-2">

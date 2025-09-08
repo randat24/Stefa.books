@@ -181,11 +181,11 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
             </CardTitle>
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-600">Період:</span>
+                <span className="text-body-sm text-gray-600">Період:</span>
                 <select
                   value={timeRange}
                   onChange={(e) => setTimeRange(e.target.value as '7d' | '30d' | '90d')}
-                  className="px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
+                  className="px-3 py-1.5 border border-gray-200 rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
                 >
                   <option value="7d">7 днів</option>
                   <option value="30d">30 днів</option>
@@ -209,19 +209,19 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
       <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
         <Card className="rounded-2xl border-gray-200 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-semibold text-gray-700">Користувачі</CardTitle>
+            <CardTitle className="text-body-sm font-semibold text-gray-700">Користувачі</CardTitle>
             <Users className="h-5 w-5 text-gray-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-brand-accent-light">
+            <div className="text-h2 text-brand-accent-light">
               {data.overview.activeUsers}
             </div>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-caption text-gray-500 mt-1">
               з {data.overview.totalUsers} загалом
             </p>
             <div className="flex items-center gap-1 mt-2">
               {getTrendIcon(data.overview.activeUsers, data.overview.totalUsers * 0.8)}
-              <span className={`text-xs ${getTrendColor(data.overview.activeUsers, data.overview.totalUsers * 0.8)}`}>
+              <span className={`text-caption ${getTrendColor(data.overview.activeUsers, data.overview.totalUsers * 0.8)}`}>
                 {formatPercentage(data.overview.userRetentionRate)}
               </span>
             </div>
@@ -230,19 +230,19 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
 
         <Card className="rounded-2xl border-gray-200 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-semibold text-gray-700">Доходи (місяць)</CardTitle>
+            <CardTitle className="text-body-sm font-semibold text-gray-700">Доходи (місяць)</CardTitle>
             <CreditCard className="h-5 w-5 text-gray-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-purple-600">
+            <div className="text-h2 text-purple-600">
               {formatCurrency(data.overview.monthlyRevenue)}
             </div>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-caption text-gray-500 mt-1">
               Загалом: {formatCurrency(data.overview.totalRevenue)}
             </p>
             <div className="flex items-center gap-1 mt-2">
               {getTrendIcon(data.overview.monthlyRevenue, data.overview.weeklyRevenue * 4)}
-              <span className={`text-xs ${getTrendColor(data.overview.monthlyRevenue, data.overview.weeklyRevenue * 4)}`}>
+              <span className={`text-caption ${getTrendColor(data.overview.monthlyRevenue, data.overview.weeklyRevenue * 4)}`}>
                 +{Math.round(((data.overview.monthlyRevenue - data.overview.weeklyRevenue * 4) / (data.overview.weeklyRevenue * 4)) * 100)}%
               </span>
             </div>
@@ -251,14 +251,14 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
 
         <Card className="rounded-2xl border-gray-200 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-semibold text-gray-700">Активні оренди</CardTitle>
+            <CardTitle className="text-body-sm font-semibold text-gray-700">Активні оренди</CardTitle>
             <BookOpen className="h-5 w-5 text-gray-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-h2 text-green-600">
               {data.overview.activeRentals}
             </div>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-caption text-gray-500 mt-1">
               {data.overview.overdueRentals > 0 && (
                 <span className="text-red-600">
                   {data.overview.overdueRentals} просрочених
@@ -267,7 +267,7 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
             </p>
             <div className="flex items-center gap-1 mt-2">
               <Activity className="size-3 text-gray-500" />
-              <span className="text-xs text-gray-600">
+              <span className="text-caption text-gray-600">
                 {data.overview.averageRentalDuration} дн. середнє
               </span>
             </div>
@@ -276,19 +276,19 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
 
         <Card className="rounded-2xl border-gray-200 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-semibold text-gray-700">Використання книг</CardTitle>
+            <CardTitle className="text-body-sm font-semibold text-gray-700">Використання книг</CardTitle>
             <Target className="h-5 w-5 text-gray-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-indigo-600">
+            <div className="text-h2 text-indigo-600">
               {formatPercentage(data.overview.bookUtilizationRate)}
             </div>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-caption text-gray-500 mt-1">
               {data.overview.availableBooks} доступно з {data.overview.totalBooks}
             </p>
-            <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+            <div className="w-full bg-gray-200 rounded-2xl h-2 mt-2">
               <div 
-                className="bg-indigo-600 h-2 rounded-full transition-all duration-500" 
+                className="bg-indigo-600 h-2 rounded-2xl transition-all duration-500" 
                 style={{ width: `${data.overview.bookUtilizationRate * 100}%` }}
               />
             </div>
@@ -318,12 +318,12 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
                   className="flex items-center justify-between p-4 border border-gray-200 rounded-xl hover:shadow-sm transition-shadow"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="flex items-center justify-center w-8 h-8 bg-brand-yellow text-white rounded-full font-bold text-sm">
+                    <div className="flex items-center justify-center w-8 h-8 bg-brand-yellow text-white rounded-2xl font-bold text-sm">
                       {index + 1}
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900">{book.title}</h3>
-                      <p className="text-sm text-gray-600">{book.author} • {book.code}</p>
+                      <p className="text-body-sm text-gray-600">{book.author} • {book.code}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 text-sm">
@@ -369,12 +369,12 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
                   className="flex items-center justify-between p-4 border border-gray-200 rounded-xl hover:shadow-sm transition-shadow"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="flex items-center justify-center w-8 h-8 bg-gray-100 text-gray-700 rounded-full font-bold text-sm">
+                    <div className="flex items-center justify-center w-8 h-8 bg-gray-100 text-gray-700 rounded-2xl font-bold text-sm">
                       {index + 1}
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900">{user.name}</h3>
-                      <p className="text-sm text-gray-600">{user.email}</p>
+                      <p className="text-body-sm text-gray-600">{user.email}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 text-sm">
@@ -419,7 +419,7 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
                   className="flex items-center justify-between p-3 border border-gray-200 rounded-lg"
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                    <div className={`w-8 h-8 rounded-2xl flex items-center justify-center ${
                       activity.type === 'rental' ? 'bg-blue-100 text-blue-600' :
                       activity.type === 'return' ? 'bg-green-100 text-green-600' :
                       activity.type === 'subscription' ? 'bg-purple-100 text-purple-600' :
@@ -432,7 +432,7 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">{activity.user_name}</p>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-body-sm text-gray-600">
                         {activity.type === 'rental' ? 'Орендував' :
                          activity.type === 'return' ? 'Повернув' :
                          activity.type === 'subscription' ? 'Оновив підписку' :
@@ -447,7 +447,7 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
                         {formatCurrency(activity.amount)}
                       </p>
                     )}
-                    <p className="text-xs text-gray-500">
+                    <p className="text-caption text-gray-500">
                       {new Date(activity.timestamp).toLocaleString('uk-UA')}
                     </p>
                   </div>
@@ -469,28 +469,28 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
         <CardContent>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <div className="text-center p-4 bg-green-50 rounded-xl">
-              <div className="text-2xl font-bold text-green-600">
+              <div className="text-h2 text-green-600">
                 {data.performance.averageResponseTime}мс
               </div>
-              <div className="text-sm text-green-600">Середній час відповіді</div>
+              <div className="text-body-sm text-green-600">Середній час відповіді</div>
             </div>
             <div className="text-center p-4 bg-blue-50 rounded-xl">
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-h2 text-blue-600">
                 {formatPercentage(data.performance.systemUptime)}
               </div>
-              <div className="text-sm text-blue-600">Час роботи системи</div>
+              <div className="text-body-sm text-blue-600">Час роботи системи</div>
             </div>
             <div className="text-center p-4 bg-red-50 rounded-xl">
-              <div className="text-2xl font-bold text-red-600">
+              <div className="text-h2 text-red-600">
                 {formatPercentage(data.performance.errorRate)}
               </div>
-              <div className="text-sm text-red-600">Частота помилок</div>
+              <div className="text-body-sm text-red-600">Частота помилок</div>
             </div>
             <div className="text-center p-4 bg-purple-50 rounded-xl">
-              <div className="text-2xl font-bold text-purple-600">
+              <div className="text-h2 text-purple-600">
                 {formatPercentage(data.performance.cacheHitRate)}
               </div>
-              <div className="text-sm text-purple-600">Ефективність кешу</div>
+              <div className="text-body-sm text-purple-600">Ефективність кешу</div>
             </div>
           </div>
         </CardContent>

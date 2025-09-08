@@ -89,7 +89,7 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
                 <button
                   type="button"
                   onClick={onForgotPassword}
-                  className="text-sm text-brand-accent-light hover:underline"
+                  className="text-body-sm text-brand-accent-light hover:underline"
                 >
                   Забули пароль?
                 </button>
@@ -130,7 +130,7 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
           </Button>
           
           {onSwitchToRegister && (
-            <div className="text-center text-sm text-gray-600">
+            <div className="text-center text-body-sm text-gray-600">
               Немає облікового запису?{' '}
               <button
                 type="button"

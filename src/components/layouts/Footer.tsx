@@ -5,12 +5,12 @@ import Link from 'next/link';
 export function Footer() {
   return (
     <footer className="w-full border-t" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--surface)' }}>
-      <div className="container py-12 lg:py-16">
+      <div className="container mx-auto px-4 max-w-7xl py-12 lg:py-16">
         <div className="grid gap-8 lg:gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Про компанію */}
           <section className="space-y-4 md:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-4">
-              <div className="h-14 w-14 rounded-full bg-gray-100 grid place-items-center">
+              <div className="h-14 w-14 rounded-2xl bg-gray-100 grid place-items-center">
                 <Image 
                   src="/logo.svg" 
                   alt="Stefa.books logo" 
@@ -20,11 +20,11 @@ export function Footer() {
                   unoptimized={true}
                 />
               </div>
-              <h3 className="text-2xl font-bold" style={{ color: 'var(--ink)' }}>
+              <h3 className="text-h2" style={{ color: 'var(--ink)' }}>
                 Stefa.books
               </h3>
             </div>
-            <p className="text-sm leading-relaxed text-muted max-w-xs">
+            <p className="text-body-sm leading-relaxed text-muted max-w-xs">
               Книжкова підписка у Миколаєві. Читай більше — плати менше. 
               Відкривай нові світи разом з нами!
             </p>
@@ -47,7 +47,7 @@ export function Footer() {
               <li>
                 <Link 
                   href="/" 
-                  className="text-sm transition-colors hover:text-[var(--accent)]"
+                  className="text-body-sm transition-colors hover:text-[var(--accent)]"
                   style={{ color: 'var(--text-muted)' }}
                 >
                   Головна
@@ -56,7 +56,7 @@ export function Footer() {
               <li>
                 <Link 
                   href="/books" 
-                  className="text-sm transition-colors hover:text-[var(--accent)]"
+                  className="text-body-sm transition-colors hover:text-[var(--accent)]"
                   style={{ color: 'var(--text-muted)' }}
                 >
                   Каталог книг
@@ -65,7 +65,7 @@ export function Footer() {
               <li>
                 <Link 
                   href="/my-rentals" 
-                  className="text-sm transition-colors hover:text-[var(--accent)]"
+                  className="text-body-sm transition-colors hover:text-[var(--accent)]"
                   style={{ color: 'var(--text-muted)' }}
                 >
                   Мої оренди
@@ -74,7 +74,7 @@ export function Footer() {
               <li>
                 <a 
                   href="/subscribe" 
-                  className="text-sm transition-colors hover:text-[var(--accent)]"
+                  className="text-body-sm transition-colors hover:text-[var(--accent)]"
                   style={{ color: 'var(--text-muted)' }}
                 >
                   Оформити підписку
@@ -87,15 +87,15 @@ export function Footer() {
           <nav className="space-y-4">
             <h4 className="font-semibold" style={{ color: 'var(--ink)' }}>Послуги</h4>
             <ul className="space-y-2">
-              <li className="inline-flex items-center gap-2 text-sm text-muted">
+              <li className="inline-flex items-center gap-2 text-body-sm text-muted">
                 <MapPin size={14} />
                 Самовивіз з кафе
               </li>
-              <li className="inline-flex items-center gap-2 text-sm text-muted">
+              <li className="inline-flex items-center gap-2 text-body-sm text-muted">
                 <BookOpen size={14} />
                 Оренда книг за підпискою
               </li>
-              <li className="inline-flex items-center gap-2 text-sm text-muted">
+              <li className="inline-flex items-center gap-2 text-body-sm text-muted">
                 <Users size={14} />
                 Корпоративні підписки
               </li>
@@ -106,10 +106,10 @@ export function Footer() {
           <section className="space-y-4">
             <h4 className="font-semibold" style={{ color: 'var(--ink)' }}>Контакти</h4>
             <div className="space-y-3">
-              <p className="text-sm text-muted">
+              <p className="text-body-sm text-muted">
                 Адреса кафе:
               </p>
-              <div className="text-sm space-y-1">
+              <div className="text-body-sm space-y-1">
                 <a 
                   href="https://maps.google.com/?q=вул. Маріупольська 13/2, Миколаїв, Україна" 
                   target="_blank" 
@@ -147,21 +147,21 @@ export function Footer() {
             <nav className="flex flex-wrap justify-center lg:justify-end gap-4 lg:gap-6">
               <a 
                 href="/privacy" 
-                className="text-xs transition-colors hover:text-[var(--accent)]"
+                className="text-caption transition-colors hover:text-[var(--accent)]"
                 style={{ color: 'var(--text-light)' }}
               >
                 Політика конфіденційності
               </a>
               <a 
                 href="/terms" 
-                className="text-xs transition-colors hover:text-[var(--accent)]"
+                className="text-caption transition-colors hover:text-[var(--accent)]"
                 style={{ color: 'var(--text-light)' }}
               >
                 Умови використання
               </a>
               <a 
                 href="/support" 
-                className="text-xs transition-colors hover:text-[var(--accent)]"
+                className="text-caption transition-colors hover:text-[var(--accent)]"
                 style={{ color: 'var(--text-light)' }}
               >
                 Підтримка

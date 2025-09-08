@@ -178,7 +178,7 @@ export function ResponsiveGallery({
               onClick={goToPrevious}
               className={`
                 absolute left-2 top-1/2 -translate-y-1/2
-                p-2 bg-white/80 hover:bg-white rounded-full
+                p-2 bg-white/80 hover:bg-white rounded-2xl
                 focus:outline-none focus:ring-2 focus:ring-brand-yellow
                 transition-colors
                 ${isMobile ? 'p-1' : 'p-2'}
@@ -194,7 +194,7 @@ export function ResponsiveGallery({
               onClick={goToNext}
               className={`
                 absolute right-2 top-1/2 -translate-y-1/2
-                p-2 bg-white/80 hover:bg-white rounded-full
+                p-2 bg-white/80 hover:bg-white rounded-2xl
                 focus:outline-none focus:ring-2 focus:ring-brand-yellow
                 transition-colors
                 ${isMobile ? 'p-1' : 'p-2'}
@@ -244,14 +244,14 @@ export function ResponsiveGallery({
       
       {/* Счетчик изображений */}
       {images.length > 1 && (
-        <div className={`text-center text-sm text-gray-600 ${isMobile ? 'px-2' : ''}`}>
+        <div className={`text-center text-body-sm text-gray-600 ${isMobile ? 'px-2' : ''}`}>
           {currentIndex + 1} з {images.length}
         </div>
       )}
       
       {/* Подпись */}
       {currentImage.caption && (
-        <div className={`text-center text-sm text-gray-600 ${isMobile ? 'px-2' : ''}`}>
+        <div className={`text-center text-body-sm text-gray-600 ${isMobile ? 'px-2' : ''}`}>
           {currentImage.caption}
         </div>
       )}
@@ -333,7 +333,7 @@ export function ResponsiveImageGrid({
           />
           
           {image.caption && (
-            <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-2 text-body-sm opacity-0 group-hover:opacity-100 transition-opacity">
               {image.caption}
             </div>
           )}

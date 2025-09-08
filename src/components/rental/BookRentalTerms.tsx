@@ -17,7 +17,7 @@ export function BookRentalTerms() {
             <Clock className="h-4 w-4" />
             Терміни оренди
           </h4>
-          <ul className="space-y-2 text-sm text-gray-600">
+          <ul className="space-y-2 text-body-sm text-gray-600">
             <li>• Оренда починається з моменту отримання книги</li>
             <li>• Можна повернути книгу раніше закінчення терміну без додаткової плати</li>
             <li>• При затримці повернення стягується штраф 10₴ за кожен день</li>
@@ -32,7 +32,7 @@ export function BookRentalTerms() {
             <Shield className="h-4 w-4" />
             Умови доставки
           </h4>
-          <ul className="space-y-2 text-sm text-gray-600">
+          <ul className="space-y-2 text-body-sm text-gray-600">
             <li>• Доставка по Києву - безкоштовно</li>
             <li>• Доставка по Україні - 30₴</li>
             <li>• Самовивіз з бібліотеки - безкоштовно</li>
@@ -48,7 +48,7 @@ export function BookRentalTerms() {
             <RefreshCw className="h-4 w-4" />
             Умови оплати
           </h4>
-          <ul className="space-y-2 text-sm text-gray-600">
+          <ul className="space-y-2 text-body-sm text-gray-600">
             <li>• Оплата здійснюється при отриманні книги</li>
             <li>• Приймаються готівка, банківські картки, наложений платіж</li>
             <li>• При передоплаті надається знижка 5%</li>
@@ -60,7 +60,7 @@ export function BookRentalTerms() {
         {/* Additional Info */}
         <div className="bg-blue-50 p-4 rounded-lg">
           <h4 className="font-semibold text-blue-900 mb-2">Важливо знати</h4>
-          <ul className="space-y-1 text-sm text-blue-800">
+          <ul className="space-y-1 text-body-sm text-blue-800">
             <li>• Книги видаються в хорошому стані</li>
             <li>• При отриманні перевірте стан книги</li>
             <li>• Зберігайте чек до повернення книги</li>
@@ -69,7 +69,7 @@ export function BookRentalTerms() {
         </div>
 
         {/* Contact Info */}
-        <div className="text-center text-sm text-gray-500">
+        <div className="text-center text-body-sm text-gray-500">
           <p>Маєте питання? Зв&apos;яжіться з нами:</p>
           <p className="font-medium">📞 +380 (44) 123-45-67 | 📧 info@stefa-books.com.ua</p>
         </div>

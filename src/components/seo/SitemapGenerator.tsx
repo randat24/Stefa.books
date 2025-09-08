@@ -76,7 +76,7 @@ ${allPages.map(page => `  <url>
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Sitemap XML</h2>
+      <h2 className="text-h3 mb-4">Sitemap XML</h2>
       <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
         {sitemap}
       </pre>
@@ -112,7 +112,7 @@ Sitemap: ${baseUrl}${sitemapUrl}`;
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Robots.txt</h2>
+      <h2 className="text-h3 mb-4">Robots.txt</h2>
       <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
         {robots}
       </pre>

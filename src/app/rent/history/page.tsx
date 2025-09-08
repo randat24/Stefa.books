@@ -73,7 +73,7 @@ export default function RentalHistoryPage() {
     <div className="container py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold">Rental History</h1>
+          <h1 className="text-h1">Rental History</h1>
           <p className="text-gray-500">View your complete rental history</p>
         </div>
       </div>
@@ -120,7 +120,7 @@ export default function RentalHistoryPage() {
               <CardHeader>
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                   <div>
-                    <CardTitle className="text-xl">{rental.bookTitle}</CardTitle>
+                    <CardTitle className="text-h4">{rental.bookTitle}</CardTitle>
                     <CardDescription>by {rental.author}</CardDescription>
                   </div>
                   {getStatusBadge(rental.status)}
@@ -129,15 +129,15 @@ export default function RentalHistoryPage() {
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                   <div>
-                    <p className="text-sm text-gray-500">Rented Date</p>
+                    <p className="text-body-sm text-gray-500">Rented Date</p>
                     <p>{new Date(rental.rentedDate).toLocaleDateString()}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Due Date</p>
+                    <p className="text-body-sm text-gray-500">Due Date</p>
                     <p>{new Date(rental.dueDate).toLocaleDateString()}</p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Returned Date</p>
+                    <p className="text-body-sm text-gray-500">Returned Date</p>
                     <p>
                       {rental.returnedDate 
                         ? new Date(rental.returnedDate).toLocaleDateString()
@@ -145,7 +145,7 @@ export default function RentalHistoryPage() {
                     </p>
                   </div>
                   <div>
-                    <p className="text-sm text-gray-500">Status</p>
+                    <p className="text-body-sm text-gray-500">Status</p>
                     <p className="capitalize">{rental.status}</p>
                   </div>
                 </div>

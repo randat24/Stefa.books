@@ -116,7 +116,7 @@ export function AuthorSelect({ value, onChange, disabled }: AuthorSelectProps) {
                   <User className="h-4 w-4 text-muted-foreground" />
                   <span>{author.name}</span>
                   {author.nationality && (
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-caption text-muted-foreground">
                       ({author.nationality})
                     </span>
                   )}

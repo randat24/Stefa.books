@@ -14,7 +14,7 @@ const PROTECTED_METHODS = ['POST', 'PUT', 'DELETE', 'PATCH'];
 /**
  * Middleware to validate API keys for protected routes
  */
-export async function apiKeyMiddleware(request: NextRequest): Promise<Response | null> {
+export async function apiKeyMiddleware(request: NextRequest): Promise<NextResponse | null> {
   const { pathname } = new URL(request.url);
   const method = request.method;
 

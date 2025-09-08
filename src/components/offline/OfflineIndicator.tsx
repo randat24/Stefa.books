@@ -69,7 +69,7 @@ export function OfflineIndicator() {
             <WifiOff className="w-5 h-5" />
             <div>
               <p className="font-medium">Немає з&apos;єднання з інтернетом</p>
-              <p className="text-sm text-red-100">
+              <p className="text-body-sm text-red-100">
                 Деякі функції можуть бути недоступні. Дані збережені в кеші.
               </p>
             </div>
@@ -85,7 +85,7 @@ export function OfflineIndicator() {
             ) : (
               <RefreshCw className="w-4 h-4" />
             )}
-            <span className="text-sm font-medium">
+            <span className="text-body-sm font-medium">
               {isReconnecting ? 'Перевірка...' : 'Спробувати знову'}
             </span>
           </button>

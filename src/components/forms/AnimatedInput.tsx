@@ -83,7 +83,7 @@ export function AnimatedInput({
           className={`
             absolute left-4 transition-all duration-200 pointer-events-none
             ${isFocused || hasValue
-              ? "top-2 text-xs font-medium"
+              ? "top-2 text-caption font-medium"
               : "top-1/2 -translate-y-1/2 text-base"
             }
             ${hasError 
@@ -145,7 +145,7 @@ export function AnimatedInput({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="mt-2 flex items-center gap-2 text-sm text-red-600"
+            className="mt-2 flex items-center gap-2 text-body-sm text-red-600"
           >
             <AlertCircle className="w-4 h-4 flex-shrink-0" />
             <span>{error}</span>

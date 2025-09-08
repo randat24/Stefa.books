@@ -31,8 +31,8 @@ export function BookReturnInfo({ book }: BookReturnInfoProps) {
       {/* Book Details */}
       <div className="space-y-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">{book.title}</h1>
-          <p className="text-lg text-gray-700 mb-3">{book.author}</p>
+          <h1 className="text-h2 text-gray-900 mb-2">{book.title}</h1>
+          <p className="text-body-lg text-gray-700 mb-3">{book.author}</p>
           
           {/* Rating */}
           {book.rating && book.rating_count && (
@@ -49,7 +49,7 @@ export function BookReturnInfo({ book }: BookReturnInfoProps) {
                   />
                 ))}
               </div>
-              <span className="text-sm text-gray-600">
+              <span className="text-body-sm text-gray-600">
                 {book.rating.toFixed(1)} ({book.rating_count} відгуків)
               </span>
             </div>
@@ -57,7 +57,7 @@ export function BookReturnInfo({ book }: BookReturnInfoProps) {
 
           {/* Status Badge */}
           <div className="flex flex-wrap gap-2 mb-4">
-            <Badge variant="outline" className="text-xs text-orange-700 bg-orange-100">
+            <Badge variant="outline" className="text-caption text-orange-700 bg-orange-100">
               <AlertCircle className="h-3 w-3 mr-1" />
               Потребує повернення
             </Badge>
@@ -80,7 +80,7 @@ export function BookReturnInfo({ book }: BookReturnInfoProps) {
             <Calendar className="h-4 w-4 text-orange-600" />
             <span className="font-semibold text-orange-900">Статус оренди</span>
           </div>
-          <p className="text-sm text-orange-800">
+          <p className="text-body-sm text-orange-800">
             Книга знаходиться у вас на руках. Будь ласка, поверніть її згідно з умовами оренди.
           </p>
         </div>

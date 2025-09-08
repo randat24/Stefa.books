@@ -329,7 +329,7 @@ export default function AdminRentalsPage() {
 			<div className="container mx-auto px-4 py-8">
 				{/* Header */}
 				<div className="mb-8">
-					<h1 className="text-3xl font-bold text-gray-900 mb-2">
+					<h1 className="text-h1 text-gray-900 mb-2">
 						Управление заявками на аренду
 					</h1>
 					<p className="text-gray-600">
@@ -345,8 +345,8 @@ export default function AdminRentalsPage() {
 								<div className="flex items-center gap-3">
 									<FileText className="h-8 w-8 text-brand-accent" />
 									<div>
-										<p className="text-2xl font-bold text-gray-900">{statistics.total}</p>
-										<p className="text-sm text-gray-600">Всего заявок</p>
+										<p className="text-h2 text-gray-900">{statistics.total}</p>
+										<p className="text-body-sm text-gray-600">Всего заявок</p>
 									</div>
 								</div>
 							</CardContent>
@@ -361,8 +361,8 @@ export default function AdminRentalsPage() {
 										<div className="flex items-center gap-3">
 											<Icon className="h-8 w-8 text-gray-500" />
 											<div>
-												<p className="text-2xl font-bold text-gray-900">{count}</p>
-												<p className="text-sm text-gray-600">{config.label}</p>
+												<p className="text-h2 text-gray-900">{count}</p>
+												<p className="text-body-sm text-gray-600">{config.label}</p>
 											</div>
 										</div>
 									</CardContent>
@@ -485,7 +485,7 @@ export default function AdminRentalsPage() {
 						<CardTitle className="flex items-center justify-between">
 							<span>Заявки на аренду</span>
 							{pagination && (
-								<span className="text-sm font-normal text-gray-600">
+								<span className="text-body-sm font-normal text-gray-600">
 									{pagination.total} заявок
 								</span>
 							)}
@@ -516,7 +516,7 @@ export default function AdminRentalsPage() {
 													<div>
 														<p className="font-medium text-gray-900">{rental.name}</p>
 														{rental.social && (
-															<p className="text-sm text-gray-500">{rental.social}</p>
+															<p className="text-body-sm text-gray-500">{rental.social}</p>
 														)}
 													</div>
 												</TableCell>
@@ -555,7 +555,7 @@ export default function AdminRentalsPage() {
 												</TableCell>
 												
 												<TableCell>
-													<div className="flex items-center gap-2 text-sm text-gray-600">
+													<div className="flex items-center gap-2 text-body-sm text-gray-600">
 														<Calendar className="h-3 w-3" />
 														<span>{formatDate(rental.created_at)}</span>
 													</div>
@@ -591,7 +591,7 @@ export default function AdminRentalsPage() {
 						{/* Pagination */}
 						{pagination && pagination.totalPages > 1 && (
 							<div className="flex items-center justify-between mt-6">
-								<div className="text-sm text-gray-600">
+								<div className="text-body-sm text-gray-600">
 									Показано {((pagination.page - 1) * pagination.limit) + 1} - {Math.min(pagination.page * pagination.limit, pagination.total)} из {pagination.total}
 								</div>
 								

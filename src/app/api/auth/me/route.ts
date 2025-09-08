@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
 
     // Получаем токен из заголовков или cookies
     const authHeader = request.headers.get('authorization');
-    const token = authHeader?.replace('Bearer ', '') || request.cookies.get('sb-access-token')?.value;
+    const token = authHeader?.replace('Bearer ', '');
 
     if (!token) {
       return NextResponse.json(

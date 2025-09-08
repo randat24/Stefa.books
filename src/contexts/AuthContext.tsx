@@ -44,7 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             if (session.access_token) {
               headers['Authorization'] = `Bearer ${session.access_token}`;
             }
-          } catch (e) {
+          } catch {
             // Invalid session, remove it
             localStorage.removeItem('supabase.auth.token');
           }
@@ -99,11 +99,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (result.success && result.user) {
         setUser(result.user);
         setIsAuthenticated(true);
-        setProfile(result.profile);
+        setProfile(result.profile || null);
         
         // Save session to localStorage
         if (result.session) {
           localStorage.setItem('supabase.auth.token', JSON.stringify(result.session));
+        }
+        
+        // Save profile to localStorage
+        if (result.profile) {
+          localStorage.setItem('user.profile', JSON.stringify(result.profile));
         }
       }
 

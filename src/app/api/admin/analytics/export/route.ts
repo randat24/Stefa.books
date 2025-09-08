@@ -57,7 +57,7 @@ export async function GET() {
  * POST /api/admin/analytics/export
  * Експорт аналітичних даних у вказаному форматі
  */
-export async function POST(request: Request) {
+export async function POST(request: Request): Promise<Response> {
   try {
     // Перевірка авторизації (в реальному застосунку потрібно реалізувати правильну перевірку)
     // const user = await getCurrentUser();

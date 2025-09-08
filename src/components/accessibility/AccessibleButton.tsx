@@ -66,9 +66,9 @@ export const AccessibleButton = forwardRef<HTMLButtonElement, AccessibleButtonPr
     };
 
     const sizeClasses = {
-      sm: 'px-3 py-1.5 text-sm h-8',
-      md: 'px-4 py-2 text-sm h-10',
-      lg: 'px-6 py-3 text-base h-12'
+      sm: 'px-3 py-1.5 text-body-sm h-8',
+      md: 'px-4 py-2 text-body-sm h-10',
+      lg: 'px-6 py-3 text-body h-12'
     };
 
     const widthClasses = fullWidth ? 'w-full' : '';

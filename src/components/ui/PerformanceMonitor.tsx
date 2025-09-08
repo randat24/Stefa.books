@@ -159,7 +159,7 @@ export function PerformanceMonitor({
       <button
         onClick={() => setIsVisible(true)}
         className={cn(
-          'fixed bottom-4 right-4 z-50 p-2 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors',
+          'fixed bottom-4 right-4 z-50 p-2 bg-blue-600 text-white rounded-2xl shadow-lg hover:bg-blue-700 transition-colors',
           className
         )}
         title="Показати моніторинг продуктивності"
@@ -191,19 +191,19 @@ export function PerformanceMonitor({
       {/* Overall Score */}
       <div className="p-3 border-b">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium text-gray-700">Загальна оцінка</span>
+          <span className="text-body-sm font-medium text-gray-700">Загальна оцінка</span>
           <span className={cn(
-            'text-lg font-bold',
+            'text-h4',
             overallScore >= 80 ? 'text-green-600' : 
             overallScore >= 60 ? 'text-yellow-600' : 'text-red-600'
           )}>
             {overallScore}/100
           </span>
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-2">
+        <div className="w-full bg-gray-200 rounded-2xl h-2">
           <div
             className={cn(
-              'h-2 rounded-full transition-all duration-300',
+              'h-2 rounded-2xl transition-all duration-300',
               overallScore >= 80 ? 'bg-green-500' : 
               overallScore >= 60 ? 'bg-yellow-500' : 'bg-red-500'
             )}
@@ -214,7 +214,7 @@ export function PerformanceMonitor({
 
       {/* Web Vitals */}
       <div className="p-3">
-        <h4 className="text-sm font-medium text-gray-700 mb-2">Core Web Vitals</h4>
+        <h4 className="text-body-sm font-medium text-gray-700 mb-2">Core Web Vitals</h4>
         <div className="space-y-2">
           {metrics.webVitals.map((metric) => {
             const rating = getMetricRating(metric.name, metric.value)
@@ -222,9 +222,9 @@ export function PerformanceMonitor({
               <div key={metric.name} className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   {getRatingIcon(rating)}
-                  <span className="text-sm text-gray-600">{metric.name}</span>
+                  <span className="text-body-sm text-gray-600">{metric.name}</span>
                 </div>
-                <span className="text-sm font-medium text-gray-900">
+                <span className="text-body-sm font-medium text-gray-900">
                   {formatMetricValue(metric.name, metric.value)}
                 </span>
               </div>
@@ -236,15 +236,15 @@ export function PerformanceMonitor({
       {/* Additional Metrics */}
       {showDetails && (
         <div className="p-3 border-t">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Додаткові метрики</h4>
+          <h4 className="text-body-sm font-medium text-gray-700 mb-2">Додаткові метрики</h4>
           <div className="space-y-2">
             {metrics.memoryUsage && (
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <Zap className="h-4 w-4 text-blue-500" />
-                  <span className="text-sm text-gray-600">Пам&apos;ять</span>
+                  <span className="text-body-sm text-gray-600">Пам&apos;ять</span>
                 </div>
-                <span className="text-sm font-medium text-gray-900">
+                <span className="text-body-sm font-medium text-gray-900">
                   {metrics.memoryUsage.used}MB / {metrics.memoryUsage.total}MB
                 </span>
               </div>
@@ -253,9 +253,9 @@ export function PerformanceMonitor({
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <Clock className="h-4 w-4 text-green-500" />
-                  <span className="text-sm text-gray-600">Час завантаження</span>
+                  <span className="text-body-sm text-gray-600">Час завантаження</span>
                 </div>
-                <span className="text-sm font-medium text-gray-900">
+                <span className="text-body-sm font-medium text-gray-900">
                   {Math.round(metrics.loadTime)}ms
                 </span>
               </div>
@@ -268,7 +268,7 @@ export function PerformanceMonitor({
       <div className="p-3 border-t">
         <button
           onClick={getPerformanceMetrics}
-          className="w-full text-sm text-blue-600 hover:text-blue-700 font-medium"
+          className="w-full text-body-sm text-blue-600 hover:text-blue-700 font-medium"
         >
           Оновити метрики
         </button>

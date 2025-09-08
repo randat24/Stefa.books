@@ -5,7 +5,7 @@ import { logger } from '@/lib/logger'
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams
-    const limit = parseInt(searchParams.get('limit') || '20')
+    const limit = parseInt(searchParams.get('limit') || '1000') // Показываем все книги в админ панели
     const offset = parseInt(searchParams.get('offset') || '0')
     const query = searchParams.get('search') || ''
     const category = searchParams.get('category') || ''

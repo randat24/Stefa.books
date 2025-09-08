@@ -240,7 +240,7 @@ function MyRentalsContent() {
 			<div className="container mx-auto px-4 py-6">
 				{/* Breadcrumbs */}
 				<div className="mb-6">
-					<nav className="flex items-center space-x-2 text-sm text-gray-600">
+					<nav className="flex items-center space-x-2 text-body-sm text-gray-600">
 						<Link href="/" className="hover:text-gray-900">Головна</Link>
 						<ChevronRight className="h-4 w-4" />
 						<span className="text-gray-900 font-medium">Мои аренды</span>
@@ -249,10 +249,10 @@ function MyRentalsContent() {
 				
 				{/* Centered Header */}
 				<div className="mb-8 text-center">
-					<h1 className="text-3xl font-bold text-gray-900 mb-2">
+					<h1 className="text-h1 text-gray-900 mb-2">
 						Мои аренды
 					</h1>
-					<p className="text-base text-gray-600">
+					<p className="text-body text-gray-600">
 						Найдите историю ваших аренд по email адресу
 					</p>
 				</div>
@@ -264,7 +264,7 @@ function MyRentalsContent() {
 							<div className="space-y-4">
 								{/* Email Input */}
 								<div>
-									<label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+									<label htmlFor="email" className="block text-body-sm font-medium text-gray-700 mb-2">
 										Email адрес
 									</label>
 									<div className="relative">
@@ -283,7 +283,7 @@ function MyRentalsContent() {
 								
 								{/* Status Filter */}
 								<div>
-									<label className="block text-sm font-medium text-gray-700 mb-2">
+									<label className="block text-body-sm font-medium text-gray-700 mb-2">
 										Статус
 									</label>
 									<Select value={statusFilter} onValueChange={handleStatusFilterChange}>
@@ -304,7 +304,7 @@ function MyRentalsContent() {
 								<Button 
 									onClick={handleSearch}
 									disabled={loading || !email.trim()}
-									className="w-full h-12 text-base font-medium"
+									className="w-full h-12 text-body font-medium"
 								>
 									{loading ? (
 										<>
@@ -339,7 +339,7 @@ function MyRentalsContent() {
 					<div className="max-w-4xl mx-auto space-y-4">
 						{/* Results Header */}
 						<div className="text-center mb-6">
-							<h2 className="text-xl font-semibold text-gray-900 mb-2">
+							<h2 className="text-body-lg font-semibold text-gray-900 mb-2">
 								Найдено аренд: {pagination?.total || 0}
 							</h2>
 							{statusFilter !== 'all' && (
@@ -383,11 +383,11 @@ function MyRentalsContent() {
 															<h3 className="font-medium text-gray-900 truncate">
 																{rental.book?.title || 'Неизвестная книга'}
 															</h3>
-															<p className="text-base text-gray-700 truncate font-medium">
+															<p className="text-body text-gray-700 truncate font-medium">
 																{rental.book?.author || 'Неизвестный автор'}
 															</p>
 															{rental.book?.category && (
-																<Badge variant="secondary" className="text-sm px-0">
+																<Badge variant="secondary" className="text-body-sm px-0">
 																	{rental.book.category}
 																</Badge>
 															)}
@@ -408,7 +408,7 @@ function MyRentalsContent() {
 													</div>
 
 													{/* Compact Rental Details */}
-													<div className="flex flex-wrap gap-4 text-xs text-gray-600">
+													<div className="flex flex-wrap gap-4 text-caption text-gray-600">
 														<div className="flex items-center">
 															<Calendar className="h-3 w-3 mr-1" />
 															<span>Аренда: {formatDate(rental.rental_date)}</span>
@@ -434,7 +434,7 @@ function MyRentalsContent() {
 													</div>
 
 													{rental.notes && (
-														<div className="mt-2 py-2 bg-gray-50 rounded text-xs text-gray-600">
+														<div className="mt-2 py-2 bg-gray-50 rounded text-caption text-gray-600">
 															<strong>Заметки:</strong> {rental.notes}
 														</div>
 													)}
@@ -475,7 +475,7 @@ function MyRentalsContent() {
 										)
 									})}
 									{pagination.totalPages > 3 && (
-										<span className="text-sm text-gray-500 px-2">...</span>
+										<span className="text-body-sm text-gray-500 px-2">...</span>
 									)}
 								</div>
 								
@@ -500,7 +500,7 @@ function MyRentalsContent() {
 						<h4 className="font-medium text-gray-900 mb-1">
 							Аренды не найдены
 						</h4>
-						<p className="text-sm text-gray-600">
+						<p className="text-body-sm text-gray-600">
 							По вашему email адресу не найдено активных или завершенных аренд
 						</p>
 					</div>

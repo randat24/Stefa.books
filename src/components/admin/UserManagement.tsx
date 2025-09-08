@@ -278,8 +278,8 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                 <Users className="size-6 text-white" />
               </div>
               <div>
-                <CardTitle className="text-xl text-gray-900">Управління користувачами</CardTitle>
-                <p className="text-sm text-gray-600">
+                <CardTitle className="text-body-lg text-gray-900">Управління користувачами</CardTitle>
+                <p className="text-body-sm text-gray-600">
                   Всього користувачів: <span className="font-semibold text-gray-900">{users.length}</span>
                   {filters.search && (
                     <span className="ml-2">
@@ -318,7 +318,7 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                 className="pl-10 pr-4 h-11 border-gray-200 focus:border-gray-400 focus:ring-gray-400"
               />
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-600">
+            <div className="flex items-center gap-2 text-body-sm text-gray-600">
               <Filter className="size-4" />
               <span>Фільтри: {filteredUsers.length} з {users.length}</span>
             </div>
@@ -329,11 +329,11 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
             <div className="mt-4 p-4 bg-gray-50 rounded-xl">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <div>
-                  <Label className="text-sm font-medium text-gray-700">Статус</Label>
+                  <Label className="text-body-sm font-medium text-gray-700">Статус</Label>
                   <select
                     value={filters.status}
                     onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
-                    className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
+                    className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
                   >
                     <option value="">Всі статуси</option>
                     <option value="active">Активні</option>
@@ -342,11 +342,11 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                   </select>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-700">Тип підписки</Label>
+                  <Label className="text-body-sm font-medium text-gray-700">Тип підписки</Label>
                   <select
                     value={filters.subscriptionType}
                     onChange={(e) => setFilters(prev => ({ ...prev, subscriptionType: e.target.value }))}
-                    className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
+                    className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
                   >
                     <option value="">Всі типи</option>
                     {subscriptionTypes.map(type => (
@@ -355,14 +355,14 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                   </select>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-700">Сортування</Label>
+                  <Label className="text-body-sm font-medium text-gray-700">Сортування</Label>
                   <select
                     value={`${filters.sortBy}-${filters.sortOrder}`}
                     onChange={(e) => {
                       const [sortBy, sortOrder] = e.target.value.split('-')
                       setFilters(prev => ({ ...prev, sortBy, sortOrder: sortOrder as 'asc' | 'desc' }))
                     }}
-                    className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
+                    className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
                   >
                     <option value="name-asc">Ім&apos;я А-Я</option>
                     <option value="name-desc">Ім&apos;я Я-А</option>
@@ -454,7 +454,7 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                     >
                       {/* Аватар */}
                       <TableCell className="p-4">
-                        <div className="w-10 h-10 bg-gradient-to-br from-brand-yellow to-brand-yellow-light rounded-full flex items-center justify-center">
+                        <div className="w-10 h-10 bg-gradient-to-br from-brand-yellow to-brand-yellow-light rounded-2xl flex items-center justify-center">
                           <span className="text-white font-bold text-sm">
                             {user.name.charAt(0).toUpperCase()}
                           </span>
@@ -465,7 +465,7 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                       <TableCell className="p-4">
                         <div className="space-y-1">
                           <div className="font-semibold text-gray-900">{user.name}</div>
-                          <div className="text-sm text-gray-600">
+                          <div className="text-body-sm text-gray-600">
                             ID: {user.id.slice(0, 8)}...
                           </div>
                         </div>
@@ -475,7 +475,7 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                       <TableCell className="p-4">
                         <div className="flex items-center gap-2">
                           <Mail className="size-4 text-gray-500" />
-                          <span className="text-sm text-gray-700 truncate max-w-[160px]" title={user.email}>
+                          <span className="text-body-sm text-gray-700 truncate max-w-[160px]" title={user.email}>
                             {user.email}
                           </span>
                         </div>
@@ -486,7 +486,7 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                         {user.phone ? (
                           <div className="flex items-center gap-2">
                             <Phone className="size-4 text-gray-500" />
-                            <span className="text-sm text-gray-700">{user.phone}</span>
+                            <span className="text-body-sm text-gray-700">{user.phone}</span>
                           </div>
                         ) : (
                           <span className="text-gray-400 text-sm">—</span>
@@ -505,14 +505,14 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
 
                       {/* Реєстрація */}
                       <TableCell className="p-4">
-                        <div className="text-sm text-gray-600">
+                        <div className="text-body-sm text-gray-600">
                           {formatDate(user.created_at || null)}
                         </div>
                       </TableCell>
 
                       {/* Остання активність */}
                       <TableCell className="p-4">
-                        <div className="text-sm text-gray-600">
+                        <div className="text-body-sm text-gray-600">
                           {getDaysSinceLastActivity(user.updated_at || user.created_at || null)}
                         </div>
                       </TableCell>
@@ -562,7 +562,7 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                       <TableCell colSpan={9} className="text-center py-12">
                         <div className="flex flex-col items-center gap-3 text-gray-500">
                           <Users className="size-12 text-gray-300" />
-                          <p className="text-lg font-medium">Користувачі не знайдені</p>
+                          <p className="text-body-lg font-medium">Користувачі не знайдені</p>
                           {filters.search ? (
                             <p className="text-sm">Спробуйте змінити пошуковий запит або фільтри</p>
                           ) : (
@@ -584,7 +584,7 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
         <Card className="rounded-2xl border-gray-200 shadow-sm">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
-              <div className="text-sm text-gray-600">
+              <div className="text-body-sm text-gray-600">
                 Показано {((currentPage - 1) * itemsPerPage) + 1} - {Math.min(currentPage * itemsPerPage, filteredUsers.length)} з {filteredUsers.length} користувачів
               </div>
               <div className="flex items-center gap-2">
@@ -651,13 +651,13 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
             <div className="grid gap-6">
               {/* Аватар та основна інформація */}
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-brand-yellow to-brand-yellow-light rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">
+                <div className="w-16 h-16 bg-gradient-to-br from-brand-yellow to-brand-yellow-light rounded-2xl flex items-center justify-center">
+                  <span className="text-white font-bold text-h4">
                     {selectedUser.name.charAt(0).toUpperCase()}
                   </span>
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-gray-900">{selectedUser.name}</h2>
+                  <h2 className="text-h3 text-gray-900">{selectedUser.name}</h2>
                   <p className="text-gray-600">{selectedUser.email}</p>
                   <div className="flex items-center gap-2 mt-2">
                     {getStatusBadge(selectedUser.status)}
@@ -668,14 +668,14 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
 
               {/* Контактна інформація */}
               <div className="grid gap-4">
-                <h3 className="text-lg font-semibold text-gray-900">Контактна інформація</h3>
+                <h3 className="text-body-lg font-semibold text-gray-900">Контактна інформація</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-sm font-medium text-gray-600">Email</Label>
+                    <Label className="text-body-sm font-medium text-gray-600">Email</Label>
                     <p className="text-gray-700">{selectedUser.email}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-gray-600">Телефон</Label>
+                    <Label className="text-body-sm font-medium text-gray-600">Телефон</Label>
                     <p className="text-gray-700">{selectedUser.phone || '—'}</p>
                   </div>
                 </div>
@@ -683,37 +683,37 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
 
               {/* Статистика */}
               <div className="grid gap-4">
-                <h3 className="text-lg font-semibold text-gray-900">Статистика</h3>
+                <h3 className="text-body-lg font-semibold text-gray-900">Статистика</h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   <div className="text-center p-3 bg-blue-50 rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">0</div>
-                    <div className="text-sm text-blue-600">Оренд</div>
+                    <div className="text-h2 text-blue-600">0</div>
+                    <div className="text-body-sm text-blue-600">Оренд</div>
                   </div>
                   <div className="text-center p-3 bg-green-50 rounded-lg">
-                    <div className="text-2xl font-bold text-green-600">0</div>
-                    <div className="text-sm text-green-600">Повернень</div>
+                    <div className="text-h2 text-green-600">0</div>
+                    <div className="text-body-sm text-green-600">Повернень</div>
                   </div>
                   <div className="text-center p-3 bg-purple-50 rounded-lg">
-                    <div className="text-2xl font-bold text-purple-600">0</div>
-                    <div className="text-sm text-purple-600">Платежів</div>
+                    <div className="text-h2 text-purple-600">0</div>
+                    <div className="text-body-sm text-purple-600">Платежів</div>
                   </div>
                   <div className="text-center p-3 bg-orange-50 rounded-lg">
-                    <div className="text-2xl font-bold text-orange-600">0</div>
-                    <div className="text-sm text-orange-600">Днів активності</div>
+                    <div className="text-h2 text-orange-600">0</div>
+                    <div className="text-body-sm text-orange-600">Днів активності</div>
                   </div>
                 </div>
               </div>
 
               {/* Дати */}
               <div className="grid gap-4">
-                <h3 className="text-lg font-semibold text-gray-900">Дати</h3>
+                <h3 className="text-body-lg font-semibold text-gray-900">Дати</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-sm font-medium text-gray-600">Реєстрація</Label>
+                    <Label className="text-body-sm font-medium text-gray-600">Реєстрація</Label>
                     <p className="text-gray-700">{formatDateTime(selectedUser.created_at || null)}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-gray-600">Остання активність</Label>
+                    <Label className="text-body-sm font-medium text-gray-600">Остання активність</Label>
                     <p className="text-gray-700">{formatDateTime(selectedUser.updated_at || selectedUser.created_at || null)}</p>
                   </div>
                 </div>

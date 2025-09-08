@@ -66,7 +66,7 @@ export default function UserDetailsPage() {
     <div className="container py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold">User Details</h1>
+          <h1 className="text-h1">User Details</h1>
           <p className="text-gray-500">View and manage user information</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">
@@ -127,7 +127,7 @@ export default function UserDetailsPage() {
                         name="role"
                         value={formData.role}
                         onChange={(e) => setFormData(prev => ({ ...prev, role: e.target.value }))}
-                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-body-sm ring-offset-background file:border-0 file:bg-transparent file:text-body-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       >
                         <option value="user">User</option>
                         <option value="admin">Admin</option>
@@ -140,7 +140,7 @@ export default function UserDetailsPage() {
                         name="status"
                         value={formData.status}
                         onChange={(e) => setFormData(prev => ({ ...prev, status: e.target.value }))}
-                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="w-full rounded-md border border-input bg-background px-3 py-2 text-body-sm ring-offset-background file:border-0 file:bg-transparent file:text-body-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       >
                         <option value="active">Active</option>
                         <option value="suspended">Suspended</option>
@@ -156,7 +156,7 @@ export default function UserDetailsPage() {
                       value={formData.bio}
                       onChange={handleChange}
                       rows={3}
-                      className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="w-full rounded-md border border-input bg-background px-3 py-2 text-body-sm ring-offset-background file:border-0 file:bg-transparent file:text-body-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                     />
                   </div>
                 </CardContent>
@@ -243,16 +243,16 @@ export default function UserDetailsPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="p-4 bg-blue-50 rounded-lg">
-                <p className="text-sm text-gray-500">Books Read</p>
-                <p className="text-2xl font-bold">{user.stats.booksRead}</p>
+                <p className="text-body-sm text-gray-500">Books Read</p>
+                <p className="text-h2">{user.stats.booksRead}</p>
               </div>
               <div className="p-4 bg-green-50 rounded-lg">
-                <p className="text-sm text-gray-500">Books Rented</p>
-                <p className="text-2xl font-bold">{user.stats.booksRented}</p>
+                <p className="text-body-sm text-gray-500">Books Rented</p>
+                <p className="text-h2">{user.stats.booksRented}</p>
               </div>
               <div className="p-4 bg-purple-50 rounded-lg">
-                <p className="text-sm text-gray-500">Favorites</p>
-                <p className="text-2xl font-bold">{user.stats.favorites}</p>
+                <p className="text-body-sm text-gray-500">Favorites</p>
+                <p className="text-h2">{user.stats.favorites}</p>
               </div>
             </CardContent>
           </Card>

@@ -178,7 +178,7 @@ export function HeaderSearch() {
                   onChange={(e) => handleInputChange(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Пошук книг за назвою, автором, категорією..."
-                  className="flex-1 bg-transparent text-gray-900 placeholder-slate-500 text-lg outline-none"
+                  className="flex-1 bg-transparent text-gray-900 placeholder-slate-500 text-body-lg outline-none"
                 />
                 <button
                   onClick={handleClose}
@@ -207,13 +207,13 @@ export function HeaderSearch() {
                     {searchResults.books.length > 0 && (
                       <div>
                         <div className="flex items-center justify-between mb-4">
-                          <h3 className="text-gray-600 text-sm font-medium">Книжки</h3>
+                          <h3 className="text-gray-600 text-body-sm font-medium">Книжки</h3>
                           <button 
                             onClick={() => {
                               router.push(`/books?search=${encodeURIComponent(query)}`);
                               handleClose();
                             }}
-                            className="text-gray-500 text-sm hover:text-gray-700 transition flex items-center gap-1"
+                            className="text-gray-500 text-body-sm hover:text-gray-700 transition flex items-center gap-1"
                           >
                             Усі →
                           </button>
@@ -261,13 +261,13 @@ export function HeaderSearch() {
                     {searchResults.categories.length > 0 && (
                       <div>
                         <div className="flex items-center justify-between mb-4">
-                          <h3 className="text-gray-600 text-sm font-medium">Категорії</h3>
+                          <h3 className="text-gray-600 text-body-sm font-medium">Категорії</h3>
                           <button 
                             onClick={() => {
                               router.push('/books');
                               handleClose();
                             }}
-                            className="text-gray-500 text-sm hover:text-gray-700 transition flex items-center gap-1"
+                            className="text-gray-500 text-body-sm hover:text-gray-700 transition flex items-center gap-1"
                           >
                             Усі →
                           </button>
@@ -283,7 +283,7 @@ export function HeaderSearch() {
                               className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg transition w-full text-left"
                             >
                               <div className="text-gray-700 text-sm">{category}</div>
-                              <div className="text-gray-400 text-xs ml-auto">
+                              <div className="text-gray-400 text-caption ml-auto">
                                 {searchResults?.books.filter(book => book.category_id === category).length || 0} книг
                               </div>
                             </button>
@@ -296,13 +296,13 @@ export function HeaderSearch() {
                     {searchResults.authors.length > 0 && (
                       <div>
                         <div className="flex items-center justify-between mb-4">
-                          <h3 className="text-gray-600 text-sm font-medium">Автори</h3>
+                          <h3 className="text-gray-600 text-body-sm font-medium">Автори</h3>
                           <button 
                             onClick={() => {
                               router.push('/books');
                               handleClose();
                             }}
-                            className="text-gray-500 text-sm hover:text-gray-700 transition flex items-center gap-1"
+                            className="text-gray-500 text-body-sm hover:text-gray-700 transition flex items-center gap-1"
                           >
                             Усі →
                           </button>
@@ -318,7 +318,7 @@ export function HeaderSearch() {
                               className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg transition w-full text-left"
                             >
                               <div className="text-gray-700 text-sm">{author}</div>
-                              <div className="text-gray-400 text-xs ml-auto">
+                              <div className="text-gray-400 text-caption ml-auto">
                                 {searchResults?.books.filter(book => book.author === author).length || 0} книг
                               </div>
                             </button>
@@ -332,7 +332,7 @@ export function HeaderSearch() {
                   <div className="border-t border-gray-100 p-4 bg-white">
                     <button
                       onClick={handleSearch}
-                      className="w-full py-3 bg-brand-yellow text-gray-900 font-medium rounded-full hover:bg-brand-yellow-light transition flex items-center justify-center gap-2"
+                      className="w-full py-3 bg-brand-yellow text-gray-900 font-medium rounded-2xl hover:bg-brand-yellow-light transition flex items-center justify-center gap-2"
                     >
                       Усі результати
                       <Search className="h-4 w-4" />
@@ -351,7 +351,7 @@ export function HeaderSearch() {
                   <div className="border-t border-gray-100 p-4 bg-white">
                     <button
                       onClick={handleSearch}
-                      className="w-full py-3 bg-brand-yellow text-gray-900 font-medium rounded-full hover:bg-brand-yellow-light transition flex items-center justify-center gap-2"
+                      className="w-full py-3 bg-brand-yellow text-gray-900 font-medium rounded-2xl hover:bg-brand-yellow-light transition flex items-center justify-center gap-2"
                     >
                       Переглянути всі книги
                       <Search className="h-4 w-4" />
@@ -373,7 +373,7 @@ export function HeaderSearch() {
                   <div className="border-t border-gray-100 p-4 bg-white">
                     <button
                       onClick={handleSearch}
-                      className="w-full py-3 bg-brand-yellow text-gray-900 font-medium rounded-full hover:bg-brand-yellow-light transition flex items-center justify-center gap-2"
+                      className="w-full py-3 bg-brand-yellow text-gray-900 font-medium rounded-2xl hover:bg-brand-yellow-light transition flex items-center justify-center gap-2"
                     >
                       Переглянути каталог
                       <Search className="h-4 w-4" />

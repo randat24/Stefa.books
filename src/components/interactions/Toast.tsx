@@ -111,7 +111,7 @@ export function Toast({
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="text-gray-600 text-sm mt-1"
+                  className="text-gray-600 text-body-sm mt-1"
                 >
                   {message}
                 </motion.p>

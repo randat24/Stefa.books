@@ -193,7 +193,7 @@ export default function SubscriptionPage() {
     return (
       <div className="container py-8">
         <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-accent"></div>
+          <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-brand-accent"></div>
         </div>
       </div>
     );
@@ -203,10 +203,10 @@ export default function SubscriptionPage() {
     <div className="container py-8">
       {/* Header */}
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
+        <h1 className="text-h1 text-gray-900 mb-4">
           Оберіть підписку
         </h1>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <p className="text-body-lg text-gray-600 max-w-2xl mx-auto">
           Отримайте необмежений доступ до нашої бібліотеки дитячих книг
         </p>
       </div>
@@ -222,7 +222,7 @@ export default function SubscriptionPage() {
                   <h3 className="font-semibold text-green-900">
                     Активна підписка: {currentSubscription.plan_name}
                   </h3>
-                  <p className="text-sm text-green-700">
+                  <p className="text-body-sm text-green-700">
                     Дійсна до {new Date(currentSubscription.end_date).toLocaleDateString('uk-UA')}
                   </p>
                 </div>
@@ -239,13 +239,13 @@ export default function SubscriptionPage() {
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
         {BENEFITS.map((benefit, index) => (
           <div key={index} className="text-center">
-            <div className="w-12 h-12 bg-brand-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-12 h-12 bg-brand-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <div className="text-brand-accent">
                 {benefit.icon}
               </div>
             </div>
             <h3 className="font-semibold text-gray-900 mb-2">{benefit.title}</h3>
-            <p className="text-sm text-gray-600">{benefit.description}</p>
+            <p className="text-body-sm text-gray-600">{benefit.description}</p>
           </div>
         ))}
       </div>
@@ -266,25 +266,25 @@ export default function SubscriptionPage() {
             )}
             
             <CardHeader className="text-center pb-4">
-              <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${getPlanColor(plan.color)}`}>
+              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 ${getPlanColor(plan.color)}`}>
                 <div className={getPlanIconColor(plan.color)}>
                   {plan.icon}
                 </div>
               </div>
-              <CardTitle className="text-2xl">{plan.name}</CardTitle>
+              <CardTitle className="text-h2">{plan.name}</CardTitle>
               <p className="text-gray-600">{plan.description}</p>
             </CardHeader>
             
             <CardContent className="space-y-6">
               <div className="text-center">
-                <div className="text-4xl font-bold text-gray-900">
+                <div className="text-h1 text-gray-900">
                   {plan.price}₴
                 </div>
                 <div className="text-gray-600">
                   {plan.duration === 6 ? 'за півроку' : 'на місяць'}
                 </div>
                 {plan.duration === 6 && (
-                  <div className="text-sm text-green-600 mt-1">
+                  <div className="text-body-sm text-green-600 mt-1">
                     Економія 500₴
                   </div>
                 )}
@@ -294,7 +294,7 @@ export default function SubscriptionPage() {
                 {plan.features.map((feature, index) => (
                   <li key={index} className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0" />
-                    <span className="text-sm text-gray-700">{feature}</span>
+                    <span className="text-body-sm text-gray-700">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -307,7 +307,7 @@ export default function SubscriptionPage() {
               >
                 {selectedPlan === plan.id ? (
                   <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+                    <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-white mr-2" />
                     Оформляємо...
                   </>
                 ) : (
@@ -324,7 +324,7 @@ export default function SubscriptionPage() {
 
       {/* FAQ */}
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">
+        <h2 className="text-h2 text-gray-900 text-center mb-8">
           Часті питання
         </h2>
         

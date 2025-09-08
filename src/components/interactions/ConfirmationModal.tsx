@@ -106,7 +106,7 @@ export function ConfirmationModal({
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
-                className="mx-auto w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4"
+                className="mx-auto w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mb-4"
               >
                 {getIcon()}
               </motion.div>
@@ -116,7 +116,7 @@ export function ConfirmationModal({
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-xl font-semibold text-gray-900 mb-2"
+                className="text-body-lg font-semibold text-gray-900 mb-2"
               >
                 {title}
               </motion.h3>

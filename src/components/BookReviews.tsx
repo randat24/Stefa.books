@@ -45,7 +45,7 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
       <div className="bg-gray-50 rounded-lg p-6">
         <div className="flex items-center gap-6">
           <div className="text-center">
-            <div className="text-4xl font-bold text-gray-900 mb-1">
+            <div className="text-h1 text-gray-900 mb-1">
               {averageRating.toFixed(1)}
             </div>
             <div className="flex items-center justify-center mb-2">
@@ -60,7 +60,7 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
                 />
               ))}
             </div>
-            <div className="text-sm text-gray-600">
+            <div className="text-body-sm text-gray-600">
               {totalReviews} відгуків
             </div>
           </div>
@@ -76,9 +76,9 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
                   <div key={stars} className="flex items-center gap-2 text-sm">
                     <span className="w-3">{stars}</span>
                     <Star className="h-3 w-3 text-brand-yellow-light fill-current" />
-                    <div className="flex-1 bg-gray-200 rounded-full h-2">
+                    <div className="flex-1 bg-gray-200 rounded-2xl h-2">
                       <div 
-                        className="bg-brand-yellow-light h-2 rounded-full transition-all duration-300" 
+                        className="bg-brand-yellow-light h-2 rounded-2xl transition-all duration-300" 
                         style={{ width: `${percentage}%` }}
                       />
                     </div>
@@ -101,7 +101,7 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
 
       {/* Individual Reviews */}
       <div className="space-y-6">
-        <h3 className="text-lg font-semibold text-gray-900">
+        <h3 className="text-body-lg font-semibold text-gray-900">
           Відгуки читачів
         </h3>
         
@@ -123,7 +123,7 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
                       />
                     ))}
                   </div>
-                  <span className="text-sm text-gray-500">{review.date}</span>
+                  <span className="text-body-sm text-gray-500">{review.date}</span>
                 </div>
               </div>
               <Badge variant="outline" className="text-xs">

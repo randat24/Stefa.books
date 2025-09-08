@@ -11,7 +11,7 @@ describe('Badge Component', () => {
     
     const badge = screen.getByText('Test Badge');
     expect(badge).toBeInTheDocument();
-    expect(badge).toHaveClass('inline-flex', 'items-center', 'rounded-full');
+    expect(badge).toHaveClass('inline-flex', 'items-center', 'rounded-2xl');
   });
 
   it('should apply default variant styling', () => {
@@ -50,7 +50,7 @@ describe('Badge Component', () => {
   });
 
   it('should merge custom className with default classes', () => {
-    render(<Badge className="text-xl">Large Badge</Badge>);
+    render(<Badge className="text-h4">Large Badge</Badge>);
     
     const badge = screen.getByText('Large Badge');
     expect(badge).toHaveClass('inline-flex', 'items-center', 'text-xl');

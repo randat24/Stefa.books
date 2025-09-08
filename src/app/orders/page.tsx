@@ -193,10 +193,10 @@ export default function OrdersPage() {
     return (
       <div className="container py-8">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Package className="h-8 w-8 text-gray-400" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Вхід необхідний</h1>
+          <h1 className="text-h2 text-gray-900 mb-2">Вхід необхідний</h1>
           <p className="text-gray-600 mb-6">
             Будь ласка, увійдіть в систему, щоб переглянути свої замовлення
           </p>
@@ -217,7 +217,7 @@ export default function OrdersPage() {
     return (
       <div className="container py-8">
         <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-accent"></div>
+          <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-brand-accent"></div>
         </div>
       </div>
     );
@@ -227,7 +227,7 @@ export default function OrdersPage() {
     <div className="container py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Мої замовлення</h1>
+        <h1 className="text-h1 text-gray-900 mb-2">Мої замовлення</h1>
         <p className="text-gray-600">
           Переглядайте та керуйте всіма вашими замовленнями
         </p>
@@ -249,7 +249,7 @@ export default function OrdersPage() {
                   <CardContent className="pt-6">
                     <div className="flex items-start gap-4">
                       {/* Order Icon */}
-                      <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center flex-shrink-0">
                         {getOrderIcon(order.type)}
                       </div>
 
@@ -261,12 +261,12 @@ export default function OrdersPage() {
                               {getOrderTitle(order.type)}
                             </h3>
                             {order.book && (
-                              <p className="text-sm text-gray-600">
+                              <p className="text-body-sm text-gray-600">
                                 {order.book.title} - {order.book.author}
                               </p>
                             )}
                             {order.details.plan_name && (
-                              <p className="text-sm text-gray-600">
+                              <p className="text-body-sm text-gray-600">
                                 План: {order.details.plan_name}
                                 {order.details.price && ` (${order.details.price}₴/місяць)`}
                               </p>
@@ -278,7 +278,7 @@ export default function OrdersPage() {
                         </div>
 
                         {/* Order Info */}
-                        <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-600">
+                        <div className="grid md:grid-cols-2 gap-4 text-body-sm text-gray-600">
                           <div>
                             <p><strong>Створено:</strong> {new Date(order.created_at).toLocaleDateString('uk-UA')}</p>
                             {order.details.start_date && (
@@ -342,7 +342,7 @@ export default function OrdersPage() {
               <CardContent className="pt-6">
                 <div className="text-center py-8">
                   <Package className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  <h3 className="text-body-lg font-semibold text-gray-900 mb-2">
                     {activeTab === 'all' ? 'Немає замовлень' : `Немає ${activeTab === 'rental' ? 'оренд' : activeTab === 'return' ? 'повернень' : 'підписок'}`}
                   </h3>
                   <p className="text-gray-600 mb-4">

@@ -23,7 +23,7 @@ export function BookSpecifications({ book }: BookSpecificationsProps) {
     <div className="space-y-6">
       {/* Basic Information */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <h3 className="text-body-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
           <FileText className="h-5 w-5" />
           Основна інформація
         </h3>
@@ -63,7 +63,7 @@ export function BookSpecifications({ book }: BookSpecificationsProps) {
       {/* Publishing Information */}
       {(book.publisher || book.publication_year || book.isbn) && (
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <h3 className="text-body-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
             <Building className="h-5 w-5" />
             Видавнича інформація
           </h3>
@@ -97,7 +97,7 @@ export function BookSpecifications({ book }: BookSpecificationsProps) {
 
       {/* Availability Information */}
       <div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <h3 className="text-body-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
           <Truck className="h-5 w-5" />
           Доступність
         </h3>
@@ -111,7 +111,7 @@ export function BookSpecifications({ book }: BookSpecificationsProps) {
           </div>
           
           <div className="flex items-center gap-2">
-            <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+            <span className={`px-3 py-1 rounded-2xl text-caption font-medium ${
               book.available 
                 ? "text-green-700 bg-green-100" 
                 : "text-red-700 bg-red-100"
@@ -133,7 +133,7 @@ export function BookSpecifications({ book }: BookSpecificationsProps) {
       {/* Categories and Tags */}
       {(book.category_id || book.subcategory || book.tags?.length) && (
         <div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <h3 className="text-body-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
             <Layers className="h-5 w-5" />
             Категорії та теги
           </h3>

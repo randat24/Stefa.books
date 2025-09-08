@@ -16,7 +16,7 @@ const MaintenancePage = () => {
           </svg>
         </div>
         
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Site Under Maintenance</h1>
+        <h1 className="text-h1 text-gray-900 mb-4">Site Under Maintenance</h1>
         <p className="text-gray-600 mb-8">
           We&apos;re currently performing scheduled maintenance. We&apos;ll be back online shortly.
         </p>
@@ -26,7 +26,7 @@ const MaintenancePage = () => {
           <p className="text-gray-600">30 minutes</p>
         </div>
         
-        <div className="text-sm text-gray-500">
+        <div className="text-body-sm text-gray-500">
           <p>For urgent inquiries, contact support@stefabooks.com</p>
         </div>
       </div>

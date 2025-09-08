@@ -310,15 +310,15 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
 
     return (
       <div className="flex flex-col items-center space-y-2">
-        <div className={`text-2xl font-bold ${color}`}>
+        <div className={`text-h2 ${color}`}>
           {available}
         </div>
-        <div className="text-xs text-gray-500 font-medium">
+        <div className="text-caption text-gray-500 font-medium">
           з {total} шт
         </div>
-        <div className={`w-16 h-2 rounded-full ${bgColor}`}>
+        <div className={`w-16 h-2 rounded-2xl ${bgColor}`}>
           <div 
-            className={`h-full rounded-full transition-all duration-500 ${color.replace('text-', 'bg-')}`}
+            className={`h-full rounded-2xl transition-all duration-500 ${color.replace('text-', 'bg-')}`}
             style={{ width: `${Math.min(100, percentage)}%` }}
           />
         </div>
@@ -346,8 +346,8 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                 <BookOpen className="size-6 text-white" />
               </div>
               <div>
-                <CardTitle className="text-xl text-gray-900">Управління книгами</CardTitle>
-                <p className="text-sm text-gray-600">
+                <CardTitle className="text-body-lg text-gray-900">Управління книгами</CardTitle>
+                <p className="text-body-sm text-gray-600">
                   Всього книг: <span className="font-semibold text-gray-900">{books.length}</span>
                   {filters.search && (
                     <span className="ml-2">
@@ -407,7 +407,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                 className="pl-10 pr-4 h-11 border-gray-200 focus:border-gray-400 focus:ring-gray-400"
               />
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-600">
+            <div className="flex items-center gap-2 text-body-sm text-gray-600">
               <Filter className="size-4" />
               <span>Фільтри: {filteredBooks.length} з {books.length}</span>
             </div>
@@ -418,11 +418,11 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
             <div className="mt-4 p-4 bg-gray-50 rounded-xl">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <div>
-                  <Label className="text-sm font-medium text-gray-700">Категорія</Label>
+                  <Label className="text-body-sm font-medium text-gray-700">Категорія</Label>
                   <select
                     value={filters.category}
                     onChange={(e) => setFilters(prev => ({ ...prev, category: e.target.value }))}
-                    className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
+                    className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
                   >
                     <option value="">Всі категорії</option>
                     {categories.map(category => (
@@ -431,11 +431,11 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                   </select>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-700">Статус</Label>
+                  <Label className="text-body-sm font-medium text-gray-700">Статус</Label>
                   <select
                     value={filters.status}
                     onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
-                    className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
+                    className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
                   >
                     <option value="">Всі статуси</option>
                     <option value="available">Доступна</option>
@@ -445,11 +445,11 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                   </select>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-700">Доступність</Label>
+                  <Label className="text-body-sm font-medium text-gray-700">Доступність</Label>
                   <select
                     value={filters.availability}
                     onChange={(e) => setFilters(prev => ({ ...prev, availability: e.target.value }))}
-                    className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
+                    className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
                   >
                     <option value="">Всі</option>
                     <option value="available">Доступні</option>
@@ -457,14 +457,14 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                   </select>
                 </div>
                 <div>
-                  <Label className="text-sm font-medium text-gray-700">Сортування</Label>
+                  <Label className="text-body-sm font-medium text-gray-700">Сортування</Label>
                   <select
                     value={`${filters.sortBy}-${filters.sortOrder}`}
                     onChange={(e) => {
                       const [sortBy, sortOrder] = e.target.value.split('-')
                       setFilters(prev => ({ ...prev, sortBy, sortOrder: sortOrder as 'asc' | 'desc' }))
                     }}
-                    className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
+                    className="w-full mt-1 px-3 py-2 border border-gray-200 rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
                   >
                     <option value="title-asc">Назва А-Я</option>
                     <option value="title-desc">Назва Я-А</option>
@@ -493,7 +493,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                 <Badge variant="outline" className="bg-orange-100 text-orange-700 border-orange-300">
                   {selectedBooks.size} обрано
                 </Badge>
-                <span className="text-sm text-gray-700">
+                <span className="text-body-sm text-gray-700">
                   Обрані книги для масових дій
                 </span>
               </div>
@@ -631,7 +631,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
 
                       {/* Код книги */}
                       <TableCell className="p-4">
-                        <div className="inline-block px-3 py-2 bg-gray-100 text-gray-800 rounded-lg text-sm font-mono font-semibold border border-gray-300 shadow-sm whitespace-nowrap">
+                        <div className="inline-block px-3 py-2 bg-gray-100 text-gray-800 rounded-lg text-body-sm font-mono font-semibold border border-gray-300 shadow-sm whitespace-nowrap">
                           {book.code}
                         </div>
                       </TableCell>
@@ -640,7 +640,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                       <TableCell className="p-4">
                         <div className="space-y-2">
                           <div 
-                            className="font-bold text-gray-900 line-clamp-2 cursor-pointer hover:text-gray-600 transition-colors duration-200 text-sm leading-snug"
+                            className="font-bold text-gray-900 line-clamp-2 cursor-pointer hover:text-gray-600 transition-colors duration-200 text-body-sm leading-snug"
                             onClick={() => handleViewBook(book)}
                             title={book.title}
                           >
@@ -648,7 +648,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                           </div>
                           {book.description && (
                             <div 
-                              className="text-xs text-gray-500 line-clamp-2 leading-relaxed" 
+                              className="text-caption text-gray-500 line-clamp-2 leading-relaxed" 
                               title={book.description}
                             >
                               {book.description}
@@ -660,10 +660,10 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                       {/* Автор */}
                       <TableCell className="p-4">
                         <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center">
+                          <div className="w-8 h-8 bg-gray-200 rounded-2xl flex items-center justify-center">
                             <User className="size-4 text-gray-600" />
                           </div>
-                          <div className="text-sm text-gray-700 font-semibold truncate max-w-[140px]" title={book.author}>
+                          <div className="text-body-sm text-gray-700 font-semibold truncate max-w-[140px]" title={book.author}>
                             {book.author}
                           </div>
                         </div>
@@ -671,7 +671,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
 
                       {/* Категорія */}
                       <TableCell className="p-4">
-                        <div className="inline-flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-emerald-50 to-emerald-100 text-emerald-700 rounded-full text-xs font-semibold border border-emerald-200 shadow-sm">
+                        <div className="inline-flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-emerald-50 to-emerald-100 text-emerald-700 rounded-2xl text-caption font-semibold border border-emerald-200 shadow-sm">
                           <Tag className="size-3" />
                           <span className="truncate max-w-[100px]" title={book.category_name || 'No category'}>
                             {book.category_name || 'No category'}
@@ -687,12 +687,12 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                       {/* Ціна */}
                       <TableCell className="text-right p-4">
                         {book.price_uah ? (
-                          <div className="inline-flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-green-50 to-green-100 text-green-700 rounded-full font-bold text-sm border border-green-200 shadow-sm">
+                          <div className="inline-flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-green-50 to-green-100 text-green-700 rounded-2xl font-bold text-body-sm border border-green-200 shadow-sm">
                             <CreditCard className="size-3" />
                             {book.price_uah.toLocaleString('uk-UA')} ₴
                           </div>
                         ) : (
-                          <span className="text-gray-400 text-sm font-medium">—</span>
+                          <span className="text-gray-400 text-body-sm font-medium">—</span>
                         )}
                       </TableCell>
 
@@ -735,7 +735,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                       <TableCell colSpan={10} className="text-center py-12">
                         <div className="flex flex-col items-center gap-3 text-gray-500">
                           <ImageIcon className="size-12 text-gray-300" />
-                          <p className="text-lg font-medium">Книги не знайдено</p>
+                          <p className="text-body-lg font-medium">Книги не знайдено</p>
                           {filters.search ? (
                             <p className="text-sm">Спробуйте змінити пошуковий запит або фільтри</p>
                           ) : (
@@ -757,7 +757,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
         <Card className="rounded-2xl border-gray-200 shadow-sm">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
-              <div className="text-sm text-gray-600">
+              <div className="text-body-sm text-gray-600">
                 Показано {((currentPage - 1) * itemsPerPage) + 1} - {Math.min(currentPage * itemsPerPage, filteredBooks.length)} з {filteredBooks.length} книг
               </div>
               <div className="flex items-center gap-2">
@@ -852,41 +852,41 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
               <div className="grid gap-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-sm font-medium text-gray-600">Код</Label>
-                    <p className="font-mono text-sm bg-gray-100 px-2 py-1 rounded">{selectedBook.code}</p>
+                    <Label className="text-body-sm font-medium text-gray-600">Код</Label>
+                    <p className="font-mono text-body-sm bg-gray-100 px-2 py-1 rounded">{selectedBook.code}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-gray-600">Статус</Label>
+                    <Label className="text-body-sm font-medium text-gray-600">Статус</Label>
                     <div className="mt-1">{getStatusBadge(selectedBook.status)}</div>
                   </div>
                 </div>
 
                 <div>
-                  <Label className="text-sm font-medium text-gray-600">Назва</Label>
-                  <p className="text-lg font-medium text-gray-900">{selectedBook.title}</p>
+                  <Label className="text-body-sm font-medium text-gray-600">Назва</Label>
+                  <p className="text-body-lg font-medium text-gray-900">{selectedBook.title}</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-sm font-medium text-gray-600">Автор</Label>
+                    <Label className="text-body-sm font-medium text-gray-600">Автор</Label>
                     <p className="font-medium text-gray-700">{selectedBook.author}</p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-gray-600">Категорія</Label>
+                    <Label className="text-body-sm font-medium text-gray-600">Категорія</Label>
                     <p className="text-gray-700">{selectedBook.category_name}</p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-sm font-medium text-gray-600">Кількість</Label>
+                    <Label className="text-body-sm font-medium text-gray-600">Кількість</Label>
                     <p className="text-gray-700">
                       <span className="font-medium">{selectedBook.qty_available}</span> доступно з{' '}
                       <span className="font-medium">{selectedBook.qty_total}</span> загалом
                     </p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-gray-600">Ціна закупки</Label>
+                    <Label className="text-body-sm font-medium text-gray-600">Ціна закупки</Label>
                     <p className="text-gray-700">
                       {selectedBook.price_uah ? `${selectedBook.price_uah.toLocaleString('uk-UA')} ₴` : '—'}
                     </p>
@@ -895,28 +895,28 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
 
                 {selectedBook.location && (
                   <div>
-                    <Label className="text-sm font-medium text-gray-600">Локація</Label>
+                    <Label className="text-body-sm font-medium text-gray-600">Локація</Label>
                     <p className="text-gray-700">{selectedBook.location}</p>
                   </div>
                 )}
 
                 {selectedBook.description && (
                   <div>
-                    <Label className="text-sm font-medium text-gray-600">Опис</Label>
-                    <p className="text-gray-700 text-sm leading-relaxed">{selectedBook.description}</p>
+                    <Label className="text-body-sm font-medium text-gray-600">Опис</Label>
+                    <p className="text-gray-700 text-body-sm leading-relaxed">{selectedBook.description}</p>
                   </div>
                 )}
 
                 <div className="grid grid-cols-2 gap-4 pt-2 border-t">
                   <div>
-                    <Label className="text-sm font-medium text-gray-600">Створено</Label>
-                    <p className="text-xs text-gray-500">
+                    <Label className="text-body-sm font-medium text-gray-600">Створено</Label>
+                    <p className="text-caption text-gray-500">
                       {selectedBook.created_at ? new Date(selectedBook.created_at).toLocaleString('uk-UA') : '—'}
                     </p>
                   </div>
                   <div>
-                    <Label className="text-sm font-medium text-gray-600">Оновлено</Label>
-                    <p className="text-xs text-gray-500">
+                    <Label className="text-body-sm font-medium text-gray-600">Оновлено</Label>
+                    <p className="text-caption text-gray-500">
                       {selectedBook.updated_at ? new Date(selectedBook.updated_at).toLocaleString('uk-UA') : '—'}
                     </p>
                   </div>
@@ -954,7 +954,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
               />
               <div className="text-center">
                 <p className="font-medium text-gray-900">{imageViewBook.title}</p>
-                <p className="text-sm text-gray-600">{imageViewBook.author}</p>
+                <p className="text-body-sm text-gray-600">{imageViewBook.author}</p>
               </div>
               <Button
                 variant="outline"

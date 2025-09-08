@@ -30,7 +30,7 @@ export default function RentalAnalyticsPage() {
     <div className="container py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold">Rental Analytics</h1>
+          <h1 className="text-h1">Rental Analytics</h1>
           <p className="text-gray-500">Insights into rental trends and revenue</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">
@@ -44,41 +44,41 @@ export default function RentalAnalyticsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Rentals</CardTitle>
+            <CardTitle className="text-body-sm font-medium">Total Rentals</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{mockRentalAnalytics.totalRentals.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground">All time rentals</p>
+            <div className="text-h2">{mockRentalAnalytics.totalRentals.toLocaleString()}</div>
+            <p className="text-caption text-muted-foreground">All time rentals</p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Rentals</CardTitle>
+            <CardTitle className="text-body-sm font-medium">Active Rentals</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{mockRentalAnalytics.activeRentals}</div>
-            <p className="text-xs text-muted-foreground">Currently rented books</p>
+            <div className="text-h2">{mockRentalAnalytics.activeRentals}</div>
+            <p className="text-caption text-muted-foreground">Currently rented books</p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Overdue Rentals</CardTitle>
+            <CardTitle className="text-body-sm font-medium">Overdue Rentals</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{mockRentalAnalytics.overdueRentals}</div>
-            <p className="text-xs text-muted-foreground">Books past due date</p>
+            <div className="text-h2">{mockRentalAnalytics.overdueRentals}</div>
+            <p className="text-caption text-muted-foreground">Books past due date</p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+            <CardTitle className="text-body-sm font-medium">Total Revenue</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">${mockRentalAnalytics.revenue.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground">Generated from rentals</p>
+            <div className="text-h2">${mockRentalAnalytics.revenue.toLocaleString()}</div>
+            <p className="text-caption text-muted-foreground">Generated from rentals</p>
           </CardContent>
         </Card>
       </div>
@@ -106,7 +106,7 @@ export default function RentalAnalyticsPage() {
                       style={{ height: `${(data.revenue / 8000) * 150}px` }}
                     ></div>
                   </div>
-                  <div className="text-xs mt-2 text-gray-500">{data.month}</div>
+                  <div className="text-caption mt-2 text-gray-500">{data.month}</div>
                 </div>
               ))}
             </div>
@@ -139,9 +139,9 @@ export default function RentalAnalyticsPage() {
                     <span className="font-medium">{plan.name}</span>
                     <span>{plan.rentals} rentals</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-gray-200 rounded-2xl h-2">
                     <div 
-                      className="bg-purple-600 h-2 rounded-full" 
+                      className="bg-purple-600 h-2 rounded-2xl" 
                       style={{ width: `${plan.percentage}%` }}
                     ></div>
                   </div>

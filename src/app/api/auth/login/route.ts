@@ -68,8 +68,8 @@ export async function POST(request: NextRequest) {
         .insert({
           email: authData.user.email,
           name: authData.user.user_metadata?.full_name || authData.user.email,
-          role: authData.user.email === 'admin@stefa-books.com.ua' ? 'admin' : 'user',
-          subscription: authData.user.email === 'admin@stefa-books.com.ua' ? 'premium' : 'free',
+          role: (authData.user.email === 'admin@stefa-books.com.ua' || authData.user.email === 'admin@stefabooks.com.ua') ? 'admin' : 'user',
+          subscription: (authData.user.email === 'admin@stefa-books.com.ua' || authData.user.email === 'admin@stefabooks.com.ua') ? 'premium' : 'free',
           status: 'active'
         })
         .select('*')
@@ -78,13 +78,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         success: true,
         message: 'Успішний вхід (створено новий профіль)',
-        user: {
-          id: authData.user.id,
-          email: authData.user.email,
-          firstName: authData.user.user_metadata?.first_name,
-          lastName: authData.user.user_metadata?.last_name,
-          phone: authData.user.user_metadata?.phone
-        },
+        user: authData.user,
         profile: newProfile || null,
         session: authData.session
       });
@@ -95,13 +89,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'Успішний вхід',
-      user: {
-        id: authData.user.id,
-        email: authData.user.email,
-        firstName: authData.user.user_metadata?.first_name,
-        lastName: authData.user.user_metadata?.last_name,
-        phone: authData.user.user_metadata?.phone
-      },
+      user: authData.user,
       profile: profile || null,
       session: authData.session
     });

@@ -14,7 +14,7 @@ interface DynamicImportProps {
 const DefaultLoader = ({ className }: { className?: string }) => (
   <div className={`flex items-center justify-center p-4 ${className}`}>
     <Loader2 className="h-4 w-4 animate-spin" />
-    <span className="ml-2 text-sm text-gray-600">Завантаження...</span>
+    <span className="ml-2 text-body-sm text-gray-600">Завантаження...</span>
   </div>
 )
 

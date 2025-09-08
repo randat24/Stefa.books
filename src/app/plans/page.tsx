@@ -46,7 +46,7 @@ export default function PlansPage() {
 			/>
 			{/* Breadcrumbs */}
 			<div className="mb-6">
-				<nav className="flex items-center space-x-2 text-sm text-gray-600">
+				<nav className="flex items-center space-x-2 text-body-sm text-gray-600">
 					<Link href="/" className="hover:text-gray-900">Головна</Link>
 					<ChevronRight className="h-4 w-4" />
 					<span className="text-gray-900 font-medium">Тарифи</span>
@@ -56,8 +56,8 @@ export default function PlansPage() {
 			<h1 className="h1">Тарифи підписки</h1>
 			<div className="grid md:grid-cols-2 gap-6 mt-6">
 				<div className="card p-6">
-					<h3 className="text-xl font-semibold">Mini</h3>
-					<p className="text-3xl font-bold text-brand-accent-light mt-2">300 ₴/міс</p>
+					<h3 className="text-body-lg font-semibold">Mini</h3>
+					<p className="text-h1 text-brand-accent-light mt-2">300 ₴/міс</p>
 					<p className="text-muted mt-2">1 книга за раз</p>
 					<ul className="mt-4 space-y-2">
 						<li>✓ Безкоштовна доставка</li>
@@ -66,8 +66,8 @@ export default function PlansPage() {
 					</ul>
 				</div>
 				<div className="card p-6">
-					<h3 className="text-xl font-semibold">Maxi</h3>
-					<p className="text-3xl font-bold text-brand-accent-light mt-2">500 ₴/міс</p>
+					<h3 className="text-body-lg font-semibold">Maxi</h3>
+					<p className="text-h1 text-brand-accent-light mt-2">500 ₴/міс</p>
 					<p className="text-muted mt-2">2 книги за раз</p>
 					<ul className="mt-4 space-y-2">
 						<li>✓ Безкоштовна доставка</li>

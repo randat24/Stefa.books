@@ -93,14 +93,14 @@ export function CategoryCatalog({
               borderLeft: `4px solid ${category.color || '#64748B'}` 
             }}
           >
-            <span className="text-2xl" role="img" aria-label={category.name}>
+            <span className="text-h2" role="img" aria-label={category.name}>
               {category.icon || '📚'}
             </span>
-            <h3 className="text-lg font-semibold text-gray-800 group-hover:text-gray-900">
+            <h3 className="text-body-lg font-semibold text-gray-800 group-hover:text-gray-900">
               {category.name}
             </h3>
             {showBooksCount && (
-              <span className="ml-auto text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+              <span className="ml-auto text-body-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-2xl">
                 {/* TODO: Add books count from stats */}
                 5
               </span>
@@ -116,10 +116,10 @@ export function CategoryCatalog({
                 borderLeft: `4px solid ${category.color || '#64748B'}` 
               }}
             >
-              <span className="text-2xl" role="img" aria-label={category.name}>
+              <span className="text-h2" role="img" aria-label={category.name}>
                 {category.icon || '📚'}
               </span>
-              <h3 className="text-lg font-semibold text-gray-800">
+              <h3 className="text-body-lg font-semibold text-gray-800">
                 {category.name}
               </h3>
             </div>
@@ -140,7 +140,7 @@ export function CategoryCatalog({
                     {subcategory.name}
                   </span>
                   {showBooksCount && (
-                    <span className="ml-auto text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+                    <span className="ml-auto text-body-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-2xl">
                       {/* TODO: Add books count from stats */}
                       12
                     </span>
@@ -158,7 +158,7 @@ export function CategoryCatalog({
     return (
       <div className={`flex items-center justify-center py-12 ${className}`}>
         <div className="flex items-center gap-3 text-gray-600">
-          <div className="w-5 h-5 border-2 border-gray-300 border-t-slate-600 rounded-full animate-spin"></div>
+          <div className="w-5 h-5 border-2 border-gray-300 border-t-slate-600 rounded-2xl animate-spin"></div>
           <span>Завантаження каталогу...</span>
         </div>
       </div>
@@ -171,7 +171,7 @@ export function CategoryCatalog({
         <div className="text-red-600 mb-4">❌ {error}</div>
         <button
           onClick={loadCategories}
-          className="px-4 py-2 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-colors"
+          className="px-4 py-2 bg-gray-900 text-white rounded-2xl hover:bg-gray-800 transition-colors"
         >
           Спробувати знову
         </button>
@@ -184,7 +184,7 @@ export function CategoryCatalog({
       {/* Заголовок каталога */}
       <div className="flex items-center gap-3 mb-8">
         <span className="text-3xl">📚</span>
-        <h2 className="text-2xl font-bold text-gray-900">Повний каталог</h2>
+        <h2 className="text-h2 text-gray-900">Повний каталог</h2>
       </div>
 
       {/* Категории */}
@@ -195,7 +195,7 @@ export function CategoryCatalog({
       {/* Если нет категорий */}
       {categoryTree.length === 0 && (
         <div className="text-center py-12 text-gray-500">
-          <span className="text-4xl mb-4 block">📭</span>
+          <span className="text-display mb-4 block">📭</span>
           <p>Категорії поки що не налаштовані</p>
         </div>
       )}

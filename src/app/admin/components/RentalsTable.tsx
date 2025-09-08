@@ -170,7 +170,7 @@ export function RentalsTable({
         {rentals.length === 0 ? (
           <div className="text-center py-12 text-gray-500">
             <Calendar className="size-16 mx-auto mb-4 opacity-50" />
-            <p className="text-xl font-semibold text-gray-700 mb-2">Немає оренд</p>
+            <p className="text-body-lg font-semibold text-gray-700 mb-2">Немає оренд</p>
             <p className="text-gray-500">Орендні записи з&apos;являться тут після видачі книг</p>
           </div>
         ) : (
@@ -208,7 +208,7 @@ export function RentalsTable({
                         </div>
                       </div>
                       
-                      <div className="space-y-2 text-sm text-gray-600">
+                      <div className="space-y-2 text-body-sm text-gray-600">
                         <div className="flex items-center gap-2">
                           <Calendar className="size-4" />
                           <span>Видано: {formatDate(rental.rental_date)}</span>
@@ -227,7 +227,7 @@ export function RentalsTable({
                     </div>
                     
                     {rental.notes && (
-                      <p className="mt-3 text-sm text-gray-600 bg-gray-50 p-2 rounded-lg">
+                      <p className="mt-3 text-body-sm text-gray-600 bg-gray-50 p-2 rounded-lg">
                         {rental.notes}
                       </p>
                     )}

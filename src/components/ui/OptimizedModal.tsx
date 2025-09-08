@@ -130,7 +130,7 @@ const OptimizedModal = memo(function OptimizedModal({
         {(title || showCloseButton) && (
           <div className="flex items-center justify-between p-6 border-b border-gray-200">
             {title && (
-              <h2 id="modal-title" className="text-lg font-semibold text-gray-900">
+              <h2 id="modal-title" className="text-body-lg font-semibold text-gray-900">
                 {title}
               </h2>
             )}

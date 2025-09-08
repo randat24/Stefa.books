@@ -375,7 +375,7 @@ const OptimizedDataSystem = memo(function OptimizedDataSystem<T>({
       
       return (
         <div className="text-center py-12">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <svg
               className="w-8 h-8 text-red-400"
               fill="none"
@@ -390,7 +390,7 @@ const OptimizedDataSystem = memo(function OptimizedDataSystem<T>({
               />
             </svg>
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <h3 className="text-body-lg font-medium text-gray-900 mb-2">
             Помилка завантаження
           </h3>
           <p className="text-gray-500 mb-4">{error}</p>
@@ -409,7 +409,7 @@ const OptimizedDataSystem = memo(function OptimizedDataSystem<T>({
     if (!hasData) {
       return (
         <div className="text-center py-12">
-          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <svg
               className="w-8 h-8 text-gray-400"
               fill="none"
@@ -424,7 +424,7 @@ const OptimizedDataSystem = memo(function OptimizedDataSystem<T>({
               />
             </svg>
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <h3 className="text-body-lg font-medium text-gray-900 mb-2">
             {emptyMessage}
           </h3>
           <p className="text-gray-500">
@@ -510,7 +510,7 @@ const OptimizedDataSystem = memo(function OptimizedDataSystem<T>({
               <Filter className="w-4 h-4" />
               Фільтри
               {activeFiltersCount > 0 && (
-                <span className="px-2 py-1 text-xs font-medium text-blue-600 bg-blue-100 rounded-full">
+                <span className="px-2 py-1 text-caption font-medium text-blue-600 bg-blue-100 rounded-2xl">
                   {activeFiltersCount}
                 </span>
               )}
@@ -582,7 +582,7 @@ const OptimizedDataSystem = memo(function OptimizedDataSystem<T>({
 
           {/* Кнопка импорта */}
           {settings.showImport && onImport && (
-            <label className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 cursor-pointer transition-colors">
+            <label className="flex items-center gap-2 px-3 py-2 text-body-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 cursor-pointer transition-colors">
               <Upload className="w-4 h-4" />
               Імпорт
               <input
@@ -669,20 +669,20 @@ const OptimizedDataSystem = memo(function OptimizedDataSystem<T>({
         <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">{performanceMetrics.renderTime.toFixed(2)}ms</div>
-              <div className="text-sm text-gray-500">Час рендерингу</div>
+              <div className="text-h2 text-blue-600">{performanceMetrics.renderTime.toFixed(2)}ms</div>
+              <div className="text-body-sm text-gray-500">Час рендерингу</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">{performanceMetrics.dataSize}</div>
-              <div className="text-sm text-gray-500">Кількість елементів</div>
+              <div className="text-h2 text-green-600">{performanceMetrics.dataSize}</div>
+              <div className="text-body-sm text-gray-500">Кількість елементів</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">{(performanceMetrics.memoryUsage / 1024 / 1024).toFixed(2)}MB</div>
-              <div className="text-sm text-gray-500">Використання пам&apos;яті</div>
+              <div className="text-h2 text-purple-600">{(performanceMetrics.memoryUsage / 1024 / 1024).toFixed(2)}MB</div>
+              <div className="text-body-sm text-gray-500">Використання пам&apos;яті</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-orange-600">{performanceMetrics.cacheHitRate.toFixed(1)}%</div>
-              <div className="text-sm text-gray-500">Ефективність кешу</div>
+              <div className="text-h2 text-orange-600">{performanceMetrics.cacheHitRate.toFixed(1)}%</div>
+              <div className="text-body-sm text-gray-500">Ефективність кешу</div>
             </div>
           </div>
         </div>
@@ -693,28 +693,28 @@ const OptimizedDataSystem = memo(function OptimizedDataSystem<T>({
         <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">{analyticsData.totalViews}</div>
-              <div className="text-sm text-gray-500">Загальні перегляди</div>
+              <div className="text-h2 text-blue-600">{analyticsData.totalViews}</div>
+              <div className="text-body-sm text-gray-500">Загальні перегляди</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">{analyticsData.searchQueries}</div>
-              <div className="text-sm text-gray-500">Пошукові запити</div>
+              <div className="text-h2 text-green-600">{analyticsData.searchQueries}</div>
+              <div className="text-body-sm text-gray-500">Пошукові запити</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">{analyticsData.filterUsage}</div>
-              <div className="text-sm text-gray-500">Використання фільтрів</div>
+              <div className="text-h2 text-purple-600">{analyticsData.filterUsage}</div>
+              <div className="text-body-sm text-gray-500">Використання фільтрів</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-orange-600">{analyticsData.exportCount}</div>
-              <div className="text-sm text-gray-500">Експорти</div>
+              <div className="text-h2 text-orange-600">{analyticsData.exportCount}</div>
+              <div className="text-body-sm text-gray-500">Експорти</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-red-600">{analyticsData.importCount}</div>
-              <div className="text-sm text-gray-500">Імпорти</div>
+              <div className="text-h2 text-red-600">{analyticsData.importCount}</div>
+              <div className="text-body-sm text-gray-500">Імпорти</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-gray-600">{analyticsData.errorCount}</div>
-              <div className="text-sm text-gray-500">Помилки</div>
+              <div className="text-h2 text-gray-600">{analyticsData.errorCount}</div>
+              <div className="text-body-sm text-gray-500">Помилки</div>
             </div>
           </div>
         </div>
@@ -725,7 +725,7 @@ const OptimizedDataSystem = memo(function OptimizedDataSystem<T>({
         <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-gray-700 mb-2">
                 Режим просмотра
               </label>
               <select
@@ -740,7 +740,7 @@ const OptimizedDataSystem = memo(function OptimizedDataSystem<T>({
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-gray-700 mb-2">
                 Розмір сторінки
               </label>
               <select
@@ -758,7 +758,7 @@ const OptimizedDataSystem = memo(function OptimizedDataSystem<T>({
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-gray-700 mb-2">
                 Виртуализация
               </label>
               <select

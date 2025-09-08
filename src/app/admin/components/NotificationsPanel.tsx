@@ -178,20 +178,20 @@ export function NotificationsPanel({ }: NotificationsPanelProps) {
         {data.summary.total > 0 && (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
             <div className="text-center p-3 bg-red-50 rounded-lg">
-              <div className="text-lg font-bold text-red-600">{data.summary.high_priority}</div>
-              <div className="text-xs text-red-600">Високий пріоритет</div>
+              <div className="text-h4 text-red-600">{data.summary.high_priority}</div>
+              <div className="text-caption text-red-600">Високий пріоритет</div>
             </div>
             <div className="text-center p-3 bg-orange-50 rounded-lg">
-              <div className="text-lg font-bold text-orange-600">{data.summary.medium_priority}</div>
-              <div className="text-xs text-orange-600">Середній пріоритет</div>
+              <div className="text-h4 text-orange-600">{data.summary.medium_priority}</div>
+              <div className="text-caption text-orange-600">Середній пріоритет</div>
             </div>
             <div className="text-center p-3 bg-blue-50 rounded-lg">
-              <div className="text-lg font-bold text-brand-accent-light">{data.summary.expiring_subscriptions}</div>
-              <div className="text-xs text-brand-accent-light">Закінчуються</div>
+              <div className="text-h4 text-brand-accent-light">{data.summary.expiring_subscriptions}</div>
+              <div className="text-caption text-brand-accent-light">Закінчуються</div>
             </div>
             <div className="text-center p-3 bg-purple-50 rounded-lg">
-              <div className="text-lg font-bold text-purple-600">{data.summary.overdue_rentals}</div>
-              <div className="text-xs text-purple-600">Прострочені оренди</div>
+              <div className="text-h4 text-purple-600">{data.summary.overdue_rentals}</div>
+              <div className="text-caption text-purple-600">Прострочені оренди</div>
             </div>
           </div>
         )}
@@ -200,7 +200,7 @@ export function NotificationsPanel({ }: NotificationsPanelProps) {
         {data.notifications.length === 0 ? (
           <div className="text-center py-12 text-gray-500">
             <CheckCircle className="size-16 mx-auto mb-4 opacity-50" />
-            <p className="text-xl font-semibold text-gray-700 mb-2">Немає сповіщень</p>
+            <p className="text-body-lg font-semibold text-gray-700 mb-2">Немає сповіщень</p>
             <p className="text-gray-500">Всі підписки та оренди в порядку</p>
           </div>
         ) : (
@@ -217,7 +217,7 @@ export function NotificationsPanel({ }: NotificationsPanelProps) {
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900">{notification.title}</h3>
-                      <p className="text-sm text-gray-600">{notification.message}</p>
+                      <p className="text-body-sm text-gray-600">{notification.message}</p>
                     </div>
                   </div>
                   <Badge variant={getPriorityBadgeVariant(notification.priority)}>
@@ -267,7 +267,7 @@ export function NotificationsPanel({ }: NotificationsPanelProps) {
 
                 {/* Детали аренды */}
                 {notification.rental && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm mt-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-body-sm mt-3">
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
                         <User className="size-4 text-gray-500" />

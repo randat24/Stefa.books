@@ -42,15 +42,15 @@ export function BookCard({
   return (
     <>
       <article 
-        className="group relative bg-white rounded-xl shadow-card hover:shadow-float transition-all duration-300 overflow-hidden border border-gray-100 h-full flex flex-col"
-        style={{ minHeight: '390px', maxHeight: '390px' }}
+        className="group relative bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 h-full flex flex-col"
+        style={{ minHeight: '400px' }}
         role="article"
         aria-labelledby={`book-title-${memoizedBook.id}`}
         aria-describedby={`book-author-${memoizedBook.id}`}
       >
         <Link 
           href={`/books/${memoizedBook.id}`} 
-          className="flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 rounded-xl"
+          className="flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 rounded-2xl"
           aria-label={`Переглянути деталі книги: ${memoizedBook.title} автора ${memoizedBook.author}`}
           onClick={handleBookClick}
         >
@@ -60,81 +60,76 @@ export function BookCard({
               src={memoizedBook.cover_url || '/images/book-placeholder.svg'}
               alt={`Обкладинка книги: ${memoizedBook.title}`}
               fill
-              className="object-cover"
+              className="object-cover rounded-t-2xl"
               priority={priorityLoading}
             />
             
             {/* Overlay при наведении */}
-            <div className="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden="true" />
-            
-            {/* Кнопка "Переглянути" при наведении */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <button 
-                onClick={handleQuickView}
-                className="inline-flex items-center gap-2 rounded-2xl bg-white/95 px-4 py-2 text-sm font-medium text-gray-900 shadow-lg backdrop-blur hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2"
-                aria-label={`Швидкий перегляд книги: ${memoizedBook.title}`}
-                type="button"
-              >
-                <BookOpen className="h-4 w-4" aria-hidden="true" />
-                Переглянути
-              </button>
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 transition-all duration-300 group-hover:opacity-100 rounded-t-2xl" aria-hidden="true" />
           </div>
         </Link>
         
-        {/* Статус-бейдж - показываем при наведении */}
+        {/* Статус-бейдж - скрытый по умолчанию, появляется при hover */}
         <span 
-          className={`pointer-events-none absolute left-4 top-4 rounded-full border border-gray-200 px-3 py-1.5 text-xs font-medium shadow-sm backdrop-blur opacity-0 transition-opacity duration-300 group-hover:opacity-100 ${
+          className={`absolute left-3 top-3 rounded-2xl px-3 py-1.5 text-caption font-semibold shadow-lg backdrop-blur-sm border opacity-0 group-hover:opacity-100 transition-all duration-300 ${
             memoizedBook.available 
-              ? "text-green-700 bg-green-100/90" 
-              : "text-red-700 bg-red-100/90"
+              ? "text-emerald-700 bg-emerald-50/95 border-emerald-200" 
+              : "text-rose-700 bg-rose-50/95 border-rose-200"
           }`}
           aria-label={`Статус книги: ${memoizedBook.available ? 'Доступна' : 'Видана'}`}
         >
           {memoizedBook.available ? "✓ Доступна" : "✗ Видана"}
         </span>
 
-        {/* Быстрые действия - показываем при наведении */}
+        {/* Быстрые действия - скрытые по умолчанию, появляются при hover */}
         {showActions && (
-          <div className="absolute right-4 top-4 flex gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          <div className="absolute right-3 top-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
             <button
-              className="rounded-full border border-gray-200 bg-white/90 p-2.5 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2"
+              className="rounded-2xl bg-white/95 border border-gray-200/50 p-2.5 shadow-lg backdrop-blur-sm hover:bg-white hover:scale-110 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 transition-all duration-300"
               aria-label={`Додати книгу "${memoizedBook.title}" в обране`}
               type="button"
             >
-              <Bookmark className="h-4 w-4 text-gray-700" aria-hidden="true" />
+              <Bookmark className="h-4 w-4 text-gray-600" aria-hidden="true" />
             </button>
             <button
-              className="rounded-full border border-gray-200 bg-white/90 p-2.5 shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2"
+              className="rounded-2xl bg-white/95 border border-gray-200/50 p-2.5 shadow-lg backdrop-blur-sm hover:bg-white hover:scale-110 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 transition-all duration-300"
               aria-label={`Поділитися книгою "${memoizedBook.title}"`}
               type="button"
             >
-              <Share2 className="h-4 w-4 text-gray-700" aria-hidden="true" />
+              <Share2 className="h-4 w-4 text-gray-600" aria-hidden="true" />
             </button>
           </div>
         )}
 
-        {/* Контент - только название и автор */}
-        <Link 
-          href={`/books/${memoizedBook.id}`} 
-          className="flex-grow flex flex-col focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 rounded-xl"
-        >
-          <div className="flex flex-1 flex-col gap-3 px-4 pb-5 pt-4">
-            <h3 
-              id={`book-title-${memoizedBook.id}`}
-              className="line-clamp-2 text-lg font-semibold tracking-tight text-gray-900 leading-tight"
-            >
-              {memoizedBook.title}
-            </h3>
+        {/* Кнопка "Переглянути" по центру обложки - появляется при hover */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 transition-all duration-300 group-hover:opacity-100">
+          <button 
+            onClick={handleQuickView}
+            className="inline-flex items-center gap-2 rounded-2xl bg-white/95 backdrop-blur-sm px-6 py-3 text-body-sm font-semibold text-gray-900 shadow-xl border border-gray-200/50 hover:bg-white hover:scale-105 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 transition-all duration-300"
+            aria-label={`Швидкий перегляд книги: ${memoizedBook.title}`}
+            type="button"
+          >
+            <BookOpen className="h-4 w-4" aria-hidden="true" />
+            Переглянути
+          </button>
+        </div>
 
-            <p 
-              id={`book-author-${memoizedBook.id}`}
-              className="text-sm text-gray-600 font-medium"
-            >
-              {memoizedBook.author}
-            </p>
-          </div>
-        </Link>
+        {/* Контент - название и автор */}
+        <div className="flex flex-1 flex-col gap-2 px-5 py-4 bg-white">
+          <h3 
+            id={`book-title-${memoizedBook.id}`}
+            className="line-clamp-2 book-title"
+          >
+            {memoizedBook.title}
+          </h3>
+
+          <p 
+            id={`book-author-${memoizedBook.id}`}
+            className="book-author"
+          >
+            {memoizedBook.author}
+          </p>
+        </div>
       </article>
       
       {/* Book Preview Modal */}

@@ -151,7 +151,7 @@ export function AccessibleList({
             <div className="flex-1">
               <div className="font-medium text-gray-900">{item.label}</div>
               {item.description && (
-                <div className="text-sm text-gray-600 mt-1">{item.description}</div>
+                <div className="text-body-sm text-gray-600 mt-1">{item.description}</div>
               )}
             </div>
             
@@ -186,9 +186,9 @@ export function AccessibleList({
                     role="menuitem"
                   >
                     <div className="flex-1">
-                      <div className="text-sm font-medium text-gray-900">{child.label}</div>
+                      <div className="text-body-sm font-medium text-gray-900">{child.label}</div>
                       {child.description && (
-                        <div className="text-xs text-gray-600 mt-1">{child.description}</div>
+                        <div className="text-caption text-gray-600 mt-1">{child.description}</div>
                       )}
                     </div>
                   </div>
@@ -236,7 +236,7 @@ export function Breadcrumb({
             
             {item.current ? (
               <span
-                className="text-sm font-medium text-gray-900"
+                className="text-body-sm font-medium text-gray-900"
                 aria-current="page"
               >
                 {item.label}
@@ -244,7 +244,7 @@ export function Breadcrumb({
             ) : (
               <a
                 href={item.href}
-                className="text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 rounded"
+                className="text-body-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 rounded"
               >
                 {item.label}
               </a>
@@ -312,7 +312,7 @@ export function Pagination({
             <button
               onClick={() => onPageChange(1)}
               className="
-                px-3 py-2 text-sm text-gray-600 hover:text-gray-900
+                px-3 py-2 text-body-sm text-gray-600 hover:text-gray-900
                 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
                 rounded-lg transition-colors
               "
@@ -329,7 +329,7 @@ export function Pagination({
             <button
               onClick={() => onPageChange(currentPage - 1)}
               className="
-                px-3 py-2 text-sm text-gray-600 hover:text-gray-900
+                px-3 py-2 text-body-sm text-gray-600 hover:text-gray-900
                 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
                 rounded-lg transition-colors
               "
@@ -346,7 +346,7 @@ export function Pagination({
             <button
               onClick={() => onPageChange(page)}
               className={`
-                px-3 py-2 text-sm rounded-lg transition-colors
+                px-3 py-2 text-body-sm rounded-lg transition-colors
                 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
                 ${page === currentPage
                   ? 'bg-brand-yellow text-brand font-medium'
@@ -367,7 +367,7 @@ export function Pagination({
             <button
               onClick={() => onPageChange(currentPage + 1)}
               className="
-                px-3 py-2 text-sm text-gray-600 hover:text-gray-900
+                px-3 py-2 text-body-sm text-gray-600 hover:text-gray-900
                 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
                 rounded-lg transition-colors
               "
@@ -384,7 +384,7 @@ export function Pagination({
             <button
               onClick={() => onPageChange(totalPages)}
               className="
-                px-3 py-2 text-sm text-gray-600 hover:text-gray-900
+                px-3 py-2 text-body-sm text-gray-600 hover:text-gray-900
                 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
                 rounded-lg transition-colors
               "

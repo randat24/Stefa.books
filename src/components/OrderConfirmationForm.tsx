@@ -91,10 +91,10 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
   if (submitSuccess) {
     return (
       <div className="text-center py-12">
-        <div className="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-6">
+        <div className="w-16 h-16 mx-auto bg-green-100 rounded-2xl flex items-center justify-center mb-6">
           <CheckCircle className="h-8 w-8 text-green-600" />
         </div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">
+        <h3 className="text-h2 text-gray-900 mb-2">
           Замовлення оформлено!
         </h3>
         <p className="text-gray-600 mb-6">
@@ -103,7 +103,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
         </p>
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left max-w-md mx-auto">
           <h4 className="font-semibold text-blue-900 mb-2">Що далі?</h4>
-          <ul className="text-sm text-blue-800 space-y-1">
+          <ul className="text-body-sm text-blue-800 space-y-1">
             <li>• Перевіримо наявність книги</li>
             <li>• Підготуємо до відправлення</li>
             <li>• Повідомимо про доставку</li>
@@ -117,7 +117,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
     <div className="space-y-8">
       {/* Order Summary */}
       <div className="card p-6 bg-gray-50">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+        <h3 className="text-body-lg font-semibold text-gray-900 mb-4">
           Деталі замовлення
         </h3>
         <div className="grid md:grid-cols-3 gap-4 text-sm">
@@ -143,14 +143,14 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Personal Information */}
         <div className="card p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+          <h3 className="text-body-lg font-semibold text-gray-900 mb-4 flex items-center">
             <User className="h-5 w-5 mr-2" />
             Особисті дані
           </h3>
           
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-gray-700 mb-2">
                 Ім&apos;я *
               </label>
               <input
@@ -162,7 +162,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                 placeholder="Ваше ім'я"
               />
               {errors.firstName && (
-                <p className="mt-1 text-sm text-red-600 flex items-center">
+                <p className="mt-1 text-body-sm text-red-600 flex items-center">
                   <AlertCircle className="h-4 w-4 mr-1" />
                   {errors.firstName.message}
                 </p>
@@ -170,7 +170,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-gray-700 mb-2">
                 Прізвище *
               </label>
               <input
@@ -182,7 +182,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                 placeholder="Ваше прізвище"
               />
               {errors.lastName && (
-                <p className="mt-1 text-sm text-red-600 flex items-center">
+                <p className="mt-1 text-body-sm text-red-600 flex items-center">
                   <AlertCircle className="h-4 w-4 mr-1" />
                   {errors.lastName.message}
                 </p>
@@ -193,14 +193,14 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
 
         {/* Contact Information */}
         <div className="card p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+          <h3 className="text-body-lg font-semibold text-gray-900 mb-4 flex items-center">
             <Mail className="h-5 w-5 mr-2" />
             Контактна інформація
           </h3>
           
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-gray-700 mb-2">
                 Електронна пошта *
               </label>
               <input
@@ -212,7 +212,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                 placeholder="your@email.com"
               />
               {errors.email && (
-                <p className="mt-1 text-sm text-red-600 flex items-center">
+                <p className="mt-1 text-body-sm text-red-600 flex items-center">
                   <AlertCircle className="h-4 w-4 mr-1" />
                   {errors.email.message}
                 </p>
@@ -220,7 +220,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-gray-700 mb-2">
                 Номер телефону *
               </label>
               <input
@@ -232,7 +232,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                 placeholder="+380 XX XXX XX XX"
               />
               {errors.phone && (
-                <p className="mt-1 text-sm text-red-600 flex items-center">
+                <p className="mt-1 text-body-sm text-red-600 flex items-center">
                   <AlertCircle className="h-4 w-4 mr-1" />
                   {errors.phone.message}
                 </p>
@@ -244,7 +244,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
         {/* Delivery Address */}
         {deliveryMethod !== "pickup" && (
           <div className="card p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <h3 className="text-body-lg font-semibold text-gray-900 mb-4 flex items-center">
               <MapPin className="h-5 w-5 mr-2" />
               {deliveryMethod === "courier" ? "Адреса доставки" : "Відділення Нової Пошти"}
             </h3>
@@ -252,7 +252,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
             {deliveryMethod === "courier" && (
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-body-sm font-medium text-gray-700 mb-2">
                     Місто *
                   </label>
                   <input
@@ -264,7 +264,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                     placeholder="Київ"
                   />
                   {errors.city && (
-                    <p className="mt-1 text-sm text-red-600 flex items-center">
+                    <p className="mt-1 text-body-sm text-red-600 flex items-center">
                       <AlertCircle className="h-4 w-4 mr-1" />
                       {errors.city.message}
                     </p>
@@ -272,7 +272,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-body-sm font-medium text-gray-700 mb-2">
                     Повна адреса *
                   </label>
                   <textarea
@@ -284,7 +284,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                     placeholder="вул. Хрещатик, 1, кв. 10"
                   />
                   {errors.address && (
-                    <p className="mt-1 text-sm text-red-600 flex items-center">
+                    <p className="mt-1 text-body-sm text-red-600 flex items-center">
                       <AlertCircle className="h-4 w-4 mr-1" />
                       {errors.address.message}
                     </p>
@@ -296,7 +296,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
             {deliveryMethod === "post" && (
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-body-sm font-medium text-gray-700 mb-2">
                     Місто *
                   </label>
                   <input
@@ -308,7 +308,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                     placeholder="Київ"
                   />
                   {errors.city && (
-                    <p className="mt-1 text-sm text-red-600 flex items-center">
+                    <p className="mt-1 text-body-sm text-red-600 flex items-center">
                       <AlertCircle className="h-4 w-4 mr-1" />
                       {errors.city.message}
                     </p>
@@ -316,7 +316,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-body-sm font-medium text-gray-700 mb-2">
                     Номер відділення *
                   </label>
                   <input
@@ -328,7 +328,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                     placeholder="№1, №2, №15..."
                   />
                   {errors.novaPoshtaNumber && (
-                    <p className="mt-1 text-sm text-red-600 flex items-center">
+                    <p className="mt-1 text-body-sm text-red-600 flex items-center">
                       <AlertCircle className="h-4 w-4 mr-1" />
                       {errors.novaPoshtaNumber.message}
                     </p>
@@ -348,7 +348,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                 {...register("agreeToTerms")}
                 className="mt-1 h-4 w-4 text-brand-accent-light border-gray-300 rounded focus:ring-brand-accent"
               />
-              <span className="text-sm text-gray-700">
+              <span className="text-body-sm text-gray-700">
                 Я погоджуюся з{" "}
                 <a href="#" className="text-brand-accent-light hover:underline">
                   умовами використання
@@ -361,7 +361,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
               </span>
             </label>
             {errors.agreeToTerms && (
-              <p className="text-sm text-red-600 flex items-center">
+              <p className="text-body-sm text-red-600 flex items-center">
                 <AlertCircle className="h-4 w-4 mr-1" />
                 {errors.agreeToTerms.message}
               </p>
@@ -373,7 +373,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                 {...register("subscribeToNewsletter")}
                 className="mt-1 h-4 w-4 text-brand-accent-light border-gray-300 rounded focus:ring-brand-accent"
               />
-              <span className="text-sm text-gray-700">
+              <span className="text-body-sm text-gray-700">
                 Я хочу отримувати новини про нові книги та спеціальні пропозиції
               </span>
             </label>

@@ -50,7 +50,7 @@ export default function FavoritesPage() {
       <div className="flex items-center gap-4 mb-8">
         <Heart className="h-8 w-8 text-red-500" />
         <div>
-          <h1 className="text-3xl font-bold">Мої обрані книги</h1>
+          <h1 className="text-h1">Мої обрані книги</h1>
           <p className="text-gray-500">Книги, які ви додали до обраного</p>
         </div>
       </div>
@@ -58,8 +58,8 @@ export default function FavoritesPage() {
       {favorites.length === 0 ? (
         <Card className="text-center py-12">
           <Heart className="mx-auto h-12 w-12 text-gray-400" />
-          <h3 className="mt-2 text-sm font-medium text-gray-900">Немає обраних книг</h3>
-          <p className="mt-1 text-sm text-gray-500">
+          <h3 className="mt-2 text-body-sm font-medium text-gray-900">Немає обраних книг</h3>
+          <p className="mt-1 text-body-sm text-gray-500">
             Додайте книги до обраного, щоб легко знайти їх пізніше.
           </p>
           <div className="mt-6">
@@ -91,10 +91,10 @@ export default function FavoritesPage() {
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <CardTitle className="text-base font-semibold leading-tight">
+                    <CardTitle className="text-body font-semibold leading-tight">
                       {book.title}
                     </CardTitle>
-                    <p className="text-sm text-gray-500 truncate">{book.author}</p>
+                    <p className="text-body-sm text-gray-500 truncate">{book.author}</p>
                     <div className="flex items-center gap-2 mt-1">
                       <Badge variant="secondary">{book.category_name}</Badge>
                     </div>
@@ -105,9 +105,9 @@ export default function FavoritesPage() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1">
                     <Star className="h-4 w-4 text-brand-yellow-light fill-yellow-400" />
-                    <span className="text-sm font-medium">{book.rating}</span>
+                    <span className="text-body-sm font-medium">{book.rating}</span>
                   </div>
-                  <div className="flex items-center gap-1 text-xs text-gray-500">
+                  <div className="flex items-center gap-1 text-caption text-gray-500">
                     <Calendar className="h-3 w-3" />
                     <span>{new Date(book.addedDate).toLocaleDateString('uk-UA')}</span>
                   </div>

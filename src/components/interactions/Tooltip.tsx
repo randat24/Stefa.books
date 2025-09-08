@@ -69,7 +69,7 @@ export function Tooltip({
   }
 
   const getTooltipClasses = () => {
-    const baseClasses = "absolute z-50 px-3 py-2 text-sm text-white bg-gray-900 rounded-lg shadow-lg whitespace-nowrap"
+    const baseClasses = "absolute z-50 px-3 py-2 text-body-sm text-white bg-gray-900 rounded-lg shadow-lg whitespace-nowrap"
     
     switch (position) {
       case "top":

@@ -74,7 +74,7 @@ export function SubscriptionPlans() {
       <div className="container-default py-8">
         <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
           <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-red-800 mb-2">Помилка завантаження</h2>
+          <h2 className="text-body-lg font-semibold text-red-800 mb-2">Помилка завантаження</h2>
           <p className="text-red-600 mb-4">{error}</p>
           <Button onClick={fetchPlans}>Спробувати знову</Button>
         </div>
@@ -93,9 +93,9 @@ export function SubscriptionPlans() {
               <CardDescription>{plan.description}</CardDescription>
             </CardHeader>
             <CardContent className="flex-grow">
-              <div className="text-3xl font-bold text-brand-accent-light">
+              <div className="text-h1 text-brand-accent-light">
                 {plan.price} ₴
-                <span className="text-lg text-gray-500">/{plan.duration === 'month' ? 'міс' : plan.duration === 'year' ? 'рік' : 'квартал'}</span>
+                <span className="text-body-lg text-gray-500">/{plan.duration === 'month' ? 'міс' : plan.duration === 'year' ? 'рік' : 'квартал'}</span>
               </div>
               <ul className="mt-4 space-y-2">
                 {plan.features.map((feature: string, index: number) => (

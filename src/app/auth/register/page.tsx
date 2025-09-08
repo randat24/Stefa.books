@@ -134,7 +134,7 @@ export default function RegisterPage() {
                   placeholder="Іван"
                   disabled={isLoading}
                 />
-                {errors.firstName && <p className="text-sm text-red-500">{errors.firstName}</p>}
+                {errors.firstName && <p className="text-body-sm text-red-500">{errors.firstName}</p>}
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="lastName">Прізвище</Label>
@@ -146,7 +146,7 @@ export default function RegisterPage() {
                   placeholder="Петренко"
                   disabled={isLoading}
                 />
-                {errors.lastName && <p className="text-sm text-red-500">{errors.lastName}</p>}
+                {errors.lastName && <p className="text-body-sm text-red-500">{errors.lastName}</p>}
               </div>
             </div>
             
@@ -161,7 +161,7 @@ export default function RegisterPage() {
                 placeholder="your@email.com"
                 disabled={isLoading}
               />
-              {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
+              {errors.email && <p className="text-body-sm text-red-500">{errors.email}</p>}
             </div>
             
             <div className="grid gap-2">
@@ -187,7 +187,7 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 disabled={isLoading}
               />
-              {errors.password && <p className="text-sm text-red-500">{errors.password}</p>}
+              {errors.password && <p className="text-body-sm text-red-500">{errors.password}</p>}
             </div>
             
             <div className="grid gap-2">
@@ -200,14 +200,14 @@ export default function RegisterPage() {
                 onChange={handleChange}
                 disabled={isLoading}
               />
-              {errors.confirmPassword && <p className="text-sm text-red-500">{errors.confirmPassword}</p>}
+              {errors.confirmPassword && <p className="text-body-sm text-red-500">{errors.confirmPassword}</p>}
             </div>
           </CardContent>
           <CardFooter className="flex flex-col">
             <Button className="w-full" type="submit" disabled={isLoading}>
               {isLoading ? 'Реєстрація...' : 'Зареєструватися'}
             </Button>
-            <p className="mt-4 text-center text-sm text-gray-500">
+            <p className="mt-4 text-center text-body-sm text-gray-500">
               Вже маєте обліковий запис?{' '}
               <Link href="/auth/login" className="text-brand-accent-light hover:underline">
                 Увійти

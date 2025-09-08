@@ -13,11 +13,11 @@ function FormErrorFallback({ resetError }: FormErrorFallbackProps) {
   return (
     <div className="border border-red-200 bg-red-50 rounded-lg p-6 space-y-4">
       <div className="flex items-center space-x-3">
-        <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+        <div className="w-10 h-10 bg-red-100 rounded-2xl flex items-center justify-center">
           <AlertTriangle className="w-5 h-5 text-red-600" />
         </div>
         <div>
-          <h3 className="text-lg font-semibold text-red-900">
+          <h3 className="text-body-lg font-semibold text-red-900">
             Помилка форми
           </h3>
           <p className="text-red-700">
@@ -27,10 +27,10 @@ function FormErrorFallback({ resetError }: FormErrorFallbackProps) {
       </div>
 
       <div className="space-y-3">
-        <p className="text-sm text-red-600">
+        <p className="text-body-sm text-red-600">
           Можливі причини:
         </p>
-        <ul className="text-sm text-red-600 space-y-1 ml-4">
+        <ul className="text-body-sm text-red-600 space-y-1 ml-4">
           <li>• Проблеми з мережею</li>
           <li>• Тимчасова недоступність сервісу</li>
           <li>• Помилка в браузері</li>

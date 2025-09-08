@@ -214,7 +214,7 @@ const OptimizedImageUpload = memo(function OptimizedImageUpload({
             {!disabled && !loading && (
               <button
                 onClick={handleRemove}
-                className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+                className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-2xl hover:bg-red-600 transition-colors"
                 aria-label="Видалити зображення"
               >
                 <X className="w-4 h-4" />
@@ -223,24 +223,24 @@ const OptimizedImageUpload = memo(function OptimizedImageUpload({
           </div>
         ) : (
           <div className="space-y-4">
-            <div className="mx-auto w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+            <div className="mx-auto w-12 h-12 bg-gray-100 rounded-2xl flex items-center justify-center">
               {loading ? (
-                <div className="w-6 h-6 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
+                <div className="w-6 h-6 border-2 border-gray-300 border-t-blue-500 rounded-2xl animate-spin" />
               ) : (
                 <ImageIcon className="w-6 h-6 text-gray-400" />
               )}
             </div>
             
             <div>
-              <p className="text-lg font-medium text-gray-900">
+              <p className="text-body-lg font-medium text-gray-900">
                 {loading ? 'Завантаження...' : 'Перетягніть зображення сюди'}
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-body-sm text-gray-500">
                 або <span className="text-blue-600 hover:text-blue-500 cursor-pointer">виберіть файл</span>
               </p>
             </div>
 
-            <div className="text-xs text-gray-400">
+            <div className="text-caption text-gray-400">
               PNG, JPG, GIF до {Math.round(maxSize / 1024 / 1024)}MB
             </div>
           </div>
@@ -250,7 +250,7 @@ const OptimizedImageUpload = memo(function OptimizedImageUpload({
           <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-md">
             <div className="flex items-center">
               <AlertCircle className="w-4 h-4 text-red-400 mr-2" />
-              <p className="text-sm text-red-600">{uploadError}</p>
+              <p className="text-body-sm text-red-600">{uploadError}</p>
             </div>
           </div>
         )}

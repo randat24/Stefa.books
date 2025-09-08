@@ -32,7 +32,7 @@ export default function UserAnalyticsPage() {
     <div className="container py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold">User Analytics</h1>
+          <h1 className="text-h1">User Analytics</h1>
           <p className="text-gray-500">Detailed insights into user behavior and growth</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">
@@ -46,41 +46,41 @@ export default function UserAnalyticsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Users</CardTitle>
+            <CardTitle className="text-body-sm font-medium">Total Users</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{mockUserAnalytics.totalUsers.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground">All registered users</p>
+            <div className="text-h2">{mockUserAnalytics.totalUsers.toLocaleString()}</div>
+            <p className="text-caption text-muted-foreground">All registered users</p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">New Users</CardTitle>
+            <CardTitle className="text-body-sm font-medium">New Users</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{mockUserAnalytics.newUsers}</div>
-            <p className="text-xs text-muted-foreground">In the last 30 days</p>
+            <div className="text-h2">{mockUserAnalytics.newUsers}</div>
+            <p className="text-caption text-muted-foreground">In the last 30 days</p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Active Users</CardTitle>
+            <CardTitle className="text-body-sm font-medium">Active Users</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{mockUserAnalytics.activeUsers.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground">Users active in last 30 days</p>
+            <div className="text-h2">{mockUserAnalytics.activeUsers.toLocaleString()}</div>
+            <p className="text-caption text-muted-foreground">Users active in last 30 days</p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Churn Rate</CardTitle>
+            <CardTitle className="text-body-sm font-medium">Churn Rate</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{mockUserAnalytics.churnRate}%</div>
-            <p className="text-xs text-muted-foreground">Monthly user churn</p>
+            <div className="text-h2">{mockUserAnalytics.churnRate}%</div>
+            <p className="text-caption text-muted-foreground">Monthly user churn</p>
           </CardContent>
         </Card>
       </div>
@@ -102,7 +102,7 @@ export default function UserAnalyticsPage() {
                     className="w-full bg-brand-accent rounded-t hover:bg-brand-accent-light transition-colors"
                     style={{ height: `${(data.users / 1200) * 200}px` }}
                   ></div>
-                  <div className="text-xs mt-2 text-gray-500">{data.month}</div>
+                  <div className="text-caption mt-2 text-gray-500">{data.month}</div>
                 </div>
               ))}
             </div>
@@ -122,19 +122,19 @@ export default function UserAnalyticsPage() {
               {mockUserAnalytics.topUsers.map((user) => (
                 <div key={user.id} className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <div className="mr-3 h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
+                    <div className="mr-3 h-10 w-10 rounded-2xl bg-gray-200 flex items-center justify-center">
                       <span className="font-medium text-gray-700">
                         {user.name.split(' ').map(n => n[0]).join('')}
                       </span>
                     </div>
                     <div>
                       <p className="font-medium">{user.name}</p>
-                      <p className="text-sm text-muted-foreground">{user.email}</p>
+                      <p className="text-body-sm text-muted-foreground">{user.email}</p>
                     </div>
                   </div>
                   <div className="text-right">
                     <p className="font-medium">{user.booksRead} books</p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-caption text-muted-foreground">
                       Joined {new Date(user.joinDate).toLocaleDateString()}
                     </p>
                   </div>

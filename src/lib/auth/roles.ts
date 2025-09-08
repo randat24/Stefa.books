@@ -10,7 +10,7 @@ export function isAdmin(user: User | null, profile?: UserProfile | null): boolea
   if (!user) return false;
   
   // Check email-based admin access
-  if (user.email === 'admin@stefa-books.com.ua') {
+  if (user.email === 'admin@stefa-books.com.ua' || user.email === 'admin@stefabooks.com.ua') {
     return true;
   }
   
@@ -70,7 +70,7 @@ export function getUserRole(user: User | null, profile?: UserProfile | null): Us
   }
   
   // Check email-based admin
-  if (user.email === 'admin@stefa-books.com.ua') {
+  if (user.email === 'admin@stefa-books.com.ua' || user.email === 'admin@stefabooks.com.ua') {
     return 'admin';
   }
   

@@ -9,7 +9,7 @@ export default function Footer() {
           {/* Logo and Description */}
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="h-10 w-10 rounded-full bg-gray-100 grid place-items-center">
+              <div className="h-10 w-10 rounded-2xl bg-gray-100 grid place-items-center">
                 <Image 
                   src="/logo.svg" 
                   alt="Stefa.books logo" 
@@ -19,9 +19,9 @@ export default function Footer() {
                   unoptimized={true}
                 />
               </div>
-              <span className="text-2xl font-bold text-gray-900">Stefa.books</span>
+              <span className="text-h2 text-gray-900">Stefa.books</span>
             </Link>
-            <p className="text-gray-600 text-sm leading-relaxed max-w-md">
+            <p className="text-gray-600 text-body-sm leading-relaxed max-w-md">
               Дитяча бібліотека з орендою книг за підпискою. 
               Самовивіз з точки в Миколаєві. Розвивайте любов до читання у ваших дітей.
             </p>
@@ -32,22 +32,22 @@ export default function Footer() {
             <h3 className="font-semibold text-gray-900 mb-4">Навігація</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/" className="text-gray-600 hover:text-gray-900 text-sm transition">
+                <Link href="/" className="text-gray-600 hover:text-gray-900 text-body-sm transition">
                   Головна
                 </Link>
               </li>
               <li>
-                <Link href="/catalog" className="text-gray-600 hover:text-gray-900 text-sm transition">
+                <Link href="/catalog" className="text-gray-600 hover:text-gray-900 text-body-sm transition">
                   Каталог
                 </Link>
               </li>
               <li>
-                <Link href="/plans" className="text-gray-600 hover:text-gray-900 text-sm transition">
+                <Link href="/plans" className="text-gray-600 hover:text-gray-900 text-body-sm transition">
                   Тарифи
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-gray-600 hover:text-gray-900 text-sm transition">
+                <Link href="/about" className="text-gray-600 hover:text-gray-900 text-body-sm transition">
                   Про нас
                 </Link>
               </li>
@@ -59,27 +59,27 @@ export default function Footer() {
             <h3 className="font-semibold text-gray-900 mb-4">Контакти</h3>
             <div className="space-y-3">
               <div>
-                <p className="text-gray-600 text-sm font-medium mb-1">Адреса:</p>
+                <p className="text-gray-600 text-body-sm font-medium mb-1">Адреса:</p>
                 <a 
                   href="https://maps.google.com/?q=вул. Маріупольська 13/2, Миколаїв"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-gray-900 text-sm transition"
+                  className="text-gray-600 hover:text-gray-900 text-body-sm transition"
                 >
                   вул. Маріупольська 13/2, Миколаїв
                 </a>
               </div>
               <div>
-                <p className="text-gray-600 text-sm font-medium mb-1">Телефон:</p>
+                <p className="text-gray-600 text-body-sm font-medium mb-1">Телефон:</p>
                 <a 
                   href="tel:+380638565414"
-                  className="text-gray-600 hover:text-gray-900 text-sm transition"
+                  className="text-gray-600 hover:text-gray-900 text-body-sm transition"
                 >
                   +38 (063) 856-54-14
                 </a>
               </div>
               <div className="pt-2">
-                <Link href="/contact" className="text-gray-600 hover:text-gray-900 text-sm transition">
+                <Link href="/contact" className="text-gray-600 hover:text-gray-900 text-body-sm transition">
                   Всі контакти
                 </Link>
               </div>

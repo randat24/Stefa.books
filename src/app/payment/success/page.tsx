@@ -10,16 +10,16 @@ export default function PaymentSuccessPage() {
     <div className="container-default py-8">
       <Card className="max-w-2xl mx-auto">
         <CardHeader className="text-center">
-          <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+          <div className="mx-auto w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-4">
             <CheckCircle className="w-8 h-8 text-green-600" />
           </div>
-          <CardTitle className="text-2xl">Оплата успішна!</CardTitle>
+          <CardTitle className="text-h2">Оплата успішна!</CardTitle>
           <CardDescription>
             Ваш платіж було успішно оброблено
           </CardDescription>
         </CardHeader>
         <CardContent className="text-center">
-          <p className="text-lg mb-4">
+          <p className="text-body-lg mb-4">
             Дякуємо за вашу підписку! Ви отримаєте доступ до всіх переваг обраного плану.
           </p>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left">

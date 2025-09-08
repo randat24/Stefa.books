@@ -75,7 +75,7 @@ export default function AbTestsPage() {
     <div className="container py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold">A/B Tests</h1>
+          <h1 className="text-h1">A/B Tests</h1>
           <p className="text-gray-500">Manage and analyze A/B tests</p>
         </div>
         <Link href="/admin/ab-tests/new">
@@ -125,7 +125,7 @@ export default function AbTestsPage() {
               <CardHeader>
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between">
                   <div>
-                    <CardTitle className="text-xl">{test.name}</CardTitle>
+                    <CardTitle className="text-h4">{test.name}</CardTitle>
                     <CardDescription>{test.description}</CardDescription>
                   </div>
                   {getStatusBadge(test.status)}

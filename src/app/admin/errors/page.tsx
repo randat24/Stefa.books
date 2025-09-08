@@ -140,7 +140,7 @@ export default function ErrorMonitoringPage() {
     <div className="container py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold">Error Monitoring</h1>
+          <h1 className="text-h1">Error Monitoring</h1>
           <p className="text-gray-500">Track and analyze application errors</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">
@@ -168,64 +168,64 @@ export default function ErrorMonitoringPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Errors</CardTitle>
+              <CardTitle className="text-body-sm font-medium">Total Errors</CardTitle>
               <AlertCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{metrics.total.toLocaleString()}</div>
-              <p className="text-xs text-muted-foreground">Unresolved: {metrics.unresolved} errors</p>
+              <div className="text-h2">{metrics.total.toLocaleString()}</div>
+              <p className="text-caption text-muted-foreground">Unresolved: {metrics.unresolved} errors</p>
             </CardContent>
           </Card>
           
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Critical</CardTitle>
+              <CardTitle className="text-body-sm font-medium">Critical</CardTitle>
               <XCircle className="h-4 w-4 text-red-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              <div className="text-h2">
                 {metrics.bySeverity.critical?.toLocaleString() || '0'}
               </div>
-              <p className="text-xs text-muted-foreground">Requires immediate attention</p>
+              <p className="text-caption text-muted-foreground">Requires immediate attention</p>
             </CardContent>
           </Card>
           
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">High</CardTitle>
+              <CardTitle className="text-body-sm font-medium">High</CardTitle>
               <AlertTriangle className="h-4 w-4 text-orange-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              <div className="text-h2">
                 {metrics.bySeverity.high?.toLocaleString() || '0'}
               </div>
-              <p className="text-xs text-muted-foreground">Needs prompt resolution</p>
+              <p className="text-caption text-muted-foreground">Needs prompt resolution</p>
             </CardContent>
           </Card>
           
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Medium</CardTitle>
+              <CardTitle className="text-body-sm font-medium">Medium</CardTitle>
               <AlertCircle className="h-4 w-4 text-brand-yellow" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              <div className="text-h2">
                 {metrics.bySeverity.medium?.toLocaleString() || '0'}
               </div>
-              <p className="text-xs text-muted-foreground">Should be addressed</p>
+              <p className="text-caption text-muted-foreground">Should be addressed</p>
             </CardContent>
           </Card>
           
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Low</CardTitle>
+              <CardTitle className="text-body-sm font-medium">Low</CardTitle>
               <Info className="h-4 w-4 text-brand-accent" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              <div className="text-h2">
                 {metrics.bySeverity.low?.toLocaleString() || '0'}
               </div>
-              <p className="text-xs text-muted-foreground">Informational</p>
+              <p className="text-caption text-muted-foreground">Informational</p>
             </CardContent>
           </Card>
         </div>
@@ -303,8 +303,8 @@ export default function ErrorMonitoringPage() {
           {filteredErrors.length === 0 ? (
             <div className="text-center py-12">
               <AlertCircle className="mx-auto h-12 w-12 text-gray-400" />
-              <h3 className="mt-2 text-sm font-medium text-gray-900">No errors found</h3>
-              <p className="mt-1 text-sm text-gray-500">
+              <h3 className="mt-2 text-body-sm font-medium text-gray-900">No errors found</h3>
+              <p className="mt-1 text-body-sm text-gray-500">
                 {searchTerm || filter !== 'all' 
                   ? 'No errors match your current filters.' 
                   : 'No errors have been tracked yet.'}
@@ -327,18 +327,18 @@ export default function ErrorMonitoringPage() {
                             {error.category}
                           </Badge>
                         </div>
-                        <p className="text-sm text-gray-600 mt-1">{error.message}</p>
+                        <p className="text-body-sm text-gray-600 mt-1">{error.message}</p>
                         <div className="flex flex-wrap gap-2 mt-2">
-                          <span className="text-xs text-gray-500">
+                          <span className="text-caption text-gray-500">
                             First: {error.firstOccurred ? new Date(error.firstOccurred).toLocaleString() : 'N/A'}
                           </span>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-caption text-gray-500">
                             Last: {error.lastOccurred ? new Date(error.lastOccurred).toLocaleString() : 'N/A'}
                           </span>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-caption text-gray-500">
                             Count: {error.count}
                           </span>
-                          <span className="text-xs text-gray-500">
+                          <span className="text-caption text-gray-500">
                             ID: {error.id}
                           </span>
                         </div>
@@ -347,17 +347,17 @@ export default function ErrorMonitoringPage() {
                   </div>
                   
                   {error.context?.url && (
-                    <div className="mt-2 text-xs text-gray-500">
+                    <div className="mt-2 text-caption text-gray-500">
                       URL: {error.context.url}
                     </div>
                   )}
                   
                   {error.metadata && Object.keys(error.metadata).length > 0 && (
                     <details className="mt-2">
-                      <summary className="text-xs text-gray-500 cursor-pointer">
+                      <summary className="text-caption text-gray-500 cursor-pointer">
                         Metadata ({Object.keys(error.metadata).length} items)
                       </summary>
-                      <pre className="mt-2 text-xs bg-gray-100 p-2 rounded overflow-x-auto">
+                      <pre className="mt-2 text-caption bg-gray-100 p-2 rounded overflow-x-auto">
                         {JSON.stringify(error.metadata, null, 2)}
                       </pre>
                     </details>

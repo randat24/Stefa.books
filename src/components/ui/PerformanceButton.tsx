@@ -83,7 +83,7 @@ const PerformanceButton = memo(function PerformanceButton({
       )}
     >
       {loading && (
-        <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+        <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-2xl animate-spin" />
       )}
       
       {!loading && icon && iconPosition === 'left' && (

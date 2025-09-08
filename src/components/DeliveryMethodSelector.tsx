@@ -85,7 +85,7 @@ export function DeliveryMethodSelector({ selected, onSelect }: DeliveryMethodSel
             
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900">
+                <h3 className="text-body-lg font-semibold text-gray-900">
                   {option.name}
                 </h3>
                 {selected === option.id && (
@@ -97,7 +97,7 @@ export function DeliveryMethodSelector({ selected, onSelect }: DeliveryMethodSel
                 {option.description}
               </p>
 
-              <div className="flex items-center space-x-6 text-sm mb-3">
+              <div className="flex items-center space-x-6 text-body-sm mb-3">
                 <div className="flex items-center text-gray-600">
                   <Clock className="h-4 w-4 mr-1" />
                   {option.timeframe}
@@ -109,7 +109,7 @@ export function DeliveryMethodSelector({ selected, onSelect }: DeliveryMethodSel
 
               <ul className="space-y-1">
                 {option.features.map((feature, index) => (
-                  <li key={index} className="flex items-center text-sm text-gray-600">
+                  <li key={index} className="flex items-center text-body-sm text-gray-600">
                     <CheckCircle className="h-3 w-3 text-green-500 mr-2 flex-shrink-0" />
                     {feature}
                   </li>

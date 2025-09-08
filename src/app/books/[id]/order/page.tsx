@@ -59,7 +59,7 @@ export default async function BookOrderPage({ params }: { params: Params }) {
     <>
       {/* Breadcrumbs */}
       <div className="container mx-auto px-4 py-4">
-        <nav className="flex items-center space-x-2 text-sm text-gray-600">
+        <nav className="flex items-center space-x-2 text-body-sm text-gray-600">
           <Link href="/" className="hover:text-gray-900">Головна</Link>
           <ChevronRight className="h-4 w-4" />
           <Link href="/catalog" className="hover:text-gray-900">Каталог</Link>
@@ -74,7 +74,7 @@ export default async function BookOrderPage({ params }: { params: Params }) {
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">
+          <h1 className="text-h1 text-gray-900 mb-8">
             Оформлення замовлення
           </h1>
           

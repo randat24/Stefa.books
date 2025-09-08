@@ -82,7 +82,7 @@ export default function SubscriptionConfirmationPage() {
     return (
       <div className="container py-8">
         <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-accent"></div>
+          <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-brand-accent"></div>
         </div>
       </div>
     );
@@ -92,12 +92,12 @@ export default function SubscriptionConfirmationPage() {
     return (
       <div className="container py-8">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Помилка</h1>
+          <h1 className="text-h2 text-gray-900 mb-2">Помилка</h1>
           <p className="text-gray-600 mb-6">{error}</p>
           <Button asChild>
             <Link href="/subscription">Повернутися до підписок</Link>
@@ -111,10 +111,10 @@ export default function SubscriptionConfirmationPage() {
     <div className="container py-8">
       {/* Success Header */}
       <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
           <CheckCircle className="w-8 h-8 text-green-600" />
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-h1 text-gray-900 mb-2">
           Підписка оформлена!
         </h1>
         <p className="text-gray-600">
@@ -134,47 +134,47 @@ export default function SubscriptionConfirmationPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Номер підписки:</span>
+                <span className="text-body-sm text-gray-600">Номер підписки:</span>
                 <span className="font-mono text-sm">#{subscriptionData.id.slice(-8)}</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">План:</span>
+                <span className="text-body-sm text-gray-600">План:</span>
                 <div className="flex items-center gap-2">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${PLAN_COLORS[subscriptionData.plan_id as keyof typeof PLAN_COLORS]}`}>
+                  <div className={`w-8 h-8 rounded-2xl flex items-center justify-center ${PLAN_COLORS[subscriptionData.plan_id as keyof typeof PLAN_COLORS]}`}>
                     {PLAN_ICONS[subscriptionData.plan_id as keyof typeof PLAN_ICONS]}
                   </div>
-                  <span className="text-sm font-medium">{subscriptionData.plan_name}</span>
+                  <span className="text-body-sm font-medium">{subscriptionData.plan_name}</span>
                 </div>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Статус:</span>
+                <span className="text-body-sm text-gray-600">Статус:</span>
                 <Badge variant={getStatusBadge(subscriptionData.status).variant}>
                   {getStatusBadge(subscriptionData.status).label}
                 </Badge>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Вартість:</span>
-                <span className="text-sm font-medium">{subscriptionData.price}₴/місяць</span>
+                <span className="text-body-sm text-gray-600">Вартість:</span>
+                <span className="text-body-sm font-medium">{subscriptionData.price}₴/місяць</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Максимум книг:</span>
-                <span className="text-sm font-medium">{subscriptionData.max_books} одночасно</span>
+                <span className="text-body-sm text-gray-600">Максимум книг:</span>
+                <span className="text-body-sm font-medium">{subscriptionData.max_books} одночасно</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Початок:</span>
-                <span className="text-sm font-medium">
+                <span className="text-body-sm text-gray-600">Початок:</span>
+                <span className="text-body-sm font-medium">
                   {new Date(subscriptionData.start_date).toLocaleDateString('uk-UA')}
                 </span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Кінець:</span>
-                <span className="text-sm font-medium">
+                <span className="text-body-sm text-gray-600">Кінець:</span>
+                <span className="text-body-sm font-medium">
                   {new Date(subscriptionData.end_date).toLocaleDateString('uk-UA')}
                 </span>
               </div>
@@ -191,12 +191,12 @@ export default function SubscriptionConfirmationPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-xs font-bold text-blue-600">1</span>
+                <div className="w-6 h-6 bg-blue-100 rounded-2xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-caption font-bold text-blue-600">1</span>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">Оплата підписки</p>
-                  <p className="text-xs text-gray-600">
+                  <p className="text-body-sm font-medium text-gray-900">Оплата підписки</p>
+                  <p className="text-caption text-gray-600">
                     {subscriptionData.status === 'pending' 
                       ? 'Завершіть оплату для активації підписки'
                       : 'Підписка активна та готова до використання'
@@ -206,24 +206,24 @@ export default function SubscriptionConfirmationPage() {
               </div>
               
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-xs font-bold text-blue-600">2</span>
+                <div className="w-6 h-6 bg-blue-100 rounded-2xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-caption font-bold text-blue-600">2</span>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">Оренда книг</p>
-                  <p className="text-xs text-gray-600">
+                  <p className="text-body-sm font-medium text-gray-900">Оренда книг</p>
+                  <p className="text-caption text-gray-600">
                     Переглядайте каталог та орендуйте до {subscriptionData.max_books} книг одночасно
                   </p>
                 </div>
               </div>
               
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-6 h-6 bg-green-100 rounded-2xl flex items-center justify-center flex-shrink-0 mt-0.5">
                   <CheckCircle className="h-3 w-3 text-green-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">Насолоджуйтесь читанням</p>
-                  <p className="text-xs text-gray-600">
+                  <p className="text-body-sm font-medium text-gray-900">Насолоджуйтесь читанням</p>
+                  <p className="text-caption text-gray-600">
                     Книги доставляються безкоштовно згідно з вашим планом
                   </p>
                 </div>
@@ -241,12 +241,12 @@ export default function SubscriptionConfirmationPage() {
             <CardContent>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center ${PLAN_COLORS[subscriptionData.plan_id as keyof typeof PLAN_COLORS]}`}>
+                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${PLAN_COLORS[subscriptionData.plan_id as keyof typeof PLAN_COLORS]}`}>
                     {PLAN_ICONS[subscriptionData.plan_id as keyof typeof PLAN_ICONS]}
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900">{subscriptionData.plan_name}</h3>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-body-sm text-gray-600">
                       {subscriptionData.max_books} книг одночасно • {subscriptionData.price}₴/місяць
                     </p>
                   </div>
@@ -254,7 +254,7 @@ export default function SubscriptionConfirmationPage() {
                 
                 <div className="space-y-2">
                   <h4 className="font-medium text-gray-900">Включено в план:</h4>
-                  <ul className="space-y-1 text-sm text-gray-600">
+                  <ul className="space-y-1 text-body-sm text-gray-600">
                     <li>• До {subscriptionData.max_books} книг одночасно</li>
                     <li>• Безкоштовна доставка</li>
                     <li>• Підтримка 24/7</li>
@@ -286,7 +286,7 @@ export default function SubscriptionConfirmationPage() {
                 <CardTitle className="text-orange-900">Очікує оплати</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-orange-800 mb-4">
+                <p className="text-body-sm text-orange-800 mb-4">
                   Ваша підписка створена, але очікує оплати для активації.
                 </p>
                 <Button className="w-full">

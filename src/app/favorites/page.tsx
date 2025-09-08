@@ -14,10 +14,10 @@ export default function FavoritesPage() {
       <div className="container py-8">
         <Card className="w-full max-w-md mx-auto">
           <CardHeader className="text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-muted">
               <Heart className="h-8 w-8 text-muted-foreground" />
             </div>
-            <CardTitle className="text-2xl">Увійдіть в систему</CardTitle>
+            <CardTitle className="text-h2">Увійдіть в систему</CardTitle>
             <CardDescription>
               Щоб додавати книги до вибраного, потрібно увійти в систему
             </CardDescription>
@@ -51,7 +51,7 @@ export default function FavoritesPage() {
           </Link>
         </Button>
         <div>
-          <h1 className="text-3xl font-bold">Мої улюблені книги</h1>
+          <h1 className="text-h1">Мої улюблені книги</h1>
           <p className="text-muted-foreground">Книги, які ви додали до вибраного</p>
         </div>
       </div>

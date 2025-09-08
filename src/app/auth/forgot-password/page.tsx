@@ -112,7 +112,7 @@ export default function ForgotPasswordPage() {
             <Button className="w-full" type="submit" disabled={isLoading}>
               {isLoading ? 'Надсилання...' : 'Надіслати посилання'}
             </Button>
-            <p className="mt-4 text-center text-sm text-gray-500">
+            <p className="mt-4 text-center text-body-sm text-gray-500">
               Пам&apos;ятаєте пароль?{' '}
               <Link href="/auth/login" className="text-brand-accent-light hover:underline">
                 Увійти

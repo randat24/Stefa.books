@@ -487,7 +487,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
       
       return (
         <div className="text-center py-12">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <svg
               className="w-8 h-8 text-red-400"
               fill="none"
@@ -502,7 +502,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
               />
             </svg>
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <h3 className="text-body-lg font-medium text-gray-900 mb-2">
             Помилка завантаження
           </h3>
           <p className="text-gray-500 mb-4">{error}</p>
@@ -521,7 +521,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
     if (!hasData) {
       return (
         <div className="text-center py-12">
-          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <svg
               className="w-8 h-8 text-gray-400"
               fill="none"
@@ -536,7 +536,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
               />
             </svg>
           </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">
+          <h3 className="text-body-lg font-medium text-gray-900 mb-2">
             {emptyMessage}
           </h3>
           <p className="text-gray-500">
@@ -622,7 +622,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
               <Filter className="w-4 h-4" />
               Фільтри
               {activeFiltersCount > 0 && (
-                <span className="px-2 py-1 text-xs font-medium text-blue-600 bg-blue-100 rounded-full">
+                <span className="px-2 py-1 text-caption font-medium text-blue-600 bg-blue-100 rounded-2xl">
                   {activeFiltersCount}
                 </span>
               )}
@@ -694,7 +694,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
 
           {/* Кнопка импорта */}
           {settings.showImport && onImport && (
-            <label className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 cursor-pointer transition-colors">
+            <label className="flex items-center gap-2 px-3 py-2 text-body-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 cursor-pointer transition-colors">
               <Upload className="w-4 h-4" />
               Імпорт
               <input
@@ -820,20 +820,20 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
         <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">{performanceMetrics.renderTime.toFixed(2)}ms</div>
-              <div className="text-sm text-gray-500">Час рендерингу</div>
+              <div className="text-h2 text-blue-600">{performanceMetrics.renderTime.toFixed(2)}ms</div>
+              <div className="text-body-sm text-gray-500">Час рендерингу</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">{performanceMetrics.dataSize}</div>
-              <div className="text-sm text-gray-500">Кількість елементів</div>
+              <div className="text-h2 text-green-600">{performanceMetrics.dataSize}</div>
+              <div className="text-body-sm text-gray-500">Кількість елементів</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">{(performanceMetrics.memoryUsage / 1024 / 1024).toFixed(2)}MB</div>
-              <div className="text-sm text-gray-500">Використання пам&apos;яті</div>
+              <div className="text-h2 text-purple-600">{(performanceMetrics.memoryUsage / 1024 / 1024).toFixed(2)}MB</div>
+              <div className="text-body-sm text-gray-500">Використання пам&apos;яті</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-orange-600">{performanceMetrics.cacheHitRate.toFixed(1)}%</div>
-              <div className="text-sm text-gray-500">Ефективність кешу</div>
+              <div className="text-h2 text-orange-600">{performanceMetrics.cacheHitRate.toFixed(1)}%</div>
+              <div className="text-body-sm text-gray-500">Ефективність кешу</div>
             </div>
           </div>
         </div>
@@ -844,28 +844,28 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
         <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">{analyticsData.totalViews}</div>
-              <div className="text-sm text-gray-500">Загальні перегляди</div>
+              <div className="text-h2 text-blue-600">{analyticsData.totalViews}</div>
+              <div className="text-body-sm text-gray-500">Загальні перегляди</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">{analyticsData.searchQueries}</div>
-              <div className="text-sm text-gray-500">Пошукові запити</div>
+              <div className="text-h2 text-green-600">{analyticsData.searchQueries}</div>
+              <div className="text-body-sm text-gray-500">Пошукові запити</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">{analyticsData.filterUsage}</div>
-              <div className="text-sm text-gray-500">Використання фільтрів</div>
+              <div className="text-h2 text-purple-600">{analyticsData.filterUsage}</div>
+              <div className="text-body-sm text-gray-500">Використання фільтрів</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-orange-600">{analyticsData.exportCount}</div>
-              <div className="text-sm text-gray-500">Експорти</div>
+              <div className="text-h2 text-orange-600">{analyticsData.exportCount}</div>
+              <div className="text-body-sm text-gray-500">Експорти</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-red-600">{analyticsData.importCount}</div>
-              <div className="text-sm text-gray-500">Імпорти</div>
+              <div className="text-h2 text-red-600">{analyticsData.importCount}</div>
+              <div className="text-body-sm text-gray-500">Імпорти</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-gray-600">{analyticsData.errorCount}</div>
-              <div className="text-sm text-gray-500">Помилки</div>
+              <div className="text-h2 text-gray-600">{analyticsData.errorCount}</div>
+              <div className="text-body-sm text-gray-500">Помилки</div>
             </div>
           </div>
         </div>
@@ -877,7 +877,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Zap className="w-5 h-5 text-yellow-500" />
-              <h3 className="text-lg font-medium text-gray-900">Рекомендації з оптимізації</h3>
+              <h3 className="text-body-lg font-medium text-gray-900">Рекомендації з оптимізації</h3>
             </div>
             
             {optimizationSuggestions.length > 0 ? (
@@ -885,16 +885,16 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
                 {optimizationSuggestions.map((suggestion, index) => (
                   <div key={index} className="flex items-center gap-2 p-3 bg-yellow-50 border border-yellow-200 rounded-md">
                     <TrendingUp className="w-4 h-4 text-yellow-500" />
-                    <span className="text-sm text-yellow-800">{suggestion}</span>
+                    <span className="text-body-sm text-yellow-800">{suggestion}</span>
                   </div>
                 ))}
               </div>
             ) : (
               <div className="text-center py-4">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-2">
                   <Zap className="w-6 h-6 text-green-500" />
                 </div>
-                <p className="text-sm text-gray-500">Система оптимізована</p>
+                <p className="text-body-sm text-gray-500">Система оптимізована</p>
               </div>
             )}
           </div>
@@ -907,7 +907,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Shield className="w-5 h-5 text-blue-500" />
-              <h3 className="text-lg font-medium text-gray-900">Статус безпеки</h3>
+              <h3 className="text-body-lg font-medium text-gray-900">Статус безпеки</h3>
             </div>
             
             {securityAlerts.length > 0 ? (
@@ -915,16 +915,16 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
                 {securityAlerts.map((alert, index) => (
                   <div key={index} className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-md">
                     <Shield className="w-4 h-4 text-red-500" />
-                    <span className="text-sm text-red-800">{alert}</span>
+                    <span className="text-body-sm text-red-800">{alert}</span>
                   </div>
                 ))}
               </div>
             ) : (
               <div className="text-center py-4">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-2">
                   <Shield className="w-6 h-6 text-green-500" />
                 </div>
-                <p className="text-sm text-gray-500">Система безпечна</p>
+                <p className="text-body-sm text-gray-500">Система безпечна</p>
               </div>
             )}
           </div>
@@ -937,7 +937,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Lock className="w-5 h-5 text-purple-500" />
-              <h3 className="text-lg font-medium text-gray-900">Статус приватності</h3>
+              <h3 className="text-body-lg font-medium text-gray-900">Статус приватності</h3>
             </div>
             
             {privacyAlerts.length > 0 ? (
@@ -945,16 +945,16 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
                 {privacyAlerts.map((alert, index) => (
                   <div key={index} className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-md">
                     <Lock className="w-4 h-4 text-red-500" />
-                    <span className="text-sm text-red-800">{alert}</span>
+                    <span className="text-body-sm text-red-800">{alert}</span>
                   </div>
                 ))}
               </div>
             ) : (
               <div className="text-center py-4">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-2">
                   <Lock className="w-6 h-6 text-green-500" />
                 </div>
-                <p className="text-sm text-gray-500">Приватність захищена</p>
+                <p className="text-body-sm text-gray-500">Приватність захищена</p>
               </div>
             )}
           </div>
@@ -966,7 +966,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
         <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-gray-700 mb-2">
                 Режим просмотра
               </label>
               <select
@@ -981,7 +981,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-gray-700 mb-2">
                 Розмір сторінки
               </label>
               <select
@@ -999,7 +999,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
             </div>
             
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-gray-700 mb-2">
                 Виртуализация
               </label>
               <select

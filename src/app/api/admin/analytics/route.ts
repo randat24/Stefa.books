@@ -25,22 +25,20 @@ export async function GET(request: NextRequest) {
     }
 
     // Завантажуємо дані з різних таблиць
-    const [usersRes, booksRes, rentalsRes, paymentsRes] = await Promise.all([
+    const [usersRes, booksRes, rentalsRes] = await Promise.all([
       supabase.from('users').select('*'),
       supabase.from('books').select('*'),
-      supabase.from('rentals').select('*'),
-      supabase.from('payments').select('*')
+      supabase.from('rentals').select('*')
     ])
 
     if (usersRes.error) throw usersRes.error
     if (booksRes.error) throw booksRes.error
     if (rentalsRes.error) throw rentalsRes.error
-    if (paymentsRes.error) throw paymentsRes.error
 
     const users = usersRes.data || []
     const books = booksRes.data || []
     const rentals = rentalsRes.data || []
-    const payments = paymentsRes.data || []
+    const payments: Array<{ id: string; amount: number; created_at: string; user_id: string }> = [] // Поки що таблиця payments не існує
 
     // Розрахунок основних метрик
     const totalUsers = users.length

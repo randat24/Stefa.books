@@ -163,7 +163,7 @@ const OptimizedDataTable = memo(function OptimizedDataTable<T>({
               <Filter className="w-4 h-4" />
               Фільтри
               {activeFiltersCount > 0 && (
-                <span className="px-2 py-1 text-xs font-medium text-blue-600 bg-blue-100 rounded-full">
+                <span className="px-2 py-1 text-caption font-medium text-blue-600 bg-blue-100 rounded-2xl">
                   {activeFiltersCount}
                 </span>
               )}

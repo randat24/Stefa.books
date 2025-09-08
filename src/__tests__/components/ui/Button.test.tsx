@@ -11,7 +11,7 @@ describe('Button Component', () => {
     
     const button = screen.getByRole('button', { name: 'Click me' });
     expect(button).toBeInTheDocument();
-    expect(button).toHaveClass('rounded-full');
+    expect(button).toHaveClass('rounded-2xl');
   });
 
   it('should render different variants', () => {
@@ -80,7 +80,7 @@ describe('Button Component', () => {
     
     const button = screen.getByRole('button', { name: 'Custom' });
     expect(button).toHaveClass('custom-class');
-    expect(button).toHaveClass('rounded-full'); // Default class should still be there
+    expect(button).toHaveClass('rounded-2xl'); // Default class should still be there
   });
 
   it('should support all button attributes', () => {

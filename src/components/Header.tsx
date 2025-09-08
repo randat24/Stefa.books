@@ -9,7 +9,7 @@ export default function Header(){
       <div className="container-default flex items-center justify-between">
         <Link 
           href="/" 
-          className="font-semibold text-xl focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 rounded-md px-2 py-1"
+          className="font-semibold text-body-lg focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 rounded-md px-2 py-1"
           aria-label="Stefa.books - головна сторінка"
         >
           Stefa.books
@@ -21,14 +21,14 @@ export default function Header(){
         >
           <Link 
             href="/" 
-            className="px-3 py-2 rounded-full hover:bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 transition-colors"
+            className="px-3 py-2 rounded-2xl hover:bg-gray-100 text-body-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 transition-colors"
             aria-current="page"
           >
             Головна
           </Link>
           <Link 
             href="/books" 
-            className="px-3 py-2 rounded-full hover:bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 transition-colors"
+            className="px-3 py-2 rounded-2xl hover:bg-gray-100 text-body-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 transition-colors"
           >
             Книги
           </Link>

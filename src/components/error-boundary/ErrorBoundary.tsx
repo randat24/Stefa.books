@@ -54,12 +54,12 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="min-h-screen flex items-center justify-center p-4">
           <div className="max-w-md w-full space-y-6 text-center">
-            <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+            <div className="mx-auto w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center">
               <AlertTriangle className="w-8 h-8 text-red-600" />
             </div>
             
             <div className="space-y-2">
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-h2 text-gray-900">
                 Щось пішло не так
               </h1>
               <p className="text-gray-600">
@@ -70,10 +70,10 @@ export class ErrorBoundary extends Component<Props, State> {
             {/* Error details in development */}
             {process.env.NODE_ENV === 'development' && this.state.error && (
               <details className="text-left">
-                <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700">
+                <summary className="cursor-pointer text-body-sm text-gray-500 hover:text-gray-700">
                   Деталі помилки
                 </summary>
-                <pre className="mt-2 text-xs text-red-600 bg-red-50 p-3 rounded-lg overflow-auto">
+                <pre className="mt-2 text-caption text-red-600 bg-red-50 p-3 rounded-lg overflow-auto">
                   {this.state.error.stack}
                 </pre>
               </details>

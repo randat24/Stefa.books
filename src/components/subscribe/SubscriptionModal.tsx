@@ -26,7 +26,7 @@ export function SubscriptionModal({ isOpen, onClose, defaultPlan }: Subscription
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-h2 text-gray-900">
               Оформити підписку
             </h2>
             <p className="text-gray-600 mt-1">

@@ -122,7 +122,7 @@ export function BookImageGallery({ title, cover_url, images = [] }: BookImageGal
       
       {/* Image counter */}
       {allImages.length > 1 && (
-        <div className="text-center text-sm text-gray-500">
+        <div className="text-center text-body-sm text-gray-500">
           {currentImage + 1} з {allImages.length}
         </div>
       )}

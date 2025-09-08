@@ -12,12 +12,12 @@ interface SearchErrorFallbackProps {
 function SearchErrorFallback({ resetError }: SearchErrorFallbackProps) {
   return (
     <div className="flex flex-col items-center justify-center p-8 text-center space-y-4">
-      <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+      <div className="w-12 h-12 bg-yellow-100 rounded-2xl flex items-center justify-center">
         <Search className="w-6 h-6 text-brand-yellow-dark" />
       </div>
       
       <div className="space-y-2">
-        <h3 className="text-lg font-semibold text-gray-900">
+        <h3 className="text-body-lg font-semibold text-gray-900">
           Помилка пошуку
         </h3>
         <p className="text-gray-600 max-w-md">

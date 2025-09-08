@@ -136,7 +136,7 @@ export function OptimizedImage({
         <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
           <div className="text-center">
             <AlertCircle className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-            <p className="text-sm text-gray-500">Зображення недоступне</p>
+            <p className="text-body-sm text-gray-500">Зображення недоступне</p>
           </div>
         </div>
       )}
@@ -289,7 +289,7 @@ export function OptimizedGallery({
               onClick={goToPrevious}
               className="
                 absolute left-4 top-1/2 -translate-y-1/2
-                p-2 bg-white/80 hover:bg-white rounded-full
+                p-2 bg-white/80 hover:bg-white rounded-2xl
                 focus:outline-none focus:ring-2 focus:ring-brand-yellow
                 transition-colors
               "
@@ -304,7 +304,7 @@ export function OptimizedGallery({
               onClick={goToNext}
               className="
                 absolute right-4 top-1/2 -translate-y-1/2
-                p-2 bg-white/80 hover:bg-white rounded-full
+                p-2 bg-white/80 hover:bg-white rounded-2xl
                 focus:outline-none focus:ring-2 focus:ring-brand-yellow
                 transition-colors
               "
@@ -352,7 +352,7 @@ export function OptimizedGallery({
       
       {/* Счетчик изображений */}
       {images.length > 1 && (
-        <div className="text-center text-sm text-gray-600">
+        <div className="text-center text-body-sm text-gray-600">
           {currentIndex + 1} з {images.length}
         </div>
       )}

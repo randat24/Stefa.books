@@ -29,7 +29,7 @@ export function BackToTop() {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-brand-yellow text-gray-900 shadow-lg hover:bg-brand-yellow-light hover:shadow-xl transition-all duration-300 flex items-center justify-center ${
+      className={`fixed bottom-8 right-8 z-50 w-12 h-12 rounded-2xl bg-brand-yellow text-gray-900 shadow-lg hover:bg-brand-yellow-light hover:shadow-xl transition-all duration-300 flex items-center justify-center ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
       }`}
       aria-label="Повернутися вгору"

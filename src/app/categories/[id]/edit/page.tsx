@@ -52,7 +52,7 @@ export default function EditCategoryPage() {
     <div className="container py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold">Edit Category</h1>
+          <h1 className="text-h1">Edit Category</h1>
           <p className="text-gray-500">Update category information</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">
@@ -93,7 +93,7 @@ export default function EditCategoryPage() {
                 placeholder="category-slug"
                 required
               />
-              <p className="text-sm text-gray-500">Used in URLs. Lowercase letters, numbers, and hyphens only.</p>
+              <p className="text-body-sm text-gray-500">Used in URLs. Lowercase letters, numbers, and hyphens only.</p>
             </div>
             
             <div className="space-y-2">

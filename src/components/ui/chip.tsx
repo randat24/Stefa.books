@@ -22,7 +22,7 @@ export function Chip({
   ...props
 }: ChipProps) {
   const baseClasses = cn(
-    "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
+    "inline-flex items-center gap-2 px-3 py-1.5 rounded-2xl text-body-sm font-medium transition-all duration-200",
     variant === 'button' && "cursor-pointer hover:scale-105",
     variant === 'status' && "border-2",
     className
@@ -49,7 +49,7 @@ export function Chip({
       <span>{children}</span>
       {typeof count === "number" && (
         <span className={cn(
-          "text-xs rounded-full px-2 py-0.5 font-bold",
+          "text-caption rounded-2xl px-2 py-0.5 font-bold",
           variant === 'button' && active 
             ? "bg-white/20 text-white" 
             : "bg-gray-200 text-gray-600"

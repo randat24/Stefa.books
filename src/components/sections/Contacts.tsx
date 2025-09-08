@@ -17,10 +17,10 @@ export default function Contacts() {
 		<section className="bg-gradient-to-br from-gray-50 to-gray-100 py-16 lg:py-24">
       <div className="container max-w-6xl mx-auto px-4">
 				<div className="text-center mb-16">
-					<h2 className="text-4xl font-bold text-gray-900 mb-4">
+					<h2 className="text-h1 text-gray-900 mb-4">
 						Зв&apos;яжіться з нами
 					</h2>
-					<p className="text-xl text-gray-600 max-w-2xl mx-auto">
+					<p className="text-body-lg text-gray-600 max-w-2xl mx-auto">
 						Маєте питання? Наша команда готова допомогти вам з усім, що стосується книжкової підписки
 					</p>
 				</div>
@@ -29,35 +29,35 @@ export default function Contacts() {
 					{/* Контактна інформація */}
 					<div className="space-y-8">
 						<div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-							<h3 className="text-2xl font-bold text-gray-900 mb-6">
+							<h3 className="text-h2 text-gray-900 mb-6">
 								Контактна інформація
 							</h3>
 							
 							<div className="space-y-6">
 								<div className="flex items-start space-x-4">
-									<div className="bg-blue-100 p-3 rounded-full">
+									<div className="bg-blue-100 p-3 rounded-2xl">
 										<Phone className="w-6 h-6 text-brand-accent-light" />
 									</div>
 									<div>
 										<h4 className="font-semibold text-gray-900">Телефон</h4>
 										<p className="text-gray-600">+38 (063) 856-54-14</p>
-										<p className="text-sm text-gray-500">Пн-Пт: 9:00-18:00</p>
+										<p className="text-body-sm text-gray-500">Пн-Пт: 9:00-18:00</p>
 									</div>
 								</div>
 
 								<div className="flex items-start space-x-4">
-									<div className="bg-green-100 p-3 rounded-full">
+									<div className="bg-green-100 p-3 rounded-2xl">
 										<Mail className="w-6 h-6 text-green-600" />
 									</div>
 									<div>
 										<h4 className="font-semibold text-gray-900">Email</h4>
 										<p className="text-gray-600">info@stefa.books</p>
-										<p className="text-sm text-gray-500">Відповідаємо протягом 24 годин</p>
+										<p className="text-body-sm text-gray-500">Відповідаємо протягом 24 годин</p>
 									</div>
 								</div>
 
 								<div className="flex items-start space-x-4">
-									<div className="bg-purple-100 p-3 rounded-full">
+									<div className="bg-purple-100 p-3 rounded-2xl">
 										<MapPin className="w-6 h-6 text-purple-600" />
 									</div>
 									<div>
@@ -70,26 +70,26 @@ export default function Contacts() {
 										>
 											вул. Маріупольська 13/2, Миколаїв
 										</a>
-										<p className="text-sm text-gray-500">Самовивіз книг</p>
+										<p className="text-body-sm text-gray-500">Самовивіз книг</p>
 									</div>
 								</div>
 
 								<div className="flex items-start space-x-4">
-									<div className="bg-orange-100 p-3 rounded-full">
+									<div className="bg-orange-100 p-3 rounded-2xl">
 										<Clock className="w-6 h-6 text-orange-600" />
 									</div>
 									<div>
 										<h4 className="font-semibold text-gray-900">Графік роботи</h4>
 										<p className="text-gray-600">Понеділок - П&apos;ятниця: 9:00 - 18:00</p>
 										<p className="text-gray-600">Субота: 10:00 - 16:00</p>
-										<p className="text-sm text-gray-500">Неділя: Вихідний</p>
+										<p className="text-body-sm text-gray-500">Неділя: Вихідний</p>
 									</div>
 								</div>
 							</div>
 						</div>
 
 						<div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-							<h3 className="text-2xl font-bold text-gray-900 mb-6">
+							<h3 className="text-h2 text-gray-900 mb-6">
 								Швидка підтримка
 							</h3>
 							<p className="text-gray-600 mb-4">
@@ -104,14 +104,14 @@ export default function Contacts() {
 
 					{/* Форма зворотного зв'язку */}
 					<div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-						<h3 className="text-2xl font-bold text-gray-900 mb-6">
+						<h3 className="text-h2 text-gray-900 mb-6">
 							Напишіть нам
 						</h3>
 						
 						<form className="space-y-6">
 							<div className="grid md:grid-cols-2 gap-4">
 								<div>
-									<label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
+									<label htmlFor="firstName" className="block text-body-sm font-medium text-gray-700 mb-2">
 										Ім&apos;я *
 									</label>
 									<input
@@ -124,7 +124,7 @@ export default function Contacts() {
 									/>
 								</div>
 								<div>
-									<label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
+									<label htmlFor="lastName" className="block text-body-sm font-medium text-gray-700 mb-2">
 										Прізвище
 									</label>
 									<input
@@ -138,7 +138,7 @@ export default function Contacts() {
             </div>
 
 							<div>
-								<label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+								<label htmlFor="email" className="block text-body-sm font-medium text-gray-700 mb-2">
 									Email *
 								</label>
 								<input
@@ -152,7 +152,7 @@ export default function Contacts() {
           </div>
 
 							<div>
-								<label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+								<label htmlFor="phone" className="block text-body-sm font-medium text-gray-700 mb-2">
 									Телефон
 								</label>
 								<input
@@ -168,7 +168,7 @@ export default function Contacts() {
             </div>
 
 							<div>
-								<label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+								<label htmlFor="subject" className="block text-body-sm font-medium text-gray-700 mb-2">
 									Тема *
 								</label>
 								<select
@@ -187,7 +187,7 @@ export default function Contacts() {
           </div>
 
 							<div>
-								<label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+								<label htmlFor="message" className="block text-body-sm font-medium text-gray-700 mb-2">
 									Повідомлення *
 								</label>
 								<textarea
@@ -202,7 +202,7 @@ export default function Contacts() {
 
 							<button
 								type="submit"
-								className="w-full bg-brand-accent-light text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-all duration-200"
+								className="w-full bg-brand-accent-light text-white py-3 px-6 rounded-2xl font-semibold hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 transition-all duration-200"
 							>
 								Надіслати повідомлення
 							</button>

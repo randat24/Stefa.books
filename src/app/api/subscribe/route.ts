@@ -8,11 +8,16 @@ const subscriptionRequestSchema = z.object({
   name: z.string().min(2, 'Имя должно содержать минимум 2 символа'),
   email: z.string().email('Некорректный email адрес'),
   phone: z.string().regex(/^\+380\d{9}$/, 'Некорректный номер телефона'),
-  subscription_type: z.enum(['mini', 'maxi', 'premium'], {
+  social: z.string().min(3, 'Введите ваш ник в Telegram или Instagram'),
+  plan: z.enum(['mini', 'maxi'], {
     errorMap: () => ({ message: 'Неверный тип подписки' })
   }),
-  address: z.string().optional(),
-  notes: z.string().optional()
+  paymentMethod: z.enum(['Онлайн оплата', 'Переказ на карту'], {
+    errorMap: () => ({ message: 'Неверный способ оплаты' })
+  }),
+  message: z.string().optional(),
+  screenshot: z.string().optional(),
+  privacyConsent: z.boolean()
 });
 
 export async function POST(request: NextRequest) {
@@ -45,9 +50,12 @@ export async function POST(request: NextRequest) {
         name: validatedData.name,
         email: validatedData.email,
         phone: validatedData.phone,
-        subscription_type: validatedData.subscription_type,
-        address: validatedData.address || null,
-        notes: validatedData.notes || null,
+        social: validatedData.social,
+        subscription_type: validatedData.plan,
+        payment_method: validatedData.paymentMethod,
+        message: validatedData.message || null,
+        screenshot: validatedData.screenshot || null,
+        privacy_consent: validatedData.privacyConsent,
         status: 'pending'
       })
       .select()
@@ -64,19 +72,69 @@ export async function POST(request: NextRequest) {
     // Логируем успешную заявку (без персональных данных)
     logger.info('Subscription request submitted successfully', {
       requestId: data.id,
-      subscriptionType: validatedData.subscription_type,
-      hasAddress: !!validatedData.address,
-      hasNotes: !!validatedData.notes,
+      plan: validatedData.plan,
+      paymentMethod: validatedData.paymentMethod,
+      hasSocial: !!validatedData.social,
+      hasMessage: !!validatedData.message,
+      hasScreenshot: !!validatedData.screenshot,
       timestamp: new Date().toISOString()
     });
+
+    // Если выбран онлайн платеж, создаем платеж в Монобанке
+    let paymentData = null;
+    if (validatedData.paymentMethod === 'Онлайн оплата') {
+      try {
+        const { monobankService } = await import('@/lib/services/monobank');
+        
+        const amount = validatedData.plan === 'mini' ? 300 : 500; // Сумма в гривнах
+        const description = `Підписка ${validatedData.plan.toUpperCase()} - ${amount} ₴`;
+        const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}/subscribe/success?requestId=${data.id}`;
+        const webhookUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/payment/webhook`;
+        
+        const reference = `sub_${data.id}_${Date.now()}`;
+        
+        const paymentResult = await monobankService.createPayment({
+          amount,
+          description,
+          reference,
+          redirectUrl,
+          webhookUrl,
+        });
+
+        if (paymentResult.status === 'success' && paymentResult.data) {
+          paymentData = {
+            invoiceId: paymentResult.data.invoiceId,
+            paymentUrl: paymentResult.data.pageUrl,
+            reference,
+          };
+          
+          // Обновляем заявку с данными платежа
+          await supabase
+            .from('subscription_requests')
+            .update({ 
+              admin_notes: `Payment created: ${paymentResult.data.invoiceId}` 
+            })
+            .eq('id', data.id);
+        }
+      } catch (paymentError) {
+        logger.error('Payment creation failed', { 
+          error: paymentError, 
+          requestId: data.id 
+        });
+        // Не прерываем процесс, просто логируем ошибку
+      }
+    }
 
     // TODO: Отправить уведомление администратору
     // await sendAdminNotification(data);
 
     return NextResponse.json({
       success: true,
-      message: 'Заявку успішно надіслано! Ми зв\'яжемося з вами найближчим часом.',
-      requestId: data.id
+      message: paymentData 
+        ? 'Заявку успішно надіслано! Ви будете перенаправлені на сторінку оплати.'
+        : 'Заявку успішно надіслано! Ми зв\'яжемося з вами найближчим часом.',
+      requestId: data.id,
+      payment: paymentData
     });
 
   } catch (error) {

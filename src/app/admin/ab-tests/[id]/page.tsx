@@ -56,7 +56,7 @@ export default function AbTestDetailsPage() {
     <div className="container py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold">{test.name}</h1>
+          <h1 className="text-h1">{test.name}</h1>
           <p className="text-gray-500">{test.description}</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">
@@ -112,10 +112,10 @@ export default function AbTestDetailsPage() {
                       <CardDescription>Control Variant</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-3xl font-bold text-center">{test.conversions.variantA.rate}%</div>
+                      <div className="text-h1 text-center">{test.conversions.variantA.rate}%</div>
                       <div className="text-center text-gray-500">Conversion Rate</div>
                       <div className="mt-4 text-center">
-                        <div className="text-2xl font-semibold">{test.conversions.variantA.count}</div>
+                        <div className="text-h2 font-semibold">{test.conversions.variantA.count}</div>
                         <div className="text-gray-500">Conversions</div>
                       </div>
                     </CardContent>
@@ -127,10 +127,10 @@ export default function AbTestDetailsPage() {
                       <CardDescription>Test Variant</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="text-3xl font-bold text-center text-green-600">{test.conversions.variantB.rate}%</div>
+                      <div className="text-h1 text-center text-green-600">{test.conversions.variantB.rate}%</div>
                       <div className="text-center text-gray-500">Conversion Rate</div>
                       <div className="mt-4 text-center">
-                        <div className="text-2xl font-semibold">{test.conversions.variantB.count}</div>
+                        <div className="text-h2 font-semibold">{test.conversions.variantB.count}</div>
                         <div className="text-gray-500">Conversions</div>
                       </div>
                     </CardContent>
@@ -186,19 +186,19 @@ export default function AbTestDetailsPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="p-4 bg-blue-50 rounded-lg">
-                <p className="text-sm text-gray-500">Participants</p>
-                <p className="text-2xl font-bold">{test.participants.toLocaleString()}</p>
+                <p className="text-body-sm text-gray-500">Participants</p>
+                <p className="text-h2">{test.participants.toLocaleString()}</p>
               </div>
               
               <div className="p-4 bg-green-50 rounded-lg">
-                <p className="text-sm text-gray-500">Total Conversions</p>
-                <p className="text-2xl font-bold">{test.conversions.variantA.count + test.conversions.variantB.count}</p>
+                <p className="text-body-sm text-gray-500">Total Conversions</p>
+                <p className="text-h2">{test.conversions.variantA.count + test.conversions.variantB.count}</p>
               </div>
               
               {test.status === 'running' && (
                 <div className="p-4 bg-yellow-50 rounded-lg">
-                  <p className="text-sm text-gray-500">Days Remaining</p>
-                  <p className="text-2xl font-bold">10</p>
+                  <p className="text-body-sm text-gray-500">Days Remaining</p>
+                  <p className="text-h2">10</p>
                 </div>
               )}
             </CardContent>

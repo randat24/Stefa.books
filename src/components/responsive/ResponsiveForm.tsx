@@ -114,16 +114,16 @@ export function ResponsiveField({
   if (isMobile) {
     return (
       <div className={`space-y-2 ${className}`}>
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="block text-body-sm font-medium text-gray-700">
           {label}
           {required && <span className="text-red-500 ml-1">*</span>}
         </label>
         {children}
         {error && (
-          <p className="text-sm text-red-600">{error}</p>
+          <p className="text-body-sm text-red-600">{error}</p>
         )}
         {helpText && !error && (
-          <p className="text-sm text-gray-500">{helpText}</p>
+          <p className="text-body-sm text-gray-500">{helpText}</p>
         )}
       </div>
     );
@@ -131,17 +131,17 @@ export function ResponsiveField({
 
   return (
     <div className={`flex items-start space-x-4 ${className}`}>
-      <label className={`${labelWidth} text-sm font-medium text-gray-700 pt-2`}>
+      <label className={`${labelWidth} text-body-sm font-medium text-gray-700 pt-2`}>
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
       </label>
       <div className="flex-1 space-y-1">
         {children}
         {error && (
-          <p className="text-sm text-red-600">{error}</p>
+          <p className="text-body-sm text-red-600">{error}</p>
         )}
         {helpText && !error && (
-          <p className="text-sm text-gray-500">{helpText}</p>
+          <p className="text-body-sm text-gray-500">{helpText}</p>
         )}
       </div>
     </div>
@@ -195,24 +195,24 @@ export function ResponsiveButton({
     if (isMobile) {
       switch (size) {
         case 'sm':
-          return 'px-3 py-2 text-sm h-10';
+          return 'px-3 py-2 text-body-sm h-10';
         case 'md':
-          return 'px-4 py-3 text-base h-12';
+          return 'px-4 py-3 text-body h-12';
         case 'lg':
-          return 'px-6 py-4 text-lg h-14';
+          return 'px-6 py-4 text-body-lg h-14';
         default:
-          return 'px-4 py-3 text-base h-12';
+          return 'px-4 py-3 text-body h-12';
       }
     } else {
       switch (size) {
         case 'sm':
-          return 'px-3 py-2 text-sm h-8';
+          return 'px-3 py-2 text-body-sm h-8';
         case 'md':
-          return 'px-4 py-2 text-sm h-10';
+          return 'px-4 py-2 text-body-sm h-10';
         case 'lg':
-          return 'px-6 py-3 text-base h-12';
+          return 'px-6 py-3 text-body h-12';
         default:
-          return 'px-4 py-2 text-sm h-10';
+          return 'px-4 py-2 text-body-sm h-10';
       }
     }
   };
@@ -235,7 +235,7 @@ export function ResponsiveButton({
       `}
     >
       {loading && (
-        <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin mr-2" />
+        <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-2xl animate-spin mr-2" />
       )}
       {children}
     </button>
@@ -353,7 +353,7 @@ export function ResponsiveModal({
         `}
       >
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
+          <h2 className="text-body-lg font-semibold text-gray-900">{title}</h2>
           <button
             onClick={onClose}
             className="

@@ -50,7 +50,7 @@ export function ForgotPasswordForm({ onBackToLogin }: ForgotPasswordFormProps) {
         </CardHeader>
         
         <CardContent className="space-y-4 text-center">
-          <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+          <div className="mx-auto w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center">
             <CheckCircle className="w-6 h-6 text-green-600" />
           </div>
           
@@ -58,7 +58,7 @@ export function ForgotPasswordForm({ onBackToLogin }: ForgotPasswordFormProps) {
             Ми надіслали інструкції зі скидання пароля на вашу електронну пошту.
           </p>
           
-          <p className="text-sm text-gray-500">
+          <p className="text-body-sm text-gray-500">
             Якщо ви не отримали листа, перевірте папку &quot;Спам&quot;.
           </p>
         </CardContent>

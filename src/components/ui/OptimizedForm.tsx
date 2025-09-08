@@ -56,7 +56,7 @@ const FormField = memo(function FormField({
       <label
         htmlFor={fieldId}
         className={cn(
-          'block text-sm font-medium text-gray-700',
+          'block text-body-sm font-medium text-gray-700',
           error && 'text-red-600',
           disabled && 'text-gray-400'
         )}
@@ -145,7 +145,7 @@ const FormField = memo(function FormField({
       )}
 
       {error && (
-        <p className="text-sm text-red-600" role="alert">
+        <p className="text-body-sm text-red-600" role="alert">
           {error}
         </p>
       )}

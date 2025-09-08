@@ -20,7 +20,7 @@ export function AdminStatus() {
     <div className="flex items-center space-x-2">
       <Badge variant="secondary" className="flex items-center space-x-1">
         <Shield className="h-3 w-3" />
-        <span className="text-xs font-medium">
+        <span className="text-caption font-medium">
           {userRole === 'admin' ? 'Адмін' : 'Модератор'}
         </span>
       </Badge>

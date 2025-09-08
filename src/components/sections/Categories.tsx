@@ -409,7 +409,7 @@ export default function Categories() {
 				</div>
 				<button 
 					onClick={() => navigateToBooks()}
-					className="inline-flex items-center justify-center rounded-full font-semibold h-10 px-4 bg-transparent text-gray-900 hover:bg-gray-50 transition-colors"
+					className="inline-flex items-center justify-center rounded-2xl font-semibold h-10 px-4 bg-transparent text-gray-900 hover:bg-gray-50 transition-colors"
 				>
 					Дивитись всі книги
 				</button>
@@ -432,18 +432,18 @@ export default function Categories() {
 									<Icon className={`size-6 ${colors.icon}`} />
 								</div>
 								<div className="grid gap-1">
-									<h3 className="text-lg font-semibold">{category.name}</h3>
-									<p className="text-sm text-gray-600">{category.description}</p>
+									<h3 className="text-body-lg font-semibold">{category.name}</h3>
+									<p className="text-body-sm text-gray-600">{category.description}</p>
 								</div>
 							</div>
 
-							<div className={`mt-6 inline-flex items-center gap-2 rounded-full ${colors.accent} px-4 py-2 text-sm border ${colors.border}`}>
+							<div className={`mt-6 inline-flex items-center gap-2 rounded-2xl ${colors.accent} px-4 py-2 text-body-sm border ${colors.border}`}>
 								Дивитись у каталозі
 								<svg className="size-4 -mr-0.5 transition -rotate-45 group-hover:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
 							</div>
 
 							{/* кількість книг */}
-							<div className={`absolute top-4 right-4 text-xs rounded-full ${colors.accent} px-2 py-1 ${colors.icon}`}>
+							<div className={`absolute top-4 right-4 text-caption rounded-2xl ${colors.accent} px-2 py-1 ${colors.icon}`}>
 								{category.available} книг
 							</div>
 						</button>

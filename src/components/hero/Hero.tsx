@@ -18,11 +18,11 @@ export default function Hero() {
 								Книжкова оренда у Миколаєві
 							</Badge>
 
-							<h1 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl text-gray-900 hero-title">
+							<h1 className="text-display text-gray-900">
 								Читай легко. Оформлюй підписку та забирай книги зручно.
 							</h1>
 
-							<p className="text-gray-600 hero-description" style={{fontSize: 'var(--font-size-lg)'}}>
+							<p className="text-body-lg text-gray-600">
 								Вітаємо у книгарні за підпискою. Обирай план, шукай улюблені книжки і залишай заявку на оренду.
 								Самовивіз з точки: вул. Маріупольська 13/2, Миколаїв.
 							</p>
@@ -30,16 +30,16 @@ export default function Hero() {
 							{/* Краткая статистика */}
 							<div className="grid grid-cols-3 border-y border-gray-200/60" style={{gap: 'var(--space-4)', paddingBlock: 'var(--space-4)'}}>
 								<div className="text-center">
-									<div className="font-bold text-gray-900" style={{fontSize: 'var(--font-size-xl)'}}>500+</div>
-									<div className="text-gray-500" style={{fontSize: 'var(--font-size-sm)'}}>книг</div>
+									<div className="text-h3 font-bold text-gray-900">500+</div>
+									<div className="text-body-sm text-gray-500">книг</div>
 								</div>
 								<div className="text-center border-x border-gray-200/60">
-									<div className="font-bold text-gray-900" style={{fontSize: 'var(--font-size-xl)'}}>300₴</div>
-									<div className="text-gray-500" style={{fontSize: 'var(--font-size-sm)'}}>1 книжка / міс</div>
+									<div className="text-h3 font-bold text-gray-900">300₴</div>
+									<div className="text-body-sm text-gray-500">1 книжка / міс</div>
 								</div>
 								<div className="text-center">
-									<div className="font-bold text-gray-900" style={{fontSize: 'var(--font-size-xl)'}}>500₴</div>
-									<div className="text-gray-500" style={{fontSize: 'var(--font-size-sm)'}}>1 - 2 книжки</div>
+									<div className="text-h3 font-bold text-gray-900">500₴</div>
+									<div className="text-body-sm text-gray-500">1 - 2 книжки</div>
 								</div>
 							</div>
 
@@ -59,13 +59,13 @@ export default function Hero() {
 							</div>
 
 							{/* Дополнительная информация */}
-							<div className="flex items-center text-gray-500" style={{gap: 'var(--space-6)', paddingTop: 'var(--space-2)', fontSize: 'var(--font-size-sm)'}}>
+							<div className="flex items-center text-body-sm text-gray-500" style={{gap: 'var(--space-6)', paddingTop: 'var(--space-2)'}}>
 								<div className="flex items-center" style={{gap: 'var(--space-2)'}}>
-									<div className="size-2 rounded-full bg-brand-accent" />
+									<div className="size-2 rounded-2xl bg-brand-accent" />
 									Самовивіз з точки
 								</div>
 								<div className="flex items-center" style={{gap: 'var(--space-2)'}}>
-									<div className="size-2 rounded-full bg-brand-yellow" />
+									<div className="size-2 rounded-2xl bg-brand-yellow" />
 									Легкий обмін книг
 								</div>
 							</div>

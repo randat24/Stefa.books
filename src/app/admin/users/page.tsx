@@ -51,7 +51,7 @@ export default function UsersPage() {
     <div className="container py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold">User Management</h1>
+          <h1 className="text-h1">User Management</h1>
           <p className="text-gray-500">Manage all users in the system</p>
         </div>
         <Button>Add New User</Button>
@@ -95,7 +95,7 @@ export default function UsersPage() {
                     <td className="py-3 px-4">
                       <div>
                         <div className="font-medium">{user.name}</div>
-                        <div className="text-sm text-gray-500">{user.email}</div>
+                        <div className="text-body-sm text-gray-500">{user.email}</div>
                       </div>
                     </td>
                     <td className="py-3 px-4">

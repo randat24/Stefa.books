@@ -126,16 +126,16 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
       <Card>
         <CardContent className="pt-6">
           <div className="text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Оренда оформлена!</h3>
+            <h3 className="text-body-lg font-semibold text-gray-900 mb-2">Оренда оформлена!</h3>
             <p className="text-gray-600 mb-4">
               Ваша заявка на оренду книги &ldquo;{book.title}&rdquo; успішно відправлена.
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-body-sm text-gray-500">
               Перенаправляємо на сторінку підтвердження...
             </p>
           </div>
@@ -162,7 +162,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Rental Plan */}
           <div>
-            <Label htmlFor="plan" className="text-base font-medium">План оренди</Label>
+            <Label htmlFor="plan" className="text-body font-medium">План оренди</Label>
             <Select value={formData.plan} onValueChange={(value) => handleInputChange('plan', value)}>
               <SelectTrigger className="mt-2">
                 <SelectValue />
@@ -179,7 +179,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
 
           {/* Delivery Method */}
           <div>
-            <Label htmlFor="deliveryMethod" className="text-base font-medium">Спосіб доставки</Label>
+            <Label htmlFor="deliveryMethod" className="text-body font-medium">Спосіб доставки</Label>
             <Select value={formData.deliveryMethod} onValueChange={(value) => handleInputChange('deliveryMethod', value)}>
               <SelectTrigger className="mt-2">
                 <SelectValue />
@@ -196,7 +196,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
 
           {/* Customer Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+            <h3 className="text-body-lg font-semibold text-gray-900 flex items-center gap-2">
               <User className="h-5 w-5" />
               Контактна інформація
             </h3>
@@ -253,7 +253,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
           {/* Delivery Address */}
           {formData.deliveryMethod !== 'pickup' && (
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+              <h3 className="text-body-lg font-semibold text-gray-900 flex items-center gap-2">
                 <MapPin className="h-5 w-5" />
                 Адреса доставки
               </h3>
@@ -293,7 +293,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
 
           {/* Payment Method */}
           <div>
-            <Label htmlFor="paymentMethod" className="text-base font-medium">Спосіб оплати</Label>
+            <Label htmlFor="paymentMethod" className="text-body font-medium">Спосіб оплати</Label>
             <Select value={formData.paymentMethod} onValueChange={(value) => handleInputChange('paymentMethod', value)}>
               <SelectTrigger className="mt-2">
                 <SelectValue />
@@ -321,11 +321,11 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
 
           {/* Total Price */}
           <div className="bg-gray-50 p-4 rounded-lg">
-            <div className="flex justify-between items-center text-lg font-semibold">
+            <div className="flex justify-between items-center text-body-lg font-semibold">
               <span>Загальна сума:</span>
               <span>{totalPrice} ₴</span>
             </div>
-            <div className="text-sm text-gray-600 mt-1">
+            <div className="text-body-sm text-gray-600 mt-1">
               {selectedPlan.name} + {selectedDelivery.name}
             </div>
           </div>
@@ -339,7 +339,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
           >
             {isSubmitting ? (
               <>
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+                <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-white mr-2" />
                 Оформляємо оренду...
               </>
             ) : (

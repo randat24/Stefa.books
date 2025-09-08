@@ -49,10 +49,10 @@ export default function Steps() {
     <section className="py-16 lg:py-24" aria-labelledby="steps-title">
       <div className="container">
         <header className="text-center mb-16">
-          <h2 id="steps-title" className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 mb-4">
+          <h2 id="steps-title" className="text-display font-extrabold tracking-tight text-gray-900 mb-4">
             Крок за кроком
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-body-lg text-gray-600 max-w-2xl mx-auto">
             Простий процес оформлення підписки на книжкову оренду
           </p>
         </header>
@@ -84,7 +84,7 @@ export default function Steps() {
                   onClick={() => scrollToId(step.targetId)}
                 >
                   {/* Номер с анимацией */}
-                  <div className={`relative flex items-center justify-center w-16 h-16 rounded-2xl text-xl font-bold transition-all duration-300 group-hover:scale-110 ${
+                  <div className={`relative flex items-center justify-center w-16 h-16 rounded-2xl text-h3 transition-all duration-300 group-hover:scale-110 ${
                     isHovered
                       ? step.color === 'yellow'
                         ? 'bg-brand-yellow text-gray-900 shadow-lg'
@@ -122,10 +122,10 @@ export default function Steps() {
                       </div>
                       
                       <div className="flex-1">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-2 leading-tight group-hover:text-gray-800">
+                        <h3 className="text-h2 text-gray-900 mb-2 leading-tight group-hover:text-gray-800">
                           {step.title}
                         </h3>
-                        <p className="text-lg text-gray-600 leading-relaxed mb-4 max-w-lg">
+                        <p className="text-body-lg text-gray-600 leading-relaxed mb-4 max-w-lg">
                           {step.description}
                         </p>
                         
@@ -135,7 +135,7 @@ export default function Steps() {
                             e.stopPropagation();
                             scrollToId(step.targetId);
                           }}
-                          className={`inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transform hover:scale-105 ${
+                          className={`inline-flex items-center justify-center rounded-2xl px-6 py-3 text-body-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transform hover:scale-105 ${
                             step.isPrimary
                               ? 'bg-brand-yellow text-gray-900 hover:bg-brand-yellow-light focus:ring-brand-yellow'
                               : 'bg-white text-gray-700 border-2 border-gray-200 hover:bg-gray-50 hover:border-gray-300 focus:ring-gray-500'
@@ -149,7 +149,7 @@ export default function Steps() {
 
                   {/* Стрелка вниз для направления */}
                   {isNotLast && (
-                    <div className={`absolute -bottom-3 left-8 w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    <div className={`absolute -bottom-3 left-8 w-8 h-8 rounded-2xl flex items-center justify-center transition-all duration-300 ${
                       isHovered ? 'bg-white shadow-lg' : 'bg-gray-100 group-hover:bg-white group-hover:shadow-md'
                     }`}>
                       <ArrowDown className="w-4 h-4 text-gray-400" />

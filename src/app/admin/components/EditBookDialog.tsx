@@ -309,7 +309,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
           >
             {submitting ? (
               <div className="flex items-center gap-2">
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-white"></div>
                 Збереження...
               </div>
             ) : (

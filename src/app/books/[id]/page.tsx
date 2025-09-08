@@ -152,7 +152,7 @@ export default async function BookPage({ params }: { params: Params }) {
       
       {/* Breadcrumbs */}
       <div className="container mx-auto px-4 py-4">
-        <nav className="flex items-center space-x-2 text-sm text-gray-600">
+        <nav className="flex items-center space-x-2 text-body-sm text-gray-600">
           <Link href="/" className="hover:text-gray-900">Головна</Link>
           <ChevronRight className="h-4 w-4" />
           <Link href="/catalog" className="hover:text-gray-900">Каталог</Link>
@@ -183,10 +183,10 @@ export default async function BookPage({ params }: { params: Params }) {
             <div className="space-y-3">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-2 leading-tight">
+                  <h1 className="text-h1 text-gray-900 mb-2">
                     {book.title}
                   </h1>
-                  <p className="text-xl text-gray-700 mb-2">{book.author}</p>
+                  <p className="text-h4 text-gray-700 mb-2">{book.author}</p>
                   
                   {/* Rating */}
                   {book.rating && book.rating_count && (
@@ -203,13 +203,13 @@ export default async function BookPage({ params }: { params: Params }) {
                           />
                         ))}
                       </div>
-                      <span className="text-sm text-gray-600">
+                      <span className="text-body-sm text-gray-600">
                         {book.rating.toFixed(1)} ({book.rating_count} відгуків)
                       </span>
                     </div>
                   )}
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
+                  <div className="flex items-center gap-4 text-body-sm text-gray-600 mb-4">
                     <span className="flex items-center gap-1">
                       <Hash className="h-4 w-4" />
                       {book.code}
@@ -224,7 +224,7 @@ export default async function BookPage({ params }: { params: Params }) {
                         {book.age_range}
                       </Badge>
                     )}
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                    <span className={`px-3 py-1 rounded-2xl text-caption font-medium ${
                       book.available 
                         ? "text-green-700 bg-green-100" 
                         : "text-red-700 bg-red-100"
@@ -235,7 +235,7 @@ export default async function BookPage({ params }: { params: Params }) {
                 </div>
                 <FavoriteButton id={book.id} />
               </div>
-              <p className="text-sm text-gray-600 leading-relaxed text-left">
+              <p className="text-body text-gray-600 leading-relaxed text-left">
                 {book.short_description}
               </p>
 
@@ -255,7 +255,7 @@ export default async function BookPage({ params }: { params: Params }) {
             {/* Badges */}
             {book.badges && book.badges.length > 0 && (
               <div className="space-y-2">
-                <h4 className="text-sm font-medium text-gray-700">Нагороди та відзнаки</h4>
+                <h4 className="text-body-sm font-medium text-gray-700">Нагороди та відзнаки</h4>
                 <div className="flex flex-wrap gap-2">
                   {book.badges.map((badge, i) => (
                     <Badge key={i} variant="secondary" className="text-xs">
@@ -297,12 +297,12 @@ export default async function BookPage({ params }: { params: Params }) {
             
             <TabsContent value="description" className="mt-6">
               <div className="prose prose-slate max-w-none">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <h2 className="text-h2 text-gray-900 mb-6 flex items-center gap-2">
                   <BookOpen className="h-6 w-6" />
                   Про книгу
                 </h2>
                 {fullDescription.split('\n\n').map((paragraph, i) => (
-                  <p key={i} className="text-gray-700 mb-4 leading-relaxed text-base">
+                  <p key={i} className="text-readable text-gray-700 mb-4">
                     {paragraph}
                   </p>
                 ))}
@@ -326,18 +326,18 @@ export default async function BookPage({ params }: { params: Params }) {
             
             <TabsContent value="author" className="mt-6">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <h2 className="text-h2 text-gray-900 mb-6 flex items-center gap-2">
                   <Heart className="h-6 w-6" />
                   Про автора
                 </h2>
                 <div className="flex items-start gap-6">
-                  <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center">
-                    <span className="text-2xl font-bold text-brand-accent-light">
+                  <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center">
+                    <span className="text-h2 text-brand-accent-light">
                       {book.author.charAt(0)}
                     </span>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{book.author}</h3>
+                    <h3 className="text-body-lg font-semibold text-gray-900 mb-2">{book.author}</h3>
                     <p className="text-gray-600 leading-relaxed">
                       Детальна інформація про автора буде додана пізніше. 
                       Поки що ви можете знайти більше книг цього автора в нашому каталозі.
@@ -356,7 +356,7 @@ export default async function BookPage({ params }: { params: Params }) {
         {relatedBooks.length > 0 && (
           <div className="card p-8">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+              <h2 className="text-h2 text-gray-900 flex items-center gap-2">
                 <BookOpen className="h-6 w-6" />
                 Схожі книги
               </h2>

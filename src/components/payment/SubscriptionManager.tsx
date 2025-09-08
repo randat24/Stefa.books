@@ -83,7 +83,7 @@ export function SubscriptionManager() {
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
         <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-        <h2 className="text-xl font-semibold text-red-800 mb-2">Помилка завантаження</h2>
+        <h2 className="text-body-lg font-semibold text-red-800 mb-2">Помилка завантаження</h2>
         <p className="text-red-600 mb-4">{error}</p>
         <Button onClick={fetchSubscriptions}>Спробувати знову</Button>
       </div>
@@ -94,7 +94,7 @@ export function SubscriptionManager() {
     return (
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-8 text-center">
         <CreditCard className="w-12 h-12 text-brand-accent mx-auto mb-4" />
-        <h2 className="text-xl font-semibold text-blue-800 mb-2">У вас немає активних підписок</h2>
+        <h2 className="text-body-lg font-semibold text-blue-800 mb-2">У вас немає активних підписок</h2>
         <p className="text-brand-accent-light mb-4">
           Щоб отримати доступ до книг, оберіть та оплатіть один із планів підписки.
         </p>
@@ -120,7 +120,7 @@ export function SubscriptionManager() {
                   {subscription.planPrice ? `${subscription.planPrice} ₴/міс` : 'Преміум план'}
                 </CardDescription>
               </div>
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+              <span className={`px-2 py-1 rounded-2xl text-caption font-medium ${
                 subscription.status === 'active' 
                   ? 'bg-green-100 text-green-800' 
                   : subscription.status === 'cancelled' 

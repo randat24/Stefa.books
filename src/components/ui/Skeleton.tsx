@@ -20,7 +20,7 @@ export function Skeleton({
   
   const variantClasses = {
     text: 'h-4 rounded',
-    circular: 'rounded-full',
+    circular: 'rounded-2xl',
     rectangular: '',
     rounded: 'rounded-lg',
   };
@@ -120,14 +120,14 @@ export function HeaderSkeleton() {
     <header className="w-full sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-gray-200">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-3">
-          <Skeleton className="h-10 w-10 rounded-full" />
+          <Skeleton className="h-10 w-10 rounded-2xl" />
           <Skeleton className="h-8 w-32" />
         </div>
         <nav className="flex items-center gap-1 sm:gap-2">
           <Skeleton className="h-10 w-10 rounded-lg" />
           <Skeleton className="h-10 w-20 rounded-lg" />
           <Skeleton className="h-10 w-24 rounded-lg" />
-          <Skeleton className="h-10 w-28 rounded-full" />
+          <Skeleton className="h-10 w-28 rounded-2xl" />
         </nav>
       </div>
     </header>

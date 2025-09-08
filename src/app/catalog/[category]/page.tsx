@@ -103,7 +103,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
       <div className="min-h-screen bg-gray-50">
         <div className="container mx-auto px-4 py-8">
           {/* Breadcrumbs */}
-          <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6">
+          <nav className="flex items-center space-x-2 text-body-sm text-gray-600 mb-6">
             <Link href="/" className="hover:text-gray-900">Главная</Link>
             <ChevronRight className="h-4 w-4" />
             <Link href="/catalog" className="hover:text-gray-900">Каталог</Link>
@@ -113,16 +113,16 @@ export default async function CategoryPage({ params }: { params: Params }) {
           
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-h1 text-gray-900 mb-4 flex items-center gap-3">
               <BookOpen className="h-8 w-8 text-brand-accent-light" />
               {categoryDataTyped.name}
             </h1>
             {categoryDataTyped.description && (
-              <p className="text-lg text-gray-600 max-w-3xl">
+              <p className="text-body-lg text-gray-600 max-w-3xl">
                 {categoryDataTyped.description}
               </p>
             )}
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-body-sm text-gray-500 mt-2">
               Знайдено книг: {books?.length || 0}
             </p>
           </div>
@@ -137,7 +137,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
           ) : (
             <div className="text-center py-12">
               <BookOpen className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
+              <h3 className="text-body-lg font-medium text-gray-900 mb-2">
                 Книги не знайдено
               </h3>
               <p className="text-gray-600 mb-6">

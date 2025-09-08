@@ -93,7 +93,7 @@ export default function ReturnConfirmationPage() {
     return (
       <div className="container py-8">
         <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-accent"></div>
+          <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-brand-accent"></div>
         </div>
       </div>
     );
@@ -103,12 +103,12 @@ export default function ReturnConfirmationPage() {
     return (
       <div className="container py-8">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Помилка</h1>
+          <h1 className="text-h2 text-gray-900 mb-2">Помилка</h1>
           <p className="text-gray-600 mb-6">{error}</p>
           <Button asChild>
             <Link href="/catalog">Перейти до каталогу</Link>
@@ -122,10 +122,10 @@ export default function ReturnConfirmationPage() {
     <div className="container py-8">
       {/* Success Header */}
       <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
           <CheckCircle className="w-8 h-8 text-green-600" />
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Повернення оформлено!</h1>
+        <h1 className="text-h1 text-gray-900 mb-2">Повернення оформлено!</h1>
         <p className="text-gray-600">
           Ваша заявка на повернення успішно відправлена. Ми зв&apos;яжемося з вами найближчим часом.
         </p>
@@ -143,30 +143,30 @@ export default function ReturnConfirmationPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Номер заявки:</span>
+                <span className="text-body-sm text-gray-600">Номер заявки:</span>
                 <span className="font-mono text-sm">#{returnData.id.slice(-8)}</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Статус:</span>
+                <span className="text-body-sm text-gray-600">Статус:</span>
                 <Badge variant={getStatusBadge(returnData.status).variant}>
                   {getStatusBadge(returnData.status).label}
                 </Badge>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Спосіб повернення:</span>
-                <span className="text-sm font-medium">{getReturnMethodName(returnData.return_method)}</span>
+                <span className="text-body-sm text-gray-600">Спосіб повернення:</span>
+                <span className="text-body-sm font-medium">{getReturnMethodName(returnData.return_method)}</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Стан книги:</span>
-                <span className="text-sm font-medium">{getConditionName(returnData.book_condition)}</span>
+                <span className="text-body-sm text-gray-600">Стан книги:</span>
+                <span className="text-body-sm font-medium">{getConditionName(returnData.book_condition)}</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Дата створення:</span>
-                <span className="text-sm font-medium">
+                <span className="text-body-sm text-gray-600">Дата створення:</span>
+                <span className="text-body-sm font-medium">
                   {new Date(returnData.created_at).toLocaleDateString('uk-UA')}
                 </span>
               </div>
@@ -183,22 +183,22 @@ export default function ReturnConfirmationPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-xs font-bold text-blue-600">1</span>
+                <div className="w-6 h-6 bg-blue-100 rounded-2xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-caption font-bold text-blue-600">1</span>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">Підтвердження заявки</p>
-                  <p className="text-xs text-gray-600">Ми зв&apos;яжемося з вами протягом 24 годин</p>
+                  <p className="text-body-sm font-medium text-gray-900">Підтвердження заявки</p>
+                  <p className="text-caption text-gray-600">Ми зв&apos;яжемося з вами протягом 24 годин</p>
                 </div>
               </div>
               
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-xs font-bold text-blue-600">2</span>
+                <div className="w-6 h-6 bg-blue-100 rounded-2xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-caption font-bold text-blue-600">2</span>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">Повернення книги</p>
-                  <p className="text-xs text-gray-600">
+                  <p className="text-body-sm font-medium text-gray-900">Повернення книги</p>
+                  <p className="text-caption text-gray-600">
                     {returnData.return_method === 'pickup' 
                       ? 'Принесіть книгу в бібліотеку згідно з графіком роботи'
                       : 'Кур\'єр забере книгу за вказаною адресою'
@@ -208,12 +208,12 @@ export default function ReturnConfirmationPage() {
               </div>
               
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-6 h-6 bg-green-100 rounded-2xl flex items-center justify-center flex-shrink-0 mt-0.5">
                   <CheckCircle className="h-3 w-3 text-green-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">Підтвердження повернення</p>
-                  <p className="text-xs text-gray-600">Отримайте підтвердження про успішне повернення</p>
+                  <p className="text-body-sm font-medium text-gray-900">Підтвердження повернення</p>
+                  <p className="text-caption text-gray-600">Отримайте підтвердження про успішне повернення</p>
                 </div>
               </div>
             </CardContent>
@@ -245,7 +245,7 @@ export default function ReturnConfirmationPage() {
                   
                   <div className="flex-1">
                     <h3 className="font-semibold text-gray-900 mb-1">{returnData.book.title}</h3>
-                    <p className="text-sm text-gray-600 mb-2">{returnData.book.author}</p>
+                    <p className="text-body-sm text-gray-600 mb-2">{returnData.book.author}</p>
                     <Button variant="outline" size="sm" asChild>
                       <Link href={`/books/${returnData.book.id}`}>
                         Переглянути книгу
@@ -266,7 +266,7 @@ export default function ReturnConfirmationPage() {
               {returnData.return_method === 'pickup' ? (
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-2">Самовивіз в бібліотеку</h4>
-                  <div className="text-sm text-gray-600 space-y-1">
+                  <div className="text-body-sm text-gray-600 space-y-1">
                     <p><strong>Адреса:</strong> вул. Книжкова, 1, Київ</p>
                     <p><strong>Графік роботи:</strong> Пн-Пт 9:00-18:00, Сб 10:00-16:00</p>
                     <p><strong>Телефон:</strong> +380 (44) 123-45-67</p>
@@ -275,7 +275,7 @@ export default function ReturnConfirmationPage() {
               ) : (
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-2">Кур&apos;єрська доставка</h4>
-                  <div className="text-sm text-gray-600 space-y-1">
+                  <div className="text-body-sm text-gray-600 space-y-1">
                     <p><strong>Вартість:</strong> 50₴</p>
                     <p><strong>Час забрання:</strong> 1-2 робочі дні</p>
                     <p><strong>Контакт:</strong> +380 (44) 123-45-67</p>

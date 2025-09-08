@@ -64,10 +64,10 @@ export function AdminGuard({ children }: AdminGuardProps) {
       <div className="min-h-screen flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
-            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-destructive/10">
+            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-destructive/10">
               <Shield className="h-6 w-6 text-destructive" />
             </div>
-            <CardTitle className="text-2xl">Доступ заборонено</CardTitle>
+            <CardTitle className="text-h2">Доступ заборонено</CardTitle>
             <CardDescription>
               У вас немає прав для доступу до адмін-панелі
             </CardDescription>
@@ -76,7 +76,7 @@ export function AdminGuard({ children }: AdminGuardProps) {
             <div className="rounded-lg bg-muted p-4">
               <div className="flex items-start space-x-2">
                 <AlertTriangle className="h-4 w-4 text-muted-foreground mt-0.5" />
-                <div className="text-sm text-muted-foreground">
+                <div className="text-body-sm text-muted-foreground">
                   <p>Для доступу до адмін-панелі потрібні права адміністратора.</p>
                   <p className="mt-1">Зверніться до адміністратора системи.</p>
                 </div>

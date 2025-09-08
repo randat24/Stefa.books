@@ -1,25 +1,24 @@
-import { NextRequest, NextResponse } from 'next/server'
+
+import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // Завантажуємо дані з різних таблиць
-    const [usersRes, booksRes, rentalsRes, paymentsRes] = await Promise.all([
+    const [usersRes, booksRes, rentalsRes] = await Promise.all([
       supabase.from('users').select('*'),
       supabase.from('books').select('*'),
-      supabase.from('rentals').select('*'),
-      supabase.from('payments').select('*')
+      supabase.from('rentals').select('*')
     ])
 
     if (usersRes.error) throw usersRes.error
     if (booksRes.error) throw booksRes.error
     if (rentalsRes.error) throw rentalsRes.error
-    if (paymentsRes.error) throw paymentsRes.error
 
     const users = usersRes.data || []
     const books = booksRes.data || []
     const rentals = rentalsRes.data || []
-    const payments = paymentsRes.data || []
+    const payments: Array<{ id: string; amount: number; created_at: string; user_id: string }> = [] // Поки що таблиця payments не існує
 
     const now = new Date()
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())

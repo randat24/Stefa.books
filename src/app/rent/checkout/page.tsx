@@ -63,7 +63,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="container py-8">
-      <h1 className="text-3xl font-bold mb-2">Checkout</h1>
+      <h1 className="text-h1 mb-2">Checkout</h1>
       <p className="text-gray-500 mb-8">Complete your rental</p>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -84,7 +84,7 @@ export default function CheckoutPage() {
                 />
                 <div>
                   <h3 className="font-semibold">{book.title}</h3>
-                  <p className="text-sm text-gray-500">{book.author}</p>
+                  <p className="text-body-sm text-gray-500">{book.author}</p>
                 </div>
               </div>
               
@@ -96,7 +96,7 @@ export default function CheckoutPage() {
                     <RadioGroupItem value={option.id} id={option.id} />
                     <Label htmlFor={option.id} className="flex-1">
                       <div className="font-medium">{option.name}</div>
-                      <div className="text-sm text-gray-500">{option.description}</div>
+                      <div className="text-body-sm text-gray-500">{option.description}</div>
                     </Label>
                     <div className="font-semibold">${option.price.toFixed(2)}</div>
                   </div>
@@ -135,7 +135,7 @@ export default function CheckoutPage() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold">Personal Information</h3>
+                  <h3 className="text-body-lg font-semibold">Personal Information</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="fullName">Full Name</Label>
@@ -162,7 +162,7 @@ export default function CheckoutPage() {
                 </div>
                 
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold">Shipping Address</h3>
+                  <h3 className="text-body-lg font-semibold">Shipping Address</h3>
                   <div className="space-y-2">
                     <Label htmlFor="address">Address</Label>
                     <Input
@@ -199,7 +199,7 @@ export default function CheckoutPage() {
                 </div>
                 
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold">Payment Details</h3>
+                  <h3 className="text-body-lg font-semibold">Payment Details</h3>
                   <div className="space-y-2">
                     <Label htmlFor="cardNumber">Card Number</Label>
                     <Input

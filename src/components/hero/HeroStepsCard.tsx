@@ -57,10 +57,10 @@ export default function HeroStepsCard() {
     <aside className="card relative mx-auto max-w-md md:ml-0 md:max-w-none lg:ml-auto lg:max-w-md xl:mr-[-1.2rem] 2xl:mr-[0.3rem]">
       {/* Заголовок с ценами */}
       <div className="text-center border-b border-gray-100 p-4 sm:p-5">
-        <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
+        <h3 className="text-body-lg sm:text-body-lg font-semibold text-gray-900 mb-2">
           Як почати читати
         </h3>
-        <div className="inline-flex items-center gap-2 rounded-full bg-yellow-100 border border-yellow-200 px-4 py-2 text-sm font-medium text-yellow-800">
+        <div className="inline-flex items-center gap-2 rounded-2xl bg-yellow-100 border border-yellow-200 px-4 py-2 text-body-sm font-medium text-yellow-800">
           <Wallet className="size-4" />
           <span>Mini 300₴ • Maxi 500₴</span>
         </div>
@@ -124,10 +124,10 @@ export default function HeroStepsCard() {
                   <div className="flex-1 min-w-0 pt-1">
                     <div className="flex items-start gap-2 mb-1">
                       <div className="flex-1">
-                        <h4 className="text-base font-bold text-gray-900 leading-tight mb-1">
+                        <h4 className="text-h5 text-gray-900 leading-tight mb-1">
                           {step.title}
                         </h4>
-                        <p className="text-sm text-gray-600 leading-relaxed">
+                        <p className="text-body-sm text-gray-600 leading-relaxed">
                           {step.text}
                         </p>
                       </div>
@@ -135,7 +135,7 @@ export default function HeroStepsCard() {
                     
                     {/* Подсказка для последнего шага */}
                     {isDisabled && (
-                      <p className="text-xs text-gray-500 mt-2 ml-8">
+                      <p className="text-caption text-gray-500 mt-2 ml-8">
                         Після оформлення заявки
                       </p>
                     )}
@@ -172,7 +172,7 @@ export default function HeroStepsCard() {
 
         {/* Дополнительная информация внизу */}
         <div className="mt-6 pt-4 border-t border-gray-100 text-center">
-          <p className="text-xs text-gray-500">
+          <p className="text-caption text-gray-500">
             Швидко • Зручно • Без зобов&apos;язань
           </p>
         </div>

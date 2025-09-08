@@ -150,14 +150,14 @@ export function AnalyticsDashboard({ }: AnalyticsDashboardProps) {
       <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
         <Card className="rounded-2xl border-gray-200 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-semibold text-gray-700">Користувачі</CardTitle>
+            <CardTitle className="text-body-sm font-semibold text-gray-700">Користувачі</CardTitle>
             <Users className="h-5 w-5 text-gray-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-brand-accent-light">
+            <div className="text-h2 text-brand-accent-light">
               {analytics.activeUsers}
             </div>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-caption text-gray-500 mt-1">
               з {analytics.totalUsers} загалом
             </p>
           </CardContent>
@@ -165,14 +165,14 @@ export function AnalyticsDashboard({ }: AnalyticsDashboardProps) {
 
         <Card className="rounded-2xl border-gray-200 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-semibold text-gray-700">Активні оренди</CardTitle>
+            <CardTitle className="text-body-sm font-semibold text-gray-700">Активні оренди</CardTitle>
             <BookOpen className="h-5 w-5 text-gray-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-h2 text-green-600">
               {analytics.activeRentals}
             </div>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-caption text-gray-500 mt-1">
               {analytics.overdueRentals > 0 && (
                 <span className="text-red-600">
                   {analytics.overdueRentals} просрочених
@@ -184,14 +184,14 @@ export function AnalyticsDashboard({ }: AnalyticsDashboardProps) {
 
         <Card className="rounded-2xl border-gray-200 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-semibold text-gray-700">Доходи (місяць)</CardTitle>
+            <CardTitle className="text-body-sm font-semibold text-gray-700">Доходи (місяць)</CardTitle>
             <CreditCard className="h-5 w-5 text-gray-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-purple-600">
+            <div className="text-h2 text-purple-600">
               {analytics.monthlyRevenue.toLocaleString('uk-UA')} ₴
             </div>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-caption text-gray-500 mt-1">
               Загалом: {analytics.totalRevenue.toLocaleString('uk-UA')} ₴
             </p>
           </CardContent>
@@ -199,14 +199,14 @@ export function AnalyticsDashboard({ }: AnalyticsDashboardProps) {
 
         <Card className="rounded-2xl border-gray-200 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-sm font-semibold text-gray-700">Книги</CardTitle>
+            <CardTitle className="text-body-sm font-semibold text-gray-700">Книги</CardTitle>
             <BookOpen className="h-5 w-5 text-gray-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-indigo-600">
+            <div className="text-h2 text-indigo-600">
               {analytics.availableBooks}
             </div>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-caption text-gray-500 mt-1">
               з {analytics.totalBooks} загалом
             </p>
           </CardContent>
@@ -241,12 +241,12 @@ export function AnalyticsDashboard({ }: AnalyticsDashboardProps) {
                   className="flex items-center justify-between p-3 border border-gray-200 rounded-lg"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                    <div className="w-8 h-8 bg-green-100 rounded-2xl flex items-center justify-center">
                       <DollarSign className="size-4 text-green-600" />
                     </div>
                     <div>
                       <p className="font-medium text-gray-900">{payment.user_name}</p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-body-sm text-gray-500">
                         {new Date(payment.payment_date).toLocaleDateString('uk-UA')}
                       </p>
                     </div>
@@ -278,14 +278,14 @@ export function AnalyticsDashboard({ }: AnalyticsDashboardProps) {
           <div className="grid gap-4 md:grid-cols-2">
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Використання книг</span>
+                <span className="text-body-sm text-gray-600">Використання книг</span>
                 <span className="font-semibold">
                   {analytics.totalBooks > 0 ? Math.round(((analytics.totalBooks - analytics.availableBooks) / analytics.totalBooks) * 100) : 0}%
                 </span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="w-full bg-gray-200 rounded-2xl h-2">
                 <div 
-                  className="bg-brand-accent-light h-2 rounded-full" 
+                  className="bg-brand-accent-light h-2 rounded-2xl" 
                   style={{ 
                     width: `${analytics.totalBooks > 0 ? ((analytics.totalBooks - analytics.availableBooks) / analytics.totalBooks) * 100 : 0}%` 
                   }}
@@ -295,14 +295,14 @@ export function AnalyticsDashboard({ }: AnalyticsDashboardProps) {
             
             <div className="space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Активність користувачів</span>
+                <span className="text-body-sm text-gray-600">Активність користувачів</span>
                 <span className="font-semibold">
                   {analytics.totalUsers > 0 ? Math.round((analytics.activeUsers / analytics.totalUsers) * 100) : 0}%
                 </span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="w-full bg-gray-200 rounded-2xl h-2">
                 <div 
-                  className="bg-green-600 h-2 rounded-full" 
+                  className="bg-green-600 h-2 rounded-2xl" 
                   style={{ 
                     width: `${analytics.totalUsers > 0 ? (analytics.activeUsers / analytics.totalUsers) * 100 : 0}%` 
                   }}

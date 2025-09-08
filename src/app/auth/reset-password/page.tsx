@@ -157,7 +157,7 @@ export default function ResetPasswordPage() {
                 disabled={isLoading}
                 placeholder="••••••••"
               />
-              {errors.password && <p className="text-sm text-red-500">{errors.password}</p>}
+              {errors.password && <p className="text-body-sm text-red-500">{errors.password}</p>}
             </div>
             
             <div className="grid gap-2">
@@ -171,14 +171,14 @@ export default function ResetPasswordPage() {
                 disabled={isLoading}
                 placeholder="••••••••"
               />
-              {errors.confirmPassword && <p className="text-sm text-red-500">{errors.confirmPassword}</p>}
+              {errors.confirmPassword && <p className="text-body-sm text-red-500">{errors.confirmPassword}</p>}
             </div>
           </CardContent>
           <CardFooter className="flex flex-col">
             <Button className="w-full" type="submit" disabled={isLoading}>
               {isLoading ? 'Оновлення...' : 'Оновити пароль'}
             </Button>
-            <p className="mt-4 text-center text-sm text-gray-500">
+            <p className="mt-4 text-center text-body-sm text-gray-500">
               Пам&apos;ятаєте пароль?{' '}
               <Link href="/auth/login" className="text-brand-accent-light hover:underline">
                 Увійти

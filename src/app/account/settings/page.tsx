@@ -36,7 +36,7 @@ export default function AccountSettingsPage() {
 
   return (
     <div className="container py-8">
-      <h1 className="text-3xl font-bold mb-6">Account Settings</h1>
+      <h1 className="text-h1 mb-6">Account Settings</h1>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-6">
@@ -87,7 +87,7 @@ export default function AccountSettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <Label>Email Notifications</Label>
-                  <p className="text-sm text-gray-500">Receive notifications via email</p>
+                  <p className="text-body-sm text-gray-500">Receive notifications via email</p>
                 </div>
                 <Switch
                   checked={notifications.email}
@@ -99,7 +99,7 @@ export default function AccountSettingsPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <Label>Push Notifications</Label>
-                    <p className="text-sm text-gray-500">Receive push notifications on your device</p>
+                    <p className="text-body-sm text-gray-500">Receive push notifications on your device</p>
                   </div>
                   <Switch
                     checked={notifications.push}
@@ -109,7 +109,7 @@ export default function AccountSettingsPage() {
                 
                 {notifications.push && (
                   <div className="mt-4">
-                    <p className="text-sm text-muted-foreground">Настройки push-уведомлений появятся здесь</p>
+                    <p className="text-body-sm text-muted-foreground">Настройки push-уведомлений появятся здесь</p>
                   </div>
                 )}
               </div>
@@ -117,7 +117,7 @@ export default function AccountSettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <Label>SMS Notifications</Label>
-                  <p className="text-sm text-gray-500">Receive text messages</p>
+                  <p className="text-body-sm text-gray-500">Receive text messages</p>
                 </div>
                 <Switch
                   checked={notifications.sms}
@@ -139,7 +139,7 @@ export default function AccountSettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <Label>Profile Visibility</Label>
-                  <p className="text-sm text-gray-500">Allow others to view your profile</p>
+                  <p className="text-body-sm text-gray-500">Allow others to view your profile</p>
                 </div>
                 <Switch
                   checked={privacy.profileVisible}
@@ -150,7 +150,7 @@ export default function AccountSettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <Label>Reading Activity</Label>
-                  <p className="text-sm text-gray-500">Show your reading activity to others</p>
+                  <p className="text-body-sm text-gray-500">Show your reading activity to others</p>
                 </div>
                 <Switch
                   checked={privacy.showReadingActivity}

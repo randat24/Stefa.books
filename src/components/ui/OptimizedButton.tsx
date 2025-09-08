@@ -214,7 +214,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       <OptimizedButton
         ref={ref}
         className={cn(
-          'p-2 rounded-full',
+          'p-2 rounded-2xl',
           className
         )}
         size={size}

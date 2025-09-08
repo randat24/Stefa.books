@@ -164,7 +164,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <Button className="rounded-full gap-2">
+        <Button className="rounded-2xl gap-2">
           <Plus className="size-4" />
           Додати книгу
         </Button>
@@ -209,7 +209,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
                   <RefreshCw className="h-4 w-4" />
                 </Button>
               </div>
-              <p className="text-xs text-gray-500">
+              <p className="text-caption text-gray-500">
                 Формат: SB-YYYY-NNNN (наприклад: SB-2025-1234)
               </p>
             </div>
@@ -318,7 +318,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
               onChange={(e) => setForm(prev => ({ ...prev, description: e.target.value }))}
               disabled={submitting}
             />
-            <p className="text-xs text-gray-500">
+            <p className="text-caption text-gray-500">
               Додайте цікавий опис, який допоможе батькам обрати книгу для дітей
             </p>
           </div>
@@ -340,7 +340,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
           >
             {submitting ? (
               <div className="flex items-center gap-2">
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-white"></div>
                 Збереження...
               </div>
             ) : (

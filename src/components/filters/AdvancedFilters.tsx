@@ -167,7 +167,7 @@ export function AdvancedFilters({
         <div className="flex items-center justify-between p-4 border-b">
           <div className="flex items-center gap-2">
             <SlidersHorizontal className="h-5 w-5 text-gray-600" />
-            <h2 className="text-lg font-semibold">Фільтри та сортування</h2>
+            <h2 className="text-body-lg font-semibold">Фільтри та сортування</h2>
             {activeFiltersCount > 0 && (
               <Badge variant="secondary" className="ml-2">
                 {activeFiltersCount}
@@ -183,7 +183,7 @@ export function AdvancedFilters({
         <div className="overflow-y-auto max-h-[calc(90vh-140px)] p-4 space-y-6">
           {loading ? (
             <div className="flex items-center justify-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-accent"></div>
+              <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-brand-accent"></div>
             </div>
           ) : (
             <>
@@ -213,7 +213,7 @@ export function AdvancedFilters({
                           onChange={() => toggleCategory(category)}
                           className="rounded border-gray-300 text-brand-accent focus:ring-brand-accent"
                         />
-                        <span className="text-sm text-gray-700">{category}</span>
+                        <span className="text-body-sm text-gray-700">{category}</span>
                       </label>
                     ))}
                   </div>
@@ -246,7 +246,7 @@ export function AdvancedFilters({
                           onChange={() => toggleAuthor(author)}
                           className="rounded border-gray-300 text-brand-accent focus:ring-brand-accent"
                         />
-                        <span className="text-sm text-gray-700">{author}</span>
+                        <span className="text-body-sm text-gray-700">{author}</span>
                       </label>
                     ))}
                   </div>
@@ -279,7 +279,7 @@ export function AdvancedFilters({
                           onChange={() => toggleAgeRange(ageRange)}
                           className="rounded border-gray-300 text-brand-accent focus:ring-brand-accent"
                         />
-                        <span className="text-sm text-gray-700">{ageRange}</span>
+                        <span className="text-body-sm text-gray-700">{ageRange}</span>
                       </label>
                     ))}
                   </div>
@@ -307,7 +307,7 @@ export function AdvancedFilters({
                         onChange={(e) => handleAvailabilityChange(e.target.value)}
                         className="text-brand-accent focus:ring-brand-accent"
                       />
-                      <span className="text-sm text-gray-700">{option.label}</span>
+                      <span className="text-body-sm text-gray-700">{option.label}</span>
                     </label>
                   ))}
                 </div>
@@ -321,7 +321,7 @@ export function AdvancedFilters({
                     <button
                       key={rating}
                       onClick={() => handleRatingChange(rating)}
-                      className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                      className={`px-3 py-1 rounded-2xl text-body-sm font-medium transition-colors ${
                         filters.rating && filters.rating <= rating
                           ? 'bg-brand-accent text-white'
                           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -347,7 +347,7 @@ export function AdvancedFilters({
                         onChange={(e) => handleSortChange(e.target.value, filters.sortOrder)}
                         className="text-brand-accent focus:ring-brand-accent"
                       />
-                      <span className="text-sm text-gray-700">{option.label}</span>
+                      <span className="text-body-sm text-gray-700">{option.label}</span>
                     </div>
                   ))}
                   <div className="ml-6 space-y-1">
@@ -360,7 +360,7 @@ export function AdvancedFilters({
                         onChange={(e) => handleSortChange(filters.sortBy, e.target.value)}
                         className="text-brand-accent focus:ring-brand-accent"
                       />
-                      <span className="text-xs text-gray-600">За зростанням</span>
+                      <span className="text-caption text-gray-600">За зростанням</span>
                     </label>
                     <label className="flex items-center space-x-2">
                       <input
@@ -371,7 +371,7 @@ export function AdvancedFilters({
                         onChange={(e) => handleSortChange(filters.sortBy, e.target.value)}
                         className="text-brand-accent focus:ring-brand-accent"
                       />
-                      <span className="text-xs text-gray-600">За спаданням</span>
+                      <span className="text-caption text-gray-600">За спаданням</span>
                     </label>
                   </div>
                 </div>

@@ -36,12 +36,12 @@ export function ErrorDisplay({
 
   return (
     <div className={`max-w-md w-full space-y-6 text-center ${className}`}>
-      <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+      <div className="mx-auto w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center">
         <AlertTriangle className="w-8 h-8 text-red-600" />
       </div>
       
       <div className="space-y-2">
-        <h3 className="text-xl font-bold text-gray-900">
+        <h3 className="text-h3 text-gray-900">
           {error.userMessage}
         </h3>
         
@@ -55,17 +55,17 @@ export function ErrorDisplay({
       {/* Error details in development */}
       {process.env.NODE_ENV === 'development' && (
         <details className="text-left">
-          <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700">
+          <summary className="cursor-pointer text-body-sm text-gray-500 hover:text-gray-700">
             Технічні деталі
           </summary>
           <div className="mt-2 p-3 bg-red-50 rounded-lg">
-            <p className="text-xs text-red-600 font-mono break-all">
+            <p className="text-caption text-red-600 font-mono break-all">
               {error.message}
             </p>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-caption text-gray-500 mt-1">
               ID: {error.id}
             </p>
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-caption text-gray-500 mt-1">
               Категорія: {error.category} | Рівень: {error.severity}
             </p>
           </div>

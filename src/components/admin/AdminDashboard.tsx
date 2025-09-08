@@ -14,7 +14,7 @@ const AdvancedAnalytics = dynamic(() => import("./AdvancedAnalytics").then(mod =
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center h-64">
-      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900"></div>
+      <div className="animate-spin rounded-2xl h-6 w-6 border-b-2 border-gray-900"></div>
     </div>
   )
 })
@@ -25,7 +25,7 @@ const EnhancedBooksManager = dynamic(() => import("./EnhancedBooksManager").then
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center h-96">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-gray-900"></div>
     </div>
   )
 })
@@ -34,7 +34,7 @@ const UserManagement = dynamic(() => import("./UserManagement").then(mod => ({ d
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center h-96">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-gray-900"></div>
     </div>
   )
 })
@@ -209,8 +209,8 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
                 <Building2 className="size-7 text-gray-600"/>
               </div>
               <div>
-                <div className="text-sm text-gray-500 font-medium">Адмін‑панель</div>
-                <h1 className="text-2xl lg:text-3xl font-bold tracking-tight text-gray-900">
+                <div className="text-body-sm text-gray-500 font-medium">Адмін‑панель</div>
+                <h1 className="text-h1 tracking-tight text-gray-900">
                   Stefa.books — Управління
                 </h1>
               </div>
@@ -283,19 +283,19 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
             <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
               <Card className="rounded-2xl border-gray-200 shadow-sm">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-                  <CardTitle className="text-sm font-semibold text-gray-700">Користувачі</CardTitle>
+                  <CardTitle className="text-body-sm font-semibold text-gray-700">Користувачі</CardTitle>
                   <Users className="h-5 w-5 text-gray-500" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-brand-accent-light">
+                  <div className="text-h2 text-brand-accent-light">
                     {data.overview.activeUsers}
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-caption text-gray-500 mt-1">
                     з {data.overview.totalUsers} загалом
                   </p>
                   <div className="flex items-center gap-1 mt-2">
                     {getTrendIcon(data.overview.activeUsers, data.overview.totalUsers * 0.8)}
-                    <span className={`text-xs ${getTrendColor(data.overview.activeUsers, data.overview.totalUsers * 0.8)}`}>
+                    <span className={`text-caption ${getTrendColor(data.overview.activeUsers, data.overview.totalUsers * 0.8)}`}>
                       +{Math.round(((data.overview.activeUsers - data.overview.totalUsers * 0.8) / (data.overview.totalUsers * 0.8)) * 100)}%
                     </span>
                   </div>
@@ -304,14 +304,14 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
 
               <Card className="rounded-2xl border-gray-200 shadow-sm">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-                  <CardTitle className="text-sm font-semibold text-gray-700">Активні оренди</CardTitle>
+                  <CardTitle className="text-body-sm font-semibold text-gray-700">Активні оренди</CardTitle>
                   <BookOpen className="h-5 w-5 text-gray-500" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-green-600">
+                  <div className="text-h2 text-green-600">
                     {data.overview.activeRentals}
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-caption text-gray-500 mt-1">
                     {data.overview.overdueRentals > 0 && (
                       <span className="text-red-600">
                         {data.overview.overdueRentals} просрочених
@@ -323,14 +323,14 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
 
               <Card className="rounded-2xl border-gray-200 shadow-sm">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-                  <CardTitle className="text-sm font-semibold text-gray-700">Доходи (місяць)</CardTitle>
+                  <CardTitle className="text-body-sm font-semibold text-gray-700">Доходи (місяць)</CardTitle>
                   <CreditCard className="h-5 w-5 text-gray-500" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-purple-600">
+                  <div className="text-h2 text-purple-600">
                     {formatCurrency(data.overview.monthlyRevenue)}
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-caption text-gray-500 mt-1">
                     Загалом: {formatCurrency(data.overview.totalRevenue)}
                   </p>
                 </CardContent>
@@ -338,14 +338,14 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
 
               <Card className="rounded-2xl border-gray-200 shadow-sm">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-                  <CardTitle className="text-sm font-semibold text-gray-700">Книги</CardTitle>
+                  <CardTitle className="text-body-sm font-semibold text-gray-700">Книги</CardTitle>
                   <BookOpen className="h-5 w-5 text-gray-500" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-indigo-600">
+                  <div className="text-h2 text-indigo-600">
                     {data.overview.availableBooks}
                   </div>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-caption text-gray-500 mt-1">
                     з {data.overview.totalBooks} загалом
                   </p>
                 </CardContent>
@@ -363,20 +363,20 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
               <CardContent>
                 <div className="grid gap-4 md:grid-cols-4">
                   <div className="text-center p-4 bg-blue-50 rounded-xl">
-                    <div className="text-2xl font-bold text-blue-600">{data.quickStats.booksAddedToday}</div>
-                    <div className="text-sm text-blue-600">Книг додано</div>
+                    <div className="text-h2 text-blue-600">{data.quickStats.booksAddedToday}</div>
+                    <div className="text-body-sm text-blue-600">Книг додано</div>
                   </div>
                   <div className="text-center p-4 bg-green-50 rounded-xl">
-                    <div className="text-2xl font-bold text-green-600">{data.quickStats.usersRegisteredToday}</div>
-                    <div className="text-sm text-green-600">Користувачів зареєстровано</div>
+                    <div className="text-h2 text-green-600">{data.quickStats.usersRegisteredToday}</div>
+                    <div className="text-body-sm text-green-600">Користувачів зареєстровано</div>
                   </div>
                   <div className="text-center p-4 bg-purple-50 rounded-xl">
-                    <div className="text-2xl font-bold text-purple-600">{data.quickStats.rentalsToday}</div>
-                    <div className="text-sm text-purple-600">Оренд</div>
+                    <div className="text-h2 text-purple-600">{data.quickStats.rentalsToday}</div>
+                    <div className="text-body-sm text-purple-600">Оренд</div>
                   </div>
                   <div className="text-center p-4 bg-yellow-50 rounded-xl">
-                    <div className="text-2xl font-bold text-yellow-600">{formatCurrency(data.quickStats.revenueToday)}</div>
-                    <div className="text-sm text-yellow-600">Дохід</div>
+                    <div className="text-h2 text-yellow-600">{formatCurrency(data.quickStats.revenueToday)}</div>
+                    <div className="text-body-sm text-yellow-600">Дохід</div>
                   </div>
                 </div>
               </CardContent>
@@ -405,12 +405,12 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
                           className="flex items-center justify-between p-3 border border-gray-200 rounded-lg"
                         >
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                            <div className="w-8 h-8 bg-gray-100 rounded-2xl flex items-center justify-center">
                               {getActivityIcon(activity.type)}
                             </div>
                             <div>
                               <p className="font-medium text-gray-900">{activity.user_name}</p>
-                              <p className="text-sm text-gray-600">
+                              <p className="text-body-sm text-gray-600">
                                 {activity.type === 'rental' ? 'Орендував' :
                                  activity.type === 'return' ? 'Повернув' :
                                  activity.type === 'subscription' ? 'Оновив підписку' :
@@ -426,7 +426,7 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
                                 {formatCurrency(activity.amount)}
                               </p>
                             )}
-                            <p className="text-xs text-gray-500">
+                            <p className="text-caption text-gray-500">
                               {new Date(activity.timestamp).toLocaleString('uk-UA')}
                             </p>
                           </div>
@@ -464,8 +464,8 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
                             </div>
                             <div className="flex-1">
                               <h4 className="font-medium text-gray-900">{alert.title}</h4>
-                              <p className="text-sm text-gray-600 mt-1">{alert.message}</p>
-                              <p className="text-xs text-gray-500 mt-2">
+                              <p className="text-body-sm text-gray-600 mt-1">{alert.message}</p>
+                              <p className="text-caption text-gray-500 mt-2">
                                 {new Date(alert.timestamp).toLocaleString('uk-UA')}
                               </p>
                             </div>

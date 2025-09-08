@@ -4,16 +4,16 @@ export default function TestHighlightPage() {
 	return (
 		<div className="min-h-screen bg-white py-16">
 			<div className="container mx-auto px-4 max-w-4xl">
-				<h1 className="text-4xl font-bold text-gray-900 mb-8">
+				<h1 className="text-h1 text-gray-900 mb-8">
 					Тест фирменного выделения текста
 				</h1>
 				
 				<div className="space-y-8">
 					<section>
-						<h2 className="text-2xl font-semibold text-gray-800 mb-4">
+						<h2 className="text-h2 font-semibold text-gray-800 mb-4">
 							Автоматическое выделение текста
 						</h2>
-						<p className="text-lg text-gray-700 leading-relaxed">
+						<p className="text-body-lg text-gray-700 leading-relaxed">
 							Выделите этот текст мышью, чтобы увидеть фирменный желтый цвет выделения. 
 							Это работает автоматически для всего сайта благодаря CSS псевдо-селекторам 
 							<code className="bg-gray-100 px-2 py-1 rounded text-sm">::selection</code> и 
@@ -22,10 +22,10 @@ export default function TestHighlightPage() {
 					</section>
 
 					<section>
-						<h2 className="text-2xl font-semibold text-gray-800 mb-4">
+						<h2 className="text-h2 font-semibold text-gray-800 mb-4">
 							Ручное выделение с компонентом
 						</h2>
-						<p className="text-lg text-gray-700 leading-relaxed">
+						<p className="text-body-lg text-gray-700 leading-relaxed">
 							Вы можете использовать компонент <TextHighlight>TextHighlight</TextHighlight> для 
 							выделения важных слов и фраз. Также доступен вариант 
 							<TextHighlight variant="light">светлого выделения</TextHighlight>.
@@ -33,7 +33,7 @@ export default function TestHighlightPage() {
 					</section>
 
 					<section>
-						<h2 className="text-2xl font-semibold text-gray-800 mb-4">
+						<h2 className="text-h2 font-semibold text-gray-800 mb-4">
 							Примеры использования
 						</h2>
 						<div className="space-y-4">
@@ -58,7 +58,7 @@ export default function TestHighlightPage() {
 					</section>
 
 					<section>
-						<h2 className="text-2xl font-semibold text-gray-800 mb-4">
+						<h2 className="text-h2 font-semibold text-gray-800 mb-4">
 							CSS классы для выделения
 						</h2>
 						<div className="space-y-2 text-sm">
@@ -70,7 +70,7 @@ export default function TestHighlightPage() {
 					</section>
 
 					<section>
-						<h2 className="text-2xl font-semibold text-gray-800 mb-4">
+						<h2 className="text-h2 font-semibold text-gray-800 mb-4">
 							Tailwind классы
 						</h2>
 						<div className="space-y-2 text-sm">

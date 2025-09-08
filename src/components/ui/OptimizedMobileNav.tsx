@@ -176,7 +176,7 @@ const OptimizedMobileNav = memo(function OptimizedMobileNav({
         >
           {/* Заголовок */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">Меню</h2>
+            <h2 className="text-body-lg font-semibold text-gray-900">Меню</h2>
             <PerformanceButton
               variant="ghost"
               size="sm"

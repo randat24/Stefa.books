@@ -58,7 +58,7 @@ export function PaginationControls({
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white"
+        className="flex items-center px-3 py-2 text-body-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white"
         aria-label="Попередня сторінка"
       >
         <ChevronLeft className="w-4 h-4 mr-1" />
@@ -86,7 +86,7 @@ export function PaginationControls({
             <button
               key={pageNumber}
               onClick={() => onPageChange(pageNumber)}
-              className={`flex items-center justify-center w-10 h-10 text-sm font-medium rounded-lg transition-colors ${
+              className={`flex items-center justify-center w-10 h-10 text-body-sm font-medium rounded-lg transition-colors ${
                 isActive
                   ? 'text-white bg-brand-yellow hover:bg-brand-yellow-dark'
                   : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-900'
@@ -104,7 +104,7 @@ export function PaginationControls({
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white"
+        className="flex items-center px-3 py-2 text-body-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white"
         aria-label="Наступна сторінка"
       >
         Вперед
@@ -148,7 +148,7 @@ export function PaginationInfo({
   const endIndex = Math.min(currentPage * itemsPerPage, totalItems);
 
   return (
-    <div className={`text-sm text-gray-600 ${className}`}>
+    <div className={`text-body-sm text-gray-600 ${className}`}>
       Показано <span className="font-medium text-gray-900">{startIndex}-{endIndex}</span> з{' '}
       <span className="font-medium text-gray-900">{totalItems}</span> книг
     </div>

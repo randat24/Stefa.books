@@ -31,8 +31,8 @@ export function BookRentalInfo({ book }: BookRentalInfoProps) {
       {/* Book Details */}
       <div className="space-y-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">{book.title}</h1>
-          <p className="text-lg text-gray-700 mb-3">{book.author}</p>
+          <h1 className="text-h2 text-gray-900 mb-2">{book.title}</h1>
+          <p className="text-body-lg text-gray-700 mb-3">{book.author}</p>
           
           {/* Rating */}
           {book.rating && book.rating_count && (
@@ -49,7 +49,7 @@ export function BookRentalInfo({ book }: BookRentalInfoProps) {
                   />
                 ))}
               </div>
-              <span className="text-sm text-gray-600">
+              <span className="text-body-sm text-gray-600">
                 {book.rating.toFixed(1)} ({book.rating_count} відгуків)
               </span>
             </div>
@@ -67,7 +67,7 @@ export function BookRentalInfo({ book }: BookRentalInfoProps) {
                 {book.age_range}
               </Badge>
             )}
-            <Badge variant="outline" className="text-xs text-green-700 bg-green-100">
+            <Badge variant="outline" className="text-caption text-green-700 bg-green-100">
               ✓ Доступна для оренди
             </Badge>
           </div>
@@ -77,7 +77,7 @@ export function BookRentalInfo({ book }: BookRentalInfoProps) {
         {book.short_description && (
           <div>
             <h3 className="font-semibold text-gray-900 mb-2">Опис</h3>
-            <p className="text-sm text-gray-600 leading-relaxed">
+            <p className="text-body-sm text-gray-600 leading-relaxed">
               {book.short_description}
             </p>
           </div>

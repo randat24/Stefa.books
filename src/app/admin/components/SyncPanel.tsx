@@ -249,18 +249,18 @@ export function SyncPanel() {
         {/* СТАТУС СИНХРОНИЗАЦИИ */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="text-center p-3 border rounded-lg">
-            <div className="text-2xl font-bold text-brand-accent-light">{booksStatus?.totalBooks || 0}</div>
-            <div className="text-sm text-muted-foreground">Всього книг в БД</div>
+            <div className="text-h2 text-brand-accent-light">{booksStatus?.totalBooks || 0}</div>
+            <div className="text-body-sm text-muted-foreground">Всього книг в БД</div>
           </div>
           
           <div className="text-center p-3 border rounded-lg">
-            <div className="text-2xl font-bold text-green-600">{booksStatus?.availableBooks || 0}</div>
-            <div className="text-sm text-muted-foreground">Доступних книг</div>
+            <div className="text-h2 text-green-600">{booksStatus?.availableBooks || 0}</div>
+            <div className="text-body-sm text-muted-foreground">Доступних книг</div>
           </div>
           
           <div className="text-center p-3 border rounded-lg">
-            <div className="text-2xl font-bold text-purple-600">{booksStatus?.totalCategories || 0}</div>
-            <div className="text-sm text-muted-foreground">Категорій</div>
+            <div className="text-h2 text-purple-600">{booksStatus?.totalCategories || 0}</div>
+            <div className="text-body-sm text-muted-foreground">Категорій</div>
           </div>
           
           <div className="text-center p-3 border rounded-lg">
@@ -270,7 +270,7 @@ export function SyncPanel() {
                 Готово
               </Badge>
             </div>
-            <div className="text-sm text-muted-foreground mt-1">Статус синхронізації</div>
+            <div className="text-body-sm text-muted-foreground mt-1">Статус синхронізації</div>
           </div>
         </div>
 
@@ -298,7 +298,7 @@ export function SyncPanel() {
             <Globe className="h-5 w-5 text-brand-accent-light" />
             <h3 className="font-semibold text-blue-900">Синхронізація з сайтом</h3>
           </div>
-          <p className="text-sm text-blue-700 mb-4">
+          <p className="text-body-sm text-blue-700 mb-4">
             Вивантажити всі {booksStatus?.totalBooks || 0} книг з бази даних на сайт для відображення в каталозі
           </p>
           <div className="flex gap-3">
@@ -404,14 +404,14 @@ export function SyncPanel() {
                 Очистить тестовые данные
               </Button>
             </div>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-caption text-muted-foreground mt-1">
               Создает тестовых пользователей с разными подписками, аренды и платежи для проверки админ панели
             </p>
           </div>
         </div>
 
         {/* ИНФОРМАЦИЯ */}
-        <div className="text-sm text-muted-foreground space-y-2">
+        <div className="text-body-sm text-muted-foreground space-y-2">
           <div className="flex items-center gap-2">
             <Info className="h-4 w-4" />
             <span>Последняя проверка: {status?.last_check ? new Date(status.last_check).toLocaleString('uk-UA') : 'Никогда'}</span>
@@ -437,7 +437,7 @@ export function SyncPanel() {
         {/* ОПИСАНИЕ ДЕЙСТВИЙ */}
         <div className="pt-4 border-t">
           <h4 className="font-medium mb-2">Доступные действия:</h4>
-          <ul className="text-sm text-muted-foreground space-y-1">
+          <ul className="text-body-sm text-muted-foreground space-y-1">
             <li className="flex items-start gap-2">
               <BookOpen className="h-3 w-3 mt-0.5 text-brand-accent" />
               <span><strong>Синхронизация с сайтом:</strong> Выгружает все книги из базы данных на сайт для отображения в каталоге</span>

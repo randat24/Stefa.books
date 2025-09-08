@@ -107,7 +107,7 @@ export function OptimizedBookImage({
       {/* Оверлей для WebP/AVIF браузеров */}
       {isCloudinaryImage && (
         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-          <span className="text-xs bg-green-500 text-white px-2 py-1 rounded">
+          <span className="text-caption bg-green-500 text-white px-2 py-1 rounded">
             WebP
           </span>
         </div>

@@ -163,20 +163,20 @@ export function CoverUpload({
               <div className="flex flex-col items-center gap-3">
                 <Loader2 className="size-8 text-brand-accent animate-spin" />
                 <div>
-                  <p className="text-sm font-medium text-gray-900">Завантаження...</p>
-                  <p className="text-xs text-gray-500">Обробляємо вашу обкладинку</p>
+                  <p className="text-body-sm font-medium text-gray-900">Завантаження...</p>
+                  <p className="text-caption text-gray-500">Обробляємо вашу обкладинку</p>
                 </div>
               </div>
             ) : (
               <div className="flex flex-col items-center gap-3">
-                <div className="p-3 bg-gray-100 rounded-full">
+                <div className="p-3 bg-gray-100 rounded-2xl">
                   <Upload className="size-6 text-gray-600" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">
+                  <p className="text-body-sm font-medium text-gray-900">
                     Натисніть або перетягніть файл
                   </p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-caption text-gray-500">
                     JPEG, PNG, WebP, GIF (макс. 5 МБ)
                   </p>
                 </div>
@@ -224,9 +224,9 @@ export function CoverUpload({
             {/* Інформація про файл */}
             <div className="mt-2 text-center">
               {uploading ? (
-                <p className="text-xs text-gray-500">Завантаження...</p>
+                <p className="text-caption text-gray-500">Завантаження...</p>
               ) : (
-                <p className="text-xs text-gray-500">
+                <p className="text-caption text-gray-500">
                   {preview ? 'Новий файл завантажено' : 'Поточна обкладинка'}
                 </p>
               )}
@@ -235,7 +235,7 @@ export function CoverUpload({
         )}
 
         {/* Підказки */}
-        <div className="text-xs text-gray-500 space-y-1">
+        <div className="text-caption text-gray-500 space-y-1">
           <p>• Рекомендовані розміри: мінімум 200×300px</p>
           <p>• Підтримувані формати: JPEG, PNG, WebP, GIF</p>
           <p>• Максимальний розмір: 5 МБ</p>

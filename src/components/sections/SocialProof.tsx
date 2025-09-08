@@ -33,7 +33,7 @@ export default function SocialProof() {
           <div key={s.k} className="card p-6 text-center">
             <div className="text-3xl font-extrabold text-[--ink]">{s.value}</div>
             <div className="text-muted">{s.label}</div>
-            <div className="text-xs text-muted mt-1">{s.hint}</div>
+            <div className="text-caption text-muted mt-1">{s.hint}</div>
           </div>
         ))}
       </div>
@@ -47,7 +47,7 @@ export default function SocialProof() {
               <div className="size-10 rounded-2xl border border-black/10 bg-white grid place-items-center">
                 <IconComponent size={20} style={{ color: 'var(--brand)' }} />
               </div>
-              <span className="text-sm font-medium text-[--ink]">{b.label}</span>
+              <span className="text-body-sm font-medium text-[--ink]">{b.label}</span>
             </div>
           );
         })}
@@ -59,7 +59,7 @@ export default function SocialProof() {
           <figure key={r.name} className="rounded-3xl border border-[--line] bg-white p-6">
             <figcaption>
               <p className="text-[--ink]">{r.text}</p>
-              <div className="text-sm text-muted mt-2">— {r.name}</div>
+              <div className="text-body-sm text-muted mt-2">— {r.name}</div>
             </figcaption>
           </figure>
         ))}

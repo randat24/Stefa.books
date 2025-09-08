@@ -20,8 +20,8 @@ export async function GET(request: NextRequest) {
     // TODO: Восстановить когда будет настроена структура категорий
 
     // Создаем Supabase клиент
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     
     if (!supabaseUrl || !supabaseKey) {
       logger.warn('Missing Supabase environment variables, returning mock data');

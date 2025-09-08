@@ -63,13 +63,13 @@ export function OfflinePage({
       <div className="max-w-md w-full text-center">
         {/* Иконка */}
         <div className="mb-8">
-          <div className="w-24 h-24 mx-auto bg-red-100 rounded-full flex items-center justify-center">
+          <div className="w-24 h-24 mx-auto bg-red-100 rounded-2xl flex items-center justify-center">
             <WifiOff className="w-12 h-12 text-red-600" />
           </div>
         </div>
 
         {/* Заголовок */}
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
+        <h1 className="text-h1 text-gray-900 mb-4">
           {title}
         </h1>
 
@@ -114,7 +114,7 @@ export function OfflinePage({
               <h3 className="font-medium text-blue-900 mb-2">
                 Що можна робити офлайн?
               </h3>
-              <ul className="text-sm text-blue-800 space-y-1">
+              <ul className="text-body-sm text-blue-800 space-y-1">
                 <li>• Переглядати кешовані книги</li>
                 <li>• Читати збережені сторінки</li>
                 <li>• Використовувати пошук по кешу</li>
@@ -125,7 +125,7 @@ export function OfflinePage({
         </div>
 
         {/* Статус соединения */}
-        <div className="mt-6 text-sm text-gray-500">
+        <div className="mt-6 text-body-sm text-gray-500">
           Статус: {isOnline ? (
             <span className="text-green-600 font-medium">Онлайн</span>
           ) : (

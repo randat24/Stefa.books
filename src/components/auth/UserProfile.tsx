@@ -77,7 +77,7 @@ export function UserProfile() {
         <div className="space-y-4">
           <div>
             <Label>Електронна пошта</Label>
-            <div className="mt-1 text-sm text-gray-900">
+            <div className="mt-1 text-body-sm text-gray-900">
               {user.email}
             </div>
           </div>
@@ -123,14 +123,14 @@ export function UserProfile() {
             <>
               <div>
                 <Label>Повне ім&apos;я</Label>
-                <div className="mt-1 text-sm text-gray-900">
+                <div className="mt-1 text-body-sm text-gray-900">
                   {profile?.name || 'Не вказано'}
                 </div>
               </div>
               
               <div>
                 <Label>Телефон</Label>
-                <div className="mt-1 text-sm text-gray-900">
+                <div className="mt-1 text-body-sm text-gray-900">
                   {profile?.phone || 'Не вказано'}
                 </div>
               </div>

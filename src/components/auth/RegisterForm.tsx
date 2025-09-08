@@ -207,7 +207,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
           </Button>
           
           {onSwitchToLogin && (
-            <div className="text-center text-sm text-gray-600">
+            <div className="text-center text-body-sm text-gray-600">
               Вже маєте обліковий запис?{' '}
               <button
                 type="button"

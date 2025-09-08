@@ -387,21 +387,21 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
             onKeyDown={(e) => e.key === 'Enter' && handleSearch(query)}
             onFocus={() => setShowSuggestions(true)}
             placeholder={isSupabaseSearch ? "Пошук з AI-індексацією..." : "Пошук книг за назвою, автором, категорією..."}
-            className="w-full h-14 pl-12 pr-32 rounded-full border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none transition-colors"
+            className="w-full h-14 pl-12 pr-32 rounded-2xl border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none transition-colors"
             disabled={!isInitialized}
           />
           <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
             {query && (
               <button
                 onClick={clearLocalSearch}
-                className="p-2 hover:bg-muted rounded-full transition-colors"
+                className="p-2 hover:bg-muted rounded-2xl transition-colors"
               >
                 <X className="h-4 w-4" />
               </button>
             )}
             <button
               onClick={() => setIsSupabaseSearch(!isSupabaseSearch)}
-              className={`px-3 py-1 text-xs rounded-full transition-colors ${
+              className={`px-3 py-1 text-caption rounded-2xl transition-colors ${
                 isSupabaseSearch 
                   ? 'bg-green-100 text-green-800 border border-green-200' 
                   : 'bg-gray-100 text-gray-600 border border-gray-200'
@@ -412,11 +412,11 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
             </button>
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className={`p-2 rounded-full transition-colors relative ${showFilters ? 'bg-accent text-accent-foreground' : 'hover:bg-muted'}`}
+              className={`p-2 rounded-2xl transition-colors relative ${showFilters ? 'bg-accent text-accent-foreground' : 'hover:bg-muted'}`}
             >
               <Filter className="h-4 w-4" />
               {activeFilterCount > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs bg-accent">
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 text-caption bg-accent">
                   {activeFilterCount}
                 </Badge>
               )}
@@ -424,7 +424,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
             <button
               onClick={() => handleSearch(query)}
               disabled={isSearching || !isInitialized}
-              className="px-4 py-2 bg-accent text-accent-foreground rounded-full hover:bg-accent/90 transition-colors disabled:opacity-50"
+              className="px-4 py-2 bg-accent text-accent-foreground rounded-2xl hover:bg-accent/90 transition-colors disabled:opacity-50"
             >
               {isSearching ? 'Пошук...' : 'Знайти'}
             </button>
@@ -440,7 +440,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
             {/* Search Suggestions */}
             {supabaseSuggestions.length > 0 && (
               <div className="p-2">
-                <div className="px-3 py-2 text-sm font-medium text-muted-foreground border-b border-border">
+                <div className="px-3 py-2 text-body-sm font-medium text-muted-foreground border-b border-border">
                   Пропозиції
                 </div>
                 {supabaseSuggestions.map((suggestion, index) => (
@@ -451,10 +451,10 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
                   >
                     {getSuggestionIcon(suggestion.type)}
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium text-foreground truncate">
+                      <div className="text-body-sm font-medium text-foreground truncate">
                         {suggestion.text}
                       </div>
-                      <div className="text-xs text-muted-foreground">
+                      <div className="text-caption text-muted-foreground">
                         {getSuggestionTypeLabel(suggestion.type)}
                         {suggestion.count > 1 && ` • ${suggestion.count} результатів`}
                       </div>
@@ -467,7 +467,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
             {/* Recent Searches */}
             {recentSearches.length > 0 && query.length < 2 && (
               <div className="p-2 border-t border-border">
-                <div className="px-3 py-2 text-sm font-medium text-muted-foreground border-b border-border flex items-center gap-2">
+                <div className="px-3 py-2 text-body-sm font-medium text-muted-foreground border-b border-border flex items-center gap-2">
                   <Clock className="w-4 h-4" />
                   Останні пошуки
                 </div>
@@ -478,7 +478,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
                     className="w-full flex items-center gap-3 px-3 py-2 hover:bg-muted rounded-lg transition-colors text-left"
                   >
                     <Clock className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm text-foreground truncate">{recentQuery}</span>
+                    <span className="text-body-sm text-foreground truncate">{recentQuery}</span>
                   </button>
                 ))}
               </div>
@@ -487,7 +487,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
             {/* Popular Searches */}
             {popularSearches.length > 0 && query.length < 2 && (
               <div className="p-2 border-t border-border">
-                <div className="px-3 py-2 text-sm font-medium text-muted-foreground border-b border-border flex items-center gap-2">
+                <div className="px-3 py-2 text-body-sm font-medium text-muted-foreground border-b border-border flex items-center gap-2">
                   <TrendingUp className="w-4 h-4" />
                   Популярні пошуки
                 </div>
@@ -499,8 +499,8 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
                   >
                     <TrendingUp className="w-4 h-4 text-muted-foreground" />
                     <div className="flex-1 min-w-0">
-                      <span className="text-sm text-foreground truncate">{popular.query}</span>
-                      <span className="text-xs text-muted-foreground ml-2">
+                      <span className="text-body-sm text-foreground truncate">{popular.query}</span>
+                      <span className="text-caption text-muted-foreground ml-2">
                         {popular.count} пошуків
                       </span>
                     </div>
@@ -516,14 +516,14 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
       {showFilters && (
         <div className="mb-6 p-6 border rounded-lg bg-card">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold flex items-center gap-2">
+            <h3 className="text-body-lg font-semibold flex items-center gap-2">
               <SlidersHorizontal className="h-5 w-5" />
               Розширені фільтри
             </h3>
             {activeFilterCount > 0 && (
               <button
                 onClick={clearFilters}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-body-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 Очистити всі
               </button>
@@ -533,7 +533,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Search Mode */}
             <div>
-              <label className="block text-sm font-medium mb-2">Режим пошуку</label>
+              <label className="block text-body-sm font-medium mb-2">Режим пошуку</label>
               <select
                 value={filters.searchMode}
                 onChange={(e) => updateFilter('searchMode', e.target.value as SearchFilters['searchMode'])}
@@ -545,7 +545,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
                 <option value="semantic">Семантичний пошук</option>
               </select>
               {isSupabaseSearch && (
-                <p className="text-xs text-muted-foreground mt-1">
+                <p className="text-caption text-muted-foreground mt-1">
                   AI пошук використовує оптимальний режим автоматично
                 </p>
               )}
@@ -553,7 +553,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
 
             {/* Availability Filter */}
             <div>
-              <label className="block text-sm font-medium mb-2">Доступність</label>
+              <label className="block text-body-sm font-medium mb-2">Доступність</label>
               <label className="flex items-center gap-2">
                 <input
                   type="checkbox"
@@ -567,7 +567,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
 
             {/* Rating Filter */}
             <div>
-              <label className="block text-sm font-medium mb-2">Мінімальний рейтинг</label>
+              <label className="block text-body-sm font-medium mb-2">Мінімальний рейтинг</label>
               <select
                 value={filters.minRating}
                 onChange={(e) => updateFilter('minRating', Number(e.target.value))}
@@ -582,7 +582,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
 
             {/* Categories */}
             <div>
-              <label className="block text-sm font-medium mb-2">Категорії</label>
+              <label className="block text-body-sm font-medium mb-2">Категорії</label>
               <div className="max-h-32 overflow-y-auto space-y-1">
                 {filterOptions.categories.map(category => (
                   <label key={category} className="flex items-center gap-2">
@@ -605,7 +605,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
 
             {/* Authors */}
             <div>
-              <label className="block text-sm font-medium mb-2">Автори</label>
+              <label className="block text-body-sm font-medium mb-2">Автори</label>
               <div className="max-h-32 overflow-y-auto space-y-1">
                 {filterOptions.authors.slice(0, 10).map(author => (
                   <label key={author} className="flex items-center gap-2">
@@ -631,7 +631,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
 
       {/* Search Stats */}
       {(query || activeFilterCount > 0) && (
-        <div className="mb-4 flex items-center gap-4 text-sm text-muted-foreground">
+        <div className="mb-4 flex items-center gap-4 text-body-sm text-muted-foreground">
           <span>
             {query 
               ? (isSupabaseSearch && supabaseResults
@@ -692,7 +692,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
         return !hasResults && !isSearching && (
           <div className="text-center py-12">
             <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-medium mb-2">
+            <h3 className="text-body-lg font-medium mb-2">
               {query ? "Нічого не знайдено" : "Немає книг за вибраними фільтрами"}
             </h3>
             <p className="text-muted-foreground mb-4">
@@ -702,7 +702,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
               }
             </p>
             {query && isSupabaseSearch && (
-              <p className="text-sm text-muted-foreground mb-4">
+              <p className="text-body-sm text-muted-foreground mb-4">
                 Спробуйте перемкнутися на звичайний пошук або використайте інші ключові слова
               </p>
             )}

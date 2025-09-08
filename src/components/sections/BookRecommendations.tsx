@@ -156,7 +156,7 @@ export function BookRecommendations({
           <div className="text-center">
             <div className="flex items-center justify-center gap-3 text-gray-600">
               <Loader2 className="w-6 h-6 animate-spin" />
-              <span className="text-lg font-medium">Завантаження рекомендацій...</span>
+              <span className="text-body-lg font-medium">Завантаження рекомендацій...</span>
             </div>
           </div>
         </div>
@@ -177,10 +177,10 @@ export function BookRecommendations({
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8 lg:mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-h1 text-gray-900 mb-4">
             {title}
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-body-lg text-gray-600 max-w-2xl mx-auto">
             {subtitle}
           </p>
         </div>
@@ -195,7 +195,7 @@ export function BookRecommendations({
               <button
                 key={type.key}
                 onClick={() => setActiveType(type.key)}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                className={`inline-flex items-center gap-2 px-4 py-2 rounded-2xl text-body-sm font-medium transition-all ${
                   isActive
                     ? "bg-brand-yellow text-gray-900 shadow-lg"
                     : "bg-white text-gray-600 hover:bg-gray-50 border border-gray-200 hover:border-gray-300"

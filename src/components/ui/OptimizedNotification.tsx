@@ -103,7 +103,7 @@ const Notification = memo(function Notification({
         <div className="flex-1 min-w-0">
           <h4 className="font-medium text-sm">{title}</h4>
           {message && (
-            <p className="text-sm mt-1 opacity-90">{message}</p>
+            <p className="text-body-sm mt-1 opacity-90">{message}</p>
           )}
         </div>
         

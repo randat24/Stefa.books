@@ -71,17 +71,17 @@ export function BookRentalPricing({ book }: BookRentalPricingProps) {
               
               <div className="text-center mb-4">
                 <h3 className="font-semibold text-gray-900 mb-1">{plan.name}</h3>
-                <p className="text-sm text-gray-600 mb-2">{plan.description}</p>
-                <div className="text-2xl font-bold text-gray-900">
+                <p className="text-body-sm text-gray-600 mb-2">{plan.description}</p>
+                <div className="text-h2 text-gray-900">
                   {plan.price} ₴
                 </div>
-                <div className="text-sm text-gray-500">{plan.duration}</div>
+                <div className="text-body-sm text-gray-500">{plan.duration}</div>
               </div>
 
               <ul className="space-y-2 text-sm">
                 {plan.features.map((feature, index) => (
                   <li key={index} className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full flex-shrink-0" />
+                    <div className="w-1.5 h-1.5 bg-green-500 rounded-2xl flex-shrink-0" />
                     <span className="text-gray-600">{feature}</span>
                   </li>
                 ))}

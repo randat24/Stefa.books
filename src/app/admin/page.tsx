@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AdminDashboard } from "@/components/admin/AdminDashboard"
+import ExportData from "@/components/admin/ExportData"
 import type { BookRow, UserRow } from "@/lib/types/admin"
 
 // ============================================================================
@@ -29,10 +30,22 @@ export default function AdminPage() {
       setLoading(true)
       setError(null)
       
+      // Get auth token from localStorage
+      const authToken = localStorage.getItem('supabase.auth.token');
+      const token = authToken ? JSON.parse(authToken).access_token : null;
+      
+      const headers: HeadersInit = {
+        'Content-Type': 'application/json',
+      };
+      
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+      
       // Load data from API instead of server actions
       const [booksResponse, usersResponse] = await Promise.all([
-        fetch('/api/admin/books'),
-        fetch('/api/admin/users')
+        fetch('/api/admin/books', { headers }),
+        fetch('/api/admin/users', { headers })
       ])
       
       if (!booksResponse.ok || !usersResponse.ok) {
@@ -42,8 +55,8 @@ export default function AdminPage() {
       const booksData = await booksResponse.json()
       const usersData = await usersResponse.json()
       
-      setBooks(booksData.data || [])
-      setUsers(usersData.data || [])
+      setBooks(booksData.data?.books || booksData.data || [])
+      setUsers(usersData.data?.users || usersData.data || [])
     } catch (err) {
       console.error('Error loading data:', err)
       setError('Помилка завантаження даних')
@@ -140,11 +153,14 @@ export default function AdminPage() {
   }
 
   return (
-    <AdminDashboard 
-      books={books}
-      users={users}
-      onRefresh={handleRefresh}
-      onBookCreated={handleBookCreated}
-    />
+    <div className="space-y-6">
+      <ExportData />
+      <AdminDashboard 
+        books={books}
+        users={users}
+        onRefresh={handleRefresh}
+        onBookCreated={handleBookCreated}
+      />
+    </div>
   )
 }

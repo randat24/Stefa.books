@@ -253,7 +253,7 @@ export function EnhancedSearch({ onSearchResults }: EnhancedSearchProps) {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-accent"></div>
+        <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-brand-accent"></div>
       </div>
     );
   }
@@ -301,7 +301,7 @@ export function EnhancedSearch({ onSearchResults }: EnhancedSearchProps) {
             )}
           </div>
 
-          <div className="text-sm text-gray-600">
+          <div className="text-body-sm text-gray-600">
             Знайдено {totalBooks} книг
           </div>
         </div>
@@ -401,7 +401,7 @@ export function EnhancedSearch({ onSearchResults }: EnhancedSearchProps) {
       ) : displayedBooks.length === 0 ? (
         <div className="text-center py-12 text-gray-600">
           <Search className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-          <h3 className="text-lg font-medium mb-2">Книги не знайдено</h3>
+          <h3 className="text-body-lg font-medium mb-2">Книги не знайдено</h3>
           <p className="text-sm">
             {query ? `За запитом "${query}" нічого не знайдено` : 'Спробуйте змінити фільтри'}
           </p>

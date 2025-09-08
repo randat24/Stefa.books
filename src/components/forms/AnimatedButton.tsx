@@ -60,9 +60,9 @@ export function AnimatedButton({
   }
 
   const sizeClasses = {
-    sm: "px-3 py-1.5 text-sm h-8",
-    md: "px-4 py-2 text-base h-10",
-    lg: "px-6 py-3 text-lg h-12"
+    sm: "px-3 py-1.5 text-body-sm h-8",
+    md: "px-4 py-2 text-body h-10",
+    lg: "px-6 py-3 text-body-lg h-12"
   }
 
   const isDisabled = disabled || loading

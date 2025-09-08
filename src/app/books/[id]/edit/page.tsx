@@ -58,7 +58,7 @@ export default function EditBookPage() {
     <div className="container py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold">Edit Book</h1>
+          <h1 className="text-h1">Edit Book</h1>
           <p className="text-gray-500">Update book information</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">

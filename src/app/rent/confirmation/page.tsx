@@ -109,7 +109,7 @@ export default function RentalConfirmationPage() {
     return (
       <div className="container py-8">
         <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-accent"></div>
+          <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-brand-accent"></div>
         </div>
       </div>
     );
@@ -119,12 +119,12 @@ export default function RentalConfirmationPage() {
     return (
       <div className="container py-8">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Помилка</h1>
+          <h1 className="text-h2 text-gray-900 mb-2">Помилка</h1>
           <p className="text-gray-600 mb-6">{error}</p>
           <Button asChild>
             <Link href="/catalog">Перейти до каталогу</Link>
@@ -138,10 +138,10 @@ export default function RentalConfirmationPage() {
     <div className="container py-8">
       {/* Success Header */}
       <div className="text-center mb-8">
-        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
           <CheckCircle className="w-8 h-8 text-green-600" />
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Оренда оформлена!</h1>
+        <h1 className="text-h1 text-gray-900 mb-2">Оренда оформлена!</h1>
         <p className="text-gray-600">
           Ваша заявка на оренду успішно відправлена. Ми зв&apos;яжемося з вами найближчим часом.
         </p>
@@ -159,40 +159,40 @@ export default function RentalConfirmationPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Номер заявки:</span>
+                <span className="text-body-sm text-gray-600">Номер заявки:</span>
                 <span className="font-mono text-sm">#{rental.id.slice(-8)}</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Статус:</span>
+                <span className="text-body-sm text-gray-600">Статус:</span>
                 <Badge variant={getStatusBadge(rental.status).variant}>
                   {getStatusBadge(rental.status).label}
                 </Badge>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">План оренди:</span>
-                <span className="text-sm font-medium">{getPlanName(rental.rental_plan)}</span>
+                <span className="text-body-sm text-gray-600">План оренди:</span>
+                <span className="text-body-sm font-medium">{getPlanName(rental.rental_plan)}</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Доставка:</span>
-                <span className="text-sm font-medium">{getDeliveryName(rental.delivery_method)}</span>
+                <span className="text-body-sm text-gray-600">Доставка:</span>
+                <span className="text-body-sm font-medium">{getDeliveryName(rental.delivery_method)}</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Оплата:</span>
-                <span className="text-sm font-medium">{getPaymentName(rental.payment_method)}</span>
+                <span className="text-body-sm text-gray-600">Оплата:</span>
+                <span className="text-body-sm font-medium">{getPaymentName(rental.payment_method)}</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Загальна сума:</span>
-                <span className="text-lg font-bold text-brand-accent">{rental.total_price} ₴</span>
+                <span className="text-body-sm text-gray-600">Загальна сума:</span>
+                <span className="text-h4 text-brand-accent">{rental.total_price} ₴</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Дата створення:</span>
-                <span className="text-sm font-medium">
+                <span className="text-body-sm text-gray-600">Дата створення:</span>
+                <span className="text-body-sm font-medium">
                   {new Date(rental.created_at).toLocaleDateString('uk-UA')}
                 </span>
               </div>
@@ -209,24 +209,24 @@ export default function RentalConfirmationPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-600">Ім&apos;я:</span>
-                <span className="text-sm font-medium">{rental.customer_name}</span>
+                <span className="text-body-sm text-gray-600">Ім&apos;я:</span>
+                <span className="text-body-sm font-medium">{rental.customer_name}</span>
               </div>
               
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-gray-400" />
-                <span className="text-sm text-gray-600">{rental.customer_email}</span>
+                <span className="text-body-sm text-gray-600">{rental.customer_email}</span>
               </div>
               
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-gray-400" />
-                <span className="text-sm text-gray-600">{rental.customer_phone}</span>
+                <span className="text-body-sm text-gray-600">{rental.customer_phone}</span>
               </div>
               
               {rental.customer_address && (
                 <div className="flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-gray-400" />
-                  <span className="text-sm text-gray-600">
+                  <span className="text-body-sm text-gray-600">
                     {rental.customer_address}
                     {rental.customer_city && `, ${rental.customer_city}`}
                     {rental.customer_postal_code && `, ${rental.customer_postal_code}`}
@@ -262,7 +262,7 @@ export default function RentalConfirmationPage() {
                   
                   <div className="flex-1">
                     <h3 className="font-semibold text-gray-900 mb-1">{rental.book.title}</h3>
-                    <p className="text-sm text-gray-600 mb-2">{rental.book.author}</p>
+                    <p className="text-body-sm text-gray-600 mb-2">{rental.book.author}</p>
                     <Button variant="outline" size="sm" asChild>
                       <Link href={`/books/${rental.book.id}`}>
                         Переглянути книгу
@@ -284,32 +284,32 @@ export default function RentalConfirmationPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-xs font-bold text-blue-600">1</span>
+                <div className="w-6 h-6 bg-blue-100 rounded-2xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-caption font-bold text-blue-600">1</span>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">Підтвердження заявки</p>
-                  <p className="text-xs text-gray-600">Ми зв&apos;яжемося з вами протягом 24 годин</p>
+                  <p className="text-body-sm font-medium text-gray-900">Підтвердження заявки</p>
+                  <p className="text-caption text-gray-600">Ми зв&apos;яжемося з вами протягом 24 годин</p>
                 </div>
               </div>
               
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-xs font-bold text-blue-600">2</span>
+                <div className="w-6 h-6 bg-blue-100 rounded-2xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-caption font-bold text-blue-600">2</span>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">Підготовка книги</p>
-                  <p className="text-xs text-gray-600">Книга буде підготовлена до доставки</p>
+                  <p className="text-body-sm font-medium text-gray-900">Підготовка книги</p>
+                  <p className="text-caption text-gray-600">Книга буде підготовлена до доставки</p>
                 </div>
               </div>
               
               <div className="flex items-start gap-3">
-                <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-xs font-bold text-blue-600">3</span>
+                <div className="w-6 h-6 bg-blue-100 rounded-2xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-caption font-bold text-blue-600">3</span>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-gray-900">Доставка</p>
-                  <p className="text-xs text-gray-600">Книга буде доставлена за вказаною адресою</p>
+                  <p className="text-body-sm font-medium text-gray-900">Доставка</p>
+                  <p className="text-caption text-gray-600">Книга буде доставлена за вказаною адресою</p>
                 </div>
               </div>
             </CardContent>

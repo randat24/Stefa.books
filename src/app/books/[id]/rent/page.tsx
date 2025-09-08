@@ -79,7 +79,7 @@ export default async function BookRentalPage({ params }: { params: Params }) {
         <div className="container py-8">
           <div className="max-w-2xl mx-auto text-center">
             <BookOpen className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">Книга недоступна для оренди</h1>
+            <h1 className="text-h2 text-gray-900 mb-2">Книга недоступна для оренди</h1>
             <p className="text-gray-600 mb-6">
               На жаль, книга &quot;{book.title}&quot; зараз видана іншому читачу.
             </p>
@@ -105,7 +105,7 @@ export default async function BookRentalPage({ params }: { params: Params }) {
       <div className="container py-8">
         {/* Breadcrumbs */}
         <div className="mb-6">
-          <nav className="flex items-center space-x-2 text-sm text-gray-600">
+          <nav className="flex items-center space-x-2 text-body-sm text-gray-600">
             <Link href="/" className="hover:text-gray-900">Головна</Link>
             <ChevronLeft className="h-4 w-4" />
             <Link href="/catalog" className="hover:text-gray-900">Каталог</Link>

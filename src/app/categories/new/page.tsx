@@ -37,7 +37,7 @@ export default function NewCategoryPage() {
     <div className="container py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold">Add New Category</h1>
+          <h1 className="text-h1">Add New Category</h1>
           <p className="text-gray-500">Create a new book category</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">
@@ -78,7 +78,7 @@ export default function NewCategoryPage() {
                 placeholder="category-slug"
                 required
               />
-              <p className="text-sm text-gray-500">Used in URLs. Lowercase letters, numbers, and hyphens only.</p>
+              <p className="text-body-sm text-gray-500">Used in URLs. Lowercase letters, numbers, and hyphens only.</p>
             </div>
             
             <div className="space-y-2">

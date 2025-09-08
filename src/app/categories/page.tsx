@@ -31,7 +31,7 @@ export default function CategoriesPage() {
     <div className="container py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold">Book Categories</h1>
+          <h1 className="text-h1">Book Categories</h1>
           <p className="text-gray-500">Browse books by category</p>
         </div>
       </div>
@@ -59,7 +59,7 @@ export default function CategoriesPage() {
               </CardHeader>
               <CardContent>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-500">{category.bookCount} books</span>
+                  <span className="text-body-sm text-gray-500">{category.bookCount} books</span>
                   <Button variant="ghost" size="md">View</Button>
                 </div>
               </CardContent>
@@ -71,7 +71,7 @@ export default function CategoriesPage() {
       {filteredCategories.length === 0 && (
         <Card className="py-12 text-center">
           <CardContent>
-            <h3 className="text-xl font-semibold mb-2">No categories found</h3>
+            <h3 className="text-body-lg font-semibold mb-2">No categories found</h3>
             <p className="text-gray-500 mb-4">Try adjusting your search terms</p>
             <Button onClick={() => setSearchTerm('')}>Clear Search</Button>
           </CardContent>

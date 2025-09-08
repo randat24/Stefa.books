@@ -143,7 +143,7 @@ export default function PerformanceDashboard() {
       {/* Toggle Button */}
       <button
         onClick={toggleVisibility}
-        className="mb-2 p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg transition-colors"
+        className="mb-2 p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl shadow-lg transition-colors"
         title="Performance Dashboard"
       >
         <TrendingUp className="w-5 h-5" />
@@ -155,13 +155,13 @@ export default function PerformanceDashboard() {
           {/* Header */}
           <div className="sticky top-0 bg-white border-b border-gray-200 p-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-gray-900">
+              <h3 className="text-body-lg font-semibold text-gray-900">
                 Performance Monitor
               </h3>
               <div className="flex gap-2">
                 <button
                   onClick={clearData}
-                  className="text-sm text-gray-500 hover:text-red-600 transition-colors"
+                  className="text-body-sm text-gray-500 hover:text-red-600 transition-colors"
                   title="Clear Data"
                 >
                   Clear
@@ -180,7 +180,7 @@ export default function PerformanceDashboard() {
           <div className="p-4 space-y-6">
             {/* Core Web Vitals */}
             <div>
-              <h4 className="text-sm font-medium text-gray-700 mb-3">
+              <h4 className="text-body-sm font-medium text-gray-700 mb-3">
                 Core Web Vitals
               </h4>
               <div className="space-y-2">
@@ -192,14 +192,14 @@ export default function PerformanceDashboard() {
                     <div key={metricName} className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Icon className="w-4 h-4 text-gray-500" />
-                        <span className="text-sm text-gray-700">{metricName}</span>
+                        <span className="text-body-sm text-gray-700">{metricName}</span>
                       </div>
                       {metric ? (
-                        <span className={`text-xs px-2 py-1 rounded ${RATING_COLORS[metric.rating]}`}>
+                        <span className={`text-caption px-2 py-1 rounded ${RATING_COLORS[metric.rating]}`}>
                           {formatValue(metricName, metric.value)}
                         </span>
                       ) : (
-                        <span className="text-xs text-gray-400">No data</span>
+                        <span className="text-caption text-gray-400">No data</span>
                       )}
                     </div>
                   )
@@ -210,7 +210,7 @@ export default function PerformanceDashboard() {
             {/* Resource Timings */}
             {metrics.resourceTimings.length > 0 && (
               <div>
-                <h4 className="text-sm font-medium text-gray-700 mb-3">
+                <h4 className="text-body-sm font-medium text-gray-700 mb-3">
                   Slowest Resources
                 </h4>
                 <div className="space-y-1">
@@ -235,10 +235,10 @@ export default function PerformanceDashboard() {
             {/* Summary */}
             {metrics.webVitals.length > 0 && (
               <div>
-                <h4 className="text-sm font-medium text-gray-700 mb-3">
+                <h4 className="text-body-sm font-medium text-gray-700 mb-3">
                   Summary
                 </h4>
-                <div className="text-xs text-gray-600 space-y-1">
+                <div className="text-caption text-gray-600 space-y-1">
                   <div>Total measurements: {metrics.webVitals.length}</div>
                   <div>
                     Good ratings: {metrics.webVitals.filter(m => m.rating === 'good').length}
@@ -257,7 +257,7 @@ export default function PerformanceDashboard() {
             {metrics.webVitals.length === 0 && (
               <div className="text-center py-8">
                 <AlertTriangle className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                <p className="text-sm text-gray-500">
+                <p className="text-body-sm text-gray-500">
                   No performance data available yet.
                   <br />
                   Interact with the page to collect metrics.

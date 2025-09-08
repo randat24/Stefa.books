@@ -102,7 +102,7 @@ export function AccessibleImage({
             className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center"
             aria-hidden="true"
           >
-            <div className="w-8 h-8 border-2 border-gray-300 border-t-brand-yellow rounded-full animate-spin" />
+            <div className="w-8 h-8 border-2 border-gray-300 border-t-brand-yellow rounded-2xl animate-spin" />
           </div>
         )}
         
@@ -123,7 +123,7 @@ export function AccessibleImage({
           <button
             onClick={toggleLongDescription}
             className="
-              inline-flex items-center gap-1 text-sm text-gray-600 hover:text-gray-800
+              inline-flex items-center gap-1 text-body-sm text-gray-600 hover:text-gray-800
               focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
               rounded px-2 py-1 transition-colors
             "
@@ -146,7 +146,7 @@ export function AccessibleImage({
           {showLongDescription && (
             <div
               id="image-description"
-              className="mt-2 p-3 bg-gray-50 rounded-lg text-sm text-gray-700"
+              className="mt-2 p-3 bg-gray-50 rounded-lg text-body-sm text-gray-700"
               role="region"
               aria-live="polite"
             >
@@ -158,7 +158,7 @@ export function AccessibleImage({
       
       {/* Подпись */}
       {showCaption && caption && (
-        <figcaption className="mt-2 text-sm text-gray-600 text-center">
+        <figcaption className="mt-2 text-body-sm text-gray-600 text-center">
           {caption}
         </figcaption>
       )}
@@ -225,7 +225,7 @@ export function ImageGallery({
               onClick={goToPrevious}
               className="
                 absolute left-4 top-1/2 -translate-y-1/2
-                p-2 bg-white/80 hover:bg-white rounded-full
+                p-2 bg-white/80 hover:bg-white rounded-2xl
                 focus:outline-none focus:ring-2 focus:ring-brand-yellow
                 transition-colors
               "
@@ -240,7 +240,7 @@ export function ImageGallery({
               onClick={goToNext}
               className="
                 absolute right-4 top-1/2 -translate-y-1/2
-                p-2 bg-white/80 hover:bg-white rounded-full
+                p-2 bg-white/80 hover:bg-white rounded-2xl
                 focus:outline-none focus:ring-2 focus:ring-brand-yellow
                 transition-colors
               "
@@ -286,7 +286,7 @@ export function ImageGallery({
       
       {/* Счетчик изображений */}
       {images.length > 1 && (
-        <div className="text-center text-sm text-gray-600">
+        <div className="text-center text-body-sm text-gray-600">
           {currentIndex + 1} з {images.length}
         </div>
       )}

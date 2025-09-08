@@ -46,7 +46,7 @@ export default function CategoryPage() {
     <div className="container mx-auto px-4 py-8">
       {/* Breadcrumbs */}
       <div className="mb-6">
-        <nav className="flex items-center space-x-2 text-sm text-gray-600">
+        <nav className="flex items-center space-x-2 text-body-sm text-gray-600">
           <Link href="/" className="hover:text-gray-900">Головна</Link>
           <ChevronRight className="h-4 w-4" />
           <Link href="/catalog" className="hover:text-gray-900">Каталог</Link>
@@ -57,10 +57,10 @@ export default function CategoryPage() {
       
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">{categoryName}</h1>
+          <h1 className="text-h1 text-gray-900">{categoryName}</h1>
           <p className="text-gray-600 mt-1">Українські дитячі книги категорії &quot;{categoryName}&quot;</p>
         </div>
-        <Badge variant="secondary" className="text-lg py-2 px-4 mt-4 md:mt-0">
+        <Badge variant="secondary" className="text-body-lg py-2 px-4 mt-4 md:mt-0">
           {filteredBooks.length} {filteredBooks.length === 1 ? 'книга' : 'книг'}
         </Badge>
       </div>
@@ -79,7 +79,7 @@ export default function CategoryPage() {
       
       {loading ? (
         <div className="flex justify-center items-center py-12">
-          <div className="text-lg text-gray-600">Завантаження книг...</div>
+          <div className="text-body-lg text-gray-600">Завантаження книг...</div>
         </div>
       ) : (
         <>
@@ -92,7 +92,7 @@ export default function CategoryPage() {
           
           {filteredBooks.length === 0 && !loading && (
             <div className="text-center py-12">
-              <h3 className="text-xl font-semibold mb-2 text-gray-900">Книги не знайдені</h3>
+              <h3 className="text-body-lg font-semibold mb-2 text-gray-900">Книги не знайдені</h3>
               <p className="text-gray-600 mb-4">
                 {searchTerm 
                   ? 'Спробуйте змінити пошуковий запит' 

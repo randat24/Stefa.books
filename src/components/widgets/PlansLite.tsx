@@ -5,7 +5,7 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
 // Dynamically load SubscribeModal only when needed
-const SubscribeModal = dynamic(() => import('../SubscribeModal').then(mod => ({ default: mod.SubscribeModal })), {
+const SubscribeModal = dynamic(() => import('../SubscribeModal'), {
   ssr: false,
   loading: () => null // Modal doesn't need loading state
 });
@@ -39,8 +39,8 @@ export default function PlansLite() {
               />
             </div>
             
-            <h4 className="text-3xl font-bold text-gray-900 mb-2">Mini</h4>
-            <p className="text-2xl font-bold text-gray-900 mb-2">300 грн/міс.</p>
+            <h4 className="text-h1 text-gray-900 mb-2">Mini</h4>
+            <p className="text-h2 text-gray-900 mb-2">300 грн/міс.</p>
 
             <button
               onClick={() => setPlanAndGo('mini')}
@@ -63,8 +63,8 @@ export default function PlansLite() {
               />
             </div>
             
-            <h4 className="text-3xl font-bold text-gray-900 mb-2">Maxi</h4>
-            <p className="text-2xl font-bold text-brand-yellow-dark mb-2">500 грн/міс.</p>
+            <h4 className="text-h1 text-gray-900 mb-2">Maxi</h4>
+            <p className="text-h2 text-brand-yellow-dark mb-2">500 грн/міс.</p>
 
             <button
               onClick={() => setPlanAndGo('maxi')}

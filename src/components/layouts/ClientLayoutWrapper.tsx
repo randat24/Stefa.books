@@ -53,8 +53,8 @@ export function ClientLayoutWrapper({ children }: ClientLayoutWrapperProps) {
       {/* Шапка (внутри full-bleed секции, но контент — в контейнере) */}
       <ErrorBoundary fallback={
         <header className="bg-white shadow-sm">
-          <div className="container py-4">
-            <h1 className="text-xl font-bold">Stefa.books</h1>
+          <div className="container mx-auto px-4 py-4 max-w-7xl">
+            <h1 className="text-h3">Stefa.books</h1>
           </div>
         </header>
       }>
@@ -64,14 +64,14 @@ export function ClientLayoutWrapper({ children }: ClientLayoutWrapperProps) {
       {/* Основной контент: ограничен контейнером */}
       <main className="flex-1">
         <ErrorBoundary>
-          <div className="container">{children}</div>
+          <div className="container mx-auto px-4 max-w-7xl">{children}</div>
         </ErrorBoundary>
       </main>
 
       {/* Футер: секция на всю ширину, внутри — контейнер с колонками */}
       <ErrorBoundary fallback={
         <footer className="bg-gray-50 py-8">
-          <div className="container text-center text-gray-500">
+          <div className="container mx-auto px-4 text-center text-gray-500 max-w-7xl">
             <p>© 2025 Stefa.books</p>
           </div>
         </footer>

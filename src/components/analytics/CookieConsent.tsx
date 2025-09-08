@@ -45,20 +45,20 @@ export default function CookieConsent() {
           <h3 className="font-semibold text-gray-900 mb-2">
             Використання cookies
           </h3>
-          <p className="text-sm text-gray-700 mb-4">
+          <p className="text-body-sm text-gray-700 mb-4">
             Ми використовуємо cookies для аналітики та покращення роботи сайту. 
             Продовжуючи використання сайту, ви погоджуєтесь з нашою політикою cookies.
           </p>
           <div className="flex flex-col sm:flex-row gap-2">
             <button
               onClick={acceptCookies}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-blue-600 text-white rounded-md text-body-sm font-medium hover:bg-blue-700 transition-colors"
             >
               Прийняти всі
             </button>
             <button
               onClick={rejectCookies}
-              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md text-sm font-medium hover:bg-gray-300 transition-colors"
+              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md text-body-sm font-medium hover:bg-gray-300 transition-colors"
             >
               Відхилити
             </button>

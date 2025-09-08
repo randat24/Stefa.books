@@ -95,14 +95,14 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
         {/* Progress Steps */}
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <div className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium ${
+            <div className={`flex items-center justify-center w-8 h-8 rounded-2xl text-body-sm font-medium ${
               currentStep === "subscription" 
                 ? "bg-brand-accent-light text-white" 
                 : "bg-green-600 text-white"
             }`}>
               {currentStep === "subscription" ? "1" : <CheckCircle className="h-5 w-5" />}
             </div>
-            <span className={`text-sm font-medium ${
+            <span className={`text-body-sm font-medium ${
               currentStep === "subscription" ? "text-brand-accent-light" : "text-green-600"
             }`}>
               Підписка
@@ -114,7 +114,7 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
           }`} />
 
           <div className="flex items-center space-x-4">
-            <div className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium ${
+            <div className={`flex items-center justify-center w-8 h-8 rounded-2xl text-body-sm font-medium ${
               currentStep === "subscription"
                 ? "bg-gray-200 text-gray-500"
                 : currentStep === "delivery"
@@ -123,7 +123,7 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
             }`}>
               {currentStep === "confirmation" ? <CheckCircle className="h-5 w-5" /> : "2"}
             </div>
-            <span className={`text-sm font-medium ${
+            <span className={`text-body-sm font-medium ${
               currentStep === "subscription"
                 ? "text-gray-500"
                 : currentStep === "delivery"
@@ -139,14 +139,14 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
           }`} />
 
           <div className="flex items-center space-x-4">
-            <div className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium ${
+            <div className={`flex items-center justify-center w-8 h-8 rounded-2xl text-body-sm font-medium ${
               currentStep === "confirmation"
                 ? "bg-brand-accent-light text-white"
                 : "bg-gray-200 text-gray-500"
             }`}>
               3
             </div>
-            <span className={`text-sm font-medium ${
+            <span className={`text-body-sm font-medium ${
               currentStep === "confirmation" ? "text-brand-accent-light" : "text-gray-500"
             }`}>
               Підтвердження
@@ -158,7 +158,7 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
         {currentStep === "subscription" && (
           <div className="space-y-6">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              <h2 className="text-h2 text-gray-900 mb-2">
                 Оберіть тариф підписки
               </h2>
               <p className="text-gray-600">
@@ -187,7 +187,7 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
                   )}
                   
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-semibold text-gray-900">
+                    <h3 className="text-body-lg font-semibold text-gray-900">
                       {plan.name}
                     </h3>
                     {selectedPlan === plan.id && (
@@ -196,8 +196,8 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
                   </div>
                   
                   <div className="mb-4">
-                    <p className="text-3xl font-bold text-brand-accent-light">
-                      {plan.price} ₴<span className="text-lg text-gray-500">/міс</span>
+                    <p className="text-h1 text-brand-accent-light">
+                      {plan.price} ₴<span className="text-body-lg text-gray-500">/міс</span>
                     </p>
                     <p className="text-gray-600 mt-1">
                       {plan.booksLimit} книг{plan.booksLimit > 1 ? "и" : "а"} за раз
@@ -206,7 +206,7 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
 
                   <ul className="space-y-2">
                     {plan.features.map((feature, index) => (
-                      <li key={index} className="flex items-center text-sm text-gray-700">
+                      <li key={index} className="flex items-center text-body-sm text-gray-700">
                         <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
                         {feature}
                       </li>
@@ -231,7 +231,7 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
                 Назад
               </Button>
               <div>
-                <h2 className="text-2xl font-bold text-gray-900">
+                <h2 className="text-h2 text-gray-900">
                   Спосіб отримання
                 </h2>
                 <p className="text-gray-600">
@@ -260,7 +260,7 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
                 Назад
               </Button>
               <div>
-                <h2 className="text-2xl font-bold text-gray-900">
+                <h2 className="text-h2 text-gray-900">
                   Підтвердження замовлення
                 </h2>
                 <p className="text-gray-600">
@@ -295,7 +295,7 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
       {/* Order Summary Sidebar */}
       <div className="lg:sticky lg:top-8">
         <div className="card p-6 space-y-6">
-          <h3 className="text-lg font-semibold text-gray-900">
+          <h3 className="text-body-lg font-semibold text-gray-900">
             Ваше замовлення
           </h3>
 
@@ -318,12 +318,12 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
               )}
             </div>
             <div className="flex-1 min-w-0">
-              <h4 className="text-sm font-medium text-gray-900 line-clamp-2">
+              <h4 className="text-body-sm font-medium text-gray-900 line-clamp-2">
                 {book.title}
               </h4>
-              <p className="text-sm text-gray-500 mt-1">{book.author}</p>
+              <p className="text-body-sm text-gray-500 mt-1">{book.author}</p>
               <div className="flex items-center gap-2 mt-2">
-                <span className="flex items-center gap-1 text-xs text-gray-500">
+                <span className="flex items-center gap-1 text-caption text-gray-500">
                   <Hash className="h-3 w-3" />
                   {book.code}
                 </span>
@@ -340,14 +340,14 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
           {selectedPlan && (
             <div className="border-t pt-4">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Тариф</span>
-                <span className="text-sm font-medium">
+                <span className="text-body-sm text-gray-600">Тариф</span>
+                <span className="text-body-sm font-medium">
                   {subscriptionPlans.find(p => p.id === selectedPlan)?.name}
                 </span>
               </div>
               <div className="flex justify-between items-center mt-1">
-                <span className="text-sm text-gray-600">Вартість</span>
-                <span className="text-lg font-bold text-brand-accent-light">
+                <span className="text-body-sm text-gray-600">Вартість</span>
+                <span className="text-h4 text-brand-accent-light">
                   {subscriptionPlans.find(p => p.id === selectedPlan)?.price} ₴/міс
                 </span>
               </div>
@@ -358,16 +358,16 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
           {selectedDelivery && (
             <div className="border-t pt-4">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Доставка</span>
-                <span className="text-sm font-medium">
+                <span className="text-body-sm text-gray-600">Доставка</span>
+                <span className="text-body-sm font-medium">
                   {selectedDelivery === "courier" && "Кур'єром"}
                   {selectedDelivery === "pickup" && "Самовивіз"}
                   {selectedDelivery === "post" && "Нова Пошта"}
                 </span>
               </div>
               <div className="flex justify-between items-center mt-1">
-                <span className="text-sm text-gray-600">Вартість</span>
-                <span className="text-sm font-medium text-green-600">
+                <span className="text-body-sm text-gray-600">Вартість</span>
+                <span className="text-body-sm font-medium text-green-600">
                   Безкоштовно
                 </span>
               </div>
@@ -376,19 +376,19 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
 
           {/* Features */}
           <div className="border-t pt-4">
-            <h4 className="text-sm font-medium text-gray-900 mb-3">
+            <h4 className="text-body-sm font-medium text-gray-900 mb-3">
               Що входить в підписку:
             </h4>
             <ul className="space-y-2">
-              <li className="flex items-center text-xs text-gray-600">
+              <li className="flex items-center text-caption text-gray-600">
                 <CheckCircle className="h-3 w-3 text-green-500 mr-2 flex-shrink-0" />
                 Безкоштовна доставка
               </li>
-              <li className="flex items-center text-xs text-gray-600">
+              <li className="flex items-center text-caption text-gray-600">
                 <CheckCircle className="h-3 w-3 text-green-500 mr-2 flex-shrink-0" />
                 Можна змінювати книги
               </li>
-              <li className="flex items-center text-xs text-gray-600">
+              <li className="flex items-center text-caption text-gray-600">
                 <CheckCircle className="h-3 w-3 text-green-500 mr-2 flex-shrink-0" />
                 Скасування в будь-який час
               </li>

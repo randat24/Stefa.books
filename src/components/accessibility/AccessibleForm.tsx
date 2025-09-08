@@ -68,7 +68,7 @@ export function FormField({
     <div className={`space-y-2 ${className}`}>
       <label 
         htmlFor={id}
-        className="block text-sm font-medium text-gray-700"
+        className="block text-body-sm font-medium text-gray-700"
       >
         {label}
         {required && (
@@ -128,7 +128,7 @@ export function FormField({
       {showError && (
         <p 
           id={`${id}-error`}
-          className="text-sm text-red-600 flex items-center gap-1"
+          className="text-body-sm text-red-600 flex items-center gap-1"
           role="alert"
           aria-live="polite"
         >
@@ -141,7 +141,7 @@ export function FormField({
       {helpText && !showError && (
         <p 
           id={`${id}-help`}
-          className="text-sm text-gray-500"
+          className="text-body-sm text-gray-500"
         >
           {helpText}
         </p>
@@ -211,7 +211,7 @@ export function TextAreaField({
     <div className={`space-y-2 ${className}`}>
       <label 
         htmlFor={id}
-        className="block text-sm font-medium text-gray-700"
+        className="block text-body-sm font-medium text-gray-700"
       >
         {label}
         {required && (
@@ -269,7 +269,7 @@ export function TextAreaField({
       {showError && (
         <p 
           id={`${id}-error`}
-          className="text-sm text-red-600 flex items-center gap-1"
+          className="text-body-sm text-red-600 flex items-center gap-1"
           role="alert"
           aria-live="polite"
         >
@@ -282,7 +282,7 @@ export function TextAreaField({
       {helpText && !showError && (
         <p 
           id={`${id}-help`}
-          className="text-sm text-gray-500"
+          className="text-body-sm text-gray-500"
         >
           {helpText}
         </p>
@@ -290,7 +290,7 @@ export function TextAreaField({
 
       {/* Счетчик символов */}
       {maxLength && (
-        <p className="text-xs text-gray-500 text-right">
+        <p className="text-caption text-gray-500 text-right">
           {value.length}/{maxLength}
         </p>
       )}
@@ -355,7 +355,7 @@ export function SelectField({
     <div className={`space-y-2 ${className}`}>
       <label 
         htmlFor={id}
-        className="block text-sm font-medium text-gray-700"
+        className="block text-body-sm font-medium text-gray-700"
       >
         {label}
         {required && (
@@ -427,7 +427,7 @@ export function SelectField({
       {showError && (
         <p 
           id={`${id}-error`}
-          className="text-sm text-red-600 flex items-center gap-1"
+          className="text-body-sm text-red-600 flex items-center gap-1"
           role="alert"
           aria-live="polite"
         >
@@ -440,7 +440,7 @@ export function SelectField({
       {helpText && !showError && (
         <p 
           id={`${id}-help`}
-          className="text-sm text-gray-500"
+          className="text-body-sm text-gray-500"
         >
           {helpText}
         </p>

@@ -41,8 +41,10 @@ export default function AdminLoginPage() {
       const response = await login({ email, password });
       
       if (response.success && response.user) {
-        // Check if user can access admin panel
-        if (canAccessAdminPanel(response.user, profile)) {
+        // Check if user can access admin panel using the response profile
+        if (canAccessAdminPanel(response.user, response.profile)) {
+          // Wait a bit for the context to update
+          await new Promise(resolve => setTimeout(resolve, 200));
           router.push(redirectTo);
           router.refresh();
         } else {
@@ -62,11 +64,11 @@ export default function AdminLoginPage() {
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-amber-50 to-orange-50">
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="text-center space-y-4">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
             <Shield className="h-8 w-8 text-primary" />
           </div>
           <div>
-            <CardTitle className="text-2xl font-bold">Адмін-панель</CardTitle>
+            <CardTitle className="text-h2">Адмін-панель</CardTitle>
             <CardDescription>
               Увійдіть для доступу до панелі управління
             </CardDescription>
@@ -88,7 +90,7 @@ export default function AdminLoginPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="admin@stefa-books.com.ua"
+                placeholder="Введіть email адміністратора"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -149,8 +151,17 @@ export default function AdminLoginPage() {
             </Button>
           </form>
 
-          <div className="mt-6 text-center text-sm text-muted-foreground">
+          <div className="mt-6 text-center text-body-sm text-muted-foreground">
             <p>Потрібен доступ? Зверніться до адміністратора</p>
+            <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+              <p className="text-body-sm font-medium text-blue-800">Тестові дані для входу:</p>
+              <p className="text-caption text-blue-600 mt-1">
+                Email: <span className="font-mono">admin@stefabooks.com.ua</span>
+              </p>
+              <p className="text-caption text-blue-600">
+                Password: <span className="font-mono">oqP_Ia5VMO2wy46p</span>
+              </p>
+            </div>
           </div>
         </CardContent>
       </Card>

@@ -125,16 +125,16 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
       <Card>
         <CardContent className="pt-6">
           <div className="text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Повернення оформлено!</h3>
+            <h3 className="text-body-lg font-semibold text-gray-900 mb-2">Повернення оформлено!</h3>
             <p className="text-gray-600 mb-4">
               Ваша заявка на повернення книги &quot;{book.title}&quot; успішно відправлена.
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-body-sm text-gray-500">
               Перенаправляємо на сторінку підтвердження...
             </p>
           </div>
@@ -161,7 +161,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Return Method */}
           <div>
-            <Label className="text-base font-medium">Спосіб повернення</Label>
+            <Label className="text-body font-medium">Спосіб повернення</Label>
             <RadioGroup 
               value={formData.returnMethod} 
               onValueChange={(value) => handleInputChange('returnMethod', value)}
@@ -174,7 +174,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
                     <Label htmlFor={method.id} className="font-medium cursor-pointer">
                       {method.name}
                     </Label>
-                    <p className="text-sm text-gray-600">{method.description}</p>
+                    <p className="text-body-sm text-gray-600">{method.description}</p>
                   </div>
                 </div>
               ))}
@@ -183,7 +183,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
 
           {/* Book Condition */}
           <div>
-            <Label className="text-base font-medium">Стан книги</Label>
+            <Label className="text-body font-medium">Стан книги</Label>
             <RadioGroup 
               value={formData.bookCondition} 
               onValueChange={(value) => handleInputChange('bookCondition', value)}
@@ -196,7 +196,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
                     <Label htmlFor={condition.id} className="font-medium cursor-pointer">
                       {condition.name}
                     </Label>
-                    <p className="text-sm text-gray-600">{condition.description}</p>
+                    <p className="text-body-sm text-gray-600">{condition.description}</p>
                   </div>
                 </div>
               ))}
@@ -205,7 +205,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
 
           {/* Customer Information */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+            <h3 className="text-body-lg font-semibold text-gray-900 flex items-center gap-2">
               <User className="h-5 w-5" />
               Контактна інформація
             </h3>
@@ -262,7 +262,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
           {/* Delivery Address */}
           {formData.returnMethod === 'courier' && (
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+              <h3 className="text-body-lg font-semibold text-gray-900 flex items-center gap-2">
                 <MapPin className="h-5 w-5" />
                 Адреса забрання
               </h3>
@@ -322,7 +322,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
               onChange={(e) => handleInputChange('agreeToTerms', e.target.checked)}
               className="mt-1"
             />
-            <Label htmlFor="agreeToTerms" className="text-sm text-gray-600">
+            <Label htmlFor="agreeToTerms" className="text-body-sm text-gray-600">
               Я погоджуюся з умовами повернення книг та підтверджую, що стан книги відповідає зазначеному вище
             </Label>
           </div>
@@ -336,7 +336,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
           >
             {isSubmitting ? (
               <>
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
+                <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-white mr-2" />
                 Оформляємо повернення...
               </>
             ) : (

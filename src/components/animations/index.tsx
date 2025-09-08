@@ -231,7 +231,7 @@ export const ProfileSkeleton = () => (
     animate={{ opacity: 1 }}
   >
     <div className="flex items-center space-x-4">
-      <div className="bg-gray-200 rounded-full h-20 w-20 animate-pulse" />
+      <div className="bg-gray-200 rounded-2xl h-20 w-20 animate-pulse" />
       <div className="space-y-2">
         <div className="bg-gray-200 rounded h-6 w-32 animate-pulse" />
         <div className="bg-gray-200 rounded h-4 w-24 animate-pulse" />
@@ -260,7 +260,7 @@ export const LoadingSpinner = ({ size = 'md', className = '' }: LoadingSpinnerPr
   
   return (
     <motion.div
-      className={`animate-spin rounded-full border-b-2 border-gray-900 ${sizeClasses[size]} ${className}`}
+      className={`animate-spin rounded-2xl border-b-2 border-gray-900 ${sizeClasses[size]} ${className}`}
       animate={{ rotate: 360 }}
       transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
     />

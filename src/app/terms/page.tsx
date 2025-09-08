@@ -5,18 +5,18 @@ export default function TermsPage() {
     <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen min-h-screen bg-gradient-to-br from-gray-50 to-white py-12">
       <div className="container mx-auto px-6 max-w-4xl">
         <div className="bg-white rounded-3xl shadow-xl p-8 lg:p-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-6 text-center">
+          <h1 className="text-h1 text-gray-900 mb-6 text-center">
             Умови використання
           </h1>
           
           <div className="text-center mb-8">
             <p className="text-gray-600 mb-2">Для сайту Stefa.books</p>
-            <p className="text-sm font-semibold text-brand-yellow-dark">Дата набрання чинності: 27 серпня 2025 року</p>
+            <p className="text-body-sm font-semibold text-brand-yellow-dark">Дата набрання чинності: 27 серпня 2025 року</p>
           </div>
 
           <div className="prose prose-slate max-w-none">
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Загальні положення</h2>
+              <h2 className="text-h2 text-gray-900 mb-4">Загальні положення</h2>
               <div className="space-y-4 text-gray-700 leading-relaxed">
                 <p> Ці Умови використання (далі — &ldquo;Умови&rdquo;) регулюють порядок користування сервісом Stefa.books — онлайн-платформою оренди книг за підпискою.</p>
                 <p> Використовуючи Сайт stefa-books.com.ua (далі — &ldquo;Сайт&rdquo;), ви підтверджуєте свою згоду з цими Умовами.</p>
@@ -25,7 +25,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Предмет Угоди</h2>
+              <h2 className="text-h2 text-gray-900 mb-4">Предмет Угоди</h2>
               <div className="space-y-4">
                 <p className="text-gray-700 leading-relaxed">
                   Stefa.books надає Користувачам можливість:
@@ -43,7 +43,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Підписка та оплата</h2>
+              <h2 className="text-h2 text-gray-900 mb-4">Підписка та оплата</h2>
               <div className="space-y-4 text-gray-700 leading-relaxed">
                 <p> Для доступу до книг необхідно оформити підписку (Mini, Maxi або інший тариф).</p>
                 <p> Оплата здійснюється шляхом переказу на банківську карту (ПриватБанк, Monobank) або іншими способами, доступними на Сайті.</p>
@@ -53,7 +53,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Видача та повернення книг</h2>
+              <h2 className="text-h2 text-gray-900 mb-4">Видача та повернення книг</h2>
               <div className="space-y-4 text-gray-700 leading-relaxed">
                 <p> Отримання книги здійснюється у визначених точках видачі (наприклад, у партнерському кафе). Адреси та інструкції публікуються на Сайті або надсилаються у повідомленні після замовлення.</p>
                 <p> При обміні книги користувач залишає попередню книгу у визначеній точці видачі та отримує нову.</p>
@@ -63,10 +63,10 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Права та обов&rsquo;язки сторін</h2>
+              <h2 className="text-h2 text-gray-900 mb-4">Права та обов&rsquo;язки сторін</h2>
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Stefa.books зобов&rsquo;язується:</h3>
+                  <h3 className="text-body-lg font-semibold text-gray-900 mb-3">Stefa.books зобов&rsquo;язується:</h3>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
                     <li>надавати книги у належному стані;</li>
                     <li>інформувати користувачів про статус замовлень і підписок;</li>
@@ -75,7 +75,7 @@ export default function TermsPage() {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Користувач зобов&rsquo;язується:</h3>
+                  <h3 className="text-body-lg font-semibold text-gray-900 mb-3">Користувач зобов&rsquo;язується:</h3>
                   <ul className="list-disc list-inside text-gray-700 space-y-2">
                     <li>використовувати книги лише для особистого читання;</li>
                     <li>повертати книги у зазначені строки;</li>
@@ -86,7 +86,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Відповідальність</h2>
+              <h2 className="text-h2 text-gray-900 mb-4">Відповідальність</h2>
               <div className="space-y-4 text-gray-700 leading-relaxed">
                 <p> Stefa.books не несе відповідальності за роботу сторонніх сервісів (кафе, поштових служб, платіжних систем).</p>
                 <p> Користувач несе відповідальність за збереження отриманих книг.</p>
@@ -95,7 +95,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Інтелектуальна власність</h2>
+              <h2 className="text-h2 text-gray-900 mb-4">Інтелектуальна власність</h2>
               <div className="space-y-4 text-gray-700 leading-relaxed">
                 <p> Весь контент Сайту (Stefa.books) — дизайн, логотипи, тексти, фото книг, програмний код — є власністю сервісу.</p>
                 <p> Копіювання чи використання матеріалів без письмової згоди заборонене.</p>
@@ -103,7 +103,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Зміни до Умов</h2>
+              <h2 className="text-h2 text-gray-900 mb-4">Зміни до Умов</h2>
               <div className="space-y-4 text-gray-700 leading-relaxed">
                 <p> Stefa.books має право змінювати ці Умови у будь-який момент.</p>
                 <p> Оновлена редакція публікується на Сайті та набирає чинності з моменту розміщення.</p>
@@ -111,7 +111,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Форс-мажорні обставини</h2>
+              <h2 className="text-h2 text-gray-900 mb-4">Форс-мажорні обставини</h2>
               <div className="space-y-4 text-gray-700 leading-relaxed">
                 <p>Сторони звільняються від відповідальності за повне або часткове невиконання своїх зобов&rsquo;язань, якщо це стало наслідком обставин непереборної сили (форс-мажорних обставин), що виникли після укладення цієї Угоди.</p>
                 <p>До форс-мажорних обставин належать: стихійні лиха, війна, терористичні акти, громадянські заворушення, дії влади, що унеможливлюють виконання зобов&rsquo;язань за цим договором.</p>
@@ -120,7 +120,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Процедура розгляду скарг</h2>
+              <h2 className="text-h2 text-gray-900 mb-4">Процедура розгляду скарг</h2>
               <div className="space-y-4 text-gray-700 leading-relaxed">
                 <p>У випадку виникнення скарг або претензій Користувач може:</p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
@@ -133,7 +133,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Юрисдикція та вирішення спорів</h2>
+              <h2 className="text-h2 text-gray-900 mb-4">Юрисдикція та вирішення спорів</h2>
               <div className="space-y-4 text-gray-700 leading-relaxed">
                 <p>Ці Умови регулюються та тлумачяться відповідно до законодавства України.</p>
                 <p>Усі спори та розбіжності, що можуть виникнути між Сторонами, вирішуються шляхом переговорів. У разі недосягнення згоди спори вирішуються у судовому порядку за місцем реєстрації Адміністратора відповідно до чинного законодавства України.</p>
@@ -142,7 +142,7 @@ export default function TermsPage() {
             </section>
 
             <section className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">Контакти</h2>
+              <h2 className="text-h2 text-gray-900 mb-4">Контакти</h2>
               <div className="bg-gray-50 rounded-2xl p-6">
                 <div className="space-y-3">
                   <p className="font-semibold text-gray-900">Stefa.books</p>
@@ -161,7 +161,7 @@ export default function TermsPage() {
           <div className="mt-12 text-center">
             <Link 
               href="/" 
-              className="inline-flex items-center justify-center px-8 py-3 bg-brand-yellow text-gray-900 rounded-full hover:bg-brand-yellow-light transition-colors font-semibold shadow-md hover:shadow-lg"
+              className="inline-flex items-center justify-center px-8 py-3 bg-brand-yellow text-gray-900 rounded-2xl hover:bg-brand-yellow-light transition-colors font-semibold shadow-md hover:shadow-lg"
             >
               Повернутися на головну
             </Link>

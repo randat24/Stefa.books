@@ -32,7 +32,7 @@ export function BookReadingSample({ title, sampleText }: BookReadingSampleProps)
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+        <h3 className="text-body-lg font-semibold text-gray-900 flex items-center gap-2">
           <BookOpen className="h-5 w-5" />
           Уривок для читання
         </h3>
@@ -70,7 +70,7 @@ export function BookReadingSample({ title, sampleText }: BookReadingSampleProps)
           {paragraphs.map((paragraph, index) => (
             <p 
               key={index}
-              className={`text-gray-800 mb-4 leading-relaxed text-lg transition-all duration-300 ${
+              className={`text-gray-800 mb-4 leading-relaxed text-body-lg transition-all duration-300 ${
                 isReading 
                   ? 'bg-yellow-200 bg-opacity-50 p-2 rounded' 
                   : ''
@@ -83,7 +83,7 @@ export function BookReadingSample({ title, sampleText }: BookReadingSampleProps)
         
         {/* Sample Notice */}
         <div className="mt-6 pt-4 border-t border-amber-200">
-          <p className="text-sm text-amber-700 italic">
+          <p className="text-body-sm text-amber-700 italic">
             Це лише невеликий уривок з книги &quot;{title}&quot;. 
             Щоб прочитати повну історію, орендуйте книгу в нашій бібліотеці.
           </p>
@@ -92,7 +92,7 @@ export function BookReadingSample({ title, sampleText }: BookReadingSampleProps)
 
       {/* Reading Controls */}
       <div className="bg-gray-50 rounded-lg p-4">
-        <h4 className="text-sm font-medium text-gray-700 mb-3">
+        <h4 className="text-body-sm font-medium text-gray-700 mb-3">
           Налаштування читання
         </h4>
         

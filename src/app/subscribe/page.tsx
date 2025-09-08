@@ -11,7 +11,7 @@ export default function SubscribePage() {
         <div className="container mx-auto px-4">
           {/* Breadcrumbs */}
           <div className="mb-6">
-            <nav className="flex items-center space-x-2 text-sm text-gray-600">
+            <nav className="flex items-center space-x-2 text-body-sm text-gray-600">
               <Link href="/" className="hover:text-gray-900">Головна</Link>
               <ChevronRight className="h-4 w-4" />
               <span className="text-gray-900 font-medium">Підписка</span>

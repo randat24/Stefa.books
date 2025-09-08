@@ -62,7 +62,7 @@ export default function NewAbTestPage() {
     <div className="container py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold">Create New A/B Test</h1>
+          <h1 className="text-h1">Create New A/B Test</h1>
           <p className="text-gray-500">Set up a new A/B test experiment</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">
@@ -142,7 +142,7 @@ export default function NewAbTestPage() {
           </CardHeader>
           <CardContent className="space-y-8">
             <div>
-              <h3 className="text-lg font-semibold mb-4">Variant A (Control)</h3>
+              <h3 className="text-body-lg font-semibold mb-4">Variant A (Control)</h3>
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="variantA.name">Variant Name</Label>
@@ -173,7 +173,7 @@ export default function NewAbTestPage() {
             <Separator />
             
             <div>
-              <h3 className="text-lg font-semibold mb-4">Variant B (Test)</h3>
+              <h3 className="text-body-lg font-semibold mb-4">Variant B (Test)</h3>
               <div className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="variantB.name">Variant Name</Label>

@@ -147,7 +147,7 @@ export function DynamicImport({
     return (
       <div className={`text-center p-8 ${className}`}>
         <div className="text-red-600 mb-2">Помилка завантаження</div>
-        <div className="text-sm text-gray-600">{error.message}</div>
+        <div className="text-body-sm text-gray-600">{error.message}</div>
       </div>
     );
   }
@@ -320,7 +320,7 @@ export function ConditionalLoad({
     return (
       <div className={`text-center p-8 ${className}`}>
         <div className="text-red-600 mb-2">Помилка завантаження</div>
-        <div className="text-sm text-gray-600">{error.message}</div>
+        <div className="text-body-sm text-gray-600">{error.message}</div>
       </div>
     );
   }

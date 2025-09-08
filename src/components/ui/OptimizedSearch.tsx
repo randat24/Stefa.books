@@ -105,13 +105,13 @@ const OptimizedSearch = memo(function OptimizedSearch({
       
       {/* Показываем статус поиска */}
       {query.length > 0 && query.length < minLength && (
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-body-sm text-gray-500 mt-1">
           Введіть щонайменше {minLength} символи
         </p>
       )}
       
       {loading && (
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-body-sm text-gray-500 mt-1">
           Пошук...
         </p>
       )}

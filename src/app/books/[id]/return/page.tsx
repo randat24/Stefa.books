@@ -75,7 +75,7 @@ export default async function BookReturnPage({ params }: { params: Params }) {
       <div className="container py-8">
         {/* Breadcrumbs */}
         <div className="mb-6">
-          <nav className="flex items-center space-x-2 text-sm text-gray-600">
+          <nav className="flex items-center space-x-2 text-body-sm text-gray-600">
             <Link href="/" className="hover:text-gray-900">Головна</Link>
             <ChevronLeft className="h-4 w-4" />
             <Link href="/catalog" className="hover:text-gray-900">Каталог</Link>

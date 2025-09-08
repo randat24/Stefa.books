@@ -118,7 +118,7 @@ export function UsersTable({ }: UsersTableProps) {
         {users.length === 0 ? (
           <div className="text-center py-12 text-gray-500">
             <Users className="size-16 mx-auto mb-4 opacity-50" />
-            <p className="text-xl font-semibold text-gray-700 mb-2">Немає користувачів</p>
+            <p className="text-body-lg font-semibold text-gray-700 mb-2">Немає користувачів</p>
             <p className="text-gray-500">Користувачі з&apos;являться тут після реєстрації</p>
           </div>
         ) : (
@@ -131,7 +131,7 @@ export function UsersTable({ }: UsersTableProps) {
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-lg font-semibold text-gray-900">{user.name}</h3>
+                      <h3 className="text-body-lg font-semibold text-gray-900">{user.name}</h3>
                       <Badge variant={getStatusBadgeVariant(user.status)}>
                         {user.status === 'active' ? 'Активний' : 
                          user.status === 'inactive' ? 'Неактивний' : 'Заблокований'}
@@ -142,7 +142,7 @@ export function UsersTable({ }: UsersTableProps) {
                       </Badge>
                     </div>
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-600">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-body-sm text-gray-600">
                       <div className="flex items-center gap-2">
                         <Mail className="size-4" />
                         <span>{user.email}</span>
@@ -162,7 +162,7 @@ export function UsersTable({ }: UsersTableProps) {
                     </div>
                     
                     {user.subscription_start && user.subscription_end && (
-                      <div className="flex items-center gap-2 mt-3 text-sm text-gray-500">
+                      <div className="flex items-center gap-2 mt-3 text-body-sm text-gray-500">
                         <Calendar className="size-4" />
                         <span>
                           Підписка: {new Date(user.subscription_start).toLocaleDateString('uk-UA')} - {new Date(user.subscription_end).toLocaleDateString('uk-UA')}
@@ -171,7 +171,7 @@ export function UsersTable({ }: UsersTableProps) {
                     )}
                     
                     {user.notes && (
-                      <p className="mt-2 text-sm text-gray-600 bg-gray-50 p-2 rounded-lg">
+                      <p className="mt-2 text-body-sm text-gray-600 bg-gray-50 p-2 rounded-lg">
                         {user.notes}
                       </p>
                     )}
