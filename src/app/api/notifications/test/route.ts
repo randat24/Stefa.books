@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { logger } from '@/lib/logger';
 
-export async function POST() {
+export async function POST(): Promise<Response> {
   try {
     // В реальном проекте здесь бы отправлялось push уведомление
     // Пока что просто логируем

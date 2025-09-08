@@ -6,7 +6,7 @@ import { logger } from '@/lib/logger';
 // API ДЛЯ ПОЛУЧЕНИЯ АВТОРОВ
 // ============================================================================
 
-export async function GET() {
+export async function GET(): Promise<Response> {
   try {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
     const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
@@ -51,7 +51,7 @@ export async function GET() {
 // СОЗДАНИЕ НОВОГО АВТОРА
 // ============================================================================
 
-export async function POST(request: Request) {
+export async function POST(request: Request): Promise<Response> {
   try {
     const body = await request.json();
     const { name, biography, birth_year, nationality } = body;

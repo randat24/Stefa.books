@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest): Promise<Response> {
   try {
     const { searchParams } = new URL(request.url)
     const range = searchParams.get('range') || '30d'
@@ -224,7 +224,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       success: true,
       data: analyticsData
-    })
+    }) as unknown as Response
 
   } catch (error) {
     console.error('Analytics API error:', error)
@@ -235,6 +235,6 @@ export async function GET(request: NextRequest) {
         details: error instanceof Error ? error.message : 'Невідома помилка'
       },
       { status: 500 }
-    )
+    ) as unknown as Response
   }
 }

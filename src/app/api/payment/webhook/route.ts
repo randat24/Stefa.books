@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { monobankService } from '@/lib/services/monobank';
 import { logger } from '@/lib/logger';
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<Response> {
   try {
     const body = await request.json();
     const signature = request.headers.get('x-signature') || '';
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Монобанк также может отправлять GET запросы для проверки endpoint
-export async function GET() {
+export async function GET(): Promise<Response> {
   return NextResponse.json({ 
     status: 'ok', 
     message: 'Monobank webhook endpoint is active' 

@@ -181,7 +181,7 @@
   font-weight: 600 !important;
   letter-spacing: -0.01em !important;
   text-rendering: optimizeLegibility !important;
-  color: #334155 !important;
+  color: #212121 !important; /* Оптимальный контраст для белого фона */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -195,7 +195,7 @@
   font-weight: 600 !important;
   letter-spacing: -0.005em !important;
   text-rendering: optimizeLegibility !important;
-  color: #475569 !important;
+  color: #212121 !important; /* Оптимальный контраст для белого фона */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -209,7 +209,7 @@
   font-weight: 600 !important;
   letter-spacing: 0 !important;
   text-rendering: optimizeLegibility !important;
-  color: #64748B !important;
+  color: #212121 !important; /* Оптимальный контраст для белого фона */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -223,7 +223,7 @@
   font-weight: 600 !important;
   letter-spacing: 0.01em !important;
   text-rendering: optimizeLegibility !important;
-  color: #64748B !important;
+  color: #212121 !important; /* Оптимальный контраст для белого фона */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -237,7 +237,7 @@
   font-weight: 600 !important;
   letter-spacing: 0.01em !important;
   text-rendering: optimizeLegibility !important;
-  color: #64748B !important;
+  color: #212121 !important; /* Оптимальный контраст для белого фона */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -269,7 +269,7 @@
   font-weight: 400 !important;
   letter-spacing: 0.005em !important;
   text-rendering: optimizeLegibility !important;
-  color: #4B5563 !important;
+  color: #212121 !important; /* Оптимальный контраст для белого фона */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -283,7 +283,7 @@
   font-weight: 400 !important;
   letter-spacing: 0 !important;
   text-rendering: optimizeLegibility !important;
-  color: #4B5563 !important;
+  color: #212121 !important; /* Оптимальный контраст для белого фона */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -297,7 +297,7 @@
   font-weight: 400 !important;
   letter-spacing: 0.005em !important;
   text-rendering: optimizeLegibility !important;
-  color: #6B7280 !important;
+  color: #212121 !important; /* Оптимальный контраст для белого фона */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -372,7 +372,7 @@
   font-weight: 500 !important;
   letter-spacing: 0.005em !important;
   text-rendering: optimizeLegibility !important;
-  color: #374151 !important;
+  color: #212121 !important; /* Оптимальный контраст для белого фона */
   max-width: 65ch;
 }
 
@@ -387,7 +387,7 @@
   line-height: 1.6 !important;
   font-weight: 400 !important;
   letter-spacing: 0.01em !important;
-  color: #6B7280 !important;
+  color: #212121 !important; /* Оптимальный контраст для белого фона */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -416,7 +416,7 @@
   font-weight: 400 !important;
   letter-spacing: 0.01em !important;
   background-color: #F3F4F6 !important;
-  color: #374151 !important;
+  color: #212121 !important; /* Оптимальный контраст для белого фона */
   padding: 0.125rem 0.25rem !important;
   border-radius: 0.25rem !important;
 }
@@ -441,7 +441,7 @@
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
   max-width: 68ch; /* Оптимальная длина строки для чтения */
-  color: #374151 !important;
+  color: #212121 !important; /* Оптимальный контраст для белого фона */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -471,7 +471,7 @@
   font-weight: 500 !important;
   letter-spacing: 0.01em !important;
   text-rendering: optimizeLegibility !important;
-  color: #6B7280 !important;
+  color: #212121 !important; /* Оптимальный контраст для белого фона */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -502,7 +502,7 @@
   letter-spacing: 0.04em !important;
   text-rendering: optimizeLegibility !important;
   text-transform: uppercase;
-  color: #374151 !important;
+  color: #212121 !important; /* Оптимальный контраст для белого фона */
 }
 
 @media (prefers-color-scheme: dark) {

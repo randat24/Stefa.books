@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(): Promise<Response> {
   try {
     // Fetch all books
     const { data: books, error: booksError } = await supabase

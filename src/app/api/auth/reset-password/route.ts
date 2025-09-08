@@ -15,7 +15,7 @@ const resetPasswordSchema = z.object({
   path: ["confirmPassword"],
 });
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<Response> {
   try {
     const body = await request.json();
     

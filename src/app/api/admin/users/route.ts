@@ -10,7 +10,7 @@ import { createClient } from '@supabase/supabase-js';
 /**
  * GET /api/admin/users - Get users with filtering and pagination
  */
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest): Promise<Response> {
   try {
     // Get authorization header
     const authHeader = request.headers.get('authorization');
@@ -134,7 +134,7 @@ export async function GET(request: NextRequest) {
 /**
  * POST /api/admin/users - Create a new user
  */
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<Response> {
   try {
     // Get authorization header
     const authHeader = request.headers.get('authorization');
@@ -259,7 +259,7 @@ export async function POST(request: NextRequest) {
 /**
  * PUT /api/admin/users/[id] - Update a user
  */
-export async function PUT(request: NextRequest) {
+export async function PUT(request: NextRequest): Promise<Response> {
   try {
     // Get authorization header
     const authHeader = request.headers.get('authorization');
@@ -367,7 +367,7 @@ export async function PUT(request: NextRequest) {
 /**
  * DELETE /api/admin/users/[id] - Delete a user
  */
-export async function DELETE(request: NextRequest) {
+export async function DELETE(request: NextRequest): Promise<Response> {
   try {
     // Get authorization header
     const authHeader = request.headers.get('authorization');

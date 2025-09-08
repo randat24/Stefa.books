@@ -54,7 +54,7 @@ async function validateImageFile(file: File): Promise<{ valid: boolean; error?: 
 // ЗАВАНТАЖЕННЯ НА CLOUDINARY
 // ============================================================================
 
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<Response> {
   try {
     // Отримуємо файл з FormData
     const formData = await req.formData()
@@ -166,7 +166,7 @@ export async function POST(req: Request) {
 // ВИДАЛЕННЯ ФАЙЛУ
 // ============================================================================
 
-export async function DELETE(req: Request) {
+export async function DELETE(req: Request): Promise<Response> {
   try {
     const { searchParams } = new URL(req.url)
     const publicId = searchParams.get('public_id')

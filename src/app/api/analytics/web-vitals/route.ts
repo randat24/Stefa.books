@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<Response> {
   try {
     const data = await request.json()
     
@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         { error: 'Invalid data format' },
         { status: 400 }
-      )
+      ) as unknown as Response
     }
 
     // Log Web Vitals in development
@@ -51,19 +51,19 @@ export async function POST(request: NextRequest) {
       // })
     }
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true }) as unknown as Response
     
   } catch (error) {
     console.error('Error processing web vitals data:', error)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
-    )
+    ) as unknown as Response
   }
 }
 
 // Handle preflight requests
-export async function OPTIONS() {
+export async function OPTIONS(): Promise<Response> {
   return new NextResponse(null, {
     status: 200,
     headers: {
@@ -71,5 +71,5 @@ export async function OPTIONS() {
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
     },
-  })
+  }) as unknown as Response
 }

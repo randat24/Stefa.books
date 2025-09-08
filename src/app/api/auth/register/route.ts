@@ -15,7 +15,7 @@ const registerSchema = z.object({
   phone: z.string().optional()
 });
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<Response> {
   try {
     const body = await request.json();
     

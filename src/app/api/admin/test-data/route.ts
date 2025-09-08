@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
-export async function POST() {
+export async function POST(): Promise<Response> {
   try {
     // Создаем 3 тестовых пользователя
     const userData = [

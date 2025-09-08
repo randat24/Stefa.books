@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { logger } from '@/lib/logger';
 
-export async function POST() {
+export async function POST(): Promise<Response> {
   try {
     // Проверяем что это admin запрос (в продакшене нужно добавить авторизацию)
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;

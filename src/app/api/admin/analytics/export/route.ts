@@ -10,7 +10,7 @@ import { logger } from '@/lib/logger';
  * GET /api/admin/analytics/export
  * Експорт аналітичних даних у форматі CSV
  */
-export async function GET() {
+export async function GET(): Promise<Response> {
   try {
     // Перевірка авторизації (в реальному застосунку потрібно реалізувати правильну перевірку)
     // const user = await getCurrentUser();
@@ -38,7 +38,7 @@ export async function GET() {
     return NextResponse.json({
       success: true,
       data: exportData
-    });
+    }) as unknown as Response;
   } catch (error) {
     logger.error('Error exporting analytics data', error);
     
@@ -49,7 +49,7 @@ export async function GET() {
         message: error instanceof Error ? error.message : 'Unknown error'
       },
       { status: 500 }
-    );
+    ) as unknown as Response;
   }
 }
 
@@ -80,7 +80,7 @@ export async function POST(request: Request): Promise<Response> {
           success: true,
           data: formatAsCSV(analyticsData),
           format: 'csv'
-        });
+        }) as unknown as Response;
       
       case 'json':
       default:
@@ -88,7 +88,7 @@ export async function POST(request: Request): Promise<Response> {
           success: true,
           data: analyticsData,
           format: 'json'
-        });
+        }) as unknown as Response;
     }
   } catch (error) {
     logger.error('Error exporting analytics data', error);
@@ -100,7 +100,7 @@ export async function POST(request: Request): Promise<Response> {
         message: error instanceof Error ? error.message : 'Unknown error'
       },
       { status: 500 }
-    );
+    ) as unknown as Response;
   }
 }
 

@@ -11,7 +11,7 @@ const forgotPasswordSchema = z.object({
   email: z.string().email('Неправильний формат email')
 });
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<Response> {
   try {
     const body = await request.json();
     

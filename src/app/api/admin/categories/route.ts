@@ -6,7 +6,7 @@ import { logger } from '@/lib/logger';
 // API ДЛЯ УПРАВЛЕНИЯ КАТЕГОРИЯМИ (АДМИН)
 // ============================================================================
 
-export async function POST(request: Request) {
+export async function POST(request: Request): Promise<Response> {
   try {
     const body = await request.json();
     const { name, type, main_category_id } = body;

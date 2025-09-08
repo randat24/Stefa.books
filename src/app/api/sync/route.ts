@@ -41,7 +41,7 @@ async function connectToGoogleSheets() {
 // РЕЗЕРВНОЕ КОПИРОВАНИЕ В GOOGLE SHEETS
 // ============================================================================
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<Response> {
   try {
     const { action } = await request.json();
 
@@ -215,7 +215,7 @@ export async function POST(request: NextRequest) {
 // ПОЛУЧЕНИЕ СТАТУСА СИНХРОНИЗАЦИИ
 // ============================================================================
 
-export async function GET() {
+export async function GET(): Promise<Response> {
   try {
     logger.info('Getting sync status', undefined, 'Sync');
     

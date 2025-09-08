@@ -6,7 +6,7 @@ import { logger } from '@/lib/logger';
 // API ДЛЯ ВИХОДУ ПОЛЬЗОВАТЕЛЕЙ
 // ============================================================================
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<Response> {
   try {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
     const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;

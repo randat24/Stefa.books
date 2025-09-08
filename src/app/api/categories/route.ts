@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { logger } from '@/lib/logger';
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest): Promise<Response> {
   try {
     const { searchParams } = new URL(request.url);
     const includeStats = searchParams.get('stats') === 'true';
@@ -235,7 +235,7 @@ export async function GET(request: NextRequest) {
 }
 
 // Получение подкатегорий для родительской категории
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<Response> {
   try {
     const { parentId } = await request.json();
     

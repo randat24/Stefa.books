@@ -11,7 +11,7 @@ const createPaymentSchema = z.object({
   redirectUrl: z.string().url(),
 });
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<Response> {
   try {
     const body = await request.json();
     

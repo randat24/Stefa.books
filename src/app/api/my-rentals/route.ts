@@ -18,7 +18,7 @@ const QueryParamsSchema = z.object({
 /**
  * GET /api/my-rentals - Получить аренды пользователя
  */
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest): Promise<Response> {
 	try {
 		const { searchParams } = new URL(request.url)
 		
@@ -168,7 +168,7 @@ export async function GET(request: NextRequest) {
 /**
  * POST /api/my-rentals - Создать новую аренду
  */
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<Response> {
 	try {
 		const body = await request.json()
 		
