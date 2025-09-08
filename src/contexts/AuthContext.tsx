@@ -31,11 +31,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const checkAuthStatus = async () => {
       try {
         setIsLoading(true);
+        
+        // Get saved session from localStorage
+        const savedSession = localStorage.getItem('supabase.auth.token');
+        const headers: Record<string, string> = {
+          'Content-Type': 'application/json',
+        };
+        
+        if (savedSession) {
+          try {
+            const session = JSON.parse(savedSession);
+            if (session.access_token) {
+              headers['Authorization'] = `Bearer ${session.access_token}`;
+            }
+          } catch (e) {
+            // Invalid session, remove it
+            localStorage.removeItem('supabase.auth.token');
+          }
+        }
+        
         const response = await fetch('/api/auth/me', {
           method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers,
         });
 
         if (response.ok) {
@@ -83,6 +100,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(result.user);
         setIsAuthenticated(true);
         setProfile(result.profile);
+        
+        // Save session to localStorage
+        if (result.session) {
+          localStorage.setItem('supabase.auth.token', JSON.stringify(result.session));
+        }
       }
 
       return result;
@@ -131,6 +153,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(null);
       setProfile(null);
       setIsAuthenticated(false);
+      
+      // Clear saved session
+      localStorage.removeItem('supabase.auth.token');
     }
   }, []);
 

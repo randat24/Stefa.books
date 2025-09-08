@@ -5,7 +5,6 @@ import { RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AdminDashboard } from "@/components/admin/AdminDashboard"
 import type { BookRow, UserRow } from "@/lib/types/admin"
-import { getBooks, getUsers } from "./data"
 
 // ============================================================================
 // АДМІН-ПАНЕЛЬ STEFA.BOOKS
@@ -30,13 +29,21 @@ export default function AdminPage() {
       setLoading(true)
       setError(null)
       
-      const [booksData, usersData] = await Promise.all([
-        getBooks(),
-        getUsers()
+      // Load data from API instead of server actions
+      const [booksResponse, usersResponse] = await Promise.all([
+        fetch('/api/admin/books'),
+        fetch('/api/admin/users')
       ])
       
-      setBooks(booksData)
-      setUsers(usersData)
+      if (!booksResponse.ok || !usersResponse.ok) {
+        throw new Error('Failed to load data')
+      }
+      
+      const booksData = await booksResponse.json()
+      const usersData = await usersResponse.json()
+      
+      setBooks(booksData.data || [])
+      setUsers(usersData.data || [])
     } catch (err) {
       console.error('Error loading data:', err)
       setError('Помилка завантаження даних')
@@ -73,7 +80,7 @@ export default function AdminPage() {
     if (cachedData) {
       try {
         const { data, timestamp } = JSON.parse(cachedData)
-        if (Date.now() - timestamp < CACHE_DURATION) {
+        if (Date.now() - timestamp < CACHE_DURATION && data) {
           setBooks(data.books || [])
           setUsers(data.users || [])
           setLoading(false)

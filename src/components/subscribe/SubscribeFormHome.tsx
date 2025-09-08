@@ -1,22 +1,19 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { useEffect, useRef, useState, Suspense } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Info, CreditCard, Building2, Copy, Check } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 import { logger } from "@/lib/logger"; 
 
 type FormData = {
   name: string;
   phone: string;
   email: string;
-  social?: string;
-  plan: "mini" | "maxi";
-  payment: "Онлайн оплата" | "Переказ на карту" | "Готівка при отриманні";
-  note?: string;
-  screenshot?: File;
-  privacyConsent: boolean;
+  subscription_type: "mini" | "maxi";
+  address?: string;
+  notes?: string;
 };
 
 interface SubscribeFormHomeProps {
@@ -26,9 +23,6 @@ interface SubscribeFormHomeProps {
 function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
   const [sent, setSent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState<'card' | 'online' | null>(null);
-  const [copiedCard, setCopiedCard] = useState(false);
-  const fileRef = useRef<HTMLInputElement | null>(null);
   const searchParams = useSearchParams();
 
   const {
@@ -36,35 +30,24 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
   } = useForm<FormData>({
     mode: 'onChange',
     defaultValues: {
-      plan: defaultPlan || "mini",
-      payment: "Онлайн оплата",
+      subscription_type: defaultPlan || "mini",
       phone: "+380",
-      privacyConsent: false,
     }
   });
 
 
-  const copyCardNumber = async () => {
-    try {
-      await navigator.clipboard.writeText('5408810041850776');
-      setCopiedCard(true);
-      setTimeout(() => setCopiedCard(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy card number:', err);
-    }
-  };
 
   // авто-подстановка тарифа из URL (?plan=mini|maxi), sessionStorage или defaultPlan
   useEffect(() => {
     const plan = searchParams?.get("plan");
     if (plan === "mini" || plan === "maxi") {
-      setValue("plan", plan);
+      setValue("subscription_type", plan);
       return;
     }
     
     // Проверяем defaultPlan
     if (defaultPlan && (defaultPlan === "mini" || defaultPlan === "maxi")) {
-      setValue("plan", defaultPlan);
+      setValue("subscription_type", defaultPlan);
       return;
     }
     
@@ -73,7 +56,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
       try {
         const saved = sessionStorage.getItem('selected_plan');
         if (saved === 'mini' || saved === 'maxi') {
-          setValue("plan", saved);
+          setValue("subscription_type", saved);
           sessionStorage.removeItem('selected_plan');
         }
       } catch {
@@ -97,57 +80,28 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
     setIsSubmitting(true);
     
     try {
-      let screenshotUrl = null;
-      
-      // Загрузка скриншота в Cloudinary если есть файл
-      if (data.screenshot) {
-        const formData = new FormData();
-        formData.append('file', data.screenshot);
-        formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!);
-        
-        const cloudinaryResponse = await fetch(
-          `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-          {
-            method: 'POST',
-            body: formData,
-          }
-        );
-        
-        if (cloudinaryResponse.ok) {
-          const cloudinaryResult = await cloudinaryResponse.json();
-          screenshotUrl = cloudinaryResult.secure_url;
-        }
-      }
-      
-      // Отправка данных формы
-      const submitData = {
-        ...data,
-        screenshot: screenshotUrl,
-      };
-      
-      // Submit to API
+      // Submit to API with new structure
       const response = await fetch('/api/subscribe', { 
         method: 'POST', 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: submitData.name,
-          email: submitData.email,
-          phone: submitData.phone,
-          social: submitData.social,
-          plan: submitData.plan,
-          paymentMethod: submitData.payment,
-          message: submitData.note,
-          screenshot: screenshotUrl,
-          privacyConsent: submitData.privacyConsent
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          subscription_type: data.subscription_type,
+          address: data.address,
+          notes: data.notes
         })
       });
 
       const result = await response.json();
 
       if (response.ok) {
-        logger.info('Home subscription form submitted successfully', { submissionId: result.submissionId, plan: submitData.plan });
+        logger.info('Home subscription form submitted successfully', { 
+          requestId: result.requestId, 
+          subscriptionType: data.subscription_type 
+        });
         setSent(true);
-        if (fileRef.current) fileRef.current.value = "";
       } else {
         throw new Error(result.error || 'Server error');
       }
@@ -272,15 +226,15 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
               </div>
 
               <div>
-                <label htmlFor="social" className="block text-base font-semibold text-gray-700 mb-2">
-                  Телеграм/Інстаграм
+                <label htmlFor="address" className="block text-base font-semibold text-gray-700 mb-2">
+                  Адреса (опціонально)
                 </label>
                 <input
-                  {...register("social")}
-                  id="social"
+                  {...register("address")}
+                  id="address"
                   type="text"
                   className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
-                  placeholder="@username або t.me/username"
+                  placeholder="вул. Маріупольська 13/2, Миколаїв"
                 />
               </div>
             </div>
@@ -293,23 +247,23 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
               <div className="grid grid-cols-2 gap-3">
                 <div
                   className={`relative rounded-lg border-2 p-3 cursor-pointer transition-all ${
-                    watch("plan") === 'mini'
+                    watch("subscription_type") === 'mini'
                       ? 'border-green-500 bg-green-50'
                       : 'border-gray-200 hover:border-gray-300'
                   }`}
-                  onClick={() => setValue('plan', 'mini')}
+                  onClick={() => setValue('subscription_type', 'mini')}
                 >
                   <div className="flex items-center gap-2">
                     <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                      watch("plan") === 'mini' ? 'border-green-500 bg-green-500' : 'border-gray-300'
+                      watch("subscription_type") === 'mini' ? 'border-green-500 bg-green-500' : 'border-gray-300'
                     }`}>
-                      {watch("plan") === 'mini' && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
+                      {watch("subscription_type") === 'mini' && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                     </div>
                     <div>
-                      <p className={`font-semibold text-base ${watch("plan") === 'mini' ? 'text-green-900' : 'text-gray-700'}`}>
+                      <p className={`font-semibold text-base ${watch("subscription_type") === 'mini' ? 'text-green-900' : 'text-gray-700'}`}>
                         Mini
                       </p>
-                      <p className={`text-xs ${watch("plan") === 'mini' ? 'text-green-700' : 'text-gray-500'}`}>
+                      <p className={`text-xs ${watch("subscription_type") === 'mini' ? 'text-green-700' : 'text-gray-500'}`}>
                         300 ₴/міс
                       </p>
                     </div>
@@ -318,219 +272,44 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
 
                 <div
                   className={`relative rounded-lg border-2 p-3 cursor-pointer transition-all ${
-                    watch("plan") === 'maxi'
+                    watch("subscription_type") === 'maxi'
                       ? 'border-brand-yellow bg-yellow-50'
                       : 'border-gray-200 hover:border-gray-300'
                   }`}
-                  onClick={() => setValue('plan', 'maxi')}
+                  onClick={() => setValue('subscription_type', 'maxi')}
                 >
                   <div className="flex items-center gap-2">
                     <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                      watch("plan") === 'maxi' ? 'border-brand-yellow bg-brand-yellow' : 'border-gray-300'
+                      watch("subscription_type") === 'maxi' ? 'border-brand-yellow bg-brand-yellow' : 'border-gray-300'
                     }`}>
-                      {watch("plan") === 'maxi' && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
+                      {watch("subscription_type") === 'maxi' && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
                     </div>
                     <div>
-                      <p className={`font-semibold text-base ${watch("plan") === 'maxi' ? 'text-yellow-900' : 'text-gray-700'}`}>
+                      <p className={`font-semibold text-base ${watch("subscription_type") === 'maxi' ? 'text-yellow-900' : 'text-gray-700'}`}>
                         Maxi
                       </p>
-                      <p className={`text-xs ${watch("plan") === 'maxi' ? 'text-yellow-700' : 'text-gray-500'}`}>
+                      <p className={`text-xs ${watch("subscription_type") === 'maxi' ? 'text-yellow-700' : 'text-gray-500'}`}>
                         500 ₴/міс
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
-              <input type="hidden" {...register('plan')} />
+              <input type="hidden" {...register('subscription_type')} />
             </div>
 
-            {/* Способ оплаты */}
+            {/* Дополнительная информация */}
             <div>
-              <label className="block text-base font-semibold text-gray-700 mb-2">
-                Спосіб оплати *
-              </label>
-              <div className="grid md:grid-cols-2 gap-3">
-                <div
-                  className={`relative rounded-lg border-2 p-3 cursor-pointer transition-all ${
-                    paymentMethod === 'card'
-                      ? 'border-brand-accent bg-blue-50'
-                      : paymentMethod === null
-                      ? 'border-gray-200 hover:border-gray-300'
-                      : 'border-gray-200 opacity-60'
-                  }`}
-                  onClick={() => {
-                    setPaymentMethod('card');
-                    setValue('payment', 'Переказ на карту');
-                  }}
-                >
-                  <div className="flex items-center gap-2">
-                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                      paymentMethod === 'card' ? 'border-brand-accent bg-brand-accent' : 'border-gray-300'
-                    }`}>
-                      {paymentMethod === 'card' && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
-                    </div>
-                    <Building2 className={`h-5 w-5 ${paymentMethod === 'card' ? 'text-brand-accent-light' : 'text-gray-400'}`} />
-                    <div>
-                      <p className={`font-semibold text-base ${paymentMethod === 'card' ? 'text-blue-900' : 'text-gray-700'}`}>
-                        Переказ на карту Monobank
-                      </p>
-                      <p className={`text-xs ${paymentMethod === 'card' ? 'text-blue-700' : 'text-gray-500'}`}>
-                        Отримаєте реквізити для оплати
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className={`relative rounded-lg border-2 p-3 cursor-pointer transition-all ${
-                    paymentMethod === 'online'
-                      ? 'border-green-500 bg-green-50'
-                      : paymentMethod === null
-                      ? 'border-gray-200 hover:border-gray-300'
-                      : 'border-gray-200 opacity-60'
-                  }`}
-                  onClick={() => {
-                    setPaymentMethod('online');
-                    setValue('payment', 'Онлайн оплата');
-                  }}
-                >
-                  <div className="flex items-center gap-2">
-                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                      paymentMethod === 'online' ? 'border-green-500 bg-green-500' : 'border-gray-300'
-                    }`}>
-                      {paymentMethod === 'online' && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
-                    </div>
-                    <CreditCard className={`h-5 w-5 ${paymentMethod === 'online' ? 'text-green-600' : 'text-gray-400'}`} />
-                    <div>
-                      <p className={`font-semibold text-base ${paymentMethod === 'online' ? 'text-green-900' : 'text-gray-700'}`}>
-                        Онлайн оплата
-                      </p>
-                      <p className={`text-xs ${paymentMethod === 'online' ? 'text-green-700' : 'text-gray-500'}`}>
-                        Картою через інтернет
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Информация для перевода */}
-            {paymentMethod === 'card' && (
-              <div className="rounded-2xl border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100 p-6">
-                <h3 className="text-lg font-semibold text-blue-900 mb-2">
-                  Інформація для переказу
-                </h3>
-                
-                <div className="space-y-4">
-                  {/* Номер карты */}
-                  <div className="flex items-center justify-between p-4 bg-white rounded-xl border border-blue-200">
-                    <div>
-                      <p className="text-base font-semibold text-gray-600 mb-1">Номер карти:</p>
-                      <p className="text-xl font-bold text-brand-accent-light tracking-wider">5408 8100 4185 0776</p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={copyCardNumber}
-                      className="flex items-center gap-2 px-3 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg transition-colors"
-                    >
-                      {copiedCard ? (
-                        <>
-                          <Check className="h-4 w-4" />
-                          <span className="text-sm font-medium">Скопійовано!</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="h-4 w-4" />
-                          <span className="text-sm font-medium">Копіювати</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
-
-                  {/* Получатель */}
-                  <div className="p-4 bg-white rounded-xl border border-blue-200">
-                    <p className="text-base font-semibold text-gray-600 mb-1">Отримувач:</p>
-                    <p className="text-lg font-semibold text-gray-900">Федорова Анастасія</p>
-                  </div>
-
-                  {/* Банк */}
-                  <div className="p-4 bg-white rounded-xl border border-blue-200">
-                    <p className="text-base font-semibold text-gray-600 mb-1">Банк:</p>
-                    <p className="text-lg font-semibold text-gray-900">Монобанк</p>
-                  </div>
-                </div>
-
-                {/* Важная информация */}
-                <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-xl">
-                  <div className="flex items-start gap-2">
-                    <Info className="h-5 w-5 text-brand-yellow-dark flex-shrink-0 mt-0.5" />
-                    <div className="text-base text-yellow-800">
-                      <p className="font-semibold mb-2">Важливо:</p>
-                      <ul className="space-y-1 list-disc list-inside">
-                        <li>Зробіть переказ на вказану карту</li>
-                        <li>Зробіть скріншот підтвердження оплати</li>
-                        <li>Завантажте скріншот у формі нижче</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Скриншот для перевода на карту */}
-            {paymentMethod === 'card' && (
-              <div>
-                <label htmlFor="screenshot" className="block text-base font-semibold text-gray-700 mb-2">
-                  Скріншот оплати *
-                </label>
-                <input
-                  {...register("screenshot", {
-                    required: paymentMethod === 'card' ? "Скріншот оплати обов'язковий" : false
-                  })}
-                  id="screenshot"
-                  type="file"
-                  accept="image/*"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-base file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200"
-                />
-                <p className="mt-1 text-base text-gray-500">
-                  Завантажте скріншот підтвердження переказу (JPG, PNG до 10MB)
-                </p>
-                {errors.screenshot && (
-                  <p className="mt-1 text-base text-red-600">{errors.screenshot.message}</p>
-                )}
-              </div>
-            )}
-
-            {/* Комментарий */}
-            <div>
-              <label htmlFor="note" className="block text-base font-semibold text-gray-700 mb-2">
-                Додаткова інформація
+              <label htmlFor="notes" className="block text-base font-semibold text-gray-700 mb-2">
+                Додаткова інформація (опціонально)
               </label>
               <textarea
-                {...register("note")}
-                id="note"
+                {...register("notes")}
+                id="notes"
                 rows={3}
                 className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                 placeholder="Ваші побажання або питання..."
               />
-            </div>
-
-            {/* Согласие на обработку данных */}
-            <div className="flex items-start gap-3">
-              <input
-                {...register('privacyConsent', {
-                  required: 'Необхідно підтвердити згоду на обробку даних'
-                })}
-                id="privacyConsent"
-                type="checkbox"
-                className="mt-1 w-4 h-4 text-brand-accent-light bg-gray-100 border-gray-300 rounded focus:ring-brand-accent focus:ring-2"
-              />
-              <label htmlFor="privacyConsent" className="text-base text-gray-600">
-                Я погоджуюся з обробкою моїх персональних даних відповідно до політики конфіденційності
-                {errors.privacyConsent && (
-                  <span className="block text-xs text-red-600 mt-1">{errors.privacyConsent.message}</span>
-                )}
-              </label>
             </div>
 
             {/* Кнопка отправки */}

@@ -46,7 +46,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
   
   // Pagination settings
   const BOOKS_PER_PAGE = 20;
-  const currentPage = parseInt(searchParams.get('page') || '1');
+  const currentPage = parseInt(searchParams?.get('page') || '1');
   const totalPages = calculateTotalPages(totalCount, BOOKS_PER_PAGE);
   
   // Calculate how many pages are currently displayed (taking into account loaded books)
@@ -153,7 +153,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
 
   // Handle page change
   const handlePageChange = (page: number) => {
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams || '');
     
     if (page === 1) {
       params.delete('page');
@@ -201,12 +201,13 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
     setSearchFilters(newFilters);
     // Reset to first page when filters change
     if (currentPage !== 1) {
-      const params = new URLSearchParams(searchParams);
+      const params = new URLSearchParams(searchParams || '');
       params.delete('page');
       const newUrl = params.toString() ? `?${params.toString()}` : '';
       router.push(`/books${newUrl}`, { scroll: false });
     }
   }, [currentPage, searchParams, router]);
+
 
   // Loading state
   if (loading) {
@@ -314,6 +315,14 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
 // Hook for using catalog with URL parameters
 export function useCatalogParams() {
   const searchParams = useSearchParams();
+  
+  if (!searchParams) {
+    return {
+      currentPage: 1,
+      category: undefined,
+      author: undefined
+    };
+  }
   
   return {
     currentPage: parseInt(searchParams.get('page') || '1'),

@@ -66,6 +66,7 @@
     "framer-motion": "^12.23.12",
     "google-auth-library": "^10.3.0",
     "google-spreadsheet": "^5.0.2",
+    "googleapis": "^156.0.0",
     "lucide-react": "^0.542.0",
     "next": "^15.5.2",
     "pg": "^8.16.3",

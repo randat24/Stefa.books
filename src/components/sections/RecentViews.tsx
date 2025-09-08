@@ -39,7 +39,8 @@ export function RecentViews({
       // Load books from API by IDs with error handling
       const bookPromises = recentIds.map(async (recentView) => {
         try {
-          return await fetchBook(recentView.id);
+          const result = await fetchBook(recentView.id);
+          return result;
         } catch (error) {
           console.warn(`Failed to fetch book ${recentView.id}:`, error);
           return { success: false, error: 'Failed to fetch' };

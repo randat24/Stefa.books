@@ -136,9 +136,10 @@ export async function fetchBook(id: string): Promise<BookResponse> {
     }
 
     // Use absolute URL for server-side rendering
-    const baseUrl = typeof window === 'undefined'      ? 'http://localhost:3000'
+    const serverBaseUrl = typeof window === 'undefined' 
+      ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
       : '';
-    const url = `${baseUrl}/api/books/${id}`;
+    const url = `${serverBaseUrl}/api/books/${id}`;
 
     const response = await fetch(url, {
       method: 'GET',
@@ -149,15 +150,24 @@ export async function fetchBook(id: string): Promise<BookResponse> {
 
     if (!response.ok) {
       if (response.status === 404) {
-        throw new Error('Книга не знайдена')
+        return {
+          success: false,
+          error: 'Книга не знайдена'
+        }
       }
-      throw new Error(`HTTP error! status: ${response.status}`)
+      return {
+        success: false,
+        error: `HTTP error! status: ${response.status}`
+      }
     }
 
     const result = await response.json()
     
     if (!result.success) {
-      throw new Error(result.error || 'Помилка при отриманні книги')
+      return {
+        success: false,
+        error: result.error || 'Помилка при отриманні книги'
+      }
     }
     
     return result

@@ -3,23 +3,16 @@ import { createClient } from '@supabase/supabase-js';
 import { z } from 'zod';
 import { logger } from '@/lib/logger';
 
-// Схема валидации для заявки на подписку
+// Схема валидации для заявки на подписку (адаптирована под существующую структуру БД)
 const subscriptionRequestSchema = z.object({
   name: z.string().min(2, 'Имя должно содержать минимум 2 символа'),
   email: z.string().email('Некорректный email адрес'),
   phone: z.string().regex(/^\+380\d{9}$/, 'Некорректный номер телефона'),
-  social: z.string().optional(),
-  plan: z.enum(['mini', 'maxi', 'premium'], {
+  subscription_type: z.enum(['mini', 'maxi', 'premium'], {
     errorMap: () => ({ message: 'Неверный тип подписки' })
   }),
-  payment_method: z.enum(['monobank', 'online', 'cash'], {
-    errorMap: () => ({ message: 'Неверный способ оплаты' })
-  }),
-  message: z.string().optional(),
-  screenshot: z.string().optional(),
-  privacy_consent: z.boolean().refine(val => val === true, {
-    message: 'Необходимо согласие с политикой конфиденциальности'
-  })
+  address: z.string().optional(),
+  notes: z.string().optional()
 });
 
 export async function POST(request: NextRequest) {
@@ -45,19 +38,16 @@ export async function POST(request: NextRequest) {
       auth: { persistSession: false }
     });
 
-    // Вставляем заявку в базу данных
+    // Вставляем заявку в базу данных (адаптировано под существующую структуру)
     const { data, error } = await supabase
       .from('subscription_requests')
       .insert({
         name: validatedData.name,
         email: validatedData.email,
         phone: validatedData.phone,
-        social: validatedData.social || null,
-        plan: validatedData.plan,
-        payment_method: validatedData.payment_method,
-        message: validatedData.message || null,
-        screenshot: validatedData.screenshot || null,
-        privacy_consent: validatedData.privacy_consent,
+        subscription_type: validatedData.subscription_type,
+        address: validatedData.address || null,
+        notes: validatedData.notes || null,
         status: 'pending'
       })
       .select()
@@ -74,9 +64,9 @@ export async function POST(request: NextRequest) {
     // Логируем успешную заявку (без персональных данных)
     logger.info('Subscription request submitted successfully', {
       requestId: data.id,
-      plan: validatedData.plan,
-      paymentMethod: validatedData.payment_method,
-      hasScreenshot: !!validatedData.screenshot,
+      subscriptionType: validatedData.subscription_type,
+      hasAddress: !!validatedData.address,
+      hasNotes: !!validatedData.notes,
       timestamp: new Date().toISOString()
     });
 
