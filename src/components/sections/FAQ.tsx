@@ -39,17 +39,17 @@ const QA = [
 export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0); // First item open by default
   return (
-    <section className="py-16 lg:py-24">
+    <section className="section">
       <h2 className="h2 text-center mb-3">Питання та відповіді</h2>
-      <p className="text-center text-muted mb-8">Коротко про головне — щоб ви швидко розібралися</p>
+      <p className="small text-center text-[var(--text-muted)] mb-8">Коротко про головне — щоб ви швидко розібралися</p>
 
       <div className="grid gap-3 max-w-3xl mx-auto">
         {QA.map((item, i) => {
           const active = open === i;
           return (
-            <div key={i} className="rounded-2xl border border-[--line] bg-neutral-0">
+            <div key={i} className="card-soft">
               <button
-                className="w-full text-left px-5 py-4 font-medium flex items-center justify-between text-[--ink] hover:bg-black/[.02] transition"
+                className="w-full text-left px-5 py-4 font-medium flex items-center justify-between text-[var(--accent)] hover:bg-[var(--surface-2)] transition"
                 onClick={() => setOpen(active ? null : i)}
                 aria-expanded={active}
               >
@@ -57,7 +57,7 @@ export default function FAQ() {
                 <span className={`transition text-2xl ${active ? "rotate-45" : ""}`}>+</span>
               </button>
               {active && (
-                <div className="px-5 pb-5 text-muted">{item.a}</div>
+                <div className="px-5 pb-5 text-[var(--text-muted)]">{item.a}</div>
               )}
             </div>
           );

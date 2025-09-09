@@ -1,376 +1,275 @@
+@import "../styles/tokens.css";
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
 @layer base {
-	:root {
-
-		/* Флюидная типографика (уменьшено на 1.2x) */
-		--font-size-xs: clamp(0.625rem, 0.583rem + 0.125vw, 0.729rem);   /* ~10-11.7px */
-		--font-size-sm: clamp(0.729rem, 0.667rem + 0.167vw, 0.833rem);   /* ~11.7-13.3px */
-		--font-size-base: clamp(0.833rem, 0.75rem + 0.25vw, 0.938rem);   /* ~13.3-15px */
-		--font-size-lg: clamp(0.938rem, 0.833rem + 0.333vw, 1.042rem);   /* ~15-16.7px */
-		--font-size-xl: clamp(1.042rem, 0.917rem + 0.5vw, 1.25rem);      /* ~16.7-20px */
-		--font-size-2xl: clamp(1.25rem, 1.083rem + 0.667vw, 1.563rem);   /* ~20-25px */
-		--font-size-3xl: clamp(1.563rem, 1.333rem + 1vw, 1.875rem);      /* ~25-30px */
-		--font-size-4xl: clamp(1.875rem, 1.583rem + 1.333vw, 2.5rem);    /* ~30-40px */
-		--font-size-5xl: clamp(2.5rem, 2rem + 2vw, 3.125rem);            /* ~40-50px */
-		--font-size-6xl: clamp(3.125rem, 2.5rem + 2.5vw, 3.75rem);       /* ~50-60px */
-		
-		/* Флюидные отступы (8px-шкала) */
-		--space-px: 1px;
-		--space-0: 0;
-		--space-1: 0.25rem;  /* 4px  */
-		--space-2: 0.5rem;   /* 8px  */
-		--space-3: 0.75rem;  /* 12px */
-		--space-4: 1rem;     /* 16px */
-		--space-5: 1.25rem;  /* 20px */
-		--space-6: 1.5rem;   /* 24px */
-		--space-8: 2rem;     /* 32px */
-		--space-10: 2.5rem;  /* 40px */
-		--space-12: 3rem;    /* 48px */
-		--space-16: 4rem;    /* 64px */
-		--space-20: 5rem;    /* 80px */
-		--space-24: 6rem;    /* 96px */
-		--space-32: 8rem;    /* 128px */
-		
-		/* Флюидные секции */
-		--section-padding: clamp(2rem, 1.5rem + 2vw, 4rem);
-		--section-padding-sm: clamp(1rem, 0.5rem + 1.5vw, 2rem);
-		--section-padding-lg: clamp(3rem, 2rem + 3vw, 6rem);
-		
-		/* Цветовая система */
-		--brand: #0B1220;
-		--brand-light: #1e293b;
-		--accent: #eab308;
-		--accent-light: #fbbf24;
-		
-		/* Семантические цвета */
-		--success: #10b981;
-		--success-light: #d1fae5;
-		--warning: #f59e0b;
-		--warning-light: #fef3c7;
-		--error: #ef4444;
-		--error-light: #fee2e2;
-		
-		/* Нейтральные тона */
-		--ink: #111827;
-		--text: #1f2937;
-		--text-muted: #6b7280;
-		--text-light: #9ca3af;
-		--line: rgba(0,0,0,0.08);
-		--border: #e5e7eb;
-		--surface: #f9fafb;
-		--surface-hover: #f3f4f6;
-		
-		/* Радиусы */
-		--radius-sm: 0.375rem;
-		--radius: 0.5rem;
-		--radius-md: 0.75rem;
-		--radius-lg: 1rem;
-		--radius-xl: 1.5rem;
-		--radius-2xl: 2rem;
-		--radius-full: 9999px;
-		
-		/* Тени */
-		--shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-		--shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-		--shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-		--shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-		
-		/* Контент ширина */
-		--content-width: 72ch;
-		--container-sm: 40rem;
-		--container-md: 48rem;
-		--container-lg: 64rem;
-		--container-xl: 80rem;
-		--container-2xl: 96rem;
-	}
-
+  /* Базовые стили согласно новому Style Guide */
 	html, body { 
-		font-size: var(--font-size-base);
-		line-height: 1.6;
+    font-family: var(--font-ui);
+    background: var(--app-bg);
 		color: var(--text);
-		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-		font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "pnum" 1, "tnum" 0, "onum" 1, "lnum" 0, "dlig" 0;
-		font-variant-numeric: oldstyle-nums proportional-nums;
-		font-optical-sizing: auto;
-		letter-spacing: -0.011em;
-	}
-
-	/* Плавний скролл и оптимизации */
-	html { 
-		scroll-behavior: smooth; 
-		-webkit-text-size-adjust: 100%;
 		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
 		text-rendering: optimizeLegibility;
 	}
 
-	/* Safari оптимизации */
-	@supports (-webkit-touch-callout: none) {
-		button, input, textarea, select { 
-			-webkit-text-size-adjust: 100%; 
-			-webkit-appearance: none;
-		}
-	}
-
-	/* Заголовки - флюидная типографика */
+  /* Заголовки используют единый шрифт */
 	h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 { 
+    font-family: var(--font-display);
 		font-weight: 700;
-		line-height: 1.2;
-		color: var(--ink);
-		font-feature-settings: "kern" 1, "liga" 1, "dlig" 1, "hlig" 0;
-		font-variant-numeric: lining-nums;
+    line-height: var(--lh-tight);
+    color: var(--accent);
 		letter-spacing: -0.025em;
 		text-wrap: balance;
-		max-width: var(--content-width);
 	}
 	
 	h1, .h1 { 
-		font-size: var(--font-size-5xl);
-		font-weight: 800;
-		letter-spacing: -0.035em;
-		line-height: 1.1;
-	}
+    font-size: var(--fs-h1);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: var(--lh-tight);
+  }
+  
 	h2, .h2 { 
-		font-size: var(--font-size-4xl);
+    font-size: var(--fs-h2);
 		font-weight: 700;
-		letter-spacing: -0.030em;
-		line-height: 1.15;
-	}
-	h3, .h3 { 
-		font-size: var(--font-size-3xl);
-		font-weight: 600;
-		letter-spacing: -0.025em;
+    letter-spacing: -0.005em;
 		line-height: 1.2;
 	}
-	h4, .h4 { 
-		font-size: var(--font-size-2xl);
-		font-weight: 600;
-	}
-	h5, .h5 { 
-		font-size: var(--font-size-xl);
-		font-weight: 600;
-	}
-	h6, .h6 { 
-		font-size: var(--font-size-lg);
-		font-weight: 600;
-	}
+  
+  h3, .h3 { 
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    line-height: 1.3;
+  }
 
-	/* Typography плагин - улучшенные стили */
-	.prose { 
-		font-size: var(--font-size-base);
-		line-height: 1.65;
+  /* Основной текст */
+  p, .body {
+    font-size: var(--fs-base);
+    line-height: var(--lh-body);
 		color: var(--text);
-		max-width: var(--content-width);
-		margin-inline: auto;
-		padding-inline: var(--space-4);
-		font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "onum" 1, "pnum" 1;
-		letter-spacing: -0.008em;
-	}
-	
-	.prose :where(h1,h2,h3,h4,h5,h6) { 
-		@apply tracking-[-0.025em] font-semibold;
-		color: var(--ink);
-	}
-	
-	.prose :where(p) {
-		color: var(--text);
-		line-height: 1.65;
-		text-wrap: pretty;
-		hyphens: auto;
-		-webkit-hyphens: auto;
-		-moz-hyphens: auto;
-		-ms-hyphens: auto;
-		max-width: var(--content-width);
-	}
-	
-	.prose :where(a) {
+    max-width: var(--measure);
+  }
+
+  /* Ссылки */
+  a {
 		color: var(--accent);
 		text-decoration: none;
 		font-weight: 500;
 	}
 	
-	.prose :where(a):hover {
-		color: var(--accent-light);
-		text-decoration: underline;
+  a:hover {
+		text-decoration: none;
 	}
 }
 
 @layer components {
 	/* Утилитарные классы */
 	.section {
-		padding-block: var(--section-padding);
+    padding-block: clamp(2rem, 1.5rem + 2vw, 4rem);
 	}
 	
 	.section-sm {
-		padding-block: var(--section-padding-sm);
+    padding-block: clamp(1rem, 0.5rem + 1.5vw, 2rem);
 	}
 	
 	.section-lg {
-		padding-block: var(--section-padding-lg);
+    padding-block: clamp(3rem, 2rem + 3vw, 6rem);
 	}
 	
 	.container {
-		max-width: var(--container-xl);
+    max-width: 80rem;
 		margin-inline: auto;
-		padding-inline: var(--space-4);
+    padding-inline: 1rem;
 	}
 	
 	.text-content {
-		max-width: var(--content-width);
+    max-width: var(--measure);
 		margin-inline: auto;
-		padding-inline: var(--space-4);
-	}
-	
-	/* Hero специфичные стили */
-	.hero {
-		min-height: 100dvh;
-		padding-bottom: calc(var(--space-8) + env(safe-area-inset-bottom));
-		display: grid;
-		place-items: center;
-	}
-	
-	.hero-title {
-		letter-spacing: -0.025em;
-		text-wrap: balance;
-		line-height: 1.1;
-	}
-	
-	.hero-description {
-		text-wrap: pretty;
-		line-height: 1.65;
-	}
+    padding-inline: 1rem;
+  }
 
-	/* Кнопки - базовые стили */
-	.btn-base {
-		@apply inline-flex items-center justify-center font-medium;
-		@apply transition-all duration-200 ease-out;
-		@apply hover:scale-[1.02] active:scale-[0.98];
-		@apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
-		@apply disabled:opacity-50 disabled:pointer-events-none;
-	}
+  /* Карточки */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+    transition: all 200ms ease-out;
+  }
+  
+  .card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
+  }
+  
+  .card-soft {
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem;
+  }
 
-	/* Текстовые утилиты */
-	.text-muted {
-		color: var(--text-muted);
-	}
+  /* Кнопки */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    line-height: 1;
+    transition: transform 0.06s ease, box-shadow 0.2s;
+    font-family: var(--font-ui);
+  }
+  
+  .btn:active {
+    transform: translateY(1px);
+  }
+  
+  .btn-primary {
+    background: linear-gradient(135deg, var(--brand) 0%, #E0AE22 100%);
+    color: #111827;
+    box-shadow: 
+      0 4px 14px rgba(247, 201, 72, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(224, 174, 34, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+  }
+
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #E0AE22 0%, var(--brand) 100%);
+    box-shadow: 
+      0 6px 20px rgba(247, 201, 72, 0.4),
+      0 3px 6px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
 	
-	.text-light {
-		color: var(--text-light);
-	}
-
-	/* Тени - системные */
-	.shadow-card {
-		box-shadow: var(--shadow-md);
-	}
-
-	.shadow-soft {
-		box-shadow: var(--shadow-lg);
-	}
-	
-	.shadow-float {
-		box-shadow: var(--shadow-xl);
-	}
-
-	/* Инпуты - улучшенные */
-	.input {
-		padding: var(--space-3) var(--space-4);
-		border-radius: var(--radius-md);
-		border: var(--space-px) solid var(--border);
-		background: white;
-		font-size: var(--font-size-base);
+  .btn-secondary {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+  }
+  
+  .btn-ghost {
+    background: transparent;
 		color: var(--text);
-		transition: all 200ms ease-out;
-	}
-	
-	.input:focus {
-		border-color: var(--accent);
-		box-shadow: 0 0 0 2px var(--accent-light), var(--shadow-sm);
-		outline: none;
-	}
-	
-	.input:hover:not(:focus) {
-		border-color: var(--text-muted);
-	}
-	
-	/* Формы - специальные стили */
-	.input-error {
-		@apply border-red-300 focus:border-red-500 focus:ring-red-500/20;
-	}
-	
-	.input-success {
-		@apply border-green-300 focus:border-green-500 focus:ring-green-500/20;
-	}
+  }
+  
+  .btn-sm { padding: 12px 16px; font-size: 0.9rem; }
+  .btn-md { padding: 14px 20px; font-size: 1rem; }
+  .btn-lg { padding: 16px 24px; font-size: 1.05rem; }
+  .btn-xl { padding: 18px 28px; font-size: clamp(1rem, 0.9rem + 0.6vw, 1.125rem); }
+  .btn-block { display: flex; width: 100%; }
 
-	/* Карточки - современные */
-	.card {
-		padding: var(--space-4);
-		gap: var(--space-3);
-		border-radius: var(--radius-lg);
-		border: var(--space-px) solid var(--border);
-		background: white;
-		box-shadow: var(--shadow-md);
-		transition: all 200ms ease-out;
-		container-type: inline-size;
-	}
-	
-	.card:hover {
-		box-shadow: var(--shadow-lg);
-		transform: translateY(-1px);
-	}
-	
-	.card-flat {
-		padding: var(--space-4);
-		gap: var(--space-3);
-		border-radius: var(--radius-lg);
-		border: var(--space-px) solid var(--border);
-		background: white;
-		box-shadow: var(--shadow-sm);
-	}
+  /* Формы */
+  .field {
+    display: block;
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    line-height: 1.4;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    font-family: var(--font-ui);
+  }
+  
+  .field:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(17, 24, 39, 0.12);
+  }
+  
+  .field.is-error {
+    border-color: var(--error);
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);
+  }
+  
+  .field.is-success {
+    border-color: var(--success);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.12);
+  }
+  
+  .label {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    display: block;
+  }
+  
+  .help {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
+  
+  .help.is-error {
+    color: var(--error);
+  }
 
-	/* Кнопки - варианты */
-	.btn-primary {
-		@apply btn-base font-semibold shadow-md hover:shadow-lg;
-		padding: 0.75em 1.5em;
-		border-radius: var(--radius-full);
-		font-size: var(--font-size-base);
-		background-color: rgb(234 179 8);
-		color: rgb(15 23 42);
-		transition: all 200ms ease-out;
-	}
-	
-	.btn-primary:hover {
-		background-color: rgb(250 204 21); /* yellow-400 */
-	}
-	
-	.btn-outline {
-		@apply btn-base border bg-white font-semibold shadow-md hover:shadow-lg;
-		padding: 0.75em 1.5em;
-		border-radius: var(--radius-full);
-		font-size: var(--font-size-base);
-		border-color: rgb(226 232 240);
-		color: rgb(15 23 42);
-		transition: all 200ms ease-out;
-	}
-	
-	.btn-outline:hover {
-		background-color: rgb(248 250 252); /* slate-50 */
-		border-color: rgb(148 163 184); /* slate-400 */
-	}
-	
-	.btn-ghost {
-		@apply btn-base bg-transparent font-semibold;
-		padding: 0.75em 1.5em;
-		border-radius: var(--radius-full);
-		font-size: var(--font-size-base);
-		color: rgb(15 23 42);
-		transition: all 200ms ease-out;
-	}
-	
-	.btn-ghost:hover {
-		background-color: rgb(248 250 252); /* slate-50 */
+  /* Алёрты */
+  .alert {
+    border-radius: var(--radius-lg);
+    padding: 12px 14px;
+    border: 1px solid;
+  }
+  
+  .alert-success {
+    background: color-mix(in oklab, white 92%, var(--success));
+    border-color: color-mix(in oklab, white 70%, var(--success));
+  }
+  
+  .alert-warning {
+    background: color-mix(in oklab, white 92%, var(--warning));
+    border-color: color-mix(in oklab, white 70%, var(--warning));
+  }
+  
+  .alert-error {
+    background: color-mix(in oklab, white 92%, var(--error));
+    border-color: color-mix(in oklab, white 70%, var(--error));
+  }
+  
+  .alert-info {
+    background: color-mix(in oklab, white 92%, var(--info));
+    border-color: color-mix(in oklab, white 70%, var(--info));
+  }
+
+  /* Скелетоны */
+  .skel {
+    height: 12px;
+    width: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #eee 25%, #f6f6f6 37%, #eee 63%);
+    background-size: 400% 100%;
+    animation: shimmer 1.25s infinite linear;
 	}
 }
 
@@ -402,22 +301,24 @@
 	
 	/* Утилиты для отступов */
 	.gap-fluid {
-		gap: clamp(var(--space-4), 2vw, var(--space-8));
+    gap: clamp(1rem, 2vw, 2rem);
 	}
 	
 	.p-fluid {
-		padding: clamp(var(--space-4), 3vw, var(--space-8));
+    padding: clamp(1rem, 3vw, 2rem);
 	}
 	
 	.m-fluid {
-		margin: clamp(var(--space-4), 3vw, var(--space-8));
+    margin: clamp(1rem, 3vw, 2rem);
 	}
-	/* Line clamping - расширенные */
+
+  /* Line clamping */
 	.line-clamp-1 {
 		overflow: hidden;
 		display: -webkit-box;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 1;
+    line-clamp: 1;
 	}
 	
 	.line-clamp-2 {
@@ -425,6 +326,7 @@
 		display: -webkit-box;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 2;
+    line-clamp: 2;
 	}
 	
 	.line-clamp-3 {
@@ -432,13 +334,7 @@
 		display: -webkit-box;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 3;
-	}
-	
-	.line-clamp-4 {
-		overflow: hidden;
-		display: -webkit-box;
-		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 4;
+    line-clamp: 3;
 	}
 
 	/* Анимации */
@@ -456,7 +352,7 @@
 
 	/* Интерактивность */
 	.hover-lift {
-		@apply transition-transform duration-200 ease-out;
+    transition: transform 0.2s ease-out;
 	}
 	
 	.hover-lift:hover {
@@ -464,20 +360,11 @@
 	}
 	
 	.click-scale {
-		@apply transition-transform duration-150 ease-out;
+    transition: transform 0.15s ease-out;
 	}
 	
 	.click-scale:active {
 		transform: scale(0.98);
-	}
-
-	/* Фокус */
-	.focus-ring {
-		@apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
-	}
-	
-	.focus-ring-accent {
-		@apply focus-ring focus-visible:ring-blue-500;
 	}
 }
 
@@ -513,49 +400,11 @@
 	}
 }
 
-/* Глобальные классы кнопок */
-.btn-base {
-	@apply inline-flex items-center justify-center rounded-2xl px-6 py-3 font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
-}
-
-.btn-primary {
-	@apply btn-base bg-brand text-white hover:bg-brand-light focus:ring-brand;
-}
-
-.btn-secondary {
-	@apply btn-base bg-accent text-brand hover:bg-accent-light focus:ring-accent;
-}
-
-.btn-outline {
-	@apply btn-base border-2 border-brand text-brand bg-transparent hover:bg-brand hover:text-white focus:ring-brand;
-}
-
-.btn-ghost {
-	@apply btn-base bg-transparent text-brand hover:bg-neutral-100 focus:ring-neutral;
-}
-
-.btn-neutral {
-	@apply btn-base bg-neutral-100 text-neutral-700 hover:bg-neutral-200 focus:ring-neutral;
-}
-
-/* Размеры кнопок */
-.btn-sm {
-	@apply !px-3 !py-1 !text-sm;
-}
-
-.btn-md {
-	@apply !px-4 !py-2;
-}
-
-.btn-lg {
-	@apply !px-8 !py-4 !text-lg;
-}
-
-/* Классы для карточек книг */
-.book-title {
-	@apply text-base font-semibold text-neutral-900 leading-tight;
-}
-
-.book-author {
-	@apply text-sm text-neutral-600 font-medium;
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }

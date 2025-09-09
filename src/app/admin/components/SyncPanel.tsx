@@ -425,7 +425,7 @@ export function SyncPanel() {
                 <a 
                   href="/GOOGLE_SHEETS_SETUP.md" 
                   target="_blank" 
-                  className="text-brand-accent-light hover:underline"
+                  className="text-brand-accent-light hover:text-brand-accent-light/80"
                 >
                   документации
                 </a>

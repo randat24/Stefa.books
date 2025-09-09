@@ -401,15 +401,15 @@ export default function Categories() {
 	}
 
 	return (
-		<section id="catalog" className="py-16 lg:py-24">
+		<section id="catalog" className="section">
 			<div className="flex items-end justify-between mb-5">
 				<div>
 					<h2 className="h2">Категорії</h2>
-					<p>Вибирай настрій читання — і вперед!</p>
+					<p className="small">Вибирай настрій читання — і вперед!</p>
 				</div>
 				<button 
 					onClick={() => navigateToBooks()}
-					className="btn-ghost btn-md"
+					className="btn btn-ghost btn-md"
 				>
 					Дивитись всі книги
 				</button>
@@ -425,25 +425,25 @@ export default function Categories() {
 						<button
 							key={category.id}
 							onClick={() => navigateToBooks(category.name)}
-							className="group relative overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-0 p-6 hover:shadow-soft transition text-left hover:scale-[1.02]"
+							className="card group hover-lift text-left"
 						>
 							<div className="flex items-start gap-4">
-								<div className={`size-12 rounded-2xl border-2 grid place-items-center ${colors.bg} ${colors.border}`}>
+								<div className={`size-12 rounded-[var(--radius-lg)] border-2 grid place-items-center ${colors.bg} ${colors.border}`}>
 									<Icon className={`size-6 ${colors.icon}`} />
 								</div>
 								<div className="grid gap-1">
-									<h3 className="text-body-lg font-semibold">{category.name}</h3>
-									<p className="text-body-sm">{category.description}</p>
+									<h3 className="h3">{category.name}</h3>
+									<p className="small">{category.description}</p>
 								</div>
 							</div>
 
-							<div className={`mt-6 inline-flex items-center gap-2 rounded-2xl ${colors.accent} px-4 py-2 text-body-sm border ${colors.border}`}>
+							<div className={`mt-6 inline-flex items-center gap-2 rounded-[var(--radius-lg)] ${colors.accent} px-4 py-2 small border ${colors.border}`}>
 								Дивитись у каталозі
 								<svg className="size-4 -mr-0.5 transition -rotate-45 group-hover:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
 							</div>
 
 							{/* кількість книг */}
-							<div className={`absolute top-4 right-4 text-caption rounded-2xl ${colors.accent} px-2 py-1 ${colors.icon}`}>
+							<div className={`absolute top-4 right-4 tiny rounded-[var(--radius-lg)] ${colors.accent} px-2 py-1 ${colors.icon}`}>
 								{category.available} книг
 							</div>
 						</button>

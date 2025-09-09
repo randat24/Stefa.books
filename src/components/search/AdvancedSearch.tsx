@@ -709,7 +709,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
             {activeFilterCount > 0 && (
               <button
                 onClick={clearFilters}
-                className="text-accent hover:underline"
+                className="text-accent hover:text-accent/80"
               >
                 Очистити фільтри
               </button>

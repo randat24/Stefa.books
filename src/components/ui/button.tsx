@@ -4,31 +4,29 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-2xl text-body-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  "inline-flex items-center justify-center gap-2 rounded-[var(--radius-lg)] font-semibold transition-[box-shadow,transform] active:translate-y-px",
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
-        destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-        outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        ghost: 'hover:bg-accent hover:text-accent-foreground',
-        link: 'text-primary underline-offset-4 hover:underline',
-        primary: 'bg-brand text-neutral-0 hover:bg-brand/90',
-        dark: 'bg-neutral-900 text-neutral-0 hover:bg-neutral-800',
+        default:   "bg-[var(--brand)] text-[#111827] border-0 shadow-[var(--shadow-md)] hover:shadow-[var(--shadow-lg)]",
+        secondary: "bg-[var(--surface)] text-[var(--text)] border border-[var(--line)] shadow-[var(--shadow-sm)]",
+        outline:   "bg-transparent text-[var(--accent)] border border-[var(--accent)]",
+        ghost:     "bg-transparent text-[var(--text)]",
+        destructive: "bg-[var(--error)] text-white hover:bg-[var(--error)]/90",
+        link: "text-[var(--accent)] hover:text-[var(--accent)]/80",
       },
       size: {
-        default: 'h-10 px-4 py-2',
-        sm: 'h-9 rounded-2xl px-3',
-        lg: 'h-11 rounded-2xl px-8',
-        icon: 'h-10 w-10',
-        md: 'h-10 px-4 py-2',
-      },
+        sm: "py-[10px] px-[14px] text-sm",
+        md: "py-[12px] px-[16px] text-base",
+        lg: "py-[14px] px-[18px] text-lg",
+        xl: "py-[16px] px-[22px] text-[clamp(1rem,0.9rem+0.6vw,1.125rem)]",
+        icon: "h-10 w-10",
+      }
     },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
-    },
+    defaultVariants: { 
+      variant: "default", 
+      size: "md" 
+    }
   }
 );
 

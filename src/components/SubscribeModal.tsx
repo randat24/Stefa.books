@@ -652,7 +652,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 							/>
 							<Label htmlFor="privacyConsent" className="text-body-sm text-neutral-600 leading-relaxed">
 								Я погоджуюся з обробкою моїх персональних даних відповідно до{' '}
-								<Link href="/privacy" className="text-brand-accent-light hover:underline">
+								<Link href="/privacy" className="text-brand-accent-light hover:text-brand-accent-light/80">
 									політики конфіденційності
 								</Link>
 								{errors.privacyConsent && (

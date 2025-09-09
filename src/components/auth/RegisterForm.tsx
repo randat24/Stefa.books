@@ -212,7 +212,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
               <button
                 type="button"
                 onClick={onSwitchToLogin}
-                className="text-brand-accent-light hover:underline"
+                className="text-brand-accent-light hover:text-brand-accent-light/80"
                 disabled={isLoading}
               >
                 Увійти

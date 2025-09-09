@@ -23,11 +23,11 @@ export default function PlansLite() {
   }, []);
 
   return (
-    <section id="plans" className="py-16 px-6">
+    <section id="plans" className="section">
       <div className="max-w-4xl mx-auto text-center">
         <div className="grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto">
           {/* Mini */}
-          <div className="relative rounded-3xl border-2 border-neutral-200 bg-neutral-0 p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <div className="card hover-lift">
             {/* Illustration area */}
             <div className="w-32 h-32 mx-auto mb-6">
               <Image
@@ -39,19 +39,19 @@ export default function PlansLite() {
               />
             </div>
             
-            <h4 className="text-h1 text-neutral-900 mb-2">Mini</h4>
-            <p className="text-h2 text-neutral-900 mb-2">300 грн/міс.</p>
+            <h4 className="h1 mb-2">Mini</h4>
+            <p className="h2 mb-2">300 грн/міс.</p>
 
             <button
               onClick={() => setPlanAndGo('mini')}
-              className="w-full bg-neutral-900 hover:bg-neutral-800 text-neutral-0 py-3 px-6 rounded-2xl font-semibold transition-colors"
+              className="btn btn-primary btn-lg btn-block"
             >
               Обрати Mini
             </button>
           </div>
 
           {/* Maxi */}
-          <div className="relative rounded-3xl border-2 border-yellow-200 bg-yellow-50 p-8 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+          <div className="card hover-lift border-[var(--brand)] bg-[var(--brand)]/5">
             {/* Illustration area */}
             <div className="w-32 h-32 mx-auto mb-6">
               <Image
@@ -63,12 +63,12 @@ export default function PlansLite() {
               />
             </div>
             
-            <h4 className="text-h1 text-neutral-900 mb-2">Maxi</h4>
-            <p className="text-h2 text-accent-dark mb-2">500 грн/міс.</p>
+            <h4 className="h1 mb-2">Maxi</h4>
+            <p className="h2 mb-2 text-[var(--accent)]">500 грн/міс.</p>
 
             <button
               onClick={() => setPlanAndGo('maxi')}
-              className="w-full bg-accent hover:bg-accent-dark text-neutral-900 py-3 px-6 rounded-2xl font-semibold transition-colors"
+              className="btn btn-primary btn-lg btn-block"
             >
               Обрати Maxi
             </button>
@@ -79,7 +79,7 @@ export default function PlansLite() {
         <div className="mt-8">
           <a 
             href="/form" 
-            className="inline-flex items-center text-neutral-600 hover:text-neutral-900 transition-colors"
+            className="inline-flex items-center text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors"
           >
             Оформити підписку →
           </a>

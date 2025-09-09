@@ -1,100 +1,51 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <footer className="bg-neutral-50 border-t border-neutral-200 mt-20">
-      <div className="container py-12">
+    <footer className="bg-[var(--surface-2)] border-t border-[var(--line)] mt-20">
+      <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Logo and Description */}
-          <div className="md:col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="h-10 w-10 rounded-2xl bg-neutral-100 grid place-items-center">
-                <Image 
-                  src="/logo.svg" 
-                  alt="Stefa.books logo" 
-                  width={32} 
-                  height={32}
-                  className="text-neutral-700"
-                  unoptimized={true}
-                />
+          {/* Logo and description */}
+          <div className="col-span-1 md:col-span-2">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-8 w-8 rounded-xl bg-[var(--brand)] ring-1 ring-black/5" />
+              <div>
+                <div className="h3">Stefa.Books</div>
+                <div className="small">Дитяча бібліотека</div>
               </div>
-              <span className="text-h2 text-neutral-900">Stefa.books</span>
-            </Link>
-            <p className="text-neutral-600 text-body-sm leading-relaxed max-w-md">
-              Дитяча бібліотека з орендою книг за підпискою. 
-              Самовивіз з точки в Миколаєві. Розвивайте любов до читання у ваших дітей.
+            </div>
+            <p className="body text-[var(--text-muted)] max-w-md">
+              Орендуйте та читайте українські дитячі книги онлайн. Великий каталог українських дитячих книг для різних вікових категорій.
             </p>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick links */}
           <div>
-            <h3 className="font-semibold text-neutral-900 mb-4">Навігація</h3>
+            <h3 className="h3 mb-4">Швидкі посилання</h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/" className="text-neutral-600 hover:text-neutral-900 text-body-sm transition">
-                  Головна
-                </Link>
-              </li>
-              <li>
-                <Link href="/catalog" className="text-neutral-600 hover:text-neutral-900 text-body-sm transition">
-                  Каталог
-                </Link>
-              </li>
-              <li>
-                <Link href="/plans" className="text-neutral-600 hover:text-neutral-900 text-body-sm transition">
-                  Тарифи
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="text-neutral-600 hover:text-neutral-900 text-body-sm transition">
-                  Про нас
-                </Link>
-              </li>
+              <li><Link href="/catalog" className="small text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">Каталог книг</Link></li>
+              <li><Link href="/plans" className="small text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">Плани підписки</Link></li>
+              <li><Link href="/about" className="small text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">Про нас</Link></li>
+              <li><Link href="/contact" className="small text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">Контакти</Link></li>
             </ul>
           </div>
 
-          {/* Contact Info */}
+          {/* Support */}
           <div>
-            <h3 className="font-semibold text-neutral-900 mb-4">Контакти</h3>
-            <div className="space-y-3">
-              <div>
-                <p className="text-neutral-600 text-body-sm font-medium mb-1">Адреса:</p>
-                <a 
-                  href="https://maps.google.com/?q=вул. Маріупольська 13/2, Миколаїв"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-neutral-600 hover:text-neutral-900 text-body-sm transition"
-                >
-                  вул. Маріупольська 13/2, Миколаїв
-                </a>
-              </div>
-              <div>
-                <p className="text-neutral-600 text-body-sm font-medium mb-1">Телефон:</p>
-                <a 
-                  href="tel:+380638565414"
-                  className="text-neutral-600 hover:text-neutral-900 text-body-sm transition"
-                >
-                  +38 (063) 856-54-14
-                </a>
-              </div>
-              <div className="pt-2">
-                <Link href="/contact" className="text-neutral-600 hover:text-neutral-900 text-body-sm transition">
-                  Всі контакти
-                </Link>
-              </div>
-            </div>
+            <h3 className="h3 mb-4">Підтримка</h3>
+            <ul className="space-y-2">
+              <li><Link href="/help" className="small text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">Допомога</Link></li>
+              <li><Link href="/faq" className="small text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">FAQ</Link></li>
+              <li><Link href="/privacy" className="small text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">Політика конфіденційності</Link></li>
+              <li><Link href="/terms" className="small text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">Умови використання</Link></li>
+            </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-neutral-200 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
-          <p className="text-neutral-500 text-sm">
-            © 2025 Stefa.books. Всі права захищені.
+        <div className="border-t border-[var(--line)] mt-8 pt-8 text-center">
+          <p className="small text-[var(--text-muted)]">
+            © 2024 Stefa.Books. Всі права захищені.
           </p>
-          <div className="flex items-center gap-4 mt-4 sm:mt-0">
-            <span className="text-neutral-500 text-sm">Зроблено з ❤️ в Україні</span>
-          </div>
         </div>
       </div>
     </footer>

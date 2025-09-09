@@ -77,14 +77,14 @@ export default function HomePage() {
 			
 			{/* Recent Views */}
 			<LazySection>
-				<Suspense fallback={<div className="h-32 bg-neutral-50 animate-pulse rounded-lg" />}>
+				<Suspense fallback={<div className="h-32 bg-[var(--surface-2)] animate-pulse rounded-lg" />}>
 					<RecentViews maxItems={5} />
 				</Suspense>
 			</LazySection>
 
 			{/* Categories */}
 			<LazySection>
-				<Suspense fallback={<div className="h-64 bg-neutral-50 animate-pulse rounded-lg" />}>
+				<Suspense fallback={<div className="h-64 bg-[var(--surface-2)] animate-pulse rounded-lg" />}>
 					<Categories />
 				</Suspense>
 			</LazySection>
@@ -94,49 +94,49 @@ export default function HomePage() {
 
 			{/* Каталог книг */}
 			<LazySection>
-				<Suspense fallback={<div className="h-96 bg-neutral-50 animate-pulse rounded-lg" />}>
+				<Suspense fallback={<div className="h-96 bg-[var(--surface-2)] animate-pulse rounded-lg" />}>
 					<Catalog />
 				</Suspense>
 			</LazySection>
 
 			{/* Тарифы */}
 			<LazySection>
-				<Suspense fallback={<div className="h-80 bg-neutral-50 animate-pulse rounded-lg" />}>
+				<Suspense fallback={<div className="h-80 bg-[var(--surface-2)] animate-pulse rounded-lg" />}>
 					<PlansLite />
 				</Suspense>
 			</LazySection>
 
 			{/* Subscribe Form */}
 			<LazySection>
-				<Suspense fallback={<div className="h-96 bg-neutral-50 animate-pulse rounded-lg" />}>
+				<Suspense fallback={<div className="h-96 bg-[var(--surface-2)] animate-pulse rounded-lg" />}>
 					<SubscribeFormHome />
 				</Suspense>
 			</LazySection>
 
 			{/* FAQ */}
 			<LazySection>
-				<Suspense fallback={<div className="h-80 bg-neutral-50 animate-pulse rounded-lg" />}>
+				<Suspense fallback={<div className="h-80 bg-[var(--surface-2)] animate-pulse rounded-lg" />}>
 					<FAQ />
 				</Suspense>
 			</LazySection>
 
 			{/* Social Proof */}
 			<LazySection>
-				<Suspense fallback={<div className="h-48 bg-neutral-50 animate-pulse rounded-lg" />}>
+				<Suspense fallback={<div className="h-48 bg-[var(--surface-2)] animate-pulse rounded-lg" />}>
 					<SocialProof />
 				</Suspense>
 			</LazySection>
 
 			{/* Contact Location */}
 			<LazySection>
-				<Suspense fallback={<div className="h-64 bg-neutral-50 animate-pulse rounded-lg" />}>
+				<Suspense fallback={<div className="h-64 bg-[var(--surface-2)] animate-pulse rounded-lg" />}>
 					<ContactLocation />
 				</Suspense>
 			</LazySection>
 
 			{/* Final CTA */}
 			<LazySection>
-				<Suspense fallback={<div className="h-32 bg-neutral-50 animate-pulse rounded-lg" />}>
+				<Suspense fallback={<div className="h-32 bg-[var(--surface-2)] animate-pulse rounded-lg" />}>
 					<FinalCTA />
 				</Suspense>
 			</LazySection>

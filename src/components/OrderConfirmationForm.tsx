@@ -350,11 +350,11 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
               />
               <span className="text-body-sm text-neutral-700">
                 Я погоджуюся з{" "}
-                <a href="#" className="text-brand-accent-light hover:underline">
+                <a href="#" className="text-brand-accent-light hover:text-brand-accent-light/80">
                   умовами використання
                 </a>{" "}
                 та{" "}
-                <a href="#" className="text-brand-accent-light hover:underline">
+                <a href="#" className="text-brand-accent-light hover:text-brand-accent-light/80">
                   політикою конфіденційності
                 </a>{" "}
                 *

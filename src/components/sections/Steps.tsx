@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { BookOpen, FileText, CreditCard, ArrowDown } from 'lucide-react';
+import { BookOpen, FileText, CreditCard } from 'lucide-react';
 
 function scrollToId(id: string) {
   const el = document.getElementById(id);
@@ -21,7 +21,7 @@ export default function Steps() {
       action: 'Перейти до каталогу →',
       targetId: 'catalog',
       color: 'yellow',
-      isPrimary: false
+      isPrimary: true
     },
     {
       id: 2,
@@ -41,18 +41,18 @@ export default function Steps() {
       action: 'Дізнатися про плани →',
       targetId: 'plans',
       color: 'yellow',
-      isPrimary: false
+      isPrimary: true
     }
   ];
 
   return (
-    <section className="py-16 lg:py-24" aria-labelledby="steps-title">
+    <section className="section" aria-labelledby="steps-title">
       <div className="container">
         <header className="text-center mb-16">
-          <h2 id="steps-title" className="text-display font-extrabold tracking-tight mb-4">
+          <h2 id="steps-title" className="display mb-4">
             Крок за кроком
           </h2>
-          <p className="text-body-lg max-w-2xl mx-auto">
+          <p className="lead max-w-2xl mx-auto">
             Простий процес оформлення підписки на книжкову оренду
           </p>
         </header>
@@ -66,38 +66,27 @@ export default function Steps() {
             
             return (
               <div key={step.id} className="relative">
-                {/* Соединительная линия */}
-                {isNotLast && (
-                  <div className="absolute left-8 top-20 w-0.5 h-16 bg-gradient-to-b from-neutral-300 to-neutral-200" />
-                )}
-                
                 <article
-                  className={`group relative flex items-start gap-6 p-6 rounded-2xl transition-all duration-300 cursor-pointer ${
+                  className={`group relative flex items-start gap-6 p-6 rounded-[var(--radius-xl)] transition-all duration-300 cursor-pointer ${
                     isHovered
-                      ? step.color === 'yellow'
-                        ? 'bg-brand-20 shadow-lg scale-[1.02]'
-                        : 'bg-brand-20 shadow-lg scale-[1.02]'
-                      : 'hover:bg-layer-2 hover:shadow-md'
+                      ? 'bg-[var(--brand)]/10 shadow-lg scale-[1.02]'
+                      : 'hover:bg-[var(--surface-2)] hover:shadow-md'
                   }`}
                   onMouseEnter={() => setHoveredStep(step.id)}
                   onMouseLeave={() => setHoveredStep(null)}
                   onClick={() => scrollToId(step.targetId)}
                 >
                   {/* Номер с анимацией */}
-                  <div className={`relative flex items-center justify-center w-16 h-16 rounded-2xl text-h3 transition-all duration-300 group-hover:scale-110 ${
+                  <div className={`relative flex items-center justify-center w-16 h-16 rounded-[var(--radius-lg)] h3 transition-all duration-300 group-hover:scale-110 ${
                     isHovered
-                      ? step.color === 'yellow'
-                        ? 'bg-brand-80 text-text-inverse shadow-lg'
-                        : 'bg-brand-80 text-text-inverse shadow-lg'
-                      : 'bg-layer-2 text-text-secondary group-hover:bg-layer-1'
+                      ? 'bg-[var(--brand)] text-[var(--accent)] shadow-lg'
+                      : 'bg-[var(--surface-2)] text-[var(--text-muted)] group-hover:bg-[var(--surface)]'
                   }`}>
                     {step.id}
                     
                     {/* Пульсирующее кольцо при hover */}
                     {isHovered && (
-                      <div className={`absolute inset-0 rounded-2xl animate-ping ${
-                        step.color === 'yellow' ? 'bg-accent-100' : 'bg-brand-100'
-                      } opacity-30`} />
+                      <div className="absolute inset-0 rounded-[var(--radius-lg)] animate-ping bg-[var(--brand)]/30" />
                     )}
                   </div>
 
@@ -105,27 +94,23 @@ export default function Steps() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start gap-4 mb-4">
                       {/* Иконка */}
-                      <div className={`p-3 rounded-xl transition-all duration-300 ${
+                      <div className={`p-3 rounded-[var(--radius-md)] transition-all duration-300 ${
                         isHovered
-                          ? step.color === 'yellow'
-                        ? 'bg-brand-20 scale-110'
-                        : 'bg-brand-20 scale-110'
-                          : 'bg-layer-2 group-hover:bg-layer-1'
+                          ? 'bg-[var(--brand)]/20 scale-110'
+                          : 'bg-[var(--surface-2)] group-hover:bg-[var(--surface)]'
                       }`}>
                         <Icon className={`h-6 w-6 transition-all duration-300 ${
                           isHovered
-                            ? step.color === 'yellow'
-                              ? 'text-brand-80'
-                              : 'text-brand-80'
-                            : 'text-text-placeholder group-hover:text-text-secondary'
+                            ? 'text-[var(--accent)]'
+                            : 'text-[var(--text-muted)] group-hover:text-[var(--text)]'
                         }`} />
                       </div>
                       
                       <div className="flex-1">
-                        <h3 className="text-h2 mb-2 leading-tight">
+                        <h3 className="h2 mb-2 leading-tight">
                           {step.title}
                         </h3>
-                        <p className="text-body-lg leading-relaxed mb-4 max-w-lg">
+                        <p className="lead leading-relaxed mb-4 max-w-lg">
                           {step.description}
                         </p>
                         
@@ -135,10 +120,10 @@ export default function Steps() {
                             e.stopPropagation();
                             scrollToId(step.targetId);
                           }}
-                          className={`inline-flex items-center justify-center rounded-2xl px-6 py-3 text-body-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transform hover:scale-105 ${
+                          className={`btn transition-all duration-300 hover:scale-105 ${
                             step.isPrimary
-                              ? 'bg-brand-80 text-text-inverse hover:bg-brand-90 focus:ring-brand-80'
-                              : 'bg-layer-1 text-text-primary border-2 border-border-subtle hover:bg-layer-2 hover:border-brand-80 focus:ring-brand-80'
+                              ? 'btn-primary'
+                              : 'btn-outline'
                           }`}
                         >
                           {step.action}
@@ -146,15 +131,6 @@ export default function Steps() {
                       </div>
                     </div>
                   </div>
-
-                  {/* Стрелка вниз для направления */}
-                  {isNotLast && (
-                    <div className={`absolute -bottom-3 left-8 w-8 h-8 rounded-2xl flex items-center justify-center transition-all duration-300 ${
-                      isHovered ? 'bg-layer-1 shadow-lg' : 'bg-layer-2 group-hover:bg-layer-1 group-hover:shadow-md'
-                    }`}>
-                      <ArrowDown className="w-4 h-4 text-text-placeholder" />
-                    </div>
-                  )}
                 </article>
 
                 {isNotLast && <div className="h-8" />}

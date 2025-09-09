@@ -180,7 +180,7 @@ export default function ResetPasswordPage() {
             </Button>
             <p className="mt-4 text-center text-body-sm text-neutral-500">
               Пам&apos;ятаєте пароль?{' '}
-              <Link href="/auth/login" className="text-brand-accent-light hover:underline">
+              <Link href="/auth/login" className="text-brand-accent-light hover:text-brand-accent-light/80">
                 Увійти
               </Link>
             </p>

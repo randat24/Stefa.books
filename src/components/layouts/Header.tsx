@@ -90,7 +90,7 @@ export function Header() {
                 <Button 
                   size="md"
                   onClick={() => setIsSubscriptionModalOpen(true)}
-                  className="bg-accent text-brand hover:bg-accent-light"
+                  className="bg-brand text-neutral-900 hover:bg-brand/90"
                 >
                   <BookOpen className="h-4 w-4" />
                   <span className="ml-1">Підписка</span>
@@ -187,7 +187,7 @@ export function Header() {
                         setIsSubscriptionModalOpen(true);
                         setIsMobileMenuOpen(false);
                       }}
-                      className="w-full bg-accent text-brand hover:bg-accent-light"
+                      className="w-full bg-brand text-neutral-900 hover:bg-brand/90"
                     >
                       <BookOpen className="h-4 w-4 mr-2" />
                       Підписка

@@ -14,10 +14,10 @@ export default function FinalCTA() {
 							Знайдіть улюблені видання в каталозі, а ми подбаємо про решту.
 						</p>
 						<div className="mt-6 flex flex-wrap gap-3">
-							<Link href="/books#top" className="inline-flex items-center justify-center rounded-2xl font-semibold h-12 px-6 bg-accent text-neutral-900 hover:bg-accent-light transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2">
+							<Link href="/books#top" className="inline-flex items-center justify-center rounded-2xl font-semibold h-12 px-6 bg-white text-[#111827] border border-gray-300 hover:bg-gray-50 hover:border-gray-400 transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-300 focus-visible:ring-offset-2">
 								Перейти до каталогу
 							</Link>
-							<Link href="/books?rent=1#rent-form" className="inline-flex items-center justify-center rounded-2xl font-semibold h-12 px-6 bg-neutral-0 text-neutral-900 border border-neutral-200 hover:bg-neutral-50 hover:border-neutral-300 transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2">
+							<Link href="/books?rent=1#rent-form" className="inline-flex items-center justify-center rounded-2xl font-semibold h-12 px-6 bg-[#F7C948] text-[#111827] hover:bg-[#E0AE22] transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F7C948] focus-visible:ring-offset-2">
 								Оформити підписку
 							</Link>
 						</div>

@@ -506,7 +506,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
               {query && (
                 <button
                   onClick={clearSearch}
-                  className="text-accent hover:underline mr-4"
+                  className="text-accent hover:text-accent/80 mr-4"
                 >
                   Очистити пошук
                 </button>
@@ -514,7 +514,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
               {activeFilterCount > 0 && (
                 <button
                   onClick={clearFilters}
-                  className="text-accent hover:underline"
+                  className="text-accent hover:text-accent/80"
                 >
                   Очистити фільтри
                 </button>

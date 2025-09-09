@@ -87,7 +87,7 @@ export default function TestAIPage() {
         </div>
 
         <div className="mt-6 text-center text-sm text-gray-500">
-          <p>🏠 <Link href="/" className="text-blue-600 hover:underline">Повернутися на головну</Link></p>
+          <p>🏠 <Link href="/" className="text-blue-600 hover:text-blue-600/80">Повернутися на головну</Link></p>
         </div>
       </div>
     </div>
