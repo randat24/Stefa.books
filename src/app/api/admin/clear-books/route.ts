@@ -6,7 +6,7 @@ import { logger } from '@/lib/logger';
 // ОЧИСТКА ВСЕХ КНИГ ИЗ БАЗЫ ДАННЫХ
 // ============================================================================
 
-export async function DELETE(): Promise<Response> {
+export async function DELETE() {
   try {
     logger.info('Starting to clear all books from database', undefined, 'Admin');
     
@@ -54,7 +54,7 @@ export async function DELETE(): Promise<Response> {
 // ИНФОРМАЦИЯ О КОЛИЧЕСТВЕ КНИГ
 // ============================================================================
 
-export async function GET(): Promise<Response> {
+export async function GET() {
   try {
     const { count } = await supabase
       .from('books')

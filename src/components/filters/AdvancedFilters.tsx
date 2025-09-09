@@ -162,11 +162,11 @@ export function AdvancedFilters({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 flex items-end sm:items-center justify-center p-4">
-      <div className="bg-white rounded-t-xl sm:rounded-xl w-full max-w-2xl max-h-[90vh] overflow-hidden">
+      <div className="bg-neutral-0 rounded-t-xl sm:rounded-xl w-full max-w-2xl max-h-[90vh] overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b">
           <div className="flex items-center gap-2">
-            <SlidersHorizontal className="h-5 w-5 text-gray-600" />
+            <SlidersHorizontal className="h-5 w-5 text-neutral-600" />
             <h2 className="text-body-lg font-semibold">Фільтри та сортування</h2>
             {activeFiltersCount > 0 && (
               <Badge variant="secondary" className="ml-2">
@@ -191,7 +191,7 @@ export function AdvancedFilters({
               <div>
                 <button
                   onClick={() => toggleSection('categories')}
-                  className="flex items-center justify-between w-full text-left font-medium text-gray-900 mb-3"
+                  className="flex items-center justify-between w-full text-left font-medium text-neutral-900 mb-3"
                 >
                   <span>Категорії</span>
                   {expandedSections.has('categories') ? (
@@ -205,15 +205,15 @@ export function AdvancedFilters({
                     {categories.map((category) => (
                       <label
                         key={category}
-                        className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-2 rounded"
+                        className="flex items-center space-x-2 cursor-pointer hover:bg-neutral-50 p-2 rounded"
                       >
                         <input
                           type="checkbox"
                           checked={filters.categories.includes(category)}
                           onChange={() => toggleCategory(category)}
-                          className="rounded border-gray-300 text-brand-accent focus:ring-brand-accent"
+                          className="rounded border-neutral-300 text-brand-accent focus:ring-brand-accent"
                         />
-                        <span className="text-body-sm text-gray-700">{category}</span>
+                        <span className="text-body-sm text-neutral-700">{category}</span>
                       </label>
                     ))}
                   </div>
@@ -224,7 +224,7 @@ export function AdvancedFilters({
               <div>
                 <button
                   onClick={() => toggleSection('authors')}
-                  className="flex items-center justify-between w-full text-left font-medium text-gray-900 mb-3"
+                  className="flex items-center justify-between w-full text-left font-medium text-neutral-900 mb-3"
                 >
                   <span>Автори</span>
                   {expandedSections.has('authors') ? (
@@ -238,15 +238,15 @@ export function AdvancedFilters({
                     {authors.map((author) => (
                       <label
                         key={author}
-                        className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-2 rounded"
+                        className="flex items-center space-x-2 cursor-pointer hover:bg-neutral-50 p-2 rounded"
                       >
                         <input
                           type="checkbox"
                           checked={filters.authors.includes(author)}
                           onChange={() => toggleAuthor(author)}
-                          className="rounded border-gray-300 text-brand-accent focus:ring-brand-accent"
+                          className="rounded border-neutral-300 text-brand-accent focus:ring-brand-accent"
                         />
-                        <span className="text-body-sm text-gray-700">{author}</span>
+                        <span className="text-body-sm text-neutral-700">{author}</span>
                       </label>
                     ))}
                   </div>
@@ -257,7 +257,7 @@ export function AdvancedFilters({
               <div>
                 <button
                   onClick={() => toggleSection('age')}
-                  className="flex items-center justify-between w-full text-left font-medium text-gray-900 mb-3"
+                  className="flex items-center justify-between w-full text-left font-medium text-neutral-900 mb-3"
                 >
                   <span>Вікова категорія</span>
                   {expandedSections.has('age') ? (
@@ -271,15 +271,15 @@ export function AdvancedFilters({
                     {AGE_RANGES.map((ageRange) => (
                       <label
                         key={ageRange}
-                        className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-2 rounded"
+                        className="flex items-center space-x-2 cursor-pointer hover:bg-neutral-50 p-2 rounded"
                       >
                         <input
                           type="checkbox"
                           checked={filters.ageRanges.includes(ageRange)}
                           onChange={() => toggleAgeRange(ageRange)}
-                          className="rounded border-gray-300 text-brand-accent focus:ring-brand-accent"
+                          className="rounded border-neutral-300 text-brand-accent focus:ring-brand-accent"
                         />
-                        <span className="text-body-sm text-gray-700">{ageRange}</span>
+                        <span className="text-body-sm text-neutral-700">{ageRange}</span>
                       </label>
                     ))}
                   </div>
@@ -288,7 +288,7 @@ export function AdvancedFilters({
 
               {/* Availability */}
               <div>
-                <h3 className="font-medium text-gray-900 mb-3">Доступність</h3>
+                <h3 className="font-medium text-neutral-900 mb-3">Доступність</h3>
                 <div className="space-y-2">
                   {[
                     { value: 'all', label: 'Всі книги' },
@@ -297,7 +297,7 @@ export function AdvancedFilters({
                   ].map((option) => (
                     <label
                       key={option.value}
-                      className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-2 rounded"
+                      className="flex items-center space-x-2 cursor-pointer hover:bg-neutral-50 p-2 rounded"
                     >
                       <input
                         type="radio"
@@ -307,7 +307,7 @@ export function AdvancedFilters({
                         onChange={(e) => handleAvailabilityChange(e.target.value)}
                         className="text-brand-accent focus:ring-brand-accent"
                       />
-                      <span className="text-body-sm text-gray-700">{option.label}</span>
+                      <span className="text-body-sm text-neutral-700">{option.label}</span>
                     </label>
                   ))}
                 </div>
@@ -315,7 +315,7 @@ export function AdvancedFilters({
 
               {/* Rating */}
               <div>
-                <h3 className="font-medium text-gray-900 mb-3">Мінімальний рейтинг</h3>
+                <h3 className="font-medium text-neutral-900 mb-3">Мінімальний рейтинг</h3>
                 <div className="flex space-x-2">
                   {[1, 2, 3, 4, 5].map((rating) => (
                     <button
@@ -323,8 +323,8 @@ export function AdvancedFilters({
                       onClick={() => handleRatingChange(rating)}
                       className={`px-3 py-1 rounded-2xl text-body-sm font-medium transition-colors ${
                         filters.rating && filters.rating <= rating
-                          ? 'bg-brand-accent text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          ? 'bg-brand-accent text-neutral-0'
+                          : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
                       }`}
                     >
                       {rating}+
@@ -335,7 +335,7 @@ export function AdvancedFilters({
 
               {/* Sorting */}
               <div>
-                <h3 className="font-medium text-gray-900 mb-3">Сортування</h3>
+                <h3 className="font-medium text-neutral-900 mb-3">Сортування</h3>
                 <div className="space-y-2">
                   {SORT_OPTIONS.map((option) => (
                     <div key={option.value} className="flex items-center space-x-2">
@@ -347,7 +347,7 @@ export function AdvancedFilters({
                         onChange={(e) => handleSortChange(e.target.value, filters.sortOrder)}
                         className="text-brand-accent focus:ring-brand-accent"
                       />
-                      <span className="text-body-sm text-gray-700">{option.label}</span>
+                      <span className="text-body-sm text-neutral-700">{option.label}</span>
                     </div>
                   ))}
                   <div className="ml-6 space-y-1">
@@ -360,7 +360,7 @@ export function AdvancedFilters({
                         onChange={(e) => handleSortChange(filters.sortBy, e.target.value)}
                         className="text-brand-accent focus:ring-brand-accent"
                       />
-                      <span className="text-caption text-gray-600">За зростанням</span>
+                      <span className="text-caption text-neutral-600">За зростанням</span>
                     </label>
                     <label className="flex items-center space-x-2">
                       <input
@@ -371,7 +371,7 @@ export function AdvancedFilters({
                         onChange={(e) => handleSortChange(filters.sortBy, e.target.value)}
                         className="text-brand-accent focus:ring-brand-accent"
                       />
-                      <span className="text-caption text-gray-600">За спаданням</span>
+                      <span className="text-caption text-neutral-600">За спаданням</span>
                     </label>
                   </div>
                 </div>

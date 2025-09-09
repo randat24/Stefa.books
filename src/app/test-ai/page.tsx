@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 
 export default function TestAIPage() {
   const [message, setMessage] = useState('')
@@ -86,7 +87,7 @@ export default function TestAIPage() {
         </div>
 
         <div className="mt-6 text-center text-sm text-gray-500">
-          <p>🏠 <a href="/" className="text-blue-600 hover:underline">Повернутися на головну</a></p>
+          <p>🏠 <Link href="/" className="text-blue-600 hover:underline">Повернутися на головну</Link></p>
         </div>
       </div>
     </div>

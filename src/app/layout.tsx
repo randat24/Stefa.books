@@ -72,7 +72,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="uk" suppressHydrationWarning>
-      <body className="min-h-screen flex flex-col bg-white text-gray-900" suppressHydrationWarning>
+      <body className="min-h-screen flex flex-col bg-neutral-0 text-neutral-900" suppressHydrationWarning>
         <GoogleAnalytics />
         <CookieConsent />
         <WebVitalsTracker />

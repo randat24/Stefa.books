@@ -71,10 +71,10 @@ export function AnimatedInput({
               : isSuccess
               ? "border-green-300 focus:ring-green-500 focus:border-green-500"
               : isFocused
-              ? "border-brand-yellow focus:ring-brand-yellow focus:border-brand-yellow"
-              : "border-gray-300 focus:ring-brand-yellow focus:border-brand-yellow"
+              ? "border-accent focus:ring-accent focus:border-accent"
+              : "border-neutral-300 focus:ring-accent focus:border-accent"
             }
-            ${disabled ? "bg-gray-100 cursor-not-allowed" : "bg-white"}
+            ${disabled ? "bg-neutral-100 cursor-not-allowed" : "bg-neutral-0"}
           `}
         />
 
@@ -91,8 +91,8 @@ export function AnimatedInput({
               : isSuccess
               ? "text-green-600"
               : isFocused
-              ? "text-brand-yellow"
-              : "text-gray-500"
+              ? "text-accent"
+              : "text-neutral-500"
             }
           `}
           animate={{
@@ -109,7 +109,7 @@ export function AnimatedInput({
           <button
             type="button"
             onClick={togglePasswordVisibility}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 transition-colors"
           >
             {showPassword ? (
               <EyeOff className="w-5 h-5" />

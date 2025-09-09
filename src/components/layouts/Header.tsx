@@ -26,17 +26,17 @@ export function Header() {
 
   return (
     <>
-      <header className="w-full sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-gray-200">
+      <header className="w-full sticky top-0 z-40 bg-neutral-0/80 backdrop-blur border-b border-neutral-200">
         <div className="container mx-auto px-4 max-w-7xl flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 sm:gap-3">
-            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-2xl bg-gray-100 grid place-items-center">
+            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-2xl bg-neutral-100 grid place-items-center">
               <Image 
                 src="/logo.svg" 
                 alt="Stefa.books logo" 
                 width={24}
                 height={24}
-                className="text-gray-700 sm:w-7 sm:h-7"
+                className="text-neutral-700 sm:w-7 sm:h-7"
               />
             </div>
             <span className="text-body-lg sm:text-h2">Stefa.books</span>
@@ -45,31 +45,31 @@ export function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
             <HeaderSearch />
-            <Link href="/" className="px-3 py-2 text-body-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition">
+            <Link href="/" className="px-3 py-2 text-body-sm font-medium text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition">
               Головна
             </Link>
-            <Link href="/books" className="px-3 py-2 text-body-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition">
+            <Link href="/books" className="px-3 py-2 text-body-sm font-medium text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition">
               Каталог
             </Link>
             
             {isAuthenticated ? (
               <>
-                <Link href="/my-rentals" className="px-3 py-2 text-body-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition">
+                <Link href="/my-rentals" className="px-3 py-2 text-body-sm font-medium text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition">
                   Мої оренди
                 </Link>
-                <Link href="/favorites" className="px-3 py-2 text-body-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition">
+                <Link href="/favorites" className="px-3 py-2 text-body-sm font-medium text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition">
                   <Heart className="h-4 w-4" />
                 </Link>
                 <AdminStatus />
                 <div className="flex items-center gap-2 ml-2">
-                  <span className="text-body-sm text-gray-600">
+                  <span className="text-body-sm text-neutral-600">
                     {user?.user_metadata?.first_name || user?.email?.split('@')[0] || 'Користувач'}
                   </span>
                   <Button 
                     variant="outline" 
                     size="md" 
                     onClick={handleLogout}
-                    className="text-gray-600 hover:text-gray-900"
+                    className="text-neutral-600 hover:text-neutral-900"
                   >
                     <LogOut className="h-4 w-4" />
                     <span className="ml-1">Вийти</span>
@@ -82,7 +82,7 @@ export function Header() {
                   variant="outline" 
                   size="md"
                   onClick={() => setIsAuthModalOpen(true)}
-                  className="text-gray-700 hover:text-gray-900"
+                  className="text-neutral-700 hover:text-neutral-900"
                 >
                   <User className="h-4 w-4" />
                   <span className="ml-1">Увійти</span>
@@ -90,7 +90,7 @@ export function Header() {
                 <Button 
                   size="md"
                   onClick={() => setIsSubscriptionModalOpen(true)}
-                  className="bg-brand-yellow text-brand hover:bg-brand-yellow-light"
+                  className="bg-accent text-brand hover:bg-accent-light"
                 >
                   <BookOpen className="h-4 w-4" />
                   <span className="ml-1">Підписка</span>
@@ -104,7 +104,7 @@ export function Header() {
             {isAuthenticated && (
               <div className="flex items-center gap-1">
                 <AdminStatus />
-                <Link href="/favorites" className="p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition">
+                <Link href="/favorites" className="p-2 text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition">
                   <Heart className="h-5 w-5" />
                 </Link>
               </div>
@@ -122,21 +122,21 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-gray-200 bg-white">
+          <div className="lg:hidden border-t border-neutral-200 bg-neutral-0">
             <div className="container mx-auto px-4 max-w-7xl py-4 space-y-3">
               <HeaderSearch />
               
               <div className="flex flex-col space-y-2">
                 <Link 
                   href="/" 
-                  className="px-3 py-2 text-body font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition"
+                  className="px-3 py-2 text-body font-medium text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Головна
                 </Link>
                 <Link 
                   href="/books" 
-                  className="px-3 py-2 text-body font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition"
+                  className="px-3 py-2 text-body font-medium text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Каталог
@@ -146,21 +146,21 @@ export function Header() {
                   <>
                     <Link 
                       href="/my-rentals" 
-                      className="px-3 py-2 text-body font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition"
+                      className="px-3 py-2 text-body font-medium text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       Мої оренди
                     </Link>
                     
-                    <div className="pt-2 border-t border-gray-200">
-                      <div className="px-3 py-2 text-body-sm text-gray-600 mb-3">
+                    <div className="pt-2 border-t border-neutral-200">
+                      <div className="px-3 py-2 text-body-sm text-neutral-600 mb-3">
                         {user?.user_metadata?.first_name || user?.email?.split('@')[0] || 'Користувач'}
                       </div>
                       <Button 
                         variant="outline" 
                         size="md" 
                         onClick={handleLogout}
-                        className="w-full text-gray-600 hover:text-gray-900"
+                        className="w-full text-neutral-600 hover:text-neutral-900"
                       >
                         <LogOut className="h-4 w-4 mr-2" />
                         Вийти
@@ -168,7 +168,7 @@ export function Header() {
                     </div>
                   </>
                 ) : (
-                  <div className="pt-2 border-t border-gray-200 space-y-2">
+                  <div className="pt-2 border-t border-neutral-200 space-y-2">
                     <Button 
                       variant="outline" 
                       size="md"
@@ -176,7 +176,7 @@ export function Header() {
                         setIsAuthModalOpen(true);
                         setIsMobileMenuOpen(false);
                       }}
-                      className="w-full text-gray-700 hover:text-gray-900"
+                      className="w-full text-neutral-700 hover:text-neutral-900"
                     >
                       <User className="h-4 w-4 mr-2" />
                       Увійти
@@ -187,7 +187,7 @@ export function Header() {
                         setIsSubscriptionModalOpen(true);
                         setIsMobileMenuOpen(false);
                       }}
-                      className="w-full bg-brand-yellow text-brand hover:bg-brand-yellow-light"
+                      className="w-full bg-accent text-brand hover:bg-accent-light"
                     >
                       <BookOpen className="h-4 w-4 mr-2" />
                       Підписка

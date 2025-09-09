@@ -42,8 +42,8 @@
 		/* Цветовая система */
 		--brand: #0B1220;
 		--brand-light: #1e293b;
-		--accent: #2563eb;
-		--accent-light: #3b82f6;
+		--accent: #eab308;
+		--accent-light: #fbbf24;
 		
 		/* Семантические цвета */
 		--success: #10b981;
@@ -511,4 +511,51 @@
 		opacity: 1;
 		transform: scale(1);
 	}
+}
+
+/* Глобальные классы кнопок */
+.btn-base {
+	@apply inline-flex items-center justify-center rounded-2xl px-6 py-3 font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.btn-primary {
+	@apply btn-base bg-brand text-white hover:bg-brand-light focus:ring-brand;
+}
+
+.btn-secondary {
+	@apply btn-base bg-accent text-brand hover:bg-accent-light focus:ring-accent;
+}
+
+.btn-outline {
+	@apply btn-base border-2 border-brand text-brand bg-transparent hover:bg-brand hover:text-white focus:ring-brand;
+}
+
+.btn-ghost {
+	@apply btn-base bg-transparent text-brand hover:bg-neutral-100 focus:ring-neutral;
+}
+
+.btn-neutral {
+	@apply btn-base bg-neutral-100 text-neutral-700 hover:bg-neutral-200 focus:ring-neutral;
+}
+
+/* Размеры кнопок */
+.btn-sm {
+	@apply !px-3 !py-1 !text-sm;
+}
+
+.btn-md {
+	@apply !px-4 !py-2;
+}
+
+.btn-lg {
+	@apply !px-8 !py-4 !text-lg;
+}
+
+/* Классы для карточек книг */
+.book-title {
+	@apply text-base font-semibold text-neutral-900 leading-tight;
+}
+
+.book-author {
+	@apply text-sm text-neutral-600 font-medium;
 }

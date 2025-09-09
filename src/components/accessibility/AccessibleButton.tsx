@@ -44,23 +44,23 @@ export const AccessibleButton = forwardRef<HTMLButtonElement, AccessibleButtonPr
 
     const variantClasses = {
       primary: `
-        bg-brand-yellow text-brand hover:bg-brand-yellow-light
-        focus:ring-brand-yellow shadow-sm hover:shadow-md
+        bg-accent text-brand hover:bg-accent-light
+        focus:ring-accent shadow-sm hover:shadow-md
       `,
       secondary: `
-        bg-gray-100 text-gray-900 hover:bg-gray-200
+        bg-neutral-100 text-neutral-900 hover:bg-neutral-200
         focus:ring-gray-500 shadow-sm hover:shadow-md
       `,
       outline: `
-        border border-gray-300 bg-white text-gray-700 hover:bg-gray-50
-        focus:ring-brand-yellow shadow-sm hover:shadow-md
+        border border-neutral-300 bg-neutral-0 text-neutral-700 hover:bg-neutral-50
+        focus:ring-accent shadow-sm hover:shadow-md
       `,
       ghost: `
-        bg-transparent text-gray-700 hover:bg-gray-100
+        bg-transparent text-neutral-700 hover:bg-neutral-100
         focus:ring-gray-500
       `,
       danger: `
-        bg-red-600 text-white hover:bg-red-700
+        bg-red-600 text-neutral-0 hover:bg-red-700
         focus:ring-red-500 shadow-sm hover:shadow-md
       `
     };
@@ -141,7 +141,7 @@ export const ToggleButton = forwardRef<HTMLButtonElement, ToggleButtonProps>(
       <AccessibleButton
         ref={ref}
         className={cn(
-          pressed ? 'bg-brand-yellow text-brand' : 'bg-gray-100 text-gray-700',
+          pressed ? 'bg-accent text-brand' : 'bg-neutral-100 text-neutral-700',
           className
         )}
         aria-pressed={pressed}

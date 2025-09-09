@@ -5,15 +5,12 @@ import type { NextRequest } from 'next/server';
 // import { canAccessAdminPanel } from '@/lib/auth/roles';
 
 export async function middleware(request: NextRequest) {
-  // Create response with proper headers
-  const response = NextResponse.next();
-  
   // Handle markdown generation for specific routes
   const pathname = request.nextUrl.pathname;
   
   // Skip middleware for error pages to prevent build issues
   if (pathname === '/404' || pathname === '/500' || pathname.startsWith('/_error')) {
-    return response;
+    return new Response();
   }
   
   // Temporarily disabled: Auto-generate markdown versions for book pages
@@ -46,6 +43,9 @@ export async function middleware(request: NextRequest) {
   );
 
   if (isProtectedRoute) {
+    // Create response with headers for protected routes
+    const response = new Response();
+    
     // Disable caching for protected routes
     response.headers.set('Cache-Control', 'no-cache, no-store, max-age=0, must-revalidate');
     response.headers.set('Pragma', 'no-cache');
@@ -53,9 +53,10 @@ export async function middleware(request: NextRequest) {
     
     // TODO: Implement client-side auth check in page components
     // For now, let the pages handle authentication
+    return response;
   }
   
-  return response;
+  return new Response();
 }
 
 export const config = {

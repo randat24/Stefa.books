@@ -29,13 +29,13 @@ export function Chip({
   );
 
   const variantClasses = {
-    default: "bg-gray-100 text-gray-700 border-gray-200",
+    default: "bg-neutral-100 text-neutral-700 border-neutral-200",
     status: "border-2",
     button: cn(
       "border",
       active
-        ? "bg-gray-900 text-white border-gray-900 shadow-md"
-        : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50 hover:border-gray-300"
+        ? "bg-neutral-900 text-neutral-0 border-neutral-900 shadow-md"
+        : "bg-neutral-0 text-neutral-700 border-neutral-200 hover:bg-neutral-50 hover:border-neutral-300"
     )
   };
 
@@ -51,8 +51,8 @@ export function Chip({
         <span className={cn(
           "text-caption rounded-2xl px-2 py-0.5 font-bold",
           variant === 'button' && active 
-            ? "bg-white/20 text-white" 
-            : "bg-gray-200 text-gray-600"
+            ? "bg-neutral-0/20 text-neutral-0" 
+            : "bg-neutral-200 text-neutral-600"
         )}>
           {count}
         </span>

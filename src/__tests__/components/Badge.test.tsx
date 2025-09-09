@@ -18,28 +18,28 @@ describe('Badge Component', () => {
     render(<Badge>Default Badge</Badge>);
     
     const badge = screen.getByText('Default Badge');
-    expect(badge).toHaveClass('bg-gray-100', 'text-gray-800');
+    expect(badge).toHaveClass('bg-neutral-100', 'text-neutral-800');
   });
 
   it('should apply secondary variant styling', () => {
     render(<Badge variant="secondary">Secondary Badge</Badge>);
     
     const badge = screen.getByText('Secondary Badge');
-    expect(badge).toHaveClass('bg-gray-800', 'text-gray-50');
+    expect(badge).toHaveClass('bg-neutral-800', 'text-neutral-50');
   });
 
   it('should apply destructive variant styling', () => {
     render(<Badge variant="destructive">Destructive Badge</Badge>);
     
     const badge = screen.getByText('Destructive Badge');
-    expect(badge).toHaveClass('bg-red-500', 'text-gray-50');
+    expect(badge).toHaveClass('bg-red-500', 'text-neutral-50');
   });
 
   it('should apply outline variant styling', () => {
     render(<Badge variant="outline">Outline Badge</Badge>);
     
     const badge = screen.getByText('Outline Badge');
-    expect(badge).toHaveClass('border', 'border-gray-200', 'bg-transparent');
+    expect(badge).toHaveClass('border', 'border-neutral-200', 'bg-transparent');
   });
 
   it('should apply custom className', () => {

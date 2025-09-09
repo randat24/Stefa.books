@@ -107,12 +107,12 @@ export function ResponsiveImage({
       />
       
       {!imageLoaded && !imageError && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+        <div className="absolute inset-0 bg-neutral-200 animate-pulse" />
       )}
       
       {imageError && (
-        <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
-          <span className="text-gray-400 text-sm">Зображення недоступне</span>
+        <div className="absolute inset-0 bg-neutral-100 flex items-center justify-center">
+          <span className="text-neutral-400 text-sm">Зображення недоступне</span>
         </div>
       )}
     </div>
@@ -178,8 +178,8 @@ export function ResponsiveGallery({
               onClick={goToPrevious}
               className={`
                 absolute left-2 top-1/2 -translate-y-1/2
-                p-2 bg-white/80 hover:bg-white rounded-2xl
-                focus:outline-none focus:ring-2 focus:ring-brand-yellow
+                p-2 bg-neutral-0/80 hover:bg-neutral-0 rounded-2xl
+                focus:outline-none focus:ring-2 focus:ring-accent
                 transition-colors
                 ${isMobile ? 'p-1' : 'p-2'}
               `}
@@ -194,8 +194,8 @@ export function ResponsiveGallery({
               onClick={goToNext}
               className={`
                 absolute right-2 top-1/2 -translate-y-1/2
-                p-2 bg-white/80 hover:bg-white rounded-2xl
-                focus:outline-none focus:ring-2 focus:ring-brand-yellow
+                p-2 bg-neutral-0/80 hover:bg-neutral-0 rounded-2xl
+                focus:outline-none focus:ring-2 focus:ring-accent
                 transition-colors
                 ${isMobile ? 'p-1' : 'p-2'}
               `}
@@ -218,10 +218,10 @@ export function ResponsiveGallery({
               onClick={() => goToImage(index)}
               className={`
                 flex-shrink-0 rounded-lg overflow-hidden
-                focus:outline-none focus:ring-2 focus:ring-brand-yellow
+                focus:outline-none focus:ring-2 focus:ring-accent
                 transition-all duration-200
                 ${index === currentIndex 
-                  ? 'ring-2 ring-brand-yellow scale-105' 
+                  ? 'ring-2 ring-accent scale-105' 
                   : 'hover:scale-105'
                 }
                 ${isMobile ? 'w-16 h-16' : 'w-20 h-20'}
@@ -244,14 +244,14 @@ export function ResponsiveGallery({
       
       {/* Счетчик изображений */}
       {images.length > 1 && (
-        <div className={`text-center text-body-sm text-gray-600 ${isMobile ? 'px-2' : ''}`}>
+        <div className={`text-center text-body-sm text-neutral-600 ${isMobile ? 'px-2' : ''}`}>
           {currentIndex + 1} з {images.length}
         </div>
       )}
       
       {/* Подпись */}
       {currentImage.caption && (
-        <div className={`text-center text-body-sm text-gray-600 ${isMobile ? 'px-2' : ''}`}>
+        <div className={`text-center text-body-sm text-neutral-600 ${isMobile ? 'px-2' : ''}`}>
           {currentImage.caption}
         </div>
       )}
@@ -333,7 +333,7 @@ export function ResponsiveImageGrid({
           />
           
           {image.caption && (
-            <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-2 text-body-sm opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-neutral-0 p-2 text-body-sm opacity-0 group-hover:opacity-100 transition-opacity">
               {image.caption}
             </div>
           )}

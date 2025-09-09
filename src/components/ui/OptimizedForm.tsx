@@ -56,9 +56,9 @@ const FormField = memo(function FormField({
       <label
         htmlFor={fieldId}
         className={cn(
-          'block text-body-sm font-medium text-gray-700',
+          'block text-body-sm font-medium text-neutral-700',
           error && 'text-red-600',
-          disabled && 'text-gray-400'
+          disabled && 'text-neutral-400'
         )}
       >
         {label}
@@ -85,8 +85,8 @@ const FormField = memo(function FormField({
               ? 'border-red-300 focus:ring-red-500'
               : isFocused
               ? 'border-blue-300'
-              : 'border-gray-300',
-            disabled && 'bg-gray-50 cursor-not-allowed'
+              : 'border-neutral-300',
+            disabled && 'bg-neutral-50 cursor-not-allowed'
           )}
         />
       ) : type === 'select' ? (
@@ -107,8 +107,8 @@ const FormField = memo(function FormField({
               ? 'border-red-300 focus:ring-red-500'
               : isFocused
               ? 'border-blue-300'
-              : 'border-gray-300',
-            disabled && 'bg-gray-50 cursor-not-allowed'
+              : 'border-neutral-300',
+            disabled && 'bg-neutral-50 cursor-not-allowed'
           )}
         >
           <option value="">{placeholder || 'Оберіть опцію'}</option>
@@ -138,8 +138,8 @@ const FormField = memo(function FormField({
               ? 'border-red-300 focus:ring-red-500'
               : isFocused
               ? 'border-blue-300'
-              : 'border-gray-300',
-            disabled && 'bg-gray-50 cursor-not-allowed'
+              : 'border-neutral-300',
+            disabled && 'bg-neutral-50 cursor-not-allowed'
           )}
         />
       )}

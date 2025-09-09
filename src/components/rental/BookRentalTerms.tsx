@@ -13,11 +13,11 @@ export function BookRentalTerms() {
       <CardContent className="space-y-6">
         {/* Rental Terms */}
         <div>
-          <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <h4 className="font-semibold text-neutral-900 mb-3 flex items-center gap-2">
             <Clock className="h-4 w-4" />
             Терміни оренди
           </h4>
-          <ul className="space-y-2 text-body-sm text-gray-600">
+          <ul className="space-y-2 text-body-sm text-neutral-600">
             <li>• Оренда починається з моменту отримання книги</li>
             <li>• Можна повернути книгу раніше закінчення терміну без додаткової плати</li>
             <li>• При затримці повернення стягується штраф 10₴ за кожен день</li>
@@ -28,11 +28,11 @@ export function BookRentalTerms() {
 
         {/* Delivery Terms */}
         <div>
-          <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <h4 className="font-semibold text-neutral-900 mb-3 flex items-center gap-2">
             <Shield className="h-4 w-4" />
             Умови доставки
           </h4>
-          <ul className="space-y-2 text-body-sm text-gray-600">
+          <ul className="space-y-2 text-body-sm text-neutral-600">
             <li>• Доставка по Києву - безкоштовно</li>
             <li>• Доставка по Україні - 30₴</li>
             <li>• Самовивіз з бібліотеки - безкоштовно</li>
@@ -44,11 +44,11 @@ export function BookRentalTerms() {
 
         {/* Payment Terms */}
         <div>
-          <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+          <h4 className="font-semibold text-neutral-900 mb-3 flex items-center gap-2">
             <RefreshCw className="h-4 w-4" />
             Умови оплати
           </h4>
-          <ul className="space-y-2 text-body-sm text-gray-600">
+          <ul className="space-y-2 text-body-sm text-neutral-600">
             <li>• Оплата здійснюється при отриманні книги</li>
             <li>• Приймаються готівка, банківські картки, наложений платіж</li>
             <li>• При передоплаті надається знижка 5%</li>
@@ -69,7 +69,7 @@ export function BookRentalTerms() {
         </div>
 
         {/* Contact Info */}
-        <div className="text-center text-body-sm text-gray-500">
+        <div className="text-center text-body-sm text-neutral-500">
           <p>Маєте питання? Зв&apos;яжіться з нами:</p>
           <p className="font-medium">📞 +380 (44) 123-45-67 | 📧 info@stefa-books.com.ua</p>
         </div>

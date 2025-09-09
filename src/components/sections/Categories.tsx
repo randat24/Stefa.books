@@ -152,7 +152,7 @@ const getCategoryColors = (category: string) => {
 			return {
 				bg: 'bg-yellow-50',
 				border: 'border-yellow-200',
-				icon: 'text-brand-yellow-dark',
+				icon: 'text-accent-dark',
 				accent: 'bg-yellow-100'
 			}
 		case 'Найменші':
@@ -171,10 +171,10 @@ const getCategoryColors = (category: string) => {
 			}
 		case 'Повний каталог':
 			return {
-				bg: 'bg-gray-50',
-				border: 'border-gray-200',
-				icon: 'text-gray-600',
-				accent: 'bg-gray-100'
+				bg: 'bg-neutral-50',
+				border: 'border-neutral-200',
+				icon: 'text-black',
+				accent: 'bg-neutral-100'
 			}
 		case 'Сучасна проза':
 			return {
@@ -206,10 +206,10 @@ const getCategoryColors = (category: string) => {
 			}
 		case 'Для дорослих':
 			return {
-				bg: 'bg-gray-50',
-				border: 'border-gray-200',
-				icon: 'text-gray-600',
-				accent: 'bg-gray-100'
+				bg: 'bg-neutral-50',
+				border: 'border-neutral-200',
+				icon: 'text-neutral-600',
+				accent: 'bg-neutral-100'
 			}
 		case 'Детектив':
 			return {
@@ -276,10 +276,10 @@ const getCategoryColors = (category: string) => {
 			}
 		default:
 			return {
-				bg: 'bg-gray-50',
-				border: 'border-gray-200',
-				icon: 'text-gray-600',
-				accent: 'bg-gray-100'
+				bg: 'bg-neutral-50',
+				border: 'border-neutral-200',
+				icon: 'text-black',
+				accent: 'bg-neutral-100'
 			}
 	}
 }
@@ -378,19 +378,19 @@ export default function Categories() {
 		return (
 			<section id="catalog" className="py-16 lg:py-24">
 				<div className="flex items-end justify-between mb-5">
-					<div>
-						<h2 className="h2">Категорії</h2>
-						<p className="text-gray-600">Вибирай настрій читання — і вперед!</p>
-					</div>
+				<div>
+					<h2 className="h2">Категорії</h2>
+					<p>Вибирай настрій читання — і вперед!</p>
+				</div>
 				</div>
 				<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 					{[...Array(6)].map((_, i) => (
-						<div key={i} className="rounded-3xl border border-gray-200 bg-white p-6 animate-pulse">
+						<div key={i} className="rounded-3xl border border-neutral-200 bg-neutral-0 p-6 animate-pulse">
 							<div className="flex items-start gap-4">
-								<div className="size-12 rounded-2xl bg-gray-200"></div>
+								<div className="size-12 rounded-2xl bg-neutral-200"></div>
 								<div className="grid gap-2 flex-1">
-									<div className="h-5 bg-gray-200 rounded w-3/4"></div>
-									<div className="h-4 bg-gray-200 rounded w-full"></div>
+									<div className="h-5 bg-neutral-200 rounded w-3/4"></div>
+									<div className="h-4 bg-neutral-200 rounded w-full"></div>
 								</div>
 							</div>
 						</div>
@@ -405,11 +405,11 @@ export default function Categories() {
 			<div className="flex items-end justify-between mb-5">
 				<div>
 					<h2 className="h2">Категорії</h2>
-					<p className="text-gray-600">Вибирай настрій читання — і вперед!</p>
+					<p>Вибирай настрій читання — і вперед!</p>
 				</div>
 				<button 
 					onClick={() => navigateToBooks()}
-					className="inline-flex items-center justify-center rounded-2xl font-semibold h-10 px-4 bg-transparent text-gray-900 hover:bg-gray-50 transition-colors"
+					className="btn-ghost btn-md"
 				>
 					Дивитись всі книги
 				</button>
@@ -417,7 +417,7 @@ export default function Categories() {
 
 			{/* великі плитки */}
 			<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-				{categories.slice(0, 6).map((category) => {
+				{categories.slice(0, 6).map((category: CategoryWithStats) => {
 					const Icon = category.Icon
 					const colors = getCategoryColors(category.name)
 					
@@ -425,7 +425,7 @@ export default function Categories() {
 						<button
 							key={category.id}
 							onClick={() => navigateToBooks(category.name)}
-							className="group relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-6 hover:shadow-soft transition text-left hover:scale-[1.02]"
+							className="group relative overflow-hidden rounded-3xl border border-neutral-200 bg-neutral-0 p-6 hover:shadow-soft transition text-left hover:scale-[1.02]"
 						>
 							<div className="flex items-start gap-4">
 								<div className={`size-12 rounded-2xl border-2 grid place-items-center ${colors.bg} ${colors.border}`}>
@@ -433,7 +433,7 @@ export default function Categories() {
 								</div>
 								<div className="grid gap-1">
 									<h3 className="text-body-lg font-semibold">{category.name}</h3>
-									<p className="text-body-sm text-gray-600">{category.description}</p>
+									<p className="text-body-sm">{category.description}</p>
 								</div>
 							</div>
 

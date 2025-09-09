@@ -175,7 +175,7 @@ export function PaymentCheckout() {
           >
             {loading ? (
               <>
-                <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-white mr-2"></div>
+                <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-neutral-0 mr-2"></div>
                 Обробка...
               </>
             ) : (

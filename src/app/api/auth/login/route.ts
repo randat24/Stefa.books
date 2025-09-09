@@ -12,7 +12,7 @@ const loginSchema = z.object({
   password: z.string().min(1, 'Пароль обов\'язковий')
 });
 
-export async function POST(request: NextRequest): Promise<Response> {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     

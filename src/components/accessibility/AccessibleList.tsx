@@ -139,9 +139,9 @@ export function AccessibleList({
             onFocus={() => handleItemFocus(index)}
             className={`
               flex items-center justify-between p-3 rounded-lg
-              focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
-              hover:bg-gray-50 transition-colors cursor-pointer
-              ${focusedIndex === index ? 'bg-gray-50' : ''}
+              focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2
+              hover:bg-neutral-50 transition-colors cursor-pointer
+              ${focusedIndex === index ? 'bg-neutral-50' : ''}
             `}
             onClick={() => handleItemClick(item)}
             role={role === 'menubar' ? 'menuitem' : role === 'tablist' ? 'tab' : 'listitem'}
@@ -149,18 +149,18 @@ export function AccessibleList({
             aria-current={focusedIndex === index ? 'true' : undefined}
           >
             <div className="flex-1">
-              <div className="font-medium text-gray-900">{item.label}</div>
+              <div className="font-medium text-neutral-900">{item.label}</div>
               {item.description && (
-                <div className="text-body-sm text-gray-600 mt-1">{item.description}</div>
+                <div className="text-body-sm text-neutral-600 mt-1">{item.description}</div>
               )}
             </div>
             
             {item.children && item.children.length > 0 && (
               <div className="ml-2">
                 {expandedItems.has(item.id) ? (
-                  <ChevronDown className="w-4 h-4 text-gray-400" aria-hidden="true" />
+                  <ChevronDown className="w-4 h-4 text-neutral-400" aria-hidden="true" />
                 ) : (
-                  <ChevronRight className="w-4 h-4 text-gray-400" aria-hidden="true" />
+                  <ChevronRight className="w-4 h-4 text-neutral-400" aria-hidden="true" />
                 )}
               </div>
             )}
@@ -179,16 +179,16 @@ export function AccessibleList({
                     tabIndex={0}
                     className="
                       flex items-center p-2 rounded-lg
-                      focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
-                      hover:bg-gray-50 transition-colors cursor-pointer
+                      focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2
+                      hover:bg-neutral-50 transition-colors cursor-pointer
                     "
                     onClick={() => handleItemClick(child)}
                     role="menuitem"
                   >
                     <div className="flex-1">
-                      <div className="text-body-sm font-medium text-gray-900">{child.label}</div>
+                      <div className="text-body-sm font-medium text-neutral-900">{child.label}</div>
                       {child.description && (
-                        <div className="text-caption text-gray-600 mt-1">{child.description}</div>
+                        <div className="text-caption text-neutral-600 mt-1">{child.description}</div>
                       )}
                     </div>
                   </div>
@@ -218,7 +218,7 @@ interface BreadcrumbProps {
 export function Breadcrumb({
   items,
   className = '',
-  separator = <ChevronRight className="w-4 h-4 text-gray-400" />
+  separator = <ChevronRight className="w-4 h-4 text-neutral-400" />
 }: BreadcrumbProps) {
   return (
     <nav
@@ -236,7 +236,7 @@ export function Breadcrumb({
             
             {item.current ? (
               <span
-                className="text-body-sm font-medium text-gray-900"
+                className="text-body-sm font-medium text-neutral-900"
                 aria-current="page"
               >
                 {item.label}
@@ -244,7 +244,7 @@ export function Breadcrumb({
             ) : (
               <a
                 href={item.href}
-                className="text-body-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2 rounded"
+                className="text-body-sm text-neutral-600 hover:text-neutral-900 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 rounded"
               >
                 {item.label}
               </a>
@@ -312,8 +312,8 @@ export function Pagination({
             <button
               onClick={() => onPageChange(1)}
               className="
-                px-3 py-2 text-body-sm text-gray-600 hover:text-gray-900
-                focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
+                px-3 py-2 text-body-sm text-neutral-600 hover:text-neutral-900
+                focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2
                 rounded-lg transition-colors
               "
               aria-label="Перша сторінка"
@@ -329,8 +329,8 @@ export function Pagination({
             <button
               onClick={() => onPageChange(currentPage - 1)}
               className="
-                px-3 py-2 text-body-sm text-gray-600 hover:text-gray-900
-                focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
+                px-3 py-2 text-body-sm text-neutral-600 hover:text-neutral-900
+                focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2
                 rounded-lg transition-colors
               "
               aria-label="Попередня сторінка"
@@ -347,10 +347,10 @@ export function Pagination({
               onClick={() => onPageChange(page)}
               className={`
                 px-3 py-2 text-body-sm rounded-lg transition-colors
-                focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
+                focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2
                 ${page === currentPage
-                  ? 'bg-brand-yellow text-brand font-medium'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  ? 'bg-accent text-brand font-medium'
+                  : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50'
                 }
               `}
               aria-label={`Сторінка ${page}`}
@@ -367,8 +367,8 @@ export function Pagination({
             <button
               onClick={() => onPageChange(currentPage + 1)}
               className="
-                px-3 py-2 text-body-sm text-gray-600 hover:text-gray-900
-                focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
+                px-3 py-2 text-body-sm text-neutral-600 hover:text-neutral-900
+                focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2
                 rounded-lg transition-colors
               "
               aria-label="Наступна сторінка"
@@ -384,8 +384,8 @@ export function Pagination({
             <button
               onClick={() => onPageChange(totalPages)}
               className="
-                px-3 py-2 text-body-sm text-gray-600 hover:text-gray-900
-                focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
+                px-3 py-2 text-body-sm text-neutral-600 hover:text-neutral-900
+                focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2
                 rounded-lg transition-colors
               "
               aria-label="Остання сторінка"

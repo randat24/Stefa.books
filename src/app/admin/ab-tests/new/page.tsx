@@ -63,7 +63,7 @@ export default function NewAbTestPage() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
           <h1 className="text-h1">Create New A/B Test</h1>
-          <p className="text-gray-500">Set up a new A/B test experiment</p>
+          <p className="text-neutral-500">Set up a new A/B test experiment</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">
           <Link href="/admin/ab-tests">

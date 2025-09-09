@@ -31,8 +31,8 @@ export function BookImageGallery({ title, cover_url, images = [] }: BookImageGal
   if (allImages.length === 0) {
     return (
       <div className="overflow-hidden rounded-xl">
-        <div className="relative aspect-[3/4] bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
-          <BookOpen className="h-24 w-24 text-gray-400" />
+        <div className="relative aspect-[3/4] bg-gradient-to-br from-neutral-50 to-neutral-100 flex items-center justify-center">
+          <BookOpen className="h-24 w-24 text-neutral-400" />
         </div>
       </div>
     );
@@ -104,7 +104,7 @@ export function BookImageGallery({ title, cover_url, images = [] }: BookImageGal
               className={`relative w-16 h-20 rounded-md overflow-hidden border-2 transition-all ${
                 index === currentImage 
                   ? 'border-primary ring-2 ring-primary ring-offset-2' 
-                  : 'border-gray-200 hover:border-gray-300'
+                  : 'border-neutral-200 hover:border-neutral-300'
               }`}
               onClick={() => setCurrentImage(index)}
             >
@@ -122,7 +122,7 @@ export function BookImageGallery({ title, cover_url, images = [] }: BookImageGal
       
       {/* Image counter */}
       {allImages.length > 1 && (
-        <div className="text-center text-body-sm text-gray-500">
+        <div className="text-center text-body-sm text-neutral-500">
           {currentImage + 1} з {allImages.length}
         </div>
       )}

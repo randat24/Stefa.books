@@ -41,10 +41,10 @@ describe('AccessibleButton', () => {
 
   it('should render with different variants', () => {
     const { rerender } = render(<AccessibleButton variant="primary">Primary</AccessibleButton>);
-    expect(screen.getByRole('button')).toHaveClass('bg-brand-yellow');
+    expect(screen.getByRole('button')).toHaveClass('bg-accent');
 
     rerender(<AccessibleButton variant="secondary">Secondary</AccessibleButton>);
-    expect(screen.getByRole('button')).toHaveClass('bg-gray-100');
+    expect(screen.getByRole('button')).toHaveClass('bg-neutral-100');
 
     rerender(<AccessibleButton variant="outline">Outline</AccessibleButton>);
     expect(screen.getByRole('button')).toHaveClass('border');
@@ -91,7 +91,7 @@ describe('AccessibleButton', () => {
     render(<AccessibleButton>Focusable</AccessibleButton>);
     
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('focus:outline-none', 'focus:ring-2', 'focus:ring-brand-yellow');
+    expect(button).toHaveClass('focus:outline-none', 'focus:ring-2', 'focus:ring-accent');
   });
 
   it('should support keyboard navigation', async () => {

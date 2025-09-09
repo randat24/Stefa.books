@@ -152,14 +152,14 @@ export default function ContactLocation({
   };
 
   return (
-    <section id="pickup-location" className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen bg-gradient-to-b from-gray-50 to-white py-16 lg:py-24">
+    <section id="pickup-location" className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen bg-gradient-to-b from-neutral-50 to-white py-16 lg:py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Заголовок */}
         <header className="text-center mb-8 lg:mb-12">
-          <h2 className="text-2xl sm:text-h1 text-gray-900 mb-4">
+          <h2 className="text-2xl sm:text-h1 text-neutral-900 mb-4">
             {title}
           </h2>
-          <p className="text-body-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-body-lg text-neutral-600 max-w-2xl mx-auto">
             {subtitle}
           </p>
         </header>
@@ -196,10 +196,10 @@ export default function ContactLocation({
               <div className="card p-6 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-3 mb-6">
-                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-gray-100">
-                      <Icon className="h-5 w-5 text-gray-800" />
+                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-neutral-100">
+                      <Icon className="h-5 w-5 text-neutral-800" />
                     </span>
-                    <h3 className="text-body-lg lg:text-body-lg font-semibold text-gray-900">
+                    <h3 className="text-body-lg lg:text-body-lg font-semibold text-neutral-900">
                       {view.name}
                     </h3>
                   </div>
@@ -207,14 +207,14 @@ export default function ContactLocation({
                   <ul className="space-y-4 mb-6">
                     {view.bullets.map((b, i) => (
                       <li key={i} className="flex gap-3">
-                        <Clock className="mt-1 h-5 w-5 shrink-0 text-gray-600" />
+                        <Clock className="mt-1 h-5 w-5 shrink-0 text-neutral-600" />
                         <div className="text-body leading-relaxed">
                           {typeof b === 'string' ? (
-                            <span className="text-gray-800 font-medium">{b}</span>
+                            <span className="text-neutral-800 font-medium">{b}</span>
                           ) : b && typeof b === 'object' && 'label' in b ? (
                             <span>
-                              <span className="text-gray-900 font-bold">{b.label}</span>
-                              <span className="text-gray-800 font-medium ml-1">{b.value}</span>
+                              <span className="text-neutral-900 font-bold">{b.label}</span>
+                              <span className="text-neutral-800 font-medium ml-1">{b.value}</span>
                             </span>
                           ) : null}
                         </div>
@@ -232,7 +232,7 @@ export default function ContactLocation({
                       <ul className="space-y-3">
                         {view.important.map((b, i) => (
                           <li key={i} className="flex items-start gap-3">
-                            <span className="w-2 h-2 bg-brand-yellow rounded-2xl mt-2 flex-shrink-0"></span>
+                            <span className="w-2 h-2 bg-accent rounded-2xl mt-2 flex-shrink-0"></span>
                             <span className="text-body text-yellow-900 font-medium leading-relaxed">{b}</span>
                           </li>
                         ))}
@@ -247,8 +247,8 @@ export default function ContactLocation({
                     disabled={mode === "nova_poshta"}
                     className={`rounded-2xl px-6 py-3 font-semibold transition shadow-md hover:shadow-lg ${
                       mode === "nova_poshta"
-                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                        : "bg-brand-yellow text-gray-900 hover:bg-brand-yellow-light"
+                        ? "bg-neutral-300 text-neutral-500 cursor-not-allowed"
+                        : "bg-accent text-neutral-900 hover:bg-accent-light"
                     }`}
                   >
                     {view.cta}
@@ -257,7 +257,7 @@ export default function ContactLocation({
                   {/* Контакт под рукой */}
                   <a
                     href={`tel:${(data.pickup.phone || "").replace(/\s|\(|\)|-/g, "")}`}
-                    className="inline-flex items-center gap-2 rounded-2xl border border-gray-200 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-neutral-200 px-4 py-3 text-neutral-700 hover:bg-neutral-50 transition-colors"
                   >
                     <Phone className="h-4 w-4" />
                     {data.pickup.phone}
@@ -278,14 +278,14 @@ export default function ContactLocation({
                   referrerPolicy="no-referrer-when-downgrade"
                   allowFullScreen
                 />
-                <div className="p-4 bg-gray-50 border-t border-gray-200">
+                <div className="p-4 bg-neutral-50 border-t border-neutral-200">
                   <div className="flex flex-col items-center gap-3">
                     <div className="text-center">
-                      <p className="font-semibold text-gray-900">
+                      <p className="font-semibold text-neutral-900">
                         м. Миколаїв,<br />
                         вул. Маріупольська 13/2
                       </p>
-                      <p className="text-body-sm text-gray-600">{data.pickup.schedule}</p>
+                      <p className="text-body-sm text-neutral-600">{data.pickup.schedule}</p>
                     </div>
                     <a
                       target="_blank"
@@ -293,7 +293,7 @@ export default function ContactLocation({
                       href={`https://maps.google.com/?q=${encodeURIComponent(
                         data.pickup.address
                       )}`}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-yellow text-gray-900 rounded-2xl hover:bg-brand-yellow-light transition-colors font-semibold shadow-sm hover:shadow-md text-sm"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-neutral-900 rounded-2xl hover:bg-accent-light transition-colors font-semibold shadow-sm hover:shadow-md text-sm"
                     >
                       <ExternalLink className="h-4 w-4" />
                       Відкрити в картах
@@ -328,8 +328,8 @@ function Tab({
       className={[
         "inline-flex items-center gap-2 rounded-xl border px-3 py-1.5 text-body-sm transition",
         active
-          ? "border-brand-yellow-light bg-yellow-100 text-yellow-900"
-          : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50",
+          ? "border-accent-light bg-yellow-100 text-yellow-900"
+          : "border-neutral-200 bg-neutral-0 text-neutral-700 hover:bg-neutral-50",
       ].join(" ")}
       aria-pressed={active}
       type="button"

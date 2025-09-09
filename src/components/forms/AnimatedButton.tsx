@@ -39,22 +39,22 @@ export function AnimatedButton({
 
   const variantClasses = {
     primary: `
-      bg-brand-yellow text-brand hover:bg-brand-yellow-light
-      focus:ring-brand-yellow shadow-md hover:shadow-lg
+      bg-accent text-brand hover:bg-accent-light
+      focus:ring-accent shadow-md hover:shadow-lg
     `,
     secondary: `
-      bg-gray-100 text-gray-900 hover:bg-gray-200
+      bg-neutral-100 text-neutral-900 hover:bg-neutral-200
       focus:ring-gray-500 shadow-sm hover:shadow-md
     `,
     outline: `
-      border border-gray-300 bg-white text-gray-700 hover:bg-gray-50
-      focus:ring-brand-yellow hover:border-brand-yellow
+      border border-neutral-300 bg-neutral-0 text-neutral-700 hover:bg-neutral-50
+      focus:ring-accent hover:border-accent
     `,
     ghost: `
-      text-gray-700 hover:bg-gray-100 focus:ring-gray-500
+      text-neutral-700 hover:bg-neutral-100 focus:ring-gray-500
     `,
     destructive: `
-      bg-red-600 text-white hover:bg-red-700
+      bg-red-600 text-neutral-0 hover:bg-red-700
       focus:ring-red-500 shadow-md hover:shadow-lg
     `
   }
@@ -142,7 +142,7 @@ export function AnimatedButton({
           transition: { duration: 0.3 }
         }}
       >
-        <div className="w-full h-full bg-white/20" />
+        <div className="w-full h-full bg-neutral-0/20" />
       </motion.div>
     </motion.button>
   )

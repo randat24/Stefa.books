@@ -95,24 +95,24 @@ const OptimizedMobileNav = memo(function OptimizedMobileNav({
     const isSubmenuOpen = activeSubmenu === item.label
 
     return (
-      <div key={index} className="border-b border-gray-200 last:border-b-0">
+      <div key={index} className="border-b border-neutral-200 last:border-b-0">
         {hasChildren ? (
           <div>
             <button
               onClick={() => handleSubmenuToggle(item.label)}
-              className="w-full flex items-center justify-between px-4 py-3 text-left text-gray-700 hover:bg-gray-50 transition-colors"
+              className="w-full flex items-center justify-between px-4 py-3 text-left text-neutral-700 hover:bg-neutral-50 transition-colors"
               aria-expanded={isSubmenuOpen}
               aria-controls={`submenu-${index}`}
             >
               <div className="flex items-center gap-3">
                 {item.icon && (
-                  <span className="text-gray-500">{item.icon}</span>
+                  <span className="text-neutral-500">{item.icon}</span>
                 )}
                 <span className="font-medium">{item.label}</span>
               </div>
               <ChevronDown
                 className={cn(
-                  'w-4 h-4 text-gray-400 transition-transform',
+                  'w-4 h-4 text-neutral-400 transition-transform',
                   isSubmenuOpen && 'rotate-180'
                 )}
               />
@@ -121,16 +121,16 @@ const OptimizedMobileNav = memo(function OptimizedMobileNav({
             {isSubmenuOpen && (
               <div
                 id={`submenu-${index}`}
-                className="bg-gray-50 border-t border-gray-200"
+                className="bg-neutral-50 border-t border-neutral-200"
               >
                 {item.children!.map((child, childIndex) => (
                   <button
                     key={childIndex}
                     onClick={() => handleItemClick(child.href)}
-                    className="w-full flex items-center gap-3 px-8 py-3 text-left text-gray-600 hover:bg-gray-100 transition-colors"
+                    className="w-full flex items-center gap-3 px-8 py-3 text-left text-neutral-600 hover:bg-neutral-100 transition-colors"
                   >
                     {child.icon && (
-                      <span className="text-gray-400">{child.icon}</span>
+                      <span className="text-neutral-400">{child.icon}</span>
                     )}
                     <span>{child.label}</span>
                   </button>
@@ -141,10 +141,10 @@ const OptimizedMobileNav = memo(function OptimizedMobileNav({
         ) : (
           <button
             onClick={() => handleItemClick(item.href)}
-            className="w-full flex items-center gap-3 px-4 py-3 text-left text-gray-700 hover:bg-gray-50 transition-colors"
+            className="w-full flex items-center gap-3 px-4 py-3 text-left text-neutral-700 hover:bg-neutral-50 transition-colors"
           >
             {item.icon && (
-              <span className="text-gray-500">{item.icon}</span>
+              <span className="text-neutral-500">{item.icon}</span>
             )}
             <span className="font-medium">{item.label}</span>
           </button>
@@ -159,7 +159,7 @@ const OptimizedMobileNav = memo(function OptimizedMobileNav({
       <button
         ref={buttonRef}
         onClick={handleToggle}
-        className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+        className="p-2 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 rounded-md transition-colors"
         aria-label={isOpen ? 'Закрити меню' : 'Відкрити меню'}
         aria-expanded={isOpen}
       >
@@ -170,13 +170,13 @@ const OptimizedMobileNav = memo(function OptimizedMobileNav({
       {isOpen && (
         <div
           ref={navRef}
-          className="fixed inset-0 z-50 bg-white"
+          className="fixed inset-0 z-50 bg-neutral-0"
           role="navigation"
           aria-label="Мобільна навігація"
         >
           {/* Заголовок */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
-            <h2 className="text-body-lg font-semibold text-gray-900">Меню</h2>
+          <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200">
+            <h2 className="text-body-lg font-semibold text-neutral-900">Меню</h2>
             <PerformanceButton
               variant="ghost"
               size="sm"

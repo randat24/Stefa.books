@@ -182,10 +182,10 @@ const OptimizedDataView = memo(function OptimizedDataView<T>({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {Array.from({ length: 8 }).map((_, i) => (
             <div key={i} className="animate-pulse">
-              <div className="bg-gray-200 rounded-lg h-64 mb-4" />
+              <div className="bg-neutral-200 rounded-lg h-64 mb-4" />
               <div className="space-y-2">
-                <div className="h-4 bg-gray-200 rounded w-3/4" />
-                <div className="h-3 bg-gray-200 rounded w-1/2" />
+                <div className="h-4 bg-neutral-200 rounded w-3/4" />
+                <div className="h-3 bg-neutral-200 rounded w-1/2" />
               </div>
             </div>
           ))}
@@ -211,14 +211,14 @@ const OptimizedDataView = memo(function OptimizedDataView<T>({
               />
             </svg>
           </div>
-          <h3 className="text-body-lg font-medium text-gray-900 mb-2">
+          <h3 className="text-body-lg font-medium text-neutral-900 mb-2">
             Помилка завантаження
           </h3>
-          <p className="text-gray-500 mb-4">{error}</p>
+          <p className="text-neutral-500 mb-4">{error}</p>
           {onRetry && (
             <button
               onClick={onRetry}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-blue-600 text-neutral-0 rounded-md hover:bg-blue-700 transition-colors"
             >
               Спробувати знову
             </button>
@@ -230,9 +230,9 @@ const OptimizedDataView = memo(function OptimizedDataView<T>({
     if (!hasData) {
       return (
         <div className="text-center py-12">
-          <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-neutral-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <svg
-              className="w-8 h-8 text-gray-400"
+              className="w-8 h-8 text-neutral-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -245,10 +245,10 @@ const OptimizedDataView = memo(function OptimizedDataView<T>({
               />
             </svg>
           </div>
-          <h3 className="text-body-lg font-medium text-gray-900 mb-2">
+          <h3 className="text-body-lg font-medium text-neutral-900 mb-2">
             {emptyMessage}
           </h3>
-          <p className="text-gray-500">
+          <p className="text-neutral-500">
             Спробуйте змінити параметри пошуку
           </p>
         </div>
@@ -340,7 +340,7 @@ const OptimizedDataView = memo(function OptimizedDataView<T>({
 
           {/* Переключатель режима просмотра */}
           {settings.showViewMode && (
-            <div className="flex items-center gap-1 border border-gray-300 rounded-md">
+            <div className="flex items-center gap-1 border border-neutral-300 rounded-md">
               <PerformanceButton
                 variant={currentViewMode === 'grid' ? 'primary' : 'ghost'}
                 size="sm"
@@ -380,7 +380,7 @@ const OptimizedDataView = memo(function OptimizedDataView<T>({
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-neutral-500 hover:text-neutral-700"
             >
               Очистити все
             </PerformanceButton>
@@ -401,16 +401,16 @@ const OptimizedDataView = memo(function OptimizedDataView<T>({
 
       {/* Панель настроек */}
       {showSettings && (
-        <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+        <div className="border border-neutral-200 rounded-lg p-4 bg-neutral-50">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
-              <label className="block text-body-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-neutral-700 mb-2">
                 Режим просмотра
               </label>
               <select
                 value={currentViewMode}
                 onChange={(e) => handleViewModeChange(e.target.value as 'grid' | 'list' | 'table')}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="grid">Сітка</option>
                 <option value="list">Список</option>
@@ -419,7 +419,7 @@ const OptimizedDataView = memo(function OptimizedDataView<T>({
             </div>
             
             <div>
-              <label className="block text-body-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-neutral-700 mb-2">
                 Розмір сторінки
               </label>
               <select
@@ -427,7 +427,7 @@ const OptimizedDataView = memo(function OptimizedDataView<T>({
                 onChange={() => {
                   // Обработка изменения размера страницы
                 }}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -437,7 +437,7 @@ const OptimizedDataView = memo(function OptimizedDataView<T>({
             </div>
             
             <div>
-              <label className="block text-body-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-neutral-700 mb-2">
                 Виртуализация
               </label>
               <select
@@ -445,7 +445,7 @@ const OptimizedDataView = memo(function OptimizedDataView<T>({
                 onChange={() => {
                   // Обработка включения/выключения виртуализации
                 }}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="disabled">Вимкнено</option>
                 <option value="enabled">Увімкнено</option>
@@ -457,7 +457,7 @@ const OptimizedDataView = memo(function OptimizedDataView<T>({
 
       {/* Панель фильтров */}
       {hasFilters && showFiltersPanel && (
-        <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+        <div className="border border-neutral-200 rounded-lg p-4 bg-neutral-50">
           <OptimizedFilters
             filters={filters}
             values={filterValues}

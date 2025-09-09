@@ -69,13 +69,13 @@ export function LazyLoad({
 
   const defaultFallback = (
     <div className="flex items-center justify-center p-8">
-      <Loader2 className="w-8 h-8 animate-spin text-brand-yellow" />
+      <Loader2 className="w-8 h-8 animate-spin text-accent" />
     </div>
   );
 
   const defaultPlaceholder = (
-    <div className="animate-pulse bg-gray-200 rounded-lg h-64 flex items-center justify-center">
-      <span className="text-gray-400">Завантаження...</span>
+    <div className="animate-pulse bg-neutral-200 rounded-lg h-64 flex items-center justify-center">
+      <span className="text-neutral-400">Завантаження...</span>
     </div>
   );
 
@@ -185,7 +185,7 @@ export function LazyImage({
       rootMargin="100px"
       placeholder={
         <div 
-          className={`bg-gray-200 animate-pulse ${className}`}
+          className={`bg-neutral-200 animate-pulse ${className}`}
           style={{ width, height }}
         >
           {placeholder && (
@@ -201,7 +201,7 @@ export function LazyImage({
       <div className="relative">
         {!isLoaded && !hasError && (
           <div 
-            className={`bg-gray-200 animate-pulse ${className}`}
+            className={`bg-neutral-200 animate-pulse ${className}`}
             style={{ width, height }}
           />
         )}
@@ -225,10 +225,10 @@ export function LazyImage({
         
         {hasError && (
           <div 
-            className={`bg-gray-100 flex items-center justify-center ${className}`}
+            className={`bg-neutral-100 flex items-center justify-center ${className}`}
             style={{ width, height }}
           >
-            <span className="text-gray-400 text-sm">Зображення недоступне</span>
+            <span className="text-neutral-400 text-sm">Зображення недоступне</span>
           </div>
         )}
       </div>
@@ -301,10 +301,10 @@ export function LazyList<T>({
       {hasMore && (
         <div ref={loadMoreRef} className="flex justify-center py-4">
           {isLoading ? (
-            <Loader2 className="w-6 h-6 animate-spin text-brand-yellow" />
+            <Loader2 className="w-6 h-6 animate-spin text-accent" />
           ) : (
             placeholder || (
-              <div className="text-gray-500 text-sm">Завантаження...</div>
+              <div className="text-neutral-500 text-sm">Завантаження...</div>
             )
           )}
         </div>

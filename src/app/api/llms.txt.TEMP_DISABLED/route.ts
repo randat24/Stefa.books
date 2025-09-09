@@ -3,7 +3,7 @@ import { generateLlmsTxt } from '@/lib/mdream';
 import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
 
-export async function GET(request: NextRequest): Promise<Response> {
+export async function GET(request: NextRequest) {
   try {
     logger.info('Генерация llms.txt файла для AI дискавери');
 
@@ -117,7 +117,7 @@ export async function GET(request: NextRequest): Promise<Response> {
 }
 
 // Allow customization of llms.txt via POST
-export async function POST(request: NextRequest): Promise<Response> {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { pages, title, description } = body;

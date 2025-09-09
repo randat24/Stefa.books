@@ -87,7 +87,7 @@ const STATUS_CONFIG = {
 	},
 	lost: {
 		label: 'Утеряна',
-		color: 'bg-gray-100 text-gray-800 border-gray-200',
+		color: 'bg-neutral-100 text-neutral-800 border-neutral-200',
 		icon: XCircle,
 		description: 'Книга утеряна'
 	}
@@ -236,23 +236,23 @@ function MyRentalsContent() {
 	}
 
 	return (
-		<div className="min-h-screen bg-gray-50">
+		<div className="min-h-screen bg-neutral-50">
 			<div className="container mx-auto px-4 py-6">
 				{/* Breadcrumbs */}
 				<div className="mb-6">
-					<nav className="flex items-center space-x-2 text-body-sm text-gray-600">
-						<Link href="/" className="hover:text-gray-900">Головна</Link>
+					<nav className="flex items-center space-x-2 text-body-sm text-neutral-600">
+						<Link href="/" className="hover:text-neutral-900">Головна</Link>
 						<ChevronRight className="h-4 w-4" />
-						<span className="text-gray-900 font-medium">Мои аренды</span>
+						<span className="text-neutral-900 font-medium">Мои аренды</span>
 					</nav>
 				</div>
 				
 				{/* Centered Header */}
 				<div className="mb-8 text-center">
-					<h1 className="text-h1 text-gray-900 mb-2">
+					<h1 className="text-h1 text-neutral-900 mb-2">
 						Мои аренды
 					</h1>
-					<p className="text-body text-gray-600">
+					<p className="text-body text-neutral-600">
 						Найдите историю ваших аренд по email адресу
 					</p>
 				</div>
@@ -264,11 +264,11 @@ function MyRentalsContent() {
 							<div className="space-y-4">
 								{/* Email Input */}
 								<div>
-									<label htmlFor="email" className="block text-body-sm font-medium text-gray-700 mb-2">
+									<label htmlFor="email" className="block text-body-sm font-medium text-neutral-700 mb-2">
 										Email адрес
 									</label>
 									<div className="relative">
-										<Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+										<Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-neutral-400" />
 										<Input
 											id="email"
 											type="email"
@@ -283,7 +283,7 @@ function MyRentalsContent() {
 								
 								{/* Status Filter */}
 								<div>
-									<label className="block text-body-sm font-medium text-gray-700 mb-2">
+									<label className="block text-body-sm font-medium text-neutral-700 mb-2">
 										Статус
 									</label>
 									<Select value={statusFilter} onValueChange={handleStatusFilterChange}>
@@ -339,7 +339,7 @@ function MyRentalsContent() {
 					<div className="max-w-4xl mx-auto space-y-4">
 						{/* Results Header */}
 						<div className="text-center mb-6">
-							<h2 className="text-body-lg font-semibold text-gray-900 mb-2">
+							<h2 className="text-body-lg font-semibold text-neutral-900 mb-2">
 								Найдено аренд: {pagination?.total || 0}
 							</h2>
 							{statusFilter !== 'all' && (
@@ -370,8 +370,8 @@ function MyRentalsContent() {
 								className="w-24 h-32 object-cover rounded-md shadow-sm"
 							/>
 						) : (
-							<div className="w-24 h-32 bg-gray-200 rounded-md flex items-center justify-center">
-								<BookOpen className="h-10 w-10 text-gray-400" />
+							<div className="w-24 h-32 bg-neutral-200 rounded-md flex items-center justify-center">
+								<BookOpen className="h-10 w-10 text-neutral-400" />
 							</div>
 						)}
 					</div>
@@ -380,10 +380,10 @@ function MyRentalsContent() {
 					<div className="flex-1 min-w-0 ml-4">
 													<div className="flex items-start justify-between mb-2">
 														<div className="min-w-0 flex-1">
-															<h3 className="font-medium text-gray-900 truncate">
+															<h3 className="font-medium text-neutral-900 truncate">
 																{rental.book?.title || 'Неизвестная книга'}
 															</h3>
-															<p className="text-body text-gray-700 truncate font-medium">
+															<p className="text-body text-neutral-700 truncate font-medium">
 																{rental.book?.author || 'Неизвестный автор'}
 															</p>
 															{rental.book?.category && (
@@ -399,7 +399,7 @@ function MyRentalsContent() {
 																	'text-xs',
 																	isOverdueStatus 
 																		? STATUS_CONFIG.overdue.color
-																		: statusConfig?.color || 'bg-gray-100 text-gray-800'
+																		: statusConfig?.color || 'bg-neutral-100 text-neutral-800'
 																)}
 															>
 																{isOverdueStatus ? 'Просрочена' : statusConfig?.label || rental.status}
@@ -408,7 +408,7 @@ function MyRentalsContent() {
 													</div>
 
 													{/* Compact Rental Details */}
-													<div className="flex flex-wrap gap-4 text-caption text-gray-600">
+													<div className="flex flex-wrap gap-4 text-caption text-neutral-600">
 														<div className="flex items-center">
 															<Calendar className="h-3 w-3 mr-1" />
 															<span>Аренда: {formatDate(rental.rental_date)}</span>
@@ -434,7 +434,7 @@ function MyRentalsContent() {
 													</div>
 
 													{rental.notes && (
-														<div className="mt-2 py-2 bg-gray-50 rounded text-caption text-gray-600">
+														<div className="mt-2 py-2 bg-neutral-50 rounded text-caption text-neutral-600">
 															<strong>Заметки:</strong> {rental.notes}
 														</div>
 													)}
@@ -475,7 +475,7 @@ function MyRentalsContent() {
 										)
 									})}
 									{pagination.totalPages > 3 && (
-										<span className="text-body-sm text-gray-500 px-2">...</span>
+										<span className="text-body-sm text-neutral-500 px-2">...</span>
 									)}
 								</div>
 								
@@ -496,11 +496,11 @@ function MyRentalsContent() {
 				{/* Compact Empty State */}
 				{!loading && email && rentals.length === 0 && !error && (
 					<div className="max-w-2xl mx-auto text-center py-8">
-						<BookOpen className="h-8 w-8 text-gray-400 mx-auto mb-3" />
-						<h4 className="font-medium text-gray-900 mb-1">
+						<BookOpen className="h-8 w-8 text-neutral-400 mx-auto mb-3" />
+						<h4 className="font-medium text-neutral-900 mb-1">
 							Аренды не найдены
 						</h4>
-						<p className="text-body-sm text-gray-600">
+						<p className="text-body-sm text-neutral-600">
 							По вашему email адресу не найдено активных или завершенных аренд
 						</p>
 					</div>
@@ -513,10 +513,10 @@ function MyRentalsContent() {
 export default function MyRentalsPage() {
 	return (
 		<Suspense fallback={
-			<div className="min-h-screen bg-gray-50 flex items-center justify-center">
+			<div className="min-h-screen bg-neutral-50 flex items-center justify-center">
 				<div className="text-center">
-					<RefreshCw className="h-12 w-12 text-gray-400 mx-auto mb-4 animate-spin" />
-					<p className="text-gray-600">Загрузка...</p>
+					<RefreshCw className="h-12 w-12 text-neutral-400 mx-auto mb-4 animate-spin" />
+					<p className="text-neutral-600">Загрузка...</p>
 				</div>
 			</div>
 		}>

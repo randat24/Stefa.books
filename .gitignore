@@ -1,105 +1,63 @@
-# Dependencies
-node_modules/
-.pnp
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
 .pnp.js
+.yarn/install-state.gz
 
-# Testing
+# testing
 /coverage
-.nyc_output
+/test-results
+/playwright-report
+/blob-report
+/playwright/.cache
 
-# Next.js
+# next.js
 /.next/
 /out/
-.next/
-.next/cache/
-.next/types/
 
-# Production
+# production
 /build
-/dist
 
-# Environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-.env.example
-.env.local.example
-.env.local.examle
-.env.production
-
-# Sensitive files - NEVER commit these!
-# API Keys and Secrets
-*.key
-*.pem
-*.p12
-*.pfx
-*.crt
-*.cer
-*.jks
-*.keystore
-secrets.json
-credentials.json
-service-account.json
-firebase.json
-google-services.json
-google-credentials.json
-config.json
-.secrets
-.secret
-
-# Database files
-*.db
-*.sqlite
-*.sqlite3
-database.json
-
-# Backup files
-*.bak
-*.backup
-*.old
-*.orig
-*.tmp
-*.temp
-
-# IDE and Editor files
-.vscode/settings.json
-.vscode/launch.json
-.idea/workspace.xml
-.idea/tasks.xml
-*.swp
-*.swo
-*~
-
-# OS specific files
+# misc
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-desktop.ini
+*.pem
 
-# Logs and debug files
-*.log
-logs/
-debug.log
-error.log
-access.log
-
-# Temporary files
-tmp/
-temp/
-.tmp/
-.temp/
-
-# Debug
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
+
+# local env files
+.env*.local
+.env
+.env.development
+.env.production
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
 
 # Runtime data
 pids
@@ -108,36 +66,18 @@ pids
 *.pid.lock
 
 # Coverage directory used by tools like istanbul
-coverage/
+coverage
 *.lcov
 
 # nyc test coverage
 .nyc_output
 
-# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
-.grunt
-
-# Bower dependency directory (https://bower.io/)
-bower_components
-
-# node-waf configuration
-.lock-wscript
-
-# Compiled binary addons (https://nodejs.org/api/addons.html)
-build/Release
-
 # Dependency directories
 node_modules/
 jspm_packages/
 
-# TypeScript cache
-*.tsbuildinfo
-
 # Optional npm cache directory
 .npm
-
-# Node modules cache
-node_modules/.cache/
 
 # Optional eslint cache
 .eslintcache
@@ -160,6 +100,7 @@ node_modules/.cache/
 # dotenv environment variables file
 .env
 .env.test
+.env.production
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -167,6 +108,7 @@ node_modules/.cache/
 
 # Next.js build output
 .next
+out
 
 # Nuxt.js build / generate output
 .nuxt
@@ -185,107 +127,46 @@ tmp/
 temp/
 
 # Editor directories and files
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+# Performance reports
+performance-reports/
+bundle-analysis-report.json
+performance-audit-report.json
 
-# Logs
-logs
-*.log
+# Backup files
+*.backup
+*.bak
+*.tmp
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Coverage directory used by tools like istanbul
-coverage/
-
-# Dependency directories
-node_modules/
-
-# Optional npm cache directory
-.npm
-
-# Optional REPL history
-.node_repl_history
-
-# Output of 'npm pack'
-*.tgz
-
-# Yarn Integrity file
-.yarn-integrity
-
-# dotenv environment variables file
-.env
-
-# parcel-bundler cache (https://parceljs.org/)
-.cache
-.parcel-cache
-
-# next.js build output
-.next
-
-# nuxt.js build output
-.nuxt
-
-# vuepress build output
-.vuepress/dist
-
-# Serverless directories
-.serverless
-
-# FuseBox cache
-.fusebox/
-
-# DynamoDB Local files
-.dynamodb/
-
-# TernJS port file
-.tern-port
-
-# Stores VSCode versions used for testing VSCode extensions
-.vscode-test
-
-# yarn v2
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.yarn/install-state.gz
-.pnp.*
-
-# Playwright
-test-results/
-playwright-report/
-playwright/.cache/
-
-# SWC
-.swc/
-
-# Database
+# Database dumps
+*.sql
 *.db
-*.sqlite
-*.sqlite3
 
-# Supabase
-.supabase/
+# Cloudinary uploads (local)
+uploads/
+cloudinary-uploads/
 
-# Cloudinary
-cloudinary.json
-
-# Performance
-performance-report.json
-bundle-analysis.html
+# Vercel
 .vercel
+
+# PWA files
+**/public/sw.js
+**/public/workbox-*.js
+**/public/worker-*.js
+**/public/sw.js.map
+**/public/workbox-*.js.map
+**/public/worker-*.js.map
+
+# Sentry
+.sentryclirc
+
+# Local development
+.local

@@ -98,12 +98,12 @@ export function OptimizedBookImage({
     return (
       <div 
         ref={containerRef}
-        className={`relative bg-gray-100 animate-pulse ${className}`}
+        className={`relative bg-neutral-100 animate-pulse ${className}`}
         style={{ width, height }}
       >
         {hasError ? (
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-gray-400 text-sm">Зображення недоступне</span>
+            <span className="text-neutral-400 text-sm">Зображення недоступне</span>
           </div>
         ) : null}
       </div>

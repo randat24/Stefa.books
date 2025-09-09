@@ -69,7 +69,7 @@ export function Tooltip({
   }
 
   const getTooltipClasses = () => {
-    const baseClasses = "absolute z-50 px-3 py-2 text-body-sm text-white bg-gray-900 rounded-lg shadow-lg whitespace-nowrap"
+    const baseClasses = "absolute z-50 px-3 py-2 text-body-sm text-neutral-0 bg-neutral-900 rounded-lg shadow-lg whitespace-nowrap"
     
     switch (position) {
       case "top":
@@ -86,7 +86,7 @@ export function Tooltip({
   }
 
   const getArrowClasses = () => {
-    const baseClasses = "absolute w-2 h-2 bg-gray-900 transform rotate-45"
+    const baseClasses = "absolute w-2 h-2 bg-neutral-900 transform rotate-45"
     
     switch (position) {
       case "top":

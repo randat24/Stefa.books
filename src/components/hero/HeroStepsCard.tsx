@@ -56,12 +56,12 @@ export default function HeroStepsCard() {
   return (
     <aside className="card relative mx-auto max-w-md md:ml-0 md:max-w-none lg:ml-auto lg:max-w-md xl:mr-[-1.2rem] 2xl:mr-[0.3rem]">
       {/* Заголовок с ценами */}
-      <div className="text-center border-b border-gray-100 p-4 sm:p-5">
-        <h3 className="text-body-lg sm:text-body-lg font-semibold text-gray-900 mb-2">
+      <div className="text-center border-b border-neutral-100 p-4 sm:p-5">
+        <h3 className="text-body-lg sm:text-body-lg font-semibold text-black mb-2">
           Як почати читати
         </h3>
-        <div className="inline-flex items-center gap-2 rounded-2xl bg-yellow-100 border border-yellow-200 px-4 py-2 text-body-sm font-medium text-yellow-800">
-          <Wallet className="size-4" />
+        <div className="inline-flex items-center gap-2 rounded-2xl bg-accent-100 border border-accent-200 px-4 py-2 text-body-sm font-medium text-accent-800">
+          <Wallet className="size-4 text-accent-800" />
           <span>Mini 300₴ • Maxi 500₴</span>
         </div>
       </div>
@@ -84,9 +84,9 @@ export default function HeroStepsCard() {
                       : `cursor-pointer ${
                           isHovered
                             ? step.color === 'yellow'
-                              ? 'bg-yellow-50 shadow-md scale-[1.02]'
-                              : 'bg-blue-50 shadow-md scale-[1.02]'
-                            : 'hover:bg-gray-50 hover:shadow-sm'
+                              ? 'bg-accent-50 shadow-md scale-[1.02]'
+                              : 'bg-accent-50 shadow-md scale-[1.02]'
+                            : 'hover:bg-neutral-50 hover:shadow-sm'
                         }`
                   }`}
                   onMouseEnter={() => !isDisabled && setHoveredStep(step.n)}
@@ -95,28 +95,22 @@ export default function HeroStepsCard() {
                   {/* Иконка с анимацией */}
                   <div className={`relative flex items-center justify-center w-12 h-12 rounded-xl transition-all duration-300 group-hover:scale-105 ${
                     isDisabled
-                      ? 'bg-gray-200'
+                      ? 'bg-neutral-200'
                       : isHovered
-                      ? step.color === 'yellow'
-                        ? 'bg-brand-yellow shadow-md'
-                        : 'bg-brand-accent shadow-md'
-                      : 'bg-gray-900 group-hover:bg-gray-800'
+                      ? 'bg-accent shadow-md'
+                      : 'bg-neutral-900 group-hover:bg-neutral-800'
                   }`}>
                     <Icon className={`size-6 transition-all duration-300 ${
                       isDisabled
-                        ? 'text-gray-400'
+                        ? 'text-neutral-400'
                         : isHovered
-                        ? step.color === 'yellow'
-                          ? 'text-gray-900'
-                          : 'text-white'
-                        : 'text-white'
+                        ? 'text-neutral-900'
+                        : 'text-neutral-0'
                     }`} />
                     
                     {/* Пульсирующее кольцо при hover */}
                     {isHovered && !isDisabled && (
-                      <div className={`absolute inset-0 rounded-xl animate-ping ${
-                        step.color === 'yellow' ? 'bg-brand-yellow-light' : 'bg-blue-400'
-                      } opacity-30`} />
+                      <div className="absolute inset-0 rounded-xl animate-ping bg-accent opacity-30" />
                     )}
                   </div>
 
@@ -124,10 +118,10 @@ export default function HeroStepsCard() {
                   <div className="flex-1 min-w-0 pt-1">
                     <div className="flex items-start gap-2 mb-1">
                       <div className="flex-1">
-                        <h4 className="text-h5 text-gray-900 leading-tight mb-1">
+                        <h4 className="text-h5 text-black leading-tight mb-1">
                           {step.title}
                         </h4>
-                        <p className="text-body-sm text-gray-600 leading-relaxed">
+                        <p className="text-body-sm text-black leading-relaxed">
                           {step.text}
                         </p>
                       </div>
@@ -135,7 +129,7 @@ export default function HeroStepsCard() {
                     
                     {/* Подсказка для последнего шага */}
                     {isDisabled && (
-                      <p className="text-caption text-gray-500 mt-2 ml-8">
+                      <p className="text-caption text-black mt-2 ml-8">
                         Після оформлення заявки
                       </p>
                     )}
@@ -171,8 +165,8 @@ export default function HeroStepsCard() {
         </div>
 
         {/* Дополнительная информация внизу */}
-        <div className="mt-6 pt-4 border-t border-gray-100 text-center">
-          <p className="text-caption text-gray-500">
+        <div className="mt-6 pt-4 border-t border-neutral-100 text-center">
+          <p className="text-caption text-black">
             Швидко • Зручно • Без зобов&apos;язань
           </p>
         </div>

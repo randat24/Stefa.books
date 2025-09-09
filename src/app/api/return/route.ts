@@ -19,7 +19,7 @@ const returnSchema = z.object({
   })
 });
 
-export async function POST(request: NextRequest): Promise<Response> {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     
@@ -101,7 +101,7 @@ export async function POST(request: NextRequest): Promise<Response> {
   }
 }
 
-export async function GET(request: NextRequest): Promise<Response> {
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const customerEmail = searchParams.get('email');

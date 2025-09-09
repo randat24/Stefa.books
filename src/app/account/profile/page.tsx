@@ -79,7 +79,7 @@ export default function ProfilePage() {
                     onChange={handleChange}
                     disabled
                   />
-                  <p className="text-body-sm text-gray-500">Email cannot be changed</p>
+                  <p className="text-body-sm text-neutral-500">Email cannot be changed</p>
                 </div>
               </div>
               
@@ -117,7 +117,7 @@ export default function ProfilePage() {
               
               <div className="space-y-2">
                 <Label>Member Since</Label>
-                <p className="text-gray-700">{new Date(user.joinDate).toLocaleDateString()}</p>
+                <p className="text-neutral-700">{new Date(user.joinDate).toLocaleDateString()}</p>
               </div>
             </CardContent>
             
@@ -133,27 +133,27 @@ export default function ProfilePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Full Name</Label>
-                <p className="text-gray-700">{user.name}</p>
+                <p className="text-neutral-700">{user.name}</p>
               </div>
               <div className="space-y-2">
                 <Label>Email</Label>
-                <p className="text-gray-700">{user.email}</p>
+                <p className="text-neutral-700">{user.email}</p>
               </div>
             </div>
             
             <div className="space-y-2">
               <Label>Bio</Label>
-              <p className="text-gray-700">{user.bio || 'No bio provided'}</p>
+              <p className="text-neutral-700">{user.bio || 'No bio provided'}</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Location</Label>
-                <p className="text-gray-700">{user.location || 'Not specified'}</p>
+                <p className="text-neutral-700">{user.location || 'Not specified'}</p>
               </div>
               <div className="space-y-2">
                 <Label>Website</Label>
-                <p className="text-gray-700">
+                <p className="text-neutral-700">
                   {user.website ? (
                     <a href={user.website} target="_blank" rel="noopener noreferrer" className="text-brand-accent-light hover:underline">
                       {user.website}
@@ -167,7 +167,7 @@ export default function ProfilePage() {
             
             <div className="space-y-2">
               <Label>Member Since</Label>
-              <p className="text-gray-700">{new Date(user.joinDate).toLocaleDateString()}</p>
+              <p className="text-neutral-700">{new Date(user.joinDate).toLocaleDateString()}</p>
             </div>
           </CardContent>
         )}

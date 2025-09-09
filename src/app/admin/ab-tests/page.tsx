@@ -76,7 +76,7 @@ export default function AbTestsPage() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <div>
           <h1 className="text-h1">A/B Tests</h1>
-          <p className="text-gray-500">Manage and analyze A/B tests</p>
+          <p className="text-neutral-500">Manage and analyze A/B tests</p>
         </div>
         <Link href="/admin/ab-tests/new">
           <Button>Create New Test</Button>
@@ -116,7 +116,7 @@ export default function AbTestsPage() {
         {filteredTests.length === 0 ? (
           <Card>
             <CardContent className="py-8 text-center">
-              <p className="text-gray-500">No A/B tests found</p>
+              <p className="text-neutral-500">No A/B tests found</p>
             </CardContent>
           </Card>
         ) : (
@@ -137,15 +137,15 @@ export default function AbTestsPage() {
                     <h3 className="font-semibold mb-2">Test Details</h3>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span className="text-gray-500">Start Date:</span>
+                        <span className="text-neutral-500">Start Date:</span>
                         <span>{test.startDate || 'Not started'}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-500">End Date:</span>
+                        <span className="text-neutral-500">End Date:</span>
                         <span>{test.endDate || 'Not scheduled'}</span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-gray-500">Participants:</span>
+                        <span className="text-neutral-500">Participants:</span>
                         <span>{test.participants.toLocaleString()}</span>
                       </div>
                     </div>

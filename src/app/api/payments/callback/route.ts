@@ -5,7 +5,7 @@ import { logger } from '@/lib/logger';
 /**
  * POST /api/payments/callback - Handle payment provider callback
  */
-export async function POST(request: NextRequest): Promise<Response> {
+export async function POST(request: NextRequest) {
   try {
     // In a real implementation, you would verify the callback signature
     // to ensure it's from the payment provider

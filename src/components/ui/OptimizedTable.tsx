@@ -124,9 +124,9 @@ const OptimizedTable = memo(function OptimizedTable<T>({
     return (
       <div className={cn('w-full', className)}>
         <div className="animate-pulse">
-          <div className="h-12 bg-gray-200 rounded mb-4" />
+          <div className="h-12 bg-neutral-200 rounded mb-4" />
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="h-16 bg-gray-100 rounded mb-2" />
+            <div key={i} className="h-16 bg-neutral-100 rounded mb-2" />
           ))}
         </div>
       </div>
@@ -137,10 +137,10 @@ const OptimizedTable = memo(function OptimizedTable<T>({
     return (
       <div className={cn('w-full', className)}>
         <div className="text-center py-12">
-          <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <MoreHorizontal className="w-8 h-8 text-gray-400" />
+          <div className="w-16 h-16 bg-neutral-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <MoreHorizontal className="w-8 h-8 text-neutral-400" />
           </div>
-          <p className="text-gray-500 text-lg">{emptyMessage}</p>
+          <p className="text-neutral-500 text-lg">{emptyMessage}</p>
         </div>
       </div>
     )
@@ -150,7 +150,7 @@ const OptimizedTable = memo(function OptimizedTable<T>({
     <div className={cn('w-full', className)}>
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+          <thead className="bg-neutral-50">
             <tr>
               {selectable && (
                 <th className="px-6 py-3 text-left">
@@ -161,7 +161,7 @@ const OptimizedTable = memo(function OptimizedTable<T>({
                       if (input) input.indeterminate = isPartiallySelected
                     }}
                     onChange={(e) => handleSelectAll(e.target.checked)}
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="rounded border-neutral-300 text-blue-600 focus:ring-blue-500"
                   />
                 </th>
               )}
@@ -169,7 +169,7 @@ const OptimizedTable = memo(function OptimizedTable<T>({
                 <th
                   key={String(column.key)}
                   className={cn(
-                    'px-6 py-3 text-left text-caption font-medium text-gray-500 uppercase tracking-wider',
+                    'px-6 py-3 text-left text-caption font-medium text-neutral-500 uppercase tracking-wider',
                     column.className
                   )}
                   style={{ width: column.width }}
@@ -177,7 +177,7 @@ const OptimizedTable = memo(function OptimizedTable<T>({
                   {column.sortable ? (
                     <button
                       onClick={() => handleSort(column.key)}
-                      className="flex items-center gap-1 hover:text-gray-700 transition-colors"
+                      className="flex items-center gap-1 hover:text-neutral-700 transition-colors"
                     >
                       {column.label}
                       {sortKey === column.key && (
@@ -195,7 +195,7 @@ const OptimizedTable = memo(function OptimizedTable<T>({
               ))}
             </tr>
           </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-neutral-0 divide-y divide-gray-200">
             {paginatedData.map((item, index) => {
               const key = getRowKey(item)
               const isSelected = selectedRows.has(key)
@@ -204,7 +204,7 @@ const OptimizedTable = memo(function OptimizedTable<T>({
                 <tr
                   key={key}
                   className={cn(
-                    'hover:bg-gray-50 transition-colors',
+                    'hover:bg-neutral-50 transition-colors',
                     isSelected && 'bg-blue-50',
                     onRowClick && 'cursor-pointer'
                   )}
@@ -217,7 +217,7 @@ const OptimizedTable = memo(function OptimizedTable<T>({
                         checked={isSelected}
                         onChange={(e) => handleRowSelect(item, e.target.checked)}
                         onClick={(e) => e.stopPropagation()}
-                        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="rounded border-neutral-300 text-blue-600 focus:ring-blue-500"
                       />
                     </td>
                   )}
@@ -225,7 +225,7 @@ const OptimizedTable = memo(function OptimizedTable<T>({
                     <td
                       key={String(column.key)}
                       className={cn(
-                        'px-6 py-4 whitespace-nowrap text-body-sm text-gray-900',
+                        'px-6 py-4 whitespace-nowrap text-body-sm text-neutral-900',
                         column.className
                       )}
                     >

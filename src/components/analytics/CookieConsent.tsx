@@ -38,27 +38,27 @@ export default function CookieConsent() {
   if (!showConsent) return null
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md bg-white p-6 rounded-lg shadow-xl border z-50 animate-in slide-in-from-bottom-4">
+    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md bg-neutral-0 p-6 rounded-lg shadow-xl border z-50 animate-in slide-in-from-bottom-4">
       <div className="flex items-start gap-3">
         <Cookie className="h-6 w-6 text-amber-600 flex-shrink-0 mt-0.5" />
         <div className="flex-1">
-          <h3 className="font-semibold text-gray-900 mb-2">
+          <h3 className="font-semibold text-neutral-900 mb-2">
             Використання cookies
           </h3>
-          <p className="text-body-sm text-gray-700 mb-4">
+          <p className="text-body-sm text-neutral-700 mb-4">
             Ми використовуємо cookies для аналітики та покращення роботи сайту. 
             Продовжуючи використання сайту, ви погоджуєтесь з нашою політикою cookies.
           </p>
           <div className="flex flex-col sm:flex-row gap-2">
             <button
               onClick={acceptCookies}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md text-body-sm font-medium hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-blue-600 text-neutral-0 rounded-md text-body-sm font-medium hover:bg-blue-700 transition-colors"
             >
               Прийняти всі
             </button>
             <button
               onClick={rejectCookies}
-              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md text-body-sm font-medium hover:bg-gray-300 transition-colors"
+              className="px-4 py-2 bg-neutral-200 text-neutral-800 rounded-md text-body-sm font-medium hover:bg-neutral-300 transition-colors"
             >
               Відхилити
             </button>
@@ -66,7 +66,7 @@ export default function CookieConsent() {
         </div>
         <button
           onClick={rejectCookies}
-          className="text-gray-400 hover:text-gray-600 transition-colors"
+          className="text-neutral-400 hover:text-neutral-600 transition-colors"
           aria-label="Закрити"
         >
           <X className="h-5 w-5" />

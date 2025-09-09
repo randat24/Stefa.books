@@ -62,7 +62,7 @@ export default function RentPage() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <div>
           <h1 className="text-h1">Rent Books</h1>
-          <p className="text-gray-500">Browse and rent books from our collection</p>
+          <p className="text-neutral-500">Browse and rent books from our collection</p>
         </div>
       </div>
       
@@ -106,7 +106,7 @@ export default function RentPage() {
             <CardContent className="pb-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                  <span className="text-brand-yellow mr-1">★</span>
+                  <span className="text-accent mr-1">★</span>
                   <span>{book.rating}</span>
                 </div>
                 {book.available ? (
@@ -128,7 +128,7 @@ export default function RentPage() {
         <Card className="py-12 text-center">
           <CardContent>
             <h3 className="text-body-lg font-semibold mb-2">No books found</h3>
-            <p className="text-gray-500 mb-4">Try adjusting your search terms</p>
+            <p className="text-neutral-500 mb-4">Try adjusting your search terms</p>
             <Button onClick={() => setSearchTerm('')}>Clear Search</Button>
           </CardContent>
         </Card>

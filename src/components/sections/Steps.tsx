@@ -20,7 +20,7 @@ export default function Steps() {
       description: 'Переглянь каталог і вибери те, що хочеться читати. Вибір з понад 1000 книг різних жанрів.',
       action: 'Перейти до каталогу →',
       targetId: 'catalog',
-      color: 'blue',
+      color: 'yellow',
       isPrimary: false
     },
     {
@@ -40,7 +40,7 @@ export default function Steps() {
       description: 'Оплатіть підписку та заберіть книги у точці видачі: вул. Маріупольська 13/2, Миколаїв.',
       action: 'Дізнатися про плани →',
       targetId: 'plans',
-      color: 'blue',
+      color: 'yellow',
       isPrimary: false
     }
   ];
@@ -49,10 +49,10 @@ export default function Steps() {
     <section className="py-16 lg:py-24" aria-labelledby="steps-title">
       <div className="container">
         <header className="text-center mb-16">
-          <h2 id="steps-title" className="text-display font-extrabold tracking-tight text-gray-900 mb-4">
+          <h2 id="steps-title" className="text-display font-extrabold tracking-tight mb-4">
             Крок за кроком
           </h2>
-          <p className="text-body-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-body-lg max-w-2xl mx-auto">
             Простий процес оформлення підписки на книжкову оренду
           </p>
         </header>
@@ -68,16 +68,16 @@ export default function Steps() {
               <div key={step.id} className="relative">
                 {/* Соединительная линия */}
                 {isNotLast && (
-                  <div className="absolute left-8 top-20 w-0.5 h-16 bg-gradient-to-b from-gray-300 to-gray-200" />
+                  <div className="absolute left-8 top-20 w-0.5 h-16 bg-gradient-to-b from-neutral-300 to-neutral-200" />
                 )}
                 
                 <article
                   className={`group relative flex items-start gap-6 p-6 rounded-2xl transition-all duration-300 cursor-pointer ${
                     isHovered
                       ? step.color === 'yellow'
-                        ? 'bg-yellow-50 shadow-lg scale-[1.02]'
-                        : 'bg-blue-50 shadow-lg scale-[1.02]'
-                      : 'hover:bg-gray-50 hover:shadow-md'
+                        ? 'bg-brand-20 shadow-lg scale-[1.02]'
+                        : 'bg-brand-20 shadow-lg scale-[1.02]'
+                      : 'hover:bg-layer-2 hover:shadow-md'
                   }`}
                   onMouseEnter={() => setHoveredStep(step.id)}
                   onMouseLeave={() => setHoveredStep(null)}
@@ -87,16 +87,16 @@ export default function Steps() {
                   <div className={`relative flex items-center justify-center w-16 h-16 rounded-2xl text-h3 transition-all duration-300 group-hover:scale-110 ${
                     isHovered
                       ? step.color === 'yellow'
-                        ? 'bg-brand-yellow text-gray-900 shadow-lg'
-                        : 'bg-brand-accent text-white shadow-lg'
-                      : 'bg-gray-200 text-gray-600 group-hover:bg-gray-300'
+                        ? 'bg-brand-80 text-text-inverse shadow-lg'
+                        : 'bg-brand-80 text-text-inverse shadow-lg'
+                      : 'bg-layer-2 text-text-secondary group-hover:bg-layer-1'
                   }`}>
                     {step.id}
                     
                     {/* Пульсирующее кольцо при hover */}
                     {isHovered && (
                       <div className={`absolute inset-0 rounded-2xl animate-ping ${
-                        step.color === 'yellow' ? 'bg-brand-yellow-light' : 'bg-blue-400'
+                        step.color === 'yellow' ? 'bg-accent-100' : 'bg-brand-100'
                       } opacity-30`} />
                     )}
                   </div>
@@ -108,37 +108,37 @@ export default function Steps() {
                       <div className={`p-3 rounded-xl transition-all duration-300 ${
                         isHovered
                           ? step.color === 'yellow'
-                            ? 'bg-yellow-100 scale-110'
-                            : 'bg-blue-100 scale-110'
-                          : 'bg-gray-100 group-hover:bg-gray-200'
+                        ? 'bg-brand-20 scale-110'
+                        : 'bg-brand-20 scale-110'
+                          : 'bg-layer-2 group-hover:bg-layer-1'
                       }`}>
                         <Icon className={`h-6 w-6 transition-all duration-300 ${
                           isHovered
                             ? step.color === 'yellow'
-                              ? 'text-brand-yellow-dark'
-                              : 'text-brand-accent-light'
-                            : 'text-gray-500 group-hover:text-gray-600'
+                              ? 'text-brand-80'
+                              : 'text-brand-80'
+                            : 'text-text-placeholder group-hover:text-text-secondary'
                         }`} />
                       </div>
                       
                       <div className="flex-1">
-                        <h3 className="text-h2 text-gray-900 mb-2 leading-tight group-hover:text-gray-800">
+                        <h3 className="text-h2 mb-2 leading-tight">
                           {step.title}
                         </h3>
-                        <p className="text-body-lg text-gray-600 leading-relaxed mb-4 max-w-lg">
+                        <p className="text-body-lg leading-relaxed mb-4 max-w-lg">
                           {step.description}
                         </p>
                         
                         {/* Кнопка действия */}
                         <button
-                          onClick={(e) => {
+                          onClick={(e: React.MouseEvent) => {
                             e.stopPropagation();
                             scrollToId(step.targetId);
                           }}
                           className={`inline-flex items-center justify-center rounded-2xl px-6 py-3 text-body-sm font-semibold transition-all duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transform hover:scale-105 ${
                             step.isPrimary
-                              ? 'bg-brand-yellow text-gray-900 hover:bg-brand-yellow-light focus:ring-brand-yellow'
-                              : 'bg-white text-gray-700 border-2 border-gray-200 hover:bg-gray-50 hover:border-gray-300 focus:ring-gray-500'
+                              ? 'bg-brand-80 text-text-inverse hover:bg-brand-90 focus:ring-brand-80'
+                              : 'bg-layer-1 text-text-primary border-2 border-border-subtle hover:bg-layer-2 hover:border-brand-80 focus:ring-brand-80'
                           }`}
                         >
                           {step.action}
@@ -150,9 +150,9 @@ export default function Steps() {
                   {/* Стрелка вниз для направления */}
                   {isNotLast && (
                     <div className={`absolute -bottom-3 left-8 w-8 h-8 rounded-2xl flex items-center justify-center transition-all duration-300 ${
-                      isHovered ? 'bg-white shadow-lg' : 'bg-gray-100 group-hover:bg-white group-hover:shadow-md'
+                      isHovered ? 'bg-layer-1 shadow-lg' : 'bg-layer-2 group-hover:bg-layer-1 group-hover:shadow-md'
                     }`}>
-                      <ArrowDown className="w-4 h-4 text-gray-400" />
+                      <ArrowDown className="w-4 h-4 text-text-placeholder" />
                     </div>
                   )}
                 </article>

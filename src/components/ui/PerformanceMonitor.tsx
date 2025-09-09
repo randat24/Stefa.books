@@ -115,7 +115,7 @@ export function PerformanceMonitor({
       case 'poor':
         return <XCircle className="h-4 w-4 text-red-500" />
       default:
-        return <Activity className="h-4 w-4 text-gray-500" />
+        return <Activity className="h-4 w-4 text-neutral-500" />
     }
   }
 
@@ -159,7 +159,7 @@ export function PerformanceMonitor({
       <button
         onClick={() => setIsVisible(true)}
         className={cn(
-          'fixed bottom-4 right-4 z-50 p-2 bg-blue-600 text-white rounded-2xl shadow-lg hover:bg-blue-700 transition-colors',
+          'fixed bottom-4 right-4 z-50 p-2 bg-blue-600 text-neutral-0 rounded-2xl shadow-lg hover:bg-blue-700 transition-colors',
           className
         )}
         title="Показати моніторинг продуктивності"
@@ -171,18 +171,18 @@ export function PerformanceMonitor({
 
   return (
     <div className={cn(
-      'fixed bottom-4 right-4 z-50 bg-white rounded-lg shadow-xl border max-w-sm',
+      'fixed bottom-4 right-4 z-50 bg-neutral-0 rounded-lg shadow-xl border max-w-sm',
       className
     )}>
       {/* Header */}
       <div className="flex items-center justify-between p-3 border-b">
         <div className="flex items-center space-x-2">
           <Activity className="h-5 w-5 text-blue-600" />
-          <h3 className="font-semibold text-gray-900">Продуктивність</h3>
+          <h3 className="font-semibold text-neutral-900">Продуктивність</h3>
         </div>
         <button
           onClick={() => setIsVisible(false)}
-          className="text-gray-400 hover:text-gray-600"
+          className="text-neutral-400 hover:text-neutral-600"
         >
           <XCircle className="h-4 w-4" />
         </button>
@@ -191,7 +191,7 @@ export function PerformanceMonitor({
       {/* Overall Score */}
       <div className="p-3 border-b">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-body-sm font-medium text-gray-700">Загальна оцінка</span>
+          <span className="text-body-sm font-medium text-neutral-700">Загальна оцінка</span>
           <span className={cn(
             'text-h4',
             overallScore >= 80 ? 'text-green-600' : 
@@ -200,7 +200,7 @@ export function PerformanceMonitor({
             {overallScore}/100
           </span>
         </div>
-        <div className="w-full bg-gray-200 rounded-2xl h-2">
+        <div className="w-full bg-neutral-200 rounded-2xl h-2">
           <div
             className={cn(
               'h-2 rounded-2xl transition-all duration-300',
@@ -214,7 +214,7 @@ export function PerformanceMonitor({
 
       {/* Web Vitals */}
       <div className="p-3">
-        <h4 className="text-body-sm font-medium text-gray-700 mb-2">Core Web Vitals</h4>
+        <h4 className="text-body-sm font-medium text-neutral-700 mb-2">Core Web Vitals</h4>
         <div className="space-y-2">
           {metrics.webVitals.map((metric) => {
             const rating = getMetricRating(metric.name, metric.value)
@@ -222,9 +222,9 @@ export function PerformanceMonitor({
               <div key={metric.name} className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   {getRatingIcon(rating)}
-                  <span className="text-body-sm text-gray-600">{metric.name}</span>
+                  <span className="text-body-sm text-neutral-600">{metric.name}</span>
                 </div>
-                <span className="text-body-sm font-medium text-gray-900">
+                <span className="text-body-sm font-medium text-neutral-900">
                   {formatMetricValue(metric.name, metric.value)}
                 </span>
               </div>
@@ -236,15 +236,15 @@ export function PerformanceMonitor({
       {/* Additional Metrics */}
       {showDetails && (
         <div className="p-3 border-t">
-          <h4 className="text-body-sm font-medium text-gray-700 mb-2">Додаткові метрики</h4>
+          <h4 className="text-body-sm font-medium text-neutral-700 mb-2">Додаткові метрики</h4>
           <div className="space-y-2">
             {metrics.memoryUsage && (
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <Zap className="h-4 w-4 text-blue-500" />
-                  <span className="text-body-sm text-gray-600">Пам&apos;ять</span>
+                  <span className="text-body-sm text-neutral-600">Пам&apos;ять</span>
                 </div>
-                <span className="text-body-sm font-medium text-gray-900">
+                <span className="text-body-sm font-medium text-neutral-900">
                   {metrics.memoryUsage.used}MB / {metrics.memoryUsage.total}MB
                 </span>
               </div>
@@ -253,9 +253,9 @@ export function PerformanceMonitor({
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <Clock className="h-4 w-4 text-green-500" />
-                  <span className="text-body-sm text-gray-600">Час завантаження</span>
+                  <span className="text-body-sm text-neutral-600">Час завантаження</span>
                 </div>
-                <span className="text-body-sm font-medium text-gray-900">
+                <span className="text-body-sm font-medium text-neutral-900">
                   {Math.round(metrics.loadTime)}ms
                 </span>
               </div>

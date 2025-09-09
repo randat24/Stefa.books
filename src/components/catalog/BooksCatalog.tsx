@@ -214,8 +214,8 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
     return (
       <div className={`flex items-center justify-center py-12 ${className}`}>
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-brand-yellow" />
-          <p className="text-gray-600">Завантаження каталогу книг...</p>
+          <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-accent" />
+          <p className="text-neutral-600">Завантаження каталогу книг...</p>
         </div>
       </div>
     );
@@ -229,7 +229,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
         <p className="text-red-600 mb-4">{error}</p>
         <button 
           onClick={() => window.location.reload()}
-          className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+          className="px-4 py-2 bg-red-600 text-neutral-0 rounded-md hover:bg-red-700 transition-colors"
         >
           Повторити спробу
         </button>
@@ -241,8 +241,8 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
   if (!loading && books.length === 0) {
     return (
       <div className={`text-center py-12 ${className}`}>
-        <h3 className="text-body-lg font-semibold mb-2 text-gray-900">Книги не знайдені</h3>
-        <p className="text-gray-600">
+        <h3 className="text-body-lg font-semibold mb-2 text-neutral-900">Книги не знайдені</h3>
+        <p className="text-neutral-600">
           На даний момент книг у каталозі немає. Спробуйте пізніше.
         </p>
       </div>
@@ -266,7 +266,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
           itemsPerPage={BOOKS_PER_PAGE}
           totalItems={totalCount}
         />
-        <div className="text-body-sm text-gray-600 mt-2 sm:mt-0" aria-live="polite">
+        <div className="text-body-sm text-neutral-600 mt-2 sm:mt-0" aria-live="polite">
           Сторінка {currentPage} з {totalPages}
         </div>
       </div>

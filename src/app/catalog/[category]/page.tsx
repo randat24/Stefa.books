@@ -100,29 +100,29 @@ export default async function CategoryPage({ params }: { params: Params }) {
       .order('title');
     
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-neutral-50">
         <div className="container mx-auto px-4 py-8">
           {/* Breadcrumbs */}
-          <nav className="flex items-center space-x-2 text-body-sm text-gray-600 mb-6">
-            <Link href="/" className="hover:text-gray-900">Главная</Link>
+          <nav className="flex items-center space-x-2 text-body-sm text-neutral-600 mb-6">
+            <Link href="/" className="hover:text-neutral-900">Главная</Link>
             <ChevronRight className="h-4 w-4" />
-            <Link href="/catalog" className="hover:text-gray-900">Каталог</Link>
+            <Link href="/catalog" className="hover:text-neutral-900">Каталог</Link>
             <ChevronRight className="h-4 w-4" />
-            <span className="text-gray-900 font-medium">{categoryDataTyped.name}</span> 
+            <span className="text-neutral-900 font-medium">{categoryDataTyped.name}</span> 
           </nav>
           
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-h1 text-gray-900 mb-4 flex items-center gap-3">
+            <h1 className="text-h1 text-neutral-900 mb-4 flex items-center gap-3">
               <BookOpen className="h-8 w-8 text-brand-accent-light" />
               {categoryDataTyped.name}
             </h1>
             {categoryDataTyped.description && (
-              <p className="text-body-lg text-gray-600 max-w-3xl">
+              <p className="text-body-lg text-neutral-600 max-w-3xl">
                 {categoryDataTyped.description}
               </p>
             )}
-            <p className="text-body-sm text-gray-500 mt-2">
+            <p className="text-body-sm text-neutral-500 mt-2">
               Знайдено книг: {books?.length || 0}
             </p>
           </div>
@@ -136,16 +136,16 @@ export default async function CategoryPage({ params }: { params: Params }) {
             </div>
           ) : (
             <div className="text-center py-12">
-              <BookOpen className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-body-lg font-medium text-gray-900 mb-2">
+              <BookOpen className="h-16 w-16 text-neutral-400 mx-auto mb-4" />
+              <h3 className="text-body-lg font-medium text-neutral-900 mb-2">
                 Книги не знайдено
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className="text-neutral-600 mb-6">
                 В цій категорії поки що немає доступних книг.
               </p>
               <Link 
                 href="/catalog"
-                className="inline-flex items-center px-4 py-2 bg-brand-accent-light text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="inline-flex items-center px-4 py-2 bg-brand-accent-light text-neutral-0 rounded-lg hover:bg-blue-700 transition-colors"
               >
                 Переглянути всі книги
               </Link>

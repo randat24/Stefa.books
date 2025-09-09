@@ -47,7 +47,7 @@ export default function FAQ() {
         {QA.map((item, i) => {
           const active = open === i;
           return (
-            <div key={i} className="rounded-2xl border border-[--line] bg-white">
+            <div key={i} className="rounded-2xl border border-[--line] bg-neutral-0">
               <button
                 className="w-full text-left px-5 py-4 font-medium flex items-center justify-between text-[--ink] hover:bg-black/[.02] transition"
                 onClick={() => setOpen(active ? null : i)}

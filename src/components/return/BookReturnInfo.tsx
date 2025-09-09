@@ -11,7 +11,7 @@ export function BookReturnInfo({ book }: BookReturnInfoProps) {
   return (
     <div className="space-y-6">
       {/* Book Cover */}
-      <div className="aspect-[3/4] relative rounded-lg overflow-hidden bg-gray-100">
+      <div className="aspect-[3/4] relative rounded-lg overflow-hidden bg-neutral-100">
         {book.cover_url ? (
           <Image
             src={book.cover_url}
@@ -22,7 +22,7 @@ export function BookReturnInfo({ book }: BookReturnInfoProps) {
             sizes="(max-width: 768px) 100vw, 300px"
           />
         ) : (
-          <div className="flex items-center justify-center h-full text-gray-400">
+          <div className="flex items-center justify-center h-full text-neutral-400">
             <BookOpen className="h-16 w-16" />
           </div>
         )}
@@ -31,8 +31,8 @@ export function BookReturnInfo({ book }: BookReturnInfoProps) {
       {/* Book Details */}
       <div className="space-y-4">
         <div>
-          <h1 className="text-h2 text-gray-900 mb-2">{book.title}</h1>
-          <p className="text-body-lg text-gray-700 mb-3">{book.author}</p>
+          <h1 className="text-h2 text-neutral-900 mb-2">{book.title}</h1>
+          <p className="text-body-lg text-neutral-700 mb-3">{book.author}</p>
           
           {/* Rating */}
           {book.rating && book.rating_count && (
@@ -43,13 +43,13 @@ export function BookReturnInfo({ book }: BookReturnInfoProps) {
                     key={i} 
                     className={`h-4 w-4 ${
                       i < Math.floor(book.rating!) 
-                        ? 'text-brand-yellow-light fill-current' 
-                        : 'text-gray-300'
+                        ? 'text-accent-light fill-current' 
+                        : 'text-neutral-300'
                     }`} 
                   />
                 ))}
               </div>
-              <span className="text-body-sm text-gray-600">
+              <span className="text-body-sm text-neutral-600">
                 {book.rating.toFixed(1)} ({book.rating_count} відгуків)
               </span>
             </div>
@@ -87,38 +87,38 @@ export function BookReturnInfo({ book }: BookReturnInfoProps) {
 
         {/* Book Details */}
         <div className="space-y-3">
-          <h3 className="font-semibold text-gray-900">Деталі книги</h3>
+          <h3 className="font-semibold text-neutral-900">Деталі книги</h3>
           
           <div className="space-y-2 text-sm">
             {book.publisher && (
               <div className="flex items-center gap-2">
-                <BookOpen className="h-4 w-4 text-gray-400" />
-                <span className="text-gray-600">Видавництво:</span>
-                <span className="text-gray-900">{book.publisher}</span>
+                <BookOpen className="h-4 w-4 text-neutral-400" />
+                <span className="text-neutral-600">Видавництво:</span>
+                <span className="text-neutral-900">{book.publisher}</span>
               </div>
             )}
             
             {book.publication_year && (
               <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-gray-400" />
-                <span className="text-gray-600">Рік видання:</span>
-                <span className="text-gray-900">{book.publication_year}</span>
+                <Calendar className="h-4 w-4 text-neutral-400" />
+                <span className="text-neutral-600">Рік видання:</span>
+                <span className="text-neutral-900">{book.publication_year}</span>
               </div>
             )}
             
             {book.pages && (
               <div className="flex items-center gap-2">
-                <BookOpen className="h-4 w-4 text-gray-400" />
-                <span className="text-gray-600">Сторінок:</span>
-                <span className="text-gray-900">{book.pages}</span>
+                <BookOpen className="h-4 w-4 text-neutral-400" />
+                <span className="text-neutral-600">Сторінок:</span>
+                <span className="text-neutral-900">{book.pages}</span>
               </div>
             )}
             
             {book.language && (
               <div className="flex items-center gap-2">
-                <BookOpen className="h-4 w-4 text-gray-400" />
-                <span className="text-gray-600">Мова:</span>
-                <span className="text-gray-900">{book.language}</span>
+                <BookOpen className="h-4 w-4 text-neutral-400" />
+                <span className="text-neutral-600">Мова:</span>
+                <span className="text-neutral-900">{book.language}</span>
               </div>
             )}
           </div>

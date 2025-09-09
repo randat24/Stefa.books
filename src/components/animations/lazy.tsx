@@ -18,7 +18,7 @@ const SimpleSpinner = ({ size = 'md', className = '' }: { size?: 'sm' | 'md' | '
   }
   
   return (
-    <div className={`animate-spin rounded-2xl border-b-2 border-gray-900 ${sizeClasses[size]} ${className}`} />
+    <div className={`animate-spin rounded-2xl border-b-2 border-neutral-900 ${sizeClasses[size]} ${className}`} />
   )
 }
 
@@ -95,7 +95,7 @@ export const BookListSkeleton = dynamic(
     loading: () => (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {Array.from({ length: 8 }).map((_, i) => (
-          <SimpleSkeleton key={i} className="bg-gray-200 rounded-lg h-80" />
+          <SimpleSkeleton key={i} className="bg-neutral-200 rounded-lg h-80" />
         ))}
       </div>
     )
@@ -108,12 +108,12 @@ export const BookDetailSkeleton = dynamic(
     ssr: false,
     loading: () => (
       <div className="max-w-4xl mx-auto p-6 space-y-6">
-        <SimpleSkeleton className="bg-gray-200 rounded-lg h-64" />
+        <SimpleSkeleton className="bg-neutral-200 rounded-lg h-64" />
         <div className="space-y-4">
-          <SimpleSkeleton className="bg-gray-200 rounded h-8 w-3/4" />
-          <SimpleSkeleton className="bg-gray-200 rounded h-4 w-1/2" />
-          <SimpleSkeleton className="bg-gray-200 rounded h-4 w-full" />
-          <SimpleSkeleton className="bg-gray-200 rounded h-4 w-4/5" />
+          <SimpleSkeleton className="bg-neutral-200 rounded h-8 w-3/4" />
+          <SimpleSkeleton className="bg-neutral-200 rounded h-4 w-1/2" />
+          <SimpleSkeleton className="bg-neutral-200 rounded h-4 w-full" />
+          <SimpleSkeleton className="bg-neutral-200 rounded h-4 w-4/5" />
         </div>
       </div>
     )
@@ -128,8 +128,8 @@ export const FormSkeleton = dynamic(
       <div className="space-y-4 max-w-md mx-auto">
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="space-y-2">
-            <SimpleSkeleton className="bg-gray-200 rounded h-4 w-1/3" />
-            <SimpleSkeleton className="bg-gray-200 rounded h-10 w-full" />
+            <SimpleSkeleton className="bg-neutral-200 rounded h-4 w-1/3" />
+            <SimpleSkeleton className="bg-neutral-200 rounded h-10 w-full" />
           </div>
         ))}
       </div>
@@ -143,9 +143,9 @@ export const TableSkeleton = dynamic(
     ssr: false,
     loading: () => (
       <div className="space-y-4">
-        <SimpleSkeleton className="bg-gray-200 rounded h-12 w-full" />
+        <SimpleSkeleton className="bg-neutral-200 rounded h-12 w-full" />
         {Array.from({ length: 5 }).map((_, i) => (
-          <SimpleSkeleton key={i} className="bg-gray-100 rounded h-16 w-full" />
+          <SimpleSkeleton key={i} className="bg-neutral-100 rounded h-16 w-full" />
         ))}
       </div>
     )
@@ -159,15 +159,15 @@ export const ProfileSkeleton = dynamic(
     loading: () => (
       <div className="max-w-md mx-auto space-y-6">
         <div className="flex items-center space-x-4">
-          <SimpleSkeleton className="bg-gray-200 rounded-2xl h-20 w-20" />
+          <SimpleSkeleton className="bg-neutral-200 rounded-2xl h-20 w-20" />
           <div className="space-y-2">
-            <SimpleSkeleton className="bg-gray-200 rounded h-6 w-32" />
-            <SimpleSkeleton className="bg-gray-200 rounded h-4 w-24" />
+            <SimpleSkeleton className="bg-neutral-200 rounded h-6 w-32" />
+            <SimpleSkeleton className="bg-neutral-200 rounded h-4 w-24" />
           </div>
         </div>
         <div className="space-y-3">
           {Array.from({ length: 3 }).map((_, i) => (
-            <SimpleSkeleton key={i} className="bg-gray-200 rounded h-12 w-full" />
+            <SimpleSkeleton key={i} className="bg-neutral-200 rounded h-12 w-full" />
           ))}
         </div>
       </div>
@@ -212,7 +212,7 @@ export const FormProgress = dynamic(
   () => import('./index').then(mod => ({ default: mod.FormProgress })),
   { 
     ssr: false,
-    loading: () => <SimpleSkeleton className="h-2 bg-gray-200 rounded" />
+    loading: () => <SimpleSkeleton className="h-2 bg-neutral-200 rounded" />
   }
 )
 

@@ -43,8 +43,8 @@ export default function SocialProof() {
         {BADGES.map(b => {
           const IconComponent = b.icon;
           return (
-            <div key={b.label} className="rounded-3xl border border-[--line] bg-white p-4 flex items-center gap-3">
-              <div className="size-10 rounded-2xl border border-black/10 bg-white grid place-items-center">
+            <div key={b.label} className="rounded-3xl border border-[--line] bg-neutral-0 p-4 flex items-center gap-3">
+              <div className="size-10 rounded-2xl border border-black/10 bg-neutral-0 grid place-items-center">
                 <IconComponent size={20} style={{ color: 'var(--brand)' }} />
               </div>
               <span className="text-body-sm font-medium text-[--ink]">{b.label}</span>
@@ -56,7 +56,7 @@ export default function SocialProof() {
       {/* міні‑відгуки */}
       <div className="grid lg:grid-cols-2 gap-4 mt-8">
         {REVIEWS.map(r => (
-          <figure key={r.name} className="rounded-3xl border border-[--line] bg-white p-6">
+          <figure key={r.name} className="rounded-3xl border border-[--line] bg-neutral-0 p-6">
             <figcaption>
               <p className="text-[--ink]">{r.text}</p>
               <div className="text-body-sm text-muted mt-2">— {r.name}</div>

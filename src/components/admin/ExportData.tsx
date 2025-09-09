@@ -189,7 +189,7 @@ export default function ExportData({ className }: ExportDataProps) {
             >
               {isExporting && exportType === 'all' ? (
                 <>
-                  <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-white mr-2" />
+                  <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-neutral-0 mr-2" />
                   Экспорт всех данных...
                 </>
               ) : (
@@ -229,14 +229,14 @@ export default function ExportData({ className }: ExportDataProps) {
                 >
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-3">
-                      <div className={`p-2 rounded-lg ${option.color} text-white`}>
+                      <div className={`p-2 rounded-lg ${option.color} text-neutral-0`}>
                         <Icon className="h-4 w-4" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-body-sm font-medium text-gray-900">
+                        <h3 className="text-body-sm font-medium text-neutral-900">
                           {option.title}
                         </h3>
-                        <p className="text-caption text-gray-500">
+                        <p className="text-caption text-neutral-500">
                           {option.description}
                         </p>
                       </div>

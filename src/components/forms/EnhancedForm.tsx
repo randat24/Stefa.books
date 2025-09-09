@@ -119,15 +119,15 @@ export function EnhancedForm({
       case 'textarea':
         return (
           <div key={field.name} className="space-y-2">
-            <label className="block text-body-sm font-medium text-gray-700">
+            <label className="block text-body-sm font-medium text-neutral-700">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </label>
             <textarea
               value={value}
               onChange={(e) => handleFieldChange(field.name, e.target.value)}
-              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-yellow focus:border-transparent ${
-                error ? 'border-red-300' : 'border-gray-300'
+              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent ${
+                error ? 'border-red-300' : 'border-neutral-300'
               }`}
               rows={4}
             />
@@ -141,15 +141,15 @@ export function EnhancedForm({
       case 'select':
         return (
           <div key={field.name} className="space-y-2">
-            <label className="block text-body-sm font-medium text-gray-700">
+            <label className="block text-body-sm font-medium text-neutral-700">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </label>
             <select
               value={value}
               onChange={(e) => handleFieldChange(field.name, e.target.value)}
-              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-yellow focus:border-transparent ${
-                error ? 'border-red-300' : 'border-gray-300'
+              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent ${
+                error ? 'border-red-300' : 'border-neutral-300'
               }`}
             >
               <option value="">Оберіть опцію</option>
@@ -183,7 +183,7 @@ export function EnhancedForm({
       default:
         return (
           <div key={field.name} className="space-y-2">
-            <label className="block text-body-sm font-medium text-gray-700">
+            <label className="block text-body-sm font-medium text-neutral-700">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </label>
@@ -191,8 +191,8 @@ export function EnhancedForm({
               type={field.type}
               value={value}
               onChange={(e) => handleFieldChange(field.name, e.target.value)}
-              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-brand-yellow focus:border-transparent ${
-                error ? 'border-red-300' : 'border-gray-300'
+              className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent ${
+                error ? 'border-red-300' : 'border-neutral-300'
               }`}
             />
             <FieldValidation className="text-sm">
@@ -230,7 +230,7 @@ export function EnhancedForm({
         {fields.map(renderField)}
 
         <AnimatedSubmitButton
-          className="w-full bg-brand-yellow text-brand hover:bg-brand-yellow-light font-medium py-3 px-6 rounded-lg transition-colors"
+          className="w-full bg-accent text-brand hover:bg-accent-light font-medium py-3 px-6 rounded-lg transition-colors"
           disabled={isSubmitting}
         >
           {isSubmitting ? 'Відправка...' : submitText}

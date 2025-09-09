@@ -131,11 +131,11 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 className="text-body-lg font-semibold text-gray-900 mb-2">Оренда оформлена!</h3>
-            <p className="text-gray-600 mb-4">
+            <h3 className="text-body-lg font-semibold text-neutral-900 mb-2">Оренда оформлена!</h3>
+            <p className="text-neutral-600 mb-4">
               Ваша заявка на оренду книги &ldquo;{book.title}&rdquo; успішно відправлена.
             </p>
-            <p className="text-body-sm text-gray-500">
+            <p className="text-body-sm text-neutral-500">
               Перенаправляємо на сторінку підтвердження...
             </p>
           </div>
@@ -196,7 +196,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
 
           {/* Customer Information */}
           <div className="space-y-4">
-            <h3 className="text-body-lg font-semibold text-gray-900 flex items-center gap-2">
+            <h3 className="text-body-lg font-semibold text-neutral-900 flex items-center gap-2">
               <User className="h-5 w-5" />
               Контактна інформація
             </h3>
@@ -253,7 +253,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
           {/* Delivery Address */}
           {formData.deliveryMethod !== 'pickup' && (
             <div className="space-y-4">
-              <h3 className="text-body-lg font-semibold text-gray-900 flex items-center gap-2">
+              <h3 className="text-body-lg font-semibold text-neutral-900 flex items-center gap-2">
                 <MapPin className="h-5 w-5" />
                 Адреса доставки
               </h3>
@@ -320,12 +320,12 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
           </div>
 
           {/* Total Price */}
-          <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="bg-neutral-50 p-4 rounded-lg">
             <div className="flex justify-between items-center text-body-lg font-semibold">
               <span>Загальна сума:</span>
               <span>{totalPrice} ₴</span>
             </div>
-            <div className="text-body-sm text-gray-600 mt-1">
+            <div className="text-body-sm text-neutral-600 mt-1">
               {selectedPlan.name} + {selectedDelivery.name}
             </div>
           </div>
@@ -339,7 +339,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
           >
             {isSubmitting ? (
               <>
-                <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-white mr-2" />
+                <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-neutral-0 mr-2" />
                 Оформляємо оренду...
               </>
             ) : (

@@ -55,7 +55,7 @@ export function BookShareMenu({ title, author, url }: BookShareMenuProps) {
       </Button>
       
       {isMenuOpen && (
-        <div className="absolute top-12 left-0 right-0 bg-white border border-gray-200 rounded-lg shadow-lg p-4 z-10">
+        <div className="absolute top-12 left-0 right-0 bg-neutral-0 border border-neutral-200 rounded-lg shadow-lg p-4 z-10">
           <div className="space-y-2">
             {/* Copy Link */}
             <Button
@@ -109,7 +109,7 @@ export function BookShareMenu({ title, author, url }: BookShareMenuProps) {
             <Button
               variant="outline"
               size="md"
-              className="w-full justify-start h-9 text-gray-600 hover:text-gray-700"
+              className="w-full justify-start h-9 text-neutral-600 hover:text-neutral-700"
               onClick={() => window.open(shareVia.email, '_blank')}
             >
               <Mail className="h-4 w-4 mr-2" />

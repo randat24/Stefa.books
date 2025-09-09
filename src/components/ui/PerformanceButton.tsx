@@ -18,11 +18,11 @@ interface PerformanceButtonProps {
 }
 
 const buttonVariants = {
-  default: 'bg-gray-900 text-white hover:bg-gray-800 focus:ring-gray-500',
-  outline: 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-gray-500',
-  ghost: 'text-gray-700 hover:bg-gray-100 focus:ring-gray-500',
-  destructive: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
-  primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
+  default: 'bg-neutral-900 text-neutral-0 hover:bg-neutral-800 focus:ring-gray-500',
+  outline: 'border border-neutral-300 bg-neutral-0 text-neutral-700 hover:bg-neutral-50 focus:ring-gray-500',
+  ghost: 'text-neutral-700 hover:bg-neutral-100 focus:ring-gray-500',
+  destructive: 'bg-red-600 text-neutral-0 hover:bg-red-700 focus:ring-red-500',
+  primary: 'bg-blue-600 text-neutral-0 hover:bg-blue-700 focus:ring-blue-500',
 }
 
 const buttonSizes = {

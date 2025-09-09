@@ -166,7 +166,7 @@ describe('BookCard Integration Tests', () => {
     // Test focus
     await user.tab();
     expect(bookCard).toHaveFocus();
-    expect(bookCard).toHaveClass('focus:outline-none', 'focus:ring-2', 'focus:ring-brand-yellow');
+    expect(bookCard).toHaveClass('focus:outline-none', 'focus:ring-2', 'focus:ring-accent');
   });
 
   it('should handle error states gracefully', () => {

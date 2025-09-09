@@ -176,7 +176,7 @@ const OptimizedDataTable = memo(function OptimizedDataTable<T>({
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-neutral-500 hover:text-neutral-700"
             >
               Очистити все
             </PerformanceButton>
@@ -186,7 +186,7 @@ const OptimizedDataTable = memo(function OptimizedDataTable<T>({
 
       {/* Панель фильтров */}
       {showFilters && hasFilters && showFiltersPanel && (
-        <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+        <div className="border border-neutral-200 rounded-lg p-4 bg-neutral-50">
           <OptimizedFilters
             filters={filters}
             values={filterValues}
@@ -197,7 +197,7 @@ const OptimizedDataTable = memo(function OptimizedDataTable<T>({
       )}
 
       {/* Таблица */}
-      <div className="border border-gray-200 rounded-lg overflow-hidden">
+      <div className="border border-neutral-200 rounded-lg overflow-hidden">
         <OptimizedTable
           data={data}
           columns={columns as any}

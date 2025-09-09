@@ -20,6 +20,10 @@ export default {
           DEFAULT: "#0B1220",
           light: "#1e293b",
         },
+        accent: {
+          DEFAULT: "#eab308",
+          light: "#fbbf24",
+        },
         "brand-accent": {
           DEFAULT: "#2563eb",
           light: "#3b82f6",

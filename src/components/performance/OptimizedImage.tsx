@@ -126,17 +126,17 @@ export function OptimizedImage({
 
       {/* Состояние загрузки */}
       {isLoading && showLoadingState && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
-          <Loader2 className="w-8 h-8 animate-spin text-brand-yellow" />
+        <div className="absolute inset-0 bg-neutral-200 animate-pulse flex items-center justify-center">
+          <Loader2 className="w-8 h-8 animate-spin text-accent" />
         </div>
       )}
 
       {/* Состояние ошибки */}
       {imageError && showErrorState && (
-        <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
+        <div className="absolute inset-0 bg-neutral-100 flex items-center justify-center">
           <div className="text-center">
-            <AlertCircle className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-            <p className="text-body-sm text-gray-500">Зображення недоступне</p>
+            <AlertCircle className="w-8 h-8 text-neutral-400 mx-auto mb-2" />
+            <p className="text-body-sm text-neutral-500">Зображення недоступне</p>
           </div>
         </div>
       )}
@@ -289,8 +289,8 @@ export function OptimizedGallery({
               onClick={goToPrevious}
               className="
                 absolute left-4 top-1/2 -translate-y-1/2
-                p-2 bg-white/80 hover:bg-white rounded-2xl
-                focus:outline-none focus:ring-2 focus:ring-brand-yellow
+                p-2 bg-neutral-0/80 hover:bg-neutral-0 rounded-2xl
+                focus:outline-none focus:ring-2 focus:ring-accent
                 transition-colors
               "
               aria-label="Попереднє зображення"
@@ -304,8 +304,8 @@ export function OptimizedGallery({
               onClick={goToNext}
               className="
                 absolute right-4 top-1/2 -translate-y-1/2
-                p-2 bg-white/80 hover:bg-white rounded-2xl
-                focus:outline-none focus:ring-2 focus:ring-brand-yellow
+                p-2 bg-neutral-0/80 hover:bg-neutral-0 rounded-2xl
+                focus:outline-none focus:ring-2 focus:ring-accent
                 transition-colors
               "
               aria-label="Наступне зображення"
@@ -327,10 +327,10 @@ export function OptimizedGallery({
               onClick={() => goToImage(index)}
               className={`
                 flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden
-                focus:outline-none focus:ring-2 focus:ring-brand-yellow
+                focus:outline-none focus:ring-2 focus:ring-accent
                 transition-all duration-200
                 ${index === currentIndex 
-                  ? 'ring-2 ring-brand-yellow scale-105' 
+                  ? 'ring-2 ring-accent scale-105' 
                   : 'hover:scale-105'
                 }
               `}
@@ -352,7 +352,7 @@ export function OptimizedGallery({
       
       {/* Счетчик изображений */}
       {images.length > 1 && (
-        <div className="text-center text-body-sm text-gray-600">
+        <div className="text-center text-body-sm text-neutral-600">
           {currentIndex + 1} з {images.length}
         </div>
       )}

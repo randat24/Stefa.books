@@ -69,8 +69,8 @@ export function AccessibilityStatus({
   if (!status) {
     return (
       <div className={`flex items-center gap-2 ${className}`}>
-        <div className="w-5 h-5 border-2 border-gray-300 border-t-brand-yellow rounded-2xl animate-spin" />
-        <span className="text-body-sm text-gray-600">Перевірка доступності...</span>
+        <div className="w-5 h-5 border-2 border-neutral-300 border-t-accent rounded-2xl animate-spin" />
+        <span className="text-body-sm text-neutral-600">Перевірка доступності...</span>
       </div>
     );
   }
@@ -94,8 +94,8 @@ export function AccessibilityStatus({
             onClick={checkAccessibility}
             disabled={isChecking}
             className="
-              text-caption text-gray-600 hover:text-gray-800
-              focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
+              text-caption text-neutral-600 hover:text-neutral-800
+              focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2
               rounded px-2 py-1 transition-colors
               disabled:opacity-50 disabled:cursor-not-allowed
             "
@@ -107,8 +107,8 @@ export function AccessibilityStatus({
             <button
               onClick={() => setShowReport(!showReport)}
               className="
-                text-caption text-gray-600 hover:text-gray-800
-                focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
+                text-caption text-neutral-600 hover:text-neutral-800
+                focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2
                 rounded px-2 py-1 transition-colors
               "
             >
@@ -119,7 +119,7 @@ export function AccessibilityStatus({
       </div>
 
       {/* Прогресс-бар */}
-      <div className="w-full bg-gray-200 rounded-2xl h-2">
+      <div className="w-full bg-neutral-200 rounded-2xl h-2">
         <div
           className={`h-2 rounded-2xl transition-all duration-500 ${
             status.score >= 90 ? 'bg-green-500' :
@@ -131,7 +131,7 @@ export function AccessibilityStatus({
 
       {/* Детальный отчет */}
       {showDetails && showReport && (
-        <div className="mt-4 p-4 bg-gray-50 rounded-lg space-y-3">
+        <div className="mt-4 p-4 bg-neutral-50 rounded-lg space-y-3">
           {/* Проблемы */}
           {status.issues.length > 0 && (
             <div>
@@ -212,7 +212,7 @@ export function DevAccessibilityChecker({
           containerRef={containerRef}
           showDetails={true}
           autoCheck={true}
-          className="bg-white shadow-lg rounded-lg p-3 border"
+          className="bg-neutral-0 shadow-lg rounded-lg p-3 border"
         />
       </div>
     </div>

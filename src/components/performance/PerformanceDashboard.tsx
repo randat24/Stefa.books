@@ -143,7 +143,7 @@ export default function PerformanceDashboard() {
       {/* Toggle Button */}
       <button
         onClick={toggleVisibility}
-        className="mb-2 p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl shadow-lg transition-colors"
+        className="mb-2 p-3 bg-blue-600 hover:bg-blue-700 text-neutral-0 rounded-2xl shadow-lg transition-colors"
         title="Performance Dashboard"
       >
         <TrendingUp className="w-5 h-5" />
@@ -151,24 +151,24 @@ export default function PerformanceDashboard() {
 
       {/* Dashboard Panel */}
       {isVisible && (
-        <div className="w-96 max-h-96 overflow-y-auto bg-white border border-gray-200 rounded-lg shadow-lg">
+        <div className="w-96 max-h-96 overflow-y-auto bg-neutral-0 border border-neutral-200 rounded-lg shadow-lg">
           {/* Header */}
-          <div className="sticky top-0 bg-white border-b border-gray-200 p-4">
+          <div className="sticky top-0 bg-neutral-0 border-b border-neutral-200 p-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-body-lg font-semibold text-gray-900">
+              <h3 className="text-body-lg font-semibold text-neutral-900">
                 Performance Monitor
               </h3>
               <div className="flex gap-2">
                 <button
                   onClick={clearData}
-                  className="text-body-sm text-gray-500 hover:text-red-600 transition-colors"
+                  className="text-body-sm text-neutral-500 hover:text-red-600 transition-colors"
                   title="Clear Data"
                 >
                   Clear
                 </button>
                 <button
                   onClick={toggleVisibility}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-neutral-400 hover:text-neutral-600"
                 >
                   ×
                 </button>
@@ -180,7 +180,7 @@ export default function PerformanceDashboard() {
           <div className="p-4 space-y-6">
             {/* Core Web Vitals */}
             <div>
-              <h4 className="text-body-sm font-medium text-gray-700 mb-3">
+              <h4 className="text-body-sm font-medium text-neutral-700 mb-3">
                 Core Web Vitals
               </h4>
               <div className="space-y-2">
@@ -191,15 +191,15 @@ export default function PerformanceDashboard() {
                   return (
                     <div key={metricName} className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <Icon className="w-4 h-4 text-gray-500" />
-                        <span className="text-body-sm text-gray-700">{metricName}</span>
+                        <Icon className="w-4 h-4 text-neutral-500" />
+                        <span className="text-body-sm text-neutral-700">{metricName}</span>
                       </div>
                       {metric ? (
                         <span className={`text-caption px-2 py-1 rounded ${RATING_COLORS[metric.rating]}`}>
                           {formatValue(metricName, metric.value)}
                         </span>
                       ) : (
-                        <span className="text-caption text-gray-400">No data</span>
+                        <span className="text-caption text-neutral-400">No data</span>
                       )}
                     </div>
                   )
@@ -210,13 +210,13 @@ export default function PerformanceDashboard() {
             {/* Resource Timings */}
             {metrics.resourceTimings.length > 0 && (
               <div>
-                <h4 className="text-body-sm font-medium text-gray-700 mb-3">
+                <h4 className="text-body-sm font-medium text-neutral-700 mb-3">
                   Slowest Resources
                 </h4>
                 <div className="space-y-1">
                   {metrics.resourceTimings.slice(0, 5).map((resource, index) => (
                     <div key={index} className="flex items-center justify-between text-xs">
-                      <span className="text-gray-600 truncate max-w-48" title={resource.name}>
+                      <span className="text-neutral-600 truncate max-w-48" title={resource.name}>
                         {resource.name}
                       </span>
                       <span className={`px-2 py-1 rounded ${
@@ -235,10 +235,10 @@ export default function PerformanceDashboard() {
             {/* Summary */}
             {metrics.webVitals.length > 0 && (
               <div>
-                <h4 className="text-body-sm font-medium text-gray-700 mb-3">
+                <h4 className="text-body-sm font-medium text-neutral-700 mb-3">
                   Summary
                 </h4>
-                <div className="text-caption text-gray-600 space-y-1">
+                <div className="text-caption text-neutral-600 space-y-1">
                   <div>Total measurements: {metrics.webVitals.length}</div>
                   <div>
                     Good ratings: {metrics.webVitals.filter(m => m.rating === 'good').length}
@@ -256,8 +256,8 @@ export default function PerformanceDashboard() {
             {/* No Data State */}
             {metrics.webVitals.length === 0 && (
               <div className="text-center py-8">
-                <AlertTriangle className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                <p className="text-body-sm text-gray-500">
+                <AlertTriangle className="w-8 h-8 text-neutral-400 mx-auto mb-2" />
+                <p className="text-body-sm text-neutral-500">
                   No performance data available yet.
                   <br />
                   Interact with the page to collect metrics.

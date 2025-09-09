@@ -78,9 +78,9 @@ export default async function BookRentalPage({ params }: { params: Params }) {
       return (
         <div className="container py-8">
           <div className="max-w-2xl mx-auto text-center">
-            <BookOpen className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-            <h1 className="text-h2 text-gray-900 mb-2">Книга недоступна для оренди</h1>
-            <p className="text-gray-600 mb-6">
+            <BookOpen className="h-16 w-16 mx-auto mb-4 text-neutral-400" />
+            <h1 className="text-h2 text-neutral-900 mb-2">Книга недоступна для оренди</h1>
+            <p className="text-neutral-600 mb-6">
               На жаль, книга &quot;{book.title}&quot; зараз видана іншому читачу.
             </p>
             <div className="flex gap-4 justify-center">
@@ -105,14 +105,14 @@ export default async function BookRentalPage({ params }: { params: Params }) {
       <div className="container py-8">
         {/* Breadcrumbs */}
         <div className="mb-6">
-          <nav className="flex items-center space-x-2 text-body-sm text-gray-600">
-            <Link href="/" className="hover:text-gray-900">Головна</Link>
+          <nav className="flex items-center space-x-2 text-body-sm text-neutral-600">
+            <Link href="/" className="hover:text-neutral-900">Головна</Link>
             <ChevronLeft className="h-4 w-4" />
-            <Link href="/catalog" className="hover:text-gray-900">Каталог</Link>
+            <Link href="/catalog" className="hover:text-neutral-900">Каталог</Link>
             <ChevronLeft className="h-4 w-4" />
-            <Link href={`/books/${id}`} className="hover:text-gray-900">{book.title}</Link>
+            <Link href={`/books/${id}`} className="hover:text-neutral-900">{book.title}</Link>
             <ChevronLeft className="h-4 w-4" />
-            <span className="text-gray-900 font-medium">Оренда</span>
+            <span className="text-neutral-900 font-medium">Оренда</span>
           </nav>
         </div>
 

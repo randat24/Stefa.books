@@ -212,11 +212,11 @@ export default function ProfilePage() {
     return (
       <div className="container py-8">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <User className="h-8 w-8 text-gray-400" />
+          <div className="w-16 h-16 bg-neutral-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <User className="h-8 w-8 text-neutral-400" />
           </div>
-          <h1 className="text-h2 text-gray-900 mb-2">Вхід необхідний</h1>
-          <p className="text-gray-600 mb-6">
+          <h1 className="text-h2 text-neutral-900 mb-2">Вхід необхідний</h1>
+          <p className="text-neutral-600 mb-6">
             Будь ласка, увійдіть в систему, щоб переглянути свій профіль
           </p>
           <div className="flex gap-4 justify-center">
@@ -246,8 +246,8 @@ export default function ProfilePage() {
     <div className="container py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-h1 text-gray-900 mb-2">Мій профіль</h1>
-        <p className="text-gray-600">
+        <h1 className="text-h1 text-neutral-900 mb-2">Мій профіль</h1>
+        <p className="text-neutral-600">
           Керуйте своїми особистими даними та налаштуваннями
         </p>
       </div>
@@ -392,7 +392,7 @@ export default function ProfilePage() {
                   <Button onClick={handleSaveProfile} disabled={saving}>
                     {saving ? (
                       <>
-                        <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-white mr-2" />
+                        <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-neutral-0 mr-2" />
                         Збереження...
                       </>
                     ) : (
@@ -422,7 +422,7 @@ export default function ProfilePage() {
             </CardHeader>
             <CardContent className="space-y-6">
               <div>
-                <h3 className="font-semibold text-gray-900 mb-4">Зміна паролю</h3>
+                <h3 className="font-semibold text-neutral-900 mb-4">Зміна паролю</h3>
                 <div className="space-y-4">
                   <div>
                     <Label htmlFor="current_password">Поточний пароль</Label>
@@ -440,9 +440,9 @@ export default function ProfilePage() {
                         onClick={() => setShowPassword(!showPassword)}
                       >
                         {showPassword ? (
-                          <EyeOff className="h-4 w-4 text-gray-400" />
+                          <EyeOff className="h-4 w-4 text-neutral-400" />
                         ) : (
-                          <Eye className="h-4 w-4 text-gray-400" />
+                          <Eye className="h-4 w-4 text-neutral-400" />
                         )}
                       </button>
                     </div>
@@ -477,7 +477,7 @@ export default function ProfilePage() {
                   <Button onClick={handleChangePassword} disabled={saving}>
                     {saving ? (
                       <>
-                        <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-white mr-2" />
+                        <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-neutral-0 mr-2" />
                         Зміна паролю...
                       </>
                     ) : (
@@ -503,8 +503,8 @@ export default function ProfilePage() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-medium text-gray-900">Email сповіщення</h4>
-                    <p className="text-body-sm text-gray-600">Отримувати сповіщення на email</p>
+                    <h4 className="font-medium text-neutral-900">Email сповіщення</h4>
+                    <p className="text-body-sm text-neutral-600">Отримувати сповіщення на email</p>
                   </div>
                   <input
                     type="checkbox"
@@ -516,8 +516,8 @@ export default function ProfilePage() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-medium text-gray-900">SMS сповіщення</h4>
-                    <p className="text-body-sm text-gray-600">Отримувати сповіщення на телефон</p>
+                    <h4 className="font-medium text-neutral-900">SMS сповіщення</h4>
+                    <p className="text-body-sm text-neutral-600">Отримувати сповіщення на телефон</p>
                   </div>
                   <input
                     type="checkbox"
@@ -529,8 +529,8 @@ export default function ProfilePage() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-medium text-gray-900">Нагадування про оренду</h4>
-                    <p className="text-body-sm text-gray-600">Нагадування про терміни оренди</p>
+                    <h4 className="font-medium text-neutral-900">Нагадування про оренду</h4>
+                    <p className="text-body-sm text-neutral-600">Нагадування про терміни оренди</p>
                   </div>
                   <input
                     type="checkbox"
@@ -542,8 +542,8 @@ export default function ProfilePage() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-medium text-gray-900">Нагадування про повернення</h4>
-                    <p className="text-body-sm text-gray-600">Нагадування про необхідність повернення</p>
+                    <h4 className="font-medium text-neutral-900">Нагадування про повернення</h4>
+                    <p className="text-body-sm text-neutral-600">Нагадування про необхідність повернення</p>
                   </div>
                   <input
                     type="checkbox"
@@ -555,8 +555,8 @@ export default function ProfilePage() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-medium text-gray-900">Рекламні листи</h4>
-                    <p className="text-body-sm text-gray-600">Отримувати інформацію про нові книги та пропозиції</p>
+                    <h4 className="font-medium text-neutral-900">Рекламні листи</h4>
+                    <p className="text-body-sm text-neutral-600">Отримувати інформацію про нові книги та пропозиції</p>
                   </div>
                   <input
                     type="checkbox"
@@ -568,8 +568,8 @@ export default function ProfilePage() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-medium text-gray-900">Новини</h4>
-                    <p className="text-body-sm text-gray-600">Отримувати новини та оновлення сервісу</p>
+                    <h4 className="font-medium text-neutral-900">Новини</h4>
+                    <p className="text-body-sm text-neutral-600">Отримувати новини та оновлення сервісу</p>
                   </div>
                   <input
                     type="checkbox"
@@ -600,8 +600,8 @@ export default function ProfilePage() {
             <CardContent className="space-y-6">
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-medium text-gray-900 mb-2">Управління даними</h4>
-                  <p className="text-body-sm text-gray-600 mb-4">
+                  <h4 className="font-medium text-neutral-900 mb-2">Управління даними</h4>
+                  <p className="text-body-sm text-neutral-600 mb-4">
                     Ви можете завантажити або видалити свої особисті дані
                   </p>
                   <div className="flex gap-4">
@@ -615,8 +615,8 @@ export default function ProfilePage() {
                 </div>
 
                 <div>
-                  <h4 className="font-medium text-gray-900 mb-2">Політика конфіденційності</h4>
-                  <p className="text-body-sm text-gray-600 mb-4">
+                  <h4 className="font-medium text-neutral-900 mb-2">Політика конфіденційності</h4>
+                  <p className="text-body-sm text-neutral-600 mb-4">
                     Ознайомтеся з нашою політикою конфіденційності
                   </p>
                   <Button variant="outline" asChild>

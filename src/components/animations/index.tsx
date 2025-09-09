@@ -166,7 +166,7 @@ export const BookListSkeleton = ({ count = 8 }: BookListSkeletonProps) => (
     {Array.from({ length: count }).map((_, i) => (
       <motion.div
         key={i}
-        className="bg-gray-200 rounded-lg h-80 animate-pulse"
+        className="bg-neutral-200 rounded-lg h-80 animate-pulse"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: i * 0.1 }}
@@ -181,12 +181,12 @@ export const BookDetailSkeleton = () => (
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
   >
-    <div className="bg-gray-200 rounded-lg h-64 animate-pulse" />
+    <div className="bg-neutral-200 rounded-lg h-64 animate-pulse" />
     <div className="space-y-4">
-      <div className="bg-gray-200 rounded h-8 w-3/4 animate-pulse" />
-      <div className="bg-gray-200 rounded h-4 w-1/2 animate-pulse" />
-      <div className="bg-gray-200 rounded h-4 w-full animate-pulse" />
-      <div className="bg-gray-200 rounded h-4 w-4/5 animate-pulse" />
+      <div className="bg-neutral-200 rounded h-8 w-3/4 animate-pulse" />
+      <div className="bg-neutral-200 rounded h-4 w-1/2 animate-pulse" />
+      <div className="bg-neutral-200 rounded h-4 w-full animate-pulse" />
+      <div className="bg-neutral-200 rounded h-4 w-4/5 animate-pulse" />
     </div>
   </motion.div>
 )
@@ -199,8 +199,8 @@ export const FormSkeleton = () => (
   >
     {Array.from({ length: 4 }).map((_, i) => (
       <div key={i} className="space-y-2">
-        <div className="bg-gray-200 rounded h-4 w-1/3 animate-pulse" />
-        <div className="bg-gray-200 rounded h-10 w-full animate-pulse" />
+        <div className="bg-neutral-200 rounded h-4 w-1/3 animate-pulse" />
+        <div className="bg-neutral-200 rounded h-10 w-full animate-pulse" />
       </div>
     ))}
   </motion.div>
@@ -217,9 +217,9 @@ export const TableSkeleton = ({ rows = 5 }: TableSkeletonProps) => (
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
   >
-    <div className="bg-gray-200 rounded h-12 w-full animate-pulse" />
+    <div className="bg-neutral-200 rounded h-12 w-full animate-pulse" />
     {Array.from({ length: rows }).map((_, i) => (
-      <div key={i} className="bg-gray-100 rounded h-16 w-full animate-pulse" />
+      <div key={i} className="bg-neutral-100 rounded h-16 w-full animate-pulse" />
     ))}
   </motion.div>
 )
@@ -231,15 +231,15 @@ export const ProfileSkeleton = () => (
     animate={{ opacity: 1 }}
   >
     <div className="flex items-center space-x-4">
-      <div className="bg-gray-200 rounded-2xl h-20 w-20 animate-pulse" />
+      <div className="bg-neutral-200 rounded-2xl h-20 w-20 animate-pulse" />
       <div className="space-y-2">
-        <div className="bg-gray-200 rounded h-6 w-32 animate-pulse" />
-        <div className="bg-gray-200 rounded h-4 w-24 animate-pulse" />
+        <div className="bg-neutral-200 rounded h-6 w-32 animate-pulse" />
+        <div className="bg-neutral-200 rounded h-4 w-24 animate-pulse" />
       </div>
     </div>
     <div className="space-y-3">
       {Array.from({ length: 3 }).map((_, i) => (
-        <div key={i} className="bg-gray-200 rounded h-12 w-full animate-pulse" />
+        <div key={i} className="bg-neutral-200 rounded h-12 w-full animate-pulse" />
       ))}
     </div>
   </motion.div>
@@ -260,7 +260,7 @@ export const LoadingSpinner = ({ size = 'md', className = '' }: LoadingSpinnerPr
   
   return (
     <motion.div
-      className={`animate-spin rounded-2xl border-b-2 border-gray-900 ${sizeClasses[size]} ${className}`}
+      className={`animate-spin rounded-2xl border-b-2 border-neutral-900 ${sizeClasses[size]} ${className}`}
       animate={{ rotate: 360 }}
       transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
     />

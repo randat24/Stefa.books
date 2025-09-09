@@ -22,14 +22,14 @@ export function SubscriptionModal({ isOpen, onClose, defaultPlan }: Subscription
       />
       
       {/* Modal */}
-      <div className="relative w-full max-w-4xl mx-4 max-h-[90vh] overflow-hidden bg-white rounded-2xl shadow-2xl">
+      <div className="relative w-full max-w-4xl mx-4 max-h-[90vh] overflow-hidden bg-neutral-0 rounded-2xl shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+        <div className="flex items-center justify-between p-6 border-b border-neutral-200">
           <div>
-            <h2 className="text-h2 text-gray-900">
+            <h2 className="text-h2 text-neutral-900">
               Оформити підписку
             </h2>
-            <p className="text-gray-600 mt-1">
+            <p className="text-neutral-600 mt-1">
               Оберіть план та заповніть форму для підписки
             </p>
           </div>
@@ -37,7 +37,7 @@ export function SubscriptionModal({ isOpen, onClose, defaultPlan }: Subscription
             variant="ghost"
             size="md"
             onClick={onClose}
-            className="p-2 hover:bg-gray-100"
+            className="p-2 hover:bg-neutral-100"
           >
             <X className="h-5 w-5" />
           </Button>

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { fetchBooks } from '@/lib/api/books';
 
-export async function GET(): Promise<Response> {
+export async function GET() {
   try {
     // Fetch some books to test the API
     const booksResponse = await fetchBooks({ limit: 5 });

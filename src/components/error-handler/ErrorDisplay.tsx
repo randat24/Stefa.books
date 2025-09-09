@@ -41,12 +41,12 @@ export function ErrorDisplay({
       </div>
       
       <div className="space-y-2">
-        <h3 className="text-h3 text-gray-900">
+        <h3 className="text-h3 text-neutral-900">
           {error.userMessage}
         </h3>
         
         {error.action && (
-          <p className="text-gray-600">
+          <p className="text-neutral-600">
             Рекомендована дія: {error.action}
           </p>
         )}
@@ -55,17 +55,17 @@ export function ErrorDisplay({
       {/* Error details in development */}
       {process.env.NODE_ENV === 'development' && (
         <details className="text-left">
-          <summary className="cursor-pointer text-body-sm text-gray-500 hover:text-gray-700">
+          <summary className="cursor-pointer text-body-sm text-neutral-500 hover:text-neutral-700">
             Технічні деталі
           </summary>
           <div className="mt-2 p-3 bg-red-50 rounded-lg">
             <p className="text-caption text-red-600 font-mono break-all">
               {error.message}
             </p>
-            <p className="text-caption text-gray-500 mt-1">
+            <p className="text-caption text-neutral-500 mt-1">
               ID: {error.id}
             </p>
-            <p className="text-caption text-gray-500 mt-1">
+            <p className="text-caption text-neutral-500 mt-1">
               Категорія: {error.category} | Рівень: {error.severity}
             </p>
           </div>

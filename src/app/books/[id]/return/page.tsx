@@ -3,9 +3,8 @@ import { fetchBook } from "@/lib/api/books";
 import { BookReturnForm } from "@/components/return/BookReturnForm";
 import { BookReturnInfo } from "@/components/return/BookReturnInfo";
 import { BookReturnInstructions } from "@/components/return/BookReturnInstructions";
-import { ChevronLeft, BookOpen, RotateCcw } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 
 type Params = Promise<{ id: string }>;
@@ -75,14 +74,14 @@ export default async function BookReturnPage({ params }: { params: Params }) {
       <div className="container py-8">
         {/* Breadcrumbs */}
         <div className="mb-6">
-          <nav className="flex items-center space-x-2 text-body-sm text-gray-600">
-            <Link href="/" className="hover:text-gray-900">Головна</Link>
+          <nav className="flex items-center space-x-2 text-body-sm text-neutral-600">
+            <Link href="/" className="hover:text-neutral-900">Головна</Link>
             <ChevronLeft className="h-4 w-4" />
-            <Link href="/catalog" className="hover:text-gray-900">Каталог</Link>
+            <Link href="/catalog" className="hover:text-neutral-900">Каталог</Link>
             <ChevronLeft className="h-4 w-4" />
-            <Link href={`/books/${id}`} className="hover:text-gray-900">{book.title}</Link>
+            <Link href={`/books/${id}`} className="hover:text-neutral-900">{book.title}</Link>
             <ChevronLeft className="h-4 w-4" />
-            <span className="text-gray-900 font-medium">Повернення</span>
+            <span className="text-neutral-900 font-medium">Повернення</span>
           </nav>
         </div>
 

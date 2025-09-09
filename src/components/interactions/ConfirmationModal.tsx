@@ -87,12 +87,12 @@ export function ConfirmationModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-6"
+            className="relative bg-neutral-0 rounded-2xl shadow-2xl max-w-md w-full p-6"
           >
             {/* Close Button */}
             <motion.button
               onClick={onClose}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+              className="absolute top-4 right-4 text-neutral-400 hover:text-neutral-600 transition-colors"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -106,7 +106,7 @@ export function ConfirmationModal({
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
-                className="mx-auto w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mb-4"
+                className="mx-auto w-16 h-16 rounded-2xl bg-neutral-100 flex items-center justify-center mb-4"
               >
                 {getIcon()}
               </motion.div>
@@ -116,7 +116,7 @@ export function ConfirmationModal({
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="text-body-lg font-semibold text-gray-900 mb-2"
+                className="text-body-lg font-semibold text-neutral-900 mb-2"
               >
                 {title}
               </motion.h3>
@@ -126,7 +126,7 @@ export function ConfirmationModal({
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="text-gray-600 mb-6"
+                className="text-neutral-600 mb-6"
               >
                 {message}
               </motion.p>

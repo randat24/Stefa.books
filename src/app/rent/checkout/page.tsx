@@ -64,7 +64,7 @@ export default function CheckoutPage() {
   return (
     <div className="container py-8">
       <h1 className="text-h1 mb-2">Checkout</h1>
-      <p className="text-gray-500 mb-8">Complete your rental</p>
+      <p className="text-neutral-500 mb-8">Complete your rental</p>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Order Summary */}
@@ -84,7 +84,7 @@ export default function CheckoutPage() {
                 />
                 <div>
                   <h3 className="font-semibold">{book.title}</h3>
-                  <p className="text-body-sm text-gray-500">{book.author}</p>
+                  <p className="text-body-sm text-neutral-500">{book.author}</p>
                 </div>
               </div>
               
@@ -96,7 +96,7 @@ export default function CheckoutPage() {
                     <RadioGroupItem value={option.id} id={option.id} />
                     <Label htmlFor={option.id} className="flex-1">
                       <div className="font-medium">{option.name}</div>
-                      <div className="text-body-sm text-gray-500">{option.description}</div>
+                      <div className="text-body-sm text-neutral-500">{option.description}</div>
                     </Label>
                     <div className="font-semibold">${option.price.toFixed(2)}</div>
                   </div>

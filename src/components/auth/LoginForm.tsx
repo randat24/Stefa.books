@@ -111,9 +111,9 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
                 className="absolute inset-y-0 right-0 pr-3 flex items-center"
               >
                 {showPassword ? (
-                  <EyeOff className="h-4 w-4 text-gray-500" />
+                  <EyeOff className="h-4 w-4 text-neutral-500" />
                 ) : (
-                  <Eye className="h-4 w-4 text-gray-500" />
+                  <Eye className="h-4 w-4 text-neutral-500" />
                 )}
               </button>
             </div>
@@ -130,7 +130,7 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
           </Button>
           
           {onSwitchToRegister && (
-            <div className="text-center text-body-sm text-gray-600">
+            <div className="text-center text-body-sm text-neutral-600">
               Немає облікового запису?{' '}
               <button
                 type="button"

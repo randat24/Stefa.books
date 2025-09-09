@@ -33,7 +33,7 @@ export function CodeSplit({
 
   const defaultFallback = (
     <div className={`flex items-center justify-center p-8 ${className}`}>
-      <Loader2 className="w-8 h-8 animate-spin text-brand-yellow" />
+      <Loader2 className="w-8 h-8 animate-spin text-accent" />
     </div>
   );
 
@@ -135,7 +135,7 @@ export function DynamicImport({
 
   const defaultFallback = (
     <div className={`flex items-center justify-center p-8 ${className}`}>
-      <Loader2 className="w-8 h-8 animate-spin text-brand-yellow" />
+      <Loader2 className="w-8 h-8 animate-spin text-accent" />
     </div>
   );
 
@@ -147,7 +147,7 @@ export function DynamicImport({
     return (
       <div className={`text-center p-8 ${className}`}>
         <div className="text-red-600 mb-2">Помилка завантаження</div>
-        <div className="text-body-sm text-gray-600">{error.message}</div>
+        <div className="text-body-sm text-neutral-600">{error.message}</div>
       </div>
     );
   }
@@ -304,7 +304,7 @@ export function ConditionalLoad({
 
   const defaultFallback = (
     <div className={`flex items-center justify-center p-8 ${className}`}>
-      <Loader2 className="w-8 h-8 animate-spin text-brand-yellow" />
+      <Loader2 className="w-8 h-8 animate-spin text-accent" />
     </div>
   );
 
@@ -320,7 +320,7 @@ export function ConditionalLoad({
     return (
       <div className={`text-center p-8 ${className}`}>
         <div className="text-red-600 mb-2">Помилка завантаження</div>
-        <div className="text-body-sm text-gray-600">{error.message}</div>
+        <div className="text-body-sm text-neutral-600">{error.message}</div>
       </div>
     );
   }

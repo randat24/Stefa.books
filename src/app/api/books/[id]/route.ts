@@ -9,7 +9,7 @@ import { logger } from '@/lib/logger'
 export async function GET(
   request: NextRequest, 
   { params }: { params: Promise<{ id: string }> }
-): Promise<Response> {
+) {
   try {
     const { id } = await params
     
@@ -17,7 +17,7 @@ export async function GET(
       return NextResponse.json(
         { success: false, error: 'ID книги не указан' },
         { status: 400 }
-      ) as unknown as Response
+      )
     }
 
     logger.info(`Fetching book with ID: ${id}`, undefined, 'API')
@@ -55,7 +55,7 @@ export async function GET(
       return NextResponse.json({
         success: true,
         data: mockBook
-      }) as unknown as Response;
+      });
     }
 
     const { data: book, error } = await supabase
@@ -72,13 +72,13 @@ export async function GET(
         return NextResponse.json(
           { success: false, error: 'Книга не найдена' },
           { status: 404 }
-        ) as unknown as Response
+        )
       }
       
       return NextResponse.json(
         { success: false, error: error.message },
         { status: 500 }
-      ) as unknown as Response
+      )
     }
 
     logger.info(`Found book: ${(book as any)?.title || 'Unknown'}`, undefined, 'API')
@@ -86,7 +86,7 @@ export async function GET(
     return NextResponse.json({
       success: true,
       data: book
-    }) as unknown as Response
+    })
 
   } catch (error) {
     logger.error('API error', error, 'API')
@@ -96,7 +96,7 @@ export async function GET(
         error: error instanceof Error ? error.message : 'Неизвестная ошибка'
       },
       { status: 500 }
-    ) as unknown as Response
+    )
   }
 }
 
@@ -107,7 +107,7 @@ export async function GET(
 export async function PUT(
   request: NextRequest, 
   { params }: { params: Promise<{ id: string }> }
-): Promise<Response> {
+) {
   try {
     const { id } = await params
     
@@ -115,7 +115,7 @@ export async function PUT(
       return NextResponse.json(
         { success: false, error: 'ID книги не указан' },
         { status: 400 }
-      ) as unknown as Response
+      )
     }
 
     const body = await request.json() as Partial<BookUpdate>
@@ -124,7 +124,7 @@ export async function PUT(
       return NextResponse.json(
         { success: false, error: 'Данные для обновления не предоставлены' },
         { status: 400 }
-      ) as unknown as Response
+      )
     }
 
     logger.info(`Updating book with ID: ${id}`, undefined, 'API')
@@ -149,13 +149,13 @@ export async function PUT(
         return NextResponse.json(
           { success: false, error: 'Книга не найдена' },
           { status: 404 }
-        ) as unknown as Response
+        )
       }
       
       return NextResponse.json(
         { success: false, error: error.message },
         { status: 500 }
-      ) as unknown as Response
+      )
     }
 
     logger.info(`Updated book: ${(book as any)?.title || 'Unknown'}`, undefined, 'API')
@@ -163,7 +163,7 @@ export async function PUT(
     return NextResponse.json({
       success: true,
       data: book
-    }) as unknown as Response
+    })
 
   } catch (error) {
     logger.error('API error', error, 'API')
@@ -173,6 +173,6 @@ export async function PUT(
         error: error instanceof Error ? error.message : 'Неизвестная ошибка'
       },
       { status: 500 }
-    ) as unknown as Response
+    )
   }
 }

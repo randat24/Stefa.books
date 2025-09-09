@@ -8,7 +8,7 @@ export function CategoryCatalogTest() {
 
   return (
     <div className="max-w-4xl mx-auto mt-8">
-      <h2 className="text-h2 text-gray-900 mb-8">Test Categories</h2>
+      <h2 className="text-h2 text-neutral-900 mb-8">Test Categories</h2>
       <div className="space-y-4">
         {testCategories.map((category) => (
           <div
@@ -20,7 +20,7 @@ export function CategoryCatalogTest() {
             }}
           >
             <span className="text-h2">{category.icon}</span>
-            <h3 className="text-body-lg font-semibold text-gray-800">
+            <h3 className="text-body-lg font-semibold text-neutral-800">
               {category.name}
             </h3>
           </div>

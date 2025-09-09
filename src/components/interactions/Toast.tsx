@@ -47,7 +47,7 @@ export function Toast({
       case "info":
         return <Info className="w-5 h-5 text-blue-500" />
       default:
-        return <Info className="w-5 h-5 text-gray-500" />
+        return <Info className="w-5 h-5 text-neutral-500" />
     }
   }
 
@@ -62,7 +62,7 @@ export function Toast({
       case "info":
         return "bg-blue-50 border-blue-200"
       default:
-        return "bg-gray-50 border-gray-200"
+        return "bg-neutral-50 border-neutral-200"
     }
   }
 
@@ -101,7 +101,7 @@ export function Toast({
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 }}
-                className="font-semibold text-gray-900 text-sm"
+                className="font-semibold text-neutral-900 text-sm"
               >
                 {title}
               </motion.h4>
@@ -111,7 +111,7 @@ export function Toast({
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="text-gray-600 text-body-sm mt-1"
+                  className="text-neutral-600 text-body-sm mt-1"
                 >
                   {message}
                 </motion.p>
@@ -120,7 +120,7 @@ export function Toast({
 
             <motion.button
               onClick={handleClose}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
+              className="text-neutral-400 hover:text-neutral-600 transition-colors"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >

@@ -16,7 +16,7 @@ export function Skeleton({
   animation = 'pulse',
   ...props
 }: SkeletonProps) {
-  const baseClasses = 'bg-gray-200 animate-pulse';
+  const baseClasses = 'bg-neutral-200 animate-pulse';
   
   const variantClasses = {
     text: 'h-4 rounded',
@@ -27,7 +27,7 @@ export function Skeleton({
 
   const animationClasses = {
     pulse: 'animate-pulse',
-    wave: 'animate-pulse bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%]',
+    wave: 'animate-pulse bg-gradient-to-r from-neutral-200 via-gray-100 to-neutral-200 bg-[length:200%_100%]',
     none: '',
   };
 
@@ -53,7 +53,7 @@ export function Skeleton({
 // Predefined skeleton components
 export function BookCardSkeleton() {
   return (
-    <div className="flex flex-col overflow-hidden rounded-xl bg-white">
+    <div className="flex flex-col overflow-hidden rounded-xl bg-neutral-0">
       <Skeleton className="aspect-[3/4] w-full rounded-t-xl" />
       <div className="flex flex-1 flex-col gap-3 px-4 pb-5 pt-4">
         <Skeleton className="h-6 w-3/4" />
@@ -117,7 +117,7 @@ export function SearchResultsSkeleton() {
 
 export function HeaderSkeleton() {
   return (
-    <header className="w-full sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-gray-200">
+    <header className="w-full sticky top-0 z-40 bg-neutral-0/80 backdrop-blur border-b border-neutral-200">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-3">
           <Skeleton className="h-10 w-10 rounded-2xl" />

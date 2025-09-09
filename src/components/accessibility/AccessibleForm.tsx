@@ -68,7 +68,7 @@ export function FormField({
     <div className={`space-y-2 ${className}`}>
       <label 
         htmlFor={id}
-        className="block text-body-sm font-medium text-gray-700"
+        className="block text-body-sm font-medium text-neutral-700"
       >
         {label}
         {required && (
@@ -95,14 +95,14 @@ export function FormField({
           pattern={pattern}
           className={`
             block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400
-            focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent
-            disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed
+            focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent
+            disabled:bg-neutral-50 disabled:text-neutral-500 disabled:cursor-not-allowed
             transition-colors duration-200
             ${showError 
               ? 'border-red-300 focus:ring-red-500' 
               : isValid 
                 ? 'border-green-300 focus:ring-green-500'
-                : 'border-gray-300'
+                : 'border-neutral-300'
             }
           `}
           aria-describedby={`
@@ -141,7 +141,7 @@ export function FormField({
       {helpText && !showError && (
         <p 
           id={`${id}-help`}
-          className="text-body-sm text-gray-500"
+          className="text-body-sm text-neutral-500"
         >
           {helpText}
         </p>
@@ -211,7 +211,7 @@ export function TextAreaField({
     <div className={`space-y-2 ${className}`}>
       <label 
         htmlFor={id}
-        className="block text-body-sm font-medium text-gray-700"
+        className="block text-body-sm font-medium text-neutral-700"
       >
         {label}
         {required && (
@@ -236,14 +236,14 @@ export function TextAreaField({
           rows={rows}
           className={`
             block w-full px-3 py-2 border rounded-md shadow-sm placeholder-gray-400
-            focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent
-            disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed
+            focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent
+            disabled:bg-neutral-50 disabled:text-neutral-500 disabled:cursor-not-allowed
             transition-colors duration-200 resize-vertical
             ${showError 
               ? 'border-red-300 focus:ring-red-500' 
               : isValid 
                 ? 'border-green-300 focus:ring-green-500'
-                : 'border-gray-300'
+                : 'border-neutral-300'
             }
           `}
           aria-describedby={`
@@ -282,7 +282,7 @@ export function TextAreaField({
       {helpText && !showError && (
         <p 
           id={`${id}-help`}
-          className="text-body-sm text-gray-500"
+          className="text-body-sm text-neutral-500"
         >
           {helpText}
         </p>
@@ -290,7 +290,7 @@ export function TextAreaField({
 
       {/* Счетчик символов */}
       {maxLength && (
-        <p className="text-caption text-gray-500 text-right">
+        <p className="text-caption text-neutral-500 text-right">
           {value.length}/{maxLength}
         </p>
       )}
@@ -355,7 +355,7 @@ export function SelectField({
     <div className={`space-y-2 ${className}`}>
       <label 
         htmlFor={id}
-        className="block text-body-sm font-medium text-gray-700"
+        className="block text-body-sm font-medium text-neutral-700"
       >
         {label}
         {required && (
@@ -376,14 +376,14 @@ export function SelectField({
           disabled={disabled}
           className={`
             block w-full px-3 py-2 border rounded-md shadow-sm
-            focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent
-            disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed
-            transition-colors duration-200 appearance-none bg-white
+            focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent
+            disabled:bg-neutral-50 disabled:text-neutral-500 disabled:cursor-not-allowed
+            transition-colors duration-200 appearance-none bg-neutral-0
             ${showError 
               ? 'border-red-300 focus:ring-red-500' 
               : isValid 
                 ? 'border-green-300 focus:ring-green-500'
-                : 'border-gray-300'
+                : 'border-neutral-300'
             }
           `}
           aria-describedby={`
@@ -412,7 +412,7 @@ export function SelectField({
         {/* Стрелка вниз */}
         <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
           <svg 
-            className="h-5 w-5 text-gray-400" 
+            className="h-5 w-5 text-neutral-400" 
             fill="none" 
             stroke="currentColor" 
             viewBox="0 0 24 24"
@@ -440,7 +440,7 @@ export function SelectField({
       {helpText && !showError && (
         <p 
           id={`${id}-help`}
-          className="text-body-sm text-gray-500"
+          className="text-body-sm text-neutral-500"
         >
           {helpText}
         </p>

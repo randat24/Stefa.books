@@ -11,7 +11,7 @@ if (!supabaseUrl || !supabaseKey) {
 
 const supabase = createClient(supabaseUrl, supabaseKey)
 
-export async function POST(): Promise<Response> {
+export async function POST() {
   try {
     logger.info('Starting books sync to website')
 
@@ -120,7 +120,7 @@ export async function POST(): Promise<Response> {
   }
 }
 
-export async function GET(): Promise<Response> {
+export async function GET() {
   try {
     logger.info('Checking books sync status')
 

@@ -1,4 +1,4 @@
-import { callClaudeOpus41, generateWithThinking, CLAUDE_MODELS } from '@/lib/claude';
+import { callClaudeOpus41, generateWithThinking } from '@/lib/claude';
 import type { Book } from '@/lib/supabase';
 
 export interface BookAnalysisResult {
@@ -35,9 +35,9 @@ export async function analyzeBookContent(book: Book): Promise<BookAnalysisResult
 Название: ${book.title}
 Автор: ${book.author}
 Описание: ${book.description || 'Описание отсутствует'}
-Текущая категория: ${book.category}
+Текущая категория: ${book.category_id}
 Цена: ${book.price_uah} грн
-Возрастная группа: ${book.age_group || 'Не указана'}
+Возрастная группа: ${book.age_range || 'Не указана'}
 
 Определи:
 1. Наиболее подходящую категорию
@@ -75,8 +75,8 @@ export async function analyzeBookContent(book: Book): Promise<BookAnalysisResult
     console.error('Error parsing book analysis:', error);
     // Fallback analysis
     return {
-      category: book.category || 'Загальна література',
-      ageGroup: book.age_group || '4-10',
+      category: book.category_id || 'Загальна література',
+      ageGroup: book.age_range || '4-10',
       keywords: [book.title.split(' ')[0], book.author.split(' ')[0], 'діти', 'книга'],
       shortDescription: book.description?.slice(0, 80) + '...' || 'Цікава дитяча книга.',
       recommendedFor: ['діти', 'батьки'],
@@ -92,8 +92,8 @@ export async function improveBookContent(book: Book): Promise<BookContentImprove
 Название: ${book.title}
 Автор: ${book.author}
 Текущее описание: ${book.description || 'Описание отсутствует'}
-Категория: ${book.category}
-Возраст: ${book.age_group || 'Не указан'}
+Категория: ${book.category_id}
+Возраст: ${book.age_range || 'Не указан'}
 
 Создай:
 1. Улучшенное описание (100-150 слов), привлекательное для детей и родителей
@@ -155,8 +155,8 @@ export async function generatePersonalizedRecommendations(
     id: book.id,
     title: book.title,
     author: book.author,
-    category: book.category,
-    ageGroup: book.age_group,
+    category: book.category_id,
+    ageGroup: book.age_range,
     description: book.description?.slice(0, 200),
     available: book.available,
   }));

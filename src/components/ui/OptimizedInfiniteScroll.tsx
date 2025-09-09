@@ -123,14 +123,14 @@ const OptimizedInfiniteScroll = memo(function OptimizedInfiniteScroll<T>({
             />
           </svg>
         </div>
-        <h3 className="text-body-lg font-medium text-gray-900 mb-2">
+        <h3 className="text-body-lg font-medium text-neutral-900 mb-2">
           Помилка завантаження
         </h3>
-        <p className="text-gray-500 mb-4">{error}</p>
+        <p className="text-neutral-500 mb-4">{error}</p>
         {onRetry && (
           <button
             onClick={handleRetry}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            className="px-4 py-2 bg-blue-600 text-neutral-0 rounded-md hover:bg-blue-700 transition-colors"
           >
             Спробувати знову
           </button>
@@ -145,9 +145,9 @@ const OptimizedInfiniteScroll = memo(function OptimizedInfiniteScroll<T>({
 
     return (
       <div className="text-center py-12">
-        <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <div className="w-16 h-16 bg-neutral-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
           <svg
-            className="w-8 h-8 text-gray-400"
+            className="w-8 h-8 text-neutral-400"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -160,10 +160,10 @@ const OptimizedInfiniteScroll = memo(function OptimizedInfiniteScroll<T>({
             />
           </svg>
         </div>
-        <h3 className="text-body-lg font-medium text-gray-900 mb-2">
+        <h3 className="text-body-lg font-medium text-neutral-900 mb-2">
           Нічого не знайдено
         </h3>
-        <p className="text-gray-500">
+        <p className="text-neutral-500">
           Спробуйте змінити параметри пошуку
         </p>
       </div>
@@ -204,7 +204,7 @@ const OptimizedInfiniteScroll = memo(function OptimizedInfiniteScroll<T>({
       {/* Индикатор окончания данных */}
       {!hasMore && data.length > 0 && !loading && (
         <div className="text-center py-8">
-          <p className="text-gray-500">
+          <p className="text-neutral-500">
             Всі дані завантажено
           </p>
         </div>

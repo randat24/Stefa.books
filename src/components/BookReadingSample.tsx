@@ -32,7 +32,7 @@ export function BookReadingSample({ title, sampleText }: BookReadingSampleProps)
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h3 className="text-body-lg font-semibold text-gray-900 flex items-center gap-2">
+        <h3 className="text-body-lg font-semibold text-neutral-900 flex items-center gap-2">
           <BookOpen className="h-5 w-5" />
           Уривок для читання
         </h3>
@@ -70,7 +70,7 @@ export function BookReadingSample({ title, sampleText }: BookReadingSampleProps)
           {paragraphs.map((paragraph, index) => (
             <p 
               key={index}
-              className={`text-gray-800 mb-4 leading-relaxed text-body-lg transition-all duration-300 ${
+              className={`text-neutral-800 mb-4 leading-relaxed text-body-lg transition-all duration-300 ${
                 isReading 
                   ? 'bg-yellow-200 bg-opacity-50 p-2 rounded' 
                   : ''
@@ -91,15 +91,15 @@ export function BookReadingSample({ title, sampleText }: BookReadingSampleProps)
       </div>
 
       {/* Reading Controls */}
-      <div className="bg-gray-50 rounded-lg p-4">
-        <h4 className="text-body-sm font-medium text-gray-700 mb-3">
+      <div className="bg-neutral-50 rounded-lg p-4">
+        <h4 className="text-body-sm font-medium text-neutral-700 mb-3">
           Налаштування читання
         </h4>
         
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
           <div>
-            <label className="block text-gray-600 mb-1">Розмір шрифту</label>
-            <select className="w-full p-2 border border-gray-300 rounded text-xs">
+            <label className="block text-neutral-600 mb-1">Розмір шрифту</label>
+            <select className="w-full p-2 border border-neutral-300 rounded text-xs">
               <option>Звичайний</option>
               <option>Великий</option>
               <option>Дуже великий</option>
@@ -107,8 +107,8 @@ export function BookReadingSample({ title, sampleText }: BookReadingSampleProps)
           </div>
           
           <div>
-            <label className="block text-gray-600 mb-1">Швидкість</label>
-            <select className="w-full p-2 border border-gray-300 rounded text-xs">
+            <label className="block text-neutral-600 mb-1">Швидкість</label>
+            <select className="w-full p-2 border border-neutral-300 rounded text-xs">
               <option>Повільно</option>
               <option>Звичайно</option>
               <option>Швидко</option>
@@ -116,8 +116,8 @@ export function BookReadingSample({ title, sampleText }: BookReadingSampleProps)
           </div>
           
           <div>
-            <label className="block text-gray-600 mb-1">Голос</label>
-            <select className="w-full p-2 border border-gray-300 rounded text-xs">
+            <label className="block text-neutral-600 mb-1">Голос</label>
+            <select className="w-full p-2 border border-neutral-300 rounded text-xs">
               <option>Жіночий (UA)</option>
               <option>Чоловічий (UA)</option>
               <option>Дитячий (UA)</option>

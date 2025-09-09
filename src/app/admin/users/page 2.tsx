@@ -52,7 +52,7 @@ export default function UsersPage() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <div>
           <h1 className="text-h1">User Management</h1>
-          <p className="text-gray-500">Manage all users in the system</p>
+          <p className="text-neutral-500">Manage all users in the system</p>
         </div>
         <Button>Add New User</Button>
       </div>
@@ -91,11 +91,11 @@ export default function UsersPage() {
               </thead>
               <tbody>
                 {filteredUsers.map((user) => (
-                  <tr key={user.id} className="border-b hover:bg-gray-50">
+                  <tr key={user.id} className="border-b hover:bg-neutral-50">
                     <td className="py-3 px-4">
                       <div>
                         <div className="font-medium">{user.name}</div>
-                        <div className="text-body-sm text-gray-500">{user.email}</div>
+                        <div className="text-body-sm text-neutral-500">{user.email}</div>
                       </div>
                     </td>
                     <td className="py-3 px-4">
@@ -120,7 +120,7 @@ export default function UsersPage() {
           
           {filteredUsers.length === 0 && (
             <div className="py-8 text-center">
-              <p className="text-gray-500">No users found</p>
+              <p className="text-neutral-500">No users found</p>
             </div>
           )}
         </CardContent>

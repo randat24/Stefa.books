@@ -121,12 +121,12 @@ export default function AdminPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        <div className="sticky top-0 z-10 border-b border-gray-200/60 bg-white/90 backdrop-blur-sm">
+      <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
+        <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-neutral-0/90 backdrop-blur-sm">
           <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
             <div className="flex items-center justify-center">
-              <RefreshCw className="size-6 animate-spin text-gray-400" />
-              <span className="ml-2 text-gray-600">Завантаження адмін-панелі...</span>
+              <RefreshCw className="size-6 animate-spin text-neutral-400" />
+              <span className="ml-2 text-neutral-600">Завантаження адмін-панелі...</span>
             </div>
           </div>
         </div>
@@ -136,8 +136,8 @@ export default function AdminPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        <div className="sticky top-0 z-10 border-b border-gray-200/60 bg-white/90 backdrop-blur-sm">
+      <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
+        <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-neutral-0/90 backdrop-blur-sm">
           <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
             <div className="text-center">
               <p className="text-red-600 mb-4">{error}</p>

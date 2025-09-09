@@ -169,7 +169,7 @@ export function CloudinaryImage({
       {/* Loading placeholder */}
       {isLoading && (
         <div 
-          className="absolute inset-0 bg-gray-200 animate-pulse"
+          className="absolute inset-0 bg-neutral-200 animate-pulse"
           style={{ width, height }}
         />
       )}
@@ -177,7 +177,7 @@ export function CloudinaryImage({
       {/* Error state */}
       {hasError && !fallback && (
         <div 
-          className="flex items-center justify-center bg-gray-100 text-gray-500"
+          className="flex items-center justify-center bg-neutral-100 text-neutral-500"
           style={{ width, height }}
         >
           <span className="text-sm">Помилка завантаження</span>

@@ -116,7 +116,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
           <select
             value={value}
             onChange={(e) => handleFilterChange(filter.key, e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             disabled={loading}
           >
             <option value="">Всі {filter.label.toLowerCase()}</option>
@@ -143,10 +143,10 @@ const OptimizedFilters = memo(function OptimizedFilters({
                       : selectedValues.filter(v => v !== option.value)
                     handleFilterChange(filter.key, newValues)
                   }}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-neutral-300 text-blue-600 focus:ring-blue-500"
                   disabled={loading}
                 />
-                <span className="ml-2 text-body-sm text-gray-700">
+                <span className="ml-2 text-body-sm text-neutral-700">
                   {option.label} {option.count && `(${option.count})`}
                 </span>
               </label>
@@ -160,7 +160,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
           <div className="space-y-4">
             <div className="flex items-center gap-4">
               <div className="flex-1">
-                <label className="block text-body-sm text-gray-600 mb-1">Мін</label>
+                <label className="block text-body-sm text-neutral-600 mb-1">Мін</label>
                 <input
                   type="number"
                   value={rangeValue.min}
@@ -171,12 +171,12 @@ const OptimizedFilters = memo(function OptimizedFilters({
                   min={filter.min}
                   max={filter.max}
                   step={filter.step}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   disabled={loading}
                 />
               </div>
               <div className="flex-1">
-                <label className="block text-body-sm text-gray-600 mb-1">Макс</label>
+                <label className="block text-body-sm text-neutral-600 mb-1">Макс</label>
                 <input
                   type="number"
                   value={rangeValue.max}
@@ -187,12 +187,12 @@ const OptimizedFilters = memo(function OptimizedFilters({
                   min={filter.min}
                   max={filter.max}
                   step={filter.step}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   disabled={loading}
                 />
               </div>
             </div>
-            <div className="text-body-sm text-gray-500">
+            <div className="text-body-sm text-neutral-500">
               {rangeValue.min} - {rangeValue.max}
             </div>
           </div>
@@ -207,10 +207,10 @@ const OptimizedFilters = memo(function OptimizedFilters({
                   type="checkbox"
                   checked={value === option.value}
                   onChange={(e) => handleFilterChange(filter.key, e.target.checked ? option.value : '')}
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-neutral-300 text-blue-600 focus:ring-blue-500"
                   disabled={loading}
                 />
-                <span className="ml-2 text-body-sm text-gray-700">
+                <span className="ml-2 text-body-sm text-neutral-700">
                   {option.label} {option.count && `(${option.count})`}
                 </span>
               </label>
@@ -228,8 +228,8 @@ const OptimizedFilters = memo(function OptimizedFilters({
       {/* Заголовок с кнопкой очистки */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Filter className="w-5 h-5 text-gray-500" />
-          <h3 className="text-body-lg font-medium text-gray-900">Фільтри</h3>
+          <Filter className="w-5 h-5 text-neutral-500" />
+          <h3 className="text-body-lg font-medium text-neutral-900">Фільтри</h3>
           {activeFiltersCount > 0 && (
             <span className="px-2 py-1 text-caption font-medium text-blue-600 bg-blue-100 rounded-2xl">
               {activeFiltersCount}
@@ -242,7 +242,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
             variant="ghost"
             size="sm"
             onClick={handleClearAll}
-            className="text-gray-500 hover:text-gray-700"
+            className="text-neutral-500 hover:text-neutral-700"
           >
             Очистити все
           </PerformanceButton>
@@ -256,14 +256,14 @@ const OptimizedFilters = memo(function OptimizedFilters({
           const isActive = isFilterActive(filter.key)
 
           return (
-            <div key={filter.key} className="border border-gray-200 rounded-lg">
+            <div key={filter.key} className="border border-neutral-200 rounded-lg">
               <button
                 onClick={() => handleGroupToggle(filter.key)}
-                className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors"
+                className="w-full flex items-center justify-between p-4 text-left hover:bg-neutral-50 transition-colors"
                 disabled={loading}
               >
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-gray-900">{filter.label}</span>
+                  <span className="font-medium text-neutral-900">{filter.label}</span>
                   {isActive && (
                     <span className="w-2 h-2 bg-blue-500 rounded-2xl" />
                   )}
@@ -275,14 +275,14 @@ const OptimizedFilters = memo(function OptimizedFilters({
                         e.stopPropagation()
                         handleClearFilter(filter.key)
                       }}
-                      className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                      className="p-1 text-neutral-400 hover:text-neutral-600 transition-colors"
                     >
                       <X className="w-4 h-4" />
                     </button>
                   )}
                   <ChevronDown
                     className={cn(
-                      'w-4 h-4 text-gray-400 transition-transform',
+                      'w-4 h-4 text-neutral-400 transition-transform',
                       isExpanded && 'rotate-180'
                     )}
                   />
@@ -290,7 +290,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
               </button>
               
               {isExpanded && (
-                <div className="px-4 pb-4 border-t border-gray-200">
+                <div className="px-4 pb-4 border-t border-neutral-200">
                   {renderFilter(filter)}
                 </div>
               )}

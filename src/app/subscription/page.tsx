@@ -203,10 +203,10 @@ export default function SubscriptionPage() {
     <div className="container py-8">
       {/* Header */}
       <div className="text-center mb-12">
-        <h1 className="text-h1 text-gray-900 mb-4">
+        <h1 className="text-h1 text-neutral-900 mb-4">
           Оберіть підписку
         </h1>
-        <p className="text-body-lg text-gray-600 max-w-2xl mx-auto">
+        <p className="text-body-lg text-neutral-600 max-w-2xl mx-auto">
           Отримайте необмежений доступ до нашої бібліотеки дитячих книг
         </p>
       </div>
@@ -244,8 +244,8 @@ export default function SubscriptionPage() {
                 {benefit.icon}
               </div>
             </div>
-            <h3 className="font-semibold text-gray-900 mb-2">{benefit.title}</h3>
-            <p className="text-body-sm text-gray-600">{benefit.description}</p>
+            <h3 className="font-semibold text-neutral-900 mb-2">{benefit.title}</h3>
+            <p className="text-body-sm text-neutral-600">{benefit.description}</p>
           </div>
         ))}
       </div>
@@ -259,7 +259,7 @@ export default function SubscriptionPage() {
           >
             {plan.popular && (
               <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                <Badge className="bg-brand-accent text-white px-4 py-1">
+                <Badge className="bg-brand-accent text-neutral-0 px-4 py-1">
                   Популярний
                 </Badge>
               </div>
@@ -272,15 +272,15 @@ export default function SubscriptionPage() {
                 </div>
               </div>
               <CardTitle className="text-h2">{plan.name}</CardTitle>
-              <p className="text-gray-600">{plan.description}</p>
+              <p className="text-neutral-600">{plan.description}</p>
             </CardHeader>
             
             <CardContent className="space-y-6">
               <div className="text-center">
-                <div className="text-h1 text-gray-900">
+                <div className="text-h1 text-neutral-900">
                   {plan.price}₴
                 </div>
-                <div className="text-gray-600">
+                <div className="text-neutral-600">
                   {plan.duration === 6 ? 'за півроку' : 'на місяць'}
                 </div>
                 {plan.duration === 6 && (
@@ -294,7 +294,7 @@ export default function SubscriptionPage() {
                 {plan.features.map((feature, index) => (
                   <li key={index} className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0" />
-                    <span className="text-body-sm text-gray-700">{feature}</span>
+                    <span className="text-body-sm text-neutral-700">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -307,7 +307,7 @@ export default function SubscriptionPage() {
               >
                 {selectedPlan === plan.id ? (
                   <>
-                    <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-white mr-2" />
+                    <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-neutral-0 mr-2" />
                     Оформляємо...
                   </>
                 ) : (
@@ -324,17 +324,17 @@ export default function SubscriptionPage() {
 
       {/* FAQ */}
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-h2 text-gray-900 text-center mb-8">
+        <h2 className="text-h2 text-neutral-900 text-center mb-8">
           Часті питання
         </h2>
         
         <div className="space-y-6">
           <Card>
             <CardContent className="pt-6">
-              <h3 className="font-semibold text-gray-900 mb-2">
+              <h3 className="font-semibold text-neutral-900 mb-2">
                 Як працює підписка?
               </h3>
-              <p className="text-gray-600">
+              <p className="text-neutral-600">
                 Ви обираєте план, оплачуєте щомісячну абонплату та отримуєте доступ 
                 до оренди книг згідно з обраним планом. Книги доставляються безкоштовно.
               </p>
@@ -343,10 +343,10 @@ export default function SubscriptionPage() {
 
           <Card>
             <CardContent className="pt-6">
-              <h3 className="font-semibold text-gray-900 mb-2">
+              <h3 className="font-semibold text-neutral-900 mb-2">
                 Чи можна скасувати підписку?
               </h3>
-              <p className="text-gray-600">
+              <p className="text-neutral-600">
                 Так, ви можете скасувати підписку в будь-який час. 
                 Підписка діятиме до кінця поточного періоду.
               </p>
@@ -355,10 +355,10 @@ export default function SubscriptionPage() {
 
           <Card>
             <CardContent className="pt-6">
-              <h3 className="font-semibold text-gray-900 mb-2">
+              <h3 className="font-semibold text-neutral-900 mb-2">
                 Що робити, якщо книга пошкоджена?
               </h3>
-              <p className="text-gray-600">
+              <p className="text-neutral-600">
                 При незначних пошкодженнях ми не стягуємо додаткових коштів. 
                 При серйозних пошкодженнях стягується вартість книги.
               </p>
@@ -369,7 +369,7 @@ export default function SubscriptionPage() {
 
       {/* CTA */}
       <div className="text-center mt-12">
-        <p className="text-gray-600 mb-4">
+        <p className="text-neutral-600 mb-4">
           Є питання? Зв&apos;яжіться з нами
         </p>
         <div className="flex gap-4 justify-center">

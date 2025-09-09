@@ -42,7 +42,7 @@ export function BookCard({
   return (
     <>
       <article 
-        className="group relative bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 h-full flex flex-col"
+        className="group relative bg-neutral-0 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-neutral-200 h-full flex flex-col"
         style={{ minHeight: '400px' }}
         role="article"
         aria-labelledby={`book-title-${memoizedBook.id}`}
@@ -85,18 +85,18 @@ export function BookCard({
         {showActions && (
           <div className="absolute right-3 top-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
             <button
-              className="rounded-2xl bg-white/95 border border-gray-200/50 p-2.5 shadow-lg backdrop-blur-sm hover:bg-white hover:scale-110 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 transition-all duration-300"
+              className="rounded-2xl bg-neutral-0/95 border border-neutral-200/50 p-2.5 shadow-lg backdrop-blur-sm hover:bg-neutral-0 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 transition-all duration-300"
               aria-label={`Додати книгу "${memoizedBook.title}" в обране`}
               type="button"
             >
-              <Bookmark className="h-4 w-4 text-gray-600" aria-hidden="true" />
+              <Bookmark className="h-4 w-4 text-neutral-600" aria-hidden="true" />
             </button>
             <button
-              className="rounded-2xl bg-white/95 border border-gray-200/50 p-2.5 shadow-lg backdrop-blur-sm hover:bg-white hover:scale-110 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 transition-all duration-300"
+              className="rounded-2xl bg-neutral-0/95 border border-neutral-200/50 p-2.5 shadow-lg backdrop-blur-sm hover:bg-neutral-0 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 transition-all duration-300"
               aria-label={`Поділитися книгою "${memoizedBook.title}"`}
               type="button"
             >
-              <Share2 className="h-4 w-4 text-gray-600" aria-hidden="true" />
+              <Share2 className="h-4 w-4 text-neutral-600" aria-hidden="true" />
             </button>
           </div>
         )}
@@ -105,7 +105,7 @@ export function BookCard({
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 transition-all duration-300 group-hover:opacity-100">
           <button 
             onClick={handleQuickView}
-            className="inline-flex items-center gap-2 rounded-2xl bg-white/95 backdrop-blur-sm px-6 py-3 text-body-sm font-semibold text-gray-900 shadow-xl border border-gray-200/50 hover:bg-white hover:scale-105 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 transition-all duration-300"
+            className="inline-flex items-center gap-2 rounded-2xl bg-neutral-0/95 backdrop-blur-sm px-6 py-3 text-body-sm font-semibold text-neutral-900 shadow-xl border border-neutral-200/50 hover:bg-neutral-0 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-brand-accent focus:ring-offset-2 transition-all duration-300"
             aria-label={`Швидкий перегляд книги: ${memoizedBook.title}`}
             type="button"
           >
@@ -115,7 +115,7 @@ export function BookCard({
         </div>
 
         {/* Контент - название и автор */}
-        <div className="flex flex-1 flex-col gap-2 px-5 py-4 bg-white">
+        <div className="flex flex-1 flex-col gap-2 px-5 py-4 bg-neutral-0">
           <h3 
             id={`book-title-${memoizedBook.id}`}
             className="line-clamp-2 book-title"

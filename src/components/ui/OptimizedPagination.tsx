@@ -101,7 +101,7 @@ const OptimizedPagination = memo(function OptimizedPagination({
 
       {/* Многоточие в начале */}
       {showFirstEllipsis && (
-        <span className="px-2 text-gray-500">
+        <span className="px-2 text-neutral-500">
           <MoreHorizontal className="w-4 h-4" />
         </span>
       )}
@@ -148,7 +148,7 @@ const OptimizedPagination = memo(function OptimizedPagination({
 
       {/* Многоточие в конце */}
       {showLastEllipsis && (
-        <span className="px-2 text-gray-500">
+        <span className="px-2 text-neutral-500">
           <MoreHorizontal className="w-4 h-4" />
         </span>
       )}

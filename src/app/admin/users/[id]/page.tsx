@@ -67,7 +67,7 @@ export default function UserDetailsPage() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
           <h1 className="text-h1">User Details</h1>
-          <p className="text-gray-500">View and manage user information</p>
+          <p className="text-neutral-500">View and manage user information</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">
           <Link href="/admin/users">
@@ -173,11 +173,11 @@ export default function UserDetailsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label>Full Name</Label>
-                    <p className="text-gray-700">{user.name}</p>
+                    <p className="text-neutral-700">{user.name}</p>
                   </div>
                   <div className="space-y-2">
                     <Label>Email</Label>
-                    <p className="text-gray-700">{user.email}</p>
+                    <p className="text-neutral-700">{user.email}</p>
                   </div>
                 </div>
                 
@@ -206,7 +206,7 @@ export default function UserDetailsPage() {
                 
                 <div className="space-y-2">
                   <Label>Bio</Label>
-                  <p className="text-gray-700">{user.bio || 'No bio provided'}</p>
+                  <p className="text-neutral-700">{user.bio || 'No bio provided'}</p>
                 </div>
               </CardContent>
             )}
@@ -224,11 +224,11 @@ export default function UserDetailsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Join Date</Label>
-                  <p className="text-gray-700">{new Date(user.joinDate).toLocaleDateString()}</p>
+                  <p className="text-neutral-700">{new Date(user.joinDate).toLocaleDateString()}</p>
                 </div>
                 <div className="space-y-2">
                   <Label>Last Login</Label>
-                  <p className="text-gray-700">{new Date(user.lastLogin).toLocaleDateString()}</p>
+                  <p className="text-neutral-700">{new Date(user.lastLogin).toLocaleDateString()}</p>
                 </div>
               </div>
             </CardContent>
@@ -243,15 +243,15 @@ export default function UserDetailsPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="p-4 bg-blue-50 rounded-lg">
-                <p className="text-body-sm text-gray-500">Books Read</p>
+                <p className="text-body-sm text-neutral-500">Books Read</p>
                 <p className="text-h2">{user.stats.booksRead}</p>
               </div>
               <div className="p-4 bg-green-50 rounded-lg">
-                <p className="text-body-sm text-gray-500">Books Rented</p>
+                <p className="text-body-sm text-neutral-500">Books Rented</p>
                 <p className="text-h2">{user.stats.booksRented}</p>
               </div>
               <div className="p-4 bg-purple-50 rounded-lg">
-                <p className="text-body-sm text-gray-500">Favorites</p>
+                <p className="text-body-sm text-neutral-500">Favorites</p>
                 <p className="text-h2">{user.stats.favorites}</p>
               </div>
             </CardContent>

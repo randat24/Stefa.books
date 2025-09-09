@@ -152,16 +152,16 @@ export default async function BookPage({ params }: { params: Params }) {
       
       {/* Breadcrumbs */}
       <div className="container mx-auto px-4 py-4">
-        <nav className="flex items-center space-x-2 text-body-sm text-gray-600">
-          <Link href="/" className="hover:text-gray-900">Головна</Link>
+        <nav className="flex items-center space-x-2 text-body-sm text-neutral-600">
+          <Link href="/" className="hover:text-neutral-900">Головна</Link>
           <ChevronRight className="h-4 w-4" />
-          <Link href="/catalog" className="hover:text-gray-900">Каталог</Link>
+          <Link href="/catalog" className="hover:text-neutral-900">Каталог</Link>
           <ChevronRight className="h-4 w-4" />
-          <Link href={`/categories/${(book.category_id || 'uncategorized').toLowerCase()}`} className="hover:text-gray-900">
+          <Link href={`/categories/${(book.category_id || 'uncategorized').toLowerCase()}`} className="hover:text-neutral-900">
             {book.category_id || 'Без категорії'}
           </Link>
           <ChevronRight className="h-4 w-4" />
-          <span className="text-gray-900 font-medium">{book.title}</span>
+          <span className="text-neutral-900 font-medium">{book.title}</span>
         </nav>
       </div>
 
@@ -183,10 +183,10 @@ export default async function BookPage({ params }: { params: Params }) {
             <div className="space-y-3">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
-                  <h1 className="text-h1 text-gray-900 mb-2">
+                  <h1 className="text-h1 text-neutral-900 mb-2">
                     {book.title}
                   </h1>
-                  <p className="text-h4 text-gray-700 mb-2">{book.author}</p>
+                  <p className="text-h4 text-neutral-700 mb-2">{book.author}</p>
                   
                   {/* Rating */}
                   {book.rating && book.rating_count && (
@@ -197,19 +197,19 @@ export default async function BookPage({ params }: { params: Params }) {
                             key={i} 
                             className={`h-4 w-4 ${
                               i < Math.floor(book.rating!) 
-                                ? 'text-brand-yellow-light fill-current' 
-                                : 'text-gray-300'
+                                ? 'text-accent-light fill-current' 
+                                : 'text-neutral-300'
                             }`} 
                           />
                         ))}
                       </div>
-                      <span className="text-body-sm text-gray-600">
+                      <span className="text-body-sm text-neutral-600">
                         {book.rating.toFixed(1)} ({book.rating_count} відгуків)
                       </span>
                     </div>
                   )}
                   
-                  <div className="flex items-center gap-4 text-body-sm text-gray-600 mb-4">
+                  <div className="flex items-center gap-4 text-body-sm text-neutral-600 mb-4">
                     <span className="flex items-center gap-1">
                       <Hash className="h-4 w-4" />
                       {book.code}
@@ -235,7 +235,7 @@ export default async function BookPage({ params }: { params: Params }) {
                 </div>
                 <FavoriteButton id={book.id} />
               </div>
-              <p className="text-body text-gray-600 leading-relaxed text-left">
+              <p className="text-body text-neutral-600 leading-relaxed text-left">
                 {book.short_description}
               </p>
 
@@ -255,7 +255,7 @@ export default async function BookPage({ params }: { params: Params }) {
             {/* Badges */}
             {book.badges && book.badges.length > 0 && (
               <div className="space-y-2">
-                <h4 className="text-body-sm font-medium text-gray-700">Нагороди та відзнаки</h4>
+                <h4 className="text-body-sm font-medium text-neutral-700">Нагороди та відзнаки</h4>
                 <div className="flex flex-wrap gap-2">
                   {book.badges.map((badge, i) => (
                     <Badge key={i} variant="secondary" className="text-xs">
@@ -297,12 +297,12 @@ export default async function BookPage({ params }: { params: Params }) {
             
             <TabsContent value="description" className="mt-6">
               <div className="prose prose-slate max-w-none">
-                <h2 className="text-h2 text-gray-900 mb-6 flex items-center gap-2">
+                <h2 className="text-h2 text-neutral-900 mb-6 flex items-center gap-2">
                   <BookOpen className="h-6 w-6" />
                   Про книгу
                 </h2>
                 {fullDescription.split('\n\n').map((paragraph, i) => (
-                  <p key={i} className="text-readable text-gray-700 mb-4">
+                  <p key={i} className="text-readable text-neutral-700 mb-4">
                     {paragraph}
                   </p>
                 ))}
@@ -326,7 +326,7 @@ export default async function BookPage({ params }: { params: Params }) {
             
             <TabsContent value="author" className="mt-6">
               <div>
-                <h2 className="text-h2 text-gray-900 mb-6 flex items-center gap-2">
+                <h2 className="text-h2 text-neutral-900 mb-6 flex items-center gap-2">
                   <Heart className="h-6 w-6" />
                   Про автора
                 </h2>
@@ -337,8 +337,8 @@ export default async function BookPage({ params }: { params: Params }) {
                     </span>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-body-lg font-semibold text-gray-900 mb-2">{book.author}</h3>
-                    <p className="text-gray-600 leading-relaxed">
+                    <h3 className="text-body-lg font-semibold text-neutral-900 mb-2">{book.author}</h3>
+                    <p className="text-neutral-600 leading-relaxed">
                       Детальна інформація про автора буде додана пізніше. 
                       Поки що ви можете знайти більше книг цього автора в нашому каталозі.
                     </p>
@@ -356,7 +356,7 @@ export default async function BookPage({ params }: { params: Params }) {
         {relatedBooks.length > 0 && (
           <div className="card p-8">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-h2 text-gray-900 flex items-center gap-2">
+              <h2 className="text-h2 text-neutral-900 flex items-center gap-2">
                 <BookOpen className="h-6 w-6" />
                 Схожі книги
               </h2>
@@ -375,7 +375,7 @@ export default async function BookPage({ params }: { params: Params }) {
             
             {/* Additional books notice */}
             <div className="mt-6 text-center">
-              <p className="text-gray-600 mb-4">
+              <p className="text-neutral-600 mb-4">
                 Знайдіть ще більше книг у категорії &quot;{book.category_id}&quot;
               </p>
               <Button variant="outline" asChild>

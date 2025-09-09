@@ -59,22 +59,22 @@ export default async function BookOrderPage({ params }: { params: Params }) {
     <>
       {/* Breadcrumbs */}
       <div className="container mx-auto px-4 py-4">
-        <nav className="flex items-center space-x-2 text-body-sm text-gray-600">
-          <Link href="/" className="hover:text-gray-900">Головна</Link>
+        <nav className="flex items-center space-x-2 text-body-sm text-neutral-600">
+          <Link href="/" className="hover:text-neutral-900">Головна</Link>
           <ChevronRight className="h-4 w-4" />
-          <Link href="/catalog" className="hover:text-gray-900">Каталог</Link>
+          <Link href="/catalog" className="hover:text-neutral-900">Каталог</Link>
           <ChevronRight className="h-4 w-4" />
-          <Link href={`/books/${book.id}`} className="hover:text-gray-900">
+          <Link href={`/books/${book.id}`} className="hover:text-neutral-900">
             {book.title}
           </Link>
           <ChevronRight className="h-4 w-4" />
-          <span className="text-gray-900 font-medium">Оформлення замовлення</span>
+          <span className="text-neutral-900 font-medium">Оформлення замовлення</span>
         </nav>
       </div>
 
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-h1 text-gray-900 mb-8">
+          <h1 className="text-h1 text-neutral-900 mb-8">
             Оформлення замовлення
           </h1>
           

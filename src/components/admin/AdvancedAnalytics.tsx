@@ -102,13 +102,13 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
   const getTrendIcon = (current: number, previous: number) => {
     if (current > previous) return <ArrowUpRight className="size-4 text-green-600" />
     if (current < previous) return <ArrowDownRight className="size-4 text-red-600" />
-    return <Minus className="size-4 text-gray-600" />
+    return <Minus className="size-4 text-neutral-600" />
   }
 
   const getTrendColor = (current: number, previous: number) => {
     if (current > previous) return "text-green-600"
     if (current < previous) return "text-red-600"
-    return "text-gray-600"
+    return "text-neutral-600"
   }
 
   const formatCurrency = (amount: number) => {
@@ -125,17 +125,17 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
   if (loading) {
     return (
       <div className="space-y-6">
-        <Card className="rounded-2xl border-gray-200 shadow-sm">
+        <Card className="rounded-2xl border-neutral-200 shadow-sm">
           <CardHeader>
-            <CardTitle className="text-gray-900 flex items-center gap-2">
+            <CardTitle className="text-neutral-900 flex items-center gap-2">
               <BarChart3 className="size-5" />
               Розширена аналітика
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-center py-12">
-              <RefreshCw className="size-6 animate-spin text-gray-400" />
-              <span className="ml-2 text-gray-600">Завантаження аналітики...</span>
+              <RefreshCw className="size-6 animate-spin text-neutral-400" />
+              <span className="ml-2 text-neutral-600">Завантаження аналітики...</span>
             </div>
           </CardContent>
         </Card>
@@ -146,9 +146,9 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
   if (error) {
     return (
       <div className="space-y-6">
-        <Card className="rounded-2xl border-gray-200 shadow-sm">
+        <Card className="rounded-2xl border-neutral-200 shadow-sm">
           <CardHeader>
-            <CardTitle className="text-gray-900 flex items-center gap-2">
+            <CardTitle className="text-neutral-900 flex items-center gap-2">
               <BarChart3 className="size-5" />
               Розширена аналітика
             </CardTitle>
@@ -172,20 +172,20 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
   return (
     <div className="space-y-6">
       {/* Заголовок з фільтрами */}
-      <Card className="rounded-2xl border-gray-200 shadow-sm">
+      <Card className="rounded-2xl border-neutral-200 shadow-sm">
         <CardHeader>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <CardTitle className="text-gray-900 flex items-center gap-2">
+            <CardTitle className="text-neutral-900 flex items-center gap-2">
               <BarChart3 className="size-5" />
               Розширена аналітика
             </CardTitle>
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
-                <span className="text-body-sm text-gray-600">Період:</span>
+                <span className="text-body-sm text-neutral-600">Період:</span>
                 <select
                   value={timeRange}
                   onChange={(e) => setTimeRange(e.target.value as '7d' | '30d' | '90d')}
-                  className="px-3 py-1.5 border border-gray-200 rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-brand-yellow"
+                  className="px-3 py-1.5 border border-neutral-200 rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-accent"
                 >
                   <option value="7d">7 днів</option>
                   <option value="30d">30 днів</option>
@@ -207,16 +207,16 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
 
       {/* Основні метрики */}
       <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="rounded-2xl border-gray-200 shadow-sm">
+        <Card className="rounded-2xl border-neutral-200 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-body-sm font-semibold text-gray-700">Користувачі</CardTitle>
-            <Users className="h-5 w-5 text-gray-500" />
+            <CardTitle className="text-body-sm font-semibold text-neutral-700">Користувачі</CardTitle>
+            <Users className="h-5 w-5 text-neutral-500" />
           </CardHeader>
           <CardContent>
             <div className="text-h2 text-brand-accent-light">
               {data.overview.activeUsers}
             </div>
-            <p className="text-caption text-gray-500 mt-1">
+            <p className="text-caption text-neutral-500 mt-1">
               з {data.overview.totalUsers} загалом
             </p>
             <div className="flex items-center gap-1 mt-2">
@@ -228,16 +228,16 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl border-gray-200 shadow-sm">
+        <Card className="rounded-2xl border-neutral-200 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-body-sm font-semibold text-gray-700">Доходи (місяць)</CardTitle>
-            <CreditCard className="h-5 w-5 text-gray-500" />
+            <CardTitle className="text-body-sm font-semibold text-neutral-700">Доходи (місяць)</CardTitle>
+            <CreditCard className="h-5 w-5 text-neutral-500" />
           </CardHeader>
           <CardContent>
             <div className="text-h2 text-purple-600">
               {formatCurrency(data.overview.monthlyRevenue)}
             </div>
-            <p className="text-caption text-gray-500 mt-1">
+            <p className="text-caption text-neutral-500 mt-1">
               Загалом: {formatCurrency(data.overview.totalRevenue)}
             </p>
             <div className="flex items-center gap-1 mt-2">
@@ -249,16 +249,16 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl border-gray-200 shadow-sm">
+        <Card className="rounded-2xl border-neutral-200 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-body-sm font-semibold text-gray-700">Активні оренди</CardTitle>
-            <BookOpen className="h-5 w-5 text-gray-500" />
+            <CardTitle className="text-body-sm font-semibold text-neutral-700">Активні оренди</CardTitle>
+            <BookOpen className="h-5 w-5 text-neutral-500" />
           </CardHeader>
           <CardContent>
             <div className="text-h2 text-green-600">
               {data.overview.activeRentals}
             </div>
-            <p className="text-caption text-gray-500 mt-1">
+            <p className="text-caption text-neutral-500 mt-1">
               {data.overview.overdueRentals > 0 && (
                 <span className="text-red-600">
                   {data.overview.overdueRentals} просрочених
@@ -266,27 +266,27 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
               )}
             </p>
             <div className="flex items-center gap-1 mt-2">
-              <Activity className="size-3 text-gray-500" />
-              <span className="text-caption text-gray-600">
+              <Activity className="size-3 text-neutral-500" />
+              <span className="text-caption text-neutral-600">
                 {data.overview.averageRentalDuration} дн. середнє
               </span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl border-gray-200 shadow-sm">
+        <Card className="rounded-2xl border-neutral-200 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-            <CardTitle className="text-body-sm font-semibold text-gray-700">Використання книг</CardTitle>
-            <Target className="h-5 w-5 text-gray-500" />
+            <CardTitle className="text-body-sm font-semibold text-neutral-700">Використання книг</CardTitle>
+            <Target className="h-5 w-5 text-neutral-500" />
           </CardHeader>
           <CardContent>
             <div className="text-h2 text-indigo-600">
               {formatPercentage(data.overview.bookUtilizationRate)}
             </div>
-            <p className="text-caption text-gray-500 mt-1">
+            <p className="text-caption text-neutral-500 mt-1">
               {data.overview.availableBooks} доступно з {data.overview.totalBooks}
             </p>
-            <div className="w-full bg-gray-200 rounded-2xl h-2 mt-2">
+            <div className="w-full bg-neutral-200 rounded-2xl h-2 mt-2">
               <div 
                 className="bg-indigo-600 h-2 rounded-2xl transition-all duration-500" 
                 style={{ width: `${data.overview.bookUtilizationRate * 100}%` }}
@@ -297,16 +297,16 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
       </div>
 
       {/* Популярні книги */}
-      <Card className="rounded-2xl border-gray-200 shadow-sm">
+      <Card className="rounded-2xl border-neutral-200 shadow-sm">
         <CardHeader>
-          <CardTitle className="text-gray-900 flex items-center gap-2">
+          <CardTitle className="text-neutral-900 flex items-center gap-2">
             <Award className="size-5" />
             Популярні книги
           </CardTitle>
         </CardHeader>
         <CardContent>
           {data.popularBooks.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-neutral-500">
               <BookOpen className="size-12 mx-auto mb-3 opacity-50" />
               <p>Немає даних про популярність</p>
             </div>
@@ -315,25 +315,25 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
               {data.popularBooks.slice(0, 5).map((book, index) => (
                 <div
                   key={book.id}
-                  className="flex items-center justify-between p-4 border border-gray-200 rounded-xl hover:shadow-sm transition-shadow"
+                  className="flex items-center justify-between p-4 border border-neutral-200 rounded-xl hover:shadow-sm transition-shadow"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="flex items-center justify-center w-8 h-8 bg-brand-yellow text-white rounded-2xl font-bold text-sm">
+                    <div className="flex items-center justify-center w-8 h-8 bg-accent text-neutral-0 rounded-2xl font-bold text-sm">
                       {index + 1}
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900">{book.title}</h3>
-                      <p className="text-body-sm text-gray-600">{book.author} • {book.code}</p>
+                      <h3 className="font-semibold text-neutral-900">{book.title}</h3>
+                      <p className="text-body-sm text-neutral-600">{book.author} • {book.code}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 text-sm">
                     <div className="text-center">
-                      <div className="font-bold text-gray-900">{book.rental_count}</div>
-                      <div className="text-gray-500">оренд</div>
+                      <div className="font-bold text-neutral-900">{book.rental_count}</div>
+                      <div className="text-neutral-500">оренд</div>
                     </div>
                     <div className="text-center">
                       <div className="font-bold text-green-600">{formatCurrency(book.revenue)}</div>
-                      <div className="text-gray-500">дохід</div>
+                      <div className="text-neutral-500">дохід</div>
                     </div>
                     <div className="flex items-center gap-1">
                       <Zap className="size-4 text-yellow-500" />
@@ -348,16 +348,16 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
       </Card>
 
       {/* Топ користувачі */}
-      <Card className="rounded-2xl border-gray-200 shadow-sm">
+      <Card className="rounded-2xl border-neutral-200 shadow-sm">
         <CardHeader>
-          <CardTitle className="text-gray-900 flex items-center gap-2">
+          <CardTitle className="text-neutral-900 flex items-center gap-2">
             <Users className="size-5" />
             Топ користувачі
           </CardTitle>
         </CardHeader>
         <CardContent>
           {data.topUsers.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-neutral-500">
               <Users className="size-12 mx-auto mb-3 opacity-50" />
               <p>Немає даних про користувачів</p>
             </div>
@@ -366,27 +366,27 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
               {data.topUsers.slice(0, 5).map((user, index) => (
                 <div
                   key={user.id}
-                  className="flex items-center justify-between p-4 border border-gray-200 rounded-xl hover:shadow-sm transition-shadow"
+                  className="flex items-center justify-between p-4 border border-neutral-200 rounded-xl hover:shadow-sm transition-shadow"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="flex items-center justify-center w-8 h-8 bg-gray-100 text-gray-700 rounded-2xl font-bold text-sm">
+                    <div className="flex items-center justify-center w-8 h-8 bg-neutral-100 text-neutral-700 rounded-2xl font-bold text-sm">
                       {index + 1}
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900">{user.name}</h3>
-                      <p className="text-body-sm text-gray-600">{user.email}</p>
+                      <h3 className="font-semibold text-neutral-900">{user.name}</h3>
+                      <p className="text-body-sm text-neutral-600">{user.email}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 text-sm">
                     <div className="text-center">
-                      <div className="font-bold text-gray-900">{user.total_rentals}</div>
-                      <div className="text-gray-500">оренд</div>
+                      <div className="font-bold text-neutral-900">{user.total_rentals}</div>
+                      <div className="text-neutral-500">оренд</div>
                     </div>
                     <div className="text-center">
                       <div className="font-bold text-green-600">{formatCurrency(user.total_spent)}</div>
-                      <div className="text-gray-500">витрачено</div>
+                      <div className="text-neutral-500">витрачено</div>
                     </div>
-                    <div className="text-gray-500 text-xs">
+                    <div className="text-neutral-500 text-xs">
                       {new Date(user.last_activity).toLocaleDateString('uk-UA')}
                     </div>
                   </div>
@@ -398,16 +398,16 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
       </Card>
 
       {/* Остання активність */}
-      <Card className="rounded-2xl border-gray-200 shadow-sm">
+      <Card className="rounded-2xl border-neutral-200 shadow-sm">
         <CardHeader>
-          <CardTitle className="text-gray-900 flex items-center gap-2">
+          <CardTitle className="text-neutral-900 flex items-center gap-2">
             <Activity className="size-5" />
             Остання активність
           </CardTitle>
         </CardHeader>
         <CardContent>
           {data.recentActivity.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-neutral-500">
               <Activity className="size-12 mx-auto mb-3 opacity-50" />
               <p>Немає недавньої активності</p>
             </div>
@@ -416,7 +416,7 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
               {data.recentActivity.slice(0, 10).map((activity) => (
                 <div
                   key={activity.id}
-                  className="flex items-center justify-between p-3 border border-gray-200 rounded-lg"
+                  className="flex items-center justify-between p-3 border border-neutral-200 rounded-lg"
                 >
                   <div className="flex items-center gap-3">
                     <div className={`w-8 h-8 rounded-2xl flex items-center justify-center ${
@@ -431,8 +431,8 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
                        <CreditCard className="size-4" />}
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900">{activity.user_name}</p>
-                      <p className="text-body-sm text-gray-600">
+                      <p className="font-medium text-neutral-900">{activity.user_name}</p>
+                      <p className="text-body-sm text-neutral-600">
                         {activity.type === 'rental' ? 'Орендував' :
                          activity.type === 'return' ? 'Повернув' :
                          activity.type === 'subscription' ? 'Оновив підписку' :
@@ -447,7 +447,7 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
                         {formatCurrency(activity.amount)}
                       </p>
                     )}
-                    <p className="text-caption text-gray-500">
+                    <p className="text-caption text-neutral-500">
                       {new Date(activity.timestamp).toLocaleString('uk-UA')}
                     </p>
                   </div>
@@ -459,9 +459,9 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
       </Card>
 
       {/* Продуктивність системи */}
-      <Card className="rounded-2xl border-gray-200 shadow-sm">
+      <Card className="rounded-2xl border-neutral-200 shadow-sm">
         <CardHeader>
-          <CardTitle className="text-gray-900 flex items-center gap-2">
+          <CardTitle className="text-neutral-900 flex items-center gap-2">
             <Zap className="size-5" />
             Продуктивність системи
           </CardTitle>

@@ -57,7 +57,7 @@ export default function AbTestDetailsPage() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
           <h1 className="text-h1">{test.name}</h1>
-          <p className="text-gray-500">{test.description}</p>
+          <p className="text-neutral-500">{test.description}</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">
           <Link href="/admin/ab-tests">
@@ -71,10 +71,10 @@ export default function AbTestDetailsPage() {
         <div className="flex flex-wrap items-center gap-4">
           {getStatusBadge(test.status)}
           <div className="text-sm">
-            <span className="text-gray-500">Started:</span> {test.startDate}
+            <span className="text-neutral-500">Started:</span> {test.startDate}
           </div>
           <div className="text-sm">
-            <span className="text-gray-500">Ends:</span> {test.endDate}
+            <span className="text-neutral-500">Ends:</span> {test.endDate}
           </div>
         </div>
       </div>
@@ -113,10 +113,10 @@ export default function AbTestDetailsPage() {
                     </CardHeader>
                     <CardContent>
                       <div className="text-h1 text-center">{test.conversions.variantA.rate}%</div>
-                      <div className="text-center text-gray-500">Conversion Rate</div>
+                      <div className="text-center text-neutral-500">Conversion Rate</div>
                       <div className="mt-4 text-center">
                         <div className="text-h2 font-semibold">{test.conversions.variantA.count}</div>
-                        <div className="text-gray-500">Conversions</div>
+                        <div className="text-neutral-500">Conversions</div>
                       </div>
                     </CardContent>
                   </Card>
@@ -128,10 +128,10 @@ export default function AbTestDetailsPage() {
                     </CardHeader>
                     <CardContent>
                       <div className="text-h1 text-center text-green-600">{test.conversions.variantB.rate}%</div>
-                      <div className="text-center text-gray-500">Conversion Rate</div>
+                      <div className="text-center text-neutral-500">Conversion Rate</div>
                       <div className="mt-4 text-center">
                         <div className="text-h2 font-semibold">{test.conversions.variantB.count}</div>
-                        <div className="text-gray-500">Conversions</div>
+                        <div className="text-neutral-500">Conversions</div>
                       </div>
                     </CardContent>
                   </Card>
@@ -152,10 +152,10 @@ export default function AbTestDetailsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <h3 className="font-semibold mb-2">{test.conversions.variantA.name}</h3>
-                  <p className="text-gray-600 mb-4">{test.conversions.variantA.description}</p>
-                  <div className="bg-gray-100 p-4 rounded-lg">
+                  <p className="text-neutral-600 mb-4">{test.conversions.variantA.description}</p>
+                  <div className="bg-neutral-100 p-4 rounded-lg">
                     <div className="text-center">
-                      <div className="inline-block px-6 py-3 bg-brand-accent text-white rounded">
+                      <div className="inline-block px-6 py-3 bg-brand-accent text-neutral-0 rounded">
                         Call to Action
                       </div>
                     </div>
@@ -164,10 +164,10 @@ export default function AbTestDetailsPage() {
                 
                 <div>
                   <h3 className="font-semibold mb-2">{test.conversions.variantB.name}</h3>
-                  <p className="text-gray-600 mb-4">{test.conversions.variantB.description}</p>
-                  <div className="bg-gray-100 p-4 rounded-lg">
+                  <p className="text-neutral-600 mb-4">{test.conversions.variantB.description}</p>
+                  <div className="bg-neutral-100 p-4 rounded-lg">
                     <div className="text-center">
-                      <div className="inline-block px-6 py-3 bg-green-500 text-white rounded">
+                      <div className="inline-block px-6 py-3 bg-green-500 text-neutral-0 rounded">
                         Call to Action
                       </div>
                     </div>
@@ -186,18 +186,18 @@ export default function AbTestDetailsPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="p-4 bg-blue-50 rounded-lg">
-                <p className="text-body-sm text-gray-500">Participants</p>
+                <p className="text-body-sm text-neutral-500">Participants</p>
                 <p className="text-h2">{test.participants.toLocaleString()}</p>
               </div>
               
               <div className="p-4 bg-green-50 rounded-lg">
-                <p className="text-body-sm text-gray-500">Total Conversions</p>
+                <p className="text-body-sm text-neutral-500">Total Conversions</p>
                 <p className="text-h2">{test.conversions.variantA.count + test.conversions.variantB.count}</p>
               </div>
               
               {test.status === 'running' && (
                 <div className="p-4 bg-yellow-50 rounded-lg">
-                  <p className="text-body-sm text-gray-500">Days Remaining</p>
+                  <p className="text-body-sm text-neutral-500">Days Remaining</p>
                   <p className="text-h2">10</p>
                 </div>
               )}
@@ -231,7 +231,7 @@ export default function AbTestDetailsPage() {
                 </>
               )}
               
-              <Button className="w-full bg-red-500 hover:bg-red-600 text-white border-red-500" variant="outline">Delete Test</Button>
+              <Button className="w-full bg-red-500 hover:bg-red-600 text-neutral-0 border-red-500" variant="outline">Delete Test</Button>
             </CardContent>
           </Card>
         </div>

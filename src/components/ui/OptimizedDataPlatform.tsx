@@ -468,10 +468,10 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {Array.from({ length: 8 }).map((_, i) => (
             <div key={i} className="animate-pulse">
-              <div className="bg-gray-200 rounded-lg h-64 mb-4" />
+              <div className="bg-neutral-200 rounded-lg h-64 mb-4" />
               <div className="space-y-2">
-                <div className="h-4 bg-gray-200 rounded w-3/4" />
-                <div className="h-3 bg-gray-200 rounded w-1/2" />
+                <div className="h-4 bg-neutral-200 rounded w-3/4" />
+                <div className="h-3 bg-neutral-200 rounded w-1/2" />
               </div>
             </div>
           ))}
@@ -502,14 +502,14 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
               />
             </svg>
           </div>
-          <h3 className="text-body-lg font-medium text-gray-900 mb-2">
+          <h3 className="text-body-lg font-medium text-neutral-900 mb-2">
             Помилка завантаження
           </h3>
-          <p className="text-gray-500 mb-4">{error}</p>
+          <p className="text-neutral-500 mb-4">{error}</p>
           {onRetry && (
             <button
               onClick={onRetry}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-blue-600 text-neutral-0 rounded-md hover:bg-blue-700 transition-colors"
             >
               Спробувати знову
             </button>
@@ -521,9 +521,9 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
     if (!hasData) {
       return (
         <div className="text-center py-12">
-          <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-neutral-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <svg
-              className="w-8 h-8 text-gray-400"
+              className="w-8 h-8 text-neutral-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -536,10 +536,10 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
               />
             </svg>
           </div>
-          <h3 className="text-body-lg font-medium text-gray-900 mb-2">
+          <h3 className="text-body-lg font-medium text-neutral-900 mb-2">
             {emptyMessage}
           </h3>
-          <p className="text-gray-500">
+          <p className="text-neutral-500">
             Спробуйте змінити параметри пошуку
           </p>
         </div>
@@ -631,7 +631,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
 
           {/* Переключатель режима просмотра */}
           {settings.showViewMode && (
-            <div className="flex items-center gap-1 border border-gray-300 rounded-md">
+            <div className="flex items-center gap-1 border border-neutral-300 rounded-md">
               <PerformanceButton
                 variant={currentViewMode === 'grid' ? 'primary' : 'ghost'}
                 size="sm"
@@ -694,7 +694,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
 
           {/* Кнопка импорта */}
           {settings.showImport && onImport && (
-            <label className="flex items-center gap-2 px-3 py-2 text-body-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 cursor-pointer transition-colors">
+            <label className="flex items-center gap-2 px-3 py-2 text-body-sm font-medium text-neutral-700 bg-neutral-0 border border-neutral-300 rounded-md hover:bg-neutral-50 cursor-pointer transition-colors">
               <Upload className="w-4 h-4" />
               Імпорт
               <input
@@ -794,7 +794,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
               variant="ghost"
               size="sm"
               onClick={handleClearAll}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-neutral-500 hover:text-neutral-700"
             >
               Очистити все
             </PerformanceButton>
@@ -817,23 +817,23 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
 
       {/* Панель мониторинга */}
       {showMonitor && (
-        <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+        <div className="border border-neutral-200 rounded-lg p-4 bg-neutral-50">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="text-center">
               <div className="text-h2 text-blue-600">{performanceMetrics.renderTime.toFixed(2)}ms</div>
-              <div className="text-body-sm text-gray-500">Час рендерингу</div>
+              <div className="text-body-sm text-neutral-500">Час рендерингу</div>
             </div>
             <div className="text-center">
               <div className="text-h2 text-green-600">{performanceMetrics.dataSize}</div>
-              <div className="text-body-sm text-gray-500">Кількість елементів</div>
+              <div className="text-body-sm text-neutral-500">Кількість елементів</div>
             </div>
             <div className="text-center">
               <div className="text-h2 text-purple-600">{(performanceMetrics.memoryUsage / 1024 / 1024).toFixed(2)}MB</div>
-              <div className="text-body-sm text-gray-500">Використання пам&apos;яті</div>
+              <div className="text-body-sm text-neutral-500">Використання пам&apos;яті</div>
             </div>
             <div className="text-center">
               <div className="text-h2 text-orange-600">{performanceMetrics.cacheHitRate.toFixed(1)}%</div>
-              <div className="text-body-sm text-gray-500">Ефективність кешу</div>
+              <div className="text-body-sm text-neutral-500">Ефективність кешу</div>
             </div>
           </div>
         </div>
@@ -841,31 +841,31 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
 
       {/* Панель аналитики */}
       {showAnalytics && (
-        <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+        <div className="border border-neutral-200 rounded-lg p-4 bg-neutral-50">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="text-center">
               <div className="text-h2 text-blue-600">{analyticsData.totalViews}</div>
-              <div className="text-body-sm text-gray-500">Загальні перегляди</div>
+              <div className="text-body-sm text-neutral-500">Загальні перегляди</div>
             </div>
             <div className="text-center">
               <div className="text-h2 text-green-600">{analyticsData.searchQueries}</div>
-              <div className="text-body-sm text-gray-500">Пошукові запити</div>
+              <div className="text-body-sm text-neutral-500">Пошукові запити</div>
             </div>
             <div className="text-center">
               <div className="text-h2 text-purple-600">{analyticsData.filterUsage}</div>
-              <div className="text-body-sm text-gray-500">Використання фільтрів</div>
+              <div className="text-body-sm text-neutral-500">Використання фільтрів</div>
             </div>
             <div className="text-center">
               <div className="text-h2 text-orange-600">{analyticsData.exportCount}</div>
-              <div className="text-body-sm text-gray-500">Експорти</div>
+              <div className="text-body-sm text-neutral-500">Експорти</div>
             </div>
             <div className="text-center">
               <div className="text-h2 text-red-600">{analyticsData.importCount}</div>
-              <div className="text-body-sm text-gray-500">Імпорти</div>
+              <div className="text-body-sm text-neutral-500">Імпорти</div>
             </div>
             <div className="text-center">
-              <div className="text-h2 text-gray-600">{analyticsData.errorCount}</div>
-              <div className="text-body-sm text-gray-500">Помилки</div>
+              <div className="text-h2 text-neutral-600">{analyticsData.errorCount}</div>
+              <div className="text-body-sm text-neutral-500">Помилки</div>
             </div>
           </div>
         </div>
@@ -873,11 +873,11 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
 
       {/* Панель оптимизации */}
       {showOptimize && (
-        <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+        <div className="border border-neutral-200 rounded-lg p-4 bg-neutral-50">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Zap className="w-5 h-5 text-yellow-500" />
-              <h3 className="text-body-lg font-medium text-gray-900">Рекомендації з оптимізації</h3>
+              <h3 className="text-body-lg font-medium text-neutral-900">Рекомендації з оптимізації</h3>
             </div>
             
             {optimizationSuggestions.length > 0 ? (
@@ -894,7 +894,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
                 <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-2">
                   <Zap className="w-6 h-6 text-green-500" />
                 </div>
-                <p className="text-body-sm text-gray-500">Система оптимізована</p>
+                <p className="text-body-sm text-neutral-500">Система оптимізована</p>
               </div>
             )}
           </div>
@@ -903,11 +903,11 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
 
       {/* Панель безопасности */}
       {showSecurity && (
-        <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+        <div className="border border-neutral-200 rounded-lg p-4 bg-neutral-50">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Shield className="w-5 h-5 text-blue-500" />
-              <h3 className="text-body-lg font-medium text-gray-900">Статус безпеки</h3>
+              <h3 className="text-body-lg font-medium text-neutral-900">Статус безпеки</h3>
             </div>
             
             {securityAlerts.length > 0 ? (
@@ -924,7 +924,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
                 <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-2">
                   <Shield className="w-6 h-6 text-green-500" />
                 </div>
-                <p className="text-body-sm text-gray-500">Система безпечна</p>
+                <p className="text-body-sm text-neutral-500">Система безпечна</p>
               </div>
             )}
           </div>
@@ -933,11 +933,11 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
 
       {/* Панель приватности */}
       {showPrivacy && (
-        <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+        <div className="border border-neutral-200 rounded-lg p-4 bg-neutral-50">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <Lock className="w-5 h-5 text-purple-500" />
-              <h3 className="text-body-lg font-medium text-gray-900">Статус приватності</h3>
+              <h3 className="text-body-lg font-medium text-neutral-900">Статус приватності</h3>
             </div>
             
             {privacyAlerts.length > 0 ? (
@@ -954,7 +954,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
                 <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-2">
                   <Lock className="w-6 h-6 text-green-500" />
                 </div>
-                <p className="text-body-sm text-gray-500">Приватність захищена</p>
+                <p className="text-body-sm text-neutral-500">Приватність захищена</p>
               </div>
             )}
           </div>
@@ -963,16 +963,16 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
 
       {/* Панель настроек */}
       {showSettings && (
-        <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+        <div className="border border-neutral-200 rounded-lg p-4 bg-neutral-50">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
-              <label className="block text-body-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-neutral-700 mb-2">
                 Режим просмотра
               </label>
               <select
                 value={currentViewMode}
                 onChange={(e) => handleViewModeChange(e.target.value as 'grid' | 'list' | 'table')}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="grid">Сітка</option>
                 <option value="list">Список</option>
@@ -981,7 +981,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
             </div>
             
             <div>
-              <label className="block text-body-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-neutral-700 mb-2">
                 Розмір сторінки
               </label>
               <select
@@ -989,7 +989,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
                 onChange={() => {
                   // Обработка изменения размера страницы
                 }}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value={10}>10</option>
                 <option value={20}>20</option>
@@ -999,7 +999,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
             </div>
             
             <div>
-              <label className="block text-body-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-neutral-700 mb-2">
                 Виртуализация
               </label>
               <select
@@ -1007,7 +1007,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
                 onChange={() => {
                   // Обработка включения/выключения виртуализации
                 }}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="disabled">Вимкнено</option>
                 <option value="enabled">Увімкнено</option>
@@ -1019,7 +1019,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
 
       {/* Панель фильтров */}
       {hasFilters && showFiltersPanel && (
-        <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+        <div className="border border-neutral-200 rounded-lg p-4 bg-neutral-50">
           <OptimizedFilters
             filters={filters}
             values={filterValues}

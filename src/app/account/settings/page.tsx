@@ -87,7 +87,7 @@ export default function AccountSettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <Label>Email Notifications</Label>
-                  <p className="text-body-sm text-gray-500">Receive notifications via email</p>
+                  <p className="text-body-sm text-neutral-500">Receive notifications via email</p>
                 </div>
                 <Switch
                   checked={notifications.email}
@@ -99,7 +99,7 @@ export default function AccountSettingsPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <Label>Push Notifications</Label>
-                    <p className="text-body-sm text-gray-500">Receive push notifications on your device</p>
+                    <p className="text-body-sm text-neutral-500">Receive push notifications on your device</p>
                   </div>
                   <Switch
                     checked={notifications.push}
@@ -117,7 +117,7 @@ export default function AccountSettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <Label>SMS Notifications</Label>
-                  <p className="text-body-sm text-gray-500">Receive text messages</p>
+                  <p className="text-body-sm text-neutral-500">Receive text messages</p>
                 </div>
                 <Switch
                   checked={notifications.sms}
@@ -139,7 +139,7 @@ export default function AccountSettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <Label>Profile Visibility</Label>
-                  <p className="text-body-sm text-gray-500">Allow others to view your profile</p>
+                  <p className="text-body-sm text-neutral-500">Allow others to view your profile</p>
                 </div>
                 <Switch
                   checked={privacy.profileVisible}
@@ -150,7 +150,7 @@ export default function AccountSettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <Label>Reading Activity</Label>
-                  <p className="text-body-sm text-gray-500">Show your reading activity to others</p>
+                  <p className="text-body-sm text-neutral-500">Show your reading activity to others</p>
                 </div>
                 <Switch
                   checked={privacy.showReadingActivity}
@@ -172,7 +172,7 @@ export default function AccountSettingsPage() {
               <p className="mb-4">
                 Once you delete your account, there is no going back. Please be certain.
               </p>
-              <Button variant="outline" className="bg-red-500 hover:bg-red-600 text-white border-red-500">Delete Account</Button>
+              <Button variant="outline" className="bg-red-500 hover:bg-red-600 text-neutral-0 border-red-500">Delete Account</Button>
             </CardContent>
           </Card>
         </div>

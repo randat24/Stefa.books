@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { logger } from '@/lib/logger';
 
-export async function GET(request: NextRequest): Promise<Response> {
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     
@@ -290,7 +290,7 @@ export async function GET(request: NextRequest): Promise<Response> {
 }
 
 // Получение одной книги по ID
-export async function POST(request: NextRequest): Promise<Response> {
+export async function POST(request: NextRequest) {
   try {
     const { id } = await request.json();
     

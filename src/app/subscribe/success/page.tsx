@@ -22,40 +22,40 @@ export default function SubscribeSuccessPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-neutral-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-yellow mx-auto mb-4"></div>
-          <p className="text-gray-600">Обробляємо вашу заявку...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto mb-4"></div>
+          <p className="text-neutral-600">Обробляємо вашу заявку...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
+    <div className="min-h-screen bg-neutral-50 flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full">
-        <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
+        <div className="bg-neutral-0 rounded-2xl shadow-lg p-8 text-center">
           {/* Иконка успеха */}
           <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
             <CheckCircle className="w-8 h-8 text-green-600" />
           </div>
 
           {/* Заголовок */}
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+          <h1 className="text-2xl font-bold text-neutral-900 mb-4">
             Заявку успішно надіслано!
           </h1>
 
           {/* Описание */}
           <div className="space-y-4 mb-8">
-            <p className="text-gray-600">
+            <p className="text-neutral-600">
               Дякуємо за ваш інтерес до нашої бібліотеки! 
               Ми отримали вашу заявку на підписку.
             </p>
             
             {requestId && (
-              <div className="bg-gray-50 rounded-lg p-4">
-                <p className="text-sm text-gray-500 mb-1">Номер заявки:</p>
-                <p className="font-mono text-sm text-gray-800">{requestId}</p>
+              <div className="bg-neutral-50 rounded-lg p-4">
+                <p className="text-sm text-neutral-500 mb-1">Номер заявки:</p>
+                <p className="font-mono text-sm text-neutral-800">{requestId}</p>
               </div>
             )}
 
@@ -71,7 +71,7 @@ export default function SubscribeSuccessPage() {
 
           {/* Кнопки действий */}
           <div className="space-y-3">
-            <Button asChild className="w-full bg-brand-yellow hover:bg-brand-yellow-dark text-gray-900">
+            <Button asChild className="w-full bg-accent hover:bg-accent-dark text-neutral-900">
               <Link href="/catalog">
                 Переглянути каталог книг
               </Link>
@@ -86,9 +86,9 @@ export default function SubscribeSuccessPage() {
           </div>
 
           {/* Контактная информация */}
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <p className="text-sm text-gray-500 mb-2">Маєте питання?</p>
-            <div className="space-y-1 text-sm text-gray-600">
+          <div className="mt-8 pt-6 border-t border-neutral-200">
+            <p className="text-sm text-neutral-500 mb-2">Маєте питання?</p>
+            <div className="space-y-1 text-sm text-neutral-600">
               <p>📧 Email: info@stefa.books.com.ua</p>
               <p>📱 Telegram: @stefa_books</p>
             </div>

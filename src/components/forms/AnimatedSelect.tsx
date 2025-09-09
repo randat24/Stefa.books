@@ -74,10 +74,10 @@ export function AnimatedSelect({
             ${hasError 
               ? "border-red-300 focus:ring-red-500 focus:border-red-500" 
               : isFocused
-              ? "border-brand-yellow focus:ring-brand-yellow focus:border-brand-yellow"
-              : "border-gray-300 focus:ring-brand-yellow focus:border-brand-yellow"
+              ? "border-accent focus:ring-accent focus:border-accent"
+              : "border-neutral-300 focus:ring-accent focus:border-accent"
             }
-            ${disabled ? "bg-gray-100 cursor-not-allowed" : "bg-white"}
+            ${disabled ? "bg-neutral-100 cursor-not-allowed" : "bg-neutral-0"}
           `}
           whileHover={!disabled ? { scale: 1.01 } : {}}
           whileTap={!disabled ? { scale: 0.99 } : {}}
@@ -93,8 +93,8 @@ export function AnimatedSelect({
               ${hasError 
                 ? "text-red-600" 
                 : isFocused
-                ? "text-brand-yellow"
-                : "text-gray-500"
+                ? "text-accent"
+                : "text-neutral-500"
               }
             `}
             animate={{
@@ -107,13 +107,13 @@ export function AnimatedSelect({
           </motion.label>
 
           {/* Selected Value */}
-          <div className="text-gray-900">
+          <div className="text-neutral-900">
             {selectedOption ? selectedOption.label : placeholder}
           </div>
 
           {/* Dropdown Icon */}
           <motion.div
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400"
             animate={{ rotate: isOpen ? 180 : 0 }}
             transition={{ duration: 0.2 }}
           >
@@ -136,7 +136,7 @@ export function AnimatedSelect({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+              className="absolute z-50 w-full mt-1 bg-neutral-0 border border-neutral-200 rounded-lg shadow-lg max-h-60 overflow-y-auto"
             >
               {options.map((option, index) => (
                 <motion.div
@@ -149,10 +149,10 @@ export function AnimatedSelect({
                     px-4 py-3 cursor-pointer transition-colors duration-150
                     flex items-center justify-between
                     ${option.disabled
-                      ? "text-gray-400 cursor-not-allowed"
-                      : "hover:bg-gray-50 text-gray-900"
+                      ? "text-neutral-400 cursor-not-allowed"
+                      : "hover:bg-neutral-50 text-neutral-900"
                     }
-                    ${value === option.value ? "bg-brand-yellow/10" : ""}
+                    ${value === option.value ? "bg-accent/10" : ""}
                   `}
                   whileHover={!option.disabled ? {
                     backgroundColor: "rgba(0, 0, 0, 0.05)"
@@ -165,7 +165,7 @@ export function AnimatedSelect({
                       animate={{ scale: 1 }}
                       transition={{ delay: 0.1 }}
                     >
-                      <Check className="w-4 h-4 text-brand-yellow" />
+                      <Check className="w-4 h-4 text-accent" />
                     </motion.div>
                   )}
                 </motion.div>

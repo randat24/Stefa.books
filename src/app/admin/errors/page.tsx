@@ -101,9 +101,9 @@ export default function ErrorMonitoringPage() {
     switch (severity) {
       case 'critical': return <XCircle className="h-4 w-4 text-red-500" />;
       case 'high': return <AlertTriangle className="h-4 w-4 text-orange-500" />;
-      case 'medium': return <AlertCircle className="h-4 w-4 text-brand-yellow" />;
+      case 'medium': return <AlertCircle className="h-4 w-4 text-accent" />;
       case 'low': return <Info className="h-4 w-4 text-brand-accent" />;
-      default: return <AlertCircle className="h-4 w-4 text-gray-500" />;
+      default: return <AlertCircle className="h-4 w-4 text-neutral-500" />;
     }
   };
 
@@ -130,7 +130,7 @@ export default function ErrorMonitoringPage() {
     return (
       <div className="container py-8">
         <div className="flex items-center justify-center h-64">
-          <RefreshCw className="h-8 w-8 animate-spin text-gray-400" />
+          <RefreshCw className="h-8 w-8 animate-spin text-neutral-400" />
         </div>
       </div>
     );
@@ -141,7 +141,7 @@ export default function ErrorMonitoringPage() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <div>
           <h1 className="text-h1">Error Monitoring</h1>
-          <p className="text-gray-500">Track and analyze application errors</p>
+          <p className="text-neutral-500">Track and analyze application errors</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">
           <Button onClick={fetchErrorData} variant="outline">
@@ -206,7 +206,7 @@ export default function ErrorMonitoringPage() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-body-sm font-medium">Medium</CardTitle>
-              <AlertCircle className="h-4 w-4 text-brand-yellow" />
+              <AlertCircle className="h-4 w-4 text-accent" />
             </CardHeader>
             <CardContent>
               <div className="text-h2">
@@ -240,11 +240,11 @@ export default function ErrorMonitoringPage() {
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-400" />
                 <input
                   type="text"
                   placeholder="Search errors by message, type, or ID..."
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-brand-accent focus:border-brand-accent"
+                  className="w-full pl-10 pr-4 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-brand-accent focus:border-brand-accent"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -302,9 +302,9 @@ export default function ErrorMonitoringPage() {
         <CardContent>
           {filteredErrors.length === 0 ? (
             <div className="text-center py-12">
-              <AlertCircle className="mx-auto h-12 w-12 text-gray-400" />
-              <h3 className="mt-2 text-body-sm font-medium text-gray-900">No errors found</h3>
-              <p className="mt-1 text-body-sm text-gray-500">
+              <AlertCircle className="mx-auto h-12 w-12 text-neutral-400" />
+              <h3 className="mt-2 text-body-sm font-medium text-neutral-900">No errors found</h3>
+              <p className="mt-1 text-body-sm text-neutral-500">
                 {searchTerm || filter !== 'all' 
                   ? 'No errors match your current filters.' 
                   : 'No errors have been tracked yet.'}
@@ -313,7 +313,7 @@ export default function ErrorMonitoringPage() {
           ) : (
             <div className="space-y-4">
               {filteredErrors.map((error) => (
-                <div key={error.id} className="border rounded-lg p-4 hover:bg-gray-50">
+                <div key={error.id} className="border rounded-lg p-4 hover:bg-neutral-50">
                   <div className="flex items-start justify-between">
                     <div className="flex items-start gap-3">
                       {getSeverityIcon(error.severity)}
@@ -327,18 +327,18 @@ export default function ErrorMonitoringPage() {
                             {error.category}
                           </Badge>
                         </div>
-                        <p className="text-body-sm text-gray-600 mt-1">{error.message}</p>
+                        <p className="text-body-sm text-neutral-600 mt-1">{error.message}</p>
                         <div className="flex flex-wrap gap-2 mt-2">
-                          <span className="text-caption text-gray-500">
+                          <span className="text-caption text-neutral-500">
                             First: {error.firstOccurred ? new Date(error.firstOccurred).toLocaleString() : 'N/A'}
                           </span>
-                          <span className="text-caption text-gray-500">
+                          <span className="text-caption text-neutral-500">
                             Last: {error.lastOccurred ? new Date(error.lastOccurred).toLocaleString() : 'N/A'}
                           </span>
-                          <span className="text-caption text-gray-500">
+                          <span className="text-caption text-neutral-500">
                             Count: {error.count}
                           </span>
-                          <span className="text-caption text-gray-500">
+                          <span className="text-caption text-neutral-500">
                             ID: {error.id}
                           </span>
                         </div>
@@ -347,17 +347,17 @@ export default function ErrorMonitoringPage() {
                   </div>
                   
                   {error.context?.url && (
-                    <div className="mt-2 text-caption text-gray-500">
+                    <div className="mt-2 text-caption text-neutral-500">
                       URL: {error.context.url}
                     </div>
                   )}
                   
                   {error.metadata && Object.keys(error.metadata).length > 0 && (
                     <details className="mt-2">
-                      <summary className="text-caption text-gray-500 cursor-pointer">
+                      <summary className="text-caption text-neutral-500 cursor-pointer">
                         Metadata ({Object.keys(error.metadata).length} items)
                       </summary>
-                      <pre className="mt-2 text-caption bg-gray-100 p-2 rounded overflow-x-auto">
+                      <pre className="mt-2 text-caption bg-neutral-100 p-2 rounded overflow-x-auto">
                         {JSON.stringify(error.metadata, null, 2)}
                       </pre>
                     </details>

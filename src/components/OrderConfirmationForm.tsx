@@ -94,10 +94,10 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
         <div className="w-16 h-16 mx-auto bg-green-100 rounded-2xl flex items-center justify-center mb-6">
           <CheckCircle className="h-8 w-8 text-green-600" />
         </div>
-        <h3 className="text-h2 text-gray-900 mb-2">
+        <h3 className="text-h2 text-neutral-900 mb-2">
           Замовлення оформлено!
         </h3>
-        <p className="text-gray-600 mb-6">
+        <p className="text-neutral-600 mb-6">
           Ми надіслали підтвердження на вашу електронну пошту. 
           Найближчим часом з вами зв&apos;яжеться наш менеджер.
         </p>
@@ -116,23 +116,23 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
   return (
     <div className="space-y-8">
       {/* Order Summary */}
-      <div className="card p-6 bg-gray-50">
-        <h3 className="text-body-lg font-semibold text-gray-900 mb-4">
+      <div className="card p-6 bg-neutral-50">
+        <h3 className="text-body-lg font-semibold text-neutral-900 mb-4">
           Деталі замовлення
         </h3>
         <div className="grid md:grid-cols-3 gap-4 text-sm">
           <div>
-            <span className="text-gray-600">Книга:</span>
+            <span className="text-neutral-600">Книга:</span>
             <p className="font-medium">{book.title}</p>
-            <p className="text-gray-600">{book.author}</p>
+            <p className="text-neutral-600">{book.author}</p>
           </div>
           <div>
-            <span className="text-gray-600">Тариф:</span>
+            <span className="text-neutral-600">Тариф:</span>
             <p className="font-medium">{plan.name}</p>
             <p className="text-brand-accent-light font-semibold">{plan.price} ₴/міс</p>
           </div>
           <div>
-            <span className="text-gray-600">Доставка:</span>
+            <span className="text-neutral-600">Доставка:</span>
             <p className="font-medium">{deliveryMethodNames[deliveryMethod]}</p>
             <p className="text-green-600">Безкоштовно</p>
           </div>
@@ -143,21 +143,21 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Personal Information */}
         <div className="card p-6">
-          <h3 className="text-body-lg font-semibold text-gray-900 mb-4 flex items-center">
+          <h3 className="text-body-lg font-semibold text-neutral-900 mb-4 flex items-center">
             <User className="h-5 w-5 mr-2" />
             Особисті дані
           </h3>
           
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-body-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-neutral-700 mb-2">
                 Ім&apos;я *
               </label>
               <input
                 type="text"
                 {...register("firstName")}
                 className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
-                  errors.firstName ? "border-red-300" : "border-gray-300"
+                  errors.firstName ? "border-red-300" : "border-neutral-300"
                 }`}
                 placeholder="Ваше ім'я"
               />
@@ -170,14 +170,14 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
             </div>
 
             <div>
-              <label className="block text-body-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-neutral-700 mb-2">
                 Прізвище *
               </label>
               <input
                 type="text"
                 {...register("lastName")}
                 className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
-                  errors.lastName ? "border-red-300" : "border-gray-300"
+                  errors.lastName ? "border-red-300" : "border-neutral-300"
                 }`}
                 placeholder="Ваше прізвище"
               />
@@ -193,21 +193,21 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
 
         {/* Contact Information */}
         <div className="card p-6">
-          <h3 className="text-body-lg font-semibold text-gray-900 mb-4 flex items-center">
+          <h3 className="text-body-lg font-semibold text-neutral-900 mb-4 flex items-center">
             <Mail className="h-5 w-5 mr-2" />
             Контактна інформація
           </h3>
           
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-body-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-neutral-700 mb-2">
                 Електронна пошта *
               </label>
               <input
                 type="email"
                 {...register("email")}
                 className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
-                  errors.email ? "border-red-300" : "border-gray-300"
+                  errors.email ? "border-red-300" : "border-neutral-300"
                 }`}
                 placeholder="your@email.com"
               />
@@ -220,14 +220,14 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
             </div>
 
             <div>
-              <label className="block text-body-sm font-medium text-gray-700 mb-2">
+              <label className="block text-body-sm font-medium text-neutral-700 mb-2">
                 Номер телефону *
               </label>
               <input
                 type="tel"
                 {...register("phone")}
                 className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
-                  errors.phone ? "border-red-300" : "border-gray-300"
+                  errors.phone ? "border-red-300" : "border-neutral-300"
                 }`}
                 placeholder="+380 XX XXX XX XX"
               />
@@ -244,7 +244,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
         {/* Delivery Address */}
         {deliveryMethod !== "pickup" && (
           <div className="card p-6">
-            <h3 className="text-body-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <h3 className="text-body-lg font-semibold text-neutral-900 mb-4 flex items-center">
               <MapPin className="h-5 w-5 mr-2" />
               {deliveryMethod === "courier" ? "Адреса доставки" : "Відділення Нової Пошти"}
             </h3>
@@ -252,14 +252,14 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
             {deliveryMethod === "courier" && (
               <div className="space-y-4">
                 <div>
-                  <label className="block text-body-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-body-sm font-medium text-neutral-700 mb-2">
                     Місто *
                   </label>
                   <input
                     type="text"
                     {...register("city")}
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
-                      errors.city ? "border-red-300" : "border-gray-300"
+                      errors.city ? "border-red-300" : "border-neutral-300"
                     }`}
                     placeholder="Київ"
                   />
@@ -272,14 +272,14 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                 </div>
 
                 <div>
-                  <label className="block text-body-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-body-sm font-medium text-neutral-700 mb-2">
                     Повна адреса *
                   </label>
                   <textarea
                     {...register("address")}
                     rows={3}
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
-                      errors.address ? "border-red-300" : "border-gray-300"
+                      errors.address ? "border-red-300" : "border-neutral-300"
                     }`}
                     placeholder="вул. Хрещатик, 1, кв. 10"
                   />
@@ -296,14 +296,14 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
             {deliveryMethod === "post" && (
               <div className="space-y-4">
                 <div>
-                  <label className="block text-body-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-body-sm font-medium text-neutral-700 mb-2">
                     Місто *
                   </label>
                   <input
                     type="text"
                     {...register("city")}
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
-                      errors.city ? "border-red-300" : "border-gray-300"
+                      errors.city ? "border-red-300" : "border-neutral-300"
                     }`}
                     placeholder="Київ"
                   />
@@ -316,14 +316,14 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
                 </div>
 
                 <div>
-                  <label className="block text-body-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-body-sm font-medium text-neutral-700 mb-2">
                     Номер відділення *
                   </label>
                   <input
                     type="text"
                     {...register("novaPoshtaNumber")}
                     className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
-                      errors.novaPoshtaNumber ? "border-red-300" : "border-gray-300"
+                      errors.novaPoshtaNumber ? "border-red-300" : "border-neutral-300"
                     }`}
                     placeholder="№1, №2, №15..."
                   />
@@ -346,9 +346,9 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
               <input
                 type="checkbox"
                 {...register("agreeToTerms")}
-                className="mt-1 h-4 w-4 text-brand-accent-light border-gray-300 rounded focus:ring-brand-accent"
+                className="mt-1 h-4 w-4 text-brand-accent-light border-neutral-300 rounded focus:ring-brand-accent"
               />
-              <span className="text-body-sm text-gray-700">
+              <span className="text-body-sm text-neutral-700">
                 Я погоджуюся з{" "}
                 <a href="#" className="text-brand-accent-light hover:underline">
                   умовами використання
@@ -371,9 +371,9 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
               <input
                 type="checkbox"
                 {...register("subscribeToNewsletter")}
-                className="mt-1 h-4 w-4 text-brand-accent-light border-gray-300 rounded focus:ring-brand-accent"
+                className="mt-1 h-4 w-4 text-brand-accent-light border-neutral-300 rounded focus:ring-brand-accent"
               />
-              <span className="text-body-sm text-gray-700">
+              <span className="text-body-sm text-neutral-700">
                 Я хочу отримувати новини про нові книги та спеціальні пропозиції
               </span>
             </label>

@@ -120,7 +120,7 @@ const OptimizedModal = memo(function OptimizedModal({
       <div
         ref={modalRef}
         className={cn(
-          'relative bg-white rounded-lg shadow-xl w-full',
+          'relative bg-neutral-0 rounded-lg shadow-xl w-full',
           modalSizes[size],
           className
         )}
@@ -128,9 +128,9 @@ const OptimizedModal = memo(function OptimizedModal({
       >
         {/* Header */}
         {(title || showCloseButton) && (
-          <div className="flex items-center justify-between p-6 border-b border-gray-200">
+          <div className="flex items-center justify-between p-6 border-b border-neutral-200">
             {title && (
-              <h2 id="modal-title" className="text-body-lg font-semibold text-gray-900">
+              <h2 id="modal-title" className="text-body-lg font-semibold text-neutral-900">
                 {title}
               </h2>
             )}

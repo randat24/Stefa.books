@@ -33,7 +33,7 @@ export default function UserAnalyticsPage() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
           <h1 className="text-h1">User Analytics</h1>
-          <p className="text-gray-500">Detailed insights into user behavior and growth</p>
+          <p className="text-neutral-500">Detailed insights into user behavior and growth</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">
           <Link href="/admin/analytics">
@@ -102,7 +102,7 @@ export default function UserAnalyticsPage() {
                     className="w-full bg-brand-accent rounded-t hover:bg-brand-accent-light transition-colors"
                     style={{ height: `${(data.users / 1200) * 200}px` }}
                   ></div>
-                  <div className="text-caption mt-2 text-gray-500">{data.month}</div>
+                  <div className="text-caption mt-2 text-neutral-500">{data.month}</div>
                 </div>
               ))}
             </div>
@@ -122,8 +122,8 @@ export default function UserAnalyticsPage() {
               {mockUserAnalytics.topUsers.map((user) => (
                 <div key={user.id} className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <div className="mr-3 h-10 w-10 rounded-2xl bg-gray-200 flex items-center justify-center">
-                      <span className="font-medium text-gray-700">
+                    <div className="mr-3 h-10 w-10 rounded-2xl bg-neutral-200 flex items-center justify-center">
+                      <span className="font-medium text-neutral-700">
                         {user.name.split(' ').map(n => n[0]).join('')}
                       </span>
                     </div>

@@ -63,7 +63,7 @@ export default function LazyButton({
       )}
       
       {LazyIcon && !loading && (
-        <Suspense fallback={<div className="w-4 h-4 bg-gray-300 rounded animate-pulse" />}>
+        <Suspense fallback={<div className="w-4 h-4 bg-neutral-300 rounded animate-pulse" />}>
           <LazyIcon className="w-4 h-4" />
         </Suspense>
       )}

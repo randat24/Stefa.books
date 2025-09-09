@@ -4,18 +4,20 @@ const USE_FREE_MODEL = !process.env.ANTHROPIC_API_KEY || process.env.USE_FREE_MO
 let anthropic: any = null;
 let groq: any = null;
 
-if (!USE_FREE_MODEL) {
-  const Anthropic = require('@anthropic-ai/sdk');
-  anthropic = new Anthropic({
-    apiKey: process.env.ANTHROPIC_API_KEY,
-  });
-} else {
-  // Инициализируем бесплатный Groq API
-  const { Groq } = require('groq-sdk');
-  groq = new Groq({
-    // Groq имеет бесплатный тариф без ключа для многих моделей
-    apiKey: process.env.GROQ_API_KEY || 'free-tier', 
-  });
+async function initializeClients() {
+  if (!USE_FREE_MODEL && !anthropic) {
+    const Anthropic = (await import('@anthropic-ai/sdk')).default;
+    anthropic = new Anthropic({
+      apiKey: process.env.ANTHROPIC_API_KEY,
+    });
+  } else if (USE_FREE_MODEL && !groq) {
+    // Инициализируем бесплатный Groq API
+    const { Groq } = await import('groq-sdk');
+    groq = new Groq({
+      // Groq имеет бесплатный тариф без ключа для многих моделей
+      apiKey: process.env.GROQ_API_KEY || 'free-tier', 
+    });
+  }
 }
 
 // Модели для разных провайдеров
@@ -61,7 +63,7 @@ export interface ClaudeRequest {
     role: 'user' | 'assistant';
     content: string;
   }>;
-  model?: ClaudeModel;
+  model?: AIModel;
   max_tokens?: number;
   temperature?: number;
   thinking?: boolean;
@@ -86,6 +88,8 @@ export async function callClaude({
   thinking = false,
 }: ClaudeRequest): Promise<ClaudeResponse> {
   try {
+    // Инициализируем клиенты при первом вызове
+    await initializeClients();
     // Определяем, используем ли бесплатную модель
     const isGroqModel = USE_FREE_MODEL || model.includes('llama') || model.includes('mixtral') || model.includes('gemma');
 
@@ -207,7 +211,7 @@ export async function callClaude({
 export async function generateText(
   prompt: string,
   systemPrompt?: string,
-  model: ClaudeModel = DEFAULT_MODEL
+  model: AIModel = DEFAULT_MODEL
 ): Promise<string> {
   const response = await callClaude({
     system: systemPrompt,
@@ -221,7 +225,7 @@ export async function generateText(
 export async function analyzeContent(
   content: string,
   analysisType: 'summary' | 'translate' | 'improve' | 'analyze' = 'analyze',
-  model: ClaudeModel = DEFAULT_MODEL
+  model: AIModel = DEFAULT_MODEL
 ): Promise<string> {
   const systemPrompts = {
     summary: 'Создай краткое резюме предоставленного контента на украинском языке.',

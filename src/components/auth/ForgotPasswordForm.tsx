@@ -54,11 +54,11 @@ export function ForgotPasswordForm({ onBackToLogin }: ForgotPasswordFormProps) {
             <CheckCircle className="w-6 h-6 text-green-600" />
           </div>
           
-          <p className="text-gray-600">
+          <p className="text-neutral-600">
             Ми надіслали інструкції зі скидання пароля на вашу електронну пошту.
           </p>
           
-          <p className="text-body-sm text-gray-500">
+          <p className="text-body-sm text-neutral-500">
             Якщо ви не отримали листа, перевірте папку &quot;Спам&quot;.
           </p>
         </CardContent>

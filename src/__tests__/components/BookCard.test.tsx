@@ -254,7 +254,7 @@ describe('BookCard Component', () => {
 
       // Check that image container has proper classes for loading
       const imageContainer = screen.getByAltText('Test Book Title').closest('div');
-      expect(imageContainer).toHaveClass('bg-gray-100');
+      expect(imageContainer).toHaveClass('bg-neutral-100');
     });
 
     it('should handle long titles gracefully', () => {

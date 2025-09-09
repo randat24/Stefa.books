@@ -264,16 +264,16 @@ export function EnhancedSearch({ onSearchResults }: EnhancedSearchProps) {
       <div className="space-y-4">
         {/* Search Input */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400" />
           <input
             type="text"
             placeholder="Пошук за назвою, автором або описом..."
             value={query}
             onChange={(e) => handleSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
+            className="w-full pl-10 pr-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
           />
           {isSearching && (
-            <Loader2 className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 animate-spin text-gray-400" />
+            <Loader2 className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 animate-spin text-neutral-400" />
           )}
         </div>
 
@@ -301,7 +301,7 @@ export function EnhancedSearch({ onSearchResults }: EnhancedSearchProps) {
             )}
           </div>
 
-          <div className="text-body-sm text-gray-600">
+          <div className="text-body-sm text-neutral-600">
             Знайдено {totalBooks} книг
           </div>
         </div>
@@ -399,8 +399,8 @@ export function EnhancedSearch({ onSearchResults }: EnhancedSearchProps) {
           {error}
         </div>
       ) : displayedBooks.length === 0 ? (
-        <div className="text-center py-12 text-gray-600">
-          <Search className="h-12 w-12 mx-auto mb-4 text-gray-400" />
+        <div className="text-center py-12 text-neutral-600">
+          <Search className="h-12 w-12 mx-auto mb-4 text-neutral-400" />
           <h3 className="text-body-lg font-medium mb-2">Книги не знайдено</h3>
           <p className="text-sm">
             {query ? `За запитом "${query}" нічого не знайдено` : 'Спробуйте змінити фільтри'}

@@ -48,11 +48,11 @@ export default function HealthPage() {
       case 'healthy':
         return 'text-green-600';
       case 'degraded':
-        return 'text-brand-yellow-dark';
+        return 'text-accent-dark';
       case 'unhealthy':
         return 'text-red-600';
       default:
-        return 'text-gray-600';
+        return 'text-neutral-600';
     }
   };
 
@@ -71,7 +71,7 @@ export default function HealthPage() {
           Unhealthy
         </span>;
       default:
-        return <span className="inline-flex items-center px-2.5 py-0.5 rounded-2xl text-caption font-medium bg-gray-100 text-gray-800">
+        return <span className="inline-flex items-center px-2.5 py-0.5 rounded-2xl text-caption font-medium bg-neutral-100 text-neutral-800">
           Unknown
         </span>;
     }
@@ -82,7 +82,7 @@ export default function HealthPage() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <div>
           <h1 className="text-h1">System Health</h1>
-          <p className="text-gray-500">Monitor the status of all system services</p>
+          <p className="text-neutral-500">Monitor the status of all system services</p>
         </div>
         <Button onClick={refreshHealth} disabled={loading}>
           {loading ? 'Refreshing...' : 'Refresh Status'}
@@ -105,7 +105,7 @@ export default function HealthPage() {
           </div>
         </CardHeader>
         <CardContent>
-          <div className="text-body-sm text-gray-500">
+          <div className="text-body-sm text-neutral-500">
             Last updated: {new Date(healthData.timestamp).toLocaleString()}
           </div>
         </CardContent>
@@ -126,7 +126,7 @@ export default function HealthPage() {
                 <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
                   <div>
                     <div className="font-medium">{service.name}</div>
-                    <div className="text-body-sm text-gray-500">Response time: {service.responseTime}ms</div>
+                    <div className="text-body-sm text-neutral-500">Response time: {service.responseTime}ms</div>
                   </div>
                   <div className={getStatusColor(service.status)}>
                     {getStatusBadge(service.status)}
@@ -152,7 +152,7 @@ export default function HealthPage() {
                   <span className="text-body-sm font-medium">CPU Usage</span>
                   <span className="text-body-sm font-medium">{healthData.system.cpu}%</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-2xl h-2">
+                <div className="w-full bg-neutral-200 rounded-2xl h-2">
                   <div 
                     className="bg-brand-accent-light h-2 rounded-2xl" 
                     style={{ width: `${healthData.system.cpu}%` }}
@@ -165,7 +165,7 @@ export default function HealthPage() {
                   <span className="text-body-sm font-medium">Memory Usage</span>
                   <span className="text-body-sm font-medium">{healthData.system.memory}%</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-2xl h-2">
+                <div className="w-full bg-neutral-200 rounded-2xl h-2">
                   <div 
                     className="bg-green-600 h-2 rounded-2xl" 
                     style={{ width: `${healthData.system.memory}%` }}
@@ -178,7 +178,7 @@ export default function HealthPage() {
                   <span className="text-body-sm font-medium">Disk Usage</span>
                   <span className="text-body-sm font-medium">{healthData.system.disk}%</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-2xl h-2">
+                <div className="w-full bg-neutral-200 rounded-2xl h-2">
                   <div 
                     className="bg-purple-600 h-2 rounded-2xl" 
                     style={{ width: `${healthData.system.disk}%` }}

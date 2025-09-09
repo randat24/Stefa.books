@@ -10,13 +10,13 @@ export function Footer() {
           {/* Про компанію */}
           <section className="space-y-4 md:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-2xl bg-gray-100 grid place-items-center">
+              <div className="h-10 w-10 rounded-2xl bg-neutral-100 grid place-items-center">
                 <Image 
                   src="/logo.svg" 
                   alt="Stefa.books logo" 
                   width={28} 
                   height={28}
-                  className="text-gray-700"
+                  className="text-neutral-700"
                   unoptimized={true}
                   onError={(e) => {
                     // Fallback to a simple div with text if image fails to load
@@ -25,7 +25,7 @@ export function Footer() {
                     const parent = target.parentElement;
                     if (parent) {
                       const fallback = document.createElement('div');
-                      fallback.className = 'text-gray-700 font-bold text-xs';
+                      fallback.className = 'text-neutral-700 font-bold text-xs';
                       fallback.textContent = 'S';
                       parent.appendChild(fallback);
                     }
@@ -142,7 +142,7 @@ export function Footer() {
                 placeholder="Ваш email"
                 className="input w-full text-body-sm h-10 px-3"
               />
-              <button className="inline-flex items-center justify-center rounded-2xl font-semibold w-full h-10 px-4 text-body-sm bg-brand-yellow text-gray-900 hover:bg-brand-yellow-light transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-yellow focus-visible:ring-offset-2">
+              <button className="inline-flex items-center justify-center rounded-2xl font-semibold w-full h-10 px-4 text-body-sm bg-accent text-neutral-900 hover:bg-accent-light transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2">
                 Підписатися
               </button>
             </div>

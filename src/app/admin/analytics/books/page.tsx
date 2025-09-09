@@ -33,7 +33,7 @@ export default function BookAnalyticsPage() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
           <h1 className="text-h1">Book Analytics</h1>
-          <p className="text-gray-500">Insights into book performance and popularity</p>
+          <p className="text-neutral-500">Insights into book performance and popularity</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">
           <Link href="/admin/analytics">
@@ -102,7 +102,7 @@ export default function BookAnalyticsPage() {
                     <span className="font-medium">{category.name}</span>
                     <span>{category.count} books</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-2xl h-2">
+                  <div className="w-full bg-neutral-200 rounded-2xl h-2">
                     <div 
                       className="bg-brand-accent-light h-2 rounded-2xl" 
                       style={{ width: `${category.percentage}%` }}
@@ -127,7 +127,7 @@ export default function BookAnalyticsPage() {
               {mockBookAnalytics.popularBooks.map((book) => (
                 <div key={book.id} className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <div className="mr-3 h-16 w-12 bg-gray-200 rounded flex-shrink-0"></div>
+                    <div className="mr-3 h-16 w-12 bg-neutral-200 rounded flex-shrink-0"></div>
                     <div>
                       <p className="font-medium">{book.title}</p>
                       <p className="text-body-sm text-muted-foreground">{book.author}</p>

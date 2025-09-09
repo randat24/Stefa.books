@@ -145,25 +145,25 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
     return (
       <section className="py-4 px-6" id="subscribe">
         <div className="mx-auto max-w-2xl">
-          <div className="rounded-3xl bg-white border border-gray-200 shadow-xl p-8 text-center">
+          <div className="rounded-3xl bg-neutral-0 border border-neutral-200 shadow-xl p-8 text-center">
             <div className="w-16 h-16 mx-auto mb-2 rounded-2xl bg-green-100 flex items-center justify-center">
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
-            <h3 className="text-h2 text-gray-900 mb-2">Заявку надіслано!</h3>
-            <p className="text-gray-600 mb-6">
+            <h3 className="text-h2 text-neutral-900 mb-2">Заявку надіслано!</h3>
+            <p className="text-neutral-600 mb-6">
               Дякуємо за заявку! Ми зв&apos;яжемося з вами найближчим часом для підтвердження підписки.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button
                 variant="outline"
                 asChild
-                className="bg-gray-100 hover:bg-gray-200 text-gray-700 border-gray-300"
+                className="bg-neutral-100 hover:bg-neutral-200 text-neutral-700 border-neutral-300"
               >
                 <Link href="/books#top">Переглянути книги</Link>
               </Button>
               <Button
                 asChild
-                className="bg-brand-yellow hover:bg-brand-yellow-dark text-gray-900 border-0"
+                className="bg-accent hover:bg-accent-dark text-neutral-900 border-0"
               >
                 <Link href="/subscribe">Обрати інший план</Link>
               </Button>
@@ -178,10 +178,10 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
     <section className="py-4 px-6" id="subscribe">
       <div className="mx-auto max-w-2xl">
         <div className="text-center mb-6">
-          <h2 className="text-h1 font-semibold tracking-tight text-gray-900 mb-2">
+          <h2 className="text-h1 font-semibold tracking-tight text-neutral-900 mb-2">
             Оформити підписку
           </h2>
-          <p className="text-body-lg text-gray-600">
+          <p className="text-body-lg text-neutral-600">
             Заповніть форму і ми зв&apos;яжемося з вами найближчим часом
           </p>
           <div className="mt-4 inline-flex items-center gap-4 text-base">
@@ -194,19 +194,19 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
           </div>
         </div>
 
-        <div className="rounded-3xl bg-white border border-gray-200 shadow-xl p-6">
+        <div className="rounded-3xl bg-neutral-0 border border-neutral-200 shadow-xl p-6">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Основные поля в компактном виде */}
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="name" className="block text-body font-semibold text-gray-700 mb-2">
+                <label htmlFor="name" className="block text-body font-semibold text-neutral-700 mb-2">
                   Ім&apos;я та прізвище *
                 </label>
                 <input
                   {...register("name")}
                   id="name"
                   type="text"
-                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                  className="w-full px-3 py-2.5 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                   placeholder="Іван Петренко"
                 />
                 {errors.name && (
@@ -215,7 +215,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-body font-semibold text-gray-700 mb-2">
+                <label htmlFor="phone" className="block text-body font-semibold text-neutral-700 mb-2">
                   Телефон *
                 </label>
                 <input
@@ -225,7 +225,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
                   inputMode="tel"
                   onChange={onPhoneInput}
                   onBlur={() => trigger("phone")}
-                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                  className="w-full px-3 py-2.5 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                   placeholder="+380 XX XXX XX XX"
                 />
                 {errors.phone && (
@@ -236,14 +236,14 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
 
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="email" className="block text-body font-semibold text-gray-700 mb-2">
+                <label htmlFor="email" className="block text-body font-semibold text-neutral-700 mb-2">
                   Email *
                 </label>
                 <input
                   {...register("email")}
                   id="email"
                   type="email"
-                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                  className="w-full px-3 py-2.5 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                   placeholder="you@email.com"
                 />
                 {errors.email && (
@@ -252,14 +252,14 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
               </div>
 
               <div>
-                <label htmlFor="social" className="block text-body font-semibold text-gray-700 mb-2">
+                <label htmlFor="social" className="block text-body font-semibold text-neutral-700 mb-2">
                   Нік в Telegram/Instagram *
                 </label>
                 <input
                   {...register("social")}
                   id="social"
                   type="text"
-                  className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                  className="w-full px-3 py-2.5 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                   placeholder="@username"
                 />
                 {errors.social && (
@@ -270,7 +270,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
 
             {/* План подписки */}
             <div>
-              <label className="block text-body font-semibold text-gray-700 mb-2">
+              <label className="block text-body font-semibold text-neutral-700 mb-2">
                 План підписки *
               </label>
               <div className="grid grid-cols-2 gap-3">
@@ -278,21 +278,21 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
                   className={`relative rounded-lg border-2 p-3 cursor-pointer transition-all ${
                     watch("subscription_type") === 'mini'
                       ? 'border-green-500 bg-green-50'
-                      : 'border-gray-200 hover:border-gray-300'
+                      : 'border-neutral-200 hover:border-neutral-300'
                   }`}
                   onClick={() => setValue('subscription_type', 'mini')}
                 >
                   <div className="flex items-center gap-2">
                     <div className={`w-4 h-4 rounded-2xl border-2 flex items-center justify-center ${
-                      watch("subscription_type") === 'mini' ? 'border-green-500 bg-green-500' : 'border-gray-300'
+                      watch("subscription_type") === 'mini' ? 'border-green-500 bg-green-500' : 'border-neutral-300'
                     }`}>
-                      {watch("subscription_type") === 'mini' && <div className="w-1.5 h-1.5 bg-white rounded-2xl" />}
+                      {watch("subscription_type") === 'mini' && <div className="w-1.5 h-1.5 bg-neutral-0 rounded-2xl" />}
                     </div>
                     <div>
-                      <p className={`font-semibold text-body ${watch("subscription_type") === 'mini' ? 'text-green-900' : 'text-gray-700'}`}>
+                      <p className={`font-semibold text-body ${watch("subscription_type") === 'mini' ? 'text-green-900' : 'text-neutral-700'}`}>
                         Mini
                       </p>
-                      <p className={`text-caption ${watch("subscription_type") === 'mini' ? 'text-green-700' : 'text-gray-500'}`}>
+                      <p className={`text-caption ${watch("subscription_type") === 'mini' ? 'text-green-700' : 'text-neutral-500'}`}>
                         300 ₴/міс
                       </p>
                     </div>
@@ -302,22 +302,22 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
                 <div
                   className={`relative rounded-lg border-2 p-3 cursor-pointer transition-all ${
                     watch("subscription_type") === 'maxi'
-                      ? 'border-brand-yellow bg-yellow-50'
-                      : 'border-gray-200 hover:border-gray-300'
+                      ? 'border-accent bg-yellow-50'
+                      : 'border-neutral-200 hover:border-neutral-300'
                   }`}
                   onClick={() => setValue('subscription_type', 'maxi')}
                 >
                   <div className="flex items-center gap-2">
                     <div className={`w-4 h-4 rounded-2xl border-2 flex items-center justify-center ${
-                      watch("subscription_type") === 'maxi' ? 'border-brand-yellow bg-brand-yellow' : 'border-gray-300'
+                      watch("subscription_type") === 'maxi' ? 'border-accent bg-accent' : 'border-neutral-300'
                     }`}>
-                      {watch("subscription_type") === 'maxi' && <div className="w-1.5 h-1.5 bg-white rounded-2xl" />}
+                      {watch("subscription_type") === 'maxi' && <div className="w-1.5 h-1.5 bg-neutral-0 rounded-2xl" />}
                     </div>
                     <div>
-                      <p className={`font-semibold text-body ${watch("subscription_type") === 'maxi' ? 'text-yellow-900' : 'text-gray-700'}`}>
+                      <p className={`font-semibold text-body ${watch("subscription_type") === 'maxi' ? 'text-yellow-900' : 'text-neutral-700'}`}>
                         Maxi
                       </p>
-                      <p className={`text-caption ${watch("subscription_type") === 'maxi' ? 'text-yellow-700' : 'text-gray-500'}`}>
+                      <p className={`text-caption ${watch("subscription_type") === 'maxi' ? 'text-yellow-700' : 'text-neutral-500'}`}>
                         500 ₴/міс
                       </p>
                     </div>
@@ -329,7 +329,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
 
             {/* Способ оплаты */}
             <div>
-              <label className="block text-body font-semibold text-gray-700 mb-2">
+              <label className="block text-body font-semibold text-neutral-700 mb-2">
                 Спосіб оплати *
               </label>
               <div className="grid grid-cols-2 gap-3">
@@ -337,21 +337,21 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
                   className={`relative rounded-lg border-2 p-3 cursor-pointer transition-all ${
                     watch("payment_method") === 'Онлайн оплата'
                       ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-gray-300'
+                      : 'border-neutral-200 hover:border-neutral-300'
                   }`}
                   onClick={() => setValue('payment_method', 'Онлайн оплата')}
                 >
                   <div className="flex items-center gap-2">
                     <div className={`w-4 h-4 rounded-2xl border-2 flex items-center justify-center ${
-                      watch("payment_method") === 'Онлайн оплата' ? 'border-blue-500 bg-blue-500' : 'border-gray-300'
+                      watch("payment_method") === 'Онлайн оплата' ? 'border-blue-500 bg-blue-500' : 'border-neutral-300'
                     }`}>
-                      {watch("payment_method") === 'Онлайн оплата' && <div className="w-1.5 h-1.5 bg-white rounded-2xl" />}
+                      {watch("payment_method") === 'Онлайн оплата' && <div className="w-1.5 h-1.5 bg-neutral-0 rounded-2xl" />}
                     </div>
                     <div>
-                      <p className={`font-semibold text-body ${watch("payment_method") === 'Онлайн оплата' ? 'text-blue-900' : 'text-gray-700'}`}>
+                      <p className={`font-semibold text-body ${watch("payment_method") === 'Онлайн оплата' ? 'text-blue-900' : 'text-neutral-700'}`}>
                         Онлайн оплата
                       </p>
-                      <p className={`text-caption ${watch("payment_method") === 'Онлайн оплата' ? 'text-blue-700' : 'text-gray-500'}`}>
+                      <p className={`text-caption ${watch("payment_method") === 'Онлайн оплата' ? 'text-blue-700' : 'text-neutral-500'}`}>
                         Банківською карткою
                       </p>
                     </div>
@@ -362,21 +362,21 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
                   className={`relative rounded-lg border-2 p-3 cursor-pointer transition-all ${
                     watch("payment_method") === 'Переказ на карту'
                       ? 'border-green-500 bg-green-50'
-                      : 'border-gray-200 hover:border-gray-300'
+                      : 'border-neutral-200 hover:border-neutral-300'
                   }`}
                   onClick={() => setValue('payment_method', 'Переказ на карту')}
                 >
                   <div className="flex items-center gap-2">
                     <div className={`w-4 h-4 rounded-2xl border-2 flex items-center justify-center ${
-                      watch("payment_method") === 'Переказ на карту' ? 'border-green-500 bg-green-500' : 'border-gray-300'
+                      watch("payment_method") === 'Переказ на карту' ? 'border-green-500 bg-green-500' : 'border-neutral-300'
                     }`}>
-                      {watch("payment_method") === 'Переказ на карту' && <div className="w-1.5 h-1.5 bg-white rounded-2xl" />}
+                      {watch("payment_method") === 'Переказ на карту' && <div className="w-1.5 h-1.5 bg-neutral-0 rounded-2xl" />}
                     </div>
                     <div>
-                      <p className={`font-semibold text-body ${watch("payment_method") === 'Переказ на карту' ? 'text-green-900' : 'text-gray-700'}`}>
+                      <p className={`font-semibold text-body ${watch("payment_method") === 'Переказ на карту' ? 'text-green-900' : 'text-neutral-700'}`}>
                         Переказ на карту
                       </p>
-                      <p className={`text-caption ${watch("payment_method") === 'Переказ на карту' ? 'text-green-700' : 'text-gray-500'}`}>
+                      <p className={`text-caption ${watch("payment_method") === 'Переказ на карту' ? 'text-green-700' : 'text-neutral-500'}`}>
                         ПриватБанк
                       </p>
                     </div>
@@ -398,15 +398,15 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
                     onClick={copyCardNumber}
                     className={`px-3 py-1 text-xs rounded-md transition-colors ${
                       cardCopied 
-                        ? 'bg-green-600 text-white' 
+                        ? 'bg-green-600 text-neutral-0' 
                         : 'bg-green-100 text-green-800 hover:bg-green-200'
                     }`}
                   >
                     {cardCopied ? 'Скопіровано!' : 'Копіювати'}
                   </Button>
                 </div>
-                <div className="bg-white border border-green-300 rounded-lg p-3">
-                  <code className="text-lg font-mono text-gray-800 select-all">
+                <div className="bg-neutral-0 border border-green-300 rounded-lg p-3">
+                  <code className="text-lg font-mono text-neutral-800 select-all">
                     {cardNumber}
                   </code>
                 </div>
@@ -433,14 +433,14 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
 
             {/* Дополнительная информация */}
             <div>
-              <label htmlFor="notes" className="block text-body font-semibold text-gray-700 mb-2">
+              <label htmlFor="notes" className="block text-body font-semibold text-neutral-700 mb-2">
                 Додаткова інформація (опціонально)
               </label>
               <textarea
                 {...register("notes")}
                 id="notes"
                 rows={3}
-                className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+                className="w-full px-3 py-2.5 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-transparent"
                 placeholder="Ваші побажання або питання..."
               />
             </div>
@@ -449,7 +449,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
             <Button
               type="submit"
               disabled={isSubmitting || !watch("subscription_type") || !watch("payment_method")}
-              className="w-full bg-brand-yellow hover:bg-brand-yellow-dark disabled:bg-gray-400 text-gray-900 py-3 px-6 rounded-xl text-body font-semibold transition-colors"
+              className="w-full bg-accent hover:bg-accent-dark disabled:bg-neutral-400 text-neutral-900 py-3 px-6 rounded-xl text-body font-semibold transition-colors"
             >
               {isSubmitting ? 'Відправляємо...' : 'Оформити підписку'}
             </Button>

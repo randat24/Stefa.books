@@ -122,7 +122,7 @@ export function AccessibleModal({
         trapFocus={true}
         onEscape={handleEscape}
         className={`
-          relative bg-white rounded-xl shadow-2xl w-full
+          relative bg-neutral-0 rounded-xl shadow-2xl w-full
           ${sizeClasses[size]}
           ${isVisible ? 'scale-100' : 'scale-95'}
           transition-transform duration-300 ease-in-out
@@ -135,10 +135,10 @@ export function AccessibleModal({
           className="focus:outline-none"
         >
           {/* Заголовок */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-200">
+          <div className="flex items-center justify-between p-6 border-b border-neutral-200">
             <h2 
               id="modal-title"
-              className="text-body-lg font-semibold text-gray-900"
+              className="text-body-lg font-semibold text-neutral-900"
             >
               {title}
             </h2>
@@ -147,8 +147,8 @@ export function AccessibleModal({
               <button
                 onClick={handleCloseClick}
                 className="
-                  p-2 text-gray-400 hover:text-gray-600 
-                  focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
+                  p-2 text-neutral-400 hover:text-neutral-600 
+                  focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2
                   rounded-lg transition-colors
                 "
                 aria-label="Закрити модальне вікно"
@@ -233,13 +233,13 @@ export function ConfirmModal({
       size="sm"
     >
       <div className="space-y-4">
-        <p className="text-gray-600">{message}</p>
+        <p className="text-neutral-600">{message}</p>
         
         <div className="flex justify-end gap-3">
           <button
             onClick={onClose}
             className="
-              px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200
+              px-4 py-2 text-neutral-700 bg-neutral-100 hover:bg-neutral-200
               focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2
               rounded-lg transition-colors
             "
@@ -251,7 +251,7 @@ export function ConfirmModal({
           <button
             onClick={handleConfirm}
             className={`
-              px-4 py-2 text-white
+              px-4 py-2 text-neutral-0
               focus:outline-none focus:ring-2 focus:ring-offset-2
               rounded-lg transition-colors
               ${variantClasses[variant]}

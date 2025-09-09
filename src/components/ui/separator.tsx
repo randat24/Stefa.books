@@ -9,7 +9,7 @@ export function Separator({
   orientation = 'horizontal', 
   className = '' 
 }: SeparatorProps) {
-  const baseClasses = 'bg-gray-200';
+  const baseClasses = 'bg-neutral-200';
   const orientationClasses = orientation === 'horizontal' 
     ? 'h-px w-full my-4' 
     : 'w-px h-full mx-4';

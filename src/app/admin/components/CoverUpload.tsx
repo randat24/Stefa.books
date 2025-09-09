@@ -154,7 +154,7 @@ export function CoverUpload({
             onClick={handleClickUpload}
             className={`
               relative border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors
-              ${dragActive ? 'border-brand-accent bg-blue-50' : 'border-gray-300 hover:border-gray-400'}
+              ${dragActive ? 'border-brand-accent bg-blue-50' : 'border-neutral-300 hover:border-neutral-400'}
               ${disabled ? 'cursor-not-allowed opacity-50' : ''}
               ${uploading ? 'pointer-events-none' : ''}
             `}
@@ -163,20 +163,20 @@ export function CoverUpload({
               <div className="flex flex-col items-center gap-3">
                 <Loader2 className="size-8 text-brand-accent animate-spin" />
                 <div>
-                  <p className="text-body-sm font-medium text-gray-900">Завантаження...</p>
-                  <p className="text-caption text-gray-500">Обробляємо вашу обкладинку</p>
+                  <p className="text-body-sm font-medium text-neutral-900">Завантаження...</p>
+                  <p className="text-caption text-neutral-500">Обробляємо вашу обкладинку</p>
                 </div>
               </div>
             ) : (
               <div className="flex flex-col items-center gap-3">
-                <div className="p-3 bg-gray-100 rounded-2xl">
-                  <Upload className="size-6 text-gray-600" />
+                <div className="p-3 bg-neutral-100 rounded-2xl">
+                  <Upload className="size-6 text-neutral-600" />
                 </div>
                 <div>
-                  <p className="text-body-sm font-medium text-gray-900">
+                  <p className="text-body-sm font-medium text-neutral-900">
                     Натисніть або перетягніть файл
                   </p>
-                  <p className="text-caption text-gray-500">
+                  <p className="text-caption text-neutral-500">
                     JPEG, PNG, WebP, GIF (макс. 5 МБ)
                   </p>
                 </div>
@@ -186,7 +186,7 @@ export function CoverUpload({
         ) : (
           // Превью обкладинки
           <div className="relative">
-            <div className="relative group border border-gray-200 rounded-lg overflow-hidden bg-gray-50">
+            <div className="relative group border border-neutral-200 rounded-lg overflow-hidden bg-neutral-50">
               <Image
                 src={imageUrl!}
                 alt="Превью обкладинки"
@@ -203,7 +203,7 @@ export function CoverUpload({
                   variant="outline"
                   onClick={handleClickUpload}
                   disabled={disabled || uploading}
-                  className="text-white bg-white/20 hover:bg-white/30 border-white/20"
+                  className="text-neutral-0 bg-neutral-0/20 hover:bg-neutral-0/30 border-neutral-0/20"
                 >
                   <Upload className="size-4 mr-1" />
                   Змінити
@@ -213,7 +213,7 @@ export function CoverUpload({
                   variant="outline"
                   onClick={handleRemoveCover}
                   disabled={disabled || uploading}
-                  className="text-white bg-red-500/20 hover:bg-red-500/30 border-red-500/20"
+                  className="text-neutral-0 bg-red-500/20 hover:bg-red-500/30 border-red-500/20"
                 >
                   <X className="size-4 mr-1" />
                   Видалити
@@ -224,9 +224,9 @@ export function CoverUpload({
             {/* Інформація про файл */}
             <div className="mt-2 text-center">
               {uploading ? (
-                <p className="text-caption text-gray-500">Завантаження...</p>
+                <p className="text-caption text-neutral-500">Завантаження...</p>
               ) : (
-                <p className="text-caption text-gray-500">
+                <p className="text-caption text-neutral-500">
                   {preview ? 'Новий файл завантажено' : 'Поточна обкладинка'}
                 </p>
               )}
@@ -235,7 +235,7 @@ export function CoverUpload({
         )}
 
         {/* Підказки */}
-        <div className="text-caption text-gray-500 space-y-1">
+        <div className="text-caption text-neutral-500 space-y-1">
           <p>• Рекомендовані розміри: мінімум 200×300px</p>
           <p>• Підтримувані формати: JPEG, PNG, WebP, GIF</p>
           <p>• Максимальний розмір: 5 МБ</p>

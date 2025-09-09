@@ -110,11 +110,11 @@ export default function AccountPage() {
     return (
       <div className="container py-8">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <User className="h-8 w-8 text-gray-400" />
+          <div className="w-16 h-16 bg-neutral-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <User className="h-8 w-8 text-neutral-400" />
           </div>
-          <h1 className="text-h2 text-gray-900 mb-2">Вхід необхідний</h1>
-          <p className="text-gray-600 mb-6">
+          <h1 className="text-h2 text-neutral-900 mb-2">Вхід необхідний</h1>
+          <p className="text-neutral-600 mb-6">
             Будь ласка, увійдіть в систему, щоб переглянути свій кабінет
           </p>
           <div className="flex gap-4 justify-center">
@@ -144,8 +144,8 @@ export default function AccountPage() {
     <div className="container py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-h1 text-gray-900 mb-2">Мій кабінет</h1>
-        <p className="text-gray-600">
+        <h1 className="text-h1 text-neutral-900 mb-2">Мій кабінет</h1>
+        <p className="text-neutral-600">
           Ласкаво просимо, {user?.user_metadata?.first_name || user?.email}!
         </p>
       </div>
@@ -227,13 +227,13 @@ export default function AccountPage() {
                         className="rounded object-cover"
                       />
                     ) : (
-                      <div className="w-10 h-15 bg-gray-100 rounded flex items-center justify-center">
-                        <BookOpen className="h-4 w-4 text-gray-400" />
+                      <div className="w-10 h-15 bg-neutral-100 rounded flex items-center justify-center">
+                        <BookOpen className="h-4 w-4 text-neutral-400" />
                       </div>
                     )}
                     <div className="flex-1">
                       <h4 className="font-medium">{rental.book.title}</h4>
-                      <p className="text-body-sm text-gray-600">{rental.book.author}</p>
+                      <p className="text-body-sm text-neutral-600">{rental.book.author}</p>
                     </div>
                     <Badge variant={getStatusBadge(rental.status, 'rental').variant}>
                       {getStatusBadge(rental.status, 'rental').label}
@@ -241,7 +241,7 @@ export default function AccountPage() {
                   </div>
                 ))}
                 {rentals.length === 0 && (
-                  <p className="text-gray-500 text-center py-4">Немає недавньої активності</p>
+                  <p className="text-neutral-500 text-center py-4">Немає недавньої активності</p>
                 )}
               </div>
             </CardContent>
@@ -268,14 +268,14 @@ export default function AccountPage() {
                           className="rounded object-cover"
                         />
                       ) : (
-                        <div className="w-15 h-22 bg-gray-100 rounded flex items-center justify-center">
-                          <BookOpen className="h-6 w-6 text-gray-400" />
+                        <div className="w-15 h-22 bg-neutral-100 rounded flex items-center justify-center">
+                          <BookOpen className="h-6 w-6 text-neutral-400" />
                         </div>
                       )}
                       <div className="flex-1">
                         <h4 className="font-semibold">{rental.book.title}</h4>
-                        <p className="text-body-sm text-gray-600">{rental.book.author}</p>
-                        <div className="flex items-center gap-4 mt-2 text-body-sm text-gray-500">
+                        <p className="text-body-sm text-neutral-600">{rental.book.author}</p>
+                        <div className="flex items-center gap-4 mt-2 text-body-sm text-neutral-500">
                           <span>Початок: {new Date(rental.start_date).toLocaleDateString('uk-UA')}</span>
                           <span>Кінець: {new Date(rental.end_date).toLocaleDateString('uk-UA')}</span>
                         </div>
@@ -297,9 +297,9 @@ export default function AccountPage() {
                 </div>
               ) : (
                 <div className="text-center py-8">
-                  <BookOpen className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-body-lg font-semibold text-gray-900 mb-2">Немає оренд</h3>
-                  <p className="text-gray-600 mb-4">Ви ще не орендували жодної книги</p>
+                  <BookOpen className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                  <h3 className="text-body-lg font-semibold text-neutral-900 mb-2">Немає оренд</h3>
+                  <p className="text-neutral-600 mb-4">Ви ще не орендували жодної книги</p>
                   <Button asChild>
                     <Link href="/catalog">Переглянути каталог</Link>
                   </Button>
@@ -329,14 +329,14 @@ export default function AccountPage() {
                           className="rounded object-cover"
                         />
                       ) : (
-                        <div className="w-15 h-22 bg-gray-100 rounded flex items-center justify-center">
-                          <BookOpen className="h-6 w-6 text-gray-400" />
+                        <div className="w-15 h-22 bg-neutral-100 rounded flex items-center justify-center">
+                          <BookOpen className="h-6 w-6 text-neutral-400" />
                         </div>
                       )}
                       <div className="flex-1">
                         <h4 className="font-semibold">{returnItem.book.title}</h4>
-                        <p className="text-body-sm text-gray-600">{returnItem.book.author}</p>
-                        <div className="flex items-center gap-4 mt-2 text-body-sm text-gray-500">
+                        <p className="text-body-sm text-neutral-600">{returnItem.book.author}</p>
+                        <div className="flex items-center gap-4 mt-2 text-body-sm text-neutral-500">
                           <span>Спосіб: {returnItem.return_method === 'pickup' ? 'Самовивіз' : 'Кур&apos;єр'}</span>
                           <span>Стан: {returnItem.book_condition}</span>
                         </div>
@@ -345,7 +345,7 @@ export default function AccountPage() {
                         <Badge variant={getStatusBadge(returnItem.status, 'return').variant}>
                           {getStatusBadge(returnItem.status, 'return').label}
                         </Badge>
-                        <p className="text-body-sm text-gray-500 mt-1">
+                        <p className="text-body-sm text-neutral-500 mt-1">
                           {new Date(returnItem.created_at).toLocaleDateString('uk-UA')}
                         </p>
                       </div>
@@ -354,9 +354,9 @@ export default function AccountPage() {
                 </div>
               ) : (
                 <div className="text-center py-8">
-                  <RotateCcw className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-body-lg font-semibold text-gray-900 mb-2">Немає повернень</h3>
-                  <p className="text-gray-600 mb-4">Ви ще не повертали жодної книги</p>
+                  <RotateCcw className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                  <h3 className="text-body-lg font-semibold text-neutral-900 mb-2">Немає повернень</h3>
+                  <p className="text-neutral-600 mb-4">Ви ще не повертали жодної книги</p>
                 </div>
               )}
             </CardContent>
@@ -371,9 +371,9 @@ export default function AccountPage() {
             </CardHeader>
             <CardContent>
               <div className="text-center py-8">
-                <Heart className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-body-lg font-semibold text-gray-900 mb-2">Немає улюблених</h3>
-                <p className="text-gray-600 mb-4">Додайте книги до улюблених, щоб швидко знаходити їх</p>
+                <Heart className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
+                <h3 className="text-body-lg font-semibold text-neutral-900 mb-2">Немає улюблених</h3>
+                <p className="text-neutral-600 mb-4">Додайте книги до улюблених, щоб швидко знаходити їх</p>
                 <Button asChild>
                   <Link href="/catalog">Переглянути каталог</Link>
                 </Button>
@@ -391,20 +391,20 @@ export default function AccountPage() {
             <CardContent className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-body-sm font-medium text-gray-700">Ім&apos;я</label>
-                  <p className="text-body-sm text-gray-900">{user?.user_metadata?.first_name || 'Не вказано'}</p>
+                  <label className="text-body-sm font-medium text-neutral-700">Ім&apos;я</label>
+                  <p className="text-body-sm text-neutral-900">{user?.user_metadata?.first_name || 'Не вказано'}</p>
                 </div>
                 <div>
-                  <label className="text-body-sm font-medium text-gray-700">Прізвище</label>
-                  <p className="text-body-sm text-gray-900">{user?.user_metadata?.last_name || 'Не вказано'}</p>
+                  <label className="text-body-sm font-medium text-neutral-700">Прізвище</label>
+                  <p className="text-body-sm text-neutral-900">{user?.user_metadata?.last_name || 'Не вказано'}</p>
                 </div>
                 <div>
-                  <label className="text-body-sm font-medium text-gray-700">Email</label>
-                  <p className="text-body-sm text-gray-900">{user?.email}</p>
+                  <label className="text-body-sm font-medium text-neutral-700">Email</label>
+                  <p className="text-body-sm text-neutral-900">{user?.email}</p>
                 </div>
                 <div>
-                  <label className="text-body-sm font-medium text-gray-700">Телефон</label>
-                  <p className="text-body-sm text-gray-900">{user?.user_metadata?.phone || 'Не вказано'}</p>
+                  <label className="text-body-sm font-medium text-neutral-700">Телефон</label>
+                  <p className="text-body-sm text-neutral-900">{user?.user_metadata?.phone || 'Не вказано'}</p>
                 </div>
               </div>
               <Button variant="outline">
@@ -423,7 +423,7 @@ export default function AccountPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <h4 className="font-medium">Email сповіщення</h4>
-                    <p className="text-body-sm text-gray-600">Отримувати сповіщення про статус оренд</p>
+                    <p className="text-body-sm text-neutral-600">Отримувати сповіщення про статус оренд</p>
                   </div>
                   <Button variant="outline" size="sm">
                     <Bell className="h-4 w-4 mr-2" />

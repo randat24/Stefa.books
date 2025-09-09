@@ -35,7 +35,7 @@ export default function AnalyticsPage() {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
         <div>
           <h1 className="text-h1">Analytics Dashboard</h1>
-          <p className="text-gray-500">Overview of platform performance and activity</p>
+          <p className="text-neutral-500">Overview of platform performance and activity</p>
         </div>
         <div className="flex gap-2 mt-4 md:mt-0">
           <Button 
@@ -171,7 +171,7 @@ export default function AnalyticsPage() {
       {/* Navigation to Detailed Analytics */}
       <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
         <Link href="/admin/analytics/users">
-          <Card className="hover:bg-gray-50 cursor-pointer">
+          <Card className="hover:bg-neutral-50 cursor-pointer">
             <CardHeader>
               <CardTitle>User Analytics</CardTitle>
               <CardDescription>Detailed user metrics and trends</CardDescription>
@@ -183,7 +183,7 @@ export default function AnalyticsPage() {
         </Link>
         
         <Link href="/admin/analytics/books">
-          <Card className="hover:bg-gray-50 cursor-pointer">
+          <Card className="hover:bg-neutral-50 cursor-pointer">
             <CardHeader>
               <CardTitle>Book Analytics</CardTitle>
               <CardDescription>Book performance and popularity metrics</CardDescription>
@@ -195,7 +195,7 @@ export default function AnalyticsPage() {
         </Link>
         
         <Link href="/admin/analytics/rentals">
-          <Card className="hover:bg-gray-50 cursor-pointer">
+          <Card className="hover:bg-neutral-50 cursor-pointer">
             <CardHeader>
               <CardTitle>Rental Analytics</CardTitle>
               <CardDescription>Rental trends and revenue metrics</CardDescription>

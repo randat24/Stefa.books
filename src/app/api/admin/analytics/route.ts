@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
-export async function GET(request: NextRequest): Promise<Response> {
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const range = searchParams.get('range') || '30d'
@@ -42,12 +42,12 @@ export async function GET(request: NextRequest): Promise<Response> {
 
     // Розрахунок основних метрик
     const totalUsers = users.length
-    const activeUsers = users.filter(u => u.status === 'active').length
+    const activeUsers = users.filter((u: any) => u.status === 'active').length
     const totalBooks = books.length
-    const availableBooks = books.filter(b => b.available).length
+    const availableBooks = books.filter((b: any) => b.available).length
     const totalRentals = rentals.length
-    const activeRentals = rentals.filter(r => r.status === 'active').length
-    const overdueRentals = rentals.filter(r => r.status === 'overdue').length
+    const activeRentals = rentals.filter((r: any) => r.status === 'active').length
+    const overdueRentals = rentals.filter((r: any) => r.status === 'overdue').length
 
     // Розрахунок доходів
     const totalRevenue = payments.reduce((sum, p) => sum + (p.amount || 0), 0)
@@ -70,9 +70,9 @@ export async function GET(request: NextRequest): Promise<Response> {
       .reduce((sum, p) => sum + (p.amount || 0), 0)
 
     // Розрахунок середньої тривалості оренди
-    const completedRentals = rentals.filter(r => r.status === 'completed' && r.return_date)
+    const completedRentals = rentals.filter((r: any) => r.status === 'completed' && r.return_date)
     const averageRentalDuration = completedRentals.length > 0 
-      ? completedRentals.reduce((sum, r) => {
+      ? completedRentals.reduce((sum: number, r: any) => {
           if (!r.created_at || !r.return_date) return sum
           const start = new Date(r.created_at)
           const end = new Date(r.return_date)
@@ -85,14 +85,14 @@ export async function GET(request: NextRequest): Promise<Response> {
     const bookUtilizationRate = totalBooks > 0 ? (totalBooks - availableBooks) / totalBooks : 0
 
     // Популярні книги
-    const bookRentalCounts = rentals.reduce((acc, rental) => {
+    const bookRentalCounts = rentals.reduce((acc: Record<string, number>, rental: any) => {
       const bookId = rental.book_id
       acc[bookId] = (acc[bookId] || 0) + 1
       return acc
     }, {} as Record<string, number>)
 
     const popularBooks = books
-      .map(book => ({
+      .map((book: any) => ({
         id: book.id,
         title: book.title,
         author: book.author,
@@ -101,17 +101,17 @@ export async function GET(request: NextRequest): Promise<Response> {
         revenue: (bookRentalCounts[book.id] || 0) * (book.price_uah || 0),
         rating: Math.random() * 5 // Поки що випадковий рейтинг
       }))
-      .sort((a, b) => b.rental_count - a.rental_count)
+      .sort((a: any, b: any) => b.rental_count - a.rental_count)
       .slice(0, 10)
 
     // Топ користувачі
-    const userRentalCounts = rentals.reduce((acc, rental) => {
+    const userRentalCounts = rentals.reduce((acc: Record<string, number>, rental: any) => {
       const userId = rental.user_id
       acc[userId] = (acc[userId] || 0) + 1
       return acc
     }, {} as Record<string, number>)
 
-    const userSpending = payments.reduce((acc, payment) => {
+    const userSpending = payments.reduce((acc: Record<string, number>, payment: any) => {
       const userId = payment.user_id
       if (userId) {
         acc[userId] = (acc[userId] || 0) + (payment.amount || 0)
@@ -120,7 +120,7 @@ export async function GET(request: NextRequest): Promise<Response> {
     }, {} as Record<string, number>)
 
     const topUsers = users
-      .map(user => ({
+      .map((user: any) => ({
         id: user.id,
         name: user.name,
         email: user.email,
@@ -128,28 +128,28 @@ export async function GET(request: NextRequest): Promise<Response> {
         total_spent: userSpending[user.id] || 0,
         last_activity: user.created_at
       }))
-      .sort((a, b) => b.total_rentals - a.total_rentals)
+      .sort((a: any, b: any) => b.total_rentals - a.total_rentals)
       .slice(0, 10)
 
     // Остання активність
     const recentActivity = [
-      ...rentals.map(rental => ({
+      ...rentals.map((rental: any) => ({
         id: `rental-${rental.id}`,
         type: 'rental' as const,
-        user_name: users.find(u => u.id === rental.user_id)?.name || 'Невідомий',
-        book_title: books.find(b => b.id === rental.book_id)?.title,
-        amount: books.find(b => b.id === rental.book_id)?.price_uah || 0,
+        user_name: users.find((u: any) => u.id === rental.user_id)?.name || 'Невідомий',
+        book_title: books.find((b: any) => b.id === rental.book_id)?.title,
+        amount: books.find((b: any) => b.id === rental.book_id)?.price_uah || 0,
         timestamp: rental.created_at
       })),
-      ...payments.map(payment => ({
+      ...payments.map((payment: any) => ({
         id: `payment-${payment.id}`,
         type: 'payment' as const,
-        user_name: users.find(u => u.id === payment.user_id)?.name || 'Невідомий',
+        user_name: users.find((u: any) => u.id === payment.user_id)?.name || 'Невідомий',
         amount: payment.amount || 0,
         timestamp: payment.created_at
       }))
     ]
-    .sort((a, b) => {
+    .sort((a: any, b: any) => {
       const aTime = a.timestamp ? new Date(a.timestamp).getTime() : 0;
       const bTime = b.timestamp ? new Date(b.timestamp).getTime() : 0;
       return bTime - aTime;
@@ -160,7 +160,7 @@ export async function GET(request: NextRequest): Promise<Response> {
     const trends = {
       userGrowth: Array.from({ length: 30 }, (_, i) => {
         const date = new Date(now.getTime() - (29 - i) * 24 * 60 * 60 * 1000)
-        const dayUsers = users.filter(u => 
+        const dayUsers = users.filter((u: any) => 
           u.created_at && new Date(u.created_at).toDateString() === date.toDateString()
         ).length
         return {
@@ -180,7 +180,7 @@ export async function GET(request: NextRequest): Promise<Response> {
       }),
       rentalActivity: Array.from({ length: 30 }, (_, i) => {
         const date = new Date(now.getTime() - (29 - i) * 24 * 60 * 60 * 1000)
-        const dayRentals = rentals.filter(r => 
+        const dayRentals = rentals.filter((r: any) => 
           r.created_at && new Date(r.created_at).toDateString() === date.toDateString()
         ).length
         return {
@@ -224,7 +224,7 @@ export async function GET(request: NextRequest): Promise<Response> {
     return NextResponse.json({
       success: true,
       data: analyticsData
-    }) as unknown as Response
+    })
 
   } catch (error) {
     console.error('Analytics API error:', error)
@@ -235,6 +235,6 @@ export async function GET(request: NextRequest): Promise<Response> {
         details: error instanceof Error ? error.message : 'Невідома помилка'
       },
       { status: 500 }
-    ) as unknown as Response
+    )
   }
 }

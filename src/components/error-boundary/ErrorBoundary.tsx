@@ -59,10 +59,10 @@ export class ErrorBoundary extends Component<Props, State> {
             </div>
             
             <div className="space-y-2">
-              <h1 className="text-h2 text-gray-900">
+              <h1 className="text-h2 text-neutral-900">
                 Щось пішло не так
               </h1>
-              <p className="text-gray-600">
+              <p className="text-neutral-600">
                 На жаль, сталася неочікувана помилка. Спробуйте оновити сторінку або повернутися на головну.
               </p>
             </div>
@@ -70,7 +70,7 @@ export class ErrorBoundary extends Component<Props, State> {
             {/* Error details in development */}
             {process.env.NODE_ENV === 'development' && this.state.error && (
               <details className="text-left">
-                <summary className="cursor-pointer text-body-sm text-gray-500 hover:text-gray-700">
+                <summary className="cursor-pointer text-body-sm text-neutral-500 hover:text-neutral-700">
                   Деталі помилки
                 </summary>
                 <pre className="mt-2 text-caption text-red-600 bg-red-50 p-3 rounded-lg overflow-auto">

@@ -113,17 +113,17 @@ export function RentalsTable({
 
   if (loading) {
     return (
-      <Card className="rounded-2xl border-gray-200 shadow-sm">
+      <Card className="rounded-2xl border-neutral-200 shadow-sm">
         <CardHeader>
-          <CardTitle className="text-gray-900 flex items-center gap-2">
+          <CardTitle className="text-neutral-900 flex items-center gap-2">
             <Calendar className="size-5" />
             Оренди
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center py-12">
-            <RefreshCw className="size-6 animate-spin text-gray-400" />
-            <span className="ml-2 text-gray-600">Завантаження оренд...</span>
+            <RefreshCw className="size-6 animate-spin text-neutral-400" />
+            <span className="ml-2 text-neutral-600">Завантаження оренд...</span>
           </div>
         </CardContent>
       </Card>
@@ -132,9 +132,9 @@ export function RentalsTable({
 
   if (error) {
     return (
-      <Card className="rounded-2xl border-gray-200 shadow-sm">
+      <Card className="rounded-2xl border-neutral-200 shadow-sm">
         <CardHeader>
-          <CardTitle className="text-gray-900 flex items-center gap-2">
+          <CardTitle className="text-neutral-900 flex items-center gap-2">
             <Calendar className="size-5" />
             Оренди
           </CardTitle>
@@ -153,10 +153,10 @@ export function RentalsTable({
   }
 
   return (
-    <Card className="rounded-2xl border-gray-200 shadow-sm">
+    <Card className="rounded-2xl border-neutral-200 shadow-sm">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-gray-900 flex items-center gap-2">
+          <CardTitle className="text-neutral-900 flex items-center gap-2">
             <Calendar className="size-5" />
             Оренди ({rentals.length})
           </CardTitle>
@@ -168,17 +168,17 @@ export function RentalsTable({
       </CardHeader>
       <CardContent>
         {rentals.length === 0 ? (
-          <div className="text-center py-12 text-gray-500">
+          <div className="text-center py-12 text-neutral-500">
             <Calendar className="size-16 mx-auto mb-4 opacity-50" />
-            <p className="text-body-lg font-semibold text-gray-700 mb-2">Немає оренд</p>
-            <p className="text-gray-500">Орендні записи з&apos;являться тут після видачі книг</p>
+            <p className="text-body-lg font-semibold text-neutral-700 mb-2">Немає оренд</p>
+            <p className="text-neutral-500">Орендні записи з&apos;являться тут після видачі книг</p>
           </div>
         ) : (
           <div className="space-y-4">
             {rentals.map((rental) => (
               <div
                 key={rental.id}
-                className="p-4 border border-gray-200 rounded-xl hover:shadow-sm transition-shadow"
+                className="p-4 border border-neutral-200 rounded-xl hover:shadow-sm transition-shadow"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
@@ -197,18 +197,18 @@ export function RentalsTable({
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <div className="flex items-center gap-2 text-sm">
-                          <User className="size-4 text-gray-500" />
+                          <User className="size-4 text-neutral-500" />
                           <span className="font-medium">{rental.users?.name || rental.user_name || 'Невідомий користувач'}</span>
-                          <span className="text-gray-500">({rental.users?.email || rental.user_email || 'немає email'})</span>
+                          <span className="text-neutral-500">({rental.users?.email || rental.user_email || 'немає email'})</span>
                         </div>
                         <div className="flex items-center gap-2 text-sm">
-                          <BookOpen className="size-4 text-gray-500" />
+                          <BookOpen className="size-4 text-neutral-500" />
                           <span className="font-medium">{rental.books?.title || rental.book_title || 'Невідома книга'}</span>
-                          <span className="text-gray-500">({rental.books?.code || rental.book_code || 'немає коду'})</span>
+                          <span className="text-neutral-500">({rental.books?.code || rental.book_code || 'немає коду'})</span>
                         </div>
                       </div>
                       
-                      <div className="space-y-2 text-body-sm text-gray-600">
+                      <div className="space-y-2 text-body-sm text-neutral-600">
                         <div className="flex items-center gap-2">
                           <Calendar className="size-4" />
                           <span>Видано: {formatDate(rental.rental_date)}</span>
@@ -227,7 +227,7 @@ export function RentalsTable({
                     </div>
                     
                     {rental.notes && (
-                      <p className="mt-3 text-body-sm text-gray-600 bg-gray-50 p-2 rounded-lg">
+                      <p className="mt-3 text-body-sm text-neutral-600 bg-neutral-50 p-2 rounded-lg">
                         {rental.notes}
                       </p>
                     )}

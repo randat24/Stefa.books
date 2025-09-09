@@ -294,7 +294,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
         </div>
 
         {/* Кнопки */}
-        <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
+        <div className="flex justify-end gap-3 pt-4 border-t border-neutral-200">
           <Button 
             variant="outline" 
             onClick={() => onOpenChange(false)}
@@ -309,7 +309,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
           >
             {submitting ? (
               <div className="flex items-center gap-2">
-                <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-white"></div>
+                <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-neutral-0"></div>
                 Збереження...
               </div>
             ) : (

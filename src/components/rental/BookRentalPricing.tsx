@@ -55,34 +55,34 @@ export function BookRentalPricing({ book }: BookRentalPricingProps) {
                   ? 'border-brand-accent bg-brand-accent/5'
                   : plan.premium
                   ? 'border-purple-200 bg-purple-50'
-                  : 'border-gray-200 hover:border-gray-300'
+                  : 'border-neutral-200 hover:border-neutral-300'
               }`}
             >
               {plan.popular && (
-                <Badge className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-brand-accent text-white">
+                <Badge className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-brand-accent text-neutral-0">
                   Популярний
                 </Badge>
               )}
               {plan.premium && (
-                <Badge className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white">
+                <Badge className="absolute -top-2 left-1/2 transform -translate-x-1/2 bg-purple-600 text-neutral-0">
                   Преміум
                 </Badge>
               )}
               
               <div className="text-center mb-4">
-                <h3 className="font-semibold text-gray-900 mb-1">{plan.name}</h3>
-                <p className="text-body-sm text-gray-600 mb-2">{plan.description}</p>
-                <div className="text-h2 text-gray-900">
+                <h3 className="font-semibold text-neutral-900 mb-1">{plan.name}</h3>
+                <p className="text-body-sm text-neutral-600 mb-2">{plan.description}</p>
+                <div className="text-h2 text-neutral-900">
                   {plan.price} ₴
                 </div>
-                <div className="text-body-sm text-gray-500">{plan.duration}</div>
+                <div className="text-body-sm text-neutral-500">{plan.duration}</div>
               </div>
 
               <ul className="space-y-2 text-sm">
                 {plan.features.map((feature, index) => (
                   <li key={index} className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 bg-green-500 rounded-2xl flex-shrink-0" />
-                    <span className="text-gray-600">{feature}</span>
+                    <span className="text-neutral-600">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -91,28 +91,28 @@ export function BookRentalPricing({ book }: BookRentalPricingProps) {
         </div>
 
         {/* Additional Info */}
-        <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-          <h4 className="font-semibold text-gray-900 mb-3">Додаткова інформація</h4>
+        <div className="mt-6 p-4 bg-neutral-50 rounded-lg">
+          <h4 className="font-semibold text-neutral-900 mb-3">Додаткова інформація</h4>
           <div className="grid md:grid-cols-2 gap-4 text-sm">
             <div className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-gray-400" />
-              <span className="text-gray-600">Доставка:</span>
-              <span className="text-gray-900">Безкоштовно по Києву, 30₴ по Україні</span>
+              <MapPin className="h-4 w-4 text-neutral-400" />
+              <span className="text-neutral-600">Доставка:</span>
+              <span className="text-neutral-900">Безкоштовно по Києву, 30₴ по Україні</span>
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-gray-400" />
-              <span className="text-gray-600">Час доставки:</span>
-              <span className="text-gray-900">1-2 робочі дні</span>
+              <Clock className="h-4 w-4 text-neutral-400" />
+              <span className="text-neutral-600">Час доставки:</span>
+              <span className="text-neutral-900">1-2 робочі дні</span>
             </div>
             <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-gray-400" />
-              <span className="text-gray-600">Повернення:</span>
-              <span className="text-gray-900">В будь-який день до закінчення терміну</span>
+              <Calendar className="h-4 w-4 text-neutral-400" />
+              <span className="text-neutral-600">Повернення:</span>
+              <span className="text-neutral-900">В будь-який день до закінчення терміну</span>
             </div>
             <div className="flex items-center gap-2">
-              <CreditCard className="h-4 w-4 text-gray-400" />
-              <span className="text-gray-600">Оплата:</span>
-              <span className="text-gray-900">Картка, готівка, наложений платіж</span>
+              <CreditCard className="h-4 w-4 text-neutral-400" />
+              <span className="text-neutral-600">Оплата:</span>
+              <span className="text-neutral-900">Картка, готівка, наложений платіж</span>
             </div>
           </div>
         </div>

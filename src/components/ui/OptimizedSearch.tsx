@@ -67,7 +67,7 @@ const OptimizedSearch = memo(function OptimizedSearch({
   return (
     <div className={cn('relative', className)}>
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400 w-4 h-4" />
         
         <input
           type="text"
@@ -76,25 +76,25 @@ const OptimizedSearch = memo(function OptimizedSearch({
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           className={cn(
-            'w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg',
+            'w-full pl-10 pr-10 py-2 border border-neutral-300 rounded-lg',
             'focus:ring-2 focus:ring-blue-500 focus:border-transparent',
             'transition-all duration-200',
-            'placeholder-gray-400 text-gray-900',
-            'disabled:bg-gray-50 disabled:cursor-not-allowed'
+            'placeholder-gray-400 text-neutral-900',
+            'disabled:bg-neutral-50 disabled:cursor-not-allowed'
           )}
           disabled={loading}
         />
         
         <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center gap-2">
           {loading && (
-            <Loader2 className="w-4 h-4 animate-spin text-gray-400" />
+            <Loader2 className="w-4 h-4 animate-spin text-neutral-400" />
           )}
           
           {showClear && !loading && (
             <button
               type="button"
               onClick={handleClear}
-              className="text-gray-400 hover:text-gray-600 transition-colors"
+              className="text-neutral-400 hover:text-neutral-600 transition-colors"
               aria-label="Очистити пошук"
             >
               <X className="w-4 h-4" />
@@ -105,13 +105,13 @@ const OptimizedSearch = memo(function OptimizedSearch({
       
       {/* Показываем статус поиска */}
       {query.length > 0 && query.length < minLength && (
-        <p className="text-body-sm text-gray-500 mt-1">
+        <p className="text-body-sm text-neutral-500 mt-1">
           Введіть щонайменше {minLength} символи
         </p>
       )}
       
       {loading && (
-        <p className="text-body-sm text-gray-500 mt-1">
+        <p className="text-body-sm text-neutral-500 mt-1">
           Пошук...
         </p>
       )}

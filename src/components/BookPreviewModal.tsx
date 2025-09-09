@@ -96,17 +96,17 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
               <button 
                 onClick={handleShare}
                 disabled={isSharing}
-                className={`p-2 rounded-2xl relative ${isSharing ? 'bg-gray-200' : 'bg-gray-100 hover:bg-gray-200'}`} 
+                className={`p-2 rounded-2xl relative ${isSharing ? 'bg-neutral-200' : 'bg-neutral-100 hover:bg-neutral-200'}`} 
                 title={isSharing ? "Обробка..." : "Поділитися"}
               >
                 {isSharing ? (
-                  <div className="h-5 w-5 border-2 border-gray-400 border-t-transparent rounded-2xl animate-spin" />
+                  <div className="h-5 w-5 border-2 border-neutral-400 border-t-transparent rounded-2xl animate-spin" />
                 ) : shareSuccess ? (
                   <Check className="h-5 w-5 text-green-600" />
                 ) : copySuccess ? (
                   <Copy className="h-5 w-5 text-green-600" />
                 ) : (
-                  <Share2 className="h-5 w-5 text-gray-700" />
+                  <Share2 className="h-5 w-5 text-neutral-700" />
                 )}
               </button>
               <FavoriteButton id={book.id} />
@@ -131,12 +131,12 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star key={i} className={`h-4 w-4 ${
                     i < Math.floor(rating) 
-                      ? "text-brand-yellow fill-yellow-500" 
-                      : "text-gray-300"
+                      ? "text-accent fill-yellow-500" 
+                      : "text-neutral-300"
                   }`} />
                 ))}
               </div>
-              <span className="text-body-sm text-gray-600">
+              <span className="text-body-sm text-neutral-600">
                 {rating.toFixed(1)} {book.rating_count && `(${book.rating_count})`}
               </span>
             </div>
@@ -171,7 +171,7 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
 
           {/* Short description */}
           {book.short_description && (
-            <div className="bg-gray-50 rounded-lg p-4 border-l-4 border-brand-yellow">
+            <div className="bg-neutral-50 rounded-lg p-4 border-l-4 border-accent">
               <p className="text-[--ink] text-body-sm leading-relaxed">{book.short_description}</p>
             </div>
           )}
@@ -181,12 +181,12 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
             {/* Subscription and Details buttons */}
             <div className="grid grid-cols-2 gap-4">
               <Link href="/subscription" className="w-full">
-                <Button className="w-full bg-brand-yellow text-brand hover:bg-brand-yellow-light">
+                <Button className="w-full bg-accent text-brand hover:bg-accent-light">
                   Оформити підписку
                 </Button>
               </Link>
               <Link href={`/books/${book.id}`} className="w-full">
-                <Button className="w-full bg-black text-white hover:bg-gray-800">
+                <Button className="w-full bg-black text-neutral-0 hover:bg-neutral-800">
                   Детальніше про книгу
                 </Button>
               </Link>

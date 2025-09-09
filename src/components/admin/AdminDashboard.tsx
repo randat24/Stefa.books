@@ -14,7 +14,7 @@ const AdvancedAnalytics = dynamic(() => import("./AdvancedAnalytics").then(mod =
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center h-64">
-      <div className="animate-spin rounded-2xl h-6 w-6 border-b-2 border-gray-900"></div>
+      <div className="animate-spin rounded-2xl h-6 w-6 border-b-2 border-neutral-900"></div>
     </div>
   )
 })
@@ -25,7 +25,7 @@ const EnhancedBooksManager = dynamic(() => import("./EnhancedBooksManager").then
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center h-96">
-      <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-gray-900"></div>
+      <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-neutral-900"></div>
     </div>
   )
 })
@@ -34,7 +34,7 @@ const UserManagement = dynamic(() => import("./UserManagement").then(mod => ({ d
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center h-96">
-      <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-gray-900"></div>
+      <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-neutral-900"></div>
     </div>
   )
 })
@@ -118,13 +118,13 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
   const getTrendIcon = (current: number, previous: number) => {
     if (current > previous) return <ArrowUpRight className="size-4 text-green-600" />
     if (current < previous) return <ArrowDownRight className="size-4 text-red-600" />
-    return <Minus className="size-4 text-gray-600" />
+    return <Minus className="size-4 text-neutral-600" />
   }
 
   const getTrendColor = (current: number, previous: number) => {
     if (current > previous) return "text-green-600"
     if (current < previous) return "text-red-600"
-    return "text-gray-600"
+    return "text-neutral-600"
   }
 
   const formatCurrency = (amount: number) => {
@@ -141,7 +141,7 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
       case 'subscription': return <Users className="size-4 text-purple-600" />
       case 'payment': return <CreditCard className="size-4 text-yellow-600" />
       case 'user_registration': return <Users className="size-4 text-indigo-600" />
-      default: return <Activity className="size-4 text-gray-600" />
+      default: return <Activity className="size-4 text-neutral-600" />
     }
   }
 
@@ -151,7 +151,7 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
       case 'error': return <AlertTriangle className="size-4 text-red-600" />
       case 'info': return <Clock className="size-4 text-blue-600" />
       case 'success': return <CheckCircle className="size-4 text-green-600" />
-      default: return <Bell className="size-4 text-gray-600" />
+      default: return <Bell className="size-4 text-neutral-600" />
     }
   }
 
@@ -161,18 +161,18 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
       case 'error': return 'bg-red-50 border-red-200'
       case 'info': return 'bg-blue-50 border-blue-200'
       case 'success': return 'bg-green-50 border-green-200'
-      default: return 'bg-gray-50 border-gray-200'
+      default: return 'bg-neutral-50 border-neutral-200'
     }
   }
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        <div className="sticky top-0 z-10 border-b border-gray-200/60 bg-white/90 backdrop-blur-sm">
+      <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
+        <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-neutral-0/90 backdrop-blur-sm">
           <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
             <div className="flex items-center justify-center">
-              <RefreshCw className="size-6 animate-spin text-gray-400" />
-              <span className="ml-2 text-gray-600">Завантаження дашборду...</span>
+              <RefreshCw className="size-6 animate-spin text-neutral-400" />
+              <span className="ml-2 text-neutral-600">Завантаження дашборду...</span>
             </div>
           </div>
         </div>
@@ -182,8 +182,8 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        <div className="sticky top-0 z-10 border-b border-gray-200/60 bg-white/90 backdrop-blur-sm">
+      <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
+        <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-neutral-0/90 backdrop-blur-sm">
           <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
             <div className="text-center">
               <p className="text-red-600 mb-4">{error}</p>
@@ -199,18 +199,18 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
       {/* Заголовок */}
-      <div className="sticky top-0 z-10 border-b border-gray-200/60 bg-white/90 backdrop-blur-sm">
+      <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-neutral-0/90 backdrop-blur-sm">
         <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="flex size-14 items-center justify-center rounded-2xl border border-gray-200 bg-white shadow-sm">
-                <Building2 className="size-7 text-gray-600"/>
+              <div className="flex size-14 items-center justify-center rounded-2xl border border-neutral-200 bg-neutral-0 shadow-sm">
+                <Building2 className="size-7 text-neutral-600"/>
               </div>
               <div>
-                <div className="text-body-sm text-gray-500 font-medium">Адмін‑панель</div>
-                <h1 className="text-h1 tracking-tight text-gray-900">
+                <div className="text-body-sm text-neutral-500 font-medium">Адмін‑панель</div>
+                <h1 className="text-h1 tracking-tight text-neutral-900">
                   Stefa.books — Управління
                 </h1>
               </div>
@@ -236,7 +236,7 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
       </div>
 
       {/* Навігація */}
-      <div className="border-b border-gray-200/60 bg-white/50 backdrop-blur-sm">
+      <div className="border-b border-neutral-200/60 bg-neutral-0/50 backdrop-blur-sm">
         <div className="w-full px-4 py-4 lg:px-6 xl:px-8 2xl:px-10">
           <div className="flex items-center gap-1">
             <Button
@@ -281,16 +281,16 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
           <div className="space-y-6">
             {/* Основні метрики */}
             <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
-              <Card className="rounded-2xl border-gray-200 shadow-sm">
+              <Card className="rounded-2xl border-neutral-200 shadow-sm">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-                  <CardTitle className="text-body-sm font-semibold text-gray-700">Користувачі</CardTitle>
-                  <Users className="h-5 w-5 text-gray-500" />
+                  <CardTitle className="text-body-sm font-semibold text-neutral-700">Користувачі</CardTitle>
+                  <Users className="h-5 w-5 text-neutral-500" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-h2 text-brand-accent-light">
                     {data.overview.activeUsers}
                   </div>
-                  <p className="text-caption text-gray-500 mt-1">
+                  <p className="text-caption text-neutral-500 mt-1">
                     з {data.overview.totalUsers} загалом
                   </p>
                   <div className="flex items-center gap-1 mt-2">
@@ -302,16 +302,16 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
                 </CardContent>
               </Card>
 
-              <Card className="rounded-2xl border-gray-200 shadow-sm">
+              <Card className="rounded-2xl border-neutral-200 shadow-sm">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-                  <CardTitle className="text-body-sm font-semibold text-gray-700">Активні оренди</CardTitle>
-                  <BookOpen className="h-5 w-5 text-gray-500" />
+                  <CardTitle className="text-body-sm font-semibold text-neutral-700">Активні оренди</CardTitle>
+                  <BookOpen className="h-5 w-5 text-neutral-500" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-h2 text-green-600">
                     {data.overview.activeRentals}
                   </div>
-                  <p className="text-caption text-gray-500 mt-1">
+                  <p className="text-caption text-neutral-500 mt-1">
                     {data.overview.overdueRentals > 0 && (
                       <span className="text-red-600">
                         {data.overview.overdueRentals} просрочених
@@ -321,31 +321,31 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
                 </CardContent>
               </Card>
 
-              <Card className="rounded-2xl border-gray-200 shadow-sm">
+              <Card className="rounded-2xl border-neutral-200 shadow-sm">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-                  <CardTitle className="text-body-sm font-semibold text-gray-700">Доходи (місяць)</CardTitle>
-                  <CreditCard className="h-5 w-5 text-gray-500" />
+                  <CardTitle className="text-body-sm font-semibold text-neutral-700">Доходи (місяць)</CardTitle>
+                  <CreditCard className="h-5 w-5 text-neutral-500" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-h2 text-purple-600">
                     {formatCurrency(data.overview.monthlyRevenue)}
                   </div>
-                  <p className="text-caption text-gray-500 mt-1">
+                  <p className="text-caption text-neutral-500 mt-1">
                     Загалом: {formatCurrency(data.overview.totalRevenue)}
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="rounded-2xl border-gray-200 shadow-sm">
+              <Card className="rounded-2xl border-neutral-200 shadow-sm">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-                  <CardTitle className="text-body-sm font-semibold text-gray-700">Книги</CardTitle>
-                  <BookOpen className="h-5 w-5 text-gray-500" />
+                  <CardTitle className="text-body-sm font-semibold text-neutral-700">Книги</CardTitle>
+                  <BookOpen className="h-5 w-5 text-neutral-500" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-h2 text-indigo-600">
                     {data.overview.availableBooks}
                   </div>
-                  <p className="text-caption text-gray-500 mt-1">
+                  <p className="text-caption text-neutral-500 mt-1">
                     з {data.overview.totalBooks} загалом
                   </p>
                 </CardContent>
@@ -353,9 +353,9 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
             </div>
 
             {/* Швидка статистика */}
-            <Card className="rounded-2xl border-gray-200 shadow-sm">
+            <Card className="rounded-2xl border-neutral-200 shadow-sm">
               <CardHeader>
-                <CardTitle className="text-gray-900 flex items-center gap-2">
+                <CardTitle className="text-neutral-900 flex items-center gap-2">
                   <Zap className="size-5" />
                   Сьогодні
                 </CardTitle>
@@ -384,16 +384,16 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
 
             <div className="grid gap-6 lg:grid-cols-2">
               {/* Остання активність */}
-              <Card className="rounded-2xl border-gray-200 shadow-sm">
+              <Card className="rounded-2xl border-neutral-200 shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-gray-900 flex items-center gap-2">
+                  <CardTitle className="text-neutral-900 flex items-center gap-2">
                     <Activity className="size-5" />
                     Остання активність
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {data.recentActivity.length === 0 ? (
-                    <div className="text-center py-8 text-gray-500">
+                    <div className="text-center py-8 text-neutral-500">
                       <Activity className="size-12 mx-auto mb-3 opacity-50" />
                       <p>Немає недавньої активності</p>
                     </div>
@@ -402,15 +402,15 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
                       {data.recentActivity.slice(0, 5).map((activity) => (
                         <div
                           key={activity.id}
-                          className="flex items-center justify-between p-3 border border-gray-200 rounded-lg"
+                          className="flex items-center justify-between p-3 border border-neutral-200 rounded-lg"
                         >
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-gray-100 rounded-2xl flex items-center justify-center">
+                            <div className="w-8 h-8 bg-neutral-100 rounded-2xl flex items-center justify-center">
                               {getActivityIcon(activity.type)}
                             </div>
                             <div>
-                              <p className="font-medium text-gray-900">{activity.user_name}</p>
-                              <p className="text-body-sm text-gray-600">
+                              <p className="font-medium text-neutral-900">{activity.user_name}</p>
+                              <p className="text-body-sm text-neutral-600">
                                 {activity.type === 'rental' ? 'Орендував' :
                                  activity.type === 'return' ? 'Повернув' :
                                  activity.type === 'subscription' ? 'Оновив підписку' :
@@ -426,7 +426,7 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
                                 {formatCurrency(activity.amount)}
                               </p>
                             )}
-                            <p className="text-caption text-gray-500">
+                            <p className="text-caption text-neutral-500">
                               {new Date(activity.timestamp).toLocaleString('uk-UA')}
                             </p>
                           </div>
@@ -438,16 +438,16 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
               </Card>
 
               {/* Сповіщення */}
-              <Card className="rounded-2xl border-gray-200 shadow-sm">
+              <Card className="rounded-2xl border-neutral-200 shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-gray-900 flex items-center gap-2">
+                  <CardTitle className="text-neutral-900 flex items-center gap-2">
                     <Bell className="size-5" />
                     Сповіщення
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {data.alerts.length === 0 ? (
-                    <div className="text-center py-8 text-gray-500">
+                    <div className="text-center py-8 text-neutral-500">
                       <CheckCircle className="size-12 mx-auto mb-3 opacity-50" />
                       <p>Немає сповіщень</p>
                     </div>
@@ -463,9 +463,9 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
                               {getAlertIcon(alert.type)}
                             </div>
                             <div className="flex-1">
-                              <h4 className="font-medium text-gray-900">{alert.title}</h4>
-                              <p className="text-body-sm text-gray-600 mt-1">{alert.message}</p>
-                              <p className="text-caption text-gray-500 mt-2">
+                              <h4 className="font-medium text-neutral-900">{alert.title}</h4>
+                              <p className="text-body-sm text-neutral-600 mt-1">{alert.message}</p>
+                              <p className="text-caption text-neutral-500 mt-2">
                                 {new Date(alert.timestamp).toLocaleString('uk-UA')}
                               </p>
                             </div>

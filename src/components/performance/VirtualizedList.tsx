@@ -367,7 +367,7 @@ export function InfiniteScroll<T>({
       {/* Индикатор загрузки */}
       {isLoading && (
         <div className="flex justify-center py-4">
-          <div className="w-6 h-6 border-2 border-gray-300 border-t-brand-yellow rounded-2xl animate-spin" />
+          <div className="w-6 h-6 border-2 border-neutral-300 border-t-accent rounded-2xl animate-spin" />
         </div>
       )}
     </div>

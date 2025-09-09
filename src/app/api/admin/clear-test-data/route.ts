@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
-export async function POST(): Promise<Response> {
+export async function POST() {
   try {
     // Удаляем тестовые данные в правильном порядке (сначала зависимые таблицы)
     

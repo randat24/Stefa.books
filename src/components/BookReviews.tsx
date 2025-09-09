@@ -42,10 +42,10 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
   return (
     <div className="space-y-6">
       {/* Overall Rating Summary */}
-      <div className="bg-gray-50 rounded-lg p-6">
+      <div className="bg-neutral-50 rounded-lg p-6">
         <div className="flex items-center gap-6">
           <div className="text-center">
-            <div className="text-h1 text-gray-900 mb-1">
+            <div className="text-h1 text-neutral-900 mb-1">
               {averageRating.toFixed(1)}
             </div>
             <div className="flex items-center justify-center mb-2">
@@ -54,13 +54,13 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
                   key={i} 
                   className={`h-5 w-5 ${
                     i < Math.floor(averageRating) 
-                      ? 'text-brand-yellow-light fill-current' 
-                      : 'text-gray-300'
+                      ? 'text-accent-light fill-current' 
+                      : 'text-neutral-300'
                   }`} 
                 />
               ))}
             </div>
-            <div className="text-body-sm text-gray-600">
+            <div className="text-body-sm text-neutral-600">
               {totalReviews} відгуків
             </div>
           </div>
@@ -75,14 +75,14 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
                 return (
                   <div key={stars} className="flex items-center gap-2 text-sm">
                     <span className="w-3">{stars}</span>
-                    <Star className="h-3 w-3 text-brand-yellow-light fill-current" />
-                    <div className="flex-1 bg-gray-200 rounded-2xl h-2">
+                    <Star className="h-3 w-3 text-accent-light fill-current" />
+                    <div className="flex-1 bg-neutral-200 rounded-2xl h-2">
                       <div 
-                        className="bg-brand-yellow-light h-2 rounded-2xl transition-all duration-300" 
+                        className="bg-accent-light h-2 rounded-2xl transition-all duration-300" 
                         style={{ width: `${percentage}%` }}
                       />
                     </div>
-                    <span className="w-8 text-gray-600">{count}</span>
+                    <span className="w-8 text-neutral-600">{count}</span>
                   </div>
                 );
               })}
@@ -91,7 +91,7 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
         </div>
         
         {/* Write Review Button */}
-        <div className="mt-6 pt-6 border-t border-gray-200">
+        <div className="mt-6 pt-6 border-t border-neutral-200">
           <Button variant="outline" className="w-full">
             <MessageCircle className="h-4 w-4 mr-2" />
             Написати відгук
@@ -101,15 +101,15 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
 
       {/* Individual Reviews */}
       <div className="space-y-6">
-        <h3 className="text-body-lg font-semibold text-gray-900">
+        <h3 className="text-body-lg font-semibold text-neutral-900">
           Відгуки читачів
         </h3>
         
         {mockReviews.map((review) => (
-          <div key={review.id} className="border-b border-gray-200 pb-6">
+          <div key={review.id} className="border-b border-neutral-200 pb-6">
             <div className="flex items-start justify-between mb-3">
               <div>
-                <h4 className="font-medium text-gray-900">{review.author}</h4>
+                <h4 className="font-medium text-neutral-900">{review.author}</h4>
                 <div className="flex items-center gap-2 mt-1">
                   <div className="flex items-center">
                     {[...Array(5)].map((_, i) => (
@@ -117,13 +117,13 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
                         key={i} 
                         className={`h-4 w-4 ${
                           i < review.rating 
-                            ? 'text-brand-yellow-light fill-current' 
-                            : 'text-gray-300'
+                            ? 'text-accent-light fill-current' 
+                            : 'text-neutral-300'
                         }`} 
                       />
                     ))}
                   </div>
-                  <span className="text-body-sm text-gray-500">{review.date}</span>
+                  <span className="text-body-sm text-neutral-500">{review.date}</span>
                 </div>
               </div>
               <Badge variant="outline" className="text-xs">
@@ -131,7 +131,7 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
               </Badge>
             </div>
             
-            <p className="text-gray-700 mb-3 leading-relaxed">
+            <p className="text-neutral-700 mb-3 leading-relaxed">
               {review.text}
             </p>
             

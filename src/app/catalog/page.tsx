@@ -46,10 +46,10 @@ export default async function CatalogPage() {
 		<div className="container-default py-8">
 			{/* Breadcrumbs */}
 			<div className="mb-6">
-				<nav className="flex items-center space-x-2 text-body-sm text-gray-600">
-					<Link href="/" className="hover:text-gray-900">Головна</Link>
+				<nav className="flex items-center space-x-2 text-body-sm text-neutral-600">
+					<Link href="/" className="hover:text-neutral-900">Головна</Link>
 					<ChevronRight className="h-4 w-4" />
-					<span className="text-gray-900 font-medium">Каталог</span>
+					<span className="text-neutral-900 font-medium">Каталог</span>
 				</nav>
 			</div>
 			
@@ -60,24 +60,24 @@ export default async function CatalogPage() {
 			
 			{/* Server-side Categories */}
 			<div className="max-w-4xl mx-auto mt-8">
-				<h2 className="text-h2 text-gray-900 mb-8">📚 Повний каталог</h2>
+				<h2 className="text-h2 text-neutral-900 mb-8">📚 Повний каталог</h2>
 				{categories && !error ? (
 					<div className="space-y-6">
 						{categories.map((category: any) => (
 							<Link
 								key={category.id}
 								href={`/books?category=${encodeURIComponent(category.name)}`}
-								className="flex items-center gap-3 p-4 rounded-xl hover:bg-gray-50 transition-colors"
+								className="flex items-center gap-3 p-4 rounded-xl hover:bg-neutral-50 transition-colors"
 								style={{ 
 									backgroundColor: category.color ? `${category.color}20` : '#F8FAFC',
 									borderLeft: `4px solid ${category.color || '#64748B'}` 
 								}}
 							>
 								<span className="text-h2">{category.icon || '📚'}</span>
-								<h3 className="text-body-lg font-semibold text-gray-800 group-hover:text-gray-900">
+								<h3 className="text-body-lg font-semibold text-neutral-800 group-hover:text-neutral-900">
 									{category.name}
 								</h3>
-								<span className="ml-auto text-body-sm text-gray-500 bg-white px-2 py-1 rounded-2xl">
+								<span className="ml-auto text-body-sm text-neutral-500 bg-neutral-0 px-2 py-1 rounded-2xl">
 									Переглянути книги →
 								</span>
 							</Link>

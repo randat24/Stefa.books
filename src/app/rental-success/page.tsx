@@ -69,7 +69,7 @@ function RentalSuccessContent() {
 			<div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 flex items-center justify-center">
 				<div className="text-center">
 					<CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4 animate-pulse" />
-					<p className="text-gray-600">Загрузка...</p>
+					<p className="text-neutral-600">Загрузка...</p>
 				</div>
 			</div>
 		)
@@ -85,7 +85,7 @@ function RentalSuccessContent() {
 							variant="ghost"
 							size="md"
 							onClick={() => router.push('/')}
-							className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+							className="flex items-center gap-2 text-neutral-600 hover:text-neutral-900"
 						>
 							<ArrowLeft className="h-4 w-4" />
 							На главную
@@ -98,11 +98,11 @@ function RentalSuccessContent() {
 							<CheckCircle className="h-16 w-16 text-green-600" />
 						</div>
 						
-						<h1 className="text-display font-bold text-gray-900 mb-4">
+						<h1 className="text-display font-bold text-neutral-900 mb-4">
 							Заявка надіслана успішно!
 						</h1>
 						
-						<div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 max-w-2xl mx-auto">
+						<div className="bg-neutral-0 rounded-2xl shadow-lg border border-neutral-100 p-8 max-w-2xl mx-auto">
 							<div className="flex items-center justify-center gap-3 text-green-700 mb-4">
 								<Heart className="h-6 w-6" />
 								<span className="text-body-lg font-semibold">Дякуємо за довіру до Stefa.books</span>
@@ -133,7 +133,7 @@ function RentalSuccessContent() {
 								</div>
 							)}
 							
-							<p className="text-gray-600 leading-relaxed mt-6">
+							<p className="text-neutral-600 leading-relaxed mt-6">
 								Ваша заявка на оренду отримана та буде оброблена найближчим часом. 
 								Наш менеджер зв&apos;яжеться з вами для підтвердження деталей та уточнення способу доставки.
 							</p>
@@ -151,7 +151,7 @@ function RentalSuccessContent() {
 						<CardContent>
 							<div className="grid md:grid-cols-3 gap-6">
 								<div className="flex items-start gap-4 p-6 bg-blue-50 rounded-xl border border-blue-200">
-									<div className="flex-shrink-0 w-10 h-10 bg-brand-accent-light text-white rounded-2xl flex items-center justify-center text-h4">
+									<div className="flex-shrink-0 w-10 h-10 bg-brand-accent-light text-neutral-0 rounded-2xl flex items-center justify-center text-h4">
 										1
 									</div>
 									<div>
@@ -163,7 +163,7 @@ function RentalSuccessContent() {
 								</div>
 
 								<div className="flex items-start gap-4 p-6 bg-yellow-50 rounded-xl border border-yellow-200">
-									<div className="flex-shrink-0 w-10 h-10 bg-brand-yellow-dark text-white rounded-2xl flex items-center justify-center text-h4">
+									<div className="flex-shrink-0 w-10 h-10 bg-accent-dark text-neutral-0 rounded-2xl flex items-center justify-center text-h4">
 										2
 									</div>
 									<div>
@@ -175,7 +175,7 @@ function RentalSuccessContent() {
 								</div>
 
 								<div className="flex items-start gap-4 p-6 bg-green-50 rounded-xl border border-green-200">
-									<div className="flex-shrink-0 w-10 h-10 bg-green-600 text-white rounded-2xl flex items-center justify-center text-h4">
+									<div className="flex-shrink-0 w-10 h-10 bg-green-600 text-neutral-0 rounded-2xl flex items-center justify-center text-h4">
 										3
 									</div>
 									<div>
@@ -200,25 +200,25 @@ function RentalSuccessContent() {
 						<CardContent>
 							<div className="grid md:grid-cols-2 gap-6">
 								<div className="space-y-4">
-									<div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
+									<div className="flex items-center gap-4 p-4 bg-neutral-50 rounded-xl">
 										<div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center">
 											<Phone className="h-6 w-6 text-brand-accent-light" />
 										</div>
 										<div>
-											<p className="font-semibold text-gray-900">Телефон</p>
-											<p className="text-gray-600">+38 (063) 856-54-14</p>
-											<p className="text-caption text-gray-500">Пн-Пт: 9:00-18:00</p>
+											<p className="font-semibold text-neutral-900">Телефон</p>
+											<p className="text-neutral-600">+38 (063) 856-54-14</p>
+											<p className="text-caption text-neutral-500">Пн-Пт: 9:00-18:00</p>
 										</div>
 									</div>
 									
-									<div className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
+									<div className="flex items-center gap-4 p-4 bg-neutral-50 rounded-xl">
 										<div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center">
 											<Mail className="h-6 w-6 text-green-600" />
 										</div>
 										<div>
-											<p className="font-semibold text-gray-900">Email</p>
-											<p className="text-gray-600">info@stefa.books</p>
-											<p className="text-caption text-gray-500">Відповідаємо протягом 2 годин</p>
+											<p className="font-semibold text-neutral-900">Email</p>
+											<p className="text-neutral-600">info@stefa.books</p>
+											<p className="text-caption text-neutral-500">Відповідаємо протягом 2 годин</p>
 										</div>
 									</div>
 								</div>
@@ -285,7 +285,7 @@ function RentalSuccessContent() {
 								</CardTitle>
 							</CardHeader>
 							<CardContent>
-								<ul className="space-y-3 text-body-sm text-gray-600">
+								<ul className="space-y-3 text-body-sm text-neutral-600">
 									<li className="flex items-start gap-2">
 										<CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
 										<span>Переконайтеся, що ваш телефон увімкнений для швидкого зв&apos;язку</span>
@@ -319,22 +319,22 @@ function RentalSuccessContent() {
 									<div className="flex items-center gap-3">
 										<Users className="h-5 w-5 text-brand-accent" />
 										<div>
-											<p className="font-semibold text-gray-900">10,000+</p>
-											<p className="text-body-sm text-gray-600">успішних оренд за рік</p>
+											<p className="font-semibold text-neutral-900">10,000+</p>
+											<p className="text-body-sm text-neutral-600">успішних оренд за рік</p>
 										</div>
 									</div>
 									<div className="flex items-center gap-3">
-										<Star className="h-5 w-5 text-brand-yellow" />
+										<Star className="h-5 w-5 text-accent" />
 										<div>
-											<p className="font-semibold text-gray-900">4.9/5</p>
-											<p className="text-body-sm text-gray-600">середня оцінка клієнтів</p>
+											<p className="font-semibold text-neutral-900">4.9/5</p>
+											<p className="text-body-sm text-neutral-600">середня оцінка клієнтів</p>
 										</div>
 									</div>
 									<div className="flex items-center gap-3">
 										<CheckCircle className="h-5 w-5 text-green-500" />
 										<div>
-											<p className="font-semibold text-gray-900">100%</p>
-											<p className="text-body-sm text-gray-600">гарантія якості книг</p>
+											<p className="font-semibold text-neutral-900">100%</p>
+											<p className="text-body-sm text-neutral-600">гарантія якості книг</p>
 										</div>
 									</div>
 								</div>
@@ -365,7 +365,7 @@ export default function RentalSuccessPage() {
 			<div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 flex items-center justify-center">
 				<div className="text-center">
 					<CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4 animate-pulse" />
-					<p className="text-gray-600">Завантаження...</p>
+					<p className="text-neutral-600">Завантаження...</p>
 				</div>
 			</div>
 		}>

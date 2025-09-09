@@ -207,7 +207,7 @@ export default function RegisterPage() {
             <Button className="w-full" type="submit" disabled={isLoading}>
               {isLoading ? 'Реєстрація...' : 'Зареєструватися'}
             </Button>
-            <p className="mt-4 text-center text-body-sm text-gray-500">
+            <p className="mt-4 text-center text-body-sm text-neutral-500">
               Вже маєте обліковий запис?{' '}
               <Link href="/auth/login" className="text-brand-accent-light hover:underline">
                 Увійти

@@ -104,13 +104,13 @@ export function MobileNavigation({
           onClick={() => handleItemClick(item)}
           className={`
             w-full flex items-center justify-between px-4 py-3 text-left
-            hover:bg-gray-50 transition-colors
+            hover:bg-neutral-50 transition-colors
             ${level > 0 ? 'pl-8' : ''}
           `}
         >
           <div className="flex items-center gap-3">
             {item.icon && (
-              <span className="text-gray-500">
+              <span className="text-neutral-500">
                 {item.icon}
               </span>
             )}
@@ -119,7 +119,7 @@ export function MobileNavigation({
           
           {hasChildren && (
             <ChevronDown
-              className={`w-4 h-4 text-gray-400 transition-transform ${
+              className={`w-4 h-4 text-neutral-400 transition-transform ${
                 isExpanded ? 'rotate-180' : ''
               }`}
             />
@@ -127,7 +127,7 @@ export function MobileNavigation({
         </button>
         
         {hasChildren && isExpanded && (
-          <div className="bg-gray-50">
+          <div className="bg-neutral-50">
             {item.children!.map(child => renderNavigationItem(child, level + 1))}
           </div>
         )}
@@ -145,8 +145,8 @@ export function MobileNavigation({
       <button
         onClick={toggleMenu}
         className="
-          p-2 rounded-lg text-gray-600 hover:text-gray-900
-          focus:outline-none focus:ring-2 focus:ring-brand-yellow
+          p-2 rounded-lg text-neutral-600 hover:text-neutral-900
+          focus:outline-none focus:ring-2 focus:ring-accent
           transition-colors
         "
         aria-label="Відкрити меню"
@@ -164,18 +164,18 @@ export function MobileNavigation({
         <div
           ref={menuRef}
           className="
-            fixed inset-0 z-50 bg-white
+            fixed inset-0 z-50 bg-neutral-0
             transform transition-transform duration-300 ease-in-out
           "
         >
           {/* Заголовок */}
-          <div className="flex items-center justify-between p-4 border-b border-gray-200">
+          <div className="flex items-center justify-between p-4 border-b border-neutral-200">
             {logo && <div>{logo}</div>}
             <button
               onClick={toggleMenu}
               className="
-                p-2 rounded-lg text-gray-600 hover:text-gray-900
-                focus:outline-none focus:ring-2 focus:ring-brand-yellow
+                p-2 rounded-lg text-neutral-600 hover:text-neutral-900
+                focus:outline-none focus:ring-2 focus:ring-accent
                 transition-colors
               "
               aria-label="Закрити меню"
@@ -221,7 +221,7 @@ export function MobileHeader({
   return (
     <header
       className={`
-        bg-white border-b border-gray-200 px-4 py-3
+        bg-neutral-0 border-b border-neutral-200 px-4 py-3
         ${sticky ? 'sticky top-0 z-40' : ''}
         ${className}
       `}
@@ -261,7 +261,7 @@ export function MobileFooter({
   return (
     <footer
       className={`
-        bg-white border-t border-gray-200 px-4 py-3
+        bg-neutral-0 border-t border-neutral-200 px-4 py-3
         ${fixed ? 'fixed bottom-0 left-0 right-0 z-40' : ''}
         ${className}
       `}
@@ -325,7 +325,7 @@ export function MobileCard({
   const { isMobile } = useBreakpoint();
 
   const baseClasses = `
-    bg-white rounded-lg border border-gray-200
+    bg-neutral-0 rounded-lg border border-neutral-200
     ${clickable ? 'cursor-pointer hover:shadow-md transition-shadow' : ''}
   `;
 

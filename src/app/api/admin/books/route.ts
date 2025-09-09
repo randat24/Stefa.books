@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { logger } from '@/lib/logger'
 
-export async function GET(request: NextRequest): Promise<Response> {
+export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams
     const limit = parseInt(searchParams.get('limit') || '1000') // Показываем все книги в админ панели
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest): Promise<Response> {
       return NextResponse.json(
         { error: 'Server configuration error' },
         { status: 500 }
-      ) as unknown as Response
+      )
     }
 
     const supabase = createClient(supabaseUrl, supabaseKey)
@@ -54,7 +54,7 @@ export async function GET(request: NextRequest): Promise<Response> {
       return NextResponse.json(
         { error: 'Ошибка при получении книг' },
         { status: 500 }
-      ) as unknown as Response
+      )
     }
 
     // Получаем общее количество для пагинации
@@ -79,13 +79,13 @@ export async function GET(request: NextRequest): Promise<Response> {
       count: books?.length || 0,
       total: totalCount || 0,
       hasMore: (offset + limit) < (totalCount || 0)
-    }) as unknown as Response
+    })
 
   } catch (error) {
     logger.error('Admin API: Unexpected error in GET /api/admin/books', { error })
     return NextResponse.json(
       { error: 'Внутренняя ошибка сервера' },
       { status: 500 }
-    ) as unknown as Response
+    )
   }
 }

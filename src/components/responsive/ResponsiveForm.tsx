@@ -114,7 +114,7 @@ export function ResponsiveField({
   if (isMobile) {
     return (
       <div className={`space-y-2 ${className}`}>
-        <label className="block text-body-sm font-medium text-gray-700">
+        <label className="block text-body-sm font-medium text-neutral-700">
           {label}
           {required && <span className="text-red-500 ml-1">*</span>}
         </label>
@@ -123,7 +123,7 @@ export function ResponsiveField({
           <p className="text-body-sm text-red-600">{error}</p>
         )}
         {helpText && !error && (
-          <p className="text-body-sm text-gray-500">{helpText}</p>
+          <p className="text-body-sm text-neutral-500">{helpText}</p>
         )}
       </div>
     );
@@ -131,7 +131,7 @@ export function ResponsiveField({
 
   return (
     <div className={`flex items-start space-x-4 ${className}`}>
-      <label className={`${labelWidth} text-body-sm font-medium text-gray-700 pt-2`}>
+      <label className={`${labelWidth} text-body-sm font-medium text-neutral-700 pt-2`}>
         {label}
         {required && <span className="text-red-500 ml-1">*</span>}
       </label>
@@ -141,7 +141,7 @@ export function ResponsiveField({
           <p className="text-body-sm text-red-600">{error}</p>
         )}
         {helpText && !error && (
-          <p className="text-body-sm text-gray-500">{helpText}</p>
+          <p className="text-body-sm text-neutral-500">{helpText}</p>
         )}
       </div>
     </div>
@@ -179,15 +179,15 @@ export function ResponsiveButton({
   const getVariantClasses = () => {
     switch (variant) {
       case 'primary':
-        return 'bg-brand-yellow text-brand hover:bg-brand-yellow-light';
+        return 'bg-accent text-brand hover:bg-accent-light';
       case 'secondary':
-        return 'bg-gray-100 text-gray-900 hover:bg-gray-200';
+        return 'bg-neutral-100 text-neutral-900 hover:bg-neutral-200';
       case 'outline':
-        return 'border border-gray-300 text-gray-700 hover:bg-gray-50';
+        return 'border border-neutral-300 text-neutral-700 hover:bg-neutral-50';
       case 'ghost':
-        return 'text-gray-700 hover:bg-gray-100';
+        return 'text-neutral-700 hover:bg-neutral-100';
       default:
-        return 'bg-brand-yellow text-brand hover:bg-brand-yellow-light';
+        return 'bg-accent text-brand hover:bg-accent-light';
     }
   };
 
@@ -224,7 +224,7 @@ export function ResponsiveButton({
       disabled={disabled || loading}
       className={`
         inline-flex items-center justify-center font-medium rounded-lg
-        focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:ring-offset-2
+        focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2
         disabled:opacity-50 disabled:cursor-not-allowed
         transition-all duration-200 ease-in-out
         active:scale-[0.98]
@@ -347,18 +347,18 @@ export function ResponsiveModal({
       
       <div
         className={`
-          relative bg-white rounded-xl shadow-2xl w-full
+          relative bg-neutral-0 rounded-xl shadow-2xl w-full
           ${getSizeClasses()}
           ${className}
         `}
       >
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
-          <h2 className="text-body-lg font-semibold text-gray-900">{title}</h2>
+        <div className="flex items-center justify-between p-6 border-b border-neutral-200">
+          <h2 className="text-body-lg font-semibold text-neutral-900">{title}</h2>
           <button
             onClick={onClose}
             className="
-              p-2 text-gray-400 hover:text-gray-600
-              focus:outline-none focus:ring-2 focus:ring-brand-yellow
+              p-2 text-neutral-400 hover:text-neutral-600
+              focus:outline-none focus:ring-2 focus:ring-accent
               rounded-lg transition-colors
             "
           >

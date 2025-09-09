@@ -404,7 +404,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
               className={`px-3 py-1 text-caption rounded-2xl transition-colors ${
                 isSupabaseSearch 
                   ? 'bg-green-100 text-green-800 border border-green-200' 
-                  : 'bg-gray-100 text-gray-600 border border-gray-200'
+                  : 'bg-neutral-100 text-neutral-600 border border-neutral-200'
               }`}
               title={isSupabaseSearch ? 'AI пошук активний' : 'Увімкнути AI пошук'}
             >

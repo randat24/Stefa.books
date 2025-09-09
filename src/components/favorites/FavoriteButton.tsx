@@ -12,7 +12,7 @@ export function FavoriteButton({ id, className }: { id: string; className?: stri
       aria-label={has ? "В обраному" : "Додати в обране"}
       onClick={() => toggle(id)}
       className={cn(
-        "px-3 py-2 rounded-2xl border border-[--line] bg-white hover:bg-black/[.03] inline-flex items-center gap-2 transition",
+        "px-3 py-2 rounded-2xl border border-[--line] bg-neutral-0 hover:bg-black/[.03] inline-flex items-center gap-2 transition",
         className
       )}
       title={has ? "В обраному" : "Додати в обране"}

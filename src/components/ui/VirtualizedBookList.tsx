@@ -67,7 +67,7 @@ const VirtualizedBookList = memo(function VirtualizedBookList({
   if (books.length === 0) {
     return (
       <div className={`flex items-center justify-center h-64 ${className}`}>
-        <p className="text-gray-500 text-lg">Книги не знайдено</p>
+        <p className="text-neutral-500 text-lg">Книги не знайдено</p>
       </div>
     )
   }

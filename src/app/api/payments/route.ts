@@ -10,7 +10,7 @@ import { getServerSession } from '@/lib/auth/session';
 /**
  * GET /api/payments/plans - Get available subscription plans
  */
-export async function GET(request: NextRequest): Promise<Response> {
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const action = searchParams.get('action');
@@ -60,7 +60,7 @@ export async function GET(request: NextRequest): Promise<Response> {
 /**
  * POST /api/payments - Create payment or subscription
  */
-export async function POST(request: NextRequest): Promise<Response> {
+export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession();
     if (!session?.user) {
@@ -153,7 +153,7 @@ export async function POST(request: NextRequest): Promise<Response> {
 /**
  * PUT /api/payments - Update subscription
  */
-export async function PUT(request: NextRequest): Promise<Response> {
+export async function PUT(request: NextRequest) {
   try {
     const session = await getServerSession();
     if (!session?.user) {

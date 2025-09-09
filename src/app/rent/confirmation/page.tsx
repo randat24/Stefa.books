@@ -124,8 +124,8 @@ export default function RentalConfirmationPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </div>
-          <h1 className="text-h2 text-gray-900 mb-2">Помилка</h1>
-          <p className="text-gray-600 mb-6">{error}</p>
+          <h1 className="text-h2 text-neutral-900 mb-2">Помилка</h1>
+          <p className="text-neutral-600 mb-6">{error}</p>
           <Button asChild>
             <Link href="/catalog">Перейти до каталогу</Link>
           </Button>
@@ -141,8 +141,8 @@ export default function RentalConfirmationPage() {
         <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
           <CheckCircle className="w-8 h-8 text-green-600" />
         </div>
-        <h1 className="text-h1 text-gray-900 mb-2">Оренда оформлена!</h1>
-        <p className="text-gray-600">
+        <h1 className="text-h1 text-neutral-900 mb-2">Оренда оформлена!</h1>
+        <p className="text-neutral-600">
           Ваша заявка на оренду успішно відправлена. Ми зв&apos;яжемося з вами найближчим часом.
         </p>
       </div>
@@ -159,39 +159,39 @@ export default function RentalConfirmationPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-body-sm text-gray-600">Номер заявки:</span>
+                <span className="text-body-sm text-neutral-600">Номер заявки:</span>
                 <span className="font-mono text-sm">#{rental.id.slice(-8)}</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-body-sm text-gray-600">Статус:</span>
+                <span className="text-body-sm text-neutral-600">Статус:</span>
                 <Badge variant={getStatusBadge(rental.status).variant}>
                   {getStatusBadge(rental.status).label}
                 </Badge>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-body-sm text-gray-600">План оренди:</span>
+                <span className="text-body-sm text-neutral-600">План оренди:</span>
                 <span className="text-body-sm font-medium">{getPlanName(rental.rental_plan)}</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-body-sm text-gray-600">Доставка:</span>
+                <span className="text-body-sm text-neutral-600">Доставка:</span>
                 <span className="text-body-sm font-medium">{getDeliveryName(rental.delivery_method)}</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-body-sm text-gray-600">Оплата:</span>
+                <span className="text-body-sm text-neutral-600">Оплата:</span>
                 <span className="text-body-sm font-medium">{getPaymentName(rental.payment_method)}</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-body-sm text-gray-600">Загальна сума:</span>
+                <span className="text-body-sm text-neutral-600">Загальна сума:</span>
                 <span className="text-h4 text-brand-accent">{rental.total_price} ₴</span>
               </div>
               
               <div className="flex items-center justify-between">
-                <span className="text-body-sm text-gray-600">Дата створення:</span>
+                <span className="text-body-sm text-neutral-600">Дата створення:</span>
                 <span className="text-body-sm font-medium">
                   {new Date(rental.created_at).toLocaleDateString('uk-UA')}
                 </span>
@@ -209,24 +209,24 @@ export default function RentalConfirmationPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="flex items-center gap-2">
-                <span className="text-body-sm text-gray-600">Ім&apos;я:</span>
+                <span className="text-body-sm text-neutral-600">Ім&apos;я:</span>
                 <span className="text-body-sm font-medium">{rental.customer_name}</span>
               </div>
               
               <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-gray-400" />
-                <span className="text-body-sm text-gray-600">{rental.customer_email}</span>
+                <Mail className="h-4 w-4 text-neutral-400" />
+                <span className="text-body-sm text-neutral-600">{rental.customer_email}</span>
               </div>
               
               <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-gray-400" />
-                <span className="text-body-sm text-gray-600">{rental.customer_phone}</span>
+                <Phone className="h-4 w-4 text-neutral-400" />
+                <span className="text-body-sm text-neutral-600">{rental.customer_phone}</span>
               </div>
               
               {rental.customer_address && (
                 <div className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-gray-400" />
-                  <span className="text-body-sm text-gray-600">
+                  <MapPin className="h-4 w-4 text-neutral-400" />
+                  <span className="text-body-sm text-neutral-600">
                     {rental.customer_address}
                     {rental.customer_city && `, ${rental.customer_city}`}
                     {rental.customer_postal_code && `, ${rental.customer_postal_code}`}
@@ -255,14 +255,14 @@ export default function RentalConfirmationPage() {
                       className="rounded-lg object-cover"
                     />
                   ) : (
-                    <div className="w-20 h-30 bg-gray-100 rounded-lg flex items-center justify-center">
-                      <BookOpen className="h-8 w-8 text-gray-400" />
+                    <div className="w-20 h-30 bg-neutral-100 rounded-lg flex items-center justify-center">
+                      <BookOpen className="h-8 w-8 text-neutral-400" />
                     </div>
                   )}
                   
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900 mb-1">{rental.book.title}</h3>
-                    <p className="text-body-sm text-gray-600 mb-2">{rental.book.author}</p>
+                    <h3 className="font-semibold text-neutral-900 mb-1">{rental.book.title}</h3>
+                    <p className="text-body-sm text-neutral-600 mb-2">{rental.book.author}</p>
                     <Button variant="outline" size="sm" asChild>
                       <Link href={`/books/${rental.book.id}`}>
                         Переглянути книгу
@@ -288,8 +288,8 @@ export default function RentalConfirmationPage() {
                   <span className="text-caption font-bold text-blue-600">1</span>
                 </div>
                 <div>
-                  <p className="text-body-sm font-medium text-gray-900">Підтвердження заявки</p>
-                  <p className="text-caption text-gray-600">Ми зв&apos;яжемося з вами протягом 24 годин</p>
+                  <p className="text-body-sm font-medium text-neutral-900">Підтвердження заявки</p>
+                  <p className="text-caption text-neutral-600">Ми зв&apos;яжемося з вами протягом 24 годин</p>
                 </div>
               </div>
               
@@ -298,8 +298,8 @@ export default function RentalConfirmationPage() {
                   <span className="text-caption font-bold text-blue-600">2</span>
                 </div>
                 <div>
-                  <p className="text-body-sm font-medium text-gray-900">Підготовка книги</p>
-                  <p className="text-caption text-gray-600">Книга буде підготовлена до доставки</p>
+                  <p className="text-body-sm font-medium text-neutral-900">Підготовка книги</p>
+                  <p className="text-caption text-neutral-600">Книга буде підготовлена до доставки</p>
                 </div>
               </div>
               
@@ -308,8 +308,8 @@ export default function RentalConfirmationPage() {
                   <span className="text-caption font-bold text-blue-600">3</span>
                 </div>
                 <div>
-                  <p className="text-body-sm font-medium text-gray-900">Доставка</p>
-                  <p className="text-caption text-gray-600">Книга буде доставлена за вказаною адресою</p>
+                  <p className="text-body-sm font-medium text-neutral-900">Доставка</p>
+                  <p className="text-caption text-neutral-600">Книга буде доставлена за вказаною адресою</p>
                 </div>
               </div>
             </CardContent>
@@ -321,7 +321,7 @@ export default function RentalConfirmationPage() {
               <CardTitle>Контакти</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
-              <p className="text-gray-600">
+              <p className="text-neutral-600">
                 Маєте питання? Зв&apos;яжіться з нами:
               </p>
               <p className="font-medium">📞 +380 (44) 123-45-67</p>

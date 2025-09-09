@@ -325,14 +325,14 @@ export default function AdminRentalsPage() {
 	}, [currentPage, sortBy, sortOrder, fetchRentals])
 
 	return (
-		<div className="min-h-screen bg-gray-50">
+		<div className="min-h-screen bg-neutral-50">
 			<div className="container mx-auto px-4 py-8">
 				{/* Header */}
 				<div className="mb-8">
-					<h1 className="text-h1 text-gray-900 mb-2">
+					<h1 className="text-h1 text-neutral-900 mb-2">
 						Управление заявками на аренду
 					</h1>
-					<p className="text-gray-600">
+					<p className="text-neutral-600">
 						Просмотр и управление заявками пользователей на аренду книг
 					</p>
 				</div>
@@ -345,8 +345,8 @@ export default function AdminRentalsPage() {
 								<div className="flex items-center gap-3">
 									<FileText className="h-8 w-8 text-brand-accent" />
 									<div>
-										<p className="text-h2 text-gray-900">{statistics.total}</p>
-										<p className="text-body-sm text-gray-600">Всего заявок</p>
+										<p className="text-h2 text-neutral-900">{statistics.total}</p>
+										<p className="text-body-sm text-neutral-600">Всего заявок</p>
 									</div>
 								</div>
 							</CardContent>
@@ -359,10 +359,10 @@ export default function AdminRentalsPage() {
 								<Card key={status}>
 									<CardContent className="p-4">
 										<div className="flex items-center gap-3">
-											<Icon className="h-8 w-8 text-gray-500" />
+											<Icon className="h-8 w-8 text-neutral-500" />
 											<div>
-												<p className="text-h2 text-gray-900">{count}</p>
-												<p className="text-body-sm text-gray-600">{config.label}</p>
+												<p className="text-h2 text-neutral-900">{count}</p>
+												<p className="text-body-sm text-neutral-600">{config.label}</p>
 											</div>
 										</div>
 									</CardContent>
@@ -385,7 +385,7 @@ export default function AdminRentalsPage() {
 							<div>
 								<Label htmlFor="search">Поиск</Label>
 								<div className="relative">
-									<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+									<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400" />
 									<Input
 										id="search"
 										placeholder="Имя, email, телефон..."
@@ -485,7 +485,7 @@ export default function AdminRentalsPage() {
 						<CardTitle className="flex items-center justify-between">
 							<span>Заявки на аренду</span>
 							{pagination && (
-								<span className="text-body-sm font-normal text-gray-600">
+								<span className="text-body-sm font-normal text-neutral-600">
 									{pagination.total} заявок
 								</span>
 							)}
@@ -514,9 +514,9 @@ export default function AdminRentalsPage() {
 											<TableRow key={rental.id}>
 												<TableCell>
 													<div>
-														<p className="font-medium text-gray-900">{rental.name}</p>
+														<p className="font-medium text-neutral-900">{rental.name}</p>
 														{rental.social && (
-															<p className="text-body-sm text-gray-500">{rental.social}</p>
+															<p className="text-body-sm text-neutral-500">{rental.social}</p>
 														)}
 													</div>
 												</TableCell>
@@ -524,11 +524,11 @@ export default function AdminRentalsPage() {
 												<TableCell>
 													<div className="space-y-1">
 														<div className="flex items-center gap-2 text-sm">
-															<Mail className="h-3 w-3 text-gray-400" />
+															<Mail className="h-3 w-3 text-neutral-400" />
 															<span>{rental.email}</span>
 														</div>
 														<div className="flex items-center gap-2 text-sm">
-															<Phone className="h-3 w-3 text-gray-400" />
+															<Phone className="h-3 w-3 text-neutral-400" />
 															<span>{rental.phone}</span>
 														</div>
 													</div>
@@ -542,7 +542,7 @@ export default function AdminRentalsPage() {
 												
 												<TableCell>
 													<div className="flex items-center gap-2">
-														<CreditCard className="h-4 w-4 text-gray-400" />
+														<CreditCard className="h-4 w-4 text-neutral-400" />
 														<span className="text-sm">{rental.payment_method}</span>
 													</div>
 												</TableCell>
@@ -555,7 +555,7 @@ export default function AdminRentalsPage() {
 												</TableCell>
 												
 												<TableCell>
-													<div className="flex items-center gap-2 text-body-sm text-gray-600">
+													<div className="flex items-center gap-2 text-body-sm text-neutral-600">
 														<Calendar className="h-3 w-3" />
 														<span>{formatDate(rental.created_at)}</span>
 													</div>
@@ -591,7 +591,7 @@ export default function AdminRentalsPage() {
 						{/* Pagination */}
 						{pagination && pagination.totalPages > 1 && (
 							<div className="flex items-center justify-between mt-6">
-								<div className="text-body-sm text-gray-600">
+								<div className="text-body-sm text-neutral-600">
 									Показано {((pagination.page - 1) * pagination.limit) + 1} - {Math.min(pagination.page * pagination.limit, pagination.total)} из {pagination.total}
 								</div>
 								
@@ -701,7 +701,7 @@ export default function AdminRentalsPage() {
 						
 						{selectedRental && (
 							<div className="space-y-4">
-								<p className="text-gray-600">
+								<p className="text-neutral-600">
 									Вы уверены, что хотите удалить заявку от <strong>{selectedRental.name}</strong>?
 									Это действие нельзя отменить.
 								</p>

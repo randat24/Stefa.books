@@ -13,14 +13,14 @@ function SearchErrorFallback({ resetError }: SearchErrorFallbackProps) {
   return (
     <div className="flex flex-col items-center justify-center p-8 text-center space-y-4">
       <div className="w-12 h-12 bg-yellow-100 rounded-2xl flex items-center justify-center">
-        <Search className="w-6 h-6 text-brand-yellow-dark" />
+        <Search className="w-6 h-6 text-accent-dark" />
       </div>
       
       <div className="space-y-2">
-        <h3 className="text-body-lg font-semibold text-gray-900">
+        <h3 className="text-body-lg font-semibold text-neutral-900">
           Помилка пошуку
         </h3>
-        <p className="text-gray-600 max-w-md">
+        <p className="text-neutral-600 max-w-md">
           На жаль, не вдалося завантажити результати пошуку. 
           Спробуйте оновити або змініть пошуковий запит.
         </p>

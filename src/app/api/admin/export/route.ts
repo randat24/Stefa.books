@@ -7,7 +7,7 @@ const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
-export async function GET(request: NextRequest): Promise<Response> {
+export async function GET(request: NextRequest) {
   try {
     // Проверяем авторизацию
     const authHeader = request.headers.get('authorization')
@@ -53,7 +53,7 @@ export async function GET(request: NextRequest): Promise<Response> {
 
     let csvData = ''
     let filename = 'export'
-    let contentType = 'text/csv'
+    const contentType = 'text/csv'
 
     switch (type) {
       case 'books':

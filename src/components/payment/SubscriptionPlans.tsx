@@ -95,7 +95,7 @@ export function SubscriptionPlans() {
             <CardContent className="flex-grow">
               <div className="text-h1 text-brand-accent-light">
                 {plan.price} ₴
-                <span className="text-body-lg text-gray-500">/{plan.duration === 'month' ? 'міс' : plan.duration === 'year' ? 'рік' : 'квартал'}</span>
+                <span className="text-body-lg text-neutral-500">/{plan.duration === 'month' ? 'міс' : plan.duration === 'year' ? 'рік' : 'квартал'}</span>
               </div>
               <ul className="mt-4 space-y-2">
                 {plan.features.map((feature: string, index: number) => (

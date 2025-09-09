@@ -268,7 +268,7 @@ export const RENTAL_STATUSES: Record<RentalStatus, StatusConfig> = {
 	},
 	lost: {
 		label: 'Утеряна',
-		color: 'bg-gray-100 text-gray-800 border-gray-200',
+		color: 'bg-neutral-100 text-neutral-800 border-neutral-200',
 		icon: () => null,
 		description: 'Книга утеряна'
 	}

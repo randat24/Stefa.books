@@ -20,7 +20,7 @@ const subscriptionRequestSchema = z.object({
   privacyConsent: z.boolean()
 });
 
-export async function POST(request: NextRequest): Promise<Response> {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     
@@ -160,7 +160,7 @@ export async function POST(request: NextRequest): Promise<Response> {
   }
 }
 
-export async function GET(): Promise<Response> {
+export async function GET() {
   return NextResponse.json(
     { message: 'Subscription API endpoint' },
     { status: 200 }

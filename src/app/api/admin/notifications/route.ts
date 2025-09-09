@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
-export async function GET(): Promise<Response> {
+export async function GET() {
   try {
     const today = new Date()
     const sevenDaysFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000)
