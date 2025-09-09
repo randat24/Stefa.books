@@ -42,7 +42,8 @@
     "next-env.d.ts",
     "next-types.d.ts",
     "out/types/**/*.ts",
-    "src/__tests__/jest-setup.d.ts"
+    "src/__tests__/jest-setup.d.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
