@@ -8,7 +8,6 @@ import { CanonicalAndHreflang } from "@/components/seo/CanonicalAndHreflang";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import CookieConsent from "@/components/analytics/CookieConsent";
 import WebVitalsTracker from "@/components/performance/WebVitalsTracker";
-import PerformanceDashboard from "@/components/performance/PerformanceDashboard";
 import { OfflineIndicator } from "@/components/offline/OfflineIndicator";
 
 // Force dynamic rendering to prevent static generation issues
@@ -90,7 +89,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
           </Providers>
         </ErrorBoundary>
-        <PerformanceDashboard />
       </body>
     </html>
   );

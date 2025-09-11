@@ -1,6 +1,6 @@
 import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
-import type { User as SupabaseUser } from '@supabase/supabase-js';
+import type { User as SupabaseUser } from '@supabase/supabase-js/dist/module/index';
 
 export interface RegisterData {
   email: string;

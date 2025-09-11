@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { authService, type AuthResponse, type UserProfile } from '@/lib/auth/auth-service';
-import type { User } from '@supabase/supabase-js';
+import type { User } from '@supabase/supabase-js/dist/module/index';
 import { logger } from '@/lib/logger';
 
 interface AuthContextType {

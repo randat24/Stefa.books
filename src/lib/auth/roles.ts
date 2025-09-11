@@ -1,4 +1,4 @@
-import type { User } from '@supabase/supabase-js';
+import type { User } from '@supabase/supabase-js/dist/module/index';
 import type { UserProfile } from '@/lib/auth/auth-service';
 
 export type UserRole = 'user' | 'admin' | 'moderator';
