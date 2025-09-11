@@ -78,6 +78,7 @@ export interface RentalHistory {
   book_id: string;
   book_title: string;
   book_author: string;
+  book_cover_url?: string;
   
   rented_at: string;
   returned_at?: string;

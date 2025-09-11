@@ -1,240 +1,191 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import { useState, useCallback, useMemo, useRef, useEffect } from 'react'
-import { cn } from '@/lib/cn'
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { logger } from '@/lib/logger';
 
 interface OptimizedImageProps {
-  src: string
-  alt: string
-  width?: number
-  height?: number
-  className?: string
-  priority?: boolean
-  quality?: number
-  placeholder?: 'blur' | 'empty'
-  blurDataURL?: string
-  sizes?: string
-  onLoad?: () => void
-  onError?: () => void
-  fallback?: React.ReactNode
-}
-
-// Generate blur data URL for placeholder
-function generateBlurDataURL(width: number, height: number): string {
-  const canvas = document.createElement('canvas')
-  canvas.width = width
-  canvas.height = height
-  const ctx = canvas.getContext('2d')
-  
-  if (ctx) {
-    const gradient = ctx.createLinearGradient(0, 0, width, height)
-    gradient.addColorStop(0, '#f3f4f6')
-    gradient.addColorStop(1, '#e5e7eb')
-    ctx.fillStyle = gradient
-    ctx.fillRect(0, 0, width, height)
-  }
-  
-  return canvas.toDataURL()
-}
-
-// WebP support detection
-function supportsWebP(): boolean {
-  if (typeof window === 'undefined') return false
-  
-  const canvas = document.createElement('canvas')
-  canvas.width = 1
-  canvas.height = 1
-  return canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0
-}
-
-// AVIF support detection
-function supportsAVIF(): boolean {
-  if (typeof window === 'undefined') return false
-  
-  const canvas = document.createElement('canvas')
-  canvas.width = 1
-  canvas.height = 1
-  return canvas.toDataURL('image/avif').indexOf('data:image/avif') === 0
+  /** Public ID изображения в Cloudinary */
+  publicId: string;
+  /** Альтернативный текст */
+  alt: string;
+  /** Ширина изображения */
+  width?: number;
+  /** Высота изображения */
+  height?: number;
+  /** CSS классы */
+  className?: string;
+  /** Тип оптимизации */
+  optimizationType?: 'web' | 'mobile' | 'print' | 'social' | 'custom';
+  /** Кастомные трансформации */
+  customTransformations?: Record<string, any>;
+  /** Качество изображения */
+  quality?: 'auto:low' | 'auto:good' | 'auto:better' | 'auto:best' | string;
+  /** Формат изображения */
+  format?: 'auto' | 'jpg' | 'png' | 'webp' | 'avif';
+  /** Приоритет загрузки */
+  priority?: boolean;
+  /** Размеры для responsive */
+  sizes?: string;
+  /** Callback при загрузке */
+  onLoad?: () => void;
+  /** Callback при ошибке */
+  onError?: (error: Error) => void;
 }
 
 export function OptimizedImage({
-  src,
+  publicId,
   alt,
-  width = 300,
-  height = 400,
-  className,
+  width = 400,
+  height = 300,
+  className = '',
+  optimizationType = 'web',
+  customTransformations = {},
+  quality = 'auto:best',
+  format = 'auto',
   priority = false,
-  quality = 85,
-  placeholder = 'blur',
-  blurDataURL,
-  sizes,
+  sizes = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
   onLoad,
-  onError,
-  fallback
+  onError
 }: OptimizedImageProps) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [hasError, setHasError] = useState(false)
-  const [imageLoaded, setImageLoaded] = useState(false)
+  const [optimizedUrl, setOptimizedUrl] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Generate optimized src with format detection
-  const optimizedSrc = useMemo(() => {
-    if (!src) return src
+  useEffect(() => {
+    const generateOptimizedUrl = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
 
-    // For Cloudinary images, add format optimization
-    if (src.includes('cloudinary.com')) {
-      const format = supportsAVIF() ? 'f_avif' : supportsWebP() ? 'f_webp' : 'f_auto'
-      const qualityParam = `q_auto:${quality}`
-      const widthParam = `w_${width}`
-      const heightParam = `h_${height}`
-      
-      // Insert optimization parameters
-      if (src.includes('/upload/')) {
-        return src.replace('/upload/', `/upload/${format},${qualityParam},${widthParam},${heightParam}/`)
+        let result;
+
+        // Если есть кастомные трансформации, используем POST endpoint
+        if (Object.keys(customTransformations).length > 0) {
+          const response = await fetch('/api/optimize/image', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              public_id: publicId,
+              transformations: [customTransformations],
+              preset: optimizationType
+            })
+          });
+
+          if (!response.ok) {
+            throw new Error('Ошибка оптимизации изображения');
+          }
+
+          result = await response.json();
+        } else {
+          // Используем GET endpoint для предустановленных оптимизаций
+          const params = new URLSearchParams({
+            public_id: publicId,
+            width: width.toString(),
+            height: height.toString(),
+            quality,
+            format,
+            preset: optimizationType
+          });
+
+          const response = await fetch(`/api/optimize/image?${params}`);
+          
+          if (!response.ok) {
+            throw new Error('Ошибка оптимизации изображения');
+          }
+
+          result = await response.json();
+        }
+
+        setOptimizedUrl(result.optimized_url);
+
+        logger.info('Optimized image URL generated', {
+          public_id: publicId,
+          optimization_type: optimizationType,
+          url: result.optimized_url
+        });
+
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'Неизвестная ошибка';
+        setError(errorMessage);
+        logger.error('Image optimization failed', err);
+        onError?.(err instanceof Error ? err : new Error(errorMessage));
+      } finally {
+        setIsLoading(false);
       }
+    };
+
+    if (publicId) {
+      generateOptimizedUrl();
     }
+  }, [publicId, optimizationType, customTransformations, width, height, quality, format, onError]);
 
-    return src
-  }, [src, width, height, quality])
+  if (error) {
+    return (
+      <div className={`flex items-center justify-center bg-gray-100 ${className}`}>
+        <div className="text-center p-4">
+          <p className="text-sm text-gray-600">Ошибка загрузки изображения</p>
+          <p className="text-xs text-gray-500 mt-1">{error}</p>
+        </div>
+      </div>
+    );
+  }
 
-  // Generate blur placeholder
-  const blurPlaceholder = useMemo(() => {
-    if (blurDataURL) return blurDataURL
-    if (placeholder === 'blur') {
-      return generateBlurDataURL(width, height)
-    }
-    return undefined
-  }, [blurDataURL, placeholder, width, height])
+  if (isLoading) {
+    return (
+      <div className={`flex items-center justify-center bg-gray-100 animate-pulse ${className}`}>
+        <div className="text-center p-4">
+          <div className="w-8 h-8 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin mx-auto mb-2"></div>
+          <p className="text-sm text-gray-600">Оптимизация изображения...</p>
+        </div>
+      </div>
+    );
+  }
 
-  // Handle image load
-  const handleLoad = useCallback(() => {
-    setIsLoading(false)
-    setImageLoaded(true)
-    onLoad?.()
-  }, [onLoad])
-
-  // Handle image error
-  const handleError = useCallback(() => {
-    setIsLoading(false)
-    setHasError(true)
-    onError?.()
-  }, [onError])
-
-  // Responsive sizes
-  const responsiveSizes = sizes || `(max-width: 768px) 100vw, (max-width: 1200px) 50vw, ${width}px`
-
-  if (hasError && fallback) {
-    return <>{fallback}</>
+  if (!optimizedUrl) {
+    return (
+      <div className={`flex items-center justify-center bg-gray-100 ${className}`}>
+        <div className="text-center p-4">
+          <p className="text-sm text-gray-600">Изображение не найдено</p>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className={cn('relative overflow-hidden', className)}>
-      {/* Loading placeholder */}
-      {isLoading && (
-        <div 
-          className="absolute inset-0 bg-neutral-200 animate-pulse"
-          style={{ width, height }}
-        />
-      )}
-      
-      {/* Error state */}
-      {hasError && !fallback && (
-        <div 
-          className="flex items-center justify-center bg-neutral-100 text-neutral-500"
-          style={{ width, height }}
-        >
-          <span className="text-sm">Помилка завантаження</span>
-        </div>
-      )}
-      
-      {/* Optimized image */}
     <Image
-      src={optimizedSrc}
+      src={optimizedUrl}
       alt={alt}
       width={width}
       height={height}
-        className={cn(
-          'transition-opacity duration-300',
-          imageLoaded ? 'opacity-100' : 'opacity-0'
-        )}
+      className={className}
       priority={priority}
-        quality={quality}
-      placeholder={placeholder}
-        blurDataURL={blurPlaceholder}
-        sizes={responsiveSizes}
-        onLoad={handleLoad}
-        onError={handleError}
-        loading={priority ? 'eager' : 'lazy'}
-      />
-    </div>
-  )
+      sizes={sizes}
+      onLoad={onLoad}
+      onError={() => {
+        const error = new Error('Ошибка загрузки изображения');
+        setError(error.message);
+        onError?.(error);
+      }}
+    />
+  );
 }
 
-// Hook for image optimization
-export function useImageOptimization() {
-  const [webpSupported, setWebpSupported] = useState(false)
-  const [avifSupported, setAvifSupported] = useState(false)
-
-  useState(() => {
-    setWebpSupported(supportsWebP())
-    setAvifSupported(supportsAVIF())
-  })
-
-  const getOptimalFormat = useCallback(() => {
-    if (avifSupported) return 'avif'
-    if (webpSupported) return 'webp'
-    return 'jpeg'
-  }, [webpSupported, avifSupported])
-
-  const getOptimalQuality = useCallback((originalQuality = 85) => {
-    // Adjust quality based on format support
-    if (avifSupported) return Math.min(originalQuality + 10, 100)
-    if (webpSupported) return originalQuality
-    return Math.max(originalQuality - 5, 60)
-  }, [webpSupported, avifSupported])
-
-  return {
-    webpSupported,
-    avifSupported,
-    getOptimalFormat,
-    getOptimalQuality
-  }
+// Специализированные компоненты для разных типов оптимизации
+export function WebOptimizedImage(props: Omit<OptimizedImageProps, 'optimizationType'>) {
+  return <OptimizedImage {...props} optimizationType="web" />;
 }
 
-// Preload critical images
-export function preloadImage(src: string, as = 'image') {
-  if (typeof window !== 'undefined') {
-    const link = document.createElement('link')
-    link.rel = 'preload'
-    link.href = src
-    link.as = as
-    document.head.appendChild(link)
-  }
+export function MobileOptimizedImage(props: Omit<OptimizedImageProps, 'optimizationType'>) {
+  return <OptimizedImage {...props} optimizationType="mobile" />;
 }
 
-// Lazy load images with intersection observer
-export function useLazyImage(src: string, options: IntersectionObserverInit = {}) {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [isInView, setIsInView] = useState(false)
-  const imgRef = useRef<HTMLImageElement>(null)
+export function PrintOptimizedImage(props: Omit<OptimizedImageProps, 'optimizationType'>) {
+  return <OptimizedImage {...props} optimizationType="print" />;
+}
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1, ...options }
-    )
-
-    if (imgRef.current) {
-      observer.observe(imgRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [options])
-
-  return { imgRef, isLoaded, isInView, setIsLoaded }
+export function SocialOptimizedImage(props: Omit<OptimizedImageProps, 'optimizationType'>) {
+  return <OptimizedImage {...props} optimizationType="social" />;
 }

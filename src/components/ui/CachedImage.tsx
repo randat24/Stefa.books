@@ -65,7 +65,8 @@ export function CachedImage({
         'dpr_auto',         // Автоматический DPR для Retina
         `w_${width}`,       // Ширина
         `h_${height}`,      // Высота
-        'c_fit'             // Сохранение пропорций
+        'c_fill',           // Заполнить контейнер
+        'g_center'          // Центрирование изображения
       ].join(',')
 
       // Добавляем timestamp для принудительного обновления
@@ -160,7 +161,7 @@ export function CachedImage({
   // Если есть ошибка, показываем fallback
   if (hasError) {
     return (
-      <div className={`relative bg-neutral-100 flex items-center justify-center ${className}`} style={{ width, height }}>
+      <div className={`relative overflow-hidden bg-neutral-100 flex items-center justify-center w-full h-full ${className}`}>
         <div className="text-center p-4">
           <AlertCircle className="w-8 h-8 text-neutral-400 mx-auto mb-2" />
           <p className="text-sm text-neutral-500 mb-2">Не удалось загрузить изображение</p>
@@ -181,16 +182,17 @@ export function CachedImage({
   }
 
   return (
-    <div className={`relative w-full h-full ${className}`} style={{ width, height }}>
+    <div className={`relative overflow-hidden ${className}`}>
       {/* Основное изображение */}
       <Image
         src={hasError ? fallback : optimizedSrc}
         alt={alt}
-        fill
+        width={width}
+        height={height}
         priority={priority}
         quality={quality}
         sizes={sizes || `(max-width: 768px) 100vw, ${width}px`}
-        className="object-cover w-full h-full"
+        className="object-cover object-center w-full h-full"
         onLoad={handleLoad}
         onError={handleError}
         placeholder="blur"

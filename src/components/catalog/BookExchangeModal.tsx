@@ -114,7 +114,7 @@ export default function BookExchangeModal({
       <Card className="w-full max-w-4xl max-h-[90vh] overflow-hidden">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
           <CardTitle className="text-xl font-semibold">Обмін книги</CardTitle>
-          <Button variant="ghost" size="sm" onClick={onClose}>
+          <Button variant="ghost"  onClick={onClose}>
             <X className="h-4 w-4" />
           </Button>
         </CardHeader>
@@ -189,15 +189,14 @@ export default function BookExchangeModal({
                       <h4 className="font-medium text-lg">{book.title}</h4>
                       <p className="text-neutral-600 mb-2">{book.author}</p>
                       <div className="flex items-center gap-2">
-                        <Badge variant="outline" size="sm">
+                        <Badge variant="outline" >
                           {book.category}
                         </Badge>
-                        <Badge variant="outline" size="sm">
+                        <Badge variant="outline" >
                           {book.age_range}
                         </Badge>
                         <Badge 
                           variant={book.available ? 'default' : 'secondary'}
-                          size="sm"
                         >
                           {book.available ? 'Доступна' : 'Недоступна'}
                         </Badge>

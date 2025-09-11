@@ -5,12 +5,9 @@ import { useRouter } from 'next/navigation';
 import { 
   User, 
   CreditCard, 
-  History, 
   Settings, 
   BookOpen,
   Bell,
-  Shield,
-  HelpCircle,
   LogOut
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -30,7 +27,7 @@ export default function AccountPage() {
 
   useEffect(() => {
     checkAuth();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const checkAuth = async () => {
     try {
@@ -61,10 +58,10 @@ export default function AccountPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-surface to-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-accent mx-auto mb-4"></div>
-          <p className="text-neutral-600">Завантаження...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto mb-4"></div>
+          <p className="text-text-muted">Завантаження...</p>
         </div>
       </div>
     );
@@ -108,14 +105,14 @@ export default function AccountPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-surface to-white">
       {/* Header */}
-      <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-white/90 backdrop-blur-sm">
+      <div className="sticky top-0 z-10 border-b border-line bg-white/90 backdrop-blur-sm">
         <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-neutral-900">Особистий кабінет</h1>
-              <p className="text-neutral-600 mt-1">
+              <h1 className="text-2xl font-bold text-text">Особистий кабінет</h1>
+              <p className="text-text-muted mt-1">
                 Привіт, {user.user_metadata?.first_name || user.email}! 👋
               </p>
             </div>
@@ -148,14 +145,14 @@ export default function AccountPage() {
                         onClick={() => setActiveTab(tab.id)}
                         className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors ${
                           activeTab === tab.id
-                            ? 'bg-brand-accent/10 text-brand-accent border-r-2 border-brand-accent'
-                            : 'text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900'
+                            ? 'bg-accent/10 text-accent border-r-2 border-accent'
+                            : 'text-text-muted hover:bg-surface hover:text-text'
                         }`}
                       >
                         <Icon className="h-5 w-5 flex-shrink-0" />
                         <div className="flex-1 min-w-0">
                           <p className="font-medium">{tab.label}</p>
-                          <p className="text-xs text-neutral-500">{tab.description}</p>
+                          <p className="text-xs text-text-muted">{tab.description}</p>
                         </div>
                       </button>
                     );
@@ -168,13 +165,13 @@ export default function AccountPage() {
             <Card className="mt-6">
               <CardContent className="p-4">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-brand-accent/10 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <User className="h-8 w-8 text-brand-accent" />
+                  <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <User className="h-8 w-8 text-accent" />
                   </div>
-                  <h3 className="font-semibold text-neutral-900">
+                  <h3 className="font-semibold text-text">
                     {user.user_metadata?.first_name || 'Користувач'}
                   </h3>
-                  <p className="text-sm text-neutral-600 mb-2">{user.email}</p>
+                  <p className="text-sm text-text-muted mb-2">{user.email}</p>
                   <Badge variant="outline" className="text-xs">
                     {user.user_metadata?.subscription_type || 'Без підписки'}
                   </Badge>
@@ -201,21 +198,21 @@ export default function AccountPage() {
                     <div className="flex items-center justify-between p-4 border rounded-lg">
                       <div>
                         <h3 className="font-medium">Email сповіщення</h3>
-                        <p className="text-sm text-neutral-600">Отримувати сповіщення на email</p>
+                        <p className="text-sm text-text-muted">Отримувати сповіщення на email</p>
                       </div>
                       <Button variant="outline" size="sm">Увімкнено</Button>
                     </div>
                     <div className="flex items-center justify-between p-4 border rounded-lg">
                       <div>
                         <h3 className="font-medium">Нагадування про повернення</h3>
-                        <p className="text-sm text-neutral-600">Нагадування за 2 дні до повернення</p>
+                        <p className="text-sm text-text-muted">Нагадування за 2 дні до повернення</p>
                       </div>
                       <Button variant="outline" size="sm">Увімкнено</Button>
                     </div>
                     <div className="flex items-center justify-between p-4 border rounded-lg">
                       <div>
                         <h3 className="font-medium">Новинки та пропозиції</h3>
-                        <p className="text-sm text-neutral-600">Сповіщення про нові книги та акції</p>
+                        <p className="text-sm text-text-muted">Сповіщення про нові книги та акції</p>
                       </div>
                       <Button variant="outline" size="sm">Увімкнено</Button>
                     </div>
@@ -236,21 +233,21 @@ export default function AccountPage() {
                     <div className="flex items-center justify-between p-4 border rounded-lg">
                       <div>
                         <h3 className="font-medium">Особисті дані</h3>
-                        <p className="text-sm text-neutral-600">Ім&apos;я, email, телефон</p>
+                        <p className="text-sm text-text-muted">Ім&apos;я, email, телефон</p>
                       </div>
                       <Button variant="outline" size="sm">Редагувати</Button>
                     </div>
                     <div className="flex items-center justify-between p-4 border rounded-lg">
                       <div>
                         <h3 className="font-medium">Безпека</h3>
-                        <p className="text-sm text-neutral-600">Пароль, двофакторна автентифікація</p>
+                        <p className="text-sm text-text-muted">Пароль, двофакторна автентифікація</p>
                       </div>
                       <Button variant="outline" size="sm">Налаштувати</Button>
                     </div>
                     <div className="flex items-center justify-between p-4 border rounded-lg">
                       <div>
                         <h3 className="font-medium">Допомога</h3>
-                        <p className="text-sm text-neutral-600">FAQ, контакти, підтримка</p>
+                        <p className="text-sm text-text-muted">FAQ, контакти, підтримка</p>
                       </div>
                       <Button variant="outline" size="sm">Перейти</Button>
                     </div>

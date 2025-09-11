@@ -227,7 +227,7 @@ function bookToSheetRow(book: Book): Record<string, any> {
     publication_year: book.publication_year || '',
     cover_url: book.cover_url || '',
     status: book.status || 'available',
-    available: book.available ? 'TRUE' : 'FALSE',
+    available: ((book.qty_available || 0) > 0 && book.is_active) ? 'TRUE' : 'FALSE',
     qty_total: book.qty_total || 1,
     qty_available: book.qty_available || 1,
     price_uah: book.price_uah || 0,
@@ -266,7 +266,7 @@ function sheetRowToBook(row: any): Partial<Book> {
     publication_year: parseIntOrNull(row.get('publication_year')),
     cover_url: row.get('cover_url') || null,
     status: row.get('status') || 'available',
-    available: row.get('available')?.toLowerCase() === 'true',
+    // available: row.get('available')?.toLowerCase() === 'true', // TODO: Add available field to books table
     qty_total: parseIntOrNull(row.get('qty_total')) || 1,
     qty_available: parseIntOrNull(row.get('qty_available')) || 1,
     price_uah: parseFloatOrNull(row.get('price_uah')) || 0,
@@ -478,8 +478,8 @@ export async function importBooksFromUkrainianSheets(): Promise<{
             cover_url,
             publisher,
             price_uah: parseFloat(row.get('Ціна') || row.get('price_uah') || '0') || 0,
-            available: (row.get('Доступно') || row.get('available') || '').toLowerCase() === 'так' || 
-                      (row.get('Доступно') || row.get('available') || '').toLowerCase() === 'true',
+            // available: (row.get('Доступно') || row.get('available') || '').toLowerCase() === 'так' || // TODO: Add available field to books table 
+            //                     (row.get('Доступно') || row.get('available') || '').toLowerCase() === 'true',
             pages: parseInt(row.get('pages') || '0') || Math.floor(Math.random() * 200) + 100,
             isbn: row.get('ISBN') || row.get('isbn') || null,
             publication_year: parseInt(row.get('Рік') || row.get('year') || '2023') || 2023,

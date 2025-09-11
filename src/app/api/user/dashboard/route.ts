@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getServerSession } from '@/lib/auth/session';
 import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
@@ -11,7 +11,7 @@ import type { User, ActiveRental, RentalHistory, UserSubscription } from '@/type
 /**
  * GET /api/user/dashboard - Get user dashboard data
  */
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession();
     if (!session?.user) {
@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
       .select(`
         id,
         rental_date,
-        due_date,
+        return_date,
         status,
         notes,
         books!inner(
@@ -68,8 +68,8 @@ export async function GET(request: NextRequest) {
         id,
         rental_date,
         return_date,
-        due_date,
         status,
+        notes,
         books!inner(
           id,
           title,
@@ -104,8 +104,9 @@ export async function GET(request: NextRequest) {
     } : null;
 
     // Format active rentals
-    const formattedActiveRentals: ActiveRental[] = (activeRentals || []).map(rental => {
-      const daysLeft = Math.ceil((new Date(rental.due_date).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+    const formattedActiveRentals: ActiveRental[] = (activeRentals || []).map((rental: any) => {
+      const dueDate = rental.return_date ? new Date(rental.return_date) : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 дней по умолчанию
+      const daysLeft = Math.ceil((dueDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
       const isOverdue = daysLeft < 0;
       
       return {
@@ -114,9 +115,9 @@ export async function GET(request: NextRequest) {
         book_id: rental.books.id,
         book_title: rental.books.title,
         book_author: rental.books.author,
-        book_cover_url: rental.books.cover_url,
+        book_cover_url: rental.books.cover_url || '/placeholder-book.jpg',
         rented_at: rental.rental_date,
-        return_by: rental.due_date,
+        return_by: rental.return_date,
         exchange_count: 0, // TODO: Calculate from exchanges table
         max_exchanges: getExchangesForPlan(userData.subscription_type),
         status: rental.status as any,
@@ -128,9 +129,9 @@ export async function GET(request: NextRequest) {
     });
 
     // Format rental history
-    const formattedRentalHistory: RentalHistory[] = (rentalHistory || []).map(rental => {
-      const totalDays = rental.return_date 
-        ? Math.ceil((new Date(rental.return_date).getTime() - new Date(rental.rental_date).getTime()) / (1000 * 60 * 60 * 24))
+    const formattedRentalHistory: RentalHistory[] = (rentalHistory || []).map((rental: any) => {
+      const totalDays = rental.return_date
+        ? Math.ceil((new Date(rental.return_date).getTime() - new Date(rental.rental_date || new Date()).getTime()) / (1000 * 60 * 60 * 24))
         : 0;
 
       return {
@@ -139,9 +140,10 @@ export async function GET(request: NextRequest) {
         book_id: rental.books.id,
         book_title: rental.books.title,
         book_author: rental.books.author,
+        book_cover_url: rental.books.cover_url || '/placeholder-book.jpg',
         rented_at: rental.rental_date,
         returned_at: rental.return_date,
-        planned_return_date: rental.due_date,
+        planned_return_date: rental.return_date,
         rating: 0, // TODO: Get from reviews table
         review: '', // TODO: Get from reviews table
         was_purchased: false, // TODO: Check purchases table
@@ -156,15 +158,15 @@ export async function GET(request: NextRequest) {
       id: userData.id,
       email: userData.email,
       name: userData.name,
-      phone: userData.phone,
+      phone: userData.phone || undefined,
       status: userData.subscription_type ? 'subscriber' : 'registered',
-      level: getUserLevel(userData.books_read_count || 0),
+      level: getUserLevel(0), // TODO: Add books_read_count field to users table
       subscription_plan: userData.subscription_type as any,
       subscription_status: subscription?.status,
-      subscription_start_date: userData.subscription_start,
-      subscription_end_date: userData.subscription_end,
-      books_read_count: userData.books_read_count || 0,
-      total_rental_days: userData.total_rental_days || 0,
+      subscription_start_date: userData.subscription_start || undefined,
+      subscription_end_date: userData.subscription_end || undefined,
+      books_read_count: 0, // TODO: Add books_read_count field to users table
+      total_rental_days: 0, // TODO: Add total_rental_days field to users table
       current_rentals_count: activeRentals?.length || 0,
       max_rentals_allowed: getMaxBooksForPlan(userData.subscription_type),
       reading_preferences: [], // TODO: Get from user preferences
@@ -185,7 +187,7 @@ export async function GET(request: NextRequest) {
         activeRentals: formattedActiveRentals,
         rentalHistory: formattedRentalHistory,
         stats: {
-          totalBooksRead: userData.books_read_count || 0,
+          totalBooksRead: 0, // TODO: Add books_read_count field to users table
           currentRentals: activeRentals?.length || 0,
           totalRentals: rentalHistory?.length || 0,
           daysActive: Math.ceil((Date.now() - new Date(userData.created_at || '').getTime()) / (1000 * 60 * 60 * 24))

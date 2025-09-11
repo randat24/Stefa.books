@@ -26,18 +26,18 @@ export function Header() {
 
   return (
     <>
-      <header className="w-full sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
-        <div className="container mx-auto px-4 max-w-7xl flex h-16 items-center justify-between">
+      <header className="header">
+        <div className="header-content max-w-7xl flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-3">
+          <Link href="/" className="logo gap-2 sm:gap-3">
             <Image 
               src="/logo.svg" 
               alt="Stefa.books logo" 
               width={32}
               height={32}
-              className="text-neutral-700 sm:w-10 sm:h-10"
+              className="text-text-muted sm:w-10 sm:h-10"
             />
-            <span className="text-base sm:text-lg font-bold">Stefa.books</span>
+            <span className="logo-text text-base sm:text-lg">Stefa.books</span>
           </Link>
 
           {/* Desktop Navigation */}

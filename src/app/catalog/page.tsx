@@ -62,21 +62,21 @@ export default async function CatalogPage() {
 		<div className="container-default py-8">
 			{/* Breadcrumbs */}
 			<div className="mb-6">
-				<nav className="flex items-center space-x-2 text-body-sm text-neutral-600">
-					<Link href="/" className="hover:text-neutral-900">Головна</Link>
+				<nav className="flex items-center space-x-2 text-body-sm text-text-muted">
+					<Link href="/" className="hover:text-text">Головна</Link>
 					<ChevronRight className="h-4 w-4" />
-					<span className="text-neutral-900 font-medium">Каталог</span>
+					<span className="text-text font-medium">Каталог</span>
 				</nav>
 			</div>
 			
 			<h1 className="h1">Каталог книг</h1>
-			<p className="text-muted mt-2">
+			<p className="text-text-muted mt-2">
 				Оберіть потрібну книгу. Зверніть увагу, що ми постійно оновлюємо каталог. Якщо ви не знайшли бажаної книги, напишіть нам у будь-який зручний спосіб.
 			</p>
 			
 			{/* Server-side Categories */}
 			<div className="max-w-4xl mx-auto mt-8">
-				<h2 className="text-h2 text-neutral-900 mb-8">📚 Повний каталог</h2>
+				<h2 className="text-h2 text-text mb-8">📚 Повний каталог</h2>
 				{categories && categories.length > 0 && !error ? (
 					<div className="space-y-6">
 						{categories.map((category: any) => (
@@ -84,17 +84,17 @@ export default async function CatalogPage() {
 								{/* Основная категория */}
 								<Link
 									href={`/books?category=${encodeURIComponent(category.name)}`}
-									className="flex items-center gap-3 p-4 rounded-xl hover:bg-neutral-50 transition-colors border-l-4"
+									className="flex items-center gap-3 p-4 rounded-xl hover:bg-surface transition-colors border-l-4"
 									style={{ 
 										backgroundColor: category.color ? `${category.color}20` : '#F8FAFC',
 										borderLeftColor: category.color || '#64748B'
 									}}
 								>
 									<span className="text-h2">{category.icon || '📚'}</span>
-									<h3 className="text-body-lg font-semibold text-neutral-800 group-hover:text-neutral-900">
+									<h3 className="text-body-lg font-semibold text-text-muted group-hover:text-text">
 										{category.name}
 									</h3>
-									<span className="ml-auto text-body-sm text-neutral-500 bg-white px-2 py-1 rounded-2xl">
+									<span className="ml-auto text-body-sm text-text-muted bg-white px-2 py-1 rounded-2xl">
 										Переглянути книги →
 									</span>
 								</Link>
@@ -106,13 +106,13 @@ export default async function CatalogPage() {
 											<Link
 												key={subcategory.id}
 												href={`/books?category=${encodeURIComponent(subcategory.name)}`}
-												className="flex items-center gap-3 p-3 rounded-lg hover:bg-neutral-50 transition-colors text-sm"
+												className="flex items-center gap-3 p-3 rounded-lg hover:bg-surface transition-colors text-sm"
 											>
 												<span className="text-lg">{subcategory.icon || '📖'}</span>
-												<span className="text-neutral-700 hover:text-neutral-900">
+												<span className="text-text-muted hover:text-text">
 													{subcategory.name}
 												</span>
-												<span className="ml-auto text-xs text-neutral-400">
+												<span className="ml-auto text-xs text-text-muted">
 													→
 												</span>
 											</Link>
@@ -123,7 +123,7 @@ export default async function CatalogPage() {
 						))}
 					</div>
 				) : (
-					<div className="text-center py-12 text-red-600">
+					<div className="text-center py-12 text-error">
 						❌ Помилка завантаження категорій: {error || 'Категорії не знайдено'}
 					</div>
 				)}

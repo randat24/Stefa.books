@@ -46,7 +46,7 @@ export async function GET(request: NextRequest) {
     const totalUsers = users.length
     const activeUsers = users.filter(u => u.status === 'active').length
     const totalBooks = books.length
-    const availableBooks = books.filter(b => b.available).length
+    const availableBooks = books.filter(b => (b.qty_available || 0) > 0 && b.is_active).length
     const totalRentals = rentals.length
     const activeRentals = rentals.filter(r => r.status === 'active').length
     const overdueRentals = rentals.filter(r => r.status === 'overdue').length

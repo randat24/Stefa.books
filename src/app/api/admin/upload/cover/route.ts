@@ -16,39 +16,13 @@ cloudinary.config({
 // ОБМЕЖЕННЯ ФАЙЛІВ
 // ============================================================================
 
-const ALLOWED_MIME_TYPES = new Set([
-  'image/jpeg', 
-  'image/jpg', 
-  'image/png', 
-  'image/webp', 
-  'image/gif'
-])
-
-const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5 МБ
+// Константы перенесены в универсальный API /api/upload/image
 
 // ============================================================================
 // ВАЛІДАЦІЯ ФАЙЛУ
 // ============================================================================
 
-async function validateImageFile(file: File): Promise<{ valid: boolean; error?: string }> {
-  // Перевіряємо MIME тип
-  if (!ALLOWED_MIME_TYPES.has(file.type)) {
-    return { 
-      valid: false, 
-      error: `Непідтримуваний тип файлу. Дозволені: ${Array.from(ALLOWED_MIME_TYPES).join(', ')}` 
-    }
-  }
-
-  // Перевіряємо розмір
-  if (file.size > MAX_FILE_SIZE) {
-    return { 
-      valid: false, 
-      error: `Файл занадто великий. Максимум: ${MAX_FILE_SIZE / (1024 * 1024)} МБ` 
-    }
-  }
-
-  return { valid: true }
-}
+// Валидация теперь происходит в универсальном API /api/upload/image
 
 // ============================================================================
 // ЗАВАНТАЖЕННЯ НА CLOUDINARY
@@ -56,7 +30,7 @@ async function validateImageFile(file: File): Promise<{ valid: boolean; error?: 
 
 export async function POST(req: Request) {
   try {
-    // Отримуємо файл з FormData
+    // Получаем FormData из оригинального запроса
     const formData = await req.formData()
     const file = formData.get('file') as File | null
 
@@ -67,96 +41,36 @@ export async function POST(req: Request) {
       )
     }
 
-    // Валідуємо файл
-    const validation = await validateImageFile(file)
-    if (!validation.valid) {
-      return NextResponse.json(
-        { error: validation.error }, 
-        { status: 400 }
-      )
-    }
+    // Создаем новый FormData для универсального API
+    const newFormData = new FormData()
+    newFormData.append('file', file)
+    newFormData.append('type', 'cover')
 
-    // Конвертуємо File в Buffer
-    const arrayBuffer = await file.arrayBuffer()
-    const buffer = Buffer.from(arrayBuffer)
-
-    // Налаштування завантаження
-    const folder = 'stefa-books/covers'
-    const publicId = `stefa-books-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
-
-    // Завантажуємо через upload_stream
-    interface CloudinaryUploadResult {
-      secure_url: string;
-      public_id: string;
-      width: number;
-      height: number;
-      bytes: number;
-      format: string;
-    }
-
-    const result = await new Promise<CloudinaryUploadResult>((resolve, reject) => {
-      const uploadStream = cloudinary.uploader.upload_stream(
-        {
-          folder,
-          public_id: publicId,
-          overwrite: false,
-          unique_filename: true,
-          use_filename: false,
-          resource_type: 'image',
-          // Базові трансформації для оптимізації
-          transformation: [
-            { 
-              fetch_format: 'auto', 
-              quality: 'auto:best',
-              width: 400, // максимальна ширина
-              height: 600, // максимальна висота
-              crop: 'limit' // не обрізаємо, тільки масштабуємо
-            }
-          ],
-          // Метадані для пошуку
-          context: {
-            alt: `Обкладинка книги Stefa.books`,
-            caption: `Завантажено: ${new Date().toISOString()}`
-          }
-        },
-        (error, result) => {
-          if (error) {
-            console.error('Cloudinary upload error:', error)
-            reject(new Error('Помилка завантаження на Cloudinary'))
-            return
-          }
-          
-          if (!result?.secure_url) {
-            reject(new Error('Не вдалося отримати URL завантаженого файлу'))
-            return
-          }
-
-          resolve(result)
-        }
-      )
-
-      uploadStream.end(buffer)
+    // Получаем базовый URL для внутреннего запроса
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+    
+    // Делаем запрос к универсальному API
+    const response = await fetch(`${baseUrl}/api/upload/image`, {
+      method: 'POST',
+      body: newFormData
     })
 
-    // Повертаємо успішний результат
+    const result = await response.json()
+
+    if (!response.ok) {
+      return NextResponse.json(result, { status: response.status })
+    }
+
+    // Возвращаем результат с правильным сообщением
     return NextResponse.json({
-      success: true,
-      secure_url: result.secure_url,
-      public_id: result.public_id,
-      width: result.width,
-      height: result.height,
-      bytes: result.bytes,
-      format: result.format,
+      ...result,
       message: 'Обкладинка успішно завантажена'
     })
 
   } catch (error) {
     console.error('Upload cover error:', error)
-    
     return NextResponse.json(
-      { 
-        error: error instanceof Error ? error.message : 'Невідома помилка завантаження' 
-      }, 
+      { error: 'Внутрішня помилка сервера при завантаженні обкладинки' },
       { status: 500 }
     )
   }

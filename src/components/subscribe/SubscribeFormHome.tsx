@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import { logger } from "@/lib/logger"; 
@@ -15,6 +16,7 @@ type FormData = {
   subscription_type: "mini" | "maxi";
   payment_method: "Онлайн оплата" | "Переказ на карту";
   notes?: string;
+  screenshot?: FileList;
 };
 
 interface SubscribeFormHomeProps {
@@ -26,6 +28,8 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [cardNumber] = useState('5408 8100 4185 0776'); // Номер карты для перевода
   const [cardCopied, setCardCopied] = useState(false);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [uploadPreview, setUploadPreview] = useState<string | null>(null);
   const searchParams = useSearchParams();
 
   // Функция копирования номера карты
@@ -36,6 +40,44 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
       setTimeout(() => setCardCopied(false), 2000);
     } catch (err) {
       console.error('Failed to copy card number:', err);
+    }
+  };
+
+  // Функция обработки загрузки файла
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Проверяем тип файла
+      if (!file.type.startsWith('image/')) {
+        alert('Будь ласка, оберіть зображення');
+        return;
+      }
+      
+      // Проверяем размер файла (максимум 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Розмір файлу не повинен перевищувати 5MB');
+        return;
+      }
+
+      setUploadedFile(file);
+      
+      // Создаем превью
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setUploadPreview(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Функция удаления загруженного файла
+  const removeUploadedFile = () => {
+    setUploadedFile(null);
+    setUploadPreview(null);
+    // Очищаем input
+    const fileInput = document.getElementById('screenshot') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
     }
   };
 
@@ -95,20 +137,57 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
     setIsSubmitting(true);
     
     try {
-      // Submit to API with new structure
+      // Если выбран перевод на карту и нет скриншота, показываем ошибку
+      if (data.payment_method === 'Переказ на карту' && !uploadedFile) {
+        alert('Будь ласка, завантажте скриншот переказу');
+        setIsSubmitting(false);
+        return;
+      }
+
+      let screenshotUrl = '';
+
+      // Если есть загруженный файл, сначала загружаем его на Cloudinary
+      if (uploadedFile) {
+        const uploadFormData = new FormData();
+        uploadFormData.append('screenshot', uploadedFile);
+
+        const uploadResponse = await fetch('/api/subscribe/upload-screenshot', {
+          method: 'POST',
+          body: uploadFormData
+        });
+
+        if (!uploadResponse.ok) {
+          const uploadError = await uploadResponse.json();
+          throw new Error(uploadError.error || 'Помилка завантаження скриншота');
+        }
+
+        const uploadResult = await uploadResponse.json();
+        screenshotUrl = uploadResult.secure_url;
+        
+        logger.info('Screenshot uploaded to Cloudinary', {
+          url: screenshotUrl,
+          public_id: uploadResult.public_id
+        });
+      }
+
+      // Подготавливаем данные для отправки (теперь используем JSON)
+      const requestData = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        social: data.social,
+        plan: data.subscription_type,
+        paymentMethod: data.payment_method,
+        message: data.notes || '',
+        screenshot: screenshotUrl,
+        privacyConsent: true
+      };
+
+      // Submit to API with JSON (URL скриншота уже загружен на Cloudinary)
       const response = await fetch('/api/subscribe', { 
-        method: 'POST', 
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          social: data.social,
-          plan: data.subscription_type,
-          paymentMethod: data.payment_method,
-          message: data.notes,
-          privacyConsent: true
-        })
+        body: JSON.stringify(requestData)
       });
 
       const result = await response.json();
@@ -387,31 +466,100 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
 
             {/* Номер карты для перевода */}
             {watch("payment_method") === 'Переказ на карту' && (
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <label className="block text-body font-semibold text-green-800">
-                    Номер карты для перевода
+              <div className="space-y-4">
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-body font-semibold text-green-800">
+                      Номер карты для перевода
+                    </label>
+                    <Button
+                      type="button"
+                      onClick={copyCardNumber}
+                      className={`px-3 py-1 text-xs rounded-md transition-colors ${
+                        cardCopied 
+                          ? 'bg-green-600 text-neutral-0' 
+                          : 'bg-green-100 text-green-800 hover:bg-green-200'
+                      }`}
+                    >
+                      {cardCopied ? 'Скопіровано!' : 'Копіювати'}
+                    </Button>
+                  </div>
+                  <div className="bg-white border border-green-300 rounded-lg p-3">
+                    <code className="text-lg font-mono text-neutral-800 select-all">
+                      {cardNumber}
+                    </code>
+                  </div>
+                  <p className="text-sm text-green-700 mt-2">
+                    💡 Натисніть &quot;Копіювати&quot; щоб скопіювати номер карты в буфер обміну
+                  </p>
+                </div>
+
+                {/* Загрузка скриншота перевода */}
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <label className="block text-body font-semibold text-green-800 mb-2">
+                    Скриншот переказу *
                   </label>
-                  <Button
-                    type="button"
-                    onClick={copyCardNumber}
-                    className={`px-3 py-1 text-xs rounded-md transition-colors ${
-                      cardCopied 
-                        ? 'bg-green-600 text-neutral-0' 
-                        : 'bg-green-100 text-green-800 hover:bg-green-200'
-                    }`}
-                  >
-                    {cardCopied ? 'Скопіровано!' : 'Копіювати'}
-                  </Button>
+                  
+                  {!uploadedFile ? (
+                    <div className="border-2 border-dashed border-green-300 rounded-lg p-6 text-center hover:border-green-400 transition-colors">
+                      <input
+                        type="file"
+                        id="screenshot"
+                        accept="image/*"
+                        onChange={handleFileUpload}
+                        className="hidden"
+                      />
+                      <label
+                        htmlFor="screenshot"
+                        className="cursor-pointer block"
+                      >
+                        <div className="text-green-600 mb-2">
+                          <svg className="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                          </svg>
+                        </div>
+                        <p className="text-green-700 font-medium">
+                          Натисніть для завантаження скриншота
+                        </p>
+                        <p className="text-sm text-green-600 mt-1">
+                          JPG, PNG або GIF (максимум 5MB)
+                        </p>
+                      </label>
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between bg-white border border-green-300 rounded-lg p-3">
+                        <div className="flex items-center gap-3">
+                          {uploadPreview && (
+                            <Image
+                              src={uploadPreview}
+                              alt="Превью скриншота"
+                              width={48}
+                              height={48}
+                              className="w-12 h-12 object-cover rounded border"
+                            />
+                          )}
+                          <div>
+                            <p className="font-medium text-green-800">{uploadedFile.name}</p>
+                            <p className="text-sm text-green-600">
+                              {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB
+                            </p>
+                          </div>
+                        </div>
+                        <Button
+                          type="button"
+                          onClick={removeUploadedFile}
+                          className="px-3 py-1 text-xs bg-red-100 text-red-800 hover:bg-red-200 rounded-md transition-colors"
+                        >
+                          Видалити
+                        </Button>
+                      </div>
+                      <p className="text-sm text-green-700">
+                        ✅ Скриншот завантажено успішно
+                      </p>
+                    </div>
+                  )}
                 </div>
-                <div className="bg-white border border-green-300 rounded-lg p-3">
-                  <code className="text-lg font-mono text-neutral-800 select-all">
-                    {cardNumber}
-                  </code>
-                </div>
-                <p className="text-sm text-green-700 mt-2">
-                  💡 Натисніть &quot;Копіювати&quot; щоб скопіювати номер карты в буфер обміну
-                </p>
               </div>
             )}
 

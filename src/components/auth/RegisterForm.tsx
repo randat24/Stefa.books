@@ -138,73 +138,72 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
   };
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>Реєстрація</CardTitle>
-        <CardDescription>
-          Створіть новий обліковий запис
-        </CardDescription>
-      </CardHeader>
-      
-      <form onSubmit={handleSubmit}>
-        <CardContent className="space-y-4">
-          {error && (
-            <Alert variant="destructive">
-              <XCircle className="h-4 w-4" />
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
-          
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="firstName">Ім&apos;я</Label>
-              <Input
-                id="firstName"
-                value={firstName}
-                onChange={(e) => {
-                  setFirstName(e.target.value);
-                  if (fieldErrors.firstName) {
-                    setFieldErrors(prev => ({ ...prev, firstName: undefined }));
-                  }
-                }}
-                disabled={isLoading}
-                placeholder="Іван"
-                className={fieldErrors.firstName ? "border-red-500 focus:border-red-500" : ""}
-              />
-              {fieldErrors.firstName && (
-                <p className="text-sm text-red-500 flex items-center gap-1">
-                  <XCircle className="h-3 w-3" />
-                  {fieldErrors.firstName}
-                </p>
-              )}
-            </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="lastName">Прізвище</Label>
-              <Input
-                id="lastName"
-                value={lastName}
-                onChange={(e) => {
-                  setLastName(e.target.value);
-                  if (fieldErrors.lastName) {
-                    setFieldErrors(prev => ({ ...prev, lastName: undefined }));
-                  }
-                }}
-                disabled={isLoading}
-                placeholder="Петренко"
-                className={fieldErrors.lastName ? "border-red-500 focus:border-red-500" : ""}
-              />
-              {fieldErrors.lastName && (
-                <p className="text-sm text-red-500 flex items-center gap-1">
-                  <XCircle className="h-3 w-3" />
-                  {fieldErrors.lastName}
-                </p>
-              )}
-            </div>
+    <div className="w-full max-w-md mx-auto">
+      <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+        <div className="px-6 py-8">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Реєстрація</h2>
+            <p className="text-gray-600">Створіть новий обліковий запис</p>
           </div>
           
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {error && (
+              <Alert variant="destructive" className="mb-4">
+                <XCircle className="h-4 w-4" />
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+          
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="firstName" className="text-sm font-medium text-gray-700">Ім&apos;я</Label>
+                <Input
+                  id="firstName"
+                  value={firstName}
+                  onChange={(e) => {
+                    setFirstName(e.target.value);
+                    if (fieldErrors.firstName) {
+                      setFieldErrors(prev => ({ ...prev, firstName: undefined }));
+                    }
+                  }}
+                  disabled={isLoading}
+                  placeholder="Іван"
+                  className={`bg-gray-50 border-gray-200 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors ${fieldErrors.firstName ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
+                />
+                {fieldErrors.firstName && (
+                  <p className="text-sm text-red-500 flex items-center gap-1">
+                    <XCircle className="h-3 w-3" />
+                    {fieldErrors.firstName}
+                  </p>
+                )}
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="lastName" className="text-sm font-medium text-gray-700">Прізвище</Label>
+                <Input
+                  id="lastName"
+                  value={lastName}
+                  onChange={(e) => {
+                    setLastName(e.target.value);
+                    if (fieldErrors.lastName) {
+                      setFieldErrors(prev => ({ ...prev, lastName: undefined }));
+                    }
+                  }}
+                  disabled={isLoading}
+                  placeholder="Петренко"
+                  className={`bg-gray-50 border-gray-200 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors ${fieldErrors.lastName ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
+                />
+                {fieldErrors.lastName && (
+                  <p className="text-sm text-red-500 flex items-center gap-1">
+                    <XCircle className="h-3 w-3" />
+                    {fieldErrors.lastName}
+                  </p>
+                )}
+              </div>
+            </div>
+          
           <div className="space-y-2">
-            <Label htmlFor="email">Електронна пошта</Label>
+            <Label htmlFor="email" className="text-sm font-medium text-gray-700">Електронна пошта</Label>
             <Input
               id="email"
               type="email"
@@ -217,7 +216,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
               }}
               disabled={isLoading}
               placeholder="your@email.com"
-              className={fieldErrors.email ? "border-red-500 focus:border-red-500" : ""}
+              className={`bg-white border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors ${fieldErrors.email ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
             />
             {fieldErrors.email && (
               <p className="text-sm text-red-500 flex items-center gap-1">
@@ -228,7 +227,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="phone">Телефон (необов&apos;язково)</Label>
+            <Label htmlFor="phone" className="text-sm font-medium text-gray-700">Телефон (необов&apos;язково)</Label>
             <Input
               id="phone"
               type="tel"
@@ -241,7 +240,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
               }}
               disabled={isLoading}
               placeholder="+380 50 123 45 67"
-              className={fieldErrors.phone ? "border-red-500 focus:border-red-500" : ""}
+              className={`bg-gray-50 border-gray-200 focus:bg-white focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors ${fieldErrors.phone ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
             />
             {fieldErrors.phone && (
               <p className="text-sm text-red-500 flex items-center gap-1">
@@ -252,7 +251,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="password">Пароль</Label>
+            <Label htmlFor="password" className="text-sm font-medium text-gray-700">Пароль</Label>
             <div className="relative">
               <Input
                 id="password"
@@ -266,18 +265,18 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
                 }}
                 disabled={isLoading}
                 placeholder="••••••••"
-                className={fieldErrors.password ? "border-red-500 focus:border-red-500" : ""}
+                className={`bg-white border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors pr-10 ${fieldErrors.password ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
                 disabled={isLoading}
               >
                 {showPassword ? (
-                  <EyeOff className="h-4 w-4 text-neutral-500" />
+                  <EyeOff className="h-4 w-4" />
                 ) : (
-                  <Eye className="h-4 w-4 text-neutral-500" />
+                  <Eye className="h-4 w-4" />
                 )}
               </button>
             </div>
@@ -290,7 +289,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="confirmPassword">Підтвердіть пароль</Label>
+            <Label htmlFor="confirmPassword" className="text-sm font-medium text-gray-700">Підтвердіть пароль</Label>
             <div className="relative">
               <Input
                 id="confirmPassword"
@@ -304,18 +303,18 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
                 }}
                 disabled={isLoading}
                 placeholder="••••••••"
-                className={fieldErrors.confirmPassword ? "border-red-500 focus:border-red-500" : ""}
+                className={`bg-white border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors pr-10 ${fieldErrors.confirmPassword ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
               />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
                 disabled={isLoading}
               >
                 {showConfirmPassword ? (
-                  <EyeOff className="h-4 w-4 text-neutral-500" />
+                  <EyeOff className="h-4 w-4" />
                 ) : (
-                  <Eye className="h-4 w-4 text-neutral-500" />
+                  <Eye className="h-4 w-4" />
                 )}
               </button>
             </div>
@@ -326,42 +325,43 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
               </p>
             )}
           </div>
-        </CardContent>
-        
-        <CardFooter className="flex flex-col space-y-4">
-          <Button 
-            type="submit" 
-            className="w-full" 
-            disabled={isLoading || !firstName.trim() || !lastName.trim() || !email.trim() || !password.trim() || !confirmPassword.trim()}
-          >
-            {isLoading ? (
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                Реєстрація...
-              </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4" />
-                Зареєструватися
-              </div>
-            )}
-          </Button>
+          
+          <div className="pt-4">
+            <Button 
+              type="submit" 
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed" 
+              disabled={isLoading || !firstName.trim() || !lastName.trim() || !email.trim() || !password.trim() || !confirmPassword.trim()}
+            >
+              {isLoading ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  Реєстрація...
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4" />
+                  Зареєструватися
+                </div>
+              )}
+            </Button>
+          </div>
           
           {onSwitchToLogin && (
-            <div className="text-center text-body-sm text-neutral-600">
+            <div className="text-center text-sm text-gray-600 pt-2">
               Вже маєте обліковий запис?{' '}
               <button
                 type="button"
                 onClick={onSwitchToLogin}
-                className="text-brand-accent-light hover:text-brand-accent-light/80 font-medium"
+                className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
                 disabled={isLoading}
               >
                 Увійти
               </button>
             </div>
           )}
-        </CardFooter>
-      </form>
-    </Card>
+        </form>
+        </div>
+      </div>
+    </div>
   );
 }

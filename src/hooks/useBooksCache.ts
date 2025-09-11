@@ -67,7 +67,7 @@ export function useBooksCache() {
   // Статистика кэша
   const cacheStats = useMemo(() => ({
     totalBooks: books.length,
-    availableBooks: books.filter(book => book.available).length,
+    availableBooks: books.filter(book => (book.qty_available || 0) > 0 && book.is_active).length,
     lastSync: lastSync ? new Date(lastSync).toLocaleString() : 'Never',
     cacheVersion,
     isSyncing

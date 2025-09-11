@@ -332,7 +332,7 @@ class SearchService {
     score += (book.rating || 0) / 5 * 0.5;
 
     // Availability bonus
-    if (book.available) score += 0.2;
+    if ((book.qty_available || 0) > 0 && book.is_active) score += 0.2;
 
     return score;
   }

@@ -29,7 +29,7 @@ export function QuickFilters({
     return acc;
   }, {} as Record<string, number>);
 
-  const availableCount = books.filter(book => book.available).length;
+  const availableCount = books.filter(book => (book.qty_available || 0) > 0 && book.is_active).length;
 
   return (
     <div className={`space-y-4 ${className}`}>

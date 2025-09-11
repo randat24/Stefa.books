@@ -247,10 +247,10 @@ export default function RentalHistory() {
                         </h3>
                         <p className="text-neutral-600 mb-2">{rental.book.author}</p>
                         <div className="flex items-center gap-2 mb-3">
-                          <Badge variant="outline" size="sm">
+                          <Badge variant="outline" >
                             {rental.book.category}
                           </Badge>
-                          <Badge variant="outline" size="sm">
+                          <Badge variant="outline" >
                             {rental.book.age_range}
                           </Badge>
                           {getStatusBadge(rental.status, rental.is_overdue)}
@@ -293,7 +293,6 @@ export default function RentalHistory() {
                         {rental.can_exchange && (
                           <Button 
                             variant="outline" 
-                            size="sm"
                             onClick={() => handleExchangeBook(rental.id)}
                           >
                             Обміняти книгу
@@ -302,7 +301,6 @@ export default function RentalHistory() {
                         {rental.can_return && (
                           <Button 
                             variant="outline" 
-                            size="sm"
                             onClick={() => handleReturnBook(rental.id, rental.book.id)}
                           >
                             Повернути книгу
@@ -310,7 +308,6 @@ export default function RentalHistory() {
                         )}
                         <Button 
                           variant="outline" 
-                          size="sm"
                           onClick={() => handleExtendRental(rental.id)}
                         >
                           Продовжити на 7 днів

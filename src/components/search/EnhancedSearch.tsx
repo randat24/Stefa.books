@@ -144,7 +144,7 @@ export function EnhancedSearch({ onSearchResults }: EnhancedSearchProps) {
     // Apply availability filter
     if (filters.availability !== 'all') {
       filtered = filtered.filter(book => 
-        filters.availability === 'available' ? book.available : !book.available
+        filters.availability === 'available' ? ((book.qty_available || 0) > 0 && book.is_active) : ((book.qty_available || 0) <= 0 || !book.is_active)
       );
     }
 

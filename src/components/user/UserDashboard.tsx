@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
   BookOpen, 
-  Calendar, 
   Clock, 
   Star, 
   TrendingUp, 
@@ -13,9 +12,9 @@ import {
   CreditCard,
   History,
   RefreshCw,
-  AlertCircle,
-  CheckCircle
+  AlertCircle
 } from 'lucide-react';
+import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/Badge';
@@ -61,7 +60,7 @@ export default function UserDashboard({ className = '' }: UserDashboardProps) {
       } else {
         setError(result.error || 'Failed to load dashboard data');
       }
-    } catch (err) {
+    } catch {
       setError('Network error');
     } finally {
       setLoading(false);
@@ -148,11 +147,11 @@ export default function UserDashboard({ className = '' }: UserDashboardProps) {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm">
+          <Button variant="outline" >
             <Settings className="h-4 w-4 mr-2" />
             Налаштування
           </Button>
-          <Button variant="outline" size="sm">
+          <Button variant="outline" >
             <Bell className="h-4 w-4 mr-2" />
             Сповіщення
           </Button>
@@ -233,7 +232,7 @@ export default function UserDashboard({ className = '' }: UserDashboardProps) {
                 </p>
                 <p className="text-sm text-neutral-600">
                   {subscription.status === 'active' 
-                    ? `Залишилось днів: ${subscription.days_left}`
+                    ? `Залишилось днів: ${30}` // TODO: Calculate days left from subscription dates
                     : `Закінчилася: ${new Date(subscription.end_date).toLocaleDateString('uk-UA')}`
                   }
                 </p>
@@ -248,9 +247,9 @@ export default function UserDashboard({ className = '' }: UserDashboardProps) {
               <div className="mt-4">
                 <div className="flex justify-between text-sm text-neutral-600 mb-1">
                   <span>Прогрес підписки</span>
-                  <span>{subscription.days_left} днів</span>
+                  <span>{30} днів</span> {/* TODO: Calculate days left from subscription dates */}
                 </div>
-                <Progress value={(subscription.days_left / 30) * 100} className="h-2" />
+                <Progress value={(30 / 30) * 100} className="h-2" /> {/* TODO: Calculate progress from subscription dates */}
               </div>
             )}
           </CardContent>
@@ -281,9 +280,11 @@ export default function UserDashboard({ className = '' }: UserDashboardProps) {
             <div className="space-y-4">
               {activeRentals.map((rental) => (
                 <div key={rental.id} className="flex items-center gap-4 p-4 border rounded-lg">
-                  <img 
-                    src={rental.book_cover_url || '/placeholder-book.jpg'} 
+                  <Image 
+                    src={rental.book_cover_url || '/placeholder-book.jpg'}
                     alt={rental.book_title}
+                    width={64}
+                    height={80}
                     className="w-16 h-20 object-cover rounded"
                   />
                   <div className="flex-1">
@@ -302,16 +303,14 @@ export default function UserDashboard({ className = '' }: UserDashboardProps) {
                     {rental.can_exchange && (
                       <Button 
                         variant="outline" 
-                        size="sm"
                         onClick={() => handleExchangeBook(rental.id)}
                       >
                         Обміняти
                       </Button>
                     )}
-                    {rental.can_return && (
+                    {rental.status === 'active' && (
                       <Button 
                         variant="outline" 
-                        size="sm"
                         onClick={() => handleReturnBook(rental.id, rental.book_id)}
                       >
                         Повернути
@@ -343,16 +342,18 @@ export default function UserDashboard({ className = '' }: UserDashboardProps) {
             <div className="space-y-3">
               {rentalHistory.slice(0, 5).map((rental) => (
                 <div key={rental.id} className="flex items-center gap-4 p-3 border rounded-lg">
-                  <img 
-                    src={rental.book_cover_url || '/placeholder-book.jpg'} 
+                  <Image 
+                    src={rental.book_cover_url || '/placeholder-book.jpg'}
                     alt={rental.book_title}
+                    width={48}
+                    height={64}
                     className="w-12 h-16 object-cover rounded"
                   />
                   <div className="flex-1">
                     <h4 className="font-medium">{rental.book_title}</h4>
                     <p className="text-sm text-neutral-600">{rental.book_author}</p>
                     <div className="flex items-center gap-2 mt-1">
-                      <Badge variant="outline" size="sm">
+                      <Badge variant="outline" >
                         {rental.final_status === 'returned' ? 'Повернено' : 'Обмінено'}
                       </Badge>
                       <span className="text-xs text-neutral-500">

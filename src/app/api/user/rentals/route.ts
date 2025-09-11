@@ -43,17 +43,15 @@ export async function GET(request: NextRequest) {
       .select(`
         id,
         rental_date,
-        due_date,
         return_date,
         status,
         notes,
-        late_fee_uah,
         books!inner(
           id,
           title,
           author,
           cover_url,
-          category,
+          category_id,
           age_range
         )
       `)
@@ -70,10 +68,9 @@ export async function GET(request: NextRequest) {
     }
 
     // Format rentals data
-    const formattedRentals = rentals?.map(rental => {
-      const daysLeft = rental.due_date 
-        ? Math.ceil((new Date(rental.due_date).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
-        : 0;
+    const formattedRentals = rentals?.map((rental: any) => {
+      const dueDate = rental.return_date ? new Date(rental.return_date) : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 дней по умолчанию
+      const daysLeft = Math.ceil((dueDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
       const isOverdue = daysLeft < 0 && rental.status === 'active';
 
       return {
@@ -82,16 +79,16 @@ export async function GET(request: NextRequest) {
           id: rental.books.id,
           title: rental.books.title,
           author: rental.books.author,
-          cover_url: rental.books.cover_url,
-          category: rental.books.category,
-          age_range: rental.books.age_range
+          cover_url: rental.books.cover_url || '/placeholder-book.jpg',
+          category: rental.books.category_id,
+          age_range: rental.books.age_range || ''
         },
         rental_date: rental.rental_date,
-        due_date: rental.due_date,
+        due_date: rental.return_date, // Используем return_date как due_date
         return_date: rental.return_date,
         status: rental.status,
         notes: rental.notes,
-        late_fee: rental.late_fee_uah || 0,
+        late_fee: 0, // TODO: Add late_fee_uah field to rentals table
         days_left: Math.max(0, daysLeft),
         is_overdue: isOverdue,
         can_exchange: rental.status === 'active' && !isOverdue,
@@ -133,7 +130,7 @@ export async function POST(request: NextRequest) {
     }
 
     const userId = session.user.id;
-    const { action, rentalId, bookId, reason } = await request.json();
+    const { action, rentalId, bookId } = await request.json();
 
     switch (action) {
       case 'return':
@@ -163,12 +160,20 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        // Update book availability
+        // Update book availability - increment quantity
+        const { data: bookData } = await supabase
+          .from('books')
+          .select('qty_available')
+          .eq('id', bookId)
+          .single();
+        
+        const newQuantity = (bookData?.qty_available || 0) + 1;
+        
         const { error: bookError } = await supabase
           .from('books')
           .update({ 
             status: 'available',
-            available: true,
+            qty_available: newQuantity,
             updated_at: new Date().toISOString()
           })
           .eq('id', bookId);
@@ -212,11 +217,11 @@ export async function POST(request: NextRequest) {
         // Check if new book is available
         const { data: newBookData, error: newBookError } = await supabase
           .from('books')
-          .select('id, status, available')
+          .select('id, status, qty_available, is_active')
           .eq('id', bookId)
           .single();
 
-        if (newBookError || !newBookData || !newBookData.available) {
+        if (newBookError || !newBookData || (newBookData.qty_available || 0) <= 0 || !newBookData.is_active) {
           return NextResponse.json(
             { success: false, error: 'New book is not available' },
             { status: 400 }
@@ -251,7 +256,7 @@ export async function POST(request: NextRequest) {
             user_id: userId,
             book_id: bookId,
             rental_date: new Date().toISOString(),
-            due_date: dueDate.toISOString(),
+            return_date: dueDate.toISOString(),
             status: 'active',
             notes: `Обмін з книги ${rentalData.book_id}`
           });
@@ -264,21 +269,38 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        // Update book statuses
+        // Update book statuses - increment old book quantity
+        const { data: oldBookData } = await supabase
+          .from('books')
+          .select('qty_available')
+          .eq('id', rentalData.book_id)
+          .single();
+        
+        const oldBookNewQuantity = (oldBookData?.qty_available || 0) + 1;
+        
         await supabase
           .from('books')
           .update({ 
             status: 'available',
-            available: true,
+            qty_available: oldBookNewQuantity,
             updated_at: new Date().toISOString()
           })
           .eq('id', rentalData.book_id);
 
+        // Decrement new book quantity
+        const { data: newBookDataForExchange } = await supabase
+          .from('books')
+          .select('qty_available')
+          .eq('id', bookId)
+          .single();
+        
+        const newBookNewQuantity = Math.max(0, (newBookDataForExchange?.qty_available || 1) - 1);
+        
         await supabase
           .from('books')
           .update({ 
             status: 'rented',
-            available: false,
+            qty_available: newBookNewQuantity,
             updated_at: new Date().toISOString()
           })
           .eq('id', bookId);
@@ -301,7 +323,7 @@ export async function POST(request: NextRequest) {
 
         const { data: extendRentalData, error: extendRentalError } = await supabase
           .from('rentals')
-          .select('due_date')
+          .select('return_date')
           .eq('id', rentalId)
           .eq('user_id', userId)
           .eq('status', 'active')
@@ -314,13 +336,13 @@ export async function POST(request: NextRequest) {
           );
         }
 
-        const newDueDate = new Date(extendRentalData.due_date);
+        const newDueDate = new Date((extendRentalData as any).return_date || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000));
         newDueDate.setDate(newDueDate.getDate() + 7); // Extend by 7 days
 
         const { error: extendError } = await supabase
           .from('rentals')
           .update({
-            due_date: newDueDate.toISOString(),
+            return_date: newDueDate.toISOString(),
             updated_at: new Date().toISOString()
           })
           .eq('id', rentalId);

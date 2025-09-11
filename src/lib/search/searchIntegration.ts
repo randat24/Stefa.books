@@ -346,7 +346,7 @@ class IntegratedSearchSystem {
     }
 
     if (filters.availableOnly) {
-      filtered = filtered.filter(book => book.available !== false);
+      filtered = filtered.filter(book => (book.qty_available || 0) > 0 && book.is_active !== false);
     }
 
     if (filters.minRating && filters.minRating > 0) {

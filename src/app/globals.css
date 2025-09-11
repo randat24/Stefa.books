@@ -90,6 +90,67 @@
     padding-inline: 1rem;
   }
 
+  /* Header стили */
+  .header {
+    @apply sticky top-0 z-50 border-b border-line backdrop-blur;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  .header-content {
+    @apply container mx-auto px-4 py-3;
+  }
+
+  .header-nav {
+    @apply hidden md:flex items-center gap-6;
+  }
+
+  .header-nav-link {
+    @apply text-text hover:text-accent transition-colors;
+  }
+
+  /* Logo стили */
+  .logo {
+    @apply flex items-center gap-3;
+  }
+
+  .logo-icon {
+    @apply h-8 w-8 rounded-xl ring-1 ring-black/5 overflow-hidden;
+  }
+
+  .logo-text {
+    @apply text-lg font-bold;
+  }
+
+  .logo-subtitle {
+    @apply text-xs text-text-muted;
+  }
+
+  /* BookCard стили */
+  .book-card {
+    @apply relative bg-card rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-line h-full flex flex-col hover:-translate-y-1;
+    min-height: 400px;
+  }
+
+  .book-card-image {
+    @apply relative w-full h-48 bg-surface-2 overflow-hidden;
+  }
+
+  .book-card-content {
+    @apply flex-1 p-4 flex flex-col;
+  }
+
+  .book-card-title {
+    @apply text-h3 font-bold text-accent mb-2 line-clamp-2;
+  }
+
+  .book-card-author {
+    @apply text-text-muted mb-3 line-clamp-1;
+  }
+
+  .book-card-actions {
+    @apply mt-auto flex items-center justify-between;
+  }
+
   /* Карточки */
   .card {
     background: var(--card);

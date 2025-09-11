@@ -197,7 +197,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
     }
 
     if (filters.availableOnly) {
-      filteredBooks = filteredBooks.filter(book => book.available !== false);
+      filteredBooks = filteredBooks.filter(book => (book.qty_available || 0) > 0 && book.is_active !== false);
     }
 
     if (filters.minRating > 0) {

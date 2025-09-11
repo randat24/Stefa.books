@@ -73,7 +73,7 @@ export async function GET(request: NextRequest) {
             `Автор: ${book.author}`,
             book.short_description || book.description,
             `Ціна: ${book.price_uah} грн`,
-            book.available ? 'Доступна для оренди' : 'Тимчасово недоступна'
+            (book.qty_available || 0) > 0 && book.is_active ? 'Доступна для оренди' : 'Тимчасово недоступна'
           ].filter(Boolean).join('. ');
 
           pages.push({

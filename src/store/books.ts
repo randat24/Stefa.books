@@ -145,7 +145,7 @@ export const useBooksStore = create<BookCacheState>()(
       
       getAvailableBooks: () => {
         const { books } = get()
-        return books.filter(book => book.available)
+        return books.filter(book => (book.qty_available || 0) > 0 && book.is_active)
       },
       
       getFilteredBooks: (filters) => {
@@ -170,7 +170,7 @@ export const useBooksStore = create<BookCacheState>()(
         }
         
         if (filters.availableOnly) {
-          filteredBooks = filteredBooks.filter(book => book.available)
+          filteredBooks = filteredBooks.filter(book => (book.qty_available || 0) > 0 && book.is_active)
         }
         
         if (filters.limit) {

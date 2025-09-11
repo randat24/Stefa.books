@@ -67,7 +67,7 @@ export function BookRecommendations({
 
   const recommendations = useMemo(() => {
     const filtered = books.filter(book => 
-      book.available && 
+      (book.qty_available || 0) > 0 && book.is_active && 
       !excludeIds.includes(book.id) &&
       (!category || book.category_id === category)
     );

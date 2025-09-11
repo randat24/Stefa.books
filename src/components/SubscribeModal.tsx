@@ -229,28 +229,33 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 			if (data.screenshot && data.screenshot instanceof File) {
 				setUploadProgress(25)
 				
-				const formData = new FormData()
-				formData.append('file', data.screenshot)
-				formData.append('upload_preset', 'subscription_screenshots')
+				const uploadFormData = new FormData()
+				uploadFormData.append('screenshot', data.screenshot)
 				
 				try {
-					const cloudinaryResponse = await fetch(
-						`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'stefa-books'}/image/upload`,
-						{
-							method: 'POST',
-							body: formData,
-						}
-					)
+					const uploadResponse = await fetch('/api/subscribe/upload-screenshot', {
+						method: 'POST',
+						body: uploadFormData
+					})
 					
 					setUploadProgress(50)
 					
-					if (cloudinaryResponse.ok) {
-						const cloudinaryResult = await cloudinaryResponse.json()
-						screenshotUrl = cloudinaryResult.secure_url
-						setUploadProgress(75)
+					if (!uploadResponse.ok) {
+						const uploadError = await uploadResponse.json()
+						throw new Error(uploadError.error || 'Помилка завантаження скриншота')
 					}
+					
+					const uploadResult = await uploadResponse.json()
+					screenshotUrl = uploadResult.secure_url
+					setUploadProgress(75)
+					
+					logger.info('Screenshot uploaded to Cloudinary', {
+						url: screenshotUrl,
+						public_id: uploadResult.public_id
+					})
 				} catch (uploadError) {
 					logger.warn('Screenshot upload failed', uploadError)
+					throw new Error('Помилка завантаження скриншота')
 				}
 			}
 			

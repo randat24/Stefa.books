@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
         publication_year: book.publication_year || '',
         cover_url: book.cover_url || '',
         status: book.status || 'available',
-        available: book.available ? 'TRUE' : 'FALSE',
+        available: ((book.qty_available || 0) > 0 && book.is_active) ? 'TRUE' : 'FALSE',
         qty_total: book.qty_total || 1,
         qty_available: book.qty_available || 1,
         price_uah: book.price_uah || 0,

@@ -5,7 +5,6 @@ import { BookOpen, Share2, Heart } from 'lucide-react';
 import type { Book } from '@/lib/supabase';
 import Link from 'next/link';
 import { BookPreviewModal } from '@/components/BookPreviewModal';
-import Image from 'next/image';
 import CachedImage from '@/components/ui/CachedImage';
 import { useAnalytics } from '@/hooks/useAnalytics';
 
@@ -42,8 +41,7 @@ export function BookCard({
   return (
     <>
       <article 
-        className="group relative bg-[var(--card,#FFFFFF)] rounded-[var(--radius-xl,24px)] shadow-[var(--shadow-md,0_6px_16px_rgba(15,23,42,0.08))] hover:shadow-[var(--shadow-lg,0_12px_28px_rgba(15,23,42,0.12))] transition-all duration-300 overflow-hidden border border-[var(--line,#E5E7EB)] h-full flex flex-col hover:-translate-y-1"
-        style={{ minHeight: '400px' }}
+        className="book-card group"
         role="article"
         aria-labelledby={`book-title-${memoizedBook.id}`}
         aria-describedby={`book-author-${memoizedBook.id}`}
@@ -51,18 +49,18 @@ export function BookCard({
         {/* Обложка без отступов */}
         <Link 
           href={`/books/${memoizedBook.id}`} 
-          className="flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:ring-offset-2"
+          className="flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
           aria-label={`Переглянути деталі книги: ${memoizedBook.title} автора ${memoizedBook.author}`}
           onClick={handleBookClick}
         >
-          <div className="relative w-full h-full" style={{ height: '280px' }}>
+          <div className="book-card-image h-[280px] rounded-t-xl">
             {/* Book Cover with Cached Image */}
             <CachedImage
               src={memoizedBook.cover_url || '/images/book-placeholder.svg'}
               alt={`Обкладинка книги: ${memoizedBook.title}`}
-              width={200}
+              width={300}
               height={280}
-              className="w-full h-full object-cover"
+              className="w-full h-full rounded-t-xl"
               priority={priorityLoading}
               enableCache={true}
               showRefreshButton={false}
@@ -75,10 +73,10 @@ export function BookCard({
         
         {/* Статус-бейдж */}
         <span 
-          className={`absolute left-3 top-3 rounded-[var(--radius-lg,18px)] px-3 py-1.5 text-xs font-semibold shadow-lg backdrop-blur-sm border ${
+          className={`absolute left-3 top-3 rounded-lg px-3 py-1.5 text-xs font-semibold shadow-lg backdrop-blur-sm border ${
             memoizedBook.is_active 
-              ? "text-[var(--success,#10B981)] bg-[var(--surface,#FFFFFF)]/95 border-[var(--success,#10B981)]/20" 
-              : "text-[var(--error,#EF4444)] bg-[var(--surface,#FFFFFF)]/95 border-[var(--error,#EF4444)]/20"
+              ? "text-success bg-surface/95 border-success/20" 
+              : "text-error bg-surface/95 border-error/20"
           }`}
           aria-label={`Статус книги: ${memoizedBook.is_active ? 'Доступна' : 'Видана'}`}
         >
@@ -89,18 +87,18 @@ export function BookCard({
         {showActions && (
           <div className="absolute right-3 top-3 flex gap-2">
             <button
-              className="rounded-[var(--radius-lg,18px)] bg-[var(--surface,#FFFFFF)]/95 border border-[var(--line,#E5E7EB)]/50 p-2.5 shadow-lg backdrop-blur-sm hover:bg-[var(--surface,#FFFFFF)] hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[var(--accent,#111827)] focus:ring-offset-2 transition-all duration-300"
+              className="rounded-lg bg-surface/95 border border-line/50 p-2.5 shadow-lg backdrop-blur-sm hover:bg-surface hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all duration-300"
               aria-label={`Додати книгу "${memoizedBook.title}" в обране`}
               type="button"
             >
-              <Heart className="h-4 w-4 text-[var(--text-muted,#6B7280)]" aria-hidden="true" />
+              <Heart className="h-4 w-4 text-text-muted" aria-hidden="true" />
             </button>
             <button
-              className="rounded-[var(--radius-lg,18px)] bg-[var(--surface,#FFFFFF)]/95 border border-[var(--line,#E5E7EB)]/50 p-2.5 shadow-lg backdrop-blur-sm hover:bg-[var(--surface,#FFFFFF)] hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[var(--accent,#111827)] focus:ring-offset-2 transition-all duration-300"
+              className="rounded-lg bg-surface/95 border border-line/50 p-2.5 shadow-lg backdrop-blur-sm hover:bg-surface hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all duration-300"
               aria-label={`Поділитися книгою "${memoizedBook.title}"`}
               type="button"
             >
-              <Share2 className="h-4 w-4 text-[var(--text-muted,#6B7280)]" aria-hidden="true" />
+              <Share2 className="h-4 w-4 text-text-muted" aria-hidden="true" />
             </button>
           </div>
         )}
@@ -119,21 +117,20 @@ export function BookCard({
         </div>
 
         {/* Контент - название и автор */}
-        <div className="flex flex-1 flex-col gap-2 p-4">
+        <div className="book-card-content">
           <h3 
             id={`book-title-${memoizedBook.id}`}
-            className="h3 line-clamp-2 text-gray-900"
+            className="book-card-title"
           >
             {memoizedBook.title}
           </h3>
 
           <p 
             id={`book-author-${memoizedBook.id}`}
-            className="small text-gray-700"
+            className="book-card-author"
           >
             {memoizedBook.author}
           </p>
-
         </div>
       </article>
       

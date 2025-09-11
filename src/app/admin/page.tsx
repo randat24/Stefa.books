@@ -130,12 +130,12 @@ export default function AdminPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
-        <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-white/90 backdrop-blur-sm">
+      <div className="min-h-screen bg-gradient-to-b from-surface to-white">
+        <div className="sticky top-0 z-10 border-b border-line bg-white/90 backdrop-blur-sm">
           <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
             <div className="flex items-center justify-center">
-              <RefreshCw className="size-6 animate-spin text-neutral-400" />
-              <span className="ml-2 text-neutral-600">Завантаження адмін-панелі...</span>
+              <RefreshCw className="size-6 animate-spin text-text-muted" />
+              <span className="ml-2 text-text-muted">Завантаження адмін-панелі...</span>
             </div>
           </div>
         </div>
@@ -145,11 +145,11 @@ export default function AdminPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
-        <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-white/90 backdrop-blur-sm">
+      <div className="min-h-screen bg-gradient-to-b from-surface to-white">
+        <div className="sticky top-0 z-10 border-b border-line bg-white/90 backdrop-blur-sm">
           <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
             <div className="text-center">
-              <p className="text-red-600 mb-4">{error}</p>
+              <p className="text-error mb-4">{error}</p>
               <Button onClick={loadData} variant="outline">
                 <RefreshCw className="size-4 mr-2" />
                 Спробувати знову
@@ -162,19 +162,19 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-surface to-white">
       {/* Заголовок */}
-      <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-white/90 backdrop-blur-sm">
+      <div className="sticky top-0 z-10 border-b border-line bg-white/90 backdrop-blur-sm">
         <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
-                <div className="size-8 rounded-xl bg-neutral-100 flex items-center justify-center">
-                  <FileText className="size-4 text-neutral-600" />
+                <div className="size-8 rounded-xl bg-surface flex items-center justify-center">
+                  <FileText className="size-4 text-text-muted" />
                 </div>
                 <div>
-                  <div className="text-body-sm text-neutral-500 font-medium">Адмін‑панель</div>
-                  <h1 className="text-h1 tracking-tight text-neutral-900">
+                  <div className="text-body-sm text-text-muted font-medium">Адмін‑панель</div>
+                  <h1 className="text-h1 tracking-tight text-text">
                     Stefa.books — Управління
                   </h1>
                 </div>
@@ -204,7 +204,7 @@ export default function AdminPage() {
       <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
         {/* Навигация по табам */}
         <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-8 rounded-2xl bg-neutral-100 p-1">
+          <TabsList className="grid w-full grid-cols-8 rounded-2xl bg-surface p-1">
             <TabsTrigger value="overview" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
               <BarChart3 className="size-4" />
               <span className="hidden sm:inline">Огляд</span>
@@ -265,15 +265,15 @@ export default function AdminPage() {
 
           {/* Таб оренд */}
           <TabsContent value="rentals" className="space-y-4">
-            <Card className="rounded-2xl border-neutral-200 shadow-sm">
+            <Card className="rounded-2xl border-line shadow-sm">
               <CardHeader>
-                <CardTitle className="text-neutral-900">Управління орендами</CardTitle>
+                <CardTitle className="text-text">Управління орендами</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-12 text-neutral-500">
+                <div className="text-center py-12 text-text-muted">
                   <Calendar className="size-16 mx-auto mb-4 opacity-50" />
-                  <p className="text-body-lg font-semibold text-neutral-700 mb-2">Орендні записи</p>
-                  <p className="text-neutral-500">Відстеження видачі та повернень (в розробці)</p>
+                  <p className="text-body-lg font-semibold text-text mb-2">Орендні записи</p>
+                  <p className="text-text-muted">Відстеження видачі та повернень (в розробці)</p>
                 </div>
               </CardContent>
             </Card>
@@ -281,15 +281,15 @@ export default function AdminPage() {
 
           {/* Таб аналітики */}
           <TabsContent value="analytics" className="space-y-4">
-            <Card className="rounded-2xl border-neutral-200 shadow-sm">
+            <Card className="rounded-2xl border-line shadow-sm">
               <CardHeader>
-                <CardTitle className="text-neutral-900">Звіти та аналітика</CardTitle>
+                <CardTitle className="text-text">Звіти та аналітика</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-12 text-neutral-500">
+                <div className="text-center py-12 text-text-muted">
                   <BarChart3 className="size-16 mx-auto mb-4 opacity-50" />
-                  <p className="text-body-lg font-semibold text-neutral-700 mb-2">Аналітика</p>
-                  <p className="text-neutral-500">Фінансові звіти та статистика (в розробці)</p>
+                  <p className="text-body-lg font-semibold text-text mb-2">Аналітика</p>
+                  <p className="text-text-muted">Фінансові звіти та статистика (в розробці)</p>
                 </div>
               </CardContent>
             </Card>

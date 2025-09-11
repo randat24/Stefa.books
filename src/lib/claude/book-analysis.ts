@@ -158,7 +158,7 @@ export async function generatePersonalizedRecommendations(
     category: book.category_id,
     ageGroup: book.age_range,
     description: book.description?.slice(0, 200),
-    available: book.available,
+    available: (book.qty_available || 0) > 0 && book.is_active,
   }));
 
   const prompt = `

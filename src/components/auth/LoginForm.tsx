@@ -102,25 +102,24 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
   };
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>Вхід</CardTitle>
-        <CardDescription>
-          Увійдіть до свого облікового запису
-        </CardDescription>
-      </CardHeader>
-      
-      <form onSubmit={handleSubmit}>
-        <CardContent className="space-y-4">
-          {error && (
-            <Alert variant="destructive">
-              <XCircle className="h-4 w-4" />
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
-          )}
+    <div className="w-full max-w-md mx-auto">
+      <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+        <div className="px-6 py-8">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Вхід</h2>
+            <p className="text-gray-600">Увійдіть до свого облікового запису</p>
+          </div>
+          
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {error && (
+              <Alert variant="destructive" className="mb-4">
+                <XCircle className="h-4 w-4" />
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
           
           <div className="space-y-2">
-            <Label htmlFor="email">Електронна пошта</Label>
+            <Label htmlFor="email" className="text-sm font-medium text-gray-700">Електронна пошта</Label>
             <Input
               id="email"
               type="email"
@@ -133,7 +132,7 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
               }}
               disabled={isLoading}
               placeholder="your@email.com"
-              className={fieldErrors.email ? "border-red-500 focus:border-red-500" : ""}
+              className={`bg-white border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors ${fieldErrors.email ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
             />
             {fieldErrors.email && (
               <p className="text-sm text-red-500 flex items-center gap-1">
@@ -145,12 +144,12 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
           
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="password">Пароль</Label>
+              <Label htmlFor="password" className="text-sm font-medium text-gray-700">Пароль</Label>
               {onForgotPassword && (
                 <button
                   type="button"
                   onClick={onForgotPassword}
-                  className="text-body-sm text-brand-accent-light hover:text-brand-accent-light/80"
+                  className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
                   disabled={isLoading}
                 >
                   Забули пароль?
@@ -170,18 +169,18 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
                 }}
                 disabled={isLoading}
                 placeholder="••••••••"
-                className={fieldErrors.password ? "border-red-500 focus:border-red-500" : ""}
+                className={`bg-white border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors pr-10 ${fieldErrors.password ? "border-red-500 focus:border-red-500 focus:ring-red-500" : ""}`}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors"
                 disabled={isLoading}
               >
                 {showPassword ? (
-                  <EyeOff className="h-4 w-4 text-neutral-500" />
+                  <EyeOff className="h-4 w-4" />
                 ) : (
-                  <Eye className="h-4 w-4 text-neutral-500" />
+                  <Eye className="h-4 w-4" />
                 )}
               </button>
             </div>
@@ -192,42 +191,43 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
               </p>
             )}
           </div>
-        </CardContent>
-        
-        <CardFooter className="flex flex-col space-y-4">
-          <Button 
-            type="submit" 
-            className="w-full" 
-            disabled={isLoading || !email.trim() || !password.trim()}
-          >
-            {isLoading ? (
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                Вхід...
-              </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-4 h-4" />
-                Увійти
-              </div>
-            )}
-          </Button>
+          
+          <div className="pt-4">
+            <Button 
+              type="submit" 
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed" 
+              disabled={isLoading || !email.trim() || !password.trim()}
+            >
+              {isLoading ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  Вхід...
+                </div>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4" />
+                  Увійти
+                </div>
+              )}
+            </Button>
+          </div>
           
           {onSwitchToRegister && (
-            <div className="text-center text-body-sm text-neutral-600">
+            <div className="text-center text-sm text-gray-600 pt-2">
               Немає облікового запису?{' '}
               <button
                 type="button"
                 onClick={onSwitchToRegister}
-                className="text-brand-accent-light hover:text-brand-accent-light/80 font-medium"
+                className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
                 disabled={isLoading}
               >
                 Зареєструватися
               </button>
             </div>
           )}
-        </CardFooter>
-      </form>
-    </Card>
+        </form>
+        </div>
+      </div>
+    </div>
   );
 }

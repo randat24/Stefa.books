@@ -16,15 +16,14 @@ const subscriptionRequestSchema = z.object({
     errorMap: () => ({ message: 'Неверный способ оплаты' })
   }),
   message: z.string().optional(),
-  screenshot: z.string().optional(),
+  screenshot: z.union([z.string(), z.instanceof(File)]).optional(),
   privacyConsent: z.boolean()
 });
 
 export async function POST(request: NextRequest) {
   try {
+    // Обрабатываем JSON (файлы уже загружены на Cloudinary)
     const body = await request.json();
-    
-    // Валидация входных данных
     const validatedData = subscriptionRequestSchema.parse(body);
     
     // Создаем Supabase клиент с service role для записи
@@ -67,9 +66,7 @@ export async function POST(request: NextRequest) {
           privacyConsent: validatedData.privacyConsent
         }),
         pages: 0,
-        cover_url: validatedData.screenshot || '',
-        available: false,
-        is_active: false
+        cover_url: validatedData.screenshot || ''
       })
       .select()
       .single();
