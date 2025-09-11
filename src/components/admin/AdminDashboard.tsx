@@ -199,84 +199,7 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
-      {/* Заголовок */}
-      <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-white/90 backdrop-blur-sm">
-        <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="flex size-14 items-center justify-center rounded-2xl border border-neutral-200 bg-white shadow-sm">
-                <Building2 className="size-7 text-neutral-600"/>
-              </div>
-              <div>
-                <div className="text-body-sm text-neutral-500 font-medium">Адмін‑панель</div>
-                <h1 className="text-h1 tracking-tight text-neutral-900">
-                  Stefa.books — Управління
-                </h1>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 flex items-center gap-2 px-3 py-1">
-                <CheckCircle className="size-4" />
-                <span className="hidden sm:inline">Система працює</span>
-                <span className="sm:hidden">ОК</span>
-              </Badge>
-              <Button
-                variant="outline"
-                size="md"
-                onClick={onRefresh}
-                className="hidden sm:flex"
-              >
-                <RefreshCw className="size-4 mr-2" />
-                Оновити
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Навігація */}
-      <div className="border-b border-neutral-200/60 bg-white/50 backdrop-blur-sm">
-        <div className="w-full px-4 py-4 lg:px-6 xl:px-8 2xl:px-10">
-          <div className="flex items-center gap-1">
-            <Button
-              variant={activeTab === 'overview' ? 'primary' : 'ghost'}
-              onClick={() => setActiveTab('overview')}
-              className="flex items-center gap-2"
-            >
-              <BarChart3 className="size-4" />
-              Огляд
-            </Button>
-            <Button
-              variant={activeTab === 'books' ? 'primary' : 'ghost'}
-              onClick={() => setActiveTab('books')}
-              className="flex items-center gap-2"
-            >
-              <BookOpen className="size-4" />
-              Книги
-            </Button>
-            <Button
-              variant={activeTab === 'users' ? 'primary' : 'ghost'}
-              onClick={() => setActiveTab('users')}
-              className="flex items-center gap-2"
-            >
-              <Users className="size-4" />
-              Користувачі
-            </Button>
-            <Button
-              variant={activeTab === 'analytics' ? 'primary' : 'ghost'}
-              onClick={() => setActiveTab('analytics')}
-              className="flex items-center gap-2"
-            >
-              <TrendingUp className="size-4" />
-              Аналітика
-            </Button>
-          </div>
-        </div>
-      </div>
-
-      {/* Контент */}
-      <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
+    <div className="space-y-6">
         {activeTab === 'overview' && data && (
           <div className="space-y-6">
             {/* Основні метрики */}
@@ -501,7 +424,6 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
         {activeTab === 'analytics' && (
           <AdvancedAnalytics onRefresh={onRefresh} />
         )}
-      </div>
     </div>
   )
 }

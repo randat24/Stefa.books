@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/button"
@@ -8,38 +8,13 @@ import { Users, Mail, Phone, MapPin, Calendar, RefreshCw } from "lucide-react"
 import type { UserRow } from "@/lib/types/admin"
 
 interface UsersTableProps {
+  users: UserRow[]
   onRefresh?: () => void
 }
 
-export function UsersTable({ }: UsersTableProps) {
-  const [users, setUsers] = useState<UserRow[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+export function UsersTable({ users, onRefresh }: UsersTableProps) {
 
-  const loadUsers = async () => {
-    try {
-      setLoading(true)
-      setError(null)
-      
-      const response = await fetch('/api/users')
-      const data = await response.json()
-      
-      if (data.success) {
-        setUsers(data.data || [])
-      } else {
-        setError('Помилка завантаження користувачів')
-      }
-    } catch (err) {
-      console.error('Error loading users:', err)
-      setError('Помилка завантаження користувачів')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    loadUsers()
-  }, [])
+  // Данные передаются через пропсы, загрузка не нужна
 
   const getSubscriptionBadgeVariant = (type: string) => {
     switch (type) {
@@ -59,46 +34,7 @@ export function UsersTable({ }: UsersTableProps) {
     }
   }
 
-  if (loading) {
-    return (
-      <Card className="rounded-2xl border-neutral-200 shadow-sm">
-        <CardHeader>
-          <CardTitle className="text-neutral-900 flex items-center gap-2">
-            <Users className="size-5" />
-            Користувачі
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-center py-12">
-            <RefreshCw className="size-6 animate-spin text-neutral-400" />
-            <span className="ml-2 text-neutral-600">Завантаження користувачів...</span>
-          </div>
-        </CardContent>
-      </Card>
-    )
-  }
 
-  if (error) {
-    return (
-      <Card className="rounded-2xl border-neutral-200 shadow-sm">
-        <CardHeader>
-          <CardTitle className="text-neutral-900 flex items-center gap-2">
-            <Users className="size-5" />
-            Користувачі
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-center py-12">
-            <p className="text-red-600 mb-4">{error}</p>
-            <Button onClick={loadUsers} variant="outline">
-              <RefreshCw className="size-4 mr-2" />
-              Спробувати знову
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-    )
-  }
 
   return (
     <Card className="rounded-2xl border-neutral-200 shadow-sm">
@@ -108,7 +44,7 @@ export function UsersTable({ }: UsersTableProps) {
             <Users className="size-5" />
             Користувачі ({users.length})
           </CardTitle>
-          <Button onClick={loadUsers} variant="outline" size="md">
+          <Button onClick={onRefresh} variant="outline" size="md">
             <RefreshCw className="size-4 mr-2" />
             Оновити
           </Button>

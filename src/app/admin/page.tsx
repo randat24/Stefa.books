@@ -1,9 +1,14 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { RefreshCw } from "lucide-react"
+import { RefreshCw, BookOpen, Users, Calendar, BarChart3, FileText, Database, CreditCard, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Badge } from "@/components/ui/Badge"
 import { AdminDashboard } from "@/components/admin/AdminDashboard"
+import { UsersTable } from "@/app/admin/components/UsersTable"
+import { BooksTable } from "./components/BooksTable"
 import ExportData from "@/components/admin/ExportData"
 import CacheManager from "@/components/admin/CacheManager"
 import MonobankTest from "@/components/admin/MonobankTest"
@@ -22,7 +27,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [, setRefreshing] = useState(false)
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'export' | 'cache' | 'monobank'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'overview' | 'books' | 'users' | 'rentals' | 'analytics' | 'export' | 'cache' | 'monobank'>('overview')
 
   // ============================================================================
   // ЗАВАНТАЖЕННЯ ДАНИХ
@@ -158,78 +163,153 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
+      {/* Заголовок */}
       <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-white/90 backdrop-blur-sm">
         <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-neutral-900">Адмін-панель</h1>
-            <Button
-              variant="outline"
-              onClick={loadData}
-              disabled={loading}
-            >
-              <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
-              Оновити
-            </Button>
-          </div>
-          
-          {/* Навигация по табам */}
-          <div className="mt-4 flex space-x-1 bg-neutral-100 p-1 rounded-lg w-fit">
-            <button
-              onClick={() => setActiveTab('dashboard')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                activeTab === 'dashboard'
-                  ? 'bg-white text-neutral-900 shadow-sm'
-                  : 'text-neutral-600 hover:text-neutral-900'
-              }`}
-            >
-              Дашборд
-            </button>
-            <button
-              onClick={() => setActiveTab('export')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                activeTab === 'export'
-                  ? 'bg-white text-neutral-900 shadow-sm'
-                  : 'text-neutral-600 hover:text-neutral-900'
-              }`}
-            >
-              Експорт
-            </button>
-            <button
-              onClick={() => setActiveTab('cache')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                activeTab === 'cache'
-                  ? 'bg-white text-neutral-900 shadow-sm'
-                  : 'text-neutral-600 hover:text-neutral-900'
-              }`}
-            >
-              Кеш
-            </button>
-            <button
-              onClick={() => setActiveTab('monobank')}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                activeTab === 'monobank'
-                  ? 'bg-white text-neutral-900 shadow-sm'
-                  : 'text-neutral-600 hover:text-neutral-900'
-              }`}
-            >
-              Monobank
-            </button>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <div className="size-8 rounded-xl bg-neutral-100 flex items-center justify-center">
+                  <FileText className="size-4 text-neutral-600" />
+                </div>
+                <div>
+                  <div className="text-body-sm text-neutral-500 font-medium">Адмін‑панель</div>
+                  <h1 className="text-h1 tracking-tight text-neutral-900">
+                    Stefa.books — Управління
+                  </h1>
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 flex items-center gap-2 px-3 py-1">
+                <CheckCircle className="size-4" />
+                <span className="hidden sm:inline">Система працює</span>
+                <span className="sm:hidden">ОК</span>
+              </Badge>
+              <Button
+                variant="outline"
+                size="md"
+                onClick={handleRefresh}
+                className="hidden sm:flex"
+              >
+                <RefreshCw className="size-4 mr-2" />
+                Оновити
+              </Button>
+            </div>
           </div>
         </div>
       </div>
 
+      {/* Основной контент */}
       <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
-        {activeTab === 'dashboard' && (
-          <AdminDashboard 
-            books={books}
-            users={users}
-            onRefresh={handleRefresh}
-            onBookCreated={handleBookCreated}
-          />
-        )}
-        {activeTab === 'export' && <ExportData />}
-        {activeTab === 'cache' && <CacheManager />}
-        {activeTab === 'monobank' && <MonobankTest />}
+        {/* Навигация по табам */}
+        <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-8 rounded-2xl bg-neutral-100 p-1">
+            <TabsTrigger value="overview" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+              <BarChart3 className="size-4" />
+              <span className="hidden sm:inline">Огляд</span>
+            </TabsTrigger>
+            <TabsTrigger value="books" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+              <BookOpen className="size-4" />
+              <span className="hidden sm:inline">Книги</span>
+            </TabsTrigger>
+            <TabsTrigger value="users" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+              <Users className="size-4" />
+              <span className="hidden sm:inline">Користувачі</span>
+            </TabsTrigger>
+            <TabsTrigger value="rentals" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+              <Calendar className="size-4" />
+              <span className="hidden sm:inline">Оренди</span>
+            </TabsTrigger>
+            <TabsTrigger value="analytics" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+              <BarChart3 className="size-4" />
+              <span className="hidden sm:inline">Аналітика</span>
+            </TabsTrigger>
+            <TabsTrigger value="export" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+              <FileText className="size-4" />
+              <span className="hidden sm:inline">Експорт</span>
+            </TabsTrigger>
+            <TabsTrigger value="cache" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+              <Database className="size-4" />
+              <span className="hidden sm:inline">Кеш</span>
+            </TabsTrigger>
+            <TabsTrigger value="monobank" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+              <CreditCard className="size-4" />
+              <span className="hidden sm:inline">Monobank</span>
+            </TabsTrigger>
+          </TabsList>
+
+          {/* Таб огляду */}
+          <TabsContent value="overview" className="space-y-4">
+            <AdminDashboard 
+              books={books}
+              users={users}
+              onRefresh={handleRefresh}
+              onBookCreated={handleBookCreated}
+            />
+          </TabsContent>
+
+          {/* Таб книг */}
+          <TabsContent value="books" className="space-y-4">
+            <BooksTable
+              books={books}
+              onRefresh={handleRefresh}
+              onBookCreated={handleBookCreated}
+            />
+          </TabsContent>
+
+          {/* Таб користувачів */}
+          <TabsContent value="users" className="space-y-4">
+            <UsersTable users={users} onRefresh={handleRefresh} />
+          </TabsContent>
+
+          {/* Таб оренд */}
+          <TabsContent value="rentals" className="space-y-4">
+            <Card className="rounded-2xl border-neutral-200 shadow-sm">
+              <CardHeader>
+                <CardTitle className="text-neutral-900">Управління орендами</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-12 text-neutral-500">
+                  <Calendar className="size-16 mx-auto mb-4 opacity-50" />
+                  <p className="text-body-lg font-semibold text-neutral-700 mb-2">Орендні записи</p>
+                  <p className="text-neutral-500">Відстеження видачі та повернень (в розробці)</p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Таб аналітики */}
+          <TabsContent value="analytics" className="space-y-4">
+            <Card className="rounded-2xl border-neutral-200 shadow-sm">
+              <CardHeader>
+                <CardTitle className="text-neutral-900">Звіти та аналітика</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-center py-12 text-neutral-500">
+                  <BarChart3 className="size-16 mx-auto mb-4 opacity-50" />
+                  <p className="text-body-lg font-semibold text-neutral-700 mb-2">Аналітика</p>
+                  <p className="text-neutral-500">Фінансові звіти та статистика (в розробці)</p>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Таб експорту */}
+          <TabsContent value="export" className="space-y-4">
+            <ExportData />
+          </TabsContent>
+
+          {/* Таб кешу */}
+          <TabsContent value="cache" className="space-y-4">
+            <CacheManager />
+          </TabsContent>
+
+          {/* Таб Monobank */}
+          <TabsContent value="monobank" className="space-y-4">
+            <MonobankTest />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   )
