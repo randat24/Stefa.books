@@ -10,7 +10,7 @@ export function Footer() {
           {/* Про компанію */}
           <section className="space-y-4 md:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-4">
-              <div className="h-14 w-14 rounded-2xl bg-neutral-100 grid place-items-center">
+              <div className="h-14 w-14 rounded-2xl bg-gray-300 grid place-items-center">
                 <Image 
                   src="/logo.svg" 
                   alt="Stefa.books logo" 
@@ -20,7 +20,7 @@ export function Footer() {
                   unoptimized={true}
                 />
               </div>
-              <h3 className="text-h2" style={{ color: 'var(--ink)' }}>
+              <h3 className="text-lg font-bold" style={{ color: 'var(--ink)' }}>
                 Stefa.books
               </h3>
             </div>

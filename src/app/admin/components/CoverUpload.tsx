@@ -15,18 +15,35 @@ interface CoverUploadProps {
   onCoverUploaded: (coverUrl: string) => void
   onCoverRemoved: () => void
   disabled?: boolean
+  onOldCoverDelete?: (publicId: string) => Promise<void>
 }
 
 export function CoverUpload({ 
   currentCoverUrl, 
   onCoverUploaded, 
   onCoverRemoved, 
-  disabled = false 
+  disabled = false,
+  onOldCoverDelete
 }: CoverUploadProps) {
   const [uploading, setUploading] = useState(false)
   const [preview, setPreview] = useState<string | null>(null)
   const [dragActive, setDragActive] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // ============================================================================
+  // УТИЛІТИ
+  // ============================================================================
+
+  function extractPublicIdFromUrl(url: string): string | null {
+    try {
+      // Извлекаем public_id из URL Cloudinary
+      // Формат: https://res.cloudinary.com/cloud_name/image/upload/v1234567890/folder/public_id.ext
+      const match = url.match(/\/upload\/.*\/([^\/]+)\./)
+      return match ? match[1] : null
+    } catch {
+      return null
+    }
+  }
 
   // ============================================================================
   // ОБРОБКА ЗАВАНТАЖЕННЯ ФАЙЛУ
@@ -41,6 +58,19 @@ export function CoverUpload({
       // Створюємо превью
       const previewUrl = URL.createObjectURL(file)
       setPreview(previewUrl)
+      
+      // Если есть старая обложка, удаляем её
+      if (currentCoverUrl && onOldCoverDelete) {
+        const oldPublicId = extractPublicIdFromUrl(currentCoverUrl)
+        if (oldPublicId) {
+          try {
+            await onOldCoverDelete(oldPublicId)
+          } catch (error) {
+            console.warn('Failed to delete old cover:', error)
+            // Не прерываем процесс загрузки из-за ошибки удаления старой обложки
+          }
+        }
+      }
       
       // Створюємо FormData
       const formData = new FormData()
@@ -108,7 +138,20 @@ export function CoverUpload({
     setDragActive(false)
   }
 
-  function handleRemoveCover() {
+  async function handleRemoveCover() {
+    try {
+      // Если есть текущая обложка, удаляем её с Cloudinary
+      if (currentCoverUrl && onOldCoverDelete) {
+        const publicId = extractPublicIdFromUrl(currentCoverUrl)
+        if (publicId) {
+          await onOldCoverDelete(publicId)
+        }
+      }
+    } catch (error) {
+      console.warn('Failed to delete cover from Cloudinary:', error)
+      // Не прерываем процесс удаления из-за ошибки
+    }
+
     setPreview(null)
     onCoverRemoved()
     

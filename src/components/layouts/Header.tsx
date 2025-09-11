@@ -30,7 +30,7 @@ export function Header() {
         <div className="container mx-auto px-4 max-w-7xl flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 sm:gap-3">
-            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-2xl bg-neutral-100 grid place-items-center">
+            <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-2xl bg-gray-300 grid place-items-center">
               <Image 
                 src="/logo.svg" 
                 alt="Stefa.books logo" 
@@ -39,7 +39,7 @@ export function Header() {
                 className="text-neutral-700 sm:w-7 sm:h-7"
               />
             </div>
-            <span className="text-body-lg sm:text-h2">Stefa.books</span>
+            <span className="text-sm sm:text-base font-bold">Stefa.books</span>
           </Link>
 
           {/* Desktop Navigation */}

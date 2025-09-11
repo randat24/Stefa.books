@@ -2,131 +2,253 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { logger } from '@/lib/logger'
 
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error('Missing Supabase environment variables')
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey)
+
+// ============================================================================
+// ТИПЫ ДЛЯ ОБНОВЛЕНИЯ КНИГИ
+// ============================================================================
+
+interface BookUpdateData {
+  code?: string
+  title?: string
+  author?: string
+  author_id?: string | null
+  category_id?: string | null
+  category_name?: string
+  subcategory?: string
+  qty_total?: number
+  price_uah?: number | null
+  status?: 'available' | 'issued' | 'reserved' | 'lost'
+  location?: string | null
+  cover_url?: string | null
+  description?: string | null
+  short_description?: string | null
+}
+
+// ============================================================================
+// API ДЛЯ ОБНОВЛЕНИЯ КНИГИ В АДМИН ПАНЕЛИ
+// ============================================================================
+
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const bookId = params.id
-    const body = await request.json()
-
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-
-    if (!supabaseUrl || !supabaseKey) {
-      logger.error('Missing Supabase configuration')
+    const { id } = await params
+    
+    if (!id) {
       return NextResponse.json(
-        { error: 'Server configuration error' },
-        { status: 500 }
+        { success: false, error: 'ID книги не указан' },
+        { status: 400 }
       )
     }
 
-    const supabase = createClient(supabaseUrl, supabaseKey)
+    const body = await request.json() as BookUpdateData
+    
+    if (!body || Object.keys(body).length === 0) {
+      return NextResponse.json(
+        { success: false, error: 'Данные для обновления не предоставлены' },
+        { status: 400 }
+      )
+    }
+
+    logger.info(`Admin: Updating book with ID: ${id}`, { updateData: body }, 'API')
 
     // Подготавливаем данные для обновления
     const updateData = {
-      code: body.code,
-      title: body.title,
-      author: body.author,
-      category_id: body.category_id,
-      subcategory: body.subcategory,
-      description: body.description,
-      short_description: body.short_description,
-      isbn: body.isbn,
-      pages: body.pages,
-      age_range: body.age_range,
-      language: body.language,
-      publisher: body.publisher,
-      publication_year: body.publication_year,
-      cover_url: body.cover_url,
-      status: body.status,
-      qty_total: body.qty_total,
-      qty_available: body.qty_available,
-      price_uah: body.price_uah,
-      location: body.location,
-      rating: body.rating,
-      badges: body.badges,
-      tags: body.tags,
+      ...body,
       updated_at: new Date().toISOString()
     }
 
-    // Обновляем книгу
-    const { data, error } = await supabase
+    // Обновляем книгу в базе данных
+    const { data: book, error } = await supabase
       .from('books')
       .update(updateData)
-      .eq('id', bookId)
-      .select()
+      .eq('id', id)
+      .select(`
+        id,
+        code,
+        title,
+        author,
+        author_id,
+        category_id,
+        category_name,
+        subcategory,
+        qty_total,
+        price_uah,
+        status,
+        location,
+        cover_url,
+        description,
+        short_description,
+        created_at,
+        updated_at
+      `)
+      .single()
 
     if (error) {
-      logger.error('Admin API: Database error when updating book', error)
+      logger.error('Admin API: Database error when updating book', { error, bookId: id }, 'API')
+      
+      // Если книга не найдена
+      if (error.code === 'PGRST116') {
+        return NextResponse.json(
+          { success: false, error: 'Книга не найдена' },
+          { status: 404 }
+        )
+      }
+      
       return NextResponse.json(
-        { error: 'Ошибка при обновлении книги' },
+        { success: false, error: error.message },
         { status: 500 }
       )
     }
 
-    if (!data || data.length === 0) {
-      return NextResponse.json(
-        { error: 'Книга не найдена' },
-        { status: 404 }
-      )
-    }
-
-    logger.info('Admin API: Book updated successfully', { 
-      bookId,
-      title: data[0].title
-    })
+    logger.info(`Admin: Successfully updated book: ${book?.title || 'Unknown'}`, { bookId: id }, 'API')
 
     return NextResponse.json({
       success: true,
-      data: data[0],
+      data: book,
       message: 'Книга успешно обновлена'
     })
 
   } catch (error) {
-    logger.error('Admin API: Unexpected error in PUT /api/admin/books/[id]', error)
+    logger.error('Admin API: Unexpected error when updating book', error, 'API')
     return NextResponse.json(
-      { error: 'Внутренняя ошибка сервера' },
+      { 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Неизвестная ошибка'
+      },
       { status: 500 }
     )
   }
 }
 
-export async function DELETE(
+// ============================================================================
+// API ДЛЯ ПОЛУЧЕНИЯ КНИГИ ПО ID В АДМИН ПАНЕЛИ
+// ============================================================================
+
+export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const bookId = params.id
-
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-
-    if (!supabaseUrl || !supabaseKey) {
-      logger.error('Missing Supabase configuration')
+    const { id } = await params
+    
+    if (!id) {
       return NextResponse.json(
-        { error: 'Server configuration error' },
+        { success: false, error: 'ID книги не указан' },
+        { status: 400 }
+      )
+    }
+
+    logger.info(`Admin: Fetching book with ID: ${id}`, undefined, 'API')
+
+    const { data: book, error } = await supabase
+      .from('books')
+      .select(`
+        id,
+        code,
+        title,
+        author,
+        author_id,
+        category_id,
+        category_name,
+        subcategory,
+        qty_total,
+        price_uah,
+        status,
+        location,
+        cover_url,
+        description,
+        short_description,
+        created_at,
+        updated_at
+      `)
+      .eq('id', id)
+      .single()
+
+    if (error) {
+      logger.error('Admin API: Database error when fetching book', { error, bookId: id }, 'API')
+      
+      if (error.code === 'PGRST116') {
+        return NextResponse.json(
+          { success: false, error: 'Книга не найдена' },
+          { status: 404 }
+        )
+      }
+      
+      return NextResponse.json(
+        { success: false, error: error.message },
         { status: 500 }
       )
     }
 
-    const supabase = createClient(supabaseUrl, supabaseKey)
+    return NextResponse.json({
+      success: true,
+      data: book
+    })
 
-    // Удаляем книгу
+  } catch (error) {
+    logger.error('Admin API: Unexpected error when fetching book', error, 'API')
+    return NextResponse.json(
+      { 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Неизвестная ошибка'
+      },
+      { status: 500 }
+    )
+  }
+}
+
+// ============================================================================
+// API ДЛЯ УДАЛЕНИЯ КНИГИ В АДМИН ПАНЕЛИ
+// ============================================================================
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params
+    
+    if (!id) {
+      return NextResponse.json(
+        { success: false, error: 'ID книги не указан' },
+        { status: 400 }
+      )
+    }
+
+    logger.info(`Admin: Deleting book with ID: ${id}`, undefined, 'API')
+
+    // Сначала получаем информацию о книге для логирования
+    const { data: bookToDelete } = await supabase
+      .from('books')
+      .select('title, cover_url')
+      .eq('id', id)
+      .single()
+
+    // Удаляем книгу из базы данных
     const { error } = await supabase
       .from('books')
       .delete()
-      .eq('id', bookId)
+      .eq('id', id)
 
     if (error) {
-      logger.error('Admin API: Database error when deleting book', error)
+      logger.error('Admin API: Database error when deleting book', { error, bookId: id }, 'API')
       return NextResponse.json(
-        { error: 'Ошибка при удалении книги' },
+        { success: false, error: error.message },
         { status: 500 }
       )
     }
 
-    logger.info('Admin API: Book deleted successfully', { bookId })
+    logger.info(`Admin: Successfully deleted book: ${bookToDelete?.title || 'Unknown'}`, { bookId: id }, 'API')
 
     return NextResponse.json({
       success: true,
@@ -134,9 +256,12 @@ export async function DELETE(
     })
 
   } catch (error) {
-    logger.error('Admin API: Unexpected error in DELETE /api/admin/books/[id]', error)
+    logger.error('Admin API: Unexpected error when deleting book', error, 'API')
     return NextResponse.json(
-      { error: 'Внутренняя ошибка сервера' },
+      { 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Неизвестная ошибка'
+      },
       { status: 500 }
     )
   }

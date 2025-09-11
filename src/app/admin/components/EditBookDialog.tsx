@@ -16,6 +16,8 @@ import { CoverUpload } from "./CoverUpload"
 import { AuthorSelect } from "./AuthorSelect"
 import { CategorySelect } from "./CategorySelect"
 import { updateBook } from "../actions"
+import { useBookCodes } from "@/lib/hooks/useBookCodes"
+import { getCodePrefixForCategory } from "@/lib/book-codes"
 import type { BookRow, UpdateBookForm } from "@/lib/types/admin"
 
 // ============================================================================
@@ -52,6 +54,13 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
   // Дополнительные состояния для категорий
   const [mainCategoryId, setMainCategoryId] = useState<string | null>(null)
   const [subcategoryId, setSubcategoryId] = useState<string | null>(null)
+  
+  // Хук для работы с кодами книг
+  const { generateCodeForCategory, validateCode, loading: codeLoading } = useBookCodes({
+    onCodeGenerated: (code) => {
+      setForm(prev => ({ ...prev, code }))
+    }
+  })
 
   // ============================================================================
   // ІНІЦІАЛІЗАЦІЯ ФОРМИ
@@ -95,6 +104,51 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
     setForm(prev => ({ ...prev, cover_url: undefined }))
   }
 
+  async function handleOldCoverDelete(publicId: string) {
+    try {
+      const response = await fetch(`/api/admin/upload/cover?public_id=${publicId}`, {
+        method: 'DELETE',
+      })
+
+      if (!response.ok) {
+        const result = await response.json()
+        throw new Error(result.error || 'Ошибка удаления обложки')
+      }
+    } catch (error) {
+      console.error('Delete cover error:', error)
+      throw error
+    }
+  }
+
+  // ============================================================================
+  // ОБРОБКА КОДОВ КНИГ
+  // ============================================================================
+
+  async function handleCategoryChange(categoryId: string | null, categoryName: string) {
+    if (!categoryId) return
+    
+    setForm(prev => ({ 
+      ...prev, 
+      category_id: categoryId, 
+      category_name: categoryName 
+    }))
+
+    // Автогенерация кода при изменении категории
+    if (categoryName) {
+      await generateCodeForCategory(categoryName)
+    }
+  }
+
+  function handleCodeChange(code: string) {
+    setForm(prev => ({ ...prev, code }))
+  }
+
+  async function handleGenerateCode() {
+    if (form.category_name) {
+      await generateCodeForCategory(form.category_name)
+    }
+  }
+
   // ============================================================================
   // ОБРОБКА САБМІТУ ФОРМИ
   // ============================================================================
@@ -106,6 +160,12 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
       // Валідація обов'язкових полів
       if (!form.code?.trim() || !form.title?.trim() || !form.author?.trim() || !form.category_id) {
         alert('Будь ласка, заповніть всі обов\'язкові поля')
+        return
+      }
+
+      // Валідація коду книги
+      if (!validateCode(form.code)) {
+        alert('Невірний формат коду книги. Використовуйте формат: XX-001')
         return
       }
 
@@ -170,6 +230,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
             currentCoverUrl={form.cover_url}
             onCoverUploaded={handleCoverUploaded}
             onCoverRemoved={handleCoverRemoved}
+            onOldCoverDelete={handleOldCoverDelete}
             disabled={submitting}
           />
 
@@ -177,13 +238,31 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="edit-code">Код книги *</Label>
-              <Input
-                id="edit-code"
-                placeholder="DL-001"
-                value={form.code}
-                onChange={(e) => setForm(prev => ({ ...prev, code: e.target.value }))}
-                disabled={submitting}
-              />
+              <div className="flex gap-2">
+                <Input
+                  id="edit-code"
+                  placeholder="DL-001"
+                  value={form.code}
+                  onChange={(e) => handleCodeChange(e.target.value)}
+                  disabled={submitting}
+                  className="flex-1"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={handleGenerateCode}
+                  disabled={submitting || codeLoading || !form.category_name}
+                  className="px-3"
+                >
+                  {codeLoading ? '...' : 'Авто'}
+                </Button>
+              </div>
+              {form.category_name && getCodePrefixForCategory(form.category_name) && (
+                <p className="text-caption text-neutral-500">
+                  Автоматично: {getCodePrefixForCategory(form.category_name)}-XXX
+                </p>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="edit-title">Назва *</Label>
@@ -212,10 +291,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
           <CategorySelect
             mainCategoryId={mainCategoryId}
             subcategoryId={subcategoryId}
-            onMainCategoryChange={(categoryId, categoryName) => {
-              setMainCategoryId(categoryId)
-              setForm(prev => ({ ...prev, category_id: categoryId, category_name: categoryName }))
-            }}
+            onMainCategoryChange={handleCategoryChange}
             onSubcategoryChange={(subcategoryId, subcategoryName) => {
               setSubcategoryId(subcategoryId)
               setForm(prev => ({ ...prev, subcategory: subcategoryName }))

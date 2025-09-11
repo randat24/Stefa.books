@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Plus, RefreshCw } from "lucide-react"
+import { Plus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -16,6 +16,8 @@ import { CoverUpload } from "./CoverUpload"
 import { AuthorSelect } from "./AuthorSelect"
 import { CategorySelect } from "./CategorySelect"
 import { createBook } from "../actions"
+import { useBookCodes } from "@/lib/hooks/useBookCodes"
+import { getCodePrefixForCategory } from "@/lib/book-codes"
 import type { CreateBookForm } from "@/lib/types/admin"
 
 // ============================================================================
@@ -50,21 +52,40 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
   const [mainCategoryId, setMainCategoryId] = useState<string | null>(null)
   const [subcategoryId, setSubcategoryId] = useState<string | null>(null)
 
+  // Хук для работы с кодами книг
+  const { generateCodeForCategory, validateCode, loading: codeLoading } = useBookCodes({
+    onCodeGenerated: (code) => {
+      setForm(prev => ({ ...prev, code }))
+    }
+  })
+
   // ============================================================================
-  // ГЕНЕРАЦІЯ УНІКАЛЬНОГО КОДУ
+  // ОБРОБКА КОДОВ КНИГ
   // ============================================================================
 
-  function generateUniqueCode() {
-    // Генерируем код в формате: SB-YYYY-NNNN
-    // SB - Stefa Books, YYYY - год, NNNN - случайное число
-    const year = new Date().getFullYear()
-    const randomNum = Math.floor(Math.random() * 9000) + 1000 // 1000-9999
-    return `SB-${year}-${randomNum}`
+  async function handleCategoryChange(categoryId: string | null, categoryName: string) {
+    if (!categoryId) return
+    
+    setForm(prev => ({ 
+      ...prev, 
+      category_id: categoryId, 
+      category_name: categoryName 
+    }))
+
+    // Автогенерация кода при изменении категории
+    if (categoryName) {
+      await generateCodeForCategory(categoryName)
+    }
   }
 
-  function handleGenerateCode() {
-    const newCode = generateUniqueCode()
-    setForm(prev => ({ ...prev, code: newCode }))
+  function handleCodeChange(code: string) {
+    setForm(prev => ({ ...prev, code }))
+  }
+
+  async function handleGenerateCode() {
+    if (form.category_name) {
+      await generateCodeForCategory(form.category_name)
+    }
   }
 
   // Автоматическая генерация кода при открытии диалога
@@ -97,6 +118,12 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
       // Валідація обов'язкових полів
       if (!form.code.trim() || !form.title.trim() || !form.author.trim() || !form.category_id) {
         alert('Будь ласка, заповніть всі обов\'язкові поля')
+        return
+      }
+
+      // Валідація коду книги
+      if (!validateCode(form.code)) {
+        alert('Невірний формат коду книги. Використовуйте формат: XX-001')
         return
       }
 
@@ -191,9 +218,9 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
               <div className="flex gap-2">
                 <Input
                   id="code"
-                  placeholder="SB-2025-1234"
+                  placeholder="DL-001"
                   value={form.code}
-                  onChange={(e) => setForm(prev => ({ ...prev, code: e.target.value }))}
+                  onChange={(e) => handleCodeChange(e.target.value)}
                   disabled={submitting}
                   className="flex-1"
                 />
@@ -202,16 +229,22 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
                   variant="outline"
                   size="sm"
                   onClick={handleGenerateCode}
-                  disabled={submitting}
-                  title="Згенерувати унікальний код"
+                  disabled={submitting || codeLoading || !form.category_name}
+                  title="Згенерувати код автоматично"
                   className="px-3"
                 >
-                  <RefreshCw className="h-4 w-4" />
+                  {codeLoading ? '...' : 'Авто'}
                 </Button>
               </div>
-              <p className="text-caption text-neutral-500">
-                Формат: SB-YYYY-NNNN (наприклад: SB-2025-1234)
-              </p>
+              {form.category_name && getCodePrefixForCategory(form.category_name) ? (
+                <p className="text-caption text-neutral-500">
+                  Автоматично: {getCodePrefixForCategory(form.category_name)}-XXX
+                </p>
+              ) : (
+                <p className="text-caption text-neutral-500">
+                  Формат: XX-001 (наприклад: DL-001, PL-002)
+                </p>
+              )}
             </div>
             <div className="space-y-2">
               <Label htmlFor="title">Назва *</Label>
@@ -240,10 +273,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
           <CategorySelect
             mainCategoryId={mainCategoryId}
             subcategoryId={subcategoryId}
-            onMainCategoryChange={(categoryId, categoryName) => {
-              setMainCategoryId(categoryId)
-              setForm(prev => ({ ...prev, category_id: categoryId, category_name: categoryName }))
-            }}
+            onMainCategoryChange={handleCategoryChange}
             onSubcategoryChange={(subcategoryId, subcategoryName) => {
               setSubcategoryId(subcategoryId)
               setForm(prev => ({ ...prev, subcategory: subcategoryName }))
