@@ -156,7 +156,7 @@ export default function SubscriptionPage() {
           description: `Підписка Stefa.books - ${planId.toUpperCase()}`,
           order_id: `sub_${Date.now()}_${planId}`,
           customer_email: user?.email,
-          customer_name: user?.name || 'Користувач',
+          customer_name: (user as any)?.name || 'Користувач',
           return_url: `${window.location.origin}/subscription/success`,
           webhook_url: `${window.location.origin}/api/payments/monobank/webhook`
         })
