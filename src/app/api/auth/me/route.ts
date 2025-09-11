@@ -30,6 +30,17 @@ export async function GET(request: NextRequest) {
     const { data: { user }, error: userError } = await supabase.auth.getUser(token);
 
     if (userError || !user) {
+      // Если токен истек, возвращаем 401 без логирования ошибки
+      if (userError?.message?.includes('expired') || userError?.message?.includes('invalid')) {
+        return NextResponse.json(
+          { 
+            success: false, 
+            error: 'Токен истек или недействителен' 
+          },
+          { status: 401 }
+        );
+      }
+      
       logger.error('Failed to get user', { error: userError }, 'Auth');
       return NextResponse.json(
         { 
@@ -41,13 +52,41 @@ export async function GET(request: NextRequest) {
     }
 
     // Получаем профиль пользователя
-    const { data: profile, error: profileError } = await supabase
+    // Сначала пробуем найти в таблице users
+    const { data: profiles, error: profileError } = await supabase
       .from('users')
       .select('*')
-      .eq('id', user.id)
-      .single();
+      .eq('id', user.id);
 
-    if (profileError) {
+    let profile = profiles?.[0] || null;
+    let hasProfileError = !!profileError;
+
+    // Если не найдено, пробуем в user_profiles
+    if (!profile) {
+        const { data: profileData } = await supabase
+        .from('user_profiles')
+        .select('*')
+        .eq('id', user.id);
+      
+      if (profileData && profileData.length > 0) {
+        // Конвертируем user_profiles в формат users
+        const profileDataItem = profileData[0];
+        profile = {
+          id: user.id,
+          name: `${profileDataItem.first_name || ''} ${profileDataItem.last_name || ''}`.trim() || user.email,
+          email: profileDataItem.email,
+          phone: profileDataItem.phone || null,
+          role: 'user',
+          subscription_type: 'mini',
+          status: 'active',
+          created_at: profileDataItem.created_at,
+          updated_at: profileDataItem.updated_at
+        };
+        hasProfileError = false;
+      }
+    }
+
+    if (hasProfileError) {
       logger.warn('Failed to fetch user profile', { error: profileError }, 'Auth');
       // Не блокируем, если профиль не найден
     }
@@ -69,7 +108,7 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error: any) {
-    logger.error('Get user API error', { error }, 'Auth');
+    logger.error('Get user API error', error, 'Auth');
 
     return NextResponse.json(
       { 

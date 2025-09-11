@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
         );
     }
   } catch (error) {
-    logger.error('Payment API: GET error', { error });
+    logger.error('Payment API: GET error', error);
     return NextResponse.json(
       { success: false, error: 'Internal server error' },
       { status: 500 }
@@ -142,7 +142,7 @@ export async function POST(request: NextRequest) {
         );
     }
   } catch (error) {
-    logger.error('Payment API: POST error', { error });
+    logger.error('Payment API: POST error', error);
     return NextResponse.json(
       { success: false, error: 'Internal server error' },
       { status: 500 }
@@ -196,7 +196,7 @@ export async function PUT(request: NextRequest) {
         );
     }
   } catch (error) {
-    logger.error('Payment API: PUT error', { error });
+    logger.error('Payment API: PUT error', error);
     return NextResponse.json(
       { success: false, error: 'Internal server error' },
       { status: 500 }

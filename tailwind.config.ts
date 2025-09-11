@@ -31,6 +31,8 @@ export default {
         warning: "var(--warning)",
         error: "var(--error)",
         info: "var(--info)",
+        card: "var(--card)",
+        "card-foreground": "var(--card-foreground)",
       },
       borderRadius: {
         xl: "var(--radius-xl)",

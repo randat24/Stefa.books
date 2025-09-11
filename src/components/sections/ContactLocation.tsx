@@ -329,7 +329,7 @@ function Tab({
         "inline-flex items-center gap-2 rounded-xl border px-3 py-1.5 text-body-sm transition",
         active
           ? "border-accent-light bg-yellow-100 text-yellow-900"
-          : "border-neutral-200 bg-neutral-0 text-neutral-700 hover:bg-neutral-50",
+          : "border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-50",
       ].join(" ")}
       aria-pressed={active}
       type="button"

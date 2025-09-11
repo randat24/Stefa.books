@@ -72,7 +72,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setIsAuthenticated(false);
         }
       } catch (error) {
-        logger.error('AuthContext: Error checking auth status', { error });
+        logger.error('AuthContext: Error checking auth status', error);
         setUser(null);
         setProfile(null);
         setIsAuthenticated(false);
@@ -114,7 +114,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       return result;
     } catch (error) {
-      logger.error('Login error', { error });
+      logger.error('Login error', error);
       return { success: false, error: 'Помилка підключення' };
     }
   }, []);
@@ -139,7 +139,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       return result;
     } catch (error) {
-      logger.error('Register error', { error });
+      logger.error('Register error', error);
       return { success: false, error: 'Помилка підключення' };
     }
   }, []);
@@ -153,7 +153,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         },
       });
     } catch (error) {
-      logger.error('Logout error', { error });
+      logger.error('Logout error', error);
     } finally {
       setUser(null);
       setProfile(null);
@@ -191,7 +191,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       return await response.json();
     } catch (error) {
-      logger.error('Reset password error', { error });
+      logger.error('Reset password error', error);
       return { success: false, error: 'Помилка підключення' };
     }
   }, []);

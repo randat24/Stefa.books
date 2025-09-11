@@ -30,33 +30,34 @@ export default function AdminPage() {
       setLoading(true)
       setError(null)
       
-      // Get auth token from localStorage
-      const authToken = localStorage.getItem('supabase.auth.token');
-      const token = authToken ? JSON.parse(authToken).access_token : null;
-      
-      const headers: HeadersInit = {
-        'Content-Type': 'application/json',
-      };
-      
-      if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-      }
-      
-      // Load data from API instead of server actions
-      const [booksResponse, usersResponse] = await Promise.all([
-        fetch('/api/admin/books', { headers }),
-        fetch('/api/admin/users', { headers })
+      // Load data from API without authentication
+      const [booksResponse, usersResponse] = await Promise.allSettled([
+        fetch('/api/admin/books'),
+        fetch('/api/admin/users')
       ])
       
-      if (!booksResponse.ok || !usersResponse.ok) {
-        throw new Error('Failed to load data')
+      // Обрабатываем ответы книг
+      if (booksResponse.status === 'fulfilled' && booksResponse.value.ok) {
+        const booksData = await booksResponse.value.json()
+        setBooks(booksData.data?.books || booksData.data || [])
+      } else {
+        console.error('Failed to load books:', booksResponse.status === 'rejected' ? booksResponse.reason : 'HTTP error')
+        setBooks([])
       }
       
-      const booksData = await booksResponse.json()
-      const usersData = await usersResponse.json()
+      // Обрабатываем ответы пользователей
+      if (usersResponse.status === 'fulfilled' && usersResponse.value.ok) {
+        const usersData = await usersResponse.value.json()
+        setUsers(usersData.data?.users || usersData.data || [])
+      } else {
+        console.error('Failed to load users:', usersResponse.status === 'rejected' ? usersResponse.reason : 'HTTP error')
+        setUsers([])
+      }
       
-      setBooks(booksData.data?.books || booksData.data || [])
-      setUsers(usersData.data?.users || usersData.data || [])
+      // Проверяем, что хотя бы один API сработал
+      if (booksResponse.status === 'rejected' && usersResponse.status === 'rejected') {
+        throw new Error('Failed to load data from both APIs')
+      }
     } catch (err) {
       console.error('Error loading data:', err)
       setError('Помилка завантаження даних')
@@ -122,7 +123,7 @@ export default function AdminPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
-        <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-neutral-0/90 backdrop-blur-sm">
+        <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-white/90 backdrop-blur-sm">
           <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
             <div className="flex items-center justify-center">
               <RefreshCw className="size-6 animate-spin text-neutral-400" />
@@ -137,7 +138,7 @@ export default function AdminPage() {
   if (error) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
-        <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-neutral-0/90 backdrop-blur-sm">
+        <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-white/90 backdrop-blur-sm">
           <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
             <div className="text-center">
               <p className="text-red-600 mb-4">{error}</p>

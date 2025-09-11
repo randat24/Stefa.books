@@ -7,8 +7,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff, CheckCircle, XCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useNotifications } from '@/lib/hooks/useNotifications';
 
 interface LoginFormProps {
   onSwitchToRegister?: () => void;
@@ -22,19 +23,50 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [fieldErrors, setFieldErrors] = useState<{ email?: string; password?: string }>({});
   
   const { login } = useAuth();
   const router = useRouter();
+  const { showSuccess, showError, showLoading, dismiss } = useNotifications();
+
+  const validateForm = () => {
+    const errors: { email?: string; password?: string } = {};
+    
+    if (!email.trim()) {
+      errors.email = 'Введіть електронну пошту';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errors.email = 'Введіть коректну електронну пошту';
+    }
+    
+    if (!password.trim()) {
+      errors.password = 'Введіть пароль';
+    } else if (password.length < 6) {
+      errors.password = 'Пароль має містити принаймні 6 символів';
+    }
+    
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    setFieldErrors({});
+    
+    if (!validateForm()) {
+      return;
+    }
+
     setIsLoading(true);
+    const loadingToast = showLoading('Входимо в систему...');
 
     try {
       const response = await login({ email, password });
+      dismiss(loadingToast);
       
       if (response.success) {
+        showSuccess('Успішний вхід!', 'Ви успішно увійшли в систему');
+        
         // Call success callback if provided, otherwise redirect
         if (onSuccess) {
           onSuccess();
@@ -43,10 +75,27 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
           router.refresh();
         }
       } else {
-        setError(response.error || 'Failed to login');
+        // Handle specific error cases
+        let errorMessage = 'Помилка входу в систему';
+        
+        if (response.error?.includes('Invalid login credentials')) {
+          errorMessage = 'Невірний email або пароль';
+        } else if (response.error?.includes('Email not confirmed')) {
+          errorMessage = 'Підтвердіть email перед входом';
+        } else if (response.error?.includes('Too many requests')) {
+          errorMessage = 'Забагато спроб входу. Спробуйте пізніше';
+        } else if (response.error) {
+          errorMessage = response.error;
+        }
+        
+        setError(errorMessage);
+        showError('Помилка входу', errorMessage);
       }
     } catch {
-      setError('An unexpected error occurred');
+      dismiss(loadingToast);
+      const errorMessage = 'Помилка підключення до сервера';
+      setError(errorMessage);
+      showError('Помилка', errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -65,6 +114,7 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
         <CardContent className="space-y-4">
           {error && (
             <Alert variant="destructive">
+              <XCircle className="h-4 w-4" />
               <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
@@ -75,11 +125,22 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
               id="email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (fieldErrors.email) {
+                  setFieldErrors(prev => ({ ...prev, email: undefined }));
+                }
+              }}
               disabled={isLoading}
               placeholder="your@email.com"
+              className={fieldErrors.email ? "border-red-500 focus:border-red-500" : ""}
             />
+            {fieldErrors.email && (
+              <p className="text-sm text-red-500 flex items-center gap-1">
+                <XCircle className="h-3 w-3" />
+                {fieldErrors.email}
+              </p>
+            )}
           </div>
           
           <div className="space-y-2">
@@ -90,6 +151,7 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
                   type="button"
                   onClick={onForgotPassword}
                   className="text-body-sm text-brand-accent-light hover:text-brand-accent-light/80"
+                  disabled={isLoading}
                 >
                   Забули пароль?
                 </button>
@@ -100,15 +162,21 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
                 id="password"
                 type={showPassword ? "text" : "password"}
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (fieldErrors.password) {
+                    setFieldErrors(prev => ({ ...prev, password: undefined }));
+                  }
+                }}
                 disabled={isLoading}
                 placeholder="••••••••"
+                className={fieldErrors.password ? "border-red-500 focus:border-red-500" : ""}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                disabled={isLoading}
               >
                 {showPassword ? (
                   <EyeOff className="h-4 w-4 text-neutral-500" />
@@ -117,6 +185,12 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
                 )}
               </button>
             </div>
+            {fieldErrors.password && (
+              <p className="text-sm text-red-500 flex items-center gap-1">
+                <XCircle className="h-3 w-3" />
+                {fieldErrors.password}
+              </p>
+            )}
           </div>
         </CardContent>
         
@@ -124,9 +198,19 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
           <Button 
             type="submit" 
             className="w-full" 
-            disabled={isLoading}
+            disabled={isLoading || !email.trim() || !password.trim()}
           >
-            {isLoading ? "Вхід..." : "Увійти"}
+            {isLoading ? (
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                Вхід...
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4" />
+                Увійти
+              </div>
+            )}
           </Button>
           
           {onSwitchToRegister && (
@@ -135,7 +219,7 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
               <button
                 type="button"
                 onClick={onSwitchToRegister}
-                className="text-brand-accent-light hover:text-brand-accent-light/80"
+                className="text-brand-accent-light hover:text-brand-accent-light/80 font-medium"
                 disabled={isLoading}
               >
                 Зареєструватися

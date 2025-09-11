@@ -77,7 +77,7 @@ export function AnimatedSelect({
               ? "border-accent focus:ring-accent focus:border-accent"
               : "border-neutral-300 focus:ring-accent focus:border-accent"
             }
-            ${disabled ? "bg-neutral-100 cursor-not-allowed" : "bg-neutral-0"}
+            ${disabled ? "bg-neutral-100 cursor-not-allowed" : "bg-white"}
           `}
           whileHover={!disabled ? { scale: 1.01 } : {}}
           whileTap={!disabled ? { scale: 0.99 } : {}}
@@ -136,7 +136,7 @@ export function AnimatedSelect({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -10, scale: 0.95 }}
               transition={{ duration: 0.2 }}
-              className="absolute z-50 w-full mt-1 bg-neutral-0 border border-neutral-200 rounded-lg shadow-lg max-h-60 overflow-y-auto"
+              className="absolute z-50 w-full mt-1 bg-white border border-neutral-200 rounded-lg shadow-lg max-h-60 overflow-y-auto"
             >
               {options.map((option, index) => (
                 <motion.div

@@ -5,20 +5,20 @@
   "main": "complete-import.js",
   "scripts": {
     "import": "node complete-import.js",
-    "test": "node test-connections.js",
     "upload-covers": "node auto-upload-covers.js",
     "quick-import": "node quick-import.js",
     "fetch-sheets": "node fetch-google-sheets.js",
     "install-deps": "npm install"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.39.0",
+    "@supabase/supabase-js": "^2.57.4",
     "axios": "^1.11.0",
     "cloudinary": "^1.41.0",
+    "csv-parser": "^3.2.0",
     "googleapis": "^128.0.0"
   },
   "devDependencies": {
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.6.1"
   },
   "keywords": [
     "cloudinary",

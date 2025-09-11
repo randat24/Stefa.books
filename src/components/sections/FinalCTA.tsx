@@ -3,7 +3,7 @@ import Link from "next/link"
 export default function FinalCTA() {
 	return (
 		<section className="py-16 lg:py-24">
-			<div className="relative overflow-hidden rounded-3xl border border-[--line] p-8 lg:p-12 bg-neutral-0 shadow-soft">
+			<div className="relative overflow-hidden rounded-3xl border border-[--line] p-8 lg:p-12 bg-white shadow-soft">
 				<div className="grid gap-6 lg:grid-cols-2 items-center">
 					<div>
 						<h2 className="h2">
@@ -37,7 +37,7 @@ export default function FinalCTA() {
 				</div>
 
 				{/* мʼяке світло */}
-				<div className="pointer-events-none absolute -left-10 -bottom-10 size-56 rounded-2xl bg-neutral-0/40 blur-3xl" />
+				<div className="pointer-events-none absolute -left-10 -bottom-10 size-56 rounded-2xl bg-white/40 blur-3xl" />
 			</div>
 		</section>
 	)

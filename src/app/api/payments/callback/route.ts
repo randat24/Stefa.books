@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
       message: 'Callback processed successfully'
     });
   } catch (error) {
-    logger.error('Payment callback API error', { error });
+    logger.error('Payment callback API error', error);
     return NextResponse.json(
       { success: false, error: 'Internal server error' },
       { status: 500 }

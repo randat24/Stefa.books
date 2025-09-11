@@ -588,7 +588,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                     <TableRow 
                       key={book.id} 
                       className={`group hover:bg-neutral-50 transition-all duration-200 border-b border-neutral-100 ${
-                        index % 2 === 0 ? 'bg-neutral-0' : 'bg-slate-25'
+                        index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
                       } ${selectedBooks.has(book.id) ? 'bg-blue-50' : ''}`}
                     >
                       {/* Чекбокс */}

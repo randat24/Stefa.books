@@ -4,28 +4,28 @@ import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
 
 const subscriptionSchema = z.object({
-  plan_id: z.enum(['basic', 'premium', 'family']),
+  plan_id: z.enum(['mini', 'maxi', 'premium']),
   customer_email: z.string().email('Невірний email')
 });
 
 const SUBSCRIPTION_PLANS = {
-  basic: {
-    name: 'Базовий',
-    price: 199,
+  mini: {
+    name: 'Mini',
+    price: 300,
+    max_books: 1,
+    features: ['1 книга з можливістю обміну', 'Самовивіз з точки', 'Підтримка 24/7', 'Мобільний додаток']
+  },
+  maxi: {
+    name: 'Maxi',
+    price: 500,
     max_books: 2,
-    features: ['Стандартна доставка', 'Підтримка 24/7']
+    features: ['2 книги з можливістю обміну', 'Самовивіз з точки', 'Пріоритетна підтримка', 'Ексклюзивні книги', 'Персональний куратор']
   },
   premium: {
-    name: 'Преміум',
-    price: 399,
-    max_books: 5,
-    features: ['Швидка доставка', 'Пріоритетна підтримка', 'Ексклюзивні книги']
-  },
-  family: {
-    name: 'Сімейний',
-    price: 599,
-    max_books: 10,
-    features: ['Безкоштовна доставка', 'VIP підтримка', 'Всі категорії книг']
+    name: 'Premium',
+    price: 1500,
+    max_books: 2,
+    features: ['2 книги з можливістю обміну', 'Самовивіз з точки', 'VIP підтримка', 'Всі категорії книг', 'Сімейний кабінет', 'Персональні рекомендації', 'Економія 500₴ за півроку']
   }
 };
 
@@ -45,10 +45,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user already has an active subscription
-    const { data: existingSubscription, error: checkError } = await supabase
-      .from('rentals')
-      .select('id, status, due_date')
-      .eq('user_id', validatedData.customer_email)
+    const { data: existingUser, error: checkError } = await supabase
+      .from('users')
+      .select('id, subscription_type, status')
+      .eq('email', validatedData.customer_email)
       .eq('status', 'active')
       .single();
 
@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (existingSubscription) {
+    if (existingUser && existingUser.subscription_type) {
       return NextResponse.json(
         { success: false, error: 'У вас вже є активна підписка' },
         { status: 400 }
@@ -71,17 +71,15 @@ export async function POST(request: NextRequest) {
     const endDate = new Date();
     endDate.setMonth(endDate.getMonth() + 1); // 1 month subscription
 
-    // Create subscription record
+    // Update user with subscription
     const { data: subscription, error: subscriptionError } = await supabase
-      .from('rentals')
-      .insert({
-        book_id: 'subscription-' + validatedData.plan_id, // Use a special book_id for subscriptions
-        user_id: validatedData.customer_email,
-        status: 'pending',
-        due_date: endDate.toISOString(),
-        notes: `Subscription: ${plan.name} (${plan.price}₴, max ${plan.max_books} books)`,
-        created_at: new Date().toISOString()
+      .from('users')
+      .update({
+        subscription_type: validatedData.plan_id,
+        status: 'active',
+        updated_at: new Date().toISOString()
       })
+      .eq('email', validatedData.customer_email)
       .select()
       .single();
 
@@ -122,7 +120,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    logger.error('Unexpected error in subscription API:', { error });
+    logger.error('Unexpected error in subscription API:', error);
     return NextResponse.json(
       { success: false, error: 'Внутрішня помилка сервера' },
       { status: 500 }
@@ -143,14 +141,10 @@ export async function GET(request: NextRequest) {
     }
 
     // Get active subscription for customer
-    const { data: subscription, error } = await supabase
-      .from('rentals')
+    const { data: user, error } = await supabase
+      .from('users')
       .select('*')
-      .eq('user_id', customerEmail)
-      .like('book_id', 'subscription-%')
-      .eq('status', 'active')
-      .order('created_at', { ascending: false })
-      .limit(1)
+      .eq('email', customerEmail)
       .single();
 
     if (error && error.code !== 'PGRST116') {
@@ -161,13 +155,24 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    // Debug: log user data
+    logger.info('User data for subscription:', { 
+      user: user, 
+      hasSubscriptionType: !!user?.subscription_type,
+      subscriptionType: user?.subscription_type 
+    });
+
     return NextResponse.json({
       success: true,
-      subscription: subscription || null
+      subscription: user && user.subscription_type ? {
+        plan_name: user.subscription_type,
+        end_date: user.updated_at,
+        status: user.status
+      } : null
     });
 
   } catch (error) {
-    logger.error('Unexpected error in subscription GET API:', { error });
+    logger.error('Unexpected error in subscription GET API:', error);
     return NextResponse.json(
       { success: false, error: 'Внутрішня помилка сервера' },
       { status: 500 }
@@ -207,7 +212,7 @@ export async function PUT(request: NextRequest) {
     }
 
     const { data: subscription, error } = await supabase
-      .from('rentals')
+      .from('users')
       .update(updateData)
       .eq('id', subscription_id)
       .select()
@@ -234,7 +239,7 @@ export async function PUT(request: NextRequest) {
     });
 
   } catch (error) {
-    logger.error('Unexpected error in subscription PUT API:', { error });
+    logger.error('Unexpected error in subscription PUT API:', error);
     return NextResponse.json(
       { success: false, error: 'Внутрішня помилка сервера' },
       { status: 500 }

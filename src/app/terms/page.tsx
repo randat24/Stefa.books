@@ -4,7 +4,7 @@ export default function TermsPage() {
   return (
     <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen min-h-screen bg-gradient-to-br from-neutral-50 to-white py-12">
       <div className="container mx-auto px-6 max-w-4xl">
-        <div className="bg-neutral-0 rounded-3xl shadow-xl p-8 lg:p-12">
+        <div className="bg-white rounded-3xl shadow-xl p-8 lg:p-12">
           <h1 className="text-h1 text-neutral-900 mb-6 text-center">
             Умови використання
           </h1>
@@ -46,7 +46,7 @@ export default function TermsPage() {
               <h2 className="text-h2 text-neutral-900 mb-4">Підписка та оплата</h2>
               <div className="space-y-4 text-neutral-700 leading-relaxed">
                 <p> Для доступу до книг необхідно оформити підписку (Mini, Maxi або інший тариф).</p>
-                <p> Оплата здійснюється шляхом переказу на банківську карту (ПриватБанк, Monobank) або іншими способами, доступними на Сайті.</p>
+                <p> Оплата здійснюється шляхом переказу на банківську карту (Монобанк) або іншими способами, доступними на Сайті.</p>
                 <p> Підписка активується після підтвердження оплати.</p>
                 <p> Повернення коштів здійснюється згідно з Законом України &ldquo;Про захист прав споживачів&rdquo; протягом 14 днів з моменту оплати за умови відсутності користування послугами.</p>
               </div>

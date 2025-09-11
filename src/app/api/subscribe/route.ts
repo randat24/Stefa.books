@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) {
-      logger.error('Database error when inserting subscription request', { error });
+      logger.error('Database error when inserting subscription request', error);
       return NextResponse.json(
         { error: 'Ошибка при сохранении заявки' },
         { status: 500 }
@@ -152,7 +152,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    logger.error('Unexpected error in subscription API', { error });
+    logger.error('Unexpected error in subscription API', error);
     return NextResponse.json(
       { error: 'Внутрішня помилка сервера' },
       { status: 500 }

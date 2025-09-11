@@ -144,24 +144,38 @@ export default function SubscriptionPage() {
     setSelectedPlan(planId);
     
     try {
-      const response = await fetch('/api/subscription', {
+      // Создаем платеж через Монобанк
+      const paymentResponse = await fetch('/api/payments/monobank', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          plan_id: planId,
-          customer_email: user?.email
+          amount: getPlanPrice(planId) * 100, // конвертируем в копейки
+          currency: 'UAH',
+          description: `Підписка Stefa.books - ${planId.toUpperCase()}`,
+          order_id: `sub_${Date.now()}_${planId}`,
+          customer_email: user?.email,
+          customer_name: user?.name || 'Користувач',
+          return_url: `${window.location.origin}/subscription/success`,
+          webhook_url: `${window.location.origin}/api/payments/monobank/webhook`
         })
       });
 
-      const result = await response.json();
+      const paymentResult = await paymentResponse.json();
       
-      if (result.success) {
-        // Redirect to payment or confirmation
-        window.location.href = `/subscription/confirmation?subscription_id=${result.subscription_id}`;
+      if (paymentResult.success && paymentResult.payment) {
+        // Сохраняем информацию о платеже
+        localStorage.setItem('pending_payment', JSON.stringify({
+          invoice_id: paymentResult.payment.invoice_id,
+          plan_id: planId,
+          amount: paymentResult.payment.amount
+        }));
+
+        // Перенаправляем на страницу оплаты
+        window.location.href = paymentResult.payment.payment_url;
       } else {
-        alert(result.error || 'Помилка при оформленні підписки');
+        alert(paymentResult.error || 'Помилка при створенні платежу');
       }
     } catch (error) {
       console.error('Error subscribing:', error);
@@ -169,6 +183,15 @@ export default function SubscriptionPage() {
     } finally {
       setSelectedPlan(null);
     }
+  };
+
+  const getPlanPrice = (planId: string): number => {
+    const prices = {
+      mini: 300,
+      maxi: 500,
+      premium: 1500
+    };
+    return prices[planId as keyof typeof prices] || 0;
   };
 
   const getPlanColor = (color: string) => {

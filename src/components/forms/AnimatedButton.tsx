@@ -47,7 +47,7 @@ export function AnimatedButton({
       focus:ring-gray-500 shadow-sm hover:shadow-md
     `,
     outline: `
-      border border-neutral-300 bg-neutral-0 text-neutral-700 hover:bg-neutral-50
+      border border-neutral-300 bg-white text-neutral-700 hover:bg-neutral-50
       focus:ring-accent hover:border-accent
     `,
     ghost: `
@@ -142,7 +142,7 @@ export function AnimatedButton({
           transition: { duration: 0.3 }
         }}
       >
-        <div className="w-full h-full bg-neutral-0/20" />
+        <div className="w-full h-full bg-white/20" />
       </motion.div>
     </motion.button>
   )

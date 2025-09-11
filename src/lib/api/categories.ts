@@ -60,7 +60,7 @@ export async function fetchCategoryTree(parentId?: string): Promise<CategoryTree
   try {
     // Используем новый API endpoint для категорий
     const baseUrl = typeof window === 'undefined' 
-      ? process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
+      ? process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
       : window.location.origin;
     
     const url = `${baseUrl}/api/categories?tree=true${parentId ? `&parent_id=${parentId}` : ''}`;
@@ -150,7 +150,7 @@ export async function fetchCategoryBreadcrumbs(categoryId: string): Promise<Cate
   try {
     // Используем новый API endpoint для хлебных крошек
     const baseUrl = typeof window === 'undefined' 
-      ? process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
+      ? process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
       : window.location.origin;
     
     const response = await fetch(`${baseUrl}/api/categories`, {
@@ -190,7 +190,7 @@ export async function fetchChildCategories(parentId: string): Promise<Categories
   try {
     // Используем новый API endpoint
     const baseUrl = typeof window === 'undefined' 
-      ? process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
+      ? process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
       : window.location.origin;
     
     const response = await fetch(`${baseUrl}/api/categories?parent_id=${parentId}`, {

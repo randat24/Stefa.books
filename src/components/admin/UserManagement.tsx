@@ -2,9 +2,9 @@
 
 import { useState, useMemo, useCallback } from "react"
 import { 
-  Users, User, Mail, Phone, Calendar, CreditCard, BookOpen, 
-  Search, Filter, MoreHorizontal, Edit, Trash2, Eye, RefreshCw,
-  CheckCircle, XCircle, AlertTriangle, Clock, TrendingUp, Award
+  Users, User, Mail, Phone, Calendar, CreditCard, 
+  Search, Filter, MoreHorizontal, Trash2, Eye, RefreshCw,
+  CheckCircle, XCircle, AlertTriangle, Clock
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/Badge"
@@ -36,7 +36,6 @@ interface FilterState {
 
 export function UserManagement({ users, onRefresh }: UserManagementProps) {
   const [selectedUser, setSelectedUser] = useState<UserRow | null>(null)
-  const [editingUser, setEditingUser] = useState<UserRow | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage] = useState(20)
   const [showFilters, setShowFilters] = useState(false)
@@ -126,10 +125,6 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
 
   const handleViewUser = useCallback((user: UserRow) => {
     setSelectedUser(user)
-  }, [])
-
-  const handleEditUser = useCallback((user: UserRow) => {
-    setEditingUser(user)
   }, [])
 
   const handleDeleteUser = useCallback(async (user: UserRow) => {
@@ -449,7 +444,7 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                     <TableRow 
                       key={user.id} 
                       className={`group hover:bg-neutral-50 transition-all duration-200 border-b border-neutral-100 ${
-                        index % 2 === 0 ? 'bg-neutral-0' : 'bg-slate-25'
+                        index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
                       }`}
                     >
                       {/* Аватар */}
@@ -526,13 +521,6 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                             title="Переглянути деталі"
                           >
                             <Eye className="size-3 group-hover:scale-110 transition-transform" />
-                          </button>
-                          <button
-                            className="group w-8 h-8 rounded-lg bg-neutral-500 text-neutral-0 hover:bg-neutral-600 transition-all duration-200 flex items-center justify-center shadow-md hover:shadow-lg hover:scale-110"
-                            onClick={() => handleEditUser(user)}
-                            title="Редагувати"
-                          >
-                            <Edit className="size-3 group-hover:scale-110 transition-transform" />
                           </button>
                           <button
                             className="group w-8 h-8 rounded-lg bg-orange-500 text-neutral-0 hover:bg-orange-600 transition-all duration-200 flex items-center justify-center shadow-md hover:shadow-lg hover:scale-110"

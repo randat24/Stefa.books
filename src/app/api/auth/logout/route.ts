@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: any) {
-    logger.error('Logout API error', { error }, 'Auth');
+    logger.error('Logout API error', error, 'Auth');
 
     return NextResponse.json(
       { 

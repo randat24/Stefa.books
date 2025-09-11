@@ -25,9 +25,9 @@ export function ColorSystemCard({
   );
 
   const variantClasses = {
-    default: 'bg-neutral-0 border border-neutral-200 shadow-sm',
-    elevated: 'bg-neutral-0 border border-neutral-200 shadow-md',
-    outlined: 'bg-neutral-0 border-2 border-neutral-300 shadow-none',
+    default: 'bg-white border border-neutral-200 shadow-sm',
+    elevated: 'bg-white border border-neutral-200 shadow-md',
+    outlined: 'bg-white border-2 border-neutral-300 shadow-none',
     filled: 'bg-neutral-50 border border-neutral-200 shadow-sm'
   };
 

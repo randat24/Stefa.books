@@ -58,7 +58,7 @@ export function PaginationControls({
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="flex items-center px-3 py-2 text-body-sm font-medium text-neutral-700 bg-neutral-0 border border-neutral-300 rounded-lg hover:bg-neutral-50 hover:text-neutral-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-neutral-0"
+        className="flex items-center px-3 py-2 text-body-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-lg hover:bg-neutral-50 hover:text-neutral-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white"
         aria-label="Попередня сторінка"
       >
         <ChevronLeft className="w-4 h-4 mr-1" />
@@ -88,8 +88,8 @@ export function PaginationControls({
               onClick={() => onPageChange(pageNumber)}
               className={`flex items-center justify-center w-10 h-10 text-body-sm font-medium rounded-lg transition-colors ${
                 isActive
-                  ? 'text-neutral-0 bg-accent hover:bg-accent-dark'
-                  : 'text-neutral-700 bg-neutral-0 border border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900'
+                  ? 'text-[#111827] bg-[var(--brand)] hover:bg-[var(--brand-600)] shadow-md'
+                  : 'text-neutral-700 bg-white border border-neutral-300 hover:bg-neutral-50 hover:text-neutral-900'
               }`}
               aria-label={`Сторінка ${pageNumber}`}
               aria-current={isActive ? 'page' : undefined}
@@ -104,7 +104,7 @@ export function PaginationControls({
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="flex items-center px-3 py-2 text-body-sm font-medium text-neutral-700 bg-neutral-0 border border-neutral-300 rounded-lg hover:bg-neutral-50 hover:text-neutral-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-neutral-0"
+        className="flex items-center px-3 py-2 text-body-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-lg hover:bg-neutral-50 hover:text-neutral-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white"
         aria-label="Наступна сторінка"
       >
         Вперед

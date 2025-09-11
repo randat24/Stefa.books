@@ -193,7 +193,7 @@ export async function POST() {
     });
     
   } catch (error) {
-    logger.error('Migration failed', { error }, 'Migration');
+    logger.error('Migration failed', error, 'Migration');
     return NextResponse.json({ error: 'Migration failed' }, { status: 500 });
   }
 }

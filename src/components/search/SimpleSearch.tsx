@@ -442,7 +442,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
                 const newAuthors = filters.authors.filter((a: string) => a !== author);
                 updateFilter('authors', newAuthors);
               }}
-              className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-brand-accent text-neutral-0 rounded hover:bg-blue-400 transition-colors"
+              className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-[var(--brand)] text-[#111827] rounded hover:bg-[var(--brand-600)] transition-colors"
             >
               {author}
               <X className="h-3 w-3" />

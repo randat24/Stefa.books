@@ -38,7 +38,9 @@ export default function CookieConsent() {
   if (!showConsent) return null
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md bg-neutral-0 p-6 rounded-lg shadow-xl border z-50 animate-in slide-in-from-bottom-4">
+    <>
+      {/* Cookie consent modal */}
+      <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md bg-white p-6 rounded-lg shadow-xl border border-gray-200 z-50 animate-in slide-in-from-bottom-4">
       <div className="flex items-start gap-3">
         <Cookie className="h-6 w-6 text-amber-600 flex-shrink-0 mt-0.5" />
         <div className="flex-1">
@@ -52,7 +54,7 @@ export default function CookieConsent() {
           <div className="flex flex-col sm:flex-row gap-2">
             <button
               onClick={acceptCookies}
-              className="px-4 py-2 bg-blue-600 text-neutral-0 rounded-md text-body-sm font-medium hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-[var(--brand)] text-[#111827] rounded-md text-body-sm font-medium hover:bg-[var(--brand-600)] transition-colors shadow-md hover:shadow-lg"
             >
               Прийняти всі
             </button>
@@ -72,6 +74,7 @@ export default function CookieConsent() {
           <X className="h-5 w-5" />
         </button>
       </div>
-    </div>
+      </div>
+    </>
   )
 }

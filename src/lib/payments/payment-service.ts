@@ -86,7 +86,7 @@ class PaymentService {
         paymentId
       };
     } catch (error) {
-      logger.error('PaymentService: Payment creation error', { error });
+      logger.error('PaymentService: Payment creation error', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -121,7 +121,7 @@ class PaymentService {
         success: true
       };
     } catch (error) {
-      logger.error('PaymentService: Payment callback processing error', { error });
+      logger.error('PaymentService: Payment callback processing error', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -237,7 +237,7 @@ class PaymentService {
         subscription
       };
     } catch (error) {
-      logger.error('PaymentService: Subscription creation error', { error });
+      logger.error('PaymentService: Subscription creation error', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -261,7 +261,7 @@ class PaymentService {
         success: true
       };
     } catch (error) {
-      logger.error('PaymentService: Subscription cancellation error', { error });
+      logger.error('PaymentService: Subscription cancellation error', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -278,7 +278,7 @@ class PaymentService {
       // For now, return empty array
       return [];
     } catch (error) {
-      logger.error('PaymentService: Get user subscriptions error', { error });
+      logger.error('PaymentService: Get user subscriptions error', error);
       return [];
     }
   }

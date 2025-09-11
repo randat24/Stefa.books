@@ -6,8 +6,8 @@ import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/button"
 import { 
   Building2, BookOpen, Users, CreditCard, TrendingUp, RefreshCw, CheckCircle, 
-  AlertTriangle, Clock, Activity, Target, Award, Zap, BarChart3, Calendar,
-  ArrowUpRight, ArrowDownRight, Minus, Eye, Download, Settings, Bell
+  AlertTriangle, Clock, Activity, Zap, BarChart3,
+  ArrowUpRight, ArrowDownRight, Minus, Bell
 } from "lucide-react"
 // Dynamic import for AdvancedAnalytics as well
 const AdvancedAnalytics = dynamic(() => import("./AdvancedAnalytics").then(mod => ({ default: mod.AdvancedAnalytics })), {
@@ -21,7 +21,7 @@ const AdvancedAnalytics = dynamic(() => import("./AdvancedAnalytics").then(mod =
 import dynamic from 'next/dynamic'
 
 // Dynamically load heavy admin components
-const EnhancedBooksManager = dynamic(() => import("./EnhancedBooksManager").then(mod => ({ default: mod.EnhancedBooksManager })), {
+const EnhancedBooksManager = dynamic(() => import("./EnhancedBooksManager").then(mod => ({ default: mod.EnhancedBooksManager })).catch(() => ({ default: () => <div className="p-4 text-red-500">Ошибка загрузки менеджера книг</div> })), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center h-96">
@@ -30,7 +30,7 @@ const EnhancedBooksManager = dynamic(() => import("./EnhancedBooksManager").then
   )
 })
 // Dynamic import for UserManagement
-const UserManagement = dynamic(() => import("./UserManagement").then(mod => ({ default: mod.UserManagement })), {
+const UserManagement = dynamic(() => import("./UserManagement").then(mod => ({ default: mod.UserManagement })).catch(() => ({ default: () => <div className="p-4 text-red-500">Ошибка загрузки менеджера пользователей</div> })), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center h-96">
@@ -168,7 +168,7 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
-        <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-neutral-0/90 backdrop-blur-sm">
+        <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-white/90 backdrop-blur-sm">
           <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
             <div className="flex items-center justify-center">
               <RefreshCw className="size-6 animate-spin text-neutral-400" />
@@ -183,7 +183,7 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
   if (error) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
-        <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-neutral-0/90 backdrop-blur-sm">
+        <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-white/90 backdrop-blur-sm">
           <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
             <div className="text-center">
               <p className="text-red-600 mb-4">{error}</p>
@@ -201,11 +201,11 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
       {/* Заголовок */}
-      <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-neutral-0/90 backdrop-blur-sm">
+      <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-white/90 backdrop-blur-sm">
         <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="flex size-14 items-center justify-center rounded-2xl border border-neutral-200 bg-neutral-0 shadow-sm">
+              <div className="flex size-14 items-center justify-center rounded-2xl border border-neutral-200 bg-white shadow-sm">
                 <Building2 className="size-7 text-neutral-600"/>
               </div>
               <div>
@@ -236,7 +236,7 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
       </div>
 
       {/* Навігація */}
-      <div className="border-b border-neutral-200/60 bg-neutral-0/50 backdrop-blur-sm">
+      <div className="border-b border-neutral-200/60 bg-white/50 backdrop-blur-sm">
         <div className="w-full px-4 py-4 lg:px-6 xl:px-8 2xl:px-10">
           <div className="flex items-center gap-1">
             <Button

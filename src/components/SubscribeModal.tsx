@@ -297,7 +297,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 	if (sent) {
 		return (
 			<div className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
-				<div ref={modalRef} className="relative w-full max-w-md bg-neutral-0 rounded-2xl shadow-2xl p-6">
+				<div ref={modalRef} className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-6">
 					<button
 						onClick={handleClose}
 						className="absolute top-4 right-4 p-2 rounded-lg hover:bg-neutral-100 transition-colors"
@@ -340,7 +340,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 
 	return (
 		<div className="fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
-			<div ref={modalRef} className="relative w-full max-w-3xl max-h-[90vh] overflow-hidden bg-neutral-0 rounded-2xl shadow-2xl">
+			<div ref={modalRef} className="relative w-full max-w-3xl max-h-[90vh] overflow-hidden bg-white rounded-2xl shadow-2xl">
 				{/* Header */}
 				<div className="flex items-center justify-between p-6 border-b border-neutral-200">
 					<div className="flex items-center gap-3">
@@ -394,7 +394,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 														? 'border-current bg-current' 
 														: 'border-neutral-300'
 												)}>
-													{watchedPlan === key && <div className="w-1.5 h-1.5 bg-neutral-0 rounded-2xl" />}
+													{watchedPlan === key && <div className="w-1.5 h-1.5 bg-white rounded-2xl" />}
 												</div>
 												<div>
 													<p className={cn(
@@ -534,7 +534,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 							<div className="space-y-3">
 								{[
 									{ value: "Онлайн оплата", label: "Онлайн оплата", icon: CreditCard },
-									{ value: "Переказ на карту", label: "Переказ на карту ПриватБанку", icon: Building2 }
+									{ value: "Переказ на карту", label: "Переказ на карту Монобанку", icon: Building2 }
 								].map((option) => (
 									<div key={option.value} className="flex items-center space-x-3">
 										<input
@@ -570,7 +570,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 										<div className="flex-1">
 											<h4 className="font-medium text-blue-900 mb-2">Реквізити для переказу</h4>
 											<div className="space-y-1 text-body-sm text-blue-800">
-												<p><strong>Банк:</strong> ПриватБанк</p>
+												<p><strong>Банк:</strong> Монобанк</p>
 												<div className="flex items-center gap-2">
 													<span><strong>Номер карти:</strong> 4149 4993 5699 6777</span>
 													<Button

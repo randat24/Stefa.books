@@ -144,7 +144,7 @@ export async function POST() {
     });
     
   } catch (error: any) {
-    logger.error('Database cleanup failed', { error }, 'Database');
+    logger.error('Database cleanup failed', error, 'Database');
     return NextResponse.json({ 
       success: false, 
       error: 'Database cleanup failed',

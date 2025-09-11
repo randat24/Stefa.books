@@ -344,7 +344,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
                     <div className={`w-4 h-4 rounded-2xl border-2 flex items-center justify-center ${
                       watch("payment_method") === 'Онлайн оплата' ? 'border-blue-500 bg-blue-500' : 'border-neutral-300'
                     }`}>
-                      {watch("payment_method") === 'Онлайн оплата' && <div className="w-1.5 h-1.5 bg-neutral-0 rounded-2xl" />}
+                      {watch("payment_method") === 'Онлайн оплата' && <div className="w-1.5 h-1.5 bg-white rounded-2xl" />}
                     </div>
                     <div>
                       <p className={`font-semibold text-body ${watch("payment_method") === 'Онлайн оплата' ? 'text-blue-900' : 'text-neutral-700'}`}>
@@ -369,14 +369,14 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
                     <div className={`w-4 h-4 rounded-2xl border-2 flex items-center justify-center ${
                       watch("payment_method") === 'Переказ на карту' ? 'border-green-500 bg-green-500' : 'border-neutral-300'
                     }`}>
-                      {watch("payment_method") === 'Переказ на карту' && <div className="w-1.5 h-1.5 bg-neutral-0 rounded-2xl" />}
+                      {watch("payment_method") === 'Переказ на карту' && <div className="w-1.5 h-1.5 bg-white rounded-2xl" />}
                     </div>
                     <div>
                       <p className={`font-semibold text-body ${watch("payment_method") === 'Переказ на карту' ? 'text-green-900' : 'text-neutral-700'}`}>
                         Переказ на карту
                       </p>
                       <p className={`text-caption ${watch("payment_method") === 'Переказ на карту' ? 'text-green-700' : 'text-neutral-500'}`}>
-                        ПриватБанк
+                        Монобанк
                       </p>
                     </div>
                   </div>
@@ -404,7 +404,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
                     {cardCopied ? 'Скопіровано!' : 'Копіювати'}
                   </Button>
                 </div>
-                <div className="bg-neutral-0 border border-green-300 rounded-lg p-3">
+                <div className="bg-white border border-green-300 rounded-lg p-3">
                   <code className="text-lg font-mono text-neutral-800 select-all">
                     {cardNumber}
                   </code>

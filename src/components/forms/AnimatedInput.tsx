@@ -74,7 +74,7 @@ export function AnimatedInput({
               ? "border-accent focus:ring-accent focus:border-accent"
               : "border-neutral-300 focus:ring-accent focus:border-accent"
             }
-            ${disabled ? "bg-neutral-100 cursor-not-allowed" : "bg-neutral-0"}
+            ${disabled ? "bg-neutral-100 cursor-not-allowed" : "bg-white"}
           `}
         />
 

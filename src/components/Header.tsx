@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Search, Menu, User, Heart, ShoppingCart } from 'lucide-react';
+import { Search, User, Heart } from 'lucide-react';
 
 export default function Header() {
   return (
@@ -9,10 +9,15 @@ export default function Header() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3" aria-label="Stefa.books - головна сторінка">
-            <div className="h-8 w-8 rounded-xl bg-[var(--brand)] ring-1 ring-black/5" />
+            <div className="h-8 w-8 rounded-xl ring-1 ring-black/5 overflow-hidden">
+              {/* Логотип без фона - прозрачный */}
+              <div className="h-full w-full bg-transparent flex items-center justify-center">
+                <div className="text-2xl">📚</div>
+              </div>
+            </div>
             <div>
-              <div className="h3">Stefa.Books</div>
-              <div className="small">Дитяча бібліотека</div>
+              <div className="text-lg font-bold">Stefa.books</div>
+              <div className="text-xs text-neutral-600">Дитяча бібліотека</div>
             </div>
           </Link>
 

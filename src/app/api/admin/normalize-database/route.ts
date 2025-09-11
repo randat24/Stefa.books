@@ -159,7 +159,7 @@ export async function POST() {
     });
     
   } catch (error: any) {
-    logger.error('Database normalization failed', { error }, 'Database');
+    logger.error('Database normalization failed', error, 'Database');
     return NextResponse.json({ 
       success: false, 
       error: 'Database normalization failed',

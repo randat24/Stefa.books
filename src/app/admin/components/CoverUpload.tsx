@@ -203,7 +203,7 @@ export function CoverUpload({
                   variant="outline"
                   onClick={handleClickUpload}
                   disabled={disabled || uploading}
-                  className="text-neutral-0 bg-neutral-0/20 hover:bg-neutral-0/30 border-neutral-0/20"
+                  className="text-neutral-0 bg-white/20 hover:bg-white/30 border-neutral-0/20"
                 >
                   <Upload className="size-4 mr-1" />
                   Змінити

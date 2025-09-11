@@ -107,7 +107,7 @@ export function CatalogSearchFilter({
               onChange={(e) => updateFilter('search', e.target.value)}
               onKeyDown={handleSearchKeyDown}
               placeholder="Пошук по назві, автору, опису..."
-              className="w-full h-12 pl-12 pr-12 rounded-2xl border-2 border-neutral-200 bg-neutral-0 text-neutral-900 placeholder:text-neutral-500 focus:border-accent-light focus:outline-none transition-colors"
+              className="w-full h-12 pl-12 pr-12 rounded-2xl border-2 border-neutral-200 bg-white text-neutral-900 placeholder:text-neutral-500 focus:border-accent-light focus:outline-none transition-colors"
             />
             {filters.search && (
               <button
@@ -124,7 +124,7 @@ export function CatalogSearchFilter({
             className={`p-3 rounded-2xl border-2 transition-colors relative ${
               showFilters 
                 ? 'bg-yellow-50 border-accent-light text-accent-dark' 
-                : 'bg-neutral-0 border-neutral-200 text-neutral-600 hover:border-neutral-300'
+                : 'bg-white border-neutral-200 text-neutral-600 hover:border-neutral-300'
             }`}
           >
             <Filter className="h-5 w-5" />
@@ -160,7 +160,7 @@ export function CatalogSearchFilter({
               </label>
               <button
                 onClick={() => setShowCategories(!showCategories)}
-                className="w-full p-3 text-left border border-neutral-300 rounded-lg bg-neutral-0 hover:bg-neutral-50 transition-colors flex items-center justify-between"
+                className="w-full p-3 text-left border border-neutral-300 rounded-lg bg-white hover:bg-neutral-50 transition-colors flex items-center justify-between"
               >
                 <span className={filters.category ? 'text-neutral-900' : 'text-neutral-500'}>
                   {filters.category || 'Всі категорії'}
@@ -169,7 +169,7 @@ export function CatalogSearchFilter({
               </button>
               
               {showCategories && (
-                <div className="absolute top-full left-0 right-0 mt-1 bg-neutral-0 border border-neutral-200 rounded-lg shadow-lg z-50 max-h-48 overflow-y-auto">
+                <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-neutral-200 rounded-lg shadow-lg z-50 max-h-48 overflow-y-auto">
                   <button
                     onClick={() => {
                       updateFilter('category', '');
@@ -204,7 +204,7 @@ export function CatalogSearchFilter({
               </label>
               <button
                 onClick={() => setShowAuthors(!showAuthors)}
-                className="w-full p-3 text-left border border-neutral-300 rounded-lg bg-neutral-0 hover:bg-neutral-50 transition-colors flex items-center justify-between"
+                className="w-full p-3 text-left border border-neutral-300 rounded-lg bg-white hover:bg-neutral-50 transition-colors flex items-center justify-between"
               >
                 <span className={filters.author ? 'text-neutral-900' : 'text-neutral-500'}>
                   {filters.author || 'Всі автори'}
@@ -213,7 +213,7 @@ export function CatalogSearchFilter({
               </button>
               
               {showAuthors && (
-                <div className="absolute top-full left-0 right-0 mt-1 bg-neutral-0 border border-neutral-200 rounded-lg shadow-lg z-50 max-h-48 overflow-y-auto">
+                <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-neutral-200 rounded-lg shadow-lg z-50 max-h-48 overflow-y-auto">
                   <button
                     onClick={() => {
                       updateFilter('author', '');
@@ -246,7 +246,7 @@ export function CatalogSearchFilter({
               <label className="block text-body-sm font-medium text-neutral-700 mb-2">
                 Доступність
               </label>
-              <label className="flex items-center gap-3 p-3 border border-neutral-300 rounded-lg bg-neutral-0 hover:bg-neutral-50 transition-colors cursor-pointer">
+              <label className="flex items-center gap-3 p-3 border border-neutral-300 rounded-lg bg-white hover:bg-neutral-50 transition-colors cursor-pointer">
                 <input
                   type="checkbox"
                   checked={filters.availableOnly}
@@ -265,7 +265,7 @@ export function CatalogSearchFilter({
               <select
                 value={filters.minRating}
                 onChange={(e) => updateFilter('minRating', Number(e.target.value))}
-                className="w-full p-3 border border-neutral-300 rounded-lg bg-neutral-0 focus:border-accent-light focus:outline-none transition-colors"
+                className="w-full p-3 border border-neutral-300 rounded-lg bg-white focus:border-accent-light focus:outline-none transition-colors"
               >
                 <option value={0}>Будь-який</option>
                 <option value={3}>3+ ⭐</option>

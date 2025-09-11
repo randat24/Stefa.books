@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error) {
-    logger.error('Unexpected error in rentals GET API:', { error });
+    logger.error('Unexpected error in rentals GET API:', error);
     return NextResponse.json(
       { success: false, error: 'Внутрішня помилка сервера' },
       { status: 500 }

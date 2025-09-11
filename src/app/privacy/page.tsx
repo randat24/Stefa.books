@@ -4,7 +4,7 @@ export default function PrivacyPage() {
   return (
     <div className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen min-h-screen bg-gradient-to-br from-neutral-50 to-white py-12">
       <div className="container mx-auto px-6 max-w-4xl">
-        <div className="bg-neutral-0 rounded-3xl shadow-xl p-8 lg:p-12">
+        <div className="bg-white rounded-3xl shadow-xl p-8 lg:p-12">
           <h1 className="text-h1 text-neutral-900 mb-6 text-center">
             Політика конфіденційності
           </h1>

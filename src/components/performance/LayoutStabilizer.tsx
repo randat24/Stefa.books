@@ -107,10 +107,10 @@ export function HeroSectionStabilizer({
         <div className="w-full h-full bg-gradient-to-r from-neutral-200 to-neutral-300 animate-pulse">
           <div className="container mx-auto px-6 h-full flex items-center">
             <div className="w-1/2 space-y-4">
-              <div className="h-12 bg-neutral-0/30 rounded w-3/4"></div>
-              <div className="h-4 bg-neutral-0/20 rounded w-full"></div>
-              <div className="h-4 bg-neutral-0/20 rounded w-2/3"></div>
-              <div className="h-10 bg-neutral-0/40 rounded w-48 mt-8"></div>
+              <div className="h-12 bg-white/30 rounded w-3/4"></div>
+              <div className="h-4 bg-white/20 rounded w-full"></div>
+              <div className="h-4 bg-white/20 rounded w-2/3"></div>
+              <div className="h-10 bg-white/40 rounded w-48 mt-8"></div>
             </div>
           </div>
         </div>
@@ -134,7 +134,7 @@ export function NavigationStabilizer({
       className="w-full sticky top-0 z-50"
       loading={loading}
       placeholder={
-        <div className="w-full h-full bg-neutral-0 shadow-sm border-b animate-pulse">
+        <div className="w-full h-full bg-white shadow-sm border-b animate-pulse">
           <div className="container mx-auto px-6 h-full flex items-center justify-between">
             <div className="h-8 bg-neutral-300 rounded w-32"></div>
             <div className="flex space-x-4">

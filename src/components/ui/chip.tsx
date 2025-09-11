@@ -35,7 +35,7 @@ export function Chip({
       "border",
       active
         ? "bg-neutral-900 text-neutral-0 border-neutral-900 shadow-md"
-        : "bg-neutral-0 text-neutral-700 border-neutral-200 hover:bg-neutral-50 hover:border-neutral-300"
+        : "bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-50 hover:border-neutral-300"
     )
   };
 
@@ -51,7 +51,7 @@ export function Chip({
         <span className={cn(
           "text-caption rounded-2xl px-2 py-0.5 font-bold",
           variant === 'button' && active 
-            ? "bg-neutral-0/20 text-neutral-0" 
+            ? "bg-white/20 text-neutral-0" 
             : "bg-neutral-200 text-neutral-600"
         )}>
           {count}

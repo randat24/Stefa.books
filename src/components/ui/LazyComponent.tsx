@@ -11,7 +11,7 @@ interface LazyComponentProps {
 
 // Skeleton компоненты для разных типов контента
 const BookCardSkeleton = () => (
-  <div className="bg-neutral-0 rounded-lg shadow-sm border border-neutral-200 p-4 animate-pulse">
+  <div className="bg-white rounded-lg shadow-sm border border-neutral-200 p-4 animate-pulse">
     <div className="w-full h-48 bg-neutral-200 rounded-md mb-4" />
     <div className="space-y-2">
       <div className="h-4 bg-neutral-200 rounded w-3/4" />

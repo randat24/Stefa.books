@@ -1,7 +1,7 @@
 'use client'
 
-import { memo, useCallback, useState, useMemo, useEffect } from 'react'
-import { Search, Filter, Grid, List, MoreHorizontal, RefreshCw, Settings, Download, Upload } from 'lucide-react'
+import { memo, useCallback, useState, useMemo } from 'react'
+import { Filter, Grid, List, RefreshCw, Settings, Download, Upload } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
 import OptimizedSearch from './OptimizedSearch'
@@ -17,7 +17,6 @@ interface OptimizedDataManagerProps<T> {
   className?: string
   searchable?: boolean
   searchPlaceholder?: string
-  searchFields?: (keyof T)[]
   filters?: Array<{
     key: string
     label: string
@@ -49,9 +48,6 @@ interface OptimizedDataManagerProps<T> {
     containerHeight: number
     overscan?: number
   }
-  selectable?: boolean
-  selectedItems?: T[]
-  onSelectionChange?: (items: T[]) => void
   getRowKey?: (item: T) => string | number
   error?: string | null
   onRetry?: () => void
@@ -78,7 +74,6 @@ const OptimizedDataManager = memo(function OptimizedDataManager<T>({
   className = '',
   searchable = true,
   searchPlaceholder = 'Пошук...',
-  searchFields = [],
   filters = [],
   onSearch,
   onFilter,
@@ -89,9 +84,6 @@ const OptimizedDataManager = memo(function OptimizedDataManager<T>({
   pagination,
   infiniteScroll,
   virtualization,
-  selectable = false,
-  selectedItems = [],
-  onSelectionChange,
   getRowKey = (item: T) => (item as any).id || Math.random().toString(),
   error,
   onRetry,
@@ -121,7 +113,7 @@ const OptimizedDataManager = memo(function OptimizedDataManager<T>({
   const [isImporting, setIsImporting] = useState(false)
 
   // Кэширование данных
-  const { data: cachedData, loading: cacheLoading, refresh: refreshCache } = useOptimizedCache(
+  const { loading: cacheLoading, refresh: refreshCache } = useOptimizedCache(
     cacheKey || 'data-manager',
     async () => data,
     {
@@ -254,7 +246,7 @@ const OptimizedDataManager = memo(function OptimizedDataManager<T>({
           {onRetry && (
             <button
               onClick={onRetry}
-              className="px-4 py-2 bg-blue-600 text-neutral-0 rounded-md hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-[var(--brand)] text-[#111827] rounded-md hover:bg-[var(--brand-600)] transition-colors"
             >
               Спробувати знову
             </button>
@@ -426,7 +418,7 @@ const OptimizedDataManager = memo(function OptimizedDataManager<T>({
 
           {/* Кнопка импорта */}
           {settings.showImport && onImport && (
-            <label className="flex items-center gap-2 px-3 py-2 text-body-sm font-medium text-neutral-700 bg-neutral-0 border border-neutral-300 rounded-md hover:bg-neutral-50 cursor-pointer transition-colors">
+            <label className="flex items-center gap-2 px-3 py-2 text-body-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-md hover:bg-neutral-50 cursor-pointer transition-colors">
               <Upload className="w-4 h-4" />
               Імпорт
               <input
@@ -494,7 +486,7 @@ const OptimizedDataManager = memo(function OptimizedDataManager<T>({
               </label>
               <select
                 value={pagination?.pageSize || 10}
-                onChange={(e) => {
+                onChange={() => {
                   // Обработка изменения размера страницы
                 }}
                 className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -512,7 +504,7 @@ const OptimizedDataManager = memo(function OptimizedDataManager<T>({
               </label>
               <select
                 value={virtualization?.enabled ? 'enabled' : 'disabled'}
-                onChange={(e) => {
+                onChange={() => {
                   // Обработка включения/выключения виртуализации
                 }}
                 className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"

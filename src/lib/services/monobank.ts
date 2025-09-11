@@ -92,7 +92,7 @@ export class MonobankService {
       };
 
     } catch (error) {
-      logger.error('Monobank service error', { error });
+      logger.error('Monobank service error', error);
       return {
         status: 'error',
         errText: error instanceof Error ? error.message : 'Unknown error',

@@ -102,7 +102,7 @@ function RentalSuccessContent() {
 							Заявка надіслана успішно!
 						</h1>
 						
-						<div className="bg-neutral-0 rounded-2xl shadow-lg border border-neutral-100 p-8 max-w-2xl mx-auto">
+						<div className="bg-white rounded-2xl shadow-lg border border-neutral-100 p-8 max-w-2xl mx-auto">
 							<div className="flex items-center justify-center gap-3 text-green-700 mb-4">
 								<Heart className="h-6 w-6" />
 								<span className="text-body-lg font-semibold">Дякуємо за довіру до Stefa.books</span>

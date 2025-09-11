@@ -135,7 +135,7 @@ export async function POST() {
     });
     
   } catch (error: any) {
-    logger.error('Category synchronization failed', { error }, 'Database');
+    logger.error('Category synchronization failed', error, 'Database');
     return NextResponse.json({ 
       success: false, 
       error: 'Category synchronization failed',

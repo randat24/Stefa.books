@@ -52,7 +52,7 @@ export const AccessibleButton = forwardRef<HTMLButtonElement, AccessibleButtonPr
         focus:ring-gray-500 shadow-sm hover:shadow-md
       `,
       outline: `
-        border border-neutral-300 bg-neutral-0 text-neutral-700 hover:bg-neutral-50
+        border border-neutral-300 bg-white text-neutral-700 hover:bg-neutral-50
         focus:ring-accent shadow-sm hover:shadow-md
       `,
       ghost: `

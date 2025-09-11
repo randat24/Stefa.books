@@ -111,7 +111,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    logger.error('Unexpected error in rent API:', { error });
+    logger.error('Unexpected error in rent API:', error);
     return NextResponse.json(
       { success: false, error: 'Внутрішня помилка сервера' },
       { status: 500 }
@@ -160,7 +160,7 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error) {
-    logger.error('Unexpected error in rent GET API:', { error });
+    logger.error('Unexpected error in rent GET API:', error);
     return NextResponse.json(
       { success: false, error: 'Внутрішня помилка сервера' },
       { status: 500 }

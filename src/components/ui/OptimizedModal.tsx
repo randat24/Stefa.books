@@ -120,7 +120,7 @@ const OptimizedModal = memo(function OptimizedModal({
       <div
         ref={modalRef}
         className={cn(
-          'relative bg-neutral-0 rounded-lg shadow-xl w-full',
+          'relative bg-white rounded-lg shadow-xl w-full',
           modalSizes[size],
           className
         )}

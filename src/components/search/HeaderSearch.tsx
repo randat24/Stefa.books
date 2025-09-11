@@ -167,7 +167,7 @@ export function HeaderSearch() {
         
         {/* Search Container */}
         <div className="relative top-20 mx-auto max-w-2xl px-4">
-          <div className="bg-neutral-0 rounded-2xl shadow-2xl border border-neutral-200 max-h-[80vh] overflow-hidden flex flex-col">
+          <div className="bg-white rounded-2xl shadow-2xl border border-neutral-200 max-h-[80vh] overflow-hidden flex flex-col">
               {/* Search Bar */}
               <div className="flex items-center px-4 py-3">
                 <Search className="h-5 w-5 text-neutral-400 mr-3" />
@@ -329,7 +329,7 @@ export function HeaderSearch() {
                   </div>
 
                   {/* Fixed Bottom Action */}
-                  <div className="border-t border-neutral-100 p-4 bg-neutral-0">
+                  <div className="border-t border-neutral-100 p-4 bg-white">
                     <button
                       onClick={handleSearch}
                       className="w-full py-3 bg-accent text-neutral-900 font-medium rounded-2xl hover:bg-accent-light transition flex items-center justify-center gap-2"
@@ -348,7 +348,7 @@ export function HeaderSearch() {
                     <div className="text-neutral-500">Результатів не знайдено</div>
                   </div>
                   {/* Fixed Bottom Action */}
-                  <div className="border-t border-neutral-100 p-4 bg-neutral-0">
+                  <div className="border-t border-neutral-100 p-4 bg-white">
                     <button
                       onClick={handleSearch}
                       className="w-full py-3 bg-accent text-neutral-900 font-medium rounded-2xl hover:bg-accent-light transition flex items-center justify-center gap-2"
@@ -370,7 +370,7 @@ export function HeaderSearch() {
                     </div>
                   </div>
                   {/* Fixed Bottom Action */}
-                  <div className="border-t border-neutral-100 p-4 bg-neutral-0">
+                  <div className="border-t border-neutral-100 p-4 bg-white">
                     <button
                       onClick={handleSearch}
                       className="w-full py-3 bg-accent text-neutral-900 font-medium rounded-2xl hover:bg-accent-light transition flex items-center justify-center gap-2"

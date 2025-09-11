@@ -59,7 +59,7 @@ export async function POST(request: Request) {
         .single();
 
       if (error) {
-        logger.error('Failed to create main category', { error }, 'Admin');
+        logger.error('Failed to create main category', error, 'Admin');
         return NextResponse.json(
           { success: false, error: error.message },
           { status: 500 }
@@ -98,7 +98,7 @@ export async function POST(request: Request) {
         .single();
 
       if (error) {
-        logger.error('Failed to create subcategory', { error }, 'Admin');
+        logger.error('Failed to create subcategory', error, 'Admin');
         return NextResponse.json(
           { success: false, error: error.message },
           { status: 500 }
@@ -114,7 +114,7 @@ export async function POST(request: Request) {
     }
 
   } catch (error: any) {
-    logger.error('API error', { error }, 'Admin');
+    logger.error('API error', error, 'Admin');
     return NextResponse.json(
       { 
         success: false, 

@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: any) {
-    logger.error('Registration API error', { error }, 'Auth');
+    logger.error('Registration API error', error, 'Auth');
     
     if (error.name === 'ZodError') {
       return NextResponse.json(

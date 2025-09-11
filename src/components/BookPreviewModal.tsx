@@ -59,7 +59,7 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
   const rating = book.rating ?? 0;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Швидкий перегляд" className="max-w-4xl">
+    <Modal isOpen={isOpen} onClose={onClose} title="Швидкий перегляд" className="max-w-4xl bg-white">
       <div className="grid md:grid-cols-[250px_1fr] gap-6">
         {/* Book cover */}
         <div className="mx-auto md:mx-0">
@@ -79,13 +79,13 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
         <div className="space-y-4">
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1">
-              {book.available && (
-                <div className="mb-2">
-                  <span className="text-caption font-medium text-green-700 bg-green-100 px-2 py-1 rounded-2xl">
-                    ✓ Доступна для оренди
-                  </span>
-                </div>
-              )}
+        {book.available && (
+          <div className="mb-2">
+            <span className="text-caption font-medium text-green-700 bg-green-100 px-2 py-1 rounded-2xl">
+              ✓ Доступна для оренди
+            </span>
+          </div>
+        )}
               <h3 className="text-h2 text-[--ink] mb-2">{book.title}</h3>
               <p className="text-body-lg text-[--muted] mb-1">{book.author}</p>
               <p className="text-body-sm text-[--muted]">
@@ -143,25 +143,25 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
           )}
 
           {/* Subscription Info */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-4 border border-blue-200">
-            <h4 className="font-semibold text-blue-900 mb-2">Оренда за підпискою</h4>
+          <div className="bg-gradient-to-r from-amber-50 to-yellow-50 rounded-lg p-4 border border-amber-200">
+            <h4 className="font-semibold text-amber-900 mb-2">Оренда за підпискою</h4>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-blue-700">Mini:</span>
-                <span className="font-medium text-blue-900">300₴/міс (1 книга)</span>
+                <span className="text-amber-700">Mini:</span>
+                <span className="font-medium text-amber-900">300₴/міс (1 книга)</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-blue-700">Maxi:</span>
-                <span className="font-medium text-blue-900">500₴/міс (2 книги)</span>
+                <span className="text-amber-700">Maxi:</span>
+                <span className="font-medium text-amber-900">500₴/міс (2 книги)</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-blue-700">Premium:</span>
-                <span className="font-medium text-blue-900">1500₴/6 міс (2 книги)</span>
+                <span className="text-amber-700">Premium:</span>
+                <span className="font-medium text-amber-900">1500₴/6 міс (2 книги)</span>
               </div>
             </div>
             <Link 
               href="/subscription" 
-              className="inline-block mt-3 text-blue-600 hover:text-blue-800 text-body-sm font-medium"
+              className="inline-block mt-3 text-[var(--brand)] hover:text-[var(--brand-600)] text-body-sm font-medium"
             >
               Переглянути всі плани →
             </Link>
@@ -181,12 +181,12 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
             {/* Subscription and Details buttons */}
             <div className="grid grid-cols-2 gap-4">
               <Link href="/subscription" className="w-full">
-                <Button className="w-full bg-accent text-brand hover:bg-accent-light">
+                <Button className="w-full bg-[var(--brand)] text-[#111827] hover:bg-[var(--brand-600)]">
                   Оформити підписку
                 </Button>
               </Link>
               <Link href={`/books/${book.id}`} className="w-full">
-                <Button className="w-full bg-black text-neutral-0 hover:bg-neutral-800">
+                <Button variant="secondary" className="w-full">
                   Детальніше про книгу
                 </Button>
               </Link>

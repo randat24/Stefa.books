@@ -87,7 +87,7 @@ export function RecentViews({
   // Show loading state briefly
   if (isLoading) {
     return (
-      <section className="py-16 lg:py-24 bg-neutral-0">
+      <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="flex items-center justify-center gap-3 text-neutral-600">
@@ -106,7 +106,7 @@ export function RecentViews({
   }
 
   return (
-    <section className="py-16 lg:py-24 bg-neutral-0">
+    <section className="py-16 lg:py-24 bg-white">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8 lg:mb-12 relative">

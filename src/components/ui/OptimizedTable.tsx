@@ -195,7 +195,7 @@ const OptimizedTable = memo(function OptimizedTable<T>({
               ))}
             </tr>
           </thead>
-          <tbody className="bg-neutral-0 divide-y divide-gray-200">
+          <tbody className="bg-white divide-y divide-gray-200">
             {paginatedData.map((item, index) => {
               const key = getRowKey(item)
               const isSelected = selectedRows.has(key)

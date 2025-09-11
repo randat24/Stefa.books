@@ -55,7 +55,7 @@ export function BookShareMenu({ title, author, url }: BookShareMenuProps) {
       </Button>
       
       {isMenuOpen && (
-        <div className="absolute top-12 left-0 right-0 bg-neutral-0 border border-neutral-200 rounded-lg shadow-lg p-4 z-10">
+        <div className="absolute top-12 left-0 right-0 bg-white border border-neutral-200 rounded-lg shadow-lg p-4 z-10">
           <div className="space-y-2">
             {/* Copy Link */}
             <Button

@@ -195,14 +195,15 @@ export async function GET(request: NextRequest) {
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Базовый запрос - только существующие поля
-    let queryBuilder = supabase
-      .from('books')
-      .select(`
-        id, code, title, author, isbn, description, cover_url, category_id, available,
-        created_at, updated_at
-      `)
-      .order(sortBy, { ascending: sortOrder === 'asc' })
-      .range(offset, offset + limit - 1);
+  let queryBuilder = supabase
+    .from('books')
+    .select(`
+      id, title, author, category, description, pages, cover_url,
+      is_active, subcategory_id, author_text, author_id,
+      search_vector, search_text, created_at, updated_at
+    `)
+    .order(sortBy, { ascending: sortOrder === 'asc' })
+    .range(offset, offset + limit - 1);
 
     // Применяем фильтры
     if (query) {
@@ -211,7 +212,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (category) {
-      queryBuilder = queryBuilder.ilike('category_id', `%${category}%`);
+      queryBuilder = queryBuilder.ilike('category', `%${category}%`);
     }
 
     if (author) {
@@ -219,14 +220,14 @@ export async function GET(request: NextRequest) {
     }
 
     if (available) {
-      queryBuilder = queryBuilder.eq('available', true);
+      queryBuilder = queryBuilder.eq('is_active', true);
     }
     
     // Выполняем запрос
     const { data: books, error, count } = await queryBuilder;
 
     if (error) {
-      logger.error('Database error when fetching books', { error });
+      logger.error('Database error when fetching books', error);
       return NextResponse.json(
         { error: 'Ошибка при получении книг' },
         { status: 500 }
@@ -263,10 +264,17 @@ export async function GET(request: NextRequest) {
     //   }
     // }
 
+    // Маппим поля для совместимости с типами
+    const mappedBooks = (books || []).map(book => ({
+      ...book,
+      available: book.is_active,
+      category_id: book.category
+    }));
+
     return NextResponse.json({
       success: true,
-      data: books || [],
-      books: books || [],
+      data: mappedBooks,
+      books: mappedBooks,
       pagination: {
         total: totalCount || 0,
         limit,
@@ -282,7 +290,7 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error) {
-    logger.error('Unexpected error in books API', { error });
+    logger.error('Unexpected error in books API', error);
     return NextResponse.json(
       { error: 'Внутрішня помилка сервера' },
       { status: 500 }
@@ -324,7 +332,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ book });
 
   } catch (error) {
-    logger.error('Unexpected error in book detail API', { error });
+    logger.error('Unexpected error in book detail API', error);
     return NextResponse.json(
       { error: 'Внутрішня помилка сервера' },
       { status: 500 }

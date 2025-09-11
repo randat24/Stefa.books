@@ -347,7 +347,7 @@ export function ResponsiveModal({
       
       <div
         className={`
-          relative bg-neutral-0 rounded-xl shadow-2xl w-full
+          relative bg-white rounded-xl shadow-2xl w-full
           ${getSizeClasses()}
           ${className}
         `}

@@ -28,7 +28,7 @@ export default function Contacts() {
 				<div className="grid lg:grid-cols-2 gap-12 items-start">
 					{/* Контактна інформація */}
 					<div className="space-y-8">
-						<div className="bg-neutral-0 rounded-2xl p-8 shadow-lg border border-neutral-200">
+						<div className="bg-white rounded-2xl p-8 shadow-lg border border-neutral-200">
 							<h3 className="text-h2 text-neutral-900 mb-6">
 								Контактна інформація
 							</h3>
@@ -88,7 +88,7 @@ export default function Contacts() {
 							</div>
 						</div>
 
-						<div className="bg-neutral-0 rounded-2xl p-8 shadow-lg border border-neutral-200">
+						<div className="bg-white rounded-2xl p-8 shadow-lg border border-neutral-200">
 							<h3 className="text-h2 text-neutral-900 mb-6">
 								Швидка підтримка
 							</h3>
@@ -103,7 +103,7 @@ export default function Contacts() {
 					</div>
 
 					{/* Форма зворотного зв'язку */}
-					<div className="bg-neutral-0 rounded-2xl p-8 shadow-lg border border-neutral-200">
+					<div className="bg-white rounded-2xl p-8 shadow-lg border border-neutral-200">
 						<h3 className="text-h2 text-neutral-900 mb-6">
 							Напишіть нам
 						</h3>

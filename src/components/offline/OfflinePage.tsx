@@ -98,7 +98,7 @@ export function OfflinePage({
           {showHomeLink && (
             <Link
               href="/"
-              className="w-full bg-neutral-0 hover:bg-neutral-50 text-neutral-900 py-3 px-6 rounded-lg font-medium border border-neutral-200 transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-white hover:bg-neutral-50 text-neutral-900 py-3 px-6 rounded-lg font-medium border border-neutral-200 transition-colors flex items-center justify-center gap-2"
             >
               <Home className="w-5 h-5" />
               На головну

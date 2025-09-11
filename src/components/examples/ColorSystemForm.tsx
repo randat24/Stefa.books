@@ -43,7 +43,7 @@ export function FormField({
             ? 'border-error focus:ring-error-500' 
             : 'border-neutral-200 focus:ring-brand-500'
           }
-          ${disabled ? 'bg-neutral-100' : 'bg-neutral-0'}
+          ${disabled ? 'bg-neutral-100' : 'bg-white'}
         `}
       />
       {error && (
@@ -90,7 +90,7 @@ export function SelectField({
             ? 'border-error focus:ring-error-500' 
             : 'border-neutral-200 focus:ring-brand-500'
           }
-          ${disabled ? 'bg-neutral-100' : 'bg-neutral-0'}
+          ${disabled ? 'bg-neutral-100' : 'bg-white'}
         `}
       >
         {options.map((option) => (
@@ -147,7 +147,7 @@ export function TextAreaField({
             ? 'border-error focus:ring-error-500' 
             : 'border-neutral-200 focus:ring-brand-500'
           }
-          ${disabled ? 'bg-neutral-100' : 'bg-neutral-0'}
+          ${disabled ? 'bg-neutral-100' : 'bg-white'}
         `}
       />
       {error && (
@@ -253,7 +253,7 @@ export function FormExamples() {
             </button>
             <button
               type="button"
-              className="bg-neutral-0 text-neutral-900 border border-neutral-300 px-6 py-2 rounded-lg hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-colors"
+              className="bg-white text-neutral-900 border border-neutral-300 px-6 py-2 rounded-lg hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-colors"
             >
               Cancel
             </button>

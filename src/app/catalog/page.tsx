@@ -1,4 +1,3 @@
-import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { ChevronRight } from 'lucide-react';
@@ -36,11 +35,28 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function CatalogPage() {
-	// Загружаем категории напрямую из Supabase на сервере
-	const { data: categories, error } = await supabase
-		.from('categories')
-		.select('*')
-		.order('name');
+	// Загружаем категории через API, который правильно обрабатывает структуру БД
+	let categories: any[] = [];
+	let error: string | null = null;
+	
+	try {
+		const response = await fetch('/api/categories', {
+			cache: 'no-store'
+		});
+		
+		if (response.ok) {
+			const data = await response.json();
+			if (data.success) {
+				categories = data.data;
+			} else {
+				error = data.error || 'Помилка завантаження категорій';
+			}
+		} else {
+			error = `HTTP ${response.status}: ${response.statusText}`;
+		}
+	} catch (err) {
+		error = err instanceof Error ? err.message : 'Невідома помилка';
+	}
 	
 	return (
 		<div className="container-default py-8">
@@ -61,31 +77,54 @@ export default async function CatalogPage() {
 			{/* Server-side Categories */}
 			<div className="max-w-4xl mx-auto mt-8">
 				<h2 className="text-h2 text-neutral-900 mb-8">📚 Повний каталог</h2>
-				{categories && !error ? (
+				{categories && categories.length > 0 && !error ? (
 					<div className="space-y-6">
 						{categories.map((category: any) => (
-							<Link
-								key={category.id}
-								href={`/books?category=${encodeURIComponent(category.name)}`}
-								className="flex items-center gap-3 p-4 rounded-xl hover:bg-neutral-50 transition-colors"
-								style={{ 
-									backgroundColor: category.color ? `${category.color}20` : '#F8FAFC',
-									borderLeft: `4px solid ${category.color || '#64748B'}` 
-								}}
-							>
-								<span className="text-h2">{category.icon || '📚'}</span>
-								<h3 className="text-body-lg font-semibold text-neutral-800 group-hover:text-neutral-900">
-									{category.name}
-								</h3>
-								<span className="ml-auto text-body-sm text-neutral-500 bg-neutral-0 px-2 py-1 rounded-2xl">
-									Переглянути книги →
-								</span>
-							</Link>
+							<div key={category.id} className="space-y-4">
+								{/* Основная категория */}
+								<Link
+									href={`/books?category=${encodeURIComponent(category.name)}`}
+									className="flex items-center gap-3 p-4 rounded-xl hover:bg-neutral-50 transition-colors border-l-4"
+									style={{ 
+										backgroundColor: category.color ? `${category.color}20` : '#F8FAFC',
+										borderLeftColor: category.color || '#64748B'
+									}}
+								>
+									<span className="text-h2">{category.icon || '📚'}</span>
+									<h3 className="text-body-lg font-semibold text-neutral-800 group-hover:text-neutral-900">
+										{category.name}
+									</h3>
+									<span className="ml-auto text-body-sm text-neutral-500 bg-white px-2 py-1 rounded-2xl">
+										Переглянути книги →
+									</span>
+								</Link>
+								
+								{/* Подкатегории */}
+								{category.subcategories && category.subcategories.length > 0 && (
+									<div className="ml-6 space-y-2">
+										{category.subcategories.map((subcategory: any) => (
+											<Link
+												key={subcategory.id}
+												href={`/books?category=${encodeURIComponent(subcategory.name)}`}
+												className="flex items-center gap-3 p-3 rounded-lg hover:bg-neutral-50 transition-colors text-sm"
+											>
+												<span className="text-lg">{subcategory.icon || '📖'}</span>
+												<span className="text-neutral-700 hover:text-neutral-900">
+													{subcategory.name}
+												</span>
+												<span className="ml-auto text-xs text-neutral-400">
+													→
+												</span>
+											</Link>
+										))}
+									</div>
+								)}
+							</div>
 						))}
 					</div>
 				) : (
 					<div className="text-center py-12 text-red-600">
-						❌ Помилка завантаження категорій: {error?.message}
+						❌ Помилка завантаження категорій: {error || 'Категорії не знайдено'}
 					</div>
 				)}
 			</div>

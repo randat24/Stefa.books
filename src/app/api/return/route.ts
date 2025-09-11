@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    logger.error('Unexpected error in return API:', { error });
+    logger.error('Unexpected error in return API:', error);
     return NextResponse.json(
       { success: false, error: 'Внутрішня помилка сервера' },
       { status: 500 }
@@ -173,7 +173,7 @@ export async function GET(request: NextRequest) {
     });
 
   } catch (error) {
-    logger.error('Unexpected error in return GET API:', { error });
+    logger.error('Unexpected error in return GET API:', error);
     return NextResponse.json(
       { success: false, error: 'Внутрішня помилка сервера' },
       { status: 500 }

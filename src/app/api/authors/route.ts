@@ -20,7 +20,7 @@ export async function GET() {
       .order('name', { ascending: true });
 
     if (error) {
-      logger.error('Failed to fetch authors', { error }, 'API');
+      logger.error('Failed to fetch authors', error, 'API');
       return NextResponse.json(
         { success: false, error: error.message },
         { status: 500 }
@@ -36,7 +36,7 @@ export async function GET() {
     });
 
   } catch (error: any) {
-    logger.error('API error', { error }, 'API');
+    logger.error('API error', error, 'API');
     return NextResponse.json(
       { 
         success: false, 
@@ -81,7 +81,7 @@ export async function POST(request: Request) {
       .single();
 
     if (error) {
-      logger.error('Failed to create author', { error }, 'API');
+      logger.error('Failed to create author', error, 'API');
       return NextResponse.json(
         { success: false, error: error.message },
         { status: 500 }
@@ -96,7 +96,7 @@ export async function POST(request: Request) {
     });
 
   } catch (error: any) {
-    logger.error('API error', { error }, 'API');
+    logger.error('API error', error, 'API');
     return NextResponse.json(
       { 
         success: false, 

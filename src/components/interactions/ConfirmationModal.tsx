@@ -87,7 +87,7 @@ export function ConfirmationModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="relative bg-neutral-0 rounded-2xl shadow-2xl max-w-md w-full p-6"
+            className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-6"
           >
             {/* Close Button */}
             <motion.button

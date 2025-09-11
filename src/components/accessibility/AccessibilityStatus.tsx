@@ -212,7 +212,7 @@ export function DevAccessibilityChecker({
           containerRef={containerRef}
           showDetails={true}
           autoCheck={true}
-          className="bg-neutral-0 shadow-lg rounded-lg p-3 border"
+          className="bg-white shadow-lg rounded-lg p-3 border"
         />
       </div>
     </div>

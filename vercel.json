@@ -9,6 +9,9 @@
   "functions": {
     "src/app/api/**/*.ts": {
       "maxDuration": 30
+    },
+    "src/app/api/payments/monobank/webhook/route.ts": {
+      "maxDuration": 10
     }
   },
   "headers": [

@@ -311,9 +311,11 @@ export default function Categories() {
 						if (mainCategory.subcategories && mainCategory.subcategories.length > 0) {
 							// Если есть подкатегории, используем их
 							mainCategory.subcategories.forEach((subcategory: Category) => {
-								const booksInCategory = books.filter((book: Book) => 
-									book.subcategory === subcategory.name
-								)
+								const booksInCategory = books.filter((book: Book) => {
+									if (!book.category) return false
+									// Проверяем, содержит ли поле category название подкатегории
+									return book.category.includes(subcategory.name)
+								})
 								const availableBooks = booksInCategory.filter((book: Book) => book.available)
 								
 								categoryStats.push({
@@ -330,7 +332,7 @@ export default function Categories() {
 							// Проверяем, есть ли книги в этой категории
 							const booksInCategory = books.filter((book: Book) => {
 								if (!book.category) return false
-								return book.category === mainCategory.name
+								return book.category.includes(mainCategory.name)
 							})
 							const availableBooks = booksInCategory.filter((book: Book) => book.available)
 							
@@ -385,7 +387,7 @@ export default function Categories() {
 				</div>
 				<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 					{[...Array(6)].map((_, i) => (
-						<div key={i} className="rounded-3xl border border-neutral-200 bg-neutral-0 p-6 animate-pulse">
+						<div key={i} className="rounded-3xl border border-neutral-200 bg-white p-6 animate-pulse">
 							<div className="flex items-start gap-4">
 								<div className="size-12 rounded-2xl bg-neutral-200"></div>
 								<div className="grid gap-2 flex-1">

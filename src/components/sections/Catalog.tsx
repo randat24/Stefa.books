@@ -3,7 +3,7 @@ import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { Search, X, BookOpen, Loader2 } from 'lucide-react';
 import BookCard from '@/components/BookCard';
-import { fetchNewBooks, fetchCategories, getCategoriesFromBooks, flattenCategories } from '@/lib/api/books';
+import { fetchNewBooks, fetchCategories, getCategoriesFromBooks } from '@/lib/api/books';
 import type { Book } from '@/lib/supabase';
 
 export function Catalog() {
@@ -35,15 +35,17 @@ export function Catalog() {
         }
 
         if (categoriesResponse.success) {
-          // Если это новая структурированная система, преобразуем в плоский список
+          // Преобразуем объекты категорий в массив строк
           let categoryList: string[] = [];
           
-          if (categoriesResponse.type === 'structured') {
-            // Используем подкатегории из новой системы
-            categoryList = flattenCategories(categoriesResponse.data);
-          } else {
-            // Старая система - просто массив строк
-            categoryList = categoriesResponse.data as any;
+          if (Array.isArray(categoriesResponse.data)) {
+            // Если это массив объектов с полем name
+            if (categoriesResponse.data.length > 0 && typeof categoriesResponse.data[0] === 'object' && 'name' in categoriesResponse.data[0]) {
+              categoryList = categoriesResponse.data.map((cat: any) => cat.name);
+            } else {
+              // Если это уже массив строк
+              categoryList = categoriesResponse.data as unknown as string[];
+            }
           }
           
           // Также добавляем категории из самих книг для полноты
@@ -79,7 +81,9 @@ export function Catalog() {
         // Для "Новинки" показываем последние добавленные книги (уже отсортированы по created_at DESC)
         filtered = books.slice(0, 12);
       } else {
-        filtered = filtered.filter(book => book.category_id === selectedCategory);
+        filtered = filtered.filter(book => 
+          book.category_id === selectedCategory
+        );
       }
     }
 

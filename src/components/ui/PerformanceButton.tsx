@@ -19,10 +19,10 @@ interface PerformanceButtonProps {
 
 const buttonVariants = {
   default: 'bg-neutral-900 text-neutral-0 hover:bg-neutral-800 focus:ring-gray-500',
-  outline: 'border border-neutral-300 bg-neutral-0 text-neutral-700 hover:bg-neutral-50 focus:ring-gray-500',
+  outline: 'border border-neutral-300 bg-white text-neutral-700 hover:bg-neutral-50 focus:ring-gray-500',
   ghost: 'text-neutral-700 hover:bg-neutral-100 focus:ring-gray-500',
   destructive: 'bg-red-600 text-neutral-0 hover:bg-red-700 focus:ring-red-500',
-  primary: 'bg-blue-600 text-neutral-0 hover:bg-blue-700 focus:ring-blue-500',
+  primary: 'bg-[var(--brand)] text-[#111827] hover:bg-[var(--brand-600)] focus:ring-[var(--brand)]',
 }
 
 const buttonSizes = {

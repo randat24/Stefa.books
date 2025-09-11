@@ -53,7 +53,7 @@ export function Skeleton({
 // Predefined skeleton components
 export function BookCardSkeleton() {
   return (
-    <div className="flex flex-col overflow-hidden rounded-xl bg-neutral-0">
+    <div className="flex flex-col overflow-hidden rounded-xl bg-white">
       <Skeleton className="aspect-[3/4] w-full rounded-t-xl" />
       <div className="flex flex-1 flex-col gap-3 px-4 pb-5 pt-4">
         <Skeleton className="h-6 w-3/4" />
@@ -117,7 +117,7 @@ export function SearchResultsSkeleton() {
 
 export function HeaderSkeleton() {
   return (
-    <header className="w-full sticky top-0 z-40 bg-neutral-0/80 backdrop-blur border-b border-neutral-200">
+    <header className="w-full sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-3">
           <Skeleton className="h-10 w-10 rounded-2xl" />

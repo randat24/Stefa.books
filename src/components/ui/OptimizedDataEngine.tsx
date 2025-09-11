@@ -624,7 +624,7 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
 
           {/* Кнопка импорта */}
           {settings.showImport && onImport && (
-            <label className="flex items-center gap-2 px-3 py-2 text-body-sm font-medium text-neutral-700 bg-neutral-0 border border-neutral-300 rounded-md hover:bg-neutral-50 cursor-pointer transition-colors">
+            <label className="flex items-center gap-2 px-3 py-2 text-body-sm font-medium text-neutral-700 bg-white border border-neutral-300 rounded-md hover:bg-neutral-50 cursor-pointer transition-colors">
               <Upload className="w-4 h-4" />
               Імпорт
               <input

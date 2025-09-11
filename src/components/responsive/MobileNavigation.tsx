@@ -164,7 +164,7 @@ export function MobileNavigation({
         <div
           ref={menuRef}
           className="
-            fixed inset-0 z-50 bg-neutral-0
+            fixed inset-0 z-50 bg-white
             transform transition-transform duration-300 ease-in-out
           "
         >
@@ -221,7 +221,7 @@ export function MobileHeader({
   return (
     <header
       className={`
-        bg-neutral-0 border-b border-neutral-200 px-4 py-3
+        bg-white border-b border-neutral-200 px-4 py-3
         ${sticky ? 'sticky top-0 z-40' : ''}
         ${className}
       `}
@@ -261,7 +261,7 @@ export function MobileFooter({
   return (
     <footer
       className={`
-        bg-neutral-0 border-t border-neutral-200 px-4 py-3
+        bg-white border-t border-neutral-200 px-4 py-3
         ${fixed ? 'fixed bottom-0 left-0 right-0 z-40' : ''}
         ${className}
       `}
@@ -325,7 +325,7 @@ export function MobileCard({
   const { isMobile } = useBreakpoint();
 
   const baseClasses = `
-    bg-neutral-0 rounded-lg border border-neutral-200
+    bg-white rounded-lg border border-neutral-200
     ${clickable ? 'cursor-pointer hover:shadow-md transition-shadow' : ''}
   `;
 

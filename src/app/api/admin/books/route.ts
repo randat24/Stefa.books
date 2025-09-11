@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
 
     const supabase = createClient(supabaseUrl, supabaseKey)
 
-    // АДМИНСКИЙ запрос - ВСЕ поля включая qty_total, qty_available, price_uah, full_price_uah, publisher
+    // АДМИНСКИЙ запрос - загружаем все поля из таблицы books
     let queryBuilder = supabase
       .from('books')
       .select('*')
@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
     const { data: books, error, count } = await queryBuilder
 
     if (error) {
-      logger.error('Admin API: Database error when fetching books', { error })
+      logger.error('Admin API: Database error when fetching books', error)
       return NextResponse.json(
         { error: 'Ошибка при получении книг' },
         { status: 500 }
@@ -66,8 +66,38 @@ export async function GET(request: NextRequest) {
       totalCount = total
     }
 
+    // Обрабатываем данные для соответствия ожидаемой структуре
+    const processedBooks = books?.map((book: any) => ({
+      ...book,
+      // Генерируем код книги на основе ID (первые 8 символов)
+      code: book.id ? book.id.substring(0, 8).toUpperCase() : 'N/A',
+      // Используем поле category как category_name
+      category_name: book.category || 'No category',
+      category_id: null, // В текущей структуре нет связи с таблицей категорий
+      // Добавляем поля, которые ожидает админ панель
+      qty_total: 1, // По умолчанию 1 экземпляр
+      qty_available: book.is_active ? 1 : 0, // Доступно если активно
+      price_uah: null, // Цена не указана в текущей структуре
+      status: book.is_active ? 'available' : 'lost', // Статус на основе is_active
+      available: book.is_active || false,
+      // Дополнительные поля
+      subcategory: null,
+      short_description: null,
+      isbn: null,
+      pages: book.pages || null,
+      age_range: null,
+      language: 'uk',
+      publisher: null,
+      publication_year: null,
+      location: null,
+      rating: null,
+      rating_count: null,
+      badges: null,
+      tags: null
+    })) || []
+
     logger.info('Admin API: Books fetched successfully', { 
-      count: books?.length || 0,
+      count: processedBooks?.length || 0,
       total: totalCount,
       query,
       category 
@@ -75,14 +105,14 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      data: books || [],
-      count: books?.length || 0,
+      data: processedBooks,
+      count: processedBooks?.length || 0,
       total: totalCount || 0,
       hasMore: (offset + limit) < (totalCount || 0)
     })
 
   } catch (error) {
-    logger.error('Admin API: Unexpected error in GET /api/admin/books', { error })
+    logger.error('Admin API: Unexpected error in GET /api/admin/books', error)
     return NextResponse.json(
       { error: 'Внутренняя ошибка сервера' },
       { status: 500 }

@@ -143,9 +143,9 @@ export function FilterPopup({ isOpen, onClose }: FilterPopupProps) {
       <div className="absolute inset-0" onClick={onClose} />
       
       {/* Popup Content */}
-      <div className="relative bg-neutral-0 min-h-screen md:min-h-0 md:max-h-[90vh] md:rounded-2xl md:m-4 md:mx-auto md:max-w-6xl md:mt-20 overflow-y-auto">
+      <div className="relative bg-white min-h-screen md:min-h-0 md:max-h-[90vh] md:rounded-2xl md:m-4 md:mx-auto md:max-w-6xl md:mt-20 overflow-y-auto">
         {/* Header */}
-        <div className="sticky top-0 bg-neutral-0 border-b border-neutral-200 px-6 py-4 flex items-center justify-between">
+        <div className="sticky top-0 bg-white border-b border-neutral-200 px-6 py-4 flex items-center justify-between">
           <h2 className="text-h2 text-neutral-900">Каталог</h2>
           <button
             onClick={onClose}
@@ -186,7 +186,7 @@ export function FilterPopup({ isOpen, onClose }: FilterPopupProps) {
               </div>
               <button
                 onClick={handleShowAll}
-                className="ml-auto px-4 py-2 bg-neutral-0 border border-neutral-200 rounded-2xl text-body-sm font-medium hover:bg-neutral-50 transition flex items-center gap-2"
+                className="ml-auto px-4 py-2 bg-white border border-neutral-200 rounded-2xl text-body-sm font-medium hover:bg-neutral-50 transition flex items-center gap-2"
               >
                 Показати все
                 <Grid3X3 className="h-4 w-4" />

@@ -50,7 +50,7 @@ export function LoadMoreButton({
       <button
         onClick={handleClick}
         disabled={isLoading}
-        className="inline-flex items-center gap-2 px-6 py-3 text-body-sm font-medium text-neutral-700 bg-neutral-0 border-2 border-neutral-300 rounded-lg hover:bg-neutral-50 hover:border-accent-light focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-neutral-0 disabled:hover:border-neutral-300 transition-all duration-200"
+        className="inline-flex items-center gap-2 px-6 py-3 text-body-sm font-medium text-neutral-700 bg-white border-2 border-neutral-300 rounded-lg hover:bg-neutral-50 hover:border-accent-light focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-neutral-300 transition-all duration-200"
       >
         {isLoading ? (
           <>

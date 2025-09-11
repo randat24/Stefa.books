@@ -2,7 +2,7 @@ import TextHighlight from '@/components/ui/TextHighlight'
 
 export default function TestHighlightPage() {
 	return (
-		<div className="min-h-screen bg-neutral-0 py-16">
+		<div className="min-h-screen bg-white py-16">
 			<div className="container mx-auto px-4 max-w-4xl">
 				<h1 className="text-h1 text-neutral-900 mb-8">
 					Тест фирменного выделения текста

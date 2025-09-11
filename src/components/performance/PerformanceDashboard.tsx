@@ -151,9 +151,9 @@ export default function PerformanceDashboard() {
 
       {/* Dashboard Panel */}
       {isVisible && (
-        <div className="w-96 max-h-96 overflow-y-auto bg-neutral-0 border border-neutral-200 rounded-lg shadow-lg">
+        <div className="w-96 max-h-96 overflow-y-auto bg-white border border-neutral-200 rounded-lg shadow-lg">
           {/* Header */}
-          <div className="sticky top-0 bg-neutral-0 border-b border-neutral-200 p-4">
+          <div className="sticky top-0 bg-white border-b border-neutral-200 p-4">
             <div className="flex items-center justify-between">
               <h3 className="text-body-lg font-semibold text-neutral-900">
                 Performance Monitor

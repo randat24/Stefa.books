@@ -22,7 +22,7 @@ export function SubscriptionModal({ isOpen, onClose, defaultPlan }: Subscription
       />
       
       {/* Modal */}
-      <div className="relative w-full max-w-4xl mx-4 max-h-[90vh] overflow-hidden bg-neutral-0 rounded-2xl shadow-2xl">
+      <div className="relative w-full max-w-4xl mx-4 max-h-[90vh] overflow-hidden bg-white rounded-2xl shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-neutral-200">
           <div>

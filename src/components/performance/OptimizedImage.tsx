@@ -289,7 +289,7 @@ export function OptimizedGallery({
               onClick={goToPrevious}
               className="
                 absolute left-4 top-1/2 -translate-y-1/2
-                p-2 bg-neutral-0/80 hover:bg-neutral-0 rounded-2xl
+                p-2 bg-white/80 hover:bg-white rounded-2xl
                 focus:outline-none focus:ring-2 focus:ring-accent
                 transition-colors
               "
@@ -304,7 +304,7 @@ export function OptimizedGallery({
               onClick={goToNext}
               className="
                 absolute right-4 top-1/2 -translate-y-1/2
-                p-2 bg-neutral-0/80 hover:bg-neutral-0 rounded-2xl
+                p-2 bg-white/80 hover:bg-white rounded-2xl
                 focus:outline-none focus:ring-2 focus:ring-accent
                 transition-colors
               "

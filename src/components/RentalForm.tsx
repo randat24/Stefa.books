@@ -150,7 +150,7 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
                 <div className={`w-4 h-4 rounded-2xl border-2 flex items-center justify-center ${
                   paymentMethod === 'card' ? 'border-brand-accent bg-brand-accent' : 'border-neutral-300'
                 }`}>
-                  {paymentMethod === 'card' && <div className="w-1.5 h-1.5 bg-neutral-0 rounded-2xl" />}
+                  {paymentMethod === 'card' && <div className="w-1.5 h-1.5 bg-white rounded-2xl" />}
                 </div>
                 <Building2 className={`h-5 w-5 ${paymentMethod === 'card' ? 'text-brand-accent-light' : 'text-neutral-400'}`} />
                 <div>
@@ -181,7 +181,7 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
                 <div className={`w-4 h-4 rounded-2xl border-2 flex items-center justify-center ${
                   paymentMethod === 'online' ? 'border-green-500 bg-green-500' : 'border-neutral-300'
                 }`}>
-                  {paymentMethod === 'online' && <div className="w-1.5 h-1.5 bg-neutral-0 rounded-2xl" />}
+                  {paymentMethod === 'online' && <div className="w-1.5 h-1.5 bg-white rounded-2xl" />}
                 </div>
                 <CreditCard className={`h-5 w-5 ${paymentMethod === 'online' ? 'text-green-600' : 'text-neutral-400'}`} />
                 <div>
@@ -206,7 +206,7 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
             
             <div className="space-y-4">
               {/* Номер карты */}
-              <div className="flex items-center justify-between p-4 bg-neutral-0 rounded-xl border border-blue-200">
+              <div className="flex items-center justify-between p-4 bg-white rounded-xl border border-blue-200">
                 <div>
                   <p className="text-body font-semibold text-neutral-600 mb-1">Номер карти:</p>
                   <p className="text-h3 text-brand-accent-light tracking-wider">5408 8100 4185 0776</p>
@@ -231,13 +231,13 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
               </div>
 
               {/* Получатель */}
-              <div className="p-4 bg-neutral-0 rounded-xl border border-blue-200">
+              <div className="p-4 bg-white rounded-xl border border-blue-200">
                 <p className="text-body font-semibold text-neutral-600 mb-1">Отримувач:</p>
                 <p className="text-body-lg font-semibold text-neutral-900">Федорова Анастасія</p>
               </div>
 
               {/* Банк */}
-              <div className="p-4 bg-neutral-0 rounded-xl border border-blue-200">
+              <div className="p-4 bg-white rounded-xl border border-blue-200">
                 <p className="text-body font-semibold text-neutral-600 mb-1">Банк:</p>
                 <p className="text-body-lg font-semibold text-neutral-900">Монобанк</p>
               </div>

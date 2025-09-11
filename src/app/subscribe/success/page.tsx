@@ -34,7 +34,7 @@ export default function SubscribeSuccessPage() {
   return (
     <div className="min-h-screen bg-neutral-50 flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full">
-        <div className="bg-neutral-0 rounded-2xl shadow-lg p-8 text-center">
+        <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
           {/* Иконка успеха */}
           <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
             <CheckCircle className="w-8 h-8 text-green-600" />

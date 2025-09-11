@@ -198,7 +198,7 @@ export function BookRecommendations({
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-2xl text-body-sm font-medium transition-all ${
                   isActive
                     ? "bg-accent text-neutral-900 shadow-lg"
-                    : "bg-neutral-0 text-neutral-600 hover:bg-neutral-50 border border-neutral-200 hover:border-neutral-300"
+                    : "bg-white text-neutral-600 hover:bg-neutral-50 border border-neutral-200 hover:border-neutral-300"
                 }`}
               >
                 <Icon className="h-4 w-4" />

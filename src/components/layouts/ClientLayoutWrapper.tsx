@@ -52,7 +52,7 @@ export function ClientLayoutWrapper({ children }: ClientLayoutWrapperProps) {
     <>
       {/* Шапка (внутри full-bleed секции, но контент — в контейнере) */}
       <ErrorBoundary fallback={
-        <header className="bg-neutral-0 shadow-sm">
+        <header className="bg-white shadow-sm">
           <div className="container mx-auto px-4 py-4 max-w-7xl">
             <h1 className="text-h3">Stefa.books</h1>
           </div>

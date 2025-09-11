@@ -122,7 +122,7 @@ export function AccessibleModal({
         trapFocus={true}
         onEscape={handleEscape}
         className={`
-          relative bg-neutral-0 rounded-xl shadow-2xl w-full
+          relative bg-white rounded-xl shadow-2xl w-full
           ${sizeClasses[size]}
           ${isVisible ? 'scale-100' : 'scale-95'}
           transition-transform duration-300 ease-in-out

@@ -20,7 +20,7 @@ export default function ExportData({ className }: ExportDataProps) {
       title: 'Все данные',
       description: 'Экспорт всей базы данных',
       icon: FileText,
-      color: 'bg-blue-500'
+      color: 'bg-[var(--brand)]'
     },
     {
       id: 'books',
@@ -185,7 +185,7 @@ export default function ExportData({ className }: ExportDataProps) {
               onClick={handleExportAll}
               disabled={isExporting}
               size="lg"
-              className="bg-blue-600 hover:bg-blue-700"
+              className="bg-[var(--brand)] hover:bg-[var(--brand-600)] text-[#111827]"
             >
               {isExporting && exportType === 'all' ? (
                 <>

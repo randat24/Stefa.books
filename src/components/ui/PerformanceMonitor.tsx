@@ -159,7 +159,7 @@ export function PerformanceMonitor({
       <button
         onClick={() => setIsVisible(true)}
         className={cn(
-          'fixed bottom-4 right-4 z-50 p-2 bg-blue-600 text-neutral-0 rounded-2xl shadow-lg hover:bg-blue-700 transition-colors',
+          'fixed bottom-4 right-4 z-50 p-2 bg-[var(--brand)] text-[#111827] rounded-2xl shadow-lg hover:bg-[var(--brand-600)] transition-colors',
           className
         )}
         title="Показати моніторинг продуктивності"
@@ -171,7 +171,7 @@ export function PerformanceMonitor({
 
   return (
     <div className={cn(
-      'fixed bottom-4 right-4 z-50 bg-neutral-0 rounded-lg shadow-xl border max-w-sm',
+      'fixed bottom-4 right-4 z-50 bg-white rounded-lg shadow-xl border max-w-sm',
       className
     )}>
       {/* Header */}

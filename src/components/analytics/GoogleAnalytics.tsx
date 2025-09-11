@@ -1,35 +1,42 @@
 'use client'
 
 import Script from 'next/script'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID
 
 export function GoogleAnalytics() {
+  const [isClient, setIsClient] = useState(false)
+
   useEffect(() => {
+    setIsClient(true)
+    
     // Настройка согласия на cookies по умолчанию
     if (typeof window !== 'undefined') {
-      // Ждем загрузки gtag
-      const checkGtag = () => {
-        if (window.gtag) {
-          const consent = localStorage.getItem('cookie-consent')
-          window.gtag('consent', 'default', {
-            analytics_storage: consent === 'accepted' ? 'granted' : 'denied',
-            ad_storage: 'denied',
-            ad_user_data: 'denied',
-            ad_personalization: 'denied'
-          })
-        } else {
-          // Повторяем попытку через 100ms
-          setTimeout(checkGtag, 100)
+      try {
+        // Ждем загрузки gtag
+        const checkGtag = () => {
+          if (window.gtag) {
+            const consent = localStorage.getItem('cookie-consent')
+            window.gtag('consent', 'default', {
+              analytics_storage: consent === 'accepted' ? 'granted' : 'denied',
+              ad_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied'
+            })
+          } else {
+            // Повторяем попытку через 100ms
+            setTimeout(checkGtag, 100)
+          }
         }
+        checkGtag()
+      } catch (error) {
+        console.warn('Google Analytics setup error:', error)
       }
-      checkGtag()
     }
   }, [])
 
-  if (!GA_TRACKING_ID) {
-    console.warn('Google Analytics ID не найден. Добавьте NEXT_PUBLIC_GA_ID в .env.local')
+  if (!isClient || !GA_TRACKING_ID) {
     return null
   }
 

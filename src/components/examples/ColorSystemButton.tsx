@@ -31,7 +31,7 @@ export function ColorSystemButton({
 
   const variantClasses = {
     primary: 'bg-brand text-neutral-0 hover:bg-brand-700 focus:ring-brand-500 shadow-md hover:shadow-lg',
-    secondary: 'bg-neutral-0 text-neutral-900 border border-neutral-300 hover:bg-neutral-50 focus:ring-neutral-500',
+    secondary: 'bg-white text-neutral-900 border border-neutral-300 hover:bg-neutral-50 focus:ring-neutral-500',
     accent: 'bg-accent text-neutral-0 hover:bg-accent-700 focus:ring-accent-500 shadow-md hover:shadow-lg',
     success: 'bg-success text-neutral-0 hover:bg-success-700 focus:ring-success-500 shadow-md hover:shadow-lg',
     warning: 'bg-warning text-neutral-0 hover:bg-warning-700 focus:ring-warning-500 shadow-md hover:shadow-lg',
@@ -125,7 +125,7 @@ export function ColorSystemButtonExamples() {
       {/* Семантические утилиты */}
       <div className="space-y-4">
         <h3 className="text-h3 text-neutral-800">Семантические утилиты</h3>
-        <div className="p-4 bg-neutral-0 border border-neutral-200 rounded-lg">
+        <div className="p-4 bg-white border border-neutral-200 rounded-lg">
           <p className="text-readable text-neutral-900 mb-2">
             Основной читаемый текст с оптимальной контрастностью
           </p>

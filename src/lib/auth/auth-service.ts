@@ -102,7 +102,7 @@ class AuthService {
         error: 'Failed to create user'
       };
     } catch (error) {
-      logger.error('AuthService: Registration error', { error });
+      logger.error('AuthService: Registration error', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -137,7 +137,7 @@ class AuthService {
         session: authData.session
       };
     } catch (error) {
-      logger.error('AuthService: Login error', { error });
+      logger.error('AuthService: Login error', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -167,7 +167,7 @@ class AuthService {
         success: true
       };
     } catch (error) {
-      logger.error('AuthService: Logout error', { error });
+      logger.error('AuthService: Logout error', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -183,7 +183,7 @@ class AuthService {
       const { data: { user } } = await supabase.auth.getUser();
       return user || null;
     } catch (error) {
-      logger.error('AuthService: Get current user error', { error });
+      logger.error('AuthService: Get current user error', error);
       return null;
     }
   }
@@ -206,7 +206,7 @@ class AuthService {
 
       return data as UserProfile;
     } catch (error) {
-      logger.error('AuthService: Get user profile error', { error });
+      logger.error('AuthService: Get user profile error', error);
       return null;
     }
   }
@@ -237,7 +237,7 @@ class AuthService {
         success: true
       };
     } catch (error) {
-      logger.error('AuthService: Update user profile error', { error });
+      logger.error('AuthService: Update user profile error', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -267,7 +267,7 @@ class AuthService {
         success: true
       };
     } catch (error) {
-      logger.error('AuthService: Password reset error', { error });
+      logger.error('AuthService: Password reset error', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -297,7 +297,7 @@ class AuthService {
         success: true
       };
     } catch (error) {
-      logger.error('AuthService: Password update error', { error });
+      logger.error('AuthService: Password update error', error);
       return {
         success: false,
         error: error instanceof Error ? error.message : 'Unknown error'

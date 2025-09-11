@@ -175,11 +175,11 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
       {/* Заголовок */}
-      <div className="sticky top-0 z-50 border-b border-neutral-200/60 bg-neutral-0/90 backdrop-blur-sm">
+      <div className="sticky top-0 z-50 border-b border-neutral-200/60 bg-white/90 backdrop-blur-sm">
         <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="flex size-14 items-center justify-center rounded-2xl border border-neutral-200 bg-neutral-0 shadow-sm">
+              <div className="flex size-14 items-center justify-center rounded-2xl border border-neutral-200 bg-white shadow-sm">
                 <Building2 className="size-7 text-neutral-600"/>
               </div>
               <div>
@@ -323,19 +323,19 @@ export default function AdminPage() {
           {/* Головні таби */}
           <Tabs defaultValue="books" className="space-y-6">
             <TabsList className="grid w-full grid-cols-4 rounded-2xl bg-neutral-100 p-1">
-              <TabsTrigger value="books" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-neutral-0 data-[state=active]:shadow-sm">
+              <TabsTrigger value="books" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
                 <BookOpen className="size-4" />
                 <span className="hidden sm:inline">Книги</span>
               </TabsTrigger>
-              <TabsTrigger value="users" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-neutral-0 data-[state=active]:shadow-sm">
+              <TabsTrigger value="users" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
                 <Users className="size-4" />
                 <span className="hidden sm:inline">Користувачі</span>
               </TabsTrigger>
-              <TabsTrigger value="rentals" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-neutral-0 data-[state=active]:shadow-sm">
+              <TabsTrigger value="rentals" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
                 <Calendar className="size-4" />
                 <span className="hidden sm:inline">Оренди</span>
               </TabsTrigger>
-              <TabsTrigger value="reports" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-neutral-0 data-[state=active]:shadow-sm">
+              <TabsTrigger value="reports" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
                 <BarChart3 className="size-4" />
                 <span className="hidden sm:inline">Звіти</span>
               </TabsTrigger>

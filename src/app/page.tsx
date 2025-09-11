@@ -3,7 +3,6 @@ import Hero from "@/components/hero/Hero";
 import Steps from "@/components/sections/Steps";
 import { Metadata } from "next";
 import { LazySection } from "@/components/ui/LazySection";
-import { PerformanceMonitor } from "@/components/ui/PerformanceMonitor";
 import { HomepageResourcePreloader } from "@/components/performance/ResourcePreloader";
 import { initWebVitals } from "@/lib/web-vitals";
 import { initServiceWorker } from "@/lib/service-worker";
@@ -69,8 +68,6 @@ export default function HomePage() {
 			{/* Resource Preloader for Core Web Vitals optimization */}
 			<HomepageResourcePreloader />
 			
-			{/* Performance Monitor */}
-			<PerformanceMonitor showDetails={process.env.NODE_ENV === 'development'} />
 			
 			{/* Hero */}
 			<Hero />

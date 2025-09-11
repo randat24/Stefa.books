@@ -265,7 +265,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
                 <div className="flex items-center gap-2">
                   <span className="font-medium text-neutral-900">{filter.label}</span>
                   {isActive && (
-                    <span className="w-2 h-2 bg-blue-500 rounded-2xl" />
+                    <span className="w-2 h-2 bg-[var(--brand)] rounded-2xl" />
                   )}
                 </div>
                 <div className="flex items-center gap-2">

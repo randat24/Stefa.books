@@ -170,7 +170,7 @@ const OptimizedMobileNav = memo(function OptimizedMobileNav({
       {isOpen && (
         <div
           ref={navRef}
-          className="fixed inset-0 z-50 bg-neutral-0"
+          className="fixed inset-0 z-50 bg-white"
           role="navigation"
           aria-label="Мобільна навігація"
         >

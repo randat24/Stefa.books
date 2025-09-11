@@ -1,14 +1,15 @@
 @import "../styles/tokens.css";
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 
 @layer base {
   /* Базовые стили согласно новому Style Guide */
 	html, body { 
     font-family: var(--font-ui);
-    background: var(--app-bg);
-		color: var(--text);
+    background: var(--app-bg, #FAFAFA);
+		color: var(--text, #1F2937);
 		-webkit-font-smoothing: antialiased;
 		text-rendering: optimizeLegibility;
 	}
@@ -91,7 +92,7 @@
 
   /* Карточки */
   .card {
-    background: var(--surface);
+    background: var(--card);
     border: 1px solid var(--line);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);

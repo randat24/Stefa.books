@@ -29,7 +29,7 @@ export function AdminStatus() {
         <Button 
           variant="outline" 
           size="md"
-          className="bg-black text-neutral-0 hover:bg-neutral-800 border-black"
+          className="bg-[var(--brand)] text-[#111827] hover:bg-[var(--brand-600)] border-[var(--brand)]"
         >
           Адмін-панель
         </Button>

@@ -21,6 +21,10 @@
   --error:        #EF4444;   /* red-500 */
   --info:         #3B82F6;   /* blue-500 */
 
+  /* Карточки */
+  --card:         #FFFFFF;   /* белый фон карточек */
+  --card-foreground: #1F2937; /* темный текст на карточках */
+
   /* Типографика */
   --font-display: var(--font-ui);  /* Единый шрифт для заголовков и текста */
   --font-ui:      "SF Pro Text", "SF Pro Display", -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, "Noto Sans", "Liberation Sans", sans-serif;

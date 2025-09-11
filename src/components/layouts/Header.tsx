@@ -26,7 +26,7 @@ export function Header() {
 
   return (
     <>
-      <header className="w-full sticky top-0 z-40 bg-neutral-0/80 backdrop-blur border-b border-neutral-200">
+      <header className="w-full sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
         <div className="container mx-auto px-4 max-w-7xl flex h-16 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 sm:gap-3">
@@ -122,7 +122,7 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-neutral-200 bg-neutral-0">
+          <div className="lg:hidden border-t border-neutral-200 bg-white">
             <div className="container mx-auto px-4 max-w-7xl py-4 space-y-3">
               <HeaderSearch />
               
@@ -160,7 +160,7 @@ export function Header() {
                         variant="outline" 
                         size="md" 
                         onClick={handleLogout}
-                        className="w-full text-neutral-600 hover:text-neutral-900"
+                        className="w-full bg-[var(--brand)] text-[#111827] hover:bg-[var(--brand-600)] border-[var(--brand)]"
                       >
                         <LogOut className="h-4 w-4 mr-2" />
                         Вийти

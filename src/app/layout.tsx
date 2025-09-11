@@ -72,18 +72,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="uk" suppressHydrationWarning>
       <body className="min-h-screen flex flex-col bg-[var(--app-bg)] text-[var(--text)]" suppressHydrationWarning>
-        <GoogleAnalytics />
-        <CookieConsent />
-        <WebVitalsTracker />
-        <OrganizationStructuredData />
-        <CanonicalAndHreflang 
-          locale="uk" 
-          alternateLocales={[
-            { locale: "ru", url: "https://stefa-books.com.ua/ru" },
-            { locale: "en", url: "https://stefa-books.com.ua/en" }
-          ]} 
-        />
-        <OfflineIndicator />
+        <ErrorBoundary>
+          <GoogleAnalytics />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <CookieConsent />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <WebVitalsTracker />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <OrganizationStructuredData />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <CanonicalAndHreflang 
+            locale="uk" 
+            alternateLocales={[
+              { locale: "ru", url: "https://stefa-books.com.ua/ru" },
+              { locale: "en", url: "https://stefa-books.com.ua/en" }
+            ]} 
+          />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <OfflineIndicator />
+        </ErrorBoundary>
         <ErrorBoundary>
           <Providers>
             <ClientLayoutWrapper>{children}</ClientLayoutWrapper>

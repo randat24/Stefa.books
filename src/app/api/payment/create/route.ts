@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    logger.error('Payment creation error', { error });
+    logger.error('Payment creation error', error);
     
     if (error instanceof z.ZodError) {
       return NextResponse.json(

@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error: any) {
-    logger.error('Forgot password API error', { error }, 'Auth');
+    logger.error('Forgot password API error', error, 'Auth');
     
     if (error.name === 'ZodError') {
       return NextResponse.json(
