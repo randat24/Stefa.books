@@ -43,6 +43,12 @@ export async function POST(request: NextRequest) {
       auth: { persistSession: false }
     });
 
+    // Маппинг способов оплаты для базы данных
+    const paymentMethodMapping = {
+      'Онлайн оплата': 'online',
+      'Переказ на карту': 'monobank'
+    };
+
     // Вставляем заявку в базу данных (адаптировано под существующую структуру)
     const { data, error } = await supabase
       .from('subscription_requests')
@@ -51,8 +57,8 @@ export async function POST(request: NextRequest) {
         email: validatedData.email,
         phone: validatedData.phone,
         social: validatedData.social,
-        subscription_type: validatedData.plan,
-        payment_method: validatedData.paymentMethod,
+        plan: validatedData.plan,
+        payment_method: paymentMethodMapping[validatedData.paymentMethod as keyof typeof paymentMethodMapping],
         message: validatedData.message || null,
         screenshot: validatedData.screenshot || null,
         privacy_consent: validatedData.privacyConsent,
