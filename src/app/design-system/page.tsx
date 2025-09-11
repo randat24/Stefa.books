@@ -138,7 +138,7 @@ export default function DesignSystemPage() {
           </header>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <form className="card p-6 space-y-4">
-              <label className="label" htmlFor="name">Ім'я та прізвище *</label>
+              <label className="label" htmlFor="name">Ім&apos;я та прізвище *</label>
               <input id="name" className="field" placeholder="Іван Іванов" />
               <p className="help">Як у документі.</p>
 

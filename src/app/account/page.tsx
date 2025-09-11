@@ -236,7 +236,7 @@ export default function AccountPage() {
                     <div className="flex items-center justify-between p-4 border rounded-lg">
                       <div>
                         <h3 className="font-medium">Особисті дані</h3>
-                        <p className="text-sm text-neutral-600">Ім'я, email, телефон</p>
+                        <p className="text-sm text-neutral-600">Ім&apos;я, email, телефон</p>
                       </div>
                       <Button variant="outline" size="sm">Редагувати</Button>
                     </div>

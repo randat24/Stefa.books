@@ -72,7 +72,7 @@ export type Database = {
           age_category_id: string | null
           age_range: string | null
           author: string
-          available: boolean | null
+          is_active: boolean | null
           badges: string[] | null
           category_id: string | null
           code: string | null
@@ -107,7 +107,7 @@ export type Database = {
           age_category_id?: string | null
           age_range?: string | null
           author: string
-          available?: boolean | null
+          is_active?: boolean | null
           badges?: string[] | null
           category_id?: string | null
           code?: string | null
@@ -142,7 +142,7 @@ export type Database = {
           age_category_id?: string | null
           age_range?: string | null
           author?: string
-          available?: boolean | null
+          is_active?: boolean | null
           badges?: string[] | null
           category_id?: string | null
           code?: string | null
@@ -310,7 +310,6 @@ export type Database = {
         Row: {
           book_id: string
           created_at: string | null
-          due_date: string
           id: string
           notes: string | null
           rental_date: string | null
@@ -322,7 +321,6 @@ export type Database = {
         Insert: {
           book_id: string
           created_at?: string | null
-          due_date: string
           id?: string
           notes?: string | null
           rental_date?: string | null
@@ -334,7 +332,6 @@ export type Database = {
         Update: {
           book_id?: string
           created_at?: string | null
-          due_date?: string
           id?: string
           notes?: string | null
           rental_date?: string | null

@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     // Check if book exists and is available
     const { data: book, error: bookError } = await supabase
       .from('books')
-      .select('id, title, available')
+      .select('id, title, is_active')
       .eq('id', validatedData.book_id)
       .single();
 
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!book.available) {
+    if (!book.is_active) {
       return NextResponse.json(
         { success: false, error: 'Книга зараз недоступна для оренди' },
         { status: 400 }
@@ -76,7 +76,6 @@ export async function POST(request: NextRequest) {
         user_id: '00000000-0000-0000-0000-000000000000', // Anonymous user UUID
         rental_date: new Date().toISOString(),
         return_date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(), // 14 days from now
-        due_date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(), // 14 days from now
         status: 'active',
         notes: `Customer: ${validatedData.customer_info.first_name} ${validatedData.customer_info.last_name}, Email: ${validatedData.customer_info.email}, Phone: ${validatedData.customer_info.phone}, Plan: ${validatedData.plan}, Delivery: ${validatedData.delivery_method}, Payment: ${validatedData.payment_method}, Total: ${validatedData.total_price}₴${validatedData.customer_info.address ? `, Address: ${validatedData.customer_info.address}` : ''}${validatedData.customer_info.notes ? `, Notes: ${validatedData.customer_info.notes}` : ''}`
       })
@@ -91,16 +90,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Mark book as unavailable
-    const { error: updateError } = await supabase
-      .from('books')
-      .update({ available: false })
-      .eq('id', validatedData.book_id);
-
-    if (updateError) {
-      logger.error('Error updating book availability:', { error: updateError });
-      // Don't fail the request, just log the error
-    }
+    // Note: Book availability should be managed by admin
+    // The rental is created successfully, admin will handle book status
 
     // Log successful rental
     logger.info('Rental created successfully:', {

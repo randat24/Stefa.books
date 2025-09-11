@@ -168,7 +168,7 @@ export default function SubscriptionSuccessPage() {
                     Спробувати знову
                   </Button>
                   <Button variant="outline" onClick={() => router.push('/contact')}>
-                    Зв'язатися з підтримкою
+                    Зв&apos;язатися з підтримкою
                   </Button>
                 </>
               )}
