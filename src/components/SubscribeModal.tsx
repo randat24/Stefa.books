@@ -47,9 +47,11 @@ const subscribeFormSchema = z.object({
 	email: z.string()
 		.email('Неправильний формат email'),
 	social: z.string()
-		.min(3, 'Введіть ваш нік в Telegram або Instagram')
-		.max(50, 'Нік занадто довгий')
-		.regex(/^@?[a-zA-Z0-9_]+$/, 'Неправильний формат ніка (використовуйте @username або username)'),
+		.optional()
+		.refine((val) => {
+			if (!val || val.trim() === '') return true
+			return val.length >= 3 && val.length <= 50 && /^@?[a-zA-Z0-9_]+$/.test(val)
+		}, 'Неправильний формат ніка (використовуйте @username або username)'),
 	plan: z.enum(['mini', 'maxi'], {
 		required_error: 'Оберіть план підписки'
 	}),
@@ -57,8 +59,11 @@ const subscribeFormSchema = z.object({
 		required_error: 'Оберіть спосіб оплати'
 	}),
 	note: z.string()
-		.max(500, 'Повідомлення занадто довге')
-		.optional(),
+		.optional()
+		.refine((val) => {
+			if (!val || val.trim() === '') return true
+			return val.length <= 500
+		}, 'Повідомлення занадто довге'),
 	screenshot: z.instanceof(File)
 		.optional(),
 	privacyConsent: z.boolean()
@@ -505,7 +510,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 
 							<div>
 								<Label htmlFor="social" className="block text-body-sm font-semibold text-neutral-700 mb-2">
-									Нік в Telegram/Instagram *
+									Нік в Telegram/Instagram
 								</Label>
 								<div className="relative">
 									<MessageSquare className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400" />

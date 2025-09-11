@@ -8,7 +8,7 @@ const subscriptionRequestSchema = z.object({
   name: z.string().min(2, 'Имя должно содержать минимум 2 символа'),
   email: z.string().email('Некорректный email адрес'),
   phone: z.string().regex(/^\+380\d{9}$/, 'Некорректный номер телефона'),
-  social: z.string().min(3, 'Введите ваш ник в Telegram или Instagram'),
+  social: z.string().optional(),
   plan: z.enum(['mini', 'maxi'], {
     errorMap: () => ({ message: 'Неверный тип подписки' })
   }),
@@ -45,32 +45,54 @@ export async function POST(request: NextRequest) {
 
     // Маппинг способов оплаты для базы данных
     const paymentMethodMapping = {
-      'Онлайн оплата': 'online',
-      'Переказ на карту': 'monobank'
+      'Онлайн оплата': 'Онлайн оплата',
+      'Переказ на карту': 'Переказ на карту'
     };
 
-    // Вставляем заявку в базу данных (адаптировано под существующую структуру)
+    // ВРЕМЕННО: Сохраняем в таблицу books из-за проблем с кэшем схемы
+    // TODO: Вернуть на subscription_requests после исправления кэша
     const { data, error } = await supabase
-      .from('subscription_requests')
+      .from('books')
       .insert({
-        name: validatedData.name,
-        email: validatedData.email,
-        phone: validatedData.phone,
-        social: validatedData.social,
-        plan: validatedData.plan,
-        payment_method: paymentMethodMapping[validatedData.paymentMethod as keyof typeof paymentMethodMapping],
-        message: validatedData.message || null,
-        screenshot: validatedData.screenshot || null,
-        privacy_consent: validatedData.privacyConsent,
-        status: 'pending'
+        title: `Підписка ${validatedData.plan} - ${validatedData.name}`,
+        author: validatedData.email,
+        category: 'subscription-request',
+        description: JSON.stringify({
+          phone: validatedData.phone,
+          plan: validatedData.plan,
+          payment: paymentMethodMapping[validatedData.paymentMethod as keyof typeof paymentMethodMapping],
+          social: validatedData.social || null,
+          message: validatedData.message || null,
+          screenshot: validatedData.screenshot || null,
+          privacyConsent: validatedData.privacyConsent
+        }),
+        pages: 0,
+        cover_url: validatedData.screenshot || '',
+        available: false,
+        is_active: false
       })
       .select()
       .single();
 
     if (error) {
-      logger.error('Database error when inserting subscription request', error);
+      logger.error('Database error when inserting subscription request', {
+        error: error,
+        validatedData: validatedData,
+        insertData: {
+          name: validatedData.name,
+          email: validatedData.email,
+          phone: validatedData.phone,
+          social: validatedData.social || null,
+          subscription_type: validatedData.plan,
+          payment_method: paymentMethodMapping[validatedData.paymentMethod as keyof typeof paymentMethodMapping],
+          message: validatedData.message || null,
+          screenshot: validatedData.screenshot || null,
+          privacy_consent: validatedData.privacyConsent,
+          status: 'pending'
+        }
+      });
       return NextResponse.json(
-        { error: 'Ошибка при сохранении заявки' },
+        { error: 'Ошибка при сохранении заявки', details: error.message },
         { status: 500 }
       );
     }
@@ -80,7 +102,7 @@ export async function POST(request: NextRequest) {
       requestId: data.id,
       plan: validatedData.plan,
       paymentMethod: validatedData.paymentMethod,
-      hasSocial: !!validatedData.social,
+      hasSocial: !!(validatedData.social && validatedData.social.trim()),
       hasMessage: !!validatedData.message,
       hasScreenshot: !!validatedData.screenshot,
       timestamp: new Date().toISOString()
