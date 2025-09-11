@@ -181,7 +181,7 @@ export function CachedImage({
   }
 
   return (
-    <div className={`relative ${className}`} style={{ width, height }}>
+    <div className={`relative w-full h-full ${className}`} style={{ width, height }}>
       {/* Основное изображение */}
       <Image
         src={hasError ? fallback : optimizedSrc}
@@ -190,7 +190,7 @@ export function CachedImage({
         priority={priority}
         quality={quality}
         sizes={sizes || `(max-width: 768px) 100vw, ${width}px`}
-        className="object-cover"
+        className="object-cover w-full h-full"
         onLoad={handleLoad}
         onError={handleError}
         placeholder="blur"

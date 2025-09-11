@@ -55,14 +55,14 @@ export function BookCard({
           aria-label={`Переглянути деталі книги: ${memoizedBook.title} автора ${memoizedBook.author}`}
           onClick={handleBookClick}
         >
-          <div className="relative w-full" style={{ height: '280px' }}>
+          <div className="relative w-full h-full" style={{ height: '280px' }}>
             {/* Book Cover with Cached Image */}
             <CachedImage
               src={memoizedBook.cover_url || '/images/book-placeholder.svg'}
               alt={`Обкладинка книги: ${memoizedBook.title}`}
               width={200}
               height={280}
-              className="object-cover"
+              className="w-full h-full object-cover"
               priority={priorityLoading}
               enableCache={true}
               showRefreshButton={false}
@@ -76,13 +76,13 @@ export function BookCard({
         {/* Статус-бейдж */}
         <span 
           className={`absolute left-3 top-3 rounded-[var(--radius-lg,18px)] px-3 py-1.5 text-xs font-semibold shadow-lg backdrop-blur-sm border ${
-            memoizedBook.available 
+            memoizedBook.is_active 
               ? "text-[var(--success,#10B981)] bg-[var(--surface,#FFFFFF)]/95 border-[var(--success,#10B981)]/20" 
               : "text-[var(--error,#EF4444)] bg-[var(--surface,#FFFFFF)]/95 border-[var(--error,#EF4444)]/20"
           }`}
-          aria-label={`Статус книги: ${memoizedBook.available ? 'Доступна' : 'Видана'}`}
+          aria-label={`Статус книги: ${memoizedBook.is_active ? 'Доступна' : 'Видана'}`}
         >
-          {memoizedBook.available ? "✓ Доступна" : "✗ Видана"}
+          {memoizedBook.is_active ? "✓ Доступна" : "✗ Видана"}
         </span>
 
         {/* Быстрые действия */}

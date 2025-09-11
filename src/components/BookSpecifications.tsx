@@ -112,11 +112,11 @@ export function BookSpecifications({ book }: BookSpecificationsProps) {
           
           <div className="flex items-center gap-2">
             <span className={`px-3 py-1 rounded-2xl text-caption font-medium ${
-              book.available 
+              book.is_active 
                 ? "text-green-700 bg-green-100" 
                 : "text-red-700 bg-red-100"
             }`}>
-              {book.available ? "✓ Доступна для оренди" : "✗ Усі екземпляри видані"}
+              {book.is_active ? "✓ Доступна для оренди" : "✗ Усі екземпляри видані"}
             </span>
           </div>
           

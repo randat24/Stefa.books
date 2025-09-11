@@ -74,7 +74,7 @@ export default async function BookRentalPage({ params }: { params: Params }) {
 
     const book = response.data;
 
-    if (!book.available) {
+    if (!book.is_active) {
       return (
         <div className="container py-8">
           <div className="max-w-2xl mx-auto text-center">

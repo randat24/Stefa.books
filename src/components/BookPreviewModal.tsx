@@ -79,7 +79,7 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
         <div className="space-y-4">
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1">
-        {book.available && (
+        {book.is_active && (
           <div className="mb-2">
             <span className="text-caption font-medium text-green-700 bg-green-100 px-2 py-1 rounded-2xl">
               ✓ Доступна для оренди

@@ -225,11 +225,11 @@ export default async function BookPage({ params }: { params: Params }) {
                       </Badge>
                     )}
                     <span className={`px-3 py-1 rounded-2xl text-caption font-medium ${
-                      book.available 
+                      book.is_active 
                         ? "text-green-700 bg-green-100" 
                         : "text-red-700 bg-red-100"
                     }`}>
-                      {book.available ? "✓ Доступна" : "✗ Видана"}
+                      {book.is_active ? "✓ Доступна" : "✗ Видана"}
                     </span>
                   </div>
                 </div>
@@ -240,7 +240,7 @@ export default async function BookPage({ params }: { params: Params }) {
               </p>
 
               {/* Order Button */}
-              {book.available && (
+              {book.is_active && (
                 <div className="pt-4">
                   <Button asChild size="lg" className="w-full sm:w-auto">
                     <Link href={`/books/${book.id}/order`}>
