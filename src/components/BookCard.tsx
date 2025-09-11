@@ -6,6 +6,7 @@ import type { Book } from '@/lib/supabase';
 import Link from 'next/link';
 import { BookPreviewModal } from '@/components/BookPreviewModal';
 import Image from 'next/image';
+import CachedImage from '@/components/ui/CachedImage';
 import { useAnalytics } from '@/hooks/useAnalytics';
 
 export type BookCardProps = {
@@ -55,13 +56,16 @@ export function BookCard({
           onClick={handleBookClick}
         >
           <div className="relative w-full" style={{ height: '280px' }}>
-            {/* Book Cover with Optimized Image */}
-            <Image
+            {/* Book Cover with Cached Image */}
+            <CachedImage
               src={memoizedBook.cover_url || '/images/book-placeholder.svg'}
               alt={`Обкладинка книги: ${memoizedBook.title}`}
-              fill
+              width={200}
+              height={280}
               className="object-cover"
               priority={priorityLoading}
+              enableCache={true}
+              showRefreshButton={false}
             />
             
             {/* Overlay при наведении */}

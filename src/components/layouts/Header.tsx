@@ -9,6 +9,7 @@ import { AdminStatus } from '@/components/auth/AdminStatus';
 import { SubscriptionModal } from '@/components/subscribe/SubscriptionModal';
 import { Button } from '@/components/ui/button';
 import { User, LogOut, Heart, BookOpen, Menu, X } from 'lucide-react';
+import CacheClearButton from '@/components/CacheClearButton';
 // Animation components removed for build fix
 
 export function Header() {
@@ -49,6 +50,13 @@ export function Header() {
             <Link href="/books" className="px-3 py-2 text-body-sm font-medium text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition">
               Каталог
             </Link>
+            <CacheClearButton 
+              variant="ghost" 
+              size="sm" 
+              showText={false}
+              onSuccess={(message) => console.log(message)}
+              onError={(error) => console.error(error)}
+            />
             
             {isAuthenticated ? (
               <>

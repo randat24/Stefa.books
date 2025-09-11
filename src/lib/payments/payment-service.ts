@@ -1,4 +1,5 @@
 import { logger } from '@/lib/logger';
+import { monobankService } from './monobank-service';
 
 export interface PaymentData {
   amount: number;
@@ -321,6 +322,89 @@ class PaymentService {
   private async activateSubscription(paymentId: string): Promise<void> {
     // In a real implementation, this would activate the subscription
     logger.info('PaymentService: Activating subscription (mock)', { paymentId });
+  }
+
+  /**
+   * Check Monobank payment status
+   */
+  async checkMonobankPayment(
+    account: string,
+    amount: number,
+    description?: string,
+    timeWindowHours: number = 24
+  ): Promise<{ received: boolean; transaction?: any }> {
+    try {
+      logger.info('PaymentService: Checking Monobank payment', { account, amount, description });
+      
+      const result = await monobankService.checkPaymentReceived(
+        account,
+        amount,
+        description,
+        timeWindowHours
+      );
+
+      logger.info('PaymentService: Monobank payment check result', result);
+      return result;
+    } catch (error) {
+      logger.error('PaymentService: Monobank payment check error', error);
+      return { received: false };
+    }
+  }
+
+  /**
+   * Get Monobank currency rates
+   */
+  async getMonobankCurrencyRates(): Promise<any[]> {
+    try {
+      logger.info('PaymentService: Getting Monobank currency rates');
+      
+      const rates = await monobankService.getCurrencyRates();
+      
+      logger.info('PaymentService: Monobank currency rates fetched successfully');
+      return rates;
+    } catch (error) {
+      logger.error('PaymentService: Monobank currency rates error', error);
+      return [];
+    }
+  }
+
+  /**
+   * Get USD to UAH exchange rate
+   */
+  async getUsdToUahRate(): Promise<number | null> {
+    try {
+      logger.info('PaymentService: Getting USD to UAH rate');
+      
+      const rate = await monobankService.getUahToUsdRate();
+      
+      if (rate) {
+        // Convert from UAH/USD to USD/UAH
+        const usdToUahRate = 1 / rate;
+        logger.info('PaymentService: USD to UAH rate fetched', { rate: usdToUahRate });
+        return usdToUahRate;
+      }
+      
+      return null;
+    } catch (error) {
+      logger.error('PaymentService: USD to UAH rate error', error);
+      return null;
+    }
+  }
+
+  /**
+   * Convert USD to UAH using Monobank rate
+   */
+  async convertUsdToUah(usdAmount: number): Promise<number | null> {
+    try {
+      const rate = await this.getUsdToUahRate();
+      if (rate) {
+        return Math.round(usdAmount * rate * 100) / 100; // Round to 2 decimal places
+      }
+      return null;
+    } catch (error) {
+      logger.error('PaymentService: USD to UAH conversion error', error);
+      return null;
+    }
   }
 }
 

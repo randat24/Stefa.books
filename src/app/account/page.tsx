@@ -1,440 +1,266 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { 
+  User, 
+  CreditCard, 
+  History, 
+  Settings, 
+  BookOpen,
+  Bell,
+  Shield,
+  HelpCircle,
+  LogOut
+} from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/Badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  User, 
-  BookOpen, 
-  RotateCcw, 
-  Settings, 
-  Heart,
-  History,
-  Bell
-} from 'lucide-react';
-import Link from 'next/link';
-import Image from 'next/image';
+import UserDashboard from '@/components/user/UserDashboard';
+import SubscriptionManager from '@/components/user/SubscriptionManager';
+import RentalHistory from '@/components/user/RentalHistory';
 
-interface Rental {
-  id: string;
-  book_id: string;
-  status: string;
-  start_date: string;
-  end_date: string;
-  created_at: string;
-  book: {
-    id: string;
-    title: string;
-    author: string;
-    cover_url?: string;
-  };
-}
-
-interface Return {
-  id: string;
-  book_id: string;
-  status: string;
-  return_method: string;
-  book_condition: string;
-  created_at: string;
-  book: {
-    id: string;
-    title: string;
-    author: string;
-    cover_url?: string;
-  };
-}
+type TabType = 'dashboard' | 'subscription' | 'rentals' | 'settings' | 'notifications';
 
 export default function AccountPage() {
-  const { user, isAuthenticated } = useAuth();
-  const [activeTab, setActiveTab] = useState('overview');
-  const [rentals, setRentals] = useState<Rental[]>([]);
-  const [returns, setReturns] = useState<Return[]>([]);
+  const router = useRouter();
+  const [activeTab, setActiveTab] = useState<TabType>('dashboard');
+  const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchUserData = useCallback(async () => {
-    try {
-      // Fetch rentals
-      const rentalsResponse = await fetch(`/api/rentals?email=${user?.email}`);
-      const rentalsData = await rentalsResponse.json();
-      if (rentalsData.success) {
-        setRentals(rentalsData.rentals || []);
-      }
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
-      // Fetch returns
-      const returnsResponse = await fetch(`/api/return?email=${user?.email}`);
-      const returnsData = await returnsResponse.json();
-      if (returnsData.success) {
-        setReturns(returnsData.returns || []);
+  const checkAuth = async () => {
+    try {
+      const response = await fetch('/api/auth/session');
+      const result = await response.json();
+      
+      if (result.success && result.user) {
+        setUser(result.user);
+      } else {
+        router.push('/auth/login');
       }
     } catch (error) {
-      console.error('Error fetching user data:', error);
+      console.error('Auth check failed:', error);
+      router.push('/auth/login');
     } finally {
       setLoading(false);
     }
-  }, [user?.email]);
-
-  useEffect(() => {
-    if (isAuthenticated && user?.email) {
-      fetchUserData();
-    }
-  }, [isAuthenticated, user?.email, fetchUserData]);
-
-  const getStatusBadge = (status: string, type: 'rental' | 'return') => {
-    const statuses = {
-      rental: {
-        pending: { label: 'Очікує підтвердження', variant: 'secondary' as const },
-        confirmed: { label: 'Підтверджено', variant: 'default' as const },
-        active: { label: 'Активна', variant: 'default' as const },
-        completed: { label: 'Завершено', variant: 'default' as const },
-        cancelled: { label: 'Скасовано', variant: 'destructive' as const }
-      },
-      return: {
-        pending: { label: 'Очікує підтвердження', variant: 'secondary' as const },
-        confirmed: { label: 'Підтверджено', variant: 'default' as const },
-        in_progress: { label: 'В процесі', variant: 'default' as const },
-        completed: { label: 'Завершено', variant: 'default' as const },
-        cancelled: { label: 'Скасовано', variant: 'destructive' as const }
-      }
-    };
-    
-    const typeStatuses = statuses[type as keyof typeof statuses];
-    const statusConfig = typeStatuses?.[status as keyof typeof typeStatuses];
-    return statusConfig || { label: status, variant: 'secondary' as const };
   };
 
-  if (!isAuthenticated) {
-    return (
-      <div className="container py-8">
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="w-16 h-16 bg-neutral-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <User className="h-8 w-8 text-neutral-400" />
-          </div>
-          <h1 className="text-h2 text-neutral-900 mb-2">Вхід необхідний</h1>
-          <p className="text-neutral-600 mb-6">
-            Будь ласка, увійдіть в систему, щоб переглянути свій кабінет
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Button asChild>
-              <Link href="/auth/login">Увійти</Link>
-            </Button>
-            <Button variant="outline" asChild>
-              <Link href="/auth/register">Зареєструватися</Link>
-            </Button>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      router.push('/');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
 
   if (loading) {
     return (
-      <div className="container py-8">
-        <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-brand-accent"></div>
+      <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-accent mx-auto mb-4"></div>
+          <p className="text-neutral-600">Завантаження...</p>
         </div>
       </div>
     );
   }
 
+  if (!user) {
+    return null;
+  }
+
+  const tabs = [
+    {
+      id: 'dashboard' as TabType,
+      label: 'Огляд',
+      icon: User,
+      description: 'Головна інформація'
+    },
+    {
+      id: 'subscription' as TabType,
+      label: 'Підписка',
+      icon: CreditCard,
+      description: 'Управління підпискою'
+    },
+    {
+      id: 'rentals' as TabType,
+      label: 'Оренди',
+      icon: BookOpen,
+      description: 'Історія та активні оренди'
+    },
+    {
+      id: 'notifications' as TabType,
+      label: 'Сповіщення',
+      icon: Bell,
+      description: 'Налаштування сповіщень'
+    },
+    {
+      id: 'settings' as TabType,
+      label: 'Налаштування',
+      icon: Settings,
+      description: 'Особисті налаштування'
+    }
+  ];
+
   return (
-    <div className="container py-8">
+    <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-h1 text-neutral-900 mb-2">Мій кабінет</h1>
-        <p className="text-neutral-600">
-          Ласкаво просимо, {user?.user_metadata?.first_name || user?.email}!
-        </p>
+      <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-white/90 backdrop-blur-sm">
+        <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-neutral-900">Особистий кабінет</h1>
+              <p className="text-neutral-600 mt-1">
+                Привіт, {user.user_metadata?.first_name || user.email}! 👋
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" size="sm" onClick={() => router.push('/catalog')}>
+                <BookOpen className="h-4 w-4 mr-2" />
+                Каталог
+              </Button>
+              <Button variant="outline" size="sm" onClick={handleLogout}>
+                <LogOut className="h-4 w-4 mr-2" />
+                Вийти
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="overview">Огляд</TabsTrigger>
-          <TabsTrigger value="rentals">Оренди</TabsTrigger>
-          <TabsTrigger value="returns">Повернення</TabsTrigger>
-          <TabsTrigger value="favorites">Улюблені</TabsTrigger>
-          <TabsTrigger value="settings">Налаштування</TabsTrigger>
-        </TabsList>
-
-        {/* Overview Tab */}
-        <TabsContent value="overview" className="space-y-6">
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Active Rentals */}
+      <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* Sidebar Navigation */}
+          <div className="lg:w-64 flex-shrink-0">
             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-body-sm font-medium">Активні оренди</CardTitle>
-                <BookOpen className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-h2">
-                  {rentals.filter(r => r.status === 'active').length}
-                </div>
-                <p className="text-caption text-muted-foreground">
-                  Книг на руках
-                </p>
+              <CardContent className="p-0">
+                <nav className="space-y-1">
+                  {tabs.map((tab) => {
+                    const Icon = tab.icon;
+                    return (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors ${
+                          activeTab === tab.id
+                            ? 'bg-brand-accent/10 text-brand-accent border-r-2 border-brand-accent'
+                            : 'text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900'
+                        }`}
+                      >
+                        <Icon className="h-5 w-5 flex-shrink-0" />
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium">{tab.label}</p>
+                          <p className="text-xs text-neutral-500">{tab.description}</p>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </nav>
               </CardContent>
             </Card>
 
-            {/* Pending Returns */}
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-body-sm font-medium">Очікують повернення</CardTitle>
-                <RotateCcw className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-h2">
-                  {returns.filter(r => r.status === 'pending').length}
+            {/* User Info Card */}
+            <Card className="mt-6">
+              <CardContent className="p-4">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-brand-accent/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <User className="h-8 w-8 text-brand-accent" />
+                  </div>
+                  <h3 className="font-semibold text-neutral-900">
+                    {user.user_metadata?.first_name || 'Користувач'}
+                  </h3>
+                  <p className="text-sm text-neutral-600 mb-2">{user.email}</p>
+                  <Badge variant="outline" className="text-xs">
+                    {user.user_metadata?.subscription_type || 'Без підписки'}
+                  </Badge>
                 </div>
-                <p className="text-caption text-muted-foreground">
-                  Заявок на повернення
-                </p>
-              </CardContent>
-            </Card>
-
-            {/* Total Rentals */}
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-body-sm font-medium">Всього оренд</CardTitle>
-                <History className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-h2">{rentals.length}</div>
-                <p className="text-caption text-muted-foreground">
-                  За весь час
-                </p>
               </CardContent>
             </Card>
           </div>
 
-          {/* Recent Activity */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Остання активність</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {rentals.slice(0, 3).map((rental) => (
-                  <div key={rental.id} className="flex items-center gap-4">
-                    {rental.book.cover_url ? (
-                      <Image
-                        src={rental.book.cover_url}
-                        alt={rental.book.title}
-                        width={40}
-                        height={60}
-                        className="rounded object-cover"
-                      />
-                    ) : (
-                      <div className="w-10 h-15 bg-neutral-100 rounded flex items-center justify-center">
-                        <BookOpen className="h-4 w-4 text-neutral-400" />
+          {/* Main Content */}
+          <div className="flex-1 min-w-0">
+            {activeTab === 'dashboard' && <UserDashboard />}
+            {activeTab === 'subscription' && <SubscriptionManager />}
+            {activeTab === 'rentals' && <RentalHistory />}
+            {activeTab === 'notifications' && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Bell className="h-5 w-5" />
+                    Налаштування сповіщень
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-4 border rounded-lg">
+                      <div>
+                        <h3 className="font-medium">Email сповіщення</h3>
+                        <p className="text-sm text-neutral-600">Отримувати сповіщення на email</p>
                       </div>
-                    )}
-                    <div className="flex-1">
-                      <h4 className="font-medium">{rental.book.title}</h4>
-                      <p className="text-body-sm text-neutral-600">{rental.book.author}</p>
+                      <Button variant="outline" size="sm">Увімкнено</Button>
                     </div>
-                    <Badge variant={getStatusBadge(rental.status, 'rental').variant}>
-                      {getStatusBadge(rental.status, 'rental').label}
-                    </Badge>
+                    <div className="flex items-center justify-between p-4 border rounded-lg">
+                      <div>
+                        <h3 className="font-medium">Нагадування про повернення</h3>
+                        <p className="text-sm text-neutral-600">Нагадування за 2 дні до повернення</p>
+                      </div>
+                      <Button variant="outline" size="sm">Увімкнено</Button>
+                    </div>
+                    <div className="flex items-center justify-between p-4 border rounded-lg">
+                      <div>
+                        <h3 className="font-medium">Новинки та пропозиції</h3>
+                        <p className="text-sm text-neutral-600">Сповіщення про нові книги та акції</p>
+                      </div>
+                      <Button variant="outline" size="sm">Увімкнено</Button>
+                    </div>
                   </div>
-                ))}
-                {rentals.length === 0 && (
-                  <p className="text-neutral-500 text-center py-4">Немає недавньої активності</p>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Rentals Tab */}
-        <TabsContent value="rentals" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Мої оренди</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {rentals.length > 0 ? (
-                <div className="space-y-4">
-                  {rentals.map((rental) => (
-                    <div key={rental.id} className="flex items-center gap-4 p-4 border rounded-lg">
-                      {rental.book.cover_url ? (
-                        <Image
-                          src={rental.book.cover_url}
-                          alt={rental.book.title}
-                          width={60}
-                          height={90}
-                          className="rounded object-cover"
-                        />
-                      ) : (
-                        <div className="w-15 h-22 bg-neutral-100 rounded flex items-center justify-center">
-                          <BookOpen className="h-6 w-6 text-neutral-400" />
-                        </div>
-                      )}
-                      <div className="flex-1">
-                        <h4 className="font-semibold">{rental.book.title}</h4>
-                        <p className="text-body-sm text-neutral-600">{rental.book.author}</p>
-                        <div className="flex items-center gap-4 mt-2 text-body-sm text-neutral-500">
-                          <span>Початок: {new Date(rental.start_date).toLocaleDateString('uk-UA')}</span>
-                          <span>Кінець: {new Date(rental.end_date).toLocaleDateString('uk-UA')}</span>
-                        </div>
+                </CardContent>
+              </Card>
+            )}
+            {activeTab === 'settings' && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Settings className="h-5 w-5" />
+                    Особисті налаштування
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-4 border rounded-lg">
+                      <div>
+                        <h3 className="font-medium">Особисті дані</h3>
+                        <p className="text-sm text-neutral-600">Ім'я, email, телефон</p>
                       </div>
-                      <div className="text-right">
-                        <Badge variant={getStatusBadge(rental.status, 'rental').variant}>
-                          {getStatusBadge(rental.status, 'rental').label}
-                        </Badge>
-                        {rental.status === 'active' && (
-                          <Button variant="outline" size="sm" className="mt-2" asChild>
-                            <Link href={`/books/${rental.book_id}/return`}>
-                              Повернути
-                            </Link>
-                          </Button>
-                        )}
-                      </div>
+                      <Button variant="outline" size="sm">Редагувати</Button>
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8">
-                  <BookOpen className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
-                  <h3 className="text-body-lg font-semibold text-neutral-900 mb-2">Немає оренд</h3>
-                  <p className="text-neutral-600 mb-4">Ви ще не орендували жодної книги</p>
-                  <Button asChild>
-                    <Link href="/catalog">Переглянути каталог</Link>
-                  </Button>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Returns Tab */}
-        <TabsContent value="returns" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Мої повернення</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {returns.length > 0 ? (
-                <div className="space-y-4">
-                  {returns.map((returnItem) => (
-                    <div key={returnItem.id} className="flex items-center gap-4 p-4 border rounded-lg">
-                      {returnItem.book.cover_url ? (
-                        <Image
-                          src={returnItem.book.cover_url}
-                          alt={returnItem.book.title}
-                          width={60}
-                          height={90}
-                          className="rounded object-cover"
-                        />
-                      ) : (
-                        <div className="w-15 h-22 bg-neutral-100 rounded flex items-center justify-center">
-                          <BookOpen className="h-6 w-6 text-neutral-400" />
-                        </div>
-                      )}
-                      <div className="flex-1">
-                        <h4 className="font-semibold">{returnItem.book.title}</h4>
-                        <p className="text-body-sm text-neutral-600">{returnItem.book.author}</p>
-                        <div className="flex items-center gap-4 mt-2 text-body-sm text-neutral-500">
-                          <span>Спосіб: {returnItem.return_method === 'pickup' ? 'Самовивіз' : 'Кур&apos;єр'}</span>
-                          <span>Стан: {returnItem.book_condition}</span>
-                        </div>
+                    <div className="flex items-center justify-between p-4 border rounded-lg">
+                      <div>
+                        <h3 className="font-medium">Безпека</h3>
+                        <p className="text-sm text-neutral-600">Пароль, двофакторна автентифікація</p>
                       </div>
-                      <div className="text-right">
-                        <Badge variant={getStatusBadge(returnItem.status, 'return').variant}>
-                          {getStatusBadge(returnItem.status, 'return').label}
-                        </Badge>
-                        <p className="text-body-sm text-neutral-500 mt-1">
-                          {new Date(returnItem.created_at).toLocaleDateString('uk-UA')}
-                        </p>
-                      </div>
+                      <Button variant="outline" size="sm">Налаштувати</Button>
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8">
-                  <RotateCcw className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
-                  <h3 className="text-body-lg font-semibold text-neutral-900 mb-2">Немає повернень</h3>
-                  <p className="text-neutral-600 mb-4">Ви ще не повертали жодної книги</p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Favorites Tab */}
-        <TabsContent value="favorites" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Улюблені книги</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-center py-8">
-                <Heart className="h-12 w-12 text-neutral-400 mx-auto mb-4" />
-                <h3 className="text-body-lg font-semibold text-neutral-900 mb-2">Немає улюблених</h3>
-                <p className="text-neutral-600 mb-4">Додайте книги до улюблених, щоб швидко знаходити їх</p>
-                <Button asChild>
-                  <Link href="/catalog">Переглянути каталог</Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* Settings Tab */}
-        <TabsContent value="settings" className="space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Налаштування профілю</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-body-sm font-medium text-neutral-700">Ім&apos;я</label>
-                  <p className="text-body-sm text-neutral-900">{user?.user_metadata?.first_name || 'Не вказано'}</p>
-                </div>
-                <div>
-                  <label className="text-body-sm font-medium text-neutral-700">Прізвище</label>
-                  <p className="text-body-sm text-neutral-900">{user?.user_metadata?.last_name || 'Не вказано'}</p>
-                </div>
-                <div>
-                  <label className="text-body-sm font-medium text-neutral-700">Email</label>
-                  <p className="text-body-sm text-neutral-900">{user?.email}</p>
-                </div>
-                <div>
-                  <label className="text-body-sm font-medium text-neutral-700">Телефон</label>
-                  <p className="text-body-sm text-neutral-900">{user?.user_metadata?.phone || 'Не вказано'}</p>
-                </div>
-              </div>
-              <Button variant="outline">
-                <Settings className="h-4 w-4 mr-2" />
-                Редагувати профіль
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Сповіщення</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h4 className="font-medium">Email сповіщення</h4>
-                    <p className="text-body-sm text-neutral-600">Отримувати сповіщення про статус оренд</p>
+                    <div className="flex items-center justify-between p-4 border rounded-lg">
+                      <div>
+                        <h3 className="font-medium">Допомога</h3>
+                        <p className="text-sm text-neutral-600">FAQ, контакти, підтримка</p>
+                      </div>
+                      <Button variant="outline" size="sm">Перейти</Button>
+                    </div>
                   </div>
-                  <Button variant="outline" size="sm">
-                    <Bell className="h-4 w-4 mr-2" />
-                    Налаштувати
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

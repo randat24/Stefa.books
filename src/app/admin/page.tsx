@@ -5,6 +5,8 @@ import { RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { AdminDashboard } from "@/components/admin/AdminDashboard"
 import ExportData from "@/components/admin/ExportData"
+import CacheManager from "@/components/admin/CacheManager"
+import MonobankTest from "@/components/admin/MonobankTest"
 import type { BookRow, UserRow } from "@/lib/types/admin"
 
 // ============================================================================
@@ -20,6 +22,7 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [, setRefreshing] = useState(false)
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'export' | 'cache' | 'monobank'>('dashboard')
 
   // ============================================================================
   // ЗАВАНТАЖЕННЯ ДАНИХ
@@ -154,14 +157,80 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="space-y-6">
-      <ExportData />
-      <AdminDashboard 
-        books={books}
-        users={users}
-        onRefresh={handleRefresh}
-        onBookCreated={handleBookCreated}
-      />
+    <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
+      <div className="sticky top-0 z-10 border-b border-neutral-200/60 bg-white/90 backdrop-blur-sm">
+        <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold text-neutral-900">Адмін-панель</h1>
+            <Button
+              variant="outline"
+              onClick={loadData}
+              disabled={loading}
+            >
+              <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
+              Оновити
+            </Button>
+          </div>
+          
+          {/* Навигация по табам */}
+          <div className="mt-4 flex space-x-1 bg-neutral-100 p-1 rounded-lg w-fit">
+            <button
+              onClick={() => setActiveTab('dashboard')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'dashboard'
+                  ? 'bg-white text-neutral-900 shadow-sm'
+                  : 'text-neutral-600 hover:text-neutral-900'
+              }`}
+            >
+              Дашборд
+            </button>
+            <button
+              onClick={() => setActiveTab('export')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'export'
+                  ? 'bg-white text-neutral-900 shadow-sm'
+                  : 'text-neutral-600 hover:text-neutral-900'
+              }`}
+            >
+              Експорт
+            </button>
+            <button
+              onClick={() => setActiveTab('cache')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'cache'
+                  ? 'bg-white text-neutral-900 shadow-sm'
+                  : 'text-neutral-600 hover:text-neutral-900'
+              }`}
+            >
+              Кеш
+            </button>
+            <button
+              onClick={() => setActiveTab('monobank')}
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                activeTab === 'monobank'
+                  ? 'bg-white text-neutral-900 shadow-sm'
+                  : 'text-neutral-600 hover:text-neutral-900'
+              }`}
+            >
+              Monobank
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full px-4 py-6 lg:px-6 xl:px-8 2xl:px-10">
+        {activeTab === 'dashboard' && (
+          <AdminDashboard 
+            books={books}
+            users={users}
+            onRefresh={handleRefresh}
+            onBookCreated={handleBookCreated}
+          />
+        )}
+        {activeTab === 'export' && <ExportData />}
+        {activeTab === 'cache' && <CacheManager />}
+        {activeTab === 'monobank' && <MonobankTest />}
+      </div>
     </div>
   )
 }

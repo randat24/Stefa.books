@@ -24,7 +24,7 @@ interface SubscribeFormHomeProps {
 function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
   const [sent, setSent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [cardNumber] = useState('5375 4114 0000 0000'); // Номер карты для перевода
+  const [cardNumber] = useState('5408 8100 4185 0776'); // Номер карты для перевода
   const [cardCopied, setCardCopied] = useState(false);
   const searchParams = useSearchParams();
 
