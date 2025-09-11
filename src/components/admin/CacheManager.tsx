@@ -77,35 +77,6 @@ export function CacheManager() {
     }
   }
 
-  // Обновление изображения
-  const refreshImage = async (imageUrl: string) => {
-    setLoading(true)
-    setMessage(null)
-
-    try {
-      const response = await fetch('/api/cache/clear', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ type: 'image', imageUrl }),
-      })
-
-      const data = await response.json()
-
-      if (data.success) {
-        setMessage({ type: 'success', text: data.message })
-        setStats(data.stats)
-      } else {
-        setMessage({ type: 'error', text: data.error || 'Ошибка при обновлении изображения' })
-      }
-    } catch (error) {
-      console.error('Image refresh error:', error)
-      setMessage({ type: 'error', text: 'Ошибка при обновлении изображения' })
-    } finally {
-      setLoading(false)
-    }
-  }
 
   // Загружаем статистику при монтировании
   useEffect(() => {
@@ -154,6 +125,7 @@ export function CacheManager() {
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2 text-lg">
+                {/* eslint-disable-next-line jsx-a11y/alt-text */}
                 <Image className="w-5 h-5" />
                 Изображения
               </CardTitle>
@@ -186,6 +158,7 @@ export function CacheManager() {
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2 text-lg">
+                {/* eslint-disable-next-line jsx-a11y/alt-text */}
                 <Database className="w-5 h-5" />
                 API
               </CardTitle>
@@ -218,6 +191,7 @@ export function CacheManager() {
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="flex items-center gap-2 text-lg">
+                {/* eslint-disable-next-line jsx-a11y/alt-text */}
                 <BarChart3 className="w-5 h-5" />
                 Книги
               </CardTitle>
@@ -266,6 +240,7 @@ export function CacheManager() {
               {loading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
+                /* eslint-disable-next-line jsx-a11y/alt-text */
                 <Image className="w-4 h-4" />
               )}
               Очистить изображения
@@ -280,6 +255,7 @@ export function CacheManager() {
               {loading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
+                /* eslint-disable-next-line jsx-a11y/alt-text */
                 <Database className="w-4 h-4" />
               )}
               Очистить API
@@ -294,6 +270,7 @@ export function CacheManager() {
               {loading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
+                /* eslint-disable-next-line jsx-a11y/alt-text */
                 <Trash2 className="w-4 h-4" />
               )}
               Очистить весь кеш
