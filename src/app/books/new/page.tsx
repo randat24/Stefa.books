@@ -27,11 +27,52 @@ export default function NewBookPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, you would save this to your backend
-    console.log('New book:', formData);
-    alert('Book created successfully!');
+    
+    try {
+      const response = await fetch('/api/admin/books', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: formData.title,
+          author: formData.author,
+          isbn: formData.isbn,
+          publisher: formData.publisher,
+          publication_year: formData.publishedDate ? new Date(formData.publishedDate).getFullYear() : undefined,
+          category: formData.category,
+          description: formData.description,
+          cover_url: formData.coverImage,
+          price_uah: formData.price ? parseFloat(formData.price) : undefined,
+          available: true
+        })
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert('Книга успешно создана!');
+        // Очистка формы
+        setFormData({
+          title: '',
+          author: '',
+          isbn: '',
+          publishedDate: '',
+          publisher: '',
+          category: '',
+          description: '',
+          coverImage: '',
+          price: '',
+        });
+      } else {
+        alert(`Ошибка: ${result.error || 'Не удалось создать книгу'}`);
+      }
+    } catch (error) {
+      console.error('Error creating book:', error);
+      alert('Ошибка при создании книги');
+    }
   };
 
   return (

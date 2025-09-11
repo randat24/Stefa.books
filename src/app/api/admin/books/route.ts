@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { logger } from '@/lib/logger'
+import { z } from 'zod'
 
 export async function GET(request: NextRequest) {
   try {
@@ -113,6 +114,103 @@ export async function GET(request: NextRequest) {
 
   } catch (error) {
     logger.error('Admin API: Unexpected error in GET /api/admin/books', error)
+    return NextResponse.json(
+      { error: 'Внутренняя ошибка сервера' },
+      { status: 500 }
+    )
+  }
+}
+
+// Схема валидации для создания книги
+const createBookSchema = z.object({
+  title: z.string().min(1, 'Название обязательно'),
+  author: z.string().min(1, 'Автор обязателен'),
+  category: z.string().optional(),
+  description: z.string().optional(),
+  pages: z.number().int().positive().optional(),
+  cover_url: z.string().url().optional(),
+  isbn: z.string().optional(),
+  publisher: z.string().optional(),
+  publication_year: z.number().int().optional(),
+  available: z.boolean().optional().default(true),
+  price_uah: z.number().positive().optional()
+})
+
+export async function POST(request: NextRequest) {
+  try {
+    // Проверка авторизации администратора
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+    if (!supabaseUrl || !supabaseKey) {
+      logger.error('Missing Supabase configuration')
+      return NextResponse.json(
+        { error: 'Server configuration error' },
+        { status: 500 }
+      )
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
+    // Получаем данные из запроса
+    const body = await request.json()
+    
+    // Валидация данных
+    const validatedData = createBookSchema.parse(body)
+
+    // Создаем книгу
+    const { data: newBook, error } = await supabase
+      .from('books')
+      .insert({
+        title: validatedData.title,
+        author: validatedData.author,
+        category: validatedData.category || null,
+        description: validatedData.description || null,
+        pages: validatedData.pages || 0,
+        cover_url: validatedData.cover_url || null,
+        available: validatedData.available ?? true,
+        is_active: validatedData.available ?? true,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      })
+      .select()
+      .single()
+
+    if (error) {
+      logger.error('Admin API: Error creating book', { error, data: validatedData })
+      return NextResponse.json(
+        { error: 'Ошибка при создании книги' },
+        { status: 500 }
+      )
+    }
+
+    logger.info('Admin API: Book created successfully', {
+      bookId: newBook.id,
+      title: validatedData.title,
+      author: validatedData.author
+    })
+
+    return NextResponse.json({
+      success: true,
+      data: newBook,
+      message: 'Книга успешно создана'
+    })
+
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { 
+          error: 'Неверные данные',
+          details: error.errors.map(err => ({
+            field: err.path.join('.'),
+            message: err.message
+          }))
+        },
+        { status: 400 }
+      )
+    }
+
+    logger.error('Admin API: Unexpected error in POST /api/admin/books', error)
     return NextResponse.json(
       { error: 'Внутренняя ошибка сервера' },
       { status: 500 }

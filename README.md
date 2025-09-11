@@ -100,7 +100,8 @@ pnpm dev
 ### Технічна документація
 - [Структура проекту](./PROJECT_STRUCTURE.md)
 - [Стандарти коду](./docs/development/CODING_STANDARDS.md)
-- [API документація](./docs/API.md)
+- [API документація](./docs/API_DOCUMENTATION.md)
+- [Документація форм](./docs/FORMS_DOCUMENTATION.md)
 - [Тестування](./TESTING_INSTRUCTIONS.md)
 
 ## 🎯 Основні функції
