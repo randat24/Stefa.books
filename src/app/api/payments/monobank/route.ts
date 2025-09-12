@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { logger } from '@/lib/logger';
+import { monobankService } from '@/lib/services/monobank';
+import { v4 as uuidv4 } from 'uuid';
 
 // Схема для создания платежа
 const createPaymentSchema = z.object({
@@ -33,31 +35,56 @@ export async function POST(request: NextRequest) {
       customer_email: validatedData.customer_email
     });
 
-    // TODO: Интеграция с реальным API Монобанка
-    // Пока возвращаем мок-данные для тестирования
-    const mockPayment = {
-      invoice_id: `mono_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    // Створюємо унікальний reference для платежу
+    const reference = uuidv4();
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://stefa-books.com.ua';
+    const redirectUrl = validatedData.return_url || `${baseUrl}/payment/success`;
+    const webhookUrl = `${baseUrl}/api/payments/monobank/webhook`;
+
+    // Створюємо платіж через Monobank API
+    const paymentResult = await monobankService.createPayment({
+      amount: validatedData.amount,
+      description: validatedData.description,
+      reference,
+      redirectUrl,
+      webhookUrl
+    });
+
+    if (paymentResult.status === 'error') {
+      logger.error('Monobank payment creation failed:', {
+        error: paymentResult.errText,
+        amount: validatedData.amount,
+        description: validatedData.description
+      });
+      
+      return NextResponse.json({
+        success: false,
+        error: 'Не вдалося створити платіж',
+        details: paymentResult.errText
+      }, { status: 400 });
+    }
+
+    const payment = {
+      invoice_id: paymentResult.data!.invoiceId,
       status: 'pending',
-      payment_url: `https://pay.monobank.ua/mock/${Date.now()}`,
-      qr_code: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==`,
-      expires_at: new Date(Date.now() + 15 * 60 * 1000).toISOString(), // 15 минут
+      payment_url: paymentResult.data!.pageUrl,
+      amount: validatedData.amount,
+      currency: validatedData.currency,
+      description: validatedData.description,
+      reference,
+      expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // 24 години
       created_at: new Date().toISOString()
     };
 
-    // В реальной интеграции здесь будет:
-    // 1. Создание инвойса в Монобанке
-    // 2. Получение payment_url и QR кода
-    // 3. Сохранение данных в базу
-    // 4. Настройка webhook для уведомлений
-
     logger.info('Monobank payment created successfully:', {
-      invoice_id: mockPayment.invoice_id,
-      status: mockPayment.status
+      invoice_id: payment.invoice_id,
+      reference: payment.reference,
+      amount: payment.amount
     });
 
     return NextResponse.json({
       success: true,
-      payment: mockPayment,
+      payment,
       message: 'Платіж створено успішно'
     });
 
@@ -104,31 +131,41 @@ export async function GET(request: NextRequest) {
       invoice_id: validatedData.invoice_id
     });
 
-    // TODO: Проверка статуса в реальном API Монобанка
-    // Пока возвращаем мок-данные
-    const mockStatus = {
+    // Перевіряємо статус платежу через Monobank API
+    const statusResult = await monobankService.checkPaymentStatus(validatedData.invoice_id);
+
+    if (statusResult.status === 'error') {
+      logger.error('Failed to check Monobank payment status:', {
+        error: statusResult.errText,
+        invoiceId: validatedData.invoice_id
+      });
+      
+      return NextResponse.json({
+        success: false,
+        error: 'Не вдалося перевірити статус платежу',
+        details: statusResult.errText
+      }, { status: 400 });
+    }
+
+    const paymentStatus = {
       invoice_id: validatedData.invoice_id,
-      status: 'success', // pending, success, failed, expired
-      amount: 50000, // в копейках
-      currency: 'UAH',
-      created_at: new Date().toISOString(),
-      paid_at: new Date().toISOString(),
-      description: 'Підписка Stefa.books'
+      status: statusResult.data!.status,
+      amount: statusResult.data!.amount / 100, // Конвертуємо з копійок в гривні
+      currency: statusResult.data!.ccy === 980 ? 'UAH' : 'OTHER',
+      created_at: new Date(statusResult.data!.createdDate * 1000).toISOString(),
+      modified_at: new Date(statusResult.data!.modifiedDate * 1000).toISOString(),
+      reference: statusResult.data!.reference
     };
 
-    // В реальной интеграции здесь будет:
-    // 1. Запрос к API Монобанка для проверки статуса
-    // 2. Обновление статуса в базе данных
-    // 3. Уведомление пользователя об изменении статуса
-
     logger.info('Monobank payment status retrieved:', {
-      invoice_id: mockStatus.invoice_id,
-      status: mockStatus.status
+      invoice_id: paymentStatus.invoice_id,
+      status: paymentStatus.status,
+      amount: paymentStatus.amount
     });
 
     return NextResponse.json({
       success: true,
-      payment: mockStatus
+      payment: paymentStatus
     });
 
   } catch (error) {

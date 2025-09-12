@@ -1,37 +1,41 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { logger } from '@/lib/logger';
-import { supabase } from '@/lib/supabase';
+import { monobankService } from '@/lib/services/monobank';
+import type { MonobankWebhookData } from '@/lib/types/monobank';
 
-// Схема для webhook от Монобанка
-interface WebhookData {
-  invoiceId: string;
-  status: 'success' | 'failure' | 'expired';
-  amount: number;
-  ccy: number;
-  createdDate: string;
-  modifiedDate: string;
-  reference: string;
-}
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    // Отримуємо тіло запиту як рядок для валідації підпису
+    const bodyText = await request.text();
+    const signature = request.headers.get('X-Sign') || '';
     
-    logger.info('Monobank webhook received:', {
-      type: body.type,
-      invoiceId: body.data?.invoiceId,
-      status: body.data?.status
+    logger.info('Monobank webhook received', {
+      hasSignature: !!signature,
+      bodyLength: bodyText.length
     });
 
-    // Проверяем тип уведомления
-    if (body.type !== 'InvoicePaymentStatusChanged') {
-      logger.warn('Unknown webhook type:', { type: body.type });
-      return NextResponse.json({ success: true, message: 'Unknown webhook type' });
+    // Валідуємо підпис webhook'у
+    if (!monobankService.validateWebhook(bodyText, signature)) {
+      logger.error('Invalid webhook signature');
+      return NextResponse.json(
+        { success: false, error: 'Invalid signature' },
+        { status: 401 }
+      );
     }
 
-    const { invoiceId, status, amount, ccy, modifiedDate } = body.data as WebhookData;
+    // Парсимо JSON після валідації підпису
+    const body = JSON.parse(bodyText);
+    
+    logger.info('Monobank webhook data:', {
+      invoiceId: body.invoiceId,
+      status: body.status,
+      amount: body.amount,
+      reference: body.reference
+    });
 
-    if (!invoiceId) {
+    // Перевіряємо обов'язкові поля
+    if (!body.invoiceId) {
       logger.error('Missing invoiceId in webhook');
       return NextResponse.json(
         { success: false, error: 'Missing invoiceId' },
@@ -39,65 +43,34 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Обновляем статус платежа в базе данных
-    const { data: payment, error: updateError } = await supabase
-      .from('payments')
-      .update({
-        status: status === 'success' ? 'completed' : status === 'failure' ? 'failed' : 'expired',
-        amount: amount,
-        currency: ccy === 980 ? 'UAH' : ccy === 840 ? 'USD' : 'EUR',
-        paid_at: status === 'success' ? new Date(modifiedDate).toISOString() : null,
-        updated_at: new Date().toISOString()
-      })
-      .eq('invoice_id', invoiceId)
-      .select()
-      .single();
+    // Обробляємо webhook через MonobankService
+    const webhookData: MonobankWebhookData = {
+      invoiceId: body.invoiceId,
+      status: body.status,
+      amount: body.amount,
+      ccy: body.ccy || 980, // UAH за замовчуванням
+      reference: body.reference,
+      createdDate: body.createdDate,
+      modifiedDate: body.modifiedDate
+    };
 
-    if (updateError) {
-      logger.error('Error updating payment status:', { error: updateError, invoiceId });
+    const result = await monobankService.processWebhook(webhookData);
+
+    if (!result.success) {
+      logger.error('Failed to process webhook:', { result, webhookData });
       return NextResponse.json(
-        { success: false, error: 'Failed to update payment status' },
+        { success: false, error: result.message },
         { status: 500 }
       );
     }
 
-    // Если платеж успешный, активируем подписку
-    if (status === 'success' && payment) {
-      // Получаем данные платежа для активации подписки
-      const { data: paymentData } = await supabase
-        .from('payments')
-        .select('customer_email, subscription_type')
-        .eq('invoice_id', invoiceId)
-        .single();
-
-      if (paymentData) {
-        const { error: subscriptionError } = await supabase
-          .from('users')
-          .update({
-            // subscription_type: paymentData.subscription_type, // TODO: Add subscription_type field to payments table
-            status: 'active',
-            updated_at: new Date().toISOString()
-          })
-          .eq('email', (paymentData as any).email); // TODO: Add customer_email field to payments table
-
-        if (subscriptionError) {
-          logger.error('Error activating subscription:', { error: subscriptionError, paymentData });
-        } else {
-          logger.info('Subscription activated successfully:', {
-            email: (paymentData as any).email, // TODO: Add customer_email field to payments table
-            subscription_type: 'premium' // TODO: Add subscription_type field to payments table
-          });
-        }
-      }
-    }
-
     logger.info('Webhook processed successfully:', {
-      invoiceId,
-      status,
-      paymentId: payment?.id
+      invoiceId: body.invoiceId,
+      status: body.status,
+      message: result.message
     });
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, message: result.message });
 
   } catch (error) {
     logger.error('Unexpected error in Monobank webhook:', error);

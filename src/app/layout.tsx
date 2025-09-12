@@ -9,6 +9,7 @@ import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import CookieConsent from "@/components/analytics/CookieConsent";
 import WebVitalsTracker from "@/components/performance/WebVitalsTracker";
 import { OfflineIndicator } from "@/components/offline/OfflineIndicator";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 // Force dynamic rendering to prevent static generation issues
 export const dynamic = 'force-dynamic';
@@ -95,6 +96,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </ErrorBoundary>
         <ErrorBoundary>
           <OfflineIndicator />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <SpeedInsights />
         </ErrorBoundary>
         <ErrorBoundary>
           <Providers>

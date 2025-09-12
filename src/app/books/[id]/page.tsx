@@ -16,7 +16,6 @@ import {
   BookOpen, 
   Award, 
   Star, 
-  ChevronRight,
   Hash,
   FileText,
   MessageCircle,
@@ -28,6 +27,9 @@ import { supabase } from "@/lib/supabase";
 
 import { BookStructuredData } from "@/components/seo/BookStructuredData";
 import { BreadcrumbStructuredData } from "@/components/seo/BreadcrumbStructuredData";
+import { Breadcrumbs, createBookBreadcrumbs } from "@/components/ui/Breadcrumbs";
+import { generateBookOGImage } from "@/lib/og";
+import { transformDatabaseBookToBook } from "@/lib/book-utils";
 
 type Params = Promise<{ id: string }>;
 
@@ -52,7 +54,13 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
     const bookData = book as any; // Временное решение для типизации
     const title = `${bookData.title} - ${bookData.author} | Stefa.books`;
     const description = bookData.description || 
-      `Читайте "${bookData.title}" автора ${bookData.author}. Украинская детская книга для аренды онлайн в библиотеке Stefa.books.`;
+      `Читайте "${bookData.title}" автора ${bookData.author}. Українська дитяча книга для оренди онлайн в бібліотеці Stefa.books.`;
+    
+    const ogImage = generateBookOGImage({
+      title: bookData.title,
+      author: bookData.author,
+      description: bookData.description
+    });
     
     return {
       title,
@@ -77,10 +85,10 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
         siteName: 'Stefa.books',
         images: [
           {
-            url: bookData.cover_url,
-            width: 400,
-            height: 600,
-            alt: `Обложка книги "${bookData.title}"`
+            url: ogImage,
+            width: 1200,
+            height: 630,
+            alt: `Обкладинка книги "${bookData.title}"`
           }
         ]
       },
@@ -88,7 +96,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
         card: 'summary_large_image',
         title,
         description,
-        images: [bookData.cover_url],
+        images: [ogImage],
       },
       alternates: {
         canonical: `https://stefa-books.com.ua/books/${bookData.id}`
@@ -118,6 +126,9 @@ export default async function BookPage({ params }: { params: Params }) {
     return notFound();
   }
 
+  // Transform database book to our Book interface
+  const transformedBook = transformDatabaseBookToBook(book);
+
   // Get related books using direct Supabase access
   const { data: relatedBooksData } = await supabase
     .from('books')
@@ -135,34 +146,23 @@ export default async function BookPage({ params }: { params: Params }) {
     "Захоплююча дитяча книга, що поєднує в собі пригоди, навчання та розваги. Ідеально підходить для читання разом з батьками або самостійного вивчення. Допоможе розвинути фантазію та мовні навички.";
 
   // Breadcrumb data
-  const breadcrumbs = [
-    { name: "Головна", url: "https://stefa-books.com.ua/" },
-    { name: "Каталог", url: "https://stefa-books.com.ua/catalog" },
-    { name: book.category_id || 'Без категорії', url: `https://stefa-books.com.ua/categories/${(book.category_id || 'uncategorized').toLowerCase()}` },
-    { name: book.title, url: `https://stefa-books.com.ua/books/${book.id}` }
-  ];
+  const breadcrumbItems = createBookBreadcrumbs({
+    title: book.title,
+    category: book.category_id || undefined,
+    category_slug: book.category_id?.toLowerCase() || undefined
+  });
 
   return (
     <>
       <BookViewTracker bookId={book.id} book={book} />
       
       {/* Structured Data */}
-      <BookStructuredData book={book} />
-      <BreadcrumbStructuredData breadcrumbs={breadcrumbs} />
+      <BookStructuredData book={transformedBook} />
+      <BreadcrumbStructuredData items={breadcrumbItems} />
       
       {/* Breadcrumbs */}
       <div className="container mx-auto px-4 py-4">
-        <nav className="flex items-center space-x-2 text-body-sm text-neutral-600">
-          <Link href="/" className="hover:text-neutral-900">Головна</Link>
-          <ChevronRight className="h-4 w-4" />
-          <Link href="/catalog" className="hover:text-neutral-900">Каталог</Link>
-          <ChevronRight className="h-4 w-4" />
-          <Link href={`/categories/${(book.category_id || 'uncategorized').toLowerCase()}`} className="hover:text-neutral-900">
-            {book.category_id || 'Без категорії'}
-          </Link>
-          <ChevronRight className="h-4 w-4" />
-          <span className="text-neutral-900 font-medium">{book.title}</span>
-        </nav>
+        <Breadcrumbs items={breadcrumbItems} />
       </div>
 
       <div className="container mx-auto px-4 py-8 space-y-12">

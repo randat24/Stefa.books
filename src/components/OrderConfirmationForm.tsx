@@ -14,6 +14,7 @@ import {
   Loader2,
   CreditCard
 } from "lucide-react";
+import MonobankPayment from "@/components/payment/MonobankPayment";
 import type { Book } from "@/lib/supabase";
 
 type DeliveryMethod = "courier" | "pickup" | "post";
@@ -50,6 +51,8 @@ type OrderFormData = z.infer<typeof orderSchema>;
 export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfirmationFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
+  const [orderData, setOrderData] = useState<OrderFormData | null>(null);
   
   const {
     register,
@@ -64,22 +67,39 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
     setIsSubmitting(true);
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      console.log("Order data:", {
+      // Зберігаємо дані замовлення для платежу
+      const completeOrderData = {
         ...data,
         book: book.id,
         plan: plan.id,
         deliveryMethod
-      });
+      };
       
-      setSubmitSuccess(true);
+      console.log("Order data:", completeOrderData);
+      
+      // Зберігаємо дані замовлення та переходимо до оплати
+      setOrderData(data);
+      setShowPayment(true);
     } catch (error) {
       console.error("Order submission error:", error);
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handlePaymentSuccess = (paymentData: any) => {
+    console.log('Payment successful:', paymentData);
+    setSubmitSuccess(true);
+  };
+
+  const handlePaymentError = (error: string) => {
+    console.error('Payment error:', error);
+    // Повертаємося до форми для повторної спроби
+    setShowPayment(false);
+  };
+
+  const goBackToForm = () => {
+    setShowPayment(false);
   };
 
   const deliveryMethodNames = {
@@ -95,19 +115,86 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
           <CheckCircle className="h-8 w-8 text-green-600" />
         </div>
         <h3 className="text-h2 text-neutral-900 mb-2">
-          Замовлення оформлено!
+          Оплата успішна!
         </h3>
         <p className="text-neutral-600 mb-6">
-          Ми надіслали підтвердження на вашу електронну пошту. 
+          Замовлення оформлено та оплачено. Ми надіслали підтвердження на вашу електронну пошту.
           Найближчим часом з вами зв&apos;яжеться наш менеджер.
         </p>
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-left max-w-md mx-auto">
           <h4 className="font-semibold text-blue-900 mb-2">Що далі?</h4>
           <ul className="text-body-sm text-blue-800 space-y-1">
+            <li>• Активуємо вашу підписку</li>
             <li>• Перевіримо наявність книги</li>
             <li>• Підготуємо до відправлення</li>
             <li>• Повідомимо про доставку</li>
           </ul>
+        </div>
+      </div>
+    );
+  }
+
+  if (showPayment && orderData) {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h3 className="text-h2 text-neutral-900">
+            Оплата підписки
+          </h3>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={goBackToForm}
+          >
+            ← Повернутися
+          </Button>
+        </div>
+        
+        <div className="grid lg:grid-cols-[1fr_400px] gap-8">
+          <div>
+            <MonobankPayment
+              amount={plan.price}
+              description={`Підписка ${plan.name} - ${book.title}`}
+              currency="UAH"
+              customerEmail={orderData.email}
+              customerName={`${orderData.firstName} ${orderData.lastName}`}
+              onPaymentSuccess={handlePaymentSuccess}
+              onPaymentError={handlePaymentError}
+              returnUrl={`${window.location.origin}/payment/success`}
+            />
+          </div>
+          
+          <div className="lg:sticky lg:top-8">
+            <div className="card p-6 space-y-4">
+              <h4 className="text-body-lg font-semibold text-neutral-900">
+                Деталі замовлення
+              </h4>
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-neutral-600">Книга:</span>
+                  <span className="font-medium">{book.title}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-neutral-600">Автор:</span>
+                  <span>{book.author}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-neutral-600">Тариф:</span>
+                  <span className="font-medium">{plan.name}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-neutral-600">Доставка:</span>
+                  <span>{deliveryMethodNames[deliveryMethod]}</span>
+                </div>
+                <div className="border-t pt-3">
+                  <div className="flex justify-between text-lg font-semibold">
+                    <span>До оплати:</span>
+                    <span className="text-brand-accent-light">{plan.price} ₴</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -391,12 +478,12 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
             {isSubmitting ? (
               <>
                 <Loader2 className="h-5 w-5 mr-2 animate-spin" />
-                Оформлюємо замовлення...
+                Обробляємо дані...
               </>
             ) : (
               <>
                 <CreditCard className="h-5 w-5 mr-2" />
-                Підтвердити замовлення
+                Перейти до оплати
               </>
             )}
           </Button>

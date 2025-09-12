@@ -170,6 +170,13 @@ Based on shadcn/ui with custom variants:
 - **BreadcrumbStructuredData** - Breadcrumb navigation schema markup
 - **CanonicalAndHreflang** - Canonical URLs and language variants
 
+#### Payment Components (`src/components/payment/`)
+- **MonobankPayment** - Complete payment flow UI component with real/demo modes
+- **MonobankInfo** - Dashboard showing API status and account information
+- **PaymentCheckout** - General payment checkout interface
+- **SubscriptionManager** - Subscription plan management
+- **SubscriptionPlans** - Plan selection and pricing display
+
 #### Admin Components (`src/app/admin/components/`)
 - **AnalyticsDashboard** - Usage statistics and metrics
 - **UsersTable** - User management interface
@@ -187,6 +194,13 @@ Based on shadcn/ui with custom variants:
 - `POST|GET /api/markdown` - HTML to Markdown conversion service with mdream
 - `GET /api/books/[id]/markdown` - Generate markdown version of book pages
 - `GET /api/llms.txt` - AI discoverability file generation
+
+#### Payment APIs (`src/app/api/payments/`)
+- `POST /api/payments/monobank` - Create Monobank payment
+- `GET /api/payments/monobank?invoice_id=...` - Check payment status
+- `POST /api/payments/monobank/webhook` - Handle payment webhooks
+- `GET /api/monobank/client-info` - Monobank client information
+- `GET /api/monobank/statement` - Account statements
 
 #### Admin APIs (`src/app/api/admin/`)  
 - `/admin/users` - User management
@@ -262,11 +276,27 @@ const mockBook: Book = {
 ### Environment Setup
 Required environment variables in `.env.local`:
 ```
+# Core Services
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+
+# Image Storage
 NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloudinary_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
+
+# Payment System (Monobank)
+MONOBANK_TOKEN=your_monobank_universal_token
+# Optional merchant-specific keys (if separate from token):
+# MONOBANK_PRIVATE_KEY=your_merchant_private_key
+# MONOBANK_PUBLIC_KEY=your_merchant_public_key
+# MONOBANK_MERCHANT_ID=your_merchant_id
+
+# Site Configuration
+NEXT_PUBLIC_SITE_URL=your_site_url
+ADMIN_JWT_SECRET=your_jwt_secret
+ADMIN_EMAIL=admin_email
 ```
 
 ### Code Standards (from .cursorrules)
@@ -421,6 +451,10 @@ In Tailwind v4.1, configuration moved from JavaScript (`tailwind.config.ts`) to 
 - **Book Components**: `src/components/Book*` (BookImageGallery, BookSpecifications, BookReviews, etc.)
 - **Catalog System**: `src/components/catalog/` (BooksCatalog, CatalogSearchFilter)
 - **SEO Components**: `src/components/seo/` (structured data and metadata components)
+- **Payment Integration**: `src/lib/services/monobank.ts` (Monobank API service)
+- **Payment Types**: `src/lib/types/monobank.ts` (payment system type definitions)
+- **Payment APIs**: `src/app/api/payments/monobank/` (payment creation and webhook handling)
+- **Payment Components**: `src/components/payment/` (MonobankPayment, MonobankInfo, payment UI)
 
 ## Project-Specific Patterns
 
@@ -502,6 +536,59 @@ import { BookShareMenu } from '@/components/BookShareMenu';
 />
 // Supports: copy link, Facebook, Twitter, email, messaging apps
 ```
+
+### Payment System Integration (Monobank)
+
+#### Service Layer
+```typescript
+// Core payment service
+import { monobankService } from '@/lib/services/monobank';
+
+// Create payment
+const payment = await monobankService.createPayment({
+  amount: 500,
+  description: 'Підписка на книги',
+  reference: `order-${Date.now()}`,
+  redirectUrl: 'https://site.com/payment/success',
+  webhookUrl: 'https://site.com/api/payments/monobank/webhook'
+});
+
+// Check payment status
+const status = await monobankService.checkPaymentStatus(invoiceId);
+```
+
+#### UI Components
+```typescript
+// Payment component with auto-switching real/demo modes
+import { MonobankPayment } from '@/components/payment/MonobankPayment';
+
+<MonobankPayment
+  amount={500}
+  description="Підписка Maxi"
+  currency="UAH"
+  customerEmail="user@example.com"
+  customerName="Іван Петров"
+  onPaymentSuccess={(data) => {
+    console.log('Payment successful:', data);
+    router.push('/payment/success');
+  }}
+  onPaymentError={(error) => {
+    console.error('Payment failed:', error);
+  }}
+/>
+
+// Account information dashboard
+import { MonobankInfo } from '@/components/payment/MonobankInfo';
+<MonobankInfo /> // Shows API status, accounts, transactions
+```
+
+#### Payment Flow Architecture
+1. **Token-based Authentication**: Single `MONOBANK_TOKEN` supports both personal and merchant APIs
+2. **Automatic Mode Detection**: Real payments if API configured, demo mode otherwise
+3. **Database Integration**: Uses existing `payments` table with proper field mapping
+4. **Webhook Processing**: Automatic payment status updates via webhook endpoints
+5. **Error Handling**: Comprehensive error tracking and user feedback
+6. **UI State Management**: Real-time status updates and loading states
 
 ## Deployment Architecture
 

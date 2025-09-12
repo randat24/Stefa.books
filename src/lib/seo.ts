@@ -2,6 +2,9 @@
  * Утилиты для SEO оптимизации
  */
 
+import { Metadata } from 'next';
+import { generateOGImageUrl } from './og';
+
 /**
  * Генерация мета-тегов для страницы
  */
@@ -40,36 +43,56 @@ export function generateMetaTags({
   const fullCanonical = canonical ? `${baseUrl}${canonical}` : baseUrl;
   const fullOgImage = ogImage ? 
     (ogImage.startsWith('http') ? ogImage : `${baseUrl}${ogImage}`) : 
-    `${baseUrl}/images/og-image.jpg`;
-  
-  const robots = noindex || nofollow ? 
-    `${noindex ? 'noindex' : ''}${nofollow ? ', nofollow' : ''}`.replace(/^, /, '') : 
-    'index, follow';
+    generateOGImageUrl({ title, description });
 
   return {
     title,
     description,
     keywords: keywords.join(', '),
     canonical: fullCanonical,
-    robots,
-    author,
-    'og:type': ogType,
-    'og:title': title,
-    'og:description': description,
-    'og:url': fullCanonical,
-    'og:image': fullOgImage,
-    'og:image:width': '1200',
-    'og:image:height': '630',
-    'og:site_name': 'Stefa.books',
-    'og:locale': 'uk_UA',
-    'twitter:card': twitterCard,
-    'twitter:title': title,
-    'twitter:description': description,
-    'twitter:image': fullOgImage,
-    'article:published_time': publishedTime,
-    'article:modified_time': modifiedTime,
-    'article:section': section,
-    'article:tag': tags
+    robots: {
+      index: !noindex,
+      follow: !nofollow,
+      googleBot: {
+        index: !noindex,
+        follow: !nofollow,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      }
+    },
+    authors: [{ name: author }],
+    creator: 'Stefa.books',
+    publisher: 'Stefa.books',
+    openGraph: {
+      type: ogType,
+      title,
+      description,
+      url: fullCanonical,
+      siteName: 'Stefa.books',
+      locale: 'uk_UA',
+      images: [
+        {
+          url: fullOgImage,
+          width: 1200,
+          height: 630,
+          alt: title
+        }
+      ],
+      ...(publishedTime && { publishedTime }),
+      ...(modifiedTime && { modifiedTime }),
+      ...(section && { section }),
+      ...(tags.length > 0 && { tags })
+    },
+    twitter: {
+      card: twitterCard,
+      title,
+      description,
+      images: [fullOgImage]
+    },
+    alternates: {
+      canonical: fullCanonical
+    }
   };
 }
 
