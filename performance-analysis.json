@@ -1,0 +1,88 @@
+{
+  "timestamp": "2025-09-12T14:30:07.947Z",
+  "pages": [
+    {
+      "route": "/",
+      "name": "Главная",
+      "size": 244,
+      "firstLoadJS": 244,
+      "status": "⚠️ Тяжелая"
+    },
+    {
+      "route": "/admin",
+      "name": "Админ панель",
+      "size": 222,
+      "firstLoadJS": 222,
+      "status": "⚠️ Тяжелая"
+    },
+    {
+      "route": "/profile",
+      "name": "Профиль",
+      "size": 127,
+      "firstLoadJS": 127,
+      "status": "⚡ Средняя"
+    },
+    {
+      "route": "/books",
+      "name": "Каталог книг",
+      "size": 79,
+      "firstLoadJS": 79,
+      "status": "✅ Легкая"
+    },
+    {
+      "route": "/subscribe",
+      "name": "Подписка",
+      "size": 70,
+      "firstLoadJS": 70,
+      "status": "✅ Легкая"
+    }
+  ],
+  "bundles": {
+    "totalSize": 198.6,
+    "sharedJS": 102,
+    "pagesJS": 96.6,
+    "chunks": [
+      {
+        "name": "framework",
+        "size": 57.6
+      },
+      {
+        "name": "main",
+        "size": 36.9
+      },
+      {
+        "name": "shared",
+        "size": 46
+      }
+    ]
+  },
+  "recommendations": [
+    {
+      "type": "warning",
+      "title": "Тяжелые страницы обнаружены",
+      "description": "Найдено 2 страниц с размером > 150 kB",
+      "pages": [
+        "Главная (244 kB)",
+        "Админ панель (222 kB)"
+      ],
+      "action": "Оптимизировать код-сплиттинг и lazy loading"
+    },
+    {
+      "type": "success",
+      "title": "Рекомендации по оптимизации",
+      "items": [
+        "Включить gzip/brotli сжатие",
+        "Оптимизировать изображения (WebP, AVIF)",
+        "Использовать CDN для статических ресурсов",
+        "Настроить кэширование браузера",
+        "Внедрить Service Worker для офлайн работы"
+      ]
+    }
+  ],
+  "summary": {
+    "totalPages": 5,
+    "heavyPages": 2,
+    "averageSize": 148,
+    "totalBundleSize": 198.6
+  }
+}

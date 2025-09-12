@@ -1,6 +1,6 @@
 "use client";
 
-import { OptimizedImage, WebOptimizedImage, MobileOptimizedImage } from '@/components/ui/OptimizedImage';
+import { OptimizedImage, BookCoverImage, HeroImage, ThumbnailImage } from '@/components/ui/OptimizedImage';
 import { ImageUpload } from '@/components/ui/ImageUpload';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -67,11 +67,9 @@ export function ImageOptimizationExamples() {
         <div className="grid md:grid-cols-2 gap-6">
           <div>
             <h3 className="text-lg font-medium mb-3">Web оптимизация</h3>
-            <WebOptimizedImage
-              publicId="stefa-books/covers/demo-book"
+            <BookCoverImage
+              src="https://res.cloudinary.com/stefa-books/image/upload/v1/stefa-books/covers/demo-book"
               alt="Демо обложка книги"
-              width={300}
-              height={450}
               className="w-full h-auto rounded-lg shadow-md"
             />
           </div>
@@ -97,11 +95,9 @@ export function ImageOptimizationExamples() {
         <div className="grid md:grid-cols-2 gap-6">
           <div>
             <h3 className="text-lg font-medium mb-3">Mobile оптимизация</h3>
-            <MobileOptimizedImage
-              publicId="stefa-books/covers/demo-book"
+            <ThumbnailImage
+              src="https://res.cloudinary.com/stefa-books/image/upload/v1/stefa-books/covers/demo-book"
               alt="Демо обложка для мобильных"
-              width={200}
-              height={300}
               className="w-full h-auto rounded-lg shadow-md"
             />
           </div>
@@ -128,22 +124,10 @@ export function ImageOptimizationExamples() {
           <div>
             <h3 className="text-lg font-medium mb-3">С эффектами</h3>
             <OptimizedImage
-              publicId="stefa-books/covers/demo-book"
+              src="https://res.cloudinary.com/stefa-books/image/upload/v1/stefa-books/covers/demo-book"
               alt="Демо с эффектами"
               width={300}
               height={450}
-              optimizationType="custom"
-              customTransformations={{
-                width: 300,
-                height: 450,
-                crop: 'fill',
-                gravity: 'auto',
-                quality: 'auto:best',
-                effect: 'sharpen',
-                radius: 2,
-                border: '3px_solid_rgb:ffffff',
-                shadow: '10px_10px_0_rgb:000000'
-              }}
               className="w-full h-auto rounded-lg"
             />
           </div>

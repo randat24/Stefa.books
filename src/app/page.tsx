@@ -1,6 +1,4 @@
 import { Suspense, lazy } from "react";
-import Hero from "@/components/hero/Hero";
-import Steps from "@/components/sections/Steps";
 import { Metadata } from "next";
 import { LazySection } from "@/components/ui/LazySection";
 import { HomepageResourcePreloader } from "@/components/performance/ResourcePreloader";
@@ -41,7 +39,11 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// Dynamic imports for non-critical components
+// Critical components - load immediately
+const Hero = lazy(() => import("@/components/hero/Hero"));
+const Steps = lazy(() => import("@/components/sections/Steps"));
+
+// Non-critical components - lazy load with intersection observer
 const PlansLite = lazy(() => import("@/components/widgets/PlansLite"));
 const Categories = lazy(() => import("@/components/sections/Categories"));
 const SubscribeFormHome = lazy(() => import("@/components/subscribe/SubscribeFormHome"));
@@ -68,70 +70,73 @@ export default function HomePage() {
 			{/* Resource Preloader for Core Web Vitals optimization */}
 			<HomepageResourcePreloader />
 			
+			{/* Hero - Critical above-the-fold content */}
+			<Suspense fallback={<div className="h-96 bg-surface animate-pulse rounded-lg" />}>
+				<Hero />
+			</Suspense>
 			
-			{/* Hero */}
-			<Hero />
+			{/* Steps - Important for conversion */}
+			<Suspense fallback={<div className="h-64 bg-surface animate-pulse rounded-lg" />}>
+				<Steps />
+			</Suspense>
 			
-			{/* Recent Views */}
+			{/* Recent Views - Below the fold, lazy load */}
 			<LazySection>
 				<Suspense fallback={<div className="h-32 bg-surface animate-pulse rounded-lg" />}>
 					<RecentViews maxItems={5} />
 				</Suspense>
 			</LazySection>
 
-			{/* Categories */}
+			{/* Categories - Below the fold, lazy load */}
 			<LazySection>
 				<Suspense fallback={<div className="h-64 bg-surface animate-pulse rounded-lg" />}>
 					<Categories />
 				</Suspense>
 			</LazySection>
-			
-			{/* Steps */}
-			<Steps />
 
-			{/* Каталог книг */}
+			{/* Каталог книг - Heavy component, lazy load */}
 			<LazySection>
 				<Suspense fallback={<div className="h-96 bg-surface animate-pulse rounded-lg" />}>
 					<Catalog />
 				</Suspense>
 			</LazySection>
 
-			{/* Тарифы */}
+			{/* Тарифы - Important for conversion, lazy load */}
 			<LazySection>
 				<Suspense fallback={<div className="h-80 bg-surface animate-pulse rounded-lg" />}>
 					<PlansLite />
 				</Suspense>
 			</LazySection>
 
-			{/* Subscribe Form */}
+			{/* Subscribe Form - Critical for conversion, lazy load */}
 			<LazySection>
 				<Suspense fallback={<div className="h-96 bg-surface animate-pulse rounded-lg" />}>
 					<SubscribeFormHome />
 				</Suspense>
 			</LazySection>
 
-			{/* FAQ */}
+			{/* FAQ - Below the fold, lazy load */}
 			<LazySection>
 				<Suspense fallback={<div className="h-80 bg-surface animate-pulse rounded-lg" />}>
 					<FAQ />
 				</Suspense>
 			</LazySection>
 
-			{/* Social Proof */}
+			{/* Social Proof - Below the fold, lazy load */}
 			<LazySection>
 				<Suspense fallback={<div className="h-48 bg-surface animate-pulse rounded-lg" />}>
 					<SocialProof />
 				</Suspense>
 			</LazySection>
 
-			{/* Contact Location */}
+			{/* Contact Location - Below the fold, lazy load */}
 			<LazySection>
 				<Suspense fallback={<div className="h-64 bg-surface animate-pulse rounded-lg" />}>
 					<ContactLocation />
 				</Suspense>
 			</LazySection>
 
-			{/* Final CTA */}
+			{/* Final CTA - Below the fold, lazy load */}
 			<LazySection>
 				<Suspense fallback={<div className="h-32 bg-surface animate-pulse rounded-lg" />}>
 					<FinalCTA />

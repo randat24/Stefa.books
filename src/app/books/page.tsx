@@ -1,7 +1,13 @@
-import { Suspense } from 'react';
-import { BooksCatalog } from '@/components/catalog/BooksCatalog';
+import { Suspense, lazy } from 'react';
 import { Loader2, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+
+// Lazy load the optimized catalog component
+const OptimizedBooksCatalog = lazy(() => 
+  import('@/components/catalog/OptimizedBooksCatalog').then(mod => ({ 
+    default: mod.OptimizedBooksCatalog 
+  }))
+);
 
 function BooksPageFallback() {
   return (
@@ -37,7 +43,7 @@ export default function BooksPage() {
         </div>
         
         <Suspense fallback={<BooksPageFallback />}>
-          <BooksCatalog />
+          <OptimizedBooksCatalog />
         </Suspense>
     </div>
   );
