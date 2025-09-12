@@ -10,7 +10,7 @@
     "fix:react-types": "node scripts/fix-react-types.js",
     "fix:versions": "node scripts/fix-versions.js",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint --dir src --dir pages --ignore-path .eslintignore",
     "check-styles": "./scripts/check-styles.sh",
     "fix-styles": "./scripts/fix-styles.sh",
     "dev-safe": "npm run check-styles && npm run dev",

@@ -44,6 +44,7 @@ jest.mock('@/lib/logger', () => ({
   }
 }));
 
+/* eslint-disable @typescript-eslint/no-require-imports */
 describe('Monobank Integration', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -265,12 +266,13 @@ describe('Payment API Endpoints', () => {
 
       expect(() => {
         // This would be validated by the zod schema in the actual API
-        const schema = require('zod').z.object({
-          amount: require('zod').z.number().min(1),
-          description: require('zod').z.string().min(1),
-          order_id: require('zod').z.string().min(1),
-          customer_email: require('zod').z.string().email(),
-          customer_name: require('zod').z.string().min(1)
+        const z = require('zod').z
+        const schema = z.object({
+          amount: z.number().min(1),
+          description: z.string().min(1),
+          order_id: z.string().min(1),
+          customer_email: z.string().email(),
+          customer_name: z.string().min(1)
         });
 
         schema.parse(invalidData);
@@ -287,13 +289,14 @@ describe('Payment API Endpoints', () => {
         currency: 'UAH'
       };
 
-      const schema = require('zod').z.object({
-        amount: require('zod').z.number().min(1),
-        description: require('zod').z.string().min(1),
-        order_id: require('zod').z.string().min(1),
-        customer_email: require('zod').z.string().email(),
-        customer_name: require('zod').z.string().min(1),
-        currency: require('zod').z.enum(['UAH', 'USD', 'EUR']).optional()
+      const z = require('zod').z
+      const schema = z.object({
+        amount: z.number().min(1),
+        description: z.string().min(1),
+        order_id: z.string().min(1),
+        customer_email: z.string().email(),
+        customer_name: z.string().min(1),
+        currency: z.enum(['UAH', 'USD', 'EUR']).optional()
       });
 
       expect(() => schema.parse(validData)).not.toThrow();
