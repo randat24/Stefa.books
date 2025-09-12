@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+/* eslint-disable @typescript-eslint/no-var-requires */
+/// <reference types="jest" />
+
 import { monobankService } from '@/lib/services/monobank';
 import type { MonobankWebhookData } from '@/lib/types/monobank';
 
