@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
-import { RefreshCw, AlertCircle } from 'lucide-react'
+import { RefreshCw, AlertCircle, BookOpen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { imageCache, cacheUtils } from '@/lib/cache-manager'
 
@@ -163,8 +163,10 @@ export function CachedImage({
     return (
       <div className={`relative overflow-hidden bg-neutral-100 flex items-center justify-center w-full h-full ${className}`}>
         <div className="text-center p-4">
-          <AlertCircle className="w-8 h-8 text-neutral-400 mx-auto mb-2" />
-          <p className="text-sm text-neutral-500 mb-2">Не удалось загрузить изображение</p>
+          <div className="w-8 h-8 bg-neutral-200 rounded-lg flex items-center justify-center mx-auto mb-2">
+            <BookOpen className="w-5 h-5 text-neutral-400" />
+          </div>
+          <p className="text-sm text-neutral-500 mb-2">Зображення недоступне</p>
           {showRefreshButton && (
             <Button
               size="sm"
@@ -173,7 +175,7 @@ export function CachedImage({
               className="text-xs"
             >
               <RefreshCw className="w-3 h-3 mr-1" />
-              Обновить
+              Спробувати знову
             </Button>
           )}
         </div>

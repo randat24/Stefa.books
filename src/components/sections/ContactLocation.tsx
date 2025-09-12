@@ -248,7 +248,7 @@ export default function ContactLocation({
                     className={`rounded-2xl px-6 py-3 font-semibold transition shadow-md hover:shadow-lg ${
                       mode === "nova_poshta"
                         ? "bg-neutral-300 text-neutral-500 cursor-not-allowed"
-                        : "bg-accent text-neutral-900 hover:bg-accent-light"
+                        : "bg-[#F7C948] text-neutral-900 hover:bg-[#E0AE22]"
                     }`}
                   >
                     {view.cta}
@@ -293,7 +293,7 @@ export default function ContactLocation({
                       href={`https://maps.google.com/?q=${encodeURIComponent(
                         data.pickup.address
                       )}`}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-neutral-900 rounded-2xl hover:bg-accent-light transition-colors font-semibold shadow-sm hover:shadow-md text-sm"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#F7C948] text-neutral-900 rounded-2xl hover:bg-[#E0AE22] transition-colors font-semibold shadow-sm hover:shadow-md text-sm"
                     >
                       <ExternalLink className="h-4 w-4" />
                       Відкрити в картах
