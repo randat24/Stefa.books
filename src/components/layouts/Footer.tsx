@@ -119,7 +119,7 @@ export function Footer() {
                 </a>
               </div>
               <div className="space-y-2 text-sm">
-                <p className="text-neutral-600">Зв'язок з нами:</p>
+                <p className="text-neutral-600">Зв&apos;язок з нами:</p>
                 <div className="flex items-center gap-2">
                   <Mail size={14} />
                   <a href="mailto:info@stefa.books" className="text-neutral-600 hover:text-[#F7C948] transition-colors">info@stefa.books</a>

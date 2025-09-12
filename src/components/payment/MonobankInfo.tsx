@@ -238,7 +238,7 @@ export default function MonobankInfo() {
             <div className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-neutral-600">Ім'я клієнта</label>
+                  <label className="text-sm font-medium text-neutral-600">Ім&apos;я клієнта</label>
                   <p className="text-neutral-900">{clientInfo.name}</p>
                 </div>
                 <div>
@@ -402,7 +402,7 @@ export default function MonobankInfo() {
             <ul className="list-disc list-inside space-y-1 text-sm">
               <li>Платіжні посилання ведуть на сторінку успіху</li>
               <li>Всі платежі автоматично вважаються успішними</li>
-              <li>Webhook'и імітуються локально</li>
+              <li>Webhook&apos;и імітуються локально</li>
               <li>Реальні кошти не списуються</li>
             </ul>
             <p className="text-sm font-medium">
