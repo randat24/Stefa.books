@@ -51,33 +51,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Создание профиля пользователя в базе данных
-    const { error: profileError } = await supabase
-      .from('users')
-      .insert({
-        id: authData.user.id,
-        email: validatedData.email,
-        name: `${validatedData.firstName} ${validatedData.lastName}`,
-        phone: validatedData.phone || null,
-        subscription_type: 'mini', // По умолчанию базовый план
-        status: 'active',
-        role: 'user'
-      });
-
-    if (profileError) {
-      logger.error('Failed to create user profile', { error: profileError }, 'Auth');
-      
-      // Удаляем пользователя из Auth, если не удалось создать профиль
-      await supabase.auth.admin.deleteUser(authData.user.id);
-      
-      return NextResponse.json(
-        { 
-          success: false, 
-          error: 'Не вдалося створити профіль користувача' 
-        },
-        { status: 500 }
-      );
-    }
+    // Временно пропускаем создание профиля - пользователь может создать его позже
+    // Профиль будет создан автоматически при первом входе
+    logger.info('User created in auth, profile will be created on first login', { userId: authData.user.id }, 'Auth');
 
     logger.info('User registered successfully', { userId: authData.user.id }, 'Auth');
 

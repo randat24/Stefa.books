@@ -8,7 +8,7 @@ import { AuthModal } from '@/components/auth/AuthModal';
 import { AdminStatus } from '@/components/auth/AdminStatus';
 import { SubscriptionModal } from '@/components/subscribe/SubscriptionModal';
 import { Button } from '@/components/ui/button';
-import { User, LogOut, Heart, BookOpen, Menu, X } from 'lucide-react';
+import { User, Heart, BookOpen, Menu, X } from 'lucide-react';
 // Animation components removed for build fix
 
 export function Header() {
@@ -17,12 +17,7 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Get auth state directly from useAuth hook
-  const { user, isAuthenticated, logout } = useAuth();
-
-  const handleLogout = async () => {
-    await logout();
-    setIsMobileMenuOpen(false);
-  };
+  const { isAuthenticated } = useAuth();
 
   return (
     <>
@@ -60,17 +55,16 @@ export function Header() {
                 </Link>
                 <AdminStatus />
                 <div className="flex items-center gap-2 ml-2">
-                  <span className="text-body-sm text-neutral-600">
-                    {user?.user_metadata?.first_name || user?.email?.split('@')[0] || 'Користувач'}
-                  </span>
                   <Button 
                     variant="outline" 
-                    size="md" 
-                    onClick={handleLogout}
-                    className="text-neutral-600 hover:text-neutral-900"
+                    size="md"
+                    asChild
+                    className="text-neutral-700 hover:text-neutral-900"
                   >
-                    <LogOut className="h-4 w-4" />
-                    <span className="ml-1">Вийти</span>
+                    <Link href="/profile">
+                      <User className="h-4 w-4" />
+                      <span className="ml-1">Мій профіль</span>
+                    </Link>
                   </Button>
                 </div>
               </>
@@ -151,17 +145,19 @@ export function Header() {
                     </Link>
                     
                     <div className="pt-2 border-t border-neutral-200">
-                      <div className="px-3 py-2 text-body-sm text-neutral-600 mb-3">
-                        {user?.user_metadata?.first_name || user?.email?.split('@')[0] || 'Користувач'}
-                      </div>
                       <Button 
                         variant="outline" 
-                        size="md" 
-                        onClick={handleLogout}
-                        className="w-full bg-[var(--brand)] text-[#111827] hover:bg-[var(--brand-600)] border-[var(--brand)]"
+                        size="md"
+                        asChild
+                        className="w-full text-neutral-700 hover:text-neutral-900"
                       >
-                        <LogOut className="h-4 w-4 mr-2" />
-                        Вийти
+                        <Link 
+                          href="/profile"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <User className="h-4 w-4 mr-2" />
+                          Мій профіль
+                        </Link>
                       </Button>
                     </div>
                   </>

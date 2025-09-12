@@ -10,14 +10,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { 
   User, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Calendar,
-  Settings,
   Bell,
   Shield,
-  CreditCard,
   Eye,
   EyeOff,
   Save,
@@ -42,7 +36,6 @@ interface UserProfile {
 export default function ProfilePage() {
   const { user, isAuthenticated } = useAuth();
   const [activeTab, setActiveTab] = useState('personal');
-  const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
@@ -91,7 +84,6 @@ export default function ProfilePage() {
         updated_at: user?.updated_at || ''
       };
 
-      setProfile(userProfile);
       setFormData({
         first_name: userProfile.first_name || '',
         last_name: userProfile.last_name || '',
@@ -210,22 +202,24 @@ export default function ProfilePage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="container py-8">
-        <div className="max-w-2xl mx-auto text-center">
-          <div className="w-16 h-16 bg-neutral-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <User className="h-8 w-8 text-neutral-400" />
-          </div>
-          <h1 className="text-h2 text-neutral-900 mb-2">Вхід необхідний</h1>
-          <p className="text-neutral-600 mb-6">
-            Будь ласка, увійдіть в систему, щоб переглянути свій профіль
-          </p>
-          <div className="flex gap-4 justify-center">
+      <div className="section-sm">
+        <div className="container">
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="w-16 h-16 bg-surface-2 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <User className="h-8 w-8 text-text-muted" />
+            </div>
+            <h1 className="h2 text-accent mb-2">Вхід необхідний</h1>
+            <p className="text-text-muted mb-6">
+              Будь ласка, увійдіть в систему, щоб переглянути свій профіль
+            </p>
+            <div className="flex gap-4 justify-center">
             <Button asChild>
               <Link href="/auth/login">Увійти</Link>
             </Button>
             <Button variant="outline" asChild>
               <Link href="/auth/register">Зареєструватися</Link>
             </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -243,14 +237,15 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="container py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-h1 text-neutral-900 mb-2">Мій профіль</h1>
-        <p className="text-neutral-600">
+    <div className="section-sm">
+      <div className="container">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="h1 text-accent mb-2">Мій профіль</h1>
+        <p className="text-text-muted">
           Керуйте своїми особистими даними та налаштуваннями
         </p>
-      </div>
+        </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="grid w-full grid-cols-4">
@@ -628,6 +623,7 @@ export default function ProfilePage() {
           </Card>
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 }

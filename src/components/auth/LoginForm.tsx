@@ -5,7 +5,6 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Eye, EyeOff, CheckCircle, XCircle } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -103,11 +102,11 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
 
   return (
     <div className="w-full max-w-md mx-auto">
-      <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+      <div className="card rounded-xl shadow-lg overflow-hidden">
         <div className="px-6 py-8">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Вхід</h2>
-            <p className="text-gray-600">Увійдіть до свого облікового запису</p>
+            <h2 className="h2 text-accent mb-2">Вхід</h2>
+            <p className="text-text-muted">Увійдіть до свого облікового запису</p>
           </div>
           
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -119,7 +118,7 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
             )}
           
           <div className="space-y-2">
-            <Label htmlFor="email" className="text-sm font-medium text-gray-700">Електронна пошта</Label>
+            <Label htmlFor="email" className="text-small font-medium text-text">Електронна пошта</Label>
             <Input
               id="email"
               type="email"
@@ -144,12 +143,12 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
           
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="password" className="text-sm font-medium text-gray-700">Пароль</Label>
+              <Label htmlFor="password" className="text-small font-medium text-text">Пароль</Label>
               {onForgotPassword && (
                 <button
                   type="button"
                   onClick={onForgotPassword}
-                  className="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                  className="text-small text-brand hover:text-brand-700 font-medium transition-colors"
                   disabled={isLoading}
                 >
                   Забули пароль?
@@ -195,7 +194,7 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
           <div className="pt-4">
             <Button 
               type="submit" 
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed" 
+              className="w-full bg-brand hover:bg-brand-600 text-accent font-medium py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed" 
               disabled={isLoading || !email.trim() || !password.trim()}
             >
               {isLoading ? (
@@ -213,12 +212,12 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
           </div>
           
           {onSwitchToRegister && (
-            <div className="text-center text-sm text-gray-600 pt-2">
+            <div className="text-center text-small text-text-muted pt-2">
               Немає облікового запису?{' '}
               <button
                 type="button"
                 onClick={onSwitchToRegister}
-                className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                className="text-brand hover:text-brand-600 font-medium transition-colors"
                 disabled={isLoading}
               >
                 Зареєструватися
