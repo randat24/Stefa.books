@@ -48,25 +48,20 @@ export async function POST(request: NextRequest) {
       'Переказ на карту': 'Переказ на карту'
     };
 
-    // ВРЕМЕННО: Сохраняем в таблицу books из-за проблем с кэшем схемы
-    // TODO: Вернуть на subscription_requests после исправления кэша
+    // Сохраняем заявку на подписку
     const { data, error } = await supabase
-      .from('books')
+      .from('subscription_requests')
       .insert({
-        title: `Підписка ${validatedData.plan} - ${validatedData.name}`,
-        author: validatedData.email,
-        category: 'subscription-request',
-        description: JSON.stringify({
-          phone: validatedData.phone,
-          plan: validatedData.plan,
-          payment: paymentMethodMapping[validatedData.paymentMethod as keyof typeof paymentMethodMapping],
-          social: validatedData.social || null,
-          message: validatedData.message || null,
-          screenshot: validatedData.screenshot || null,
-          privacyConsent: validatedData.privacyConsent
-        }),
-        pages: 0,
-        cover_url: validatedData.screenshot || ''
+        name: validatedData.name,
+        email: validatedData.email,
+        phone: validatedData.phone,
+        social: validatedData.social || null,
+        subscription_type: validatedData.plan,
+        payment_method: paymentMethodMapping[validatedData.paymentMethod as keyof typeof paymentMethodMapping],
+        message: validatedData.message || null,
+        screenshot: validatedData.screenshot || null,
+        privacy_consent: validatedData.privacyConsent,
+        status: 'pending'
       })
       .select()
       .single();

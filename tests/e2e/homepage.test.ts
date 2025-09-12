@@ -20,8 +20,8 @@ test('navigation menu works correctly', async ({ page }) => {
   // Click on the catalog link
   await page.click('text=Каталог');
 
-  // Expect the URL to contain catalog
-  await expect(page).toHaveURL(/.*catalog/);
+  // Expect the URL to contain books (catalog redirects to books)
+  await expect(page).toHaveURL(/.*books/);
 
   // Go back to home
   await page.goBack();
@@ -31,12 +31,15 @@ test('navigation menu works correctly', async ({ page }) => {
 test('search functionality works', async ({ page }) => {
   await page.goto('/');
 
+  // Click on search button to open search modal
+  await page.click('[data-testid="open-search"]');
+
   // Fill in the search box
-  await page.fill('[data-testid="search-input"]', 'test');
+  await page.fill('[data-testid="mobile-search"]', 'test');
 
   // Submit the search
-  await page.press('[data-testid="search-input"]', 'Enter');
+  await page.press('[data-testid="mobile-search"]', 'Enter');
 
-  // Expect to see search results
-  await expect(page.locator('[data-testid="search-results"]')).toBeVisible();
+  // Expect to be redirected to books page with search
+  await expect(page).toHaveURL(/.*books.*search/);
 });

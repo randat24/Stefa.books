@@ -1,98 +1,120 @@
-"use client";
+'use client';
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { CheckCircle, ArrowLeft } from 'lucide-react';
+import { CheckCircle, XCircle, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function SubscribeSuccessPage() {
   const searchParams = useSearchParams();
-  const requestId = searchParams?.get('requestId');
-  const [isLoading, setIsLoading] = useState(true);
+  const [status, setStatus] = useState<'loading' | 'success' | 'error' | 'pending'>('loading');
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
-    // Симулируем загрузку для лучшего UX
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    if (!searchParams) return;
+    
+    const requestId = searchParams.get('requestId');
+    const statusParam = searchParams.get('status');
+    
+    if (statusParam === 'success') {
+      setStatus('success');
+      setMessage('Оплата успішно проведена! Ваша підписка активована.');
+    } else if (statusParam === 'error') {
+      setStatus('error');
+      setMessage('Помилка при проведенні оплати. Спробуйте ще раз.');
+    } else if (statusParam === 'pending') {
+      setStatus('pending');
+      setMessage('Оплата в обробці. Ми повідомимо вас про результат.');
+    } else {
+      setStatus('success');
+      setMessage('Заявку успішно надіслано! Ми зв\'яжемося з вами найближчим часом.');
+    }
+  }, [searchParams]);
 
-    return () => clearTimeout(timer);
-  }, []);
+  const getStatusIcon = () => {
+    switch (status) {
+      case 'success':
+        return <CheckCircle className="h-16 w-16 text-green-600" />;
+      case 'error':
+        return <XCircle className="h-16 w-16 text-red-600" />;
+      case 'pending':
+        return <Clock className="h-16 w-16 text-yellow-600" />;
+      default:
+        return <CheckCircle className="h-16 w-16 text-green-600" />;
+    }
+  };
 
-  if (isLoading) {
+  const getStatusColor = () => {
+    switch (status) {
+      case 'success':
+        return 'bg-green-50 border-green-200';
+      case 'error':
+        return 'bg-red-50 border-red-200';
+      case 'pending':
+        return 'bg-yellow-50 border-yellow-200';
+      default:
+        return 'bg-green-50 border-green-200';
+    }
+  };
+
+  if (status === 'loading') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto mb-4"></div>
-          <p className="text-neutral-600">Обробляємо вашу заявку...</p>
+      <div className="section-sm">
+        <div className="container">
+          <div className="max-w-2xl mx-auto text-center">
+            <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-brand-accent mx-auto mb-4"></div>
+            <p className="text-text-muted">Завантаження...</p>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50 flex items-center justify-center py-12 px-4">
-      <div className="max-w-md w-full">
-        <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-          {/* Иконка успеха */}
-          <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
-            <CheckCircle className="w-8 h-8 text-green-600" />
-          </div>
-
-          {/* Заголовок */}
-          <h1 className="text-2xl font-bold text-neutral-900 mb-4">
-            Заявку успішно надіслано!
-          </h1>
-
-          {/* Описание */}
-          <div className="space-y-4 mb-8">
-            <p className="text-neutral-600">
-              Дякуємо за ваш інтерес до нашої бібліотеки! 
-              Ми отримали вашу заявку на підписку.
-            </p>
-            
-            {requestId && (
-              <div className="bg-neutral-50 rounded-lg p-4">
-                <p className="text-sm text-neutral-500 mb-1">Номер заявки:</p>
-                <p className="font-mono text-sm text-neutral-800">{requestId}</p>
+    <div className="section-sm">
+      <div className="container">
+        <div className="max-w-2xl mx-auto">
+          <Card className={`${getStatusColor()}`}>
+            <CardHeader className="text-center">
+              <div className="flex justify-center mb-4">
+                {getStatusIcon()}
               </div>
-            )}
-
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-              <h3 className="font-semibold text-blue-900 mb-2">Що далі?</h3>
-              <ul className="text-sm text-blue-800 space-y-1 text-left">
-                <li>• Ми зв&apos;яжемося з вами протягом 24 годин</li>
-                <li>• Підтвердимо деталі підписки</li>
-                <li>• Надішлемо інструкції по доступу</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Кнопки действий */}
-          <div className="space-y-3">
-            <Button asChild className="w-full bg-accent hover:bg-accent-dark text-neutral-900">
-              <Link href="/catalog">
-                Переглянути каталог книг
-              </Link>
-            </Button>
-            
-            <Button asChild variant="outline" className="w-full">
-              <Link href="/" className="flex items-center justify-center gap-2">
-                <ArrowLeft className="w-4 h-4" />
-                Повернутися на головну
-              </Link>
-            </Button>
-          </div>
-
-          {/* Контактная информация */}
-          <div className="mt-8 pt-6 border-t border-neutral-200">
-            <p className="text-sm text-neutral-500 mb-2">Маєте питання?</p>
-            <div className="space-y-1 text-sm text-neutral-600">
-              <p>📧 Email: info@stefa.books.com.ua</p>
-              <p>📱 Telegram: @stefa_books</p>
-            </div>
-          </div>
+              <CardTitle className="text-2xl">
+                {status === 'success' && 'Оплата успішна!'}
+                {status === 'error' && 'Помилка оплати'}
+                {status === 'pending' && 'Оплата в обробці'}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-center space-y-6">
+              <p className="text-lg text-text-muted">
+                {message}
+              </p>
+              
+              <div className="space-y-4">
+                <Button asChild className="w-full">
+                  <Link href="/books">
+                    Переглянути каталог книг
+                  </Link>
+                </Button>
+                
+                <Button variant="outline" asChild className="w-full">
+                  <Link href="/profile">
+                    Перейти до профілю
+                  </Link>
+                </Button>
+                
+                {status === 'error' && (
+                  <Button variant="outline" asChild className="w-full">
+                    <Link href="/subscribe">
+                      Спробувати ще раз
+                    </Link>
+                  </Button>
+                )}
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

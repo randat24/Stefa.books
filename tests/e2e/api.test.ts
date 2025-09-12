@@ -33,7 +33,8 @@ test('API handles search queries', async ({ request }) => {
   const data = await response.json();
   expect(data).toHaveProperty('success', true);
   expect(data).toHaveProperty('data');
-  expect(data).toHaveProperty('count');
+  expect(data).toHaveProperty('pagination');
+  expect(data.pagination).toHaveProperty('total');
 });
 
 test('API handles category filtering', async ({ request }) => {

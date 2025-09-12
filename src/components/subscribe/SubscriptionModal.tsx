@@ -14,7 +14,7 @@ export function SubscriptionModal({ isOpen, onClose, defaultPlan }: Subscription
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center" data-testid="subscription-modal">
       {/* Backdrop */}
       <div 
         className="absolute inset-0 bg-black/50 backdrop-blur-sm"
@@ -38,6 +38,7 @@ export function SubscriptionModal({ isOpen, onClose, defaultPlan }: Subscription
             size="md"
             onClick={onClose}
             className="p-2 hover:bg-neutral-100"
+            data-testid="modal-close"
           >
             <X className="h-5 w-5" />
           </Button>

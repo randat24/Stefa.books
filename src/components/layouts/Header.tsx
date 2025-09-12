@@ -106,6 +106,7 @@ export function Header() {
               size="md"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2"
+              data-testid="mobile-menu-button"
             >
               {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
@@ -114,7 +115,7 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-neutral-200 bg-white">
+          <div className="lg:hidden border-t border-neutral-200 bg-white" data-testid="mobile-menu">
             <div className="container mx-auto px-4 max-w-7xl py-4 space-y-3">
               <HeaderSearch />
               

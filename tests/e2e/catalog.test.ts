@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('catalog page displays books and categories', async ({ page }) => {
-  await page.goto('/catalog');
+  await page.goto('/books');
 
   // Expect the page title to contain "Каталог"
   await expect(page.locator('h1')).toContainText('Каталог');
@@ -15,7 +15,7 @@ test('catalog page displays books and categories', async ({ page }) => {
 });
 
 test('category filtering works', async ({ page }) => {
-  await page.goto('/catalog');
+  await page.goto('/books');
 
   // Click on the first category filter
   const firstCategory = page.locator('[data-testid="category-filter"]').first();
@@ -30,7 +30,7 @@ test('category filtering works', async ({ page }) => {
 });
 
 test('book detail page navigation', async ({ page }) => {
-  await page.goto('/catalog');
+  await page.goto('/books');
 
   // Click on the first book card
   const firstBookCard = page.locator('[data-testid="book-card"]').first();

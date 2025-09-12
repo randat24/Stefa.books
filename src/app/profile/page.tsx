@@ -15,7 +15,10 @@ import {
   Eye,
   EyeOff,
   Save,
-  Edit
+  Edit,
+  LogOut,
+  Crown,
+  Calendar
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -33,8 +36,17 @@ interface UserProfile {
   updated_at: string;
 }
 
+interface Subscription {
+  id: string;
+  plan_type: 'basic' | 'premium' | 'unlimited';
+  status: 'active' | 'expired' | 'cancelled';
+  start_date: string;
+  end_date: string;
+  auto_renew: boolean;
+}
+
 export default function ProfilePage() {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
   const [activeTab, setActiveTab] = useState('personal');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -42,6 +54,7 @@ export default function ProfilePage() {
   const [success, setSuccess] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [subscription, setSubscription] = useState<Subscription | null>(null);
 
   const [formData, setFormData] = useState({
     first_name: '',
@@ -97,6 +110,17 @@ export default function ProfilePage() {
         new_password: '',
         confirm_password: ''
       });
+
+      // Load subscription data (mock for now)
+      const mockSubscription: Subscription = {
+        id: 'sub_123',
+        plan_type: 'premium',
+        status: 'active',
+        start_date: '2024-01-01',
+        end_date: '2024-12-31',
+        auto_renew: true
+      };
+      setSubscription(mockSubscription);
     } catch (error) {
       console.error('Error loading profile:', error);
       setError('Помилка при завантаженні профілю');
@@ -104,6 +128,16 @@ export default function ProfilePage() {
       setLoading(false);
     }
   }, [user]);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      // Redirect will be handled by AuthContext
+    } catch (error) {
+      console.error('Error logging out:', error);
+      setError('Помилка при виході з системи');
+    }
+  };
 
   useEffect(() => {
     if (isAuthenticated && user) {
@@ -241,15 +275,28 @@ export default function ProfilePage() {
       <div className="container">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="h1 text-accent mb-2">Мій профіль</h1>
-        <p className="text-text-muted">
-          Керуйте своїми особистими даними та налаштуваннями
-        </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="h1 text-accent mb-2">Мій профіль</h1>
+              <p className="text-text-muted">
+                Керуйте своїми особистими даними та налаштуваннями
+              </p>
+            </div>
+            <Button 
+              variant="outline" 
+              onClick={handleLogout}
+              className="text-red-600 hover:text-red-700 hover:bg-red-50"
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Вийти
+            </Button>
+          </div>
         </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="personal">Особисті дані</TabsTrigger>
+          <TabsTrigger value="subscription">Підписка</TabsTrigger>
           <TabsTrigger value="security">Безпека</TabsTrigger>
           <TabsTrigger value="notifications">Сповіщення</TabsTrigger>
           <TabsTrigger value="privacy">Приватність</TabsTrigger>
@@ -399,6 +446,112 @@ export default function ProfilePage() {
                   </Button>
                   <Button variant="outline" onClick={() => setEditing(false)}>
                     Скасувати
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Subscription Tab */}
+        <TabsContent value="subscription" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Crown className="h-5 w-5" />
+                Статус підписки
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {subscription ? (
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-4 bg-surface-2 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 bg-brand-accent rounded-lg flex items-center justify-center">
+                        <Crown className="h-6 w-6 text-neutral-0" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-accent capitalize">
+                          {subscription.plan_type === 'basic' && 'Базовий план'}
+                          {subscription.plan_type === 'premium' && 'Преміум план'}
+                          {subscription.plan_type === 'unlimited' && 'Безлімітний план'}
+                        </h3>
+                        <p className="text-body-sm text-text-muted">
+                          Статус: <span className={`font-medium ${
+                            subscription.status === 'active' ? 'text-green-600' : 
+                            subscription.status === 'expired' ? 'text-red-600' : 
+                            'text-yellow-600'
+                          }`}>
+                            {subscription.status === 'active' && 'Активна'}
+                            {subscription.status === 'expired' && 'Закінчилася'}
+                            {subscription.status === 'cancelled' && 'Скасована'}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-body-sm text-text-muted">Дійсна до</p>
+                      <p className="font-semibold text-accent">
+                        {new Date(subscription.end_date).toLocaleDateString('uk-UA')}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="p-4 border border-neutral-200 rounded-lg">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Calendar className="h-4 w-4 text-brand-accent" />
+                        <span className="font-medium text-accent">Дата початку</span>
+                      </div>
+                      <p className="text-body-sm text-text-muted">
+                        {new Date(subscription.start_date).toLocaleDateString('uk-UA')}
+                      </p>
+                    </div>
+                    <div className="p-4 border border-neutral-200 rounded-lg">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Calendar className="h-4 w-4 text-brand-accent" />
+                        <span className="font-medium text-accent">Дата закінчення</span>
+                      </div>
+                      <p className="text-body-sm text-text-muted">
+                        {new Date(subscription.end_date).toLocaleDateString('uk-UA')}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Bell className="h-4 w-4 text-blue-600" />
+                      <span className="font-medium text-blue-900">Автоматичне продовження</span>
+                    </div>
+                    <p className="text-body-sm text-blue-700">
+                      {subscription.auto_renew 
+                        ? 'Підписка буде автоматично продовжена' 
+                        : 'Автоматичне продовження вимкнено'
+                      }
+                    </p>
+                  </div>
+
+                  <div className="flex gap-4">
+                    <Button>
+                      <Crown className="h-4 w-4 mr-2" />
+                      Оновити підписку
+                    </Button>
+                    <Button variant="outline">
+                      Скасувати підписку
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <div className="w-16 h-16 bg-surface-2 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <Crown className="h-8 w-8 text-text-muted" />
+                  </div>
+                  <h3 className="font-semibold text-accent mb-2">Немає активної підписки</h3>
+                  <p className="text-text-muted mb-6">
+                    Отримайте доступ до всіх функцій сервісу
+                  </p>
+                  <Button asChild>
+                    <Link href="/subscribe">Оформити підписку</Link>
                   </Button>
                 </div>
               )}

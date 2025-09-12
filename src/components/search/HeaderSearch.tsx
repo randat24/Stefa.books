@@ -179,6 +179,7 @@ export function HeaderSearch() {
                   onKeyDown={handleKeyDown}
                   placeholder="Пошук книг за назвою, автором, категорією..."
                   className="flex-1 bg-transparent text-neutral-900 placeholder-slate-500 text-body-lg outline-none"
+                  data-testid="mobile-search"
                 />
                 <button
                   onClick={handleClose}
@@ -395,6 +396,7 @@ export function HeaderSearch() {
         onClick={() => setIsOpen(true)}
         className="p-2 text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition"
         aria-label="Пошук книг"
+        data-testid="open-search"
       >
         <Search className="h-5 w-5" />
       </button>
