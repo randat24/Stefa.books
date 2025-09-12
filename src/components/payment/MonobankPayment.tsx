@@ -42,7 +42,8 @@ export default function MonobankPayment({
   const [payment, setPayment] = useState<PaymentData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [paymentStatus, setPaymentStatus] = useState<'pending' | 'success' | 'failed' | 'checking'>('pending');
+  type PaymentStatus = 'pending' | 'success' | 'failed' | 'checking'
+  const [paymentStatus, setPaymentStatus] = useState<PaymentStatus>('pending');
 
   // Створюємо платіж
   const createPayment = async () => {
@@ -110,7 +111,7 @@ export default function MonobankPayment({
       const data = await response.json();
 
       if (data.success && data.payment) {
-        const status = data.payment.status;
+        const status = (data.payment.status as PaymentStatus) || 'pending';
         setPaymentStatus(status);
 
         if (status === 'success') {
@@ -278,7 +279,7 @@ export default function MonobankPayment({
           </div>
         </div>
 
-        {paymentStatus === 'pending' && (
+        {(paymentStatus === 'pending' || paymentStatus === 'checking') && (
           <div className="space-y-3">
             {payment.invoice_id.startsWith('demo_') ? (
               <div className="space-y-3">

@@ -26,23 +26,13 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="logo gap-2 sm:gap-3">
             <div className="relative w-8 h-8 sm:w-10 sm:h-10">
-              <Image 
-                src="/logo.svg" 
-                alt="Stefa.books logo" 
-                width={32}
-                height={32}
-                className="text-text-muted sm:w-10 sm:h-10"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  const parent = target.parentElement;
-                  if (parent) {
-                    const fallback = document.createElement('div');
-                    fallback.className = 'w-full h-full bg-[#F7C948] rounded-lg flex items-center justify-center text-neutral-900 font-bold text-lg';
-                    fallback.textContent = 'S';
-                    parent.appendChild(fallback);
-                  }
-                }}
+              <Image
+                src="/logo.svg"
+                alt="Stefa.books logo"
+                width={35}
+                height={36}
+                priority
+                className="sm:w-10 sm:h-10"
               />
             </div>
             <span className="logo-text text-base sm:text-lg">Stefa.books</span>

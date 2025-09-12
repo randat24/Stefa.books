@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
         email: validatedData.email,
         phone: validatedData.phone,
         social: validatedData.social || null,
-        subscription_type: validatedData.plan,
+        plan: validatedData.plan, // Используем plan вместо subscription_type
         payment_method: paymentMethodMapping[validatedData.paymentMethod as keyof typeof paymentMethodMapping],
         message: validatedData.message || null,
         screenshot: validatedData.screenshot || null,
@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
           email: validatedData.email,
           phone: validatedData.phone,
           social: validatedData.social || null,
-          subscription_type: validatedData.plan,
+          plan: validatedData.plan, // Используем plan вместо subscription_type
           payment_method: paymentMethodMapping[validatedData.paymentMethod as keyof typeof paymentMethodMapping],
           message: validatedData.message || null,
           screenshot: validatedData.screenshot || null,

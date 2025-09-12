@@ -83,9 +83,9 @@ export function BookCard({
           {memoizedBook.is_active ? "✓ Доступна" : "✗ Видана"}
         </span>
 
-        {/* Быстрые действия */}
+        {/* Быстрые действия (только при наведении) */}
         {showActions && (
-          <div className="absolute right-3 top-3 flex gap-2">
+          <div className="absolute right-3 top-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
             <button
               className="rounded-lg bg-surface/95 border border-line/50 p-2.5 shadow-lg backdrop-blur-sm hover:bg-surface hover:scale-110 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 transition-all duration-300"
               aria-label={`Додати книгу "${memoizedBook.title}" в обране`}

@@ -10,25 +10,13 @@ export function Footer() {
           {/* Про компанію */}
           <section className="space-y-4 md:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-4">
-              <div className="h-14 w-14 rounded-2xl bg-[#F7C948] grid place-items-center shadow-md">
-                <Image 
-                  src="/logo.svg" 
-                  alt="Stefa.books logo" 
-                  width={36} 
+              <div className="h-14 w-14 rounded-2xl grid place-items-center shadow-md">
+                <Image
+                  src="/logo.svg"
+                  alt="Stefa.books logo"
+                  width={35}
                   height={36}
-                  className="text-neutral-900"
-                  unoptimized={true}
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                    const parent = target.parentElement;
-                    if (parent) {
-                      const fallback = document.createElement('div');
-                      fallback.className = 'text-neutral-900 font-bold text-xl';
-                      fallback.textContent = 'S';
-                      parent.appendChild(fallback);
-                    }
-                  }}
+                  priority
                 />
               </div>
               <div>

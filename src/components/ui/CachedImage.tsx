@@ -53,9 +53,10 @@ export function CachedImage({
     if (!originalSrc) return fallback
 
     // Если это Cloudinary URL, добавляем оптимизации
-    if (originalSrc.includes('cloudinary.com')) {
-      const baseUrl = originalSrc.split('/upload/')[0]
-      const imagePath = originalSrc.split('/upload/')[1]
+    if (originalSrc.includes('res.cloudinary.com')) {
+      const [prefix, rest] = originalSrc.split('/upload/')
+      const imagePath = rest || ''
+      const baseUrl = prefix
       
       // Параметры оптимизации
       const optimizations = [

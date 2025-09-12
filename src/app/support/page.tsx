@@ -1,273 +1,190 @@
-import { Metadata } from 'next';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/Badge';
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Clock, 
-  MessageCircle, 
-  HelpCircle,
-  BookOpen,
-  Users,
-  CreditCard,
-  RefreshCw
-} from 'lucide-react';
-import Link from 'next/link';
+import { Metadata } from "next";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { HeadphonesIcon, MessageCircle, Phone, Mail } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: 'Підтримка | Stefa.books',
-  description: 'Отримайте допомогу з підпискою, орендою книг та використанням сервісу Stefa.books',
-  keywords: 'підтримка, допомога, Stefa.books, контакти, FAQ',
+  title: "Підтримка | Stefa.books",
+  description: "Технічна підтримка та допомога користувачам Stefa.books. FAQ, контакти та корисні ресурси.",
+  openGraph: {
+    title: "Підтримка | Stefa.books",
+    description: "Технічна підтримка та допомога користувачам Stefa.books.",
+  },
 };
 
-const faqData = [
-  {
-    category: 'Підписка',
-    icon: CreditCard,
-    questions: [
-      {
-        question: 'Як оформити підписку?',
-        answer: 'Перейдіть на сторінку "Оформити підписку", оберіть тариф (Mini або Maxi) та заповніть форму. Після оплати ваша підписка буде активна.'
-      },
-      {
-        question: 'Які тарифи доступні?',
-        answer: 'Mini план: 300₴/місяць - 1 книга за раз. Maxi план: 500₴/місяць - до 2 книг за раз.'
-      },
-      {
-        question: 'Як скасувати підписку?',
-        answer: 'Зверніться до нашої служби підтримки за 3 дні до наступного списання коштів. Скасування можливе через телефон або email.'
-      }
-    ]
-  },
-  {
-    category: 'Оренда книг',
-    icon: BookOpen,
-    questions: [
-      {
-        question: 'Як орендувати книгу?',
-        answer: 'Оберіть книгу в каталозі, натисніть "Орендувати" та заповніть форму. Заберіть книгу в пункті самовивозу за адресою вул. Маріупольська 13/2.'
-      },
-      {
-        question: 'На скільки можна орендувати книгу?',
-        answer: 'Книгу можна орендувати на місяць. Після закінчення терміну можна продовжити оренду або обміняти на іншу книгу.'
-      },
-      {
-        question: 'Що робити, якщо книга пошкоджена?',
-        answer: 'Зверніться до нас негайно. Ми оцінимо пошкодження та вирішимо питання індивідуально.'
-      }
-    ]
-  },
-  {
-    category: 'Самовивіз',
-    icon: MapPin,
-    questions: [
-      {
-        question: 'Де знаходиться пункт самовивозу?',
-        answer: 'Наш пункт самовивозу знаходиться за адресою: м. Миколаїв, вул. Маріупольська 13/2.'
-      },
-      {
-        question: 'Який графік роботи?',
-        answer: 'Пн-Пт: 9:00-18:00, Сб: 10:00-16:00, Нд: вихідний.'
-      },
-      {
-        question: 'Чи потрібно попередньо дзвонити?',
-        answer: 'Так, рекомендуємо зателефонувати перед візитом для підтвердження наявності книг.'
-      }
-    ]
-  },
-  {
-    category: 'Технічні питання',
-    icon: HelpCircle,
-    questions: [
-      {
-        question: 'Не завантажуються зображення книг',
-        answer: 'Спробуйте оновити сторінку або очистити кеш браузера. Якщо проблема залишається, зверніться до підтримки.'
-      },
-      {
-        question: 'Не працює кнопка "Орендувати"',
-        answer: 'Перевірте, чи у вас активна підписка. Якщо підписка активна, а кнопка не працює, зверніться до підтримки.'
-      },
-      {
-        question: 'Забув пароль від акаунту',
-        answer: 'Натисніть "Забули пароль?" на сторінці входу та слідуйте інструкціям для відновлення.'
-      }
-    ]
-  }
+const breadcrumbItems = [
+  { label: "Головна", href: "/" },
+  { label: "Підтримка", current: true }
 ];
 
-const contactMethods = [
+const supportChannels = [
   {
     icon: Phone,
-    title: 'Телефон',
-    value: '+38 (063) 856-54-14',
-    description: 'Пн-Пт 9:00-18:00, Сб 10:00-16:00',
-    href: 'tel:+380638565414'
+    title: "Телефонна підтримка",
+    description: "Швидка допомога по телефону",
+    contact: "+38 (063) 856-54-14",
+    availability: "Пн-Пт: 9:00-18:00"
+  },
+  {
+    icon: MessageCircle,
+    title: "Чат підтримки",
+    description: "Онлайн чат з нашими операторами",
+    contact: "Натисніть кнопку 'Чат' у правому нижньому куті",
+    availability: "24/7"
   },
   {
     icon: Mail,
-    title: 'Email',
-    value: 'info@stefa.books',
-    description: 'Відповідаємо протягом 24 годин',
-    href: 'mailto:info@stefa.books'
+    title: "Email підтримка",
+    description: "Детальні питання та звіти про проблеми",
+    contact: "support@stefa.books",
+    availability: "Відповідь протягом 24 годин"
+  }
+];
+
+const faqItems = [
+  {
+    question: "Як зареєструватися на сайті?",
+    answer: "Натисніть кнопку 'Реєстрація' у верхньому правому куті, заповніть форму з вашими даними та підтвердіть email адресу."
   },
   {
-    icon: MapPin,
-    title: 'Адреса',
-    value: 'вул. Маріупольська 13/2, Миколаїв',
-    description: 'Пункт самовивозу',
-    href: 'https://maps.google.com/?q=вул. Маріупольська 13/2, Миколаїв'
+    question: "Як працює підписка на книги?",
+    answer: "Підписка дозволяє читати необмежену кількість книг з нашого каталогу за щомісячну плату. Ви можете читати онлайн або завантажувати для офлайн-читання."
+  },
+  {
+    question: "Як орендувати книгу?",
+    answer: "Оберіть книгу в каталозі, натисніть 'Орендувати', виберіть термін оренди та спосіб оплати. Після оплати книга стане доступною в вашому кабінеті."
+  },
+  {
+    question: "Як скасувати підписку?",
+    answer: "Зайдіть у свій кабінет, перейдіть до розділу 'Підписка' та натисніть 'Скасувати підписку'. Підписка буде активна до кінця поточного періоду."
+  },
+  {
+    question: "Як повернути орендовану книгу?",
+    answer: "У вашому кабінеті в розділі 'Мої оренди' натисніть 'Повернути' біля потрібної книги. Доступ до книги автоматично припиниться."
+  },
+  {
+    question: "Що робити, якщо не можу увійти в акаунт?",
+    answer: "Спробуйте відновити пароль через форму 'Забули пароль?'. Якщо проблема залишається, зверніться до нашої служби підтримки."
   }
 ];
 
 export default function SupportPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white">
-      <div className="container mx-auto px-4 py-8 lg:py-16">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
+      <div className="container mx-auto px-4 py-8">
+        {/* Breadcrumbs */}
+        <div className="mb-8">
+          <Breadcrumbs items={breadcrumbItems} />
+        </div>
+
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-3xl lg:text-4xl font-bold text-neutral-900 mb-4">
-            Підтримка
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-amber-100 rounded-full mb-6">
+            <HeadphonesIcon className="w-8 h-8 text-amber-600" />
+          </div>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Центр підтримки
           </h1>
-          <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-            Ми завжди готові допомогти вам з будь-якими питаннями щодо підписки та оренди книг
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Ми завжди готові допомогти вам з будь-якими питаннями
           </p>
         </div>
 
-        {/* Contact Methods */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
-          {contactMethods.map((method, index) => {
-            const Icon = method.icon;
-            return (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="mx-auto w-12 h-12 bg-accent rounded-2xl flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-neutral-900" />
+        {/* Support Channels */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          {supportChannels.map((channel, index) => (
+            <div key={index} className="bg-white rounded-lg shadow-sm border p-6 text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-amber-100 rounded-full mb-4">
+                <channel.icon className="w-6 h-6 text-amber-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                {channel.title}
+              </h3>
+              <p className="text-gray-600 mb-4">
+                {channel.description}
+              </p>
+              <div className="space-y-2">
+                <p className="text-amber-600 font-medium">
+                  {channel.contact}
+                </p>
+                <p className="text-sm text-gray-500">
+                  {channel.availability}
+                </p>
+              </div>
                   </div>
-                  <CardTitle className="text-lg">{method.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <a 
-                    href={method.href}
-                    className="text-accent font-semibold text-lg hover:underline"
-                  >
-                    {method.value}
-                  </a>
-                  <p className="text-neutral-600 text-sm mt-2">{method.description}</p>
-                </CardContent>
-              </Card>
-            );
-          })}
+          ))}
         </div>
 
-        {/* FAQ Sections */}
-        <div className="space-y-8">
-          <h2 className="text-2xl font-bold text-neutral-900 text-center mb-8">
+        {/* FAQ Section */}
+        <div className="bg-white rounded-lg shadow-sm border p-8 mb-12">
+          <h2 className="text-2xl font-semibold text-gray-900 mb-6">
             Часті питання
           </h2>
-          
-          {faqData.map((category, categoryIndex) => {
-            const Icon = category.icon;
-            return (
-              <div key={categoryIndex} className="space-y-4">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-neutral-900" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-neutral-900">
-                    {category.category}
+          <div className="space-y-4">
+            {faqItems.map((item, index) => (
+              <div key={index} className="border-b border-gray-200 pb-4 last:border-b-0">
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  {item.question}
                   </h3>
-                </div>
-                
-                <div className="grid gap-4">
-                  {category.questions.map((faq, faqIndex) => (
-                    <Card key={faqIndex} className="hover:shadow-md transition-shadow">
-                      <CardHeader>
-                        <CardTitle className="text-lg text-neutral-900">
-                          {faq.question}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-neutral-600 leading-relaxed">
-                          {faq.answer}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
+                <p className="text-gray-600">
+                  {item.answer}
+                </p>
               </div>
-            );
-          })}
-        </div>
-
-        {/* Quick Actions */}
-        <div className="mt-16 bg-accent rounded-2xl p-8 text-center">
-          <h3 className="text-2xl font-bold text-neutral-900 mb-4">
-            Не знайшли відповідь?
-          </h3>
-          <p className="text-neutral-700 mb-6">
-            Зверніться до нашої служби підтримки, і ми допоможемо вам
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" variant="outline" className="bg-white hover:bg-neutral-50">
-              <a href="tel:+380638565414">
-                <Phone className="w-5 h-5 mr-2" />
-                Зателефонувати
-              </a>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="bg-white hover:bg-neutral-50">
-              <a href="mailto:info@stefa.books">
-                <Mail className="w-5 h-5 mr-2" />
-                Написати email
-              </a>
-            </Button>
+            ))}
           </div>
         </div>
 
-        {/* Additional Help */}
-        <div className="mt-12 grid md:grid-cols-2 gap-6">
-          <Card className="hover:shadow-md transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-accent" />
-                Як почати користуватися
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ol className="space-y-2 text-neutral-600">
-                <li>1. Оформіть підписку на сайті</li>
-                <li>2. Оберіть книгу в каталозі</li>
-                <li>3. Натисніть "Орендувати"</li>
-                <li>4. Заберіть книгу в пункті самовивозу</li>
-              </ol>
-            </CardContent>
-          </Card>
+        {/* Additional Resources */}
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="bg-white rounded-lg shadow-sm border p-6">
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">
+              Корисні посилання
+            </h3>
+            <ul className="space-y-2">
+              <li>
+                <a href="/faq" className="text-amber-600 hover:text-amber-700 transition-colors">
+                  → Детальні FAQ
+                </a>
+              </li>
+              <li>
+                <a href="/privacy" className="text-amber-600 hover:text-amber-700 transition-colors">
+                  → Політика конфіденційності
+                </a>
+              </li>
+              <li>
+                <a href="/terms" className="text-amber-600 hover:text-amber-700 transition-colors">
+                  → Умови використання
+                </a>
+              </li>
+              <li>
+                <a href="/about" className="text-amber-600 hover:text-amber-700 transition-colors">
+                  → Про нас
+                </a>
+              </li>
+            </ul>
+          </div>
 
-          <Card className="hover:shadow-md transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-accent" />
-                Корисні посилання
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <Link href="/subscribe" className="block text-accent hover:underline">
-                  Оформити підписку
-                </Link>
-                <Link href="/books" className="block text-accent hover:underline">
-                  Каталог книг
-                </Link>
-                <Link href="/faq" className="block text-accent hover:underline">
-                  Детальні FAQ
-                </Link>
-                <Link href="/account" className="block text-accent hover:underline">
-                  Мій акаунт
-                </Link>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-white rounded-lg shadow-sm border p-6">
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">
+            Не знайшли відповідь?
+          </h3>
+            <p className="text-gray-600 mb-4">
+              Якщо у вас залишилися питання, зв&apos;яжіться з нами будь-яким зручним способом
+            </p>
+            <div className="space-y-2">
+              <a
+                href="/contact"
+                className="inline-block w-full bg-amber-600 text-white py-2 px-4 rounded-lg hover:bg-amber-700 transition-colors text-center"
+              >
+                Зв&apos;язатися з нами
+              </a>
+              <a
+                href="tel:+380638565414"
+                className="inline-block w-full border border-amber-600 text-amber-600 py-2 px-4 rounded-lg hover:bg-amber-50 transition-colors text-center"
+              >
+                Подзвонити
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
