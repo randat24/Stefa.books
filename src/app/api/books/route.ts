@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
+import { createClient } from '@supabase/supabase-js';
 
 export async function GET(request: NextRequest) {
   try {
@@ -19,7 +20,7 @@ export async function GET(request: NextRequest) {
     // Новые параметры для структурированных категорий (временно отключены)
     // TODO: Восстановить когда будет настроена структура категорий
 
-    // Создаем Supabase клиент
+    // Проверяем наличие переменных окружения для Supabase
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     
@@ -192,16 +193,12 @@ export async function GET(request: NextRequest) {
       });
     }
 
-    const supabase = createClient(supabaseUrl, supabaseKey);
-
+    // Используем импортированный клиент supabase из @/lib/supabase
+    
     // Базовый запрос - только существующие поля
   let queryBuilder = supabase
     .from('books')
-    .select(`
-      id, title, author, category, description, pages, cover_url,
-      is_active, subcategory_id, author_text, author_id,
-      search_vector, search_text, created_at, updated_at
-    `)
+    .select('*')
     .order(sortBy, { ascending: sortOrder === 'asc' })
     .range(offset, offset + limit - 1);
 
@@ -212,7 +209,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (category) {
-      queryBuilder = queryBuilder.ilike('category', `%${category}%`);
+      queryBuilder = queryBuilder.ilike('category_id', `%${category}%`);
     }
 
     if (author) {
@@ -220,7 +217,7 @@ export async function GET(request: NextRequest) {
     }
 
     if (available) {
-      queryBuilder = queryBuilder.eq('is_active', true);
+      queryBuilder = queryBuilder.eq('status', 'available');
     }
     
     // Выполняем запрос
@@ -264,12 +261,25 @@ export async function GET(request: NextRequest) {
     //   }
     // }
 
-    // Маппим поля для совместимости с типами
-    const mappedBooks = (books || []).map(book => ({
-      ...book,
-      available: book.is_active,
-      category_id: book.category
-    }));
+    // Преобразуем результаты в нужный формат
+    const mappedBooks = (books || []).map(book => {
+      // Создаем безопасную копию объекта с проверкой полей
+      return {
+        id: book.id || '',
+        title: book.title || '',
+        author: book.author || '',
+        description: book.description || '',
+        cover_url: book.cover_url || '',
+        status: book.status || 'unavailable',
+        available: book.status === 'available',
+        created_at: book.created_at || '',
+        updated_at: book.updated_at || '',
+        // Добавляем другие поля, которые могут быть в базе
+        ...(book.category_id ? { category_id: book.category_id } : {}),
+        ...(book.pages ? { pages: book.pages } : {}),
+        ...(book.price_uah ? { price_uah: book.price_uah } : {})
+      };
+    });
 
     return NextResponse.json({
       success: true,
@@ -310,10 +320,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-    
-    const supabase = createClient(supabaseUrl, supabaseKey);
+    // Используем импортированный клиент supabase из @/lib/supabase
 
     const { data: book, error } = await supabase
       .from('books')
@@ -329,7 +336,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ book });
+    // Преобразуем книгу в безопасный формат
+    const safeBook = book ? {
+      id: book.id || '',
+      title: book.title || '',
+      author: book.author || '',
+      description: book.description || '',
+      cover_url: book.cover_url || '',
+      status: book.status || 'unavailable',
+      available: book.status === 'available',
+      created_at: book.created_at || '',
+      updated_at: book.updated_at || '',
+      // Добавляем другие поля, которые могут быть в базе
+      ...(book.category_id ? { category_id: book.category_id } : {}),
+      ...(book.pages ? { pages: book.pages } : {}),
+      ...(book.price_uah ? { price_uah: book.price_uah } : {})
+    } : null;
+    
+    return NextResponse.json({ book: safeBook });
 
   } catch (error) {
     logger.error('Unexpected error in book detail API', error);
