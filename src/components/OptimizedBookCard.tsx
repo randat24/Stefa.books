@@ -39,13 +39,14 @@ export const OptimizedBookCard = memo(function OptimizedBookCard({
 
   // Мемоизируем статус доступности
   const availabilityStatus = useMemo(() => {
-    // Перевіряємо поля доступності з бази даних
-    const isAvailable = book.is_active && (book.status === 'available' || !book.status) && (book.qty_available ?? 0) > 0;
+    // Спрощена логіка для реального сайту - показуємо доступність за наявністю is_active
+    // Якщо is_active не false або не встановлено - показуємо як доступну
+    const isAvailable = book.is_active !== false;
     if (isAvailable) {
       return { text: 'Доступна', className: 'text-green-600 bg-green-50' };
     }
     return { text: 'Зайнята', className: 'text-red-600 bg-red-50' };
-  }, [book.is_active, book.status, book.qty_available]);
+  }, [book.is_active]);
 
   // Мемоизируем рейтинг
   const rating = useMemo(() => {

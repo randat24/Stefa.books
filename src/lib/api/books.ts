@@ -282,11 +282,10 @@ export async function fetchCategoriesStats(): Promise<CategoriesStatsResponse> {
 // ============================================================================
 
 /**
- * Получить популярные книги (доступные, с высоким рейтингом)
+ * Получить популярные книги (с высоким рейтингом)
  */
 export async function fetchPopularBooks(limit = 8): Promise<BooksResponse> {
   return fetchBooks({
-    available_only: true,
     limit
   })
 }

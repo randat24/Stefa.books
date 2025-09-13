@@ -67,10 +67,8 @@ export function BookRecommendations({
 
   const recommendations = useMemo(() => {
     const filtered = books.filter(book => {
-      // Перевіряємо доступність книги з правильними полями з БД
-      const isAvailable = book.is_active && (book.status === 'available' || !book.status) && (book.qty_available ?? 0) > 0;
-      return isAvailable && 
-        !excludeIds.includes(book.id) &&
+      // Показуємо всі книги, незалежно від статусу для реального сайту
+      return !excludeIds.includes(book.id) &&
         (!category || book.category_id === category);
     });
 
