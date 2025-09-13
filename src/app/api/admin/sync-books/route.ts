@@ -1,15 +1,7 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from '@/lib/supabase'
 import { logger } from '@/lib/logger'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error('Missing Supabase environment variables')
-}
-
-const supabase = createClient(supabaseUrl, supabaseKey)
 
 export async function POST() {
   try {
@@ -23,12 +15,10 @@ export async function POST() {
         code,
         title,
         author,
-        category,
         description,
         pages,
         age_range,
         status,
-        available,
         qty_total,
         qty_available,
         price_uah,
@@ -83,7 +73,7 @@ export async function POST() {
     }
 
     // Логируем статистику
-    const availableBooks = books.filter(book => book.available).length
+    const availableBooks = books.filter(book => book.status === 'available').length
     const totalBooks = books.length
     const totalCategories = categories.length
 
@@ -156,7 +146,7 @@ export async function GET() {
     const { count: availableBooksCount, error: availableError } = await supabase
       .from('books')
       .select('*', { count: 'exact', head: true })
-      .eq('available', true)
+      .eq('status', 'available')
 
     if (availableError) {
       logger.error('Error counting available books:', availableError)

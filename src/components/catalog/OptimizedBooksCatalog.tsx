@@ -8,7 +8,7 @@ import { PaginationControls, PaginationInfo, calculateTotalPages } from '@/compo
 import { LoadMoreButton } from '@/components/ui/LoadMoreButton';
 import { CatalogSearchFilter } from './CatalogSearchFilter';
 import { useDebounce } from '@/hooks/useDebounce';
-import { fetchBooks, type BooksResponse } from '@/lib/api/books';
+import { fetchBooks } from '@/lib/api/books';
 import type { Book } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
 
@@ -29,10 +29,9 @@ function VirtualizedBookGrid({
   onLoadMore: () => void; 
   hasMore: boolean; 
 }) {
-  const [visibleRange, setVisibleRange] = useState({ start: 0, end: 20 });
+  const visibleRange = useState({ start: 0, end: 20 })[0];
   const containerRef = useRef<HTMLDivElement>(null);
-  const ITEMS_PER_ROW = 4;
-  const ITEMS_PER_PAGE = 20;
+  // Constants for grid layout (used implicitly in template)
 
   // Intersection Observer для lazy loading
   useEffect(() => {
@@ -63,7 +62,7 @@ function VirtualizedBookGrid({
   return (
     <div ref={containerRef} className="space-y-6">
       {/* Виртуализированная сетка книг */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {visibleBooks.map((book) => (
           <OptimizedBookCard 
             key={book.id} 
@@ -94,7 +93,7 @@ export function OptimizedBooksCatalog({ initialBooks = [], className = '' }: Opt
   
   // State
   const [books, setBooks] = useState<Book[]>(initialBooks);
-  const [loading, setLoading] = useState(!initialBooks.length);
+  const [isLoading, setLoading] = useState(!initialBooks.length);
   const [error, setError] = useState<string | null>(null);
   const [totalCount, setTotalCount] = useState(0);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -151,7 +150,8 @@ export function OptimizedBooksCatalog({ initialBooks = [], className = '' }: Opt
           setBooks(newBooks);
         }
         
-        setTotalCount(newBooks.length);
+        // Встановлюємо правильний totalCount з відповіді API
+        setTotalCount(response.pagination?.total || response.count || newBooks.length);
       } else {
         setError(response.error || 'Помилка завантаження книг');
       }
@@ -175,7 +175,7 @@ export function OptimizedBooksCatalog({ initialBooks = [], className = '' }: Opt
   // Initial load and search changes
   useEffect(() => {
     fetchBooksData(searchParamsMemo);
-  }, [debouncedSearch, searchFilters.category, searchFilters.author, searchFilters.availableOnly, searchFilters.minRating]);
+  }, [debouncedSearch, searchFilters.category, searchFilters.author, searchFilters.availableOnly, searchFilters.minRating, fetchBooksData, searchParamsMemo]);
 
   // Load categories and authors for filters
   useEffect(() => {
@@ -230,13 +230,13 @@ export function OptimizedBooksCatalog({ initialBooks = [], className = '' }: Opt
   ), [handleFilterChange, allCategories, allAuthors]);
 
   const MemoizedVirtualizedGrid = useMemo(() => (
-    <VirtualizedBookGrid
+      <VirtualizedBookGrid
       books={books}
-      loading={loadingMore}
+      loading={loadingMore || isLoading}
       onLoadMore={handleLoadMore}
       hasMore={books.length < totalCount}
     />
-  ), [books, loadingMore, handleLoadMore, totalCount]);
+  ), [books, loadingMore, isLoading, handleLoadMore, totalCount]);
 
   if (error) {
     return (

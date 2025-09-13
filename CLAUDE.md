@@ -10,29 +10,30 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Development
 ```bash
-pnpm run dev         # Start development server on http://localhost:3000
-pnpm run build       # Production build
-pnpm run start       # Start production server
-pnpm run type-check  # TypeScript type checking without build
-pnpm run lint        # ESLint checking
-pnpm run lint:fix    # Auto-fix linting issues
-pnpm run clean       # Clean build artifacts
+npm run dev         # Start development server on http://localhost:3000
+npm run build       # Production build
+npm run start       # Start production server
+npm run type-check  # TypeScript type checking without build
+npm run lint        # ESLint checking
+npm run lint:fix    # Auto-fix linting issues
+npm run clean       # Clean build artifacts
 ```
 
 ### Testing
 ```bash
-pnpm run test                   # Run Jest unit tests
-pnpm run test:watch             # Jest in watch mode
-pnpm run test:coverage          # Generate test coverage report (70% threshold)
-pnpm run test:e2e               # Run Playwright E2E tests
-pnpm run test:e2e:ui            # Playwright with UI mode
-pnpm run test:e2e:headed        # Playwright with visible browser
-pnpm run test:performance       # Run performance-specific tests
-pnpm run test:all               # Run all tests (unit + e2e)
+npm run test                   # Run Vitest unit tests
+npm run test:watch             # Vitest in watch mode
+npm run test:coverage          # Generate test coverage report (70% threshold)
+npm run test:ui                # Vitest with UI mode
+npm run test:e2e               # Run Playwright E2E tests
+npm run test:e2e:ui            # Playwright with UI mode
+npm run test:e2e:headed        # Playwright with visible browser
+npm run test:performance       # Run performance-specific tests
+npm run test:all               # Run all tests (unit + e2e)
 
-# Run single test file
-pnpm exec jest src/__tests__/components/BookCard.test.tsx
-pnpm exec jest --watch BookCard  # Watch mode for specific test
+# Run single test file with Vitest
+npx vitest run src/__tests__/components/BookCard.test.tsx
+npx vitest --watch BookCard  # Watch mode for specific test
 ```
 
 ### Data Import & Management
@@ -43,20 +44,20 @@ node quick-import.js        # Import books from Google Sheets -> generates SQL
 node auto-upload-covers.js  # Upload book covers to Cloudinary
 
 # Book data management
-pnpm run insert-books        # Insert books directly to database
-pnpm run check-books         # Check book data integrity
-pnpm run delete-added-books  # Remove test/added books
+npm run insert-books        # Insert books directly to database
+npm run check-books         # Check book data integrity
+npm run delete-added-books  # Remove test/added books
 
 # Style checking
-pnpm run check-styles        # Check code style via script
-pnpm run fix-styles          # Auto-fix style issues
-pnpm run dev-safe            # Check styles before starting dev server
+npm run check-styles        # Check code style via script
+npm run fix-styles          # Auto-fix style issues
+npm run dev-safe            # Check styles before starting dev server
 ```
 
 ### Performance & Analysis
 ```bash
-pnpm run analyze:bundle      # Analyze bundle size with ANALYZE=true
-pnpm run analyze:performance # Run performance analysis script
+npm run analyze:bundle      # Analyze bundle size with ANALYZE=true
+npm run analyze:performance # Run performance analysis script
 node scripts/bundle-analyzer.js        # Comprehensive bundle analysis
 node scripts/find-unused-imports.js    # Find optimization opportunities
 ```
@@ -64,15 +65,15 @@ node scripts/find-unused-imports.js    # Find optimization opportunities
 ### Deployment
 ```bash
 # New automated deployment commands (recommended)
-pnpm run deploy:check        # Run comprehensive pre-deployment checks
-pnpm run deploy              # Deploy preview build
-pnpm run deploy:prod         # Deploy to production with safety checks
+npm run deploy:check        # Run comprehensive pre-deployment checks
+npm run deploy              # Deploy preview build
+npm run deploy:prod         # Deploy to production with safety checks
 
 # Legacy Vercel commands (still supported)
-pnpm run vercel:check        # Check Vercel deployment readiness
-pnpm run vercel:deploy       # Deploy to Vercel (preview)
-pnpm run vercel:deploy:prod  # Deploy to production
-pnpm run vercel:deploy:preview # Deploy preview build
+npm run vercel:check        # Check Vercel deployment readiness
+npm run vercel:deploy       # Deploy to Vercel (preview)
+npm run vercel:deploy:prod  # Deploy to production
+npm run vercel:deploy:preview # Deploy preview build
 
 # Manual Vercel CLI
 vercel                       # Preview deployment
@@ -86,7 +87,7 @@ vercel --prod                # Production deployment
 - **React 19.1.1** with new concurrent features
 - **TypeScript 5.5.4** in strict mode - avoid `any`, use proper typing
 - **Supabase** - PostgreSQL with Row Level Security (RLS) enabled
-- **Tailwind CSS 4.1.13** - utility-first styling with custom design system and CSS-based configuration
+- **Tailwind CSS 3.4.17** - utility-first styling with custom design system
 - **Cloudinary** - image storage and optimization
 - **Zustand 5.0.8** - lightweight state management
 - **React Query 5.59.0** - server state management
@@ -253,13 +254,13 @@ const llmsTxt = await generateLlmsTxt([
 
 ### Testing Patterns
 
-#### Jest Configuration
+#### Vitest Configuration
 - Uses `@testing-library/react` for component testing
-- Custom Jest matchers in `src/__tests__/jest-setup.d.ts`
 - Mock Supabase client with type assertions
 - Test files must import `Book` type from `@/lib/supabase` (not deprecated types)
 - **Coverage threshold: 70%** for branches, functions, lines, statements
 - Coverage excludes layout files, loading components, and CSS files
+- Jest config exists for compatibility but Vitest is the active testing framework
 
 #### Book Test Data Structure
 ```typescript
@@ -323,11 +324,11 @@ ADMIN_EMAIL=admin_email
 - Use `APICache.createKey()` for consistent cache key generation
 
 #### Build Failures
-- Run `pnpm run type-check` to isolate TypeScript issues
+- Run `npm run type-check` to isolate TypeScript issues
 - **Known Issue**: TypeScript may show errors for `.js` modules - this is resolved in production builds via `next.config.js` settings
 - Check `BUILD_OPTIMIZATION_REPORT.md` and `DEPLOYMENT_DOCUMENTATION.md` for previous fixes
 - Ensure all required environment variables are set
-- Use `pnpm run deploy:check` for comprehensive build readiness verification
+- Use `npm run deploy:check` for comprehensive build readiness verification
 
 ### Cache Management
 
@@ -335,12 +336,12 @@ ADMIN_EMAIL=admin_email
 Для предотвращения проблем с кешем Next.js (например, ошибки "Cannot find module" для .js файлов) настроена автоматическая система очистки:
 
 **Доступные команды:**
-- `pnpm run clean:cache` - Очистка кеша Next.js и Node.js
-- `pnpm run clean` - Полная очистка всех сборочных файлов
-- `pnpm run clean:full` - Полная очистка + переустановка зависимостей
+- `npm run clean:cache` - Очистка кеша Next.js и Node.js
+- `npm run clean` - Полная очистка всех сборочных файлов
+- `npm run clean:full` - Полная очистка + переустановка зависимостей
 
 **Автоматическая очистка:**
-- При каждом `pnpm run dev` и `pnpm run build` автоматически очищается кеш
+- При каждом `npm run dev` и `npm run build` автоматически очищается кеш
 - Pre-push git hook очищает кеш перед отправкой в репозиторий
 
 **Файлы в .gitignore:**
@@ -349,9 +350,9 @@ ADMIN_EMAIL=admin_email
 - `node_modules/.cache/` - кеш Node.js модулей
 
 **Если возникают проблемы с кешем:**
-1. Запустите `pnpm run clean:cache`
-2. Если не помогает: `pnpm run clean:full`
-3. В крайнем случае: удалите `node_modules` и `.next` вручную, затем `pnpm install`
+1. Запустите `npm run clean:cache`
+2. Если не помогает: `npm run clean:full`
+3. В крайнем случае: удалите `node_modules` и `.next` вручную, затем `npm install`
 
 #### Recently Fixed Issues (2025-09-05)
 - **Major TypeScript Cleanup**: Resolved 76+ TypeScript errors across the entire codebase
@@ -364,55 +365,18 @@ ADMIN_EMAIL=admin_email
 - **Jest Test Setup**: Fixed IntersectionObserver mock with proper TypeScript interface implementation
 - **User Management**: Replaced missing last_login field with updated_at/created_at fallbacks
 - **Performance Optimizations**: Fixed Element/HTMLImageElement type compatibility in lazy loading utilities
-- **Tailwind CSS v4.1 Upgrade**: Migrated from v3.4.17 to v4.1.13 with CSS-based configuration
+- **Tailwind CSS**: Currently using v3.4.17 with traditional configuration
 - **mdream Integration**: Added comprehensive HTML to Markdown conversion with AI discoverability features
-- **Package Manager Migration**: Migrated from npm to pnpm for 33x faster installs and improved performance
+- **Testing Framework**: Uses Vitest instead of Jest for faster, more modern testing experience
 - **SSR Markdown Generation**: Resolved server-side rendering issues for book markdown endpoints
 
-### Tailwind CSS v4.1 Configuration
+### Tailwind CSS Configuration
 
-#### New CSS-based Configuration Pattern
-In Tailwind v4.1, configuration moved from JavaScript (`tailwind.config.ts`) to CSS:
-
-```css
-@import 'tailwindcss';
-@plugin '@tailwindcss/forms';
-
-@theme {
-  /* Custom colors */
-  --color-brand: #0B1220;
-  --color-brand-yellow: #eab308;
-  
-  /* Custom spacing */
-  --spacing-18: 4.5rem;
-  --spacing-88: 22rem;
-  
-  /* Container configuration */
-  --container-center: true;
-  --container-padding: 1rem;
-}
-
-@utility btn-base {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  /* ... more styles */
-}
-```
-
-#### Key v4.1 Improvements
-- **5x faster builds**: New high-performance engine
-- **100x faster incremental builds**: Optimized caching
-- **Zero configuration**: Automatic content detection
-- **CSS-based configuration**: More intuitive theme customization
-- **Better plugin system**: `@plugin` directive instead of JavaScript config
-- **Modern browser focus**: Targets Safari 16.4+, Chrome 111+, Firefox 128+
-
-#### Migration Notes
-- PostCSS plugin moved to `@tailwindcss/postcss`
-- Custom utilities use `@utility` instead of `@apply` in layers
-- Plugins imported via `@plugin` in CSS instead of JS config
-- Container queries and modern CSS features built-in
+#### Current Configuration (v3.4.17)
+The project uses traditional Tailwind CSS configuration with JavaScript config files. Custom styles are managed through:
+- `src/app/globals.css` - Global styles and Tailwind directives
+- Traditional `tailwind.config.js` - Theme customization and plugins
+- CSS variables for consistent design tokens
 
 ### Performance Considerations
 - **Advanced Image Optimization**: Cloudinary integration with lazy loading, Intersection Observer API, and WebP/AVIF formats
@@ -425,7 +389,7 @@ In Tailwind v4.1, configuration moved from JavaScript (`tailwind.config.ts`) to 
 - **Server Components**: Used by default (add `'use client'` only when needed)
 - **Database queries**: Cached with configurable TTL via APICache system
 - **Bundle analysis**: Available via `npm run analyze:bundle`
-- **Tailwind v4.1 Speed**: Up to 5x faster CSS generation and 100x faster incremental builds
+- **Traditional Tailwind CSS**: v3.4.17 with standard configuration and build process
 
 ## Key File Locations
 - **Database Types**: `src/lib/database.types.ts` (auto-generated from Supabase)
@@ -607,11 +571,10 @@ import { MonobankInfo } from '@/components/payment/MonobankInfo';
 ### Known Deployment Issues & Solutions
 1. **TypeScript Build Errors**: Local builds may fail due to Next.js looking for `.js` files instead of `.tsx`. This is resolved in production via `next.config.js` configuration that ignores TypeScript errors during build.
 
-2. **Cache Problems**: Resolved via automatic cache cleaning in deployment scripts and `pnpm run clean:cache` command.
+2. **Cache Problems**: Resolved via automatic cache cleaning in deployment scripts and `npm run clean:cache` command.
 
 3. **Environment Variables**: Critical variables automatically validated before deployment.
 
-### Package Manager Migration
-- **Current**: pnpm (33x faster than npm)
-- **Installation**: All dependencies optimized for pnpm
-- **Scripts**: All package.json scripts use pnpm commands
+### Package Manager
+- **Current**: npm (standard Node.js package manager)
+- **Scripts**: All package.json scripts use npm commands

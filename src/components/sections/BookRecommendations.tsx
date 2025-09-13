@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import BookCard from "@/components/BookCard";
+import { OptimizedBookCard } from "@/components/OptimizedBookCard";
 import { Button } from "@/components/ui/button";
 import { fetchBooks } from "@/lib/api/books";
 import { Sparkles, TrendingUp, Heart, Award, Loader2 } from "lucide-react";
@@ -66,11 +66,13 @@ export function BookRecommendations({
   }, []);
 
   const recommendations = useMemo(() => {
-    const filtered = books.filter(book => 
-      (book.qty_available || 0) > 0 && book.is_active && 
-      !excludeIds.includes(book.id) &&
-      (!category || book.category_id === category)
-    );
+    const filtered = books.filter(book => {
+      // Перевіряємо доступність книги з правильними полями з БД
+      const isAvailable = book.is_active && (book.status === 'available' || !book.status) && (book.qty_available ?? 0) > 0;
+      return isAvailable && 
+        !excludeIds.includes(book.id) &&
+        (!category || book.category_id === category);
+    });
 
     switch (activeType) {
       case "trending":
@@ -218,7 +220,7 @@ export function BookRecommendations({
         {/* Books grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {recommendations.map((book) => (
-            <BookCard key={book.id} book={book} />
+            <OptimizedBookCard key={book.id} book={book} />
           ))}
         </div>
 

@@ -6,7 +6,7 @@ import { FavoriteButton } from "@/components/favorites/FavoriteButton";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/Badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import BookCard from "@/components/BookCard";
+import { OptimizedBookCard } from "@/components/OptimizedBookCard";
 import { BookViewTracker } from "@/components/BookViewTracker";
 import { BookImageGallery } from "@/components/BookImageGallery";
 import { BookSpecifications } from "@/components/BookSpecifications";
@@ -26,8 +26,7 @@ import type { Metadata } from "next";
 import { supabase } from "@/lib/supabase";
 
 import { BookStructuredData } from "@/components/seo/BookStructuredData";
-import { BreadcrumbStructuredData } from "@/components/seo/BreadcrumbStructuredData";
-import { Breadcrumbs, createBookBreadcrumbs } from "@/components/ui/Breadcrumbs";
+import { BookBreadcrumbs } from "@/components/BookBreadcrumbs";
 import { generateBookOGImage } from "@/lib/og";
 import { transformDatabaseBookToBook } from "@/lib/book-utils";
 
@@ -145,12 +144,7 @@ export default async function BookPage({ params }: { params: Params }) {
     book.short_description || 
     "Захоплююча дитяча книга, що поєднує в собі пригоди, навчання та розваги. Ідеально підходить для читання разом з батьками або самостійного вивчення. Допоможе розвинути фантазію та мовні навички.";
 
-  // Breadcrumb data
-  const breadcrumbItems = createBookBreadcrumbs({
-    title: book.title,
-    category: book.category_id || undefined,
-    category_slug: book.category_id?.toLowerCase() || undefined
-  });
+  // Breadcrumb data will be created in client component
 
   return (
     <>
@@ -158,12 +152,13 @@ export default async function BookPage({ params }: { params: Params }) {
       
       {/* Structured Data */}
       <BookStructuredData book={transformedBook} />
-      <BreadcrumbStructuredData items={breadcrumbItems} />
       
       {/* Breadcrumbs */}
-      <div className="container mx-auto px-4 py-4">
-        <Breadcrumbs items={breadcrumbItems} />
-      </div>
+      <BookBreadcrumbs 
+        title={book.title}
+        category={book.category_id || undefined}
+        category_slug={book.category_id?.toLowerCase() || undefined}
+      />
 
       <div className="container mx-auto px-4 py-8 space-y-12">
         {/* Main book info section */}
@@ -369,7 +364,7 @@ export default async function BookPage({ params }: { params: Params }) {
             
             <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
               {relatedBooks.map((relatedBook) => (
-                <BookCard key={relatedBook.id} book={relatedBook} />
+                <OptimizedBookCard key={relatedBook.id} book={relatedBook} />
               ))}
             </div>
             

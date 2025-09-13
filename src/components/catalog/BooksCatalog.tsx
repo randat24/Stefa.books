@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
-import BookCard from '@/components/BookCard';
+import { OptimizedBookCard } from '@/components/OptimizedBookCard';
 import { PaginationControls, PaginationInfo, calculateTotalPages } from '@/components/ui/PaginationControls';
 import { LoadMoreButton } from '@/components/ui/LoadMoreButton';
 import { CatalogSearchFilter } from './CatalogSearchFilter';
@@ -280,7 +280,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
         aria-busy={loading}
       >
         {books.map((book) => (
-          <BookCard key={book.id} book={book} />
+          <OptimizedBookCard key={book.id} book={book} />
         ))}
       </div>
 

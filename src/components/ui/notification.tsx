@@ -120,7 +120,7 @@ export function Notification({
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 }}
-                  className={cn("text-sm mt-1", variant.text, "opacity-80")}
+                  className={cn("text-sm mt-1", variant.text)}
                 >
                   {message}
                 </motion.p>
@@ -131,8 +131,7 @@ export function Notification({
               onClick={handleClose}
               className={cn(
                 "text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0",
-                variant.text,
-                "opacity-60 hover:opacity-100"
+                variant.text
               )}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}

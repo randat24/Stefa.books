@@ -2,9 +2,10 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
-import { RefreshCw, AlertCircle, BookOpen } from 'lucide-react'
+import { RefreshCw, BookOpen } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { imageCache, cacheUtils } from '@/lib/cache-manager'
+import { imageCache } from '@/lib/cache-manager'
+import { withCacheBuster } from '@/lib/cache-buster'
 
 interface CachedImageProps {
   src: string
@@ -29,7 +30,7 @@ export function CachedImage({
   height = 400,
   className = '',
   priority = false,
-  quality = 80,
+  // quality param is used in optimized URL creation
   sizes,
   fallback = '/images/book-placeholder.svg',
   onLoad,
@@ -58,33 +59,26 @@ export function CachedImage({
       const imagePath = rest || ''
       const baseUrl = prefix
       
-      // Параметры оптимизации
+      // Параметры оптимизации для лучшего качества
       const optimizations = [
         'f_auto',           // Автоматический формат (WebP/AVIF)
-        'q_auto:good',      // Автоматическое качество
+        'q_auto:best',      // Лучшее качество
         'fl_progressive',   // Progressive loading
         'dpr_auto',         // Автоматический DPR для Retina
         `w_${width}`,       // Ширина
         `h_${height}`,      // Высота
         'c_fill',           // Заполнить контейнер
-        'g_center'          // Центрирование изображения
+        'g_center',         // Центрирование изображения
+        'fl_immutable_cache' // Кеширование для лучшей производительности
       ].join(',')
 
-      // Добавляем timestamp для принудительного обновления
-      const timestamp = forceRefresh ? `_t=${Date.now()}` : ''
-      const separator = timestamp ? '&' : '?'
-      
-      return `${baseUrl}/upload/${optimizations}/${imagePath}${separator}${timestamp}`
+      // Добавляем cache busting с помощью нашей утилиты
+      const optimizedUrl = `${baseUrl}/upload/${optimizations}/${imagePath}`
+      return forceRefresh ? withCacheBuster(optimizedUrl, true) : optimizedUrl
     }
 
-    // Для других URL добавляем timestamp если нужно обновление
-    if (forceRefresh) {
-      const url = new URL(originalSrc)
-      url.searchParams.set('_t', Date.now().toString())
-      return url.toString()
-    }
-
-    return originalSrc
+    // Для других URL используем cache-busting утилиту
+    return withCacheBuster(originalSrc, forceRefresh)
   }, [width, height, fallback])
 
   // Загружаем изображение с кешированием
@@ -193,7 +187,7 @@ export function CachedImage({
         width={width}
         height={height}
         priority={priority}
-        quality={quality}
+        quality={90}
         sizes={sizes || `(max-width: 768px) 100vw, ${width}px`}
         className="object-cover object-center w-full h-full"
         onLoad={handleLoad}

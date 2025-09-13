@@ -1,9 +1,10 @@
 "use client"
 
-import { useState } from 'react'
+import { useMemo } from 'react'
+import { toast as sonnerToast } from 'sonner'
 
 export interface Toast {
-  id: string
+  id?: string
   title?: string
   description?: string
   variant?: 'default' | 'destructive' | 'success' | 'warning'
@@ -13,40 +14,38 @@ export interface Toast {
 interface ToastContextType {
   toasts: Toast[]
   toast: (props: Omit<Toast, 'id'>) => void
-  dismiss: (id: string) => void
+  dismiss: (id?: string | number) => void
 }
 
+// Unified toast hook that proxies to Sonner. Ensures a single consistent style site‑wide.
 const useToast = (): ToastContextType => {
-  const [toasts, setToasts] = useState<Toast[]>([])
+  // We don't maintain a parallel in-app queue anymore; Sonner handles rendering.
+  const toasts: Toast[] = useMemo(() => [], [])
 
-  const toast = ({ ...props }: Omit<Toast, 'id'>) => {
-    const id = Math.random().toString(36).substr(2, 9)
-    const newToast: Toast = {
-      id,
-      ...props,
-      variant: props.variant || 'default',
-      duration: props.duration || 5000
+  const toast = ({ title, description, variant = 'default', duration }: Omit<Toast, 'id'>) => {
+    const opts = { description, duration }
+
+    switch (variant) {
+      case 'success':
+        sonnerToast.success(title ?? '', opts)
+        return
+      case 'warning':
+        sonnerToast.warning(title ?? '', opts)
+        return
+      case 'destructive':
+        sonnerToast.error(title ?? '', opts)
+        return
+      default:
+        sonnerToast(title ?? '', opts)
+        return
     }
-
-    setToasts((prev) => [...prev, newToast])
-
-    // Auto dismiss after duration
-    if (newToast.duration && newToast.duration > 0) {
-      setTimeout(() => {
-        dismiss(id)
-      }, newToast.duration)
-    }
   }
 
-  const dismiss = (id: string) => {
-    setToasts((prev) => prev.filter((toast) => toast.id !== id))
+  const dismiss = (id?: string | number) => {
+    sonnerToast.dismiss(id)
   }
 
-  return {
-    toasts,
-    toast,
-    dismiss
-  }
+  return { toasts, toast, dismiss }
 }
 
 export { useToast }

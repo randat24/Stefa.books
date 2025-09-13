@@ -5,7 +5,7 @@ import { BookOpen, Share2, Heart } from 'lucide-react';
 import type { Book } from '@/lib/supabase';
 import Link from 'next/link';
 import { BookPreviewModal } from '@/components/BookPreviewModal';
-import CachedImage from '@/components/ui/CachedImage';
+import { BookCover } from '@/components/BookCover';
 import { useAnalytics } from '@/hooks/useAnalytics';
 
 export type BookCardProps = {
@@ -53,17 +53,17 @@ export function BookCard({
           aria-label={`Переглянути деталі книги: ${memoizedBook.title} автора ${memoizedBook.author}`}
           onClick={handleBookClick}
         >
-          <div className="book-card-image h-[280px] rounded-t-xl">
-            {/* Book Cover with Cached Image */}
-            <CachedImage
+          <div className="book-card-image h-[320px] relative">
+            {/* Book Cover with optimized loading */}
+            <BookCover
               src={memoizedBook.cover_url || '/images/book-placeholder.svg'}
               alt={`Обкладинка книги: ${memoizedBook.title}`}
+              title={memoizedBook.title}
               width={300}
-              height={280}
-              className="w-full h-full rounded-t-xl"
+              height={320}
+              className="w-full h-full"
               priority={priorityLoading}
-              enableCache={true}
-              showRefreshButton={false}
+              showFallback={true}
             />
             
             {/* Overlay при наведении */}
@@ -74,13 +74,13 @@ export function BookCard({
         {/* Статус-бейдж */}
         <span 
           className={`absolute left-3 top-3 rounded-lg px-3 py-1.5 text-xs font-semibold shadow-lg backdrop-blur-sm border ${
-            memoizedBook.is_active 
+            (memoizedBook.is_active !== false && memoizedBook.status === 'available') 
               ? "text-success bg-surface/95 border-success/20" 
               : "text-error bg-surface/95 border-error/20"
           }`}
-          aria-label={`Статус книги: ${memoizedBook.is_active ? 'Доступна' : 'Видана'}`}
+          aria-label={`Статус книги: ${(memoizedBook.is_active !== false && memoizedBook.status === 'available') ? 'Доступна' : 'Видана'}`}
         >
-          {memoizedBook.is_active ? "✓ Доступна" : "✗ Видана"}
+          {(memoizedBook.is_active !== false && memoizedBook.status === 'available') ? "✓ Доступна" : "✗ Видана"}
         </span>
 
         {/* Быстрые действия (только при наведении) */}

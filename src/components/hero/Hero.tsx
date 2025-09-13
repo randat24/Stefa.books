@@ -17,7 +17,7 @@ export default function Hero() {
 								Книжкова оренда у Миколаєві
 							</Badge>
 
-							<h1 className="display">
+							<h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight">
 								Читай легко. Оформлюй підписку та забирай книги зручно.
 							</h1>
 

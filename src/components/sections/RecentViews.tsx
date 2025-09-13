@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import BookCard from "@/components/BookCard";
+import OptimizedBookCard from "@/components/OptimizedBookCard";
 import { Button } from "@/components/ui/button";
 import { getRecentViews, clearRecentViews } from "@/lib/recentViews";
 import { fetchBook } from "@/lib/api/books";
@@ -17,8 +17,6 @@ interface RecentViewsProps {
 }
 
 export function RecentViews({ 
-  title = "Нещодавно переглянуті", 
-  subtitle = "Книги, які ви переглядали останнім часом",
   maxItems = 6,
   showClearButton = true
 }: RecentViewsProps) {
@@ -106,7 +104,7 @@ export function RecentViews({
   }
 
   return (
-    <section className="py-16 lg:py-24 bg-white">
+    <section className="py-16 lg:py-24">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8 lg:mb-12 relative">
@@ -115,10 +113,10 @@ export function RecentViews({
             Історія перегляду
           </div>
           <h2 className="text-h1 text-neutral-900 mb-4">
-            {title}
+            Нещодавно переглянуті дитячі книги
           </h2>
           <p className="text-body-lg text-neutral-600 max-w-2xl mx-auto mb-6">
-            {subtitle}
+            Поверніться до книг, які вас зацікавили. Швидкий доступ до нещодавно переглянутих дитячих книг з каталогу Stefa.books для зручної оренди.
           </p>
           
           {showClearButton && recentBooks.length > 0 && (
@@ -137,14 +135,12 @@ export function RecentViews({
 
         {/* Books grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {recentBooks.map((book, index) => (
-            <div key={book.id} className="relative">
-              {/* Recently viewed indicator */}
-              <div className="absolute -top-2 -right-2 w-6 h-6 bg-brand-accent text-neutral-0 rounded-2xl flex items-center justify-center text-caption font-bold z-10">
-                {index + 1}
-              </div>
-              <BookCard book={book} />
-            </div>
+          {recentBooks.map((book) => (
+            <OptimizedBookCard 
+              key={book.id} 
+              book={book} 
+              showActions={false}
+            />
           ))}
         </div>
 
@@ -154,8 +150,8 @@ export function RecentViews({
             <Button variant="outline" asChild>
               <Link href="/books">
                 Переглянути всі книги
-              </Link>
-            </Button>
+                </Link>
+              </Button>
           </div>
         )}
       </div>

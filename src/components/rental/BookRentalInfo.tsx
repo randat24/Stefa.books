@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import { Star, Calendar, Users, BookOpen, Award } from 'lucide-react';
+import { Star, Calendar, BookOpen, Award } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
+import { BookCover } from '@/components/BookCover';
 import type { Book } from '@/lib/supabase';
 
 interface BookRentalInfoProps {
@@ -11,21 +11,17 @@ export function BookRentalInfo({ book }: BookRentalInfoProps) {
   return (
     <div className="space-y-6">
       {/* Book Cover */}
-      <div className="aspect-[3/4] relative rounded-lg overflow-hidden bg-neutral-100">
-        {book.cover_url ? (
-          <Image
-            src={book.cover_url}
-            alt={book.title}
-            fill
-            className="object-cover"
-            unoptimized={true}
-            sizes="(max-width: 768px) 100vw, 300px"
-          />
-        ) : (
-          <div className="flex items-center justify-center h-full text-neutral-400">
-            <BookOpen className="h-16 w-16" />
-          </div>
-        )}
+      <div className="aspect-[3/4] relative rounded-lg overflow-hidden">
+        <BookCover
+          src={book.cover_url || ''}
+          alt={book.title}
+          title={book.title}
+          width={300}
+          height={400}
+          className="w-full h-full"
+          priority={true}
+          showFallback={true}
+        />
       </div>
 
       {/* Book Details */}

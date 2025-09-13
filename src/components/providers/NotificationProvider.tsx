@@ -22,6 +22,8 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
             background: 'var(--background)',
             color: 'var(--foreground)',
             border: '1px solid var(--border)',
+            boxShadow: '0 12px 28px rgba(15,23,42,0.12)',
+            borderRadius: '18px',
           },
         }}
       />

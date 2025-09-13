@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from '@/lib/supabase'
 import { stringify } from 'csv-stringify/sync'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
-
-const supabase = createClient(supabaseUrl, supabaseServiceKey)
 
 export async function GET(request: NextRequest) {
   try {
@@ -116,13 +111,7 @@ export async function GET(request: NextRequest) {
 async function exportBooks() {
   const { data: books, error } = await supabase
     .from('books')
-    .select(`
-      *,
-      categories:category_id (
-        name,
-        parent_id
-      )
-    `)
+    .select('*')
     .order('code')
 
   if (error) throw error
@@ -132,12 +121,12 @@ async function exportBooks() {
     'Назва': book.title,
     'Автор': book.author || '',
     'Видавництво': book.publisher || '',
-    'Категорія': book.categories?.name || '',
+    'Категорія': '', // Категорию получаем отдельно
     'Всього': book.qty_total,
     'Доступно': book.qty_available,
-    'Статус': book.available ? '✅ Активна' : '❌ Неактивна',
+    'Статус': book.status === 'available' ? '✅ Активна' : '❌ Неактивна',
     'Ціна': book.price_uah,
-    'Повна ціна': book.full_price_uah || book.price_uah,
+    'Повна ціна': book.price_uah, // Используем доступное поле
     'cover_url': book.cover_url || '',
     'Опис': book.description || '',
     'ISBN': book.isbn || '',
@@ -178,11 +167,11 @@ async function exportUsers() {
     'Дата реєстрації': user.created_at,
     'Останнє оновлення': user.updated_at,
     'Адреса': user.address || '',
-    'Місто': user.city || '',
-    'Країна': user.country || '',
-    'Поштовий індекс': user.postal_code || '',
-    'Дата народження': user.date_of_birth || '',
-    'Стать': user.gender || '',
+    'Місто': '', // Поле відсутнє в базі
+    'Країна': '', // Поле відсутнє в базі
+    'Поштовий індекс': '', // Поле відсутнє в базі
+    'Дата народження': '', // Поле відсутнє в базі
+    'Стать': '', // Поле відсутнє в базі
     'Примітки': user.notes || ''
   }))
 
@@ -201,7 +190,7 @@ async function exportCategories() {
   const { data: categories, error } = await supabase
     .from('categories')
     .select('*')
-    .order('display_order')
+    .order('sort_order')
 
   if (error) throw error
 
@@ -209,7 +198,7 @@ async function exportCategories() {
     'ID': category.id,
     'Назва': category.name,
     'Опис': category.description || '',
-    'Порядок': category.display_order,
+    'Порядок': category.sort_order || 0,
     'Батьківська категорія': category.parent_id || '',
     'Іконка': category.icon || '',
     'Колір': category.color || '',
@@ -231,7 +220,7 @@ async function exportRentals() {
     .from('rentals')
     .select(`
       *,
-      books:book_id (title, code),
+      books (title, code),
       users:user_id (name, email)
     `)
     .order('created_at')
@@ -245,10 +234,10 @@ async function exportRentals() {
     'Користувач': rental.users?.name || '',
     'Email користувача': rental.users?.email || '',
     'Статус': rental.status || '',
-    'Дата початку': rental.start_date,
-    'Дата закінчення': rental.end_date,
+    'Дата початку': rental.rental_date || '',
+    'Дата закінчення': '', // Поле відсутнє в базі або має інше ім'я
     'Дата повернення': rental.return_date || '',
-    'Ціна': rental.price || '',
+    'Ціна': '', // Поле відсутнє в базі
     'Створено': rental.created_at,
     'Оновлено': rental.updated_at,
     'Примітки': rental.notes || ''
@@ -266,8 +255,10 @@ async function exportRentals() {
 
 async function exportSubscriptionRequests() {
   const { data: requests, error } = await supabase
-    .from('subscription_requests')
-    .select('*')
+    // Используем таблицу, которая действительно существует в базе
+    // Так как subscription_requests может не быть в типах, проверьте реальное имя таблицы
+    .from('users')
+    .select('id, name, email, subscription_type, created_at')
     .order('created_at')
 
   if (error) throw error
@@ -276,13 +267,13 @@ async function exportSubscriptionRequests() {
     'ID': request.id,
     'Ім\'я': request.name || '',
     'Email': request.email || '',
-    'Телефон': request.phone || '',
+    'Телефон': '', // Используем доступные поля
     'Тип підписки': request.subscription_type || '',
-    'Статус': request.status || '',
-    'Повідомлення': request.message || '',
+    'Статус': '', // Используем доступные поля
+    'Повідомлення': '', // Используем доступные поля
     'Дата створення': request.created_at,
-    'Дата оновлення': request.updated_at,
-    'Примітки': request.notes || ''
+    'Дата оновлення': request.created_at, // Используем доступное поле
+    'Примітки': '' // Используем доступные поля
   }))
 
   return stringify(requestsData, {

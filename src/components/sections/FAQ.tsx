@@ -40,8 +40,8 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0); // First item open by default
   return (
     <section className="section">
-      <h2 className="h2 text-center mb-3">Питання та відповіді</h2>
-      <p className="small text-center text-[var(--text-muted)] mb-8">Коротко про головне — щоб ви швидко розібралися</p>
+      <h2 className="text-h1 text-neutral-900 text-center mb-4">Часті питання про оренду дитячих книг</h2>
+      <p className="text-body-lg text-neutral-600 text-center mb-8">Відповіді на найпоширеніші питання про підписку на дитячі книги, оренду та доставку в Миколаєві. Отримайте всю необхідну інформацію.</p>
 
       <div className="grid gap-3 max-w-3xl mx-auto">
         {QA.map((item, i) => {

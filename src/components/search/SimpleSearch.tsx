@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Search, X, SlidersHorizontal, Loader2 } from 'lucide-react';
-import BookCard from '@/components/BookCard'; // Use standard import
+import { OptimizedBookCard } from '@/components/OptimizedBookCard';
 import { FilterPopup } from '@/components/filters/FilterPopup';
 import { LoadMoreButton } from '@/components/ui/LoadMoreButton';
 import { fetchBooks, fetchCategories } from '@/lib/api/books';
@@ -473,7 +473,7 @@ export function SimpleSearch({ onSearchResults }: SimpleSearchProps) {
       {/* Search Results */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {(displayedBooks || []).map((book) => (
-          <BookCard key={book.id} book={book} />
+          <OptimizedBookCard key={book.id} book={book} />
         ))}
       </div>
 

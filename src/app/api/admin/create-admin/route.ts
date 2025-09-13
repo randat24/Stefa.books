@@ -1,11 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-// Создаем клиент с service_role для создания пользователей
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { supabase } from '@/lib/supabase';
 
 export async function POST(request: NextRequest) {
   try {
@@ -21,7 +15,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Создаем пользователя в auth.users с service_role
-    const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
+    const { data: authData, error: authError } = await supabase.auth.admin.createUser({
       email: email,
       password: password,
       email_confirm: true,
@@ -40,7 +34,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Создаем профиль в таблице users
-    const { error: profileError } = await supabaseAdmin
+    const { error: profileError } = await supabase
       .from('users')
       .insert({
         id: authData.user.id,

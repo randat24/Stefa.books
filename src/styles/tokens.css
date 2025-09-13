@@ -15,6 +15,11 @@
   --surface-2:    #F9FAFB;   /* подложка секций */
   --app-bg:       #FAFAFA;   /* общий фон страницы */
 
+  /* Алиасы для сторонних библиотек (Sonner и пр.) */
+  --background:   var(--surface);
+  --foreground:   var(--text);
+  --border:       var(--line);
+
   /* Семантика */
   --success:      #10B981;   /* emerald-500 */
   --warning:      #F59E0B;   /* amber-500 */

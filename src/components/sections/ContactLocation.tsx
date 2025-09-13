@@ -71,8 +71,8 @@ export default function ContactLocation({
   const router = useRouter();
   const [mode, setMode] = useState<Mode>("pickup");
 
-  const title = "Як отримати книги";
-  const subtitle = hasActiveSubscription
+  // Dynamic section content based on subscription status
+  const dynamicContent = hasActiveSubscription
     ? "У вас активна підписка. Оберіть зручний спосіб отримання або обміну."
     : "Щоб отримувати книги, спочатку оформіть підписку. Доступні тарифи: Mini (300₴/міс, 1 книга), Maxi (500₴/міс, 2 книги).";
 
@@ -156,11 +156,11 @@ export default function ContactLocation({
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Заголовок */}
         <header className="text-center mb-8 lg:mb-12">
-          <h2 className="text-2xl sm:text-h1 text-neutral-900 mb-4">
-            {title}
+          <h2 className="text-h1 text-neutral-900 mb-4">
+            Як отримати дитячі книги в Миколаєві
           </h2>
           <p className="text-body-lg text-neutral-600 max-w-2xl mx-auto">
-            {subtitle}
+            {dynamicContent}
           </p>
         </header>
 

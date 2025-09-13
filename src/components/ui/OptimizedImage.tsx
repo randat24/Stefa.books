@@ -97,8 +97,8 @@ export function OptimizedImage({
     );
   }
 
-  // Placeholder пока изображение не загружено
-  if (!isInView || !isLoaded) {
+  // Placeholder до входа во viewport — не рендерим реальное изображение
+  if (!isInView) {
     return (
       <div 
         ref={imgRef}
@@ -137,6 +137,11 @@ export function OptimizedImage({
           ...style
         }}
       />
+
+      {/* Скелет поверх, пока изображение грузится */}
+      {!isLoaded && (
+        <div className="absolute inset-0 bg-surface-2 animate-pulse" />
+      )}
     </div>
   );
 }
@@ -159,7 +164,7 @@ export function BookCoverImage({
       alt={alt}
       width={300}
       height={400}
-      className={cn('aspect-[3/4] rounded-lg', className)}
+      className={cn('aspect-[3/4]', className)}
       priority={priority}
       quality={80}
       sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"

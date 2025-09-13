@@ -127,7 +127,7 @@
 
   /* BookCard стили */
   .book-card {
-    @apply relative bg-card rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-line h-full flex flex-col hover:-translate-y-1;
+    @apply relative bg-card rounded-xl hover:shadow-lg transition-all duration-300 overflow-hidden border border-line h-full flex flex-col hover:-translate-y-1;
     min-height: 400px;
   }
 
@@ -160,7 +160,6 @@
     background: var(--card);
     border: 1px solid var(--line);
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-md);
     padding: 1.5rem;
     transition: all 200ms ease-out;
   }

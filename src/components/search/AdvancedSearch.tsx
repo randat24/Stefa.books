@@ -5,7 +5,7 @@ import { Search, Filter, X, SlidersHorizontal, Clock, TrendingUp, BookOpen, User
 import { useSearch } from './SearchProvider';
 import { useDebounce } from '@/hooks/useDebounce';
 import { searchService } from '@/lib/search/searchService';
-import BookCard from '@/components/BookCard';
+import { OptimizedBookCard } from '@/components/OptimizedBookCard';
 import { Badge } from '@/components/ui/Badge';
 import type { Book } from '@/lib/supabase';
 import type { SearchResponse, SearchSuggestion, SearchFilters as SupabaseSearchFilters } from '@/lib/search/searchService';
@@ -665,17 +665,17 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
           if (query) {
             if (isSupabaseSearch && supabaseResults) {
               return supabaseResults.results.map(result => (
-                <BookCard key={result.book.id} book={result.book} />
+                <OptimizedBookCard key={result.book.id} book={result.book} />
               ));
             } else if (!isSupabaseSearch && searchResults) {
               return searchResults.map(book => (
-                <BookCard key={book.id} book={book} />
+                <OptimizedBookCard key={book.id} book={book} />
               ));
             }
             return [];
           } else {
             return displayedBooks.map(book => (
-              <BookCard key={book.id} book={book} />
+              <OptimizedBookCard key={book.id} book={book} />
             ));
           }
         })()}

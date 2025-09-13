@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
 import { monobankService } from '@/lib/services/monobank';
 

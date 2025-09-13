@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { BookCover } from "@/components/BookCover";
 import { ChevronLeft, ChevronRight, BookOpen, ZoomIn } from "lucide-react";
 
 interface BookImageGalleryProps {
@@ -51,14 +52,17 @@ export function BookImageGallery({ title, cover_url, images = [] }: BookImageGal
       {/* Main Image */}
       <div className="overflow-hidden rounded-xl group relative">
         <div className="relative aspect-[3/4]">
-          <Image 
-            src={allImages[currentImage]} 
-            alt={title} 
-            fill 
-            className={`object-cover transition-transform duration-300 ${
+          <BookCover
+            src={allImages[currentImage]}
+            alt={title}
+            title={title}
+            width={400}
+            height={533}
+            className={`w-full h-full transition-transform duration-300 ${
               isZoomed ? 'scale-110' : 'hover:scale-105'
             }`}
-            priority
+            priority={true}
+            showFallback={true}
           />
           
           {/* Zoom button */}

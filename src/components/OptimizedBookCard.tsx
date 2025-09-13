@@ -39,11 +39,13 @@ export const OptimizedBookCard = memo(function OptimizedBookCard({
 
   // Мемоизируем статус доступности
   const availabilityStatus = useMemo(() => {
-    if (book.is_active) {
+    // Перевіряємо поля доступності з бази даних
+    const isAvailable = book.is_active && (book.status === 'available' || !book.status) && (book.qty_available ?? 0) > 0;
+    if (isAvailable) {
       return { text: 'Доступна', className: 'text-green-600 bg-green-50' };
     }
     return { text: 'Зайнята', className: 'text-red-600 bg-red-50' };
-  }, [book.is_active]);
+  }, [book.is_active, book.status, book.qty_available]);
 
   // Мемоизируем рейтинг
   const rating = useMemo(() => {
@@ -62,13 +64,13 @@ export const OptimizedBookCard = memo(function OptimizedBookCard({
         <Link 
           href={`/books/${book.id}`}
           onClick={handleBookClick}
-          className="block relative overflow-hidden rounded-lg bg-surface-2"
+          className="block relative overflow-hidden rounded-t-lg rounded-b-none bg-surface-2"
         >
           <BookCoverImage
             src={book.cover_url || '/images/book-placeholder.jpg'}
             alt={`Обложка книги "${book.title}"`}
             priority={priorityLoading}
-            className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-[310px] object-cover group-hover:scale-105 transition-transform duration-300 rounded-t-lg rounded-b-none"
           />
           
           {/* Overlay с действиями */}
@@ -107,7 +109,7 @@ export const OptimizedBookCard = memo(function OptimizedBookCard({
         </Link>
 
         {/* Информация о книге */}
-        <div className="p-4 space-y-2">
+        <div className="px-4 pt-4 pb-6 space-y-1 min-h-[72px]">
           <h3 
             id={`book-title-${book.id}`}
             className="font-semibold text-accent line-clamp-2 group-hover:text-brand-accent transition-colors"
@@ -144,19 +146,9 @@ export const OptimizedBookCard = memo(function OptimizedBookCard({
           )}
 
           {/* Категория */}
-          {book.category_id && (
-            <div className="text-xs text-brand-accent font-medium">
-              Категорія: {book.category_id}
-            </div>
-          )}
+          {/* Убираем лишние пустые блоки; категорию не показываем для компактности */}
 
-          {/* Кнопка аренды */}
-          <Link
-            href={`/books/${book.id}/rent`}
-            className="block w-full mt-3 px-4 py-2 bg-brand-accent text-white text-center rounded-lg hover:bg-brand-accent/90 transition-colors font-medium"
-          >
-            {book.is_active ? 'Орендувати' : 'Переглянути'}
-          </Link>
+          {/* Кнопка аренды убрана для компактности карточки */}
         </div>
       </article>
 

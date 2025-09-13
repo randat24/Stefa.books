@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
 
 // ============================================================================
@@ -8,30 +8,25 @@ import { logger } from '@/lib/logger';
 
 export async function GET(request: NextRequest) {
   try {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-    const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-    // Получаем токен из заголовков или cookies
-    const authHeader = request.headers.get('authorization');
-    const token = authHeader?.replace('Bearer ', '');
-
-    if (!token) {
+    // Получаем токен из заголовков
+    const authorization = request.headers.get('authorization');
+    if (!authorization || !authorization.startsWith('Bearer ')) {
       return NextResponse.json(
         { 
           success: false, 
-          error: 'Не авторизовано' 
+          error: 'Токен авторизації відсутній' 
         },
         { status: 401 }
       );
     }
 
+    const token = authorization.substring(7); // Remove "Bearer " prefix
+
     // Получаем пользователя по токену
     const { data: { user }, error: userError } = await supabase.auth.getUser(token);
 
     if (userError || !user) {
-      // Если токен истек, возвращаем 401 без логирования ошибки
-      if (userError?.message?.includes('expired') || userError?.message?.includes('invalid')) {
+      if (userError?.message === 'Invalid JWT') {
         return NextResponse.json(
           { 
             success: false, 

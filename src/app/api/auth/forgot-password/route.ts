@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
 import { z } from 'zod';
 
@@ -18,47 +18,33 @@ export async function POST(request: NextRequest) {
     // Валидация данных
     const validatedData = forgotPasswordSchema.parse(body);
     
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-    const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-    logger.info('Password reset request', { email: validatedData.email }, 'Auth');
-
-    // Отправка письма для сброса пароля
-    const { error } = await supabase.auth.resetPasswordForEmail(validatedData.email, {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/reset-password`,
+    const { email } = validatedData;
+    
+    // Отправляем письмо для восстановления пароля
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/reset-password`
     });
 
     if (error) {
-      logger.error('Password reset failed', { error: error.message }, 'Auth');
+      logger.error('Failed to send reset password email', { error }, 'Auth');
       return NextResponse.json(
         { 
           success: false, 
-          error: 'Не вдалося надіслати лист для скидання пароля' 
+          error: 'Не вдалося надіслати email для відновлення паролю' 
         },
         { status: 400 }
       );
     }
 
-    logger.info('Password reset email sent', { email: validatedData.email }, 'Auth');
+    logger.info('Reset password email sent', { email }, 'Auth');
 
     return NextResponse.json({
       success: true,
-      message: 'Лист з інструкціями надіслано на вашу електронну пошту'
+      message: 'Лист для відновлення паролю надіслано на email'
     });
 
   } catch (error: any) {
     logger.error('Forgot password API error', error, 'Auth');
-    
-    if (error.name === 'ZodError') {
-      return NextResponse.json(
-        { 
-          success: false, 
-          error: error.errors[0]?.message || 'Неправильні дані' 
-        },
-        { status: 400 }
-      );
-    }
 
     return NextResponse.json(
       { 

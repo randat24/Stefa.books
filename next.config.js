@@ -1,5 +1,21 @@
 /** @type {import('next').NextConfig} */
+
+// Generate a unique build ID for cache busting
+const generateBuildId = () => {
+  const now = new Date();
+  return `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
+};
+
+const BUILD_ID = generateBuildId();
+
 const nextConfig = {
+  // Generate a consistent build ID for the current build
+  generateBuildId: () => BUILD_ID,
+  
+  // Make build ID available in the app
+  env: {
+    NEXT_PUBLIC_BUILD_ID: BUILD_ID,
+  },
   experimental: {
     serverActions: {
       allowedOrigins: ['localhost:3000', 'localhost:3001', 'stefa-books.vercel.app', 'stefa-books.com.ua']
@@ -46,8 +62,10 @@ const nextConfig = {
       },
     ]
   },
+  // Environment variables
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
+    NEXT_PUBLIC_BUILD_ID: BUILD_ID,
   },
   // TypeScript configuration for build
   typescript: {

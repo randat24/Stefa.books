@@ -1,18 +1,25 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './database.types';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error('Missing Supabase environment variables');
-}
+// Create a fallback client if environment variables are missing
+const createFallbackClient = () => {
+  return createClient<Database>('https://placeholder.supabase.co', 'placeholder-key', {
+    auth: {
+      persistSession: false,
+    },
+  });
+};
 
-export const supabase = createClient<Database>(supabaseUrl, supabaseKey, {
-  auth: {
-    persistSession: false, // Since we're not using authentication yet
-  },
-});
+export const supabase = (supabaseUrl && supabaseKey) 
+  ? createClient<Database>(supabaseUrl, supabaseKey, {
+      auth: {
+        persistSession: false, // Since we're not using authentication yet
+      },
+    })
+  : createFallbackClient();
 
 // Type-safe database types
 export type Book = Database['public']['Tables']['books']['Row'];

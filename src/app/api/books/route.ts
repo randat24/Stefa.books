@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
-import { createClient } from '@supabase/supabase-js';
+// Supabase client is imported from @/lib/supabase
 
 export async function GET(request: NextRequest) {
   try {

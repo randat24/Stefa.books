@@ -256,11 +256,11 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
     <section className="py-4 px-6" id="subscribe">
       <div className="mx-auto max-w-2xl">
         <div className="text-center mb-6">
-          <h2 className="h1 mb-2">
-            Оформити підписку
+          <h2 className="text-h1 text-neutral-900 mb-4">
+            Оформити підписку на дитячі книги в Миколаєві
           </h2>
-          <p className="lead">
-            Заповніть форму і ми зв&apos;яжемося з вами найближчим часом
+          <p className="text-body-lg text-neutral-600">
+            Заповніть форму підписки на оренду дитячих книг. Ми зв&apos;яжемося з вами найближчим часом для підтвердження та оформлення доступу до бібліотеки.
           </p>
           <div className="mt-4 inline-flex items-center gap-4 text-base">
             <span className="inline-flex items-center gap-2 rounded-[var(--radius-lg)] bg-[var(--success)]/10 px-4 py-2 text-[var(--success)]">

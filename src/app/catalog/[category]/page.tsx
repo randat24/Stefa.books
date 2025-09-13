@@ -3,7 +3,7 @@ import { supabase } from '@/lib/supabase';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronRight, BookOpen } from 'lucide-react';
-import BookCard from '@/components/BookCard';
+import { OptimizedBookCard } from '@/components/OptimizedBookCard';
 
 type Params = Promise<{ category: string }>;
 
@@ -131,7 +131,7 @@ export default async function CategoryPage({ params }: { params: Params }) {
           {books && books.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {books.map((book: any) => (
-                <BookCard key={book.id} book={book} />
+                <OptimizedBookCard key={book.id} book={book} />
               ))}
             </div>
           ) : (

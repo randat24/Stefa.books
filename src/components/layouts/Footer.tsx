@@ -1,6 +1,7 @@
 import { Mail, Phone, MapPin, BookOpen, Users } from "lucide-react";
 import Image from 'next/image';
 import Link from 'next/link';
+import { withDailyCacheBuster } from '@/lib/cache-buster';
 
 export function Footer() {
   return (
@@ -12,11 +13,12 @@ export function Footer() {
             <div className="flex items-center gap-4">
               <div className="h-14 w-14 rounded-2xl grid place-items-center shadow-md">
                 <Image
-                  src="/logo.svg"
+                  src={withDailyCacheBuster('/logo.svg')}
                   alt="Stefa.books logo"
                   width={35}
                   height={36}
                   priority
+                  unoptimized={true}
                 />
               </div>
               <div>

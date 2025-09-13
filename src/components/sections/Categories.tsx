@@ -381,8 +381,8 @@ export default function Categories() {
 			<section id="catalog" className="py-16 lg:py-24">
 				<div className="flex items-end justify-between mb-5">
 				<div>
-					<h2 className="h2">Категорії</h2>
-					<p>Вибирай настрій читання — і вперед!</p>
+					<h2 className="text-h1 text-neutral-900 mb-4">Категорії дитячих книг для оренди</h2>
+					<p className="text-body-lg text-neutral-600">Оберіть категорію дитячих книг за віком та жанром. Великий вибір української літератури для дітей різного віку в Миколаєві.</p>
 				</div>
 				</div>
 				<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

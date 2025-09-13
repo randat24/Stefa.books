@@ -2,7 +2,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { Search, X, BookOpen, Loader2 } from 'lucide-react';
-import BookCard from '@/components/BookCard';
+import OptimizedBookCard from '@/components/OptimizedBookCard';
 import { fetchNewBooks, fetchCategories, getCategoriesFromBooks } from '@/lib/api/books';
 import type { Book } from '@/lib/supabase';
 
@@ -108,8 +108,8 @@ export function Catalog() {
     <section className="section">
       <header className="mb-12 text-center">
         <div className="max-w-3xl mx-auto mb-8">
-          <h2 className="h2 mb-4">Каталог книг</h2>
-          <p className="lead mb-8">Оберіть потрібну книгу. Зверніть увагу, що ми постійно оновлюємо каталог. Якщо ви не знайшли бажаної книги, напишіть нам у будь-який зручний спосіб.</p>
+          <h2 className="text-h1 text-neutral-900 mb-4">Каталог дитячих книг для оренди в Миколаєві</h2>
+          <p className="text-body-lg text-neutral-600 mb-8">Великий вибір українських дитячих книг різних вікових категорій. Орендуйте книжки з підпискою Stefa.books. Постійно поповнюємо каталог новинками української літератури.</p>
           
           {/* Пошук та кнопка каталогу */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 max-w-2xl mx-auto">
@@ -199,7 +199,7 @@ export function Catalog() {
       {!loading && !error && items.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {items.map((b) => (
-            <BookCard key={b.id} book={b} />
+            <OptimizedBookCard key={b.id} book={b} />
           ))}
         </div>
       )}

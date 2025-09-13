@@ -56,19 +56,19 @@ export default function HeroStepsCard() {
   return (
     <aside className="card relative mx-auto max-w-md md:ml-0 md:max-w-none lg:ml-auto lg:max-w-md xl:mr-[-1.2rem] 2xl:mr-[0.3rem]">
       {/* Заголовок с ценами */}
-      <div className="text-center border-b border-[var(--line)] p-4 sm:p-5">
-        <h3 className="h3 mb-2">
+      <div className="text-center border-b border-[var(--line)] p-3">
+        <h3 className="text-xl font-semibold mb-2">
           Як почати читати
         </h3>
-        <div className="inline-flex items-center gap-2 rounded-[var(--radius-lg)] bg-[var(--brand)]/10 border border-[var(--brand)]/20 px-4 py-2 small font-medium text-[var(--accent)]">
-          <Wallet className="size-4 text-[var(--accent)]" />
+        <div className="inline-flex items-center gap-2 rounded-full bg-[#FFFBEB] border border-[#FCD34D] px-4 py-2 text-sm font-medium text-[#D97706]">
+          <Wallet className="size-3 text-[#D97706]" />
           <span>Mini 300₴ • Maxi 500₴</span>
         </div>
       </div>
 
       {/* Timeline Steps */}
-      <div className="p-4 sm:p-6">
-        <div className="space-y-1">
+      <div className="p-3">
+        <div className="space-y-0.5">
           {steps.map((step) => {
             const Icon = step.icon;
             const isHovered = hoveredStep === step.n;
@@ -77,7 +77,7 @@ export default function HeroStepsCard() {
             const content = (
               <div className="relative">
                 <div
-                  className={`group relative flex items-start gap-3 p-3 rounded-[var(--radius-lg)] transition-all duration-300 ${
+                  className={`group relative flex items-start gap-2.5 p-2.5 rounded-[var(--radius-lg)] transition-all duration-300 ${
                     isDisabled 
                       ? "opacity-60 cursor-not-allowed" 
                       : `cursor-pointer ${
@@ -90,14 +90,14 @@ export default function HeroStepsCard() {
                   onMouseLeave={() => setHoveredStep(null)}
                 >
                   {/* Иконка с анимацией */}
-                  <div className={`relative flex items-center justify-center w-12 h-12 rounded-[var(--radius-lg)] transition-all duration-300 group-hover:scale-105 ${
+                  <div className={`relative flex items-center justify-center w-10 h-10 rounded-[var(--radius-lg)] transition-all duration-300 group-hover:scale-105 ${
                     isDisabled
                       ? 'bg-[var(--line)]'
                       : isHovered
                       ? 'bg-[var(--brand)] shadow-md'
                       : 'bg-[var(--accent)] group-hover:bg-[var(--accent-700)]'
                   }`}>
-                    <Icon className={`size-6 transition-all duration-300 ${
+                    <Icon className={`size-5 transition-all duration-300 ${
                       isDisabled
                         ? 'text-[var(--text-muted)]'
                         : isHovered
@@ -112,13 +112,13 @@ export default function HeroStepsCard() {
                   </div>
 
                   {/* Контент */}
-                  <div className="flex-1 min-w-0 pt-1">
-                    <div className="flex items-start gap-2 mb-1">
+                  <div className="flex-1 min-w-0 pt-0.5">
+                    <div className="flex items-start gap-2 mb-0.5">
                       <div className="flex-1">
-                        <h4 className="h3 leading-tight mb-1">
+                        <h4 className="text-base font-semibold leading-tight mb-0.5">
                           {step.title}
                         </h4>
-                        <p className="small text-[var(--text)] leading-relaxed">
+                        <p className="text-sm text-[var(--text)] leading-relaxed">
                           {step.text}
                         </p>
                       </div>
@@ -161,9 +161,9 @@ export default function HeroStepsCard() {
         </div>
 
         {/* Дополнительная информация внизу */}
-        <div className="mt-6 pt-4 border-t border-[var(--line)] text-center">
-          <p className="tiny text-[var(--text)]">
-            Швидко • Зручно • Без зобов&apos;язань
+        <div className="mt-4 pt-3 border-t border-[var(--line)] text-center">
+          <p className="text-xs text-[var(--text)]">
+            Швидко • Зручно • Дуже легко
           </p>
         </div>
       </div>

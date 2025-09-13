@@ -49,11 +49,11 @@ export default function Steps() {
     <section className="section" aria-labelledby="steps-title">
       <div className="container">
         <header className="text-center mb-16">
-          <h2 id="steps-title" className="display mb-4">
-            Крок за кроком
+          <h2 id="steps-title" className="text-h1 text-neutral-900 mb-4">
+            Як оформити підписку на дитячі книги за 3 кроки
           </h2>
-          <p className="lead max-w-2xl mx-auto">
-            Простий процес оформлення підписки на книжкову оренду
+          <p className="text-body-lg text-neutral-600 max-w-2xl mx-auto">
+            Швидко та зручно отримайте доступ до великої бібліотеки українських дитячих книг. Простий процес оформлення підписки на книжкову оренду в Миколаєві.
           </p>
         </header>
 
@@ -120,10 +120,10 @@ export default function Steps() {
                             e.stopPropagation();
                             scrollToId(step.targetId);
                           }}
-                          className={`btn transition-all duration-300 hover:scale-105 ${
+                          className={`inline-flex items-center gap-2 px-4 py-2 rounded-2xl text-sm font-medium transition-all duration-300 hover:scale-[1.03] ${
                             step.isPrimary
-                              ? 'btn-primary'
-                              : 'btn-outline'
+                              ? 'bg-[var(--brand)] text-[var(--accent)] hover:bg-[var(--brand)]/90 shadow-sm'
+                              : 'border border-[var(--line)] text-[var(--text)] hover:bg-[var(--surface)]'
                           }`}
                         >
                           {step.action}

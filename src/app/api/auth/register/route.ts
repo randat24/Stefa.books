@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
 import { z } from 'zod';
 
@@ -22,64 +22,42 @@ export async function POST(request: NextRequest) {
     // Валидация данных
     const validatedData = registerSchema.parse(body);
     
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
-    logger.info('User registration attempt', { email: validatedData.email }, 'Auth');
-
-    // Создание пользователя в Supabase Auth
-    const { data: authData, error: authError } = await supabase.auth.admin.createUser({
-      email: validatedData.email,
-      password: validatedData.password,
-      email_confirm: true, // Автоматически подтверждаем email для упрощения
-      user_metadata: {
-        first_name: validatedData.firstName,
-        last_name: validatedData.lastName,
-        phone: validatedData.phone || null
+    const { email, password, firstName, lastName, phone } = validatedData;
+    
+    // Регистрация пользователя через Supabase
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          first_name: firstName,
+          last_name: lastName,
+          phone: phone || null
+        }
       }
     });
 
-    if (authError) {
-      logger.error('Registration failed', { error: authError.message }, 'Auth');
+    if (error) {
+      logger.error('Registration failed', { error }, 'Auth');
       return NextResponse.json(
         { 
           success: false, 
-          error: authError.message 
+          error: 'Не вдалося зареєструвати користувача' 
         },
         { status: 400 }
       );
     }
 
-    // Временно пропускаем создание профиля - пользователь может создать его позже
-    // Профиль будет создан автоматически при первом входе
-    logger.info('User created in auth, profile will be created on first login', { userId: authData.user.id }, 'Auth');
-
-    logger.info('User registered successfully', { userId: authData.user.id }, 'Auth');
+    logger.info('User registered successfully', { userId: data.user?.id }, 'Auth');
 
     return NextResponse.json({
       success: true,
-      message: 'Користувач успішно зареєстрований',
-      user: {
-        id: authData.user.id,
-        email: authData.user.email,
-        firstName: validatedData.firstName,
-        lastName: validatedData.lastName
-      }
+      user: data.user,
+      message: 'Користувач успішно зареєстрований'
     });
 
   } catch (error: any) {
     logger.error('Registration API error', error, 'Auth');
-    
-    if (error.name === 'ZodError') {
-      return NextResponse.json(
-        { 
-          success: false, 
-          error: error.errors[0]?.message || 'Неправильні дані' 
-        },
-        { status: 400 }
-      );
-    }
 
     return NextResponse.json(
       { 
