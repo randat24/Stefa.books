@@ -31,7 +31,7 @@ export default function PlansLite() {
             {/* Illustration area */}
             <div className="w-32 h-32 mx-auto mb-6">
               <Image
-                src="/images/books/Mini1.png"
+                src="https://res.cloudinary.com/dchx7vd97/image/upload/v1758038702/subscription-plans/subscription-plans/mini-plan.png"
                 alt="Mini план - 1 книга"
                 width={128}
                 height={128}
@@ -55,7 +55,7 @@ export default function PlansLite() {
             {/* Illustration area */}
             <div className="w-32 h-32 mx-auto mb-6">
               <Image
-                src="/images/books/Maxi2.png"
+                src="https://res.cloudinary.com/dchx7vd97/image/upload/v1758038723/subscription-plans/subscription-plans/maxi-plan.png"
                 alt="Maxi план - 2 книги"
                 width={128}
                 height={128}

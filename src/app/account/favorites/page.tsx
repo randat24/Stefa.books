@@ -18,7 +18,7 @@ const mockFavorites = [
     category_name: 'Народні казки',
     rating: 4.8,
     addedDate: '2024-01-15',
-    coverUrl: '/images/books/Mini1.png'
+    coverUrl: 'https://res.cloudinary.com/dchx7vd97/image/upload/v1758038702/subscription-plans/subscription-plans/mini-plan.png'
   },
   {
     id: 2,
@@ -28,7 +28,7 @@ const mockFavorites = [
     category_name: 'Зарубіжна література',
     rating: 4.9,
     addedDate: '2024-01-10',
-    coverUrl: '/images/books/Maxi2.png'
+    coverUrl: 'https://res.cloudinary.com/dchx7vd97/image/upload/v1758038723/subscription-plans/subscription-plans/maxi-plan.png'
   },
   {
     id: 3,
@@ -38,7 +38,7 @@ const mockFavorites = [
     category_name: 'Зарубіжна література',
     rating: 4.7,
     addedDate: '2024-01-05',
-    coverUrl: '/images/books/Mini1.png'
+    coverUrl: 'https://res.cloudinary.com/dchx7vd97/image/upload/v1758038702/subscription-plans/subscription-plans/mini-plan.png'
   }
 ];
 
