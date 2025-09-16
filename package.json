@@ -40,7 +40,7 @@
     "fix:users:simple": "node scripts/apply-simple-users-fix.js",
     "check:users": "node scripts/manual-users-fix.js",
     "fix:users:bigint": "node scripts/apply-bigint-users-fix.js",
-    "clean:full": "rm -rf .next out dist coverage performance-reports node_modules/.cache && pnpm install",
+    "clean:full": "rm -rf .next out dist coverage performance-reports node_modules/.cache && npm install",
     "insert-books": "node scripts/insert-books-direct.js",
     "insert-books-sql": "node scripts/insert-books.js",
     "insert-books-fixed": "node scripts/insert-books-fixed.js",
