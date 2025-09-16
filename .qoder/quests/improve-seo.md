@@ -199,7 +199,7 @@ export function BookStructuredData({ book }: { book: Book }) {
   "logo": "https://stefa-books.com.ua/logo.svg",
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+38-063-856-54-14",
+    "telephone": "+38-073-408-56-60",
     "contactType": "customer service"
   },
   "address": {
