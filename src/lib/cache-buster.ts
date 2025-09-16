@@ -8,7 +8,8 @@
  */
 
 // Current build timestamp used for cache-busting (updated on each build)
-export const BUILD_ID = process.env.NEXT_PUBLIC_BUILD_ID || new Date().toISOString().split('T')[0];
+// Force cache invalidation for phone number update
+export const BUILD_ID = process.env.NEXT_PUBLIC_BUILD_ID || '2025-09-16-phone-update';
 
 /**
  * Add cache-busting parameter to URL
@@ -89,5 +90,60 @@ export function registerCacheInvalidationWorker() {
         localStorage.removeItem(key);
       }
     }
+  }
+}
+
+/**
+ * FORCE CACHE INVALIDATION - для принудительной очистки кеша у всех пользователей
+ * Вызывать эту функцию при критических обновлениях (например, смене номера телефона)
+ */
+export function forceCacheInvalidation() {
+  if (typeof window === 'undefined') return;
+
+  console.log('🧹 Принудительная очистка кеша...');
+
+  try {
+    // 1. Очищаем localStorage
+    localStorage.clear();
+
+    // 2. Очищаем sessionStorage
+    sessionStorage.clear();
+
+    // 3. Очищаем Service Worker кеш если доступен
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.ready.then(registration => {
+        if (registration.active) {
+          registration.active.postMessage({ type: 'SKIP_WAITING' });
+        }
+      });
+
+      // Удаляем все кеши
+      if ('caches' in window) {
+        caches.keys().then(cacheNames => {
+          cacheNames.forEach(cacheName => {
+            caches.delete(cacheName);
+          });
+        });
+      }
+    }
+
+    // 4. Принудительно перезагружаем страницу без кеша
+    if (location.search.includes('cache_cleared=true')) {
+      // Избегаем бесконечной перезагрузки
+      return;
+    }
+
+    // Добавляем параметр и перезагружаем
+    const separator = location.search ? '&' : '?';
+    const newUrl = `${location.href}${separator}cache_cleared=true&t=${Date.now()}`;
+
+    setTimeout(() => {
+      window.location.href = newUrl;
+    }, 100);
+
+  } catch (error) {
+    console.error('Ошибка при очистке кеша:', error);
+    // В случае ошибки просто перезагружаем страницу
+    window.location.reload();
   }
 }

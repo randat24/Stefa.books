@@ -11,6 +11,8 @@ import CookieConsent from "@/components/analytics/CookieConsent";
 import WebVitalsTracker from "@/components/performance/WebVitalsTracker";
 import { OfflineIndicator } from "@/components/offline/OfflineIndicator";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { CacheInvalidator } from "@/components/cache/CacheInvalidator";
+import { MetaRefresh } from "@/components/cache/MetaRefresh";
 
 // Force dynamic rendering to prevent static generation issues
 export const dynamic = 'force-dynamic';
@@ -109,6 +111,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </ErrorBoundary>
         <ErrorBoundary>
           <SpeedInsights />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <CacheInvalidator />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <MetaRefresh />
         </ErrorBoundary>
         <ErrorBoundary>
           <Providers>

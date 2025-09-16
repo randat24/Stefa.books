@@ -1,7 +1,7 @@
 import { Mail, Phone, MapPin, BookOpen } from "lucide-react";
 import Image from 'next/image';
 import Link from 'next/link';
-import { withDailyCacheBuster } from '@/lib/cache-buster';
+import { withDailyCacheBuster, withCacheBuster } from '@/lib/cache-buster';
 
 export function Footer() {
   return (
@@ -120,7 +120,13 @@ export function Footer() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone size={14} />
-                  <a href="tel:+380734085660" className="text-neutral-600 hover:text-[#F7C948] transition-colors">+38 (073) 408 56 60</a>
+                  <a
+                    href={withCacheBuster("tel:+380734085660")}
+                    className="text-neutral-600 hover:text-[#F7C948] transition-colors"
+                    data-version="2025-09-16-phone-update"
+                  >
+                    +38 (073) 408 56 60
+                  </a>
                 </div>
               </div>
             </div>
