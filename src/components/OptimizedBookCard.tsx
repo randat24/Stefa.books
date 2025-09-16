@@ -149,8 +149,24 @@ export const OptimizedBookCard = memo(function OptimizedBookCard({
             </div>
           )}
 
-          {/* Категория */}
-          {/* Убираем лишние пустые блоки; категорию не показываем для компактности */}
+          {/* Категория и дополнительная информация */}
+          {book.category && (
+            <p className="text-xs text-gray-500 line-clamp-1">
+              {book.category}
+            </p>
+          )}
+
+          {/* Возраст и страницы */}
+          <div className="flex items-center gap-2 text-xs text-gray-500">
+            {book.age_range && (
+              <span className="px-2 py-1 bg-blue-50 text-blue-600 rounded-full">
+                {book.age_range}
+              </span>
+            )}
+            {book.pages && (
+              <span>{book.pages} стор.</span>
+            )}
+          </div>
 
           {/* Кнопка действия в зависимости от статуса пользователя */}
           <div className="mt-3">

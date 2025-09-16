@@ -33,7 +33,7 @@ type Book = {
 	id: string
 	title: string
 	author: string
-	category_id: string | null
+	category: string | null
 	available: boolean
 }
 
@@ -290,70 +290,57 @@ export default function Categories() {
 	useEffect(() => {
 		const loadCategories = async () => {
 			try {
-				console.log('Loading categories...')
-				const [categoriesResponse, booksResponse] = await Promise.all([
-					fetch('/api/categories').then(res => res.json()) as Promise<ApiResponse<Category[]>>,
-					fetch('/api/books?limit=200').then(res => res.json()) as Promise<ApiResponse<Book[]>> // Получаем больше книг для статистики
-				])
+				console.log('Loading real categories from books data...')
 
-				console.log('Categories response:', categoriesResponse)
+				// Получаем книги с реальными категориями
+				const booksResponse = await fetch('/api/books?limit=200').then(res => res.json()) as Promise<ApiResponse<Book[]>>
+
 				console.log('Books response:', booksResponse)
 
-				if (categoriesResponse.success && booksResponse.success) {
+				if (booksResponse.success) {
 					const books = booksResponse.data
-						
-					// Создаем статистику для основных категорий
-					const categoryStats: CategoryWithStats[] = []
-					
-					// Создаем базовые категории на основе ключевых слов в названиях книг
-					const baseCategoryStats = [
-						{ name: 'Казки', keywords: ['казк', 'казка'] },
-						{ name: 'Пригоди', keywords: ['пригод'] },
-						{ name: 'Пізнавальні', keywords: ['пізнаваль'] },
-						{ name: 'Підлітковий вік', keywords: ['підлітков'] },
-						{ name: 'Молодший вік', keywords: ['молодш'] },
-						{ name: 'Дошкільний вік', keywords: ['дошкільн'] },
-						{ name: 'Фентезі', keywords: ['фентез'] },
-						{ name: 'Детектив', keywords: ['детектив'] },
-						{ name: 'Психологія і саморозвиток', keywords: ['психолог', 'саморозвит'] },
-						{ name: 'Повість', keywords: ['повість'] }
-					];
 
-					baseCategoryStats.forEach((baseCategory, index) => {
-						// Подсчитываем книги по ключевым словам в названиях категорий из БД
-						const booksInCategory = books.filter((book: Book) => {
-							// Ищем категории в БД, которые содержат ключевые слова
-							const matchingCategories = categoriesResponse.data.filter((dbCategory: Category) => {
-								return baseCategory.keywords.some(keyword =>
-									dbCategory.name.toLowerCase().includes(keyword.toLowerCase())
-								)
-							});
-							// Если нашли подходящие категории, считаем, что книга подходит
-							return matchingCategories.length > 0;
-						});
+					// Создаем статистику категорий на основе реальных данных
+					const categoryMap = new Map<string, { total: number, available: number }>()
 
-						// Если категория по ключевым словам не найдена, показываем все книги для общих категорий
-						const totalBooks = booksInCategory.length > 0 ? booksInCategory.length : Math.floor(books.length / baseCategoryStats.length);
-						const availableBooks = booksInCategory.length > 0
-							? booksInCategory.filter((book: Book) => book.available).length
-							: Math.floor(books.filter(book => book.available).length / baseCategoryStats.length);
+					// Обрабатываем каждую книгу
+					books.forEach((book: Book) => {
+						if (book.category && book.category.trim()) {
+							// Разбиваем комбинированные категории ("Казки, молодший вік")
+							const categoryParts = book.category.split(',').map(c => c.trim()).filter(Boolean)
 
-						categoryStats.push({
-							id: `base-cat-${index}`,
-							name: baseCategory.name,
-							description: getCategoryDescription(baseCategory.name),
-							Icon: getCategoryIcon(baseCategory.name),
-							total: totalBooks,
-							available: availableBooks
-						});
-					});
-					
-					// Сортируем по количеству книг (больше книг = выше)
-					categoryStats.sort((a, b) => b.total - a.total)
-					console.log('Final category stats:', categoryStats)
+							categoryParts.forEach(categoryPart => {
+								if (!categoryMap.has(categoryPart)) {
+									categoryMap.set(categoryPart, { total: 0, available: 0 })
+								}
+
+								const stats = categoryMap.get(categoryPart)!
+								stats.total++
+								if (book.available) {
+									stats.available++
+								}
+							})
+						}
+					})
+
+					// Преобразуем в массив категорий
+					const categoryStats: CategoryWithStats[] = Array.from(categoryMap.entries())
+						.map(([name, stats], index) => ({
+							id: `real-cat-${index}`,
+							name,
+							description: getCategoryDescription(name),
+							Icon: getCategoryIcon(name),
+							total: stats.total,
+							available: stats.available
+						}))
+						.filter(cat => cat.total >= 2) // Показываем только категории с минимум 2 книгами
+						.sort((a, b) => b.total - a.total) // Сортируем по количеству книг
+						.slice(0, 10) // Ограничиваем 10 категориями
+
+					console.log('Real category stats:', categoryStats)
 					setCategories(categoryStats)
 				} else {
-					console.error('Failed to load categories from API', { categoriesResponse, booksResponse })
+					console.error('Failed to load books from API', booksResponse)
 					setCategories([])
 				}
 			} catch (error) {

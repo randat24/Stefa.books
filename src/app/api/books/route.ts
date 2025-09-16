@@ -3,34 +3,7 @@ import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
 // Supabase client is imported from @/lib/supabase
 
-// Функция для получения ключевых слов по названию категории
-function getCategoryKeywords(categoryName: string): string[] {
-  const keywordMap: Record<string, string[]> = {
-    'Казки': ['казк', 'казка', 'принцес', 'король', 'чарівн'],
-    'Пригоди': ['пригод', 'подорож', 'мандр'],
-    'Фентезі': ['фентез', 'магі', 'чарів', 'дракон', 'лицар'],
-    'Детектив': ['детектив', 'загадк', 'таємнич', 'злочин'],
-    'Психологія': ['психолог', 'саморозвит', 'емоці', 'відносин', 'ключ'],
-    'Пізнавальні': ['енциклопеді', 'пізнаваль', 'навчальн', 'знанн', 'космос', 'чомусик'],
-    'Романтика': ['романтик', 'кохан', 'серц'],
-    'Підлітковий вік': ['підлітк', 'мортіна']
-  };
-
-  // Поиск по точному совпадению
-  if (keywordMap[categoryName]) {
-    return keywordMap[categoryName];
-  }
-
-  // Поиск по частичному совпадению
-  for (const [key, keywords] of Object.entries(keywordMap)) {
-    if (key.toLowerCase().includes(categoryName.toLowerCase()) ||
-        categoryName.toLowerCase().includes(key.toLowerCase())) {
-      return keywords;
-    }
-  }
-
-  return [];
-}
+// API тепер працює напряму з полем category в БД
 
 export async function GET(request: NextRequest) {
   try {
@@ -238,15 +211,8 @@ export async function GET(request: NextRequest) {
     }
 
     if (category) {
-      // Временное решение: поиск по ключевым словам категории в названии книги
-      const categoryKeywords = getCategoryKeywords(category);
-      if (categoryKeywords.length > 0) {
-        // Объединяем условия через OR для каждого ключевого слова
-        const orConditions = categoryKeywords.map(keyword =>
-          `title.ilike.%${keyword}%`
-        ).join(',');
-        queryBuilder = queryBuilder.or(orConditions);
-      }
+      // Прямой поиск по полю category в БД
+      queryBuilder = queryBuilder.ilike('category', `%${category}%`);
     }
 
     if (author) {
@@ -298,23 +264,57 @@ export async function GET(request: NextRequest) {
     //   }
     // }
 
-    // Преобразуем результаты в нужный формат
+    // Преобразуем результаты в полный формат со всеми доступными полями
     const mappedBooks = (books || []).map((book: any) => {
-      // Создаем безопасную копию объекта с проверкой полей
       return {
+        // Основные поля
         id: book.id || '',
         title: book.title || '',
         author: book.author || '',
+        category: book.category || '',
         description: book.description || '',
+        short_description: book.short_description || '',
+
+        // Медиа
         cover_url: book.cover_url || '',
+        file_url: book.file_url || '',
+
+        // Статус и доступность
         status: book.status || 'unavailable',
-        available: book.status === 'available',
+        available: book.status === 'available' || book.is_active === true,
+        is_active: book.is_active || false,
+
+        // Физические характеристики
+        pages: book.pages || null,
+        isbn: book.isbn || '',
+        publisher: book.publisher || '',
+        publication_year: book.publication_year || null,
+        language: book.language || 'uk',
+
+        // Возрастная группа
+        age_range: book.age_range || '',
+
+        // Цены и количество
+        price_uah: book.price_uah || null,
+        price_daily: book.price_daily || null,
+        price_weekly: book.price_weekly || null,
+        price_monthly: book.price_monthly || null,
+        qty_total: book.qty_total || 1,
+        qty_available: book.qty_available || 1,
+
+        // Рейтинг и отзывы
+        rating: book.rating || null,
+        rating_count: book.rating_count || 0,
+
+        // Метаданные
+        tags: book.tags || [],
+        badges: book.badges || [],
+        code: book.code || '',
+        location: book.location || '',
+
+        // Даты
         created_at: book.created_at || '',
-        updated_at: book.updated_at || '',
-        // Добавляем другие поля, которые могут быть в базе
-        ...(book.category_id ? { category_id: book.category_id } : {}),
-        ...(book.pages ? { pages: book.pages } : {}),
-        ...(book.price_uah ? { price_uah: book.price_uah } : {})
+        updated_at: book.updated_at || ''
       };
     });
 
