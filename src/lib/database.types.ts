@@ -34,9 +34,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      age_categories: {
+        Row: {
+          id: string
+          name: string
+          slug: string
+          description: string | null
+          min_age: number | null
+          max_age: number | null
+          sort_order: number | null
+          is_active: boolean | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          name: string
+          slug: string
+          description?: string | null
+          min_age?: number | null
+          max_age?: number | null
+          sort_order?: number | null
+          is_active?: boolean | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          name?: string
+          slug?: string
+          description?: string | null
+          min_age?: number | null
+          max_age?: number | null
+          sort_order?: number | null
+          is_active?: boolean | null
+          created_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       authors: {
         Row: {
-          biography: string | null
+          bio: string | null
           birth_year: number | null
           created_at: string | null
           death_year: number | null
@@ -46,7 +85,7 @@ export type Database = {
           updated_at: string | null
         }
         Insert: {
-          biography?: string | null
+          bio?: string | null
           birth_year?: number | null
           created_at?: string | null
           death_year?: number | null
@@ -56,7 +95,7 @@ export type Database = {
           updated_at?: string | null
         }
         Update: {
-          biography?: string | null
+          bio?: string | null
           birth_year?: number | null
           created_at?: string | null
           death_year?: number | null
@@ -178,14 +217,7 @@ export type Database = {
             foreignKeyName: "books_age_category_id_fkey"
             columns: ["age_category_id"]
             isOneToOne: false
-            referencedRelation: "categories"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "books_age_category_id_fkey"
-            columns: ["age_category_id"]
-            isOneToOne: false
-            referencedRelation: "categories_with_parent"
+            referencedRelation: "age_categories"
             referencedColumns: ["id"]
           },
           {
@@ -472,6 +504,34 @@ export type Database = {
       }
     }
     Views: {
+      books_with_authors: {
+        Row: {
+          id: string
+          title: string
+          author: string
+          author_name: string | null
+          author_bio: string | null
+          author_nationality: string | null
+          category_name: string | null
+          category_description: string | null
+          age_category_name: string | null
+          age_category_description: string | null
+          min_age: number | null
+          max_age: number | null
+          age_range: string | null
+          cover_url: string | null
+          description: string | null
+          short_description: string | null
+          is_active: boolean | null
+          status: string | null
+          pages: number | null
+          rating: number | null
+          rating_count: number | null
+          created_at: string | null
+          updated_at: string | null
+        }
+        Relationships: []
+      }
       categories_with_parent: {
         Row: {
           color: string | null

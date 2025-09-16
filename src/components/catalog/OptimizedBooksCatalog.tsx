@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 import { OptimizedBookCard } from '@/components/OptimizedBookCard';
-import { PaginationControls, PaginationInfo, calculateTotalPages } from '@/components/ui/PaginationControls';
+import { PaginationControls, calculateTotalPages } from '@/components/ui/PaginationControls';
 import { LoadMoreButton } from '@/components/ui/LoadMoreButton';
 import { CatalogSearchFilter } from './CatalogSearchFilter';
 import { useDebounce } from '@/hooks/useDebounce';
@@ -18,46 +18,22 @@ interface OptimizedBooksCatalogProps {
 }
 
 // Виртуализированный список книг
-function VirtualizedBookGrid({ 
-  books, 
-  loading, 
-  onLoadMore, 
-  hasMore 
-}: { 
-  books: Book[]; 
-  loading: boolean; 
-  onLoadMore: () => void; 
-  hasMore: boolean; 
+function VirtualizedBookGrid({
+  books,
+  loading,
+  hasMore
+}: {
+  books: Book[];
+  loading: boolean;
+  hasMore: boolean;
 }) {
-  const visibleRange = useState({ start: 0, end: 20 })[0];
   const containerRef = useRef<HTMLDivElement>(null);
   // Constants for grid layout (used implicitly in template)
 
-  // Intersection Observer для lazy loading
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && hasMore && !loading) {
-            onLoadMore();
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+  // Автодогрузка отключена — используем только кнопку "Завантажити ще"
 
-    const loadMoreElement = document.getElementById('load-more-trigger');
-    if (loadMoreElement) {
-      observer.observe(loadMoreElement);
-    }
-
-    return () => observer.disconnect();
-  }, [hasMore, loading, onLoadMore]);
-
-  // Виртуализация - рендерим только видимые элементы
-  const visibleBooks = useMemo(() => {
-    return books.slice(visibleRange.start, visibleRange.end);
-  }, [books, visibleRange]);
+  // Рендерим все загруженные книги (простая версия без слайсинга)
+  const visibleBooks = useMemo(() => books, [books]);
 
   return (
     <div ref={containerRef} className="space-y-6">
@@ -98,6 +74,9 @@ export function OptimizedBooksCatalog({ initialBooks = [], className = '' }: Opt
   const [totalCount, setTotalCount] = useState(0);
   const [loadingMore, setLoadingMore] = useState(false);
   
+  // Ref to prevent multiple simultaneous requests
+  const isRequestingRef = useRef(false);
+  
   // Search and filter state
   const [searchFilters, setSearchFilters] = useState({
     search: '',
@@ -119,18 +98,13 @@ export function OptimizedBooksCatalog({ initialBooks = [], className = '' }: Opt
   const currentPage = parseInt(searchParams?.get('page') || '1');
   const totalPages = calculateTotalPages(totalCount, BOOKS_PER_PAGE);
 
-  // Memoized search params
-  const searchParamsMemo = useMemo(() => ({
-    page: currentPage,
-    search: debouncedSearch,
-    category: searchFilters.category,
-    author: searchFilters.author,
-    available_only: searchFilters.availableOnly,
-    min_rating: searchFilters.minRating
-  }), [currentPage, debouncedSearch, searchFilters]);
 
   // Fetch books with optimized caching
-  const fetchBooksData = useCallback(async (params: typeof searchParamsMemo, append = false) => {
+  const fetchBooksData = useCallback(async (params: any, append = false) => {
+    // Prevent multiple simultaneous requests
+    if (isRequestingRef.current) return;
+    isRequestingRef.current = true;
+    
     try {
       if (append) {
         setLoadingMore(true);
@@ -139,7 +113,20 @@ export function OptimizedBooksCatalog({ initialBooks = [], className = '' }: Opt
         setError(null);
       }
 
-      const response = await fetchBooks(params);
+      // Нормализуем параметры для API: вычисляем limit/offset и только поддерживаемые фильтры
+      const page = Math.max(1, Number(params.page) || 1);
+      const limit = BOOKS_PER_PAGE;
+      const offset = (page - 1) * limit;
+      const apiParams = {
+        limit,
+        offset,
+        search: params.search || '',
+        category: params.category || '',
+        author: params.author || '',
+        available_only: params.available_only ? true : undefined
+      } as const;
+
+      const response = await fetchBooks(apiParams);
       
       if (response.success && response.data) {
         const newBooks = Array.isArray(response.data) ? response.data : [];
@@ -161,21 +148,70 @@ export function OptimizedBooksCatalog({ initialBooks = [], className = '' }: Opt
     } finally {
       setLoading(false);
       setLoadingMore(false);
+      isRequestingRef.current = false;
     }
-  }, []);
+  }, [BOOKS_PER_PAGE]);
 
   // Load more books
   const handleLoadMore = useCallback(() => {
     if (!loadingMore && books.length < totalCount) {
       const nextPage = Math.ceil(books.length / BOOKS_PER_PAGE) + 1;
-      fetchBooksData({ ...searchParamsMemo, page: nextPage }, true);
+      const params = {
+        page: nextPage,
+        search: debouncedSearch,
+        category: searchFilters.category,
+        author: searchFilters.author,
+        available_only: searchFilters.availableOnly,
+        min_rating: searchFilters.minRating
+      };
+      fetchBooksData(params, true);
     }
-  }, [loadingMore, books.length, totalCount, searchParamsMemo, fetchBooksData]);
+  }, [loadingMore, books.length, totalCount, debouncedSearch, searchFilters, fetchBooksData]);
 
   // Initial load and search changes
   useEffect(() => {
-    fetchBooksData(searchParamsMemo);
-  }, [debouncedSearch, searchFilters.category, searchFilters.author, searchFilters.availableOnly, searchFilters.minRating, fetchBooksData, searchParamsMemo]);
+    const run = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const page = Math.max(1, Number(currentPage) || 1);
+        const limit = BOOKS_PER_PAGE;
+        const offset = (page - 1) * limit;
+
+        const isUuid = (value: string) => /^(?:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$/.test(value);
+
+        const apiParams: Record<string, unknown> = {
+          limit,
+          offset,
+          search: debouncedSearch || '',
+          author: searchFilters.author || '',
+          available_only: searchFilters.availableOnly || undefined
+        };
+
+        if (searchFilters.category && isUuid(searchFilters.category)) {
+          apiParams.category = searchFilters.category;
+        }
+
+        const response = await fetchBooks(apiParams as any);
+
+        if (response.success && response.data) {
+          const newBooks = Array.isArray(response.data) ? response.data : [];
+          setBooks(newBooks);
+          setTotalCount(response.pagination?.total || response.count || newBooks.length);
+        } else {
+          setError(response.error || 'Помилка завантаження книг');
+        }
+      } catch (err) {
+        logger.error('Error fetching books', err);
+        setError('Помилка завантаження книг');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    run();
+  }, [debouncedSearch, searchFilters.category, searchFilters.author, searchFilters.availableOnly, searchFilters.minRating, currentPage]);
 
   // Load categories and authors for filters
   useEffect(() => {
@@ -233,17 +269,26 @@ export function OptimizedBooksCatalog({ initialBooks = [], className = '' }: Opt
       <VirtualizedBookGrid
       books={books}
       loading={loadingMore || isLoading}
-      onLoadMore={handleLoadMore}
       hasMore={books.length < totalCount}
     />
-  ), [books, loadingMore, isLoading, handleLoadMore, totalCount]);
+  ), [books, loadingMore, isLoading, totalCount]);
 
   if (error) {
     return (
       <div className="text-center py-12">
         <p className="text-red-600 mb-4">{error}</p>
         <button 
-          onClick={() => fetchBooksData(searchParamsMemo)}
+          onClick={() => {
+            const params = {
+              page: currentPage,
+              search: debouncedSearch,
+              category: searchFilters.category,
+              author: searchFilters.author,
+              available_only: searchFilters.availableOnly,
+              min_rating: searchFilters.minRating
+            };
+            fetchBooksData(params);
+          }}
           className="px-4 py-2 bg-brand-accent text-white rounded-lg hover:bg-brand-accent/90"
         >
           Спробувати знову
@@ -260,29 +305,24 @@ export function OptimizedBooksCatalog({ initialBooks = [], className = '' }: Opt
       {/* Books Grid with Virtualization */}
       {MemoizedVirtualizedGrid}
 
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t">
-          <PaginationInfo
-            currentPage={currentPage}
-            totalItems={totalCount}
-            itemsPerPage={BOOKS_PER_PAGE}
-          />
-          <PaginationControls
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
-        </div>
-      )}
-
-      {/* Load More Button (fallback) */}
+      {/* Load More Button (after books) */}
       {books.length < totalCount && !loadingMore && (
         <div className="text-center">
           <LoadMoreButton
             onClick={handleLoadMore}
             isLoading={loadingMore}
             hasMore={books.length < totalCount}
+          />
+        </div>
+      )}
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex justify-center pt-6 border-t">
+          <PaginationControls
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
           />
         </div>
       )}

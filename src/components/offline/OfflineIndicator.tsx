@@ -1,38 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { WifiOff, RefreshCw } from 'lucide-react';
 import { logger } from '@/lib/logger';
+import { useOfflineStatus } from '@/lib/hooks/useOfflineStatus';
 
 export function OfflineIndicator() {
-  const [isOnline, setIsOnline] = useState(true);
+  const { isOnline } = useOfflineStatus();
   const [isReconnecting, setIsReconnecting] = useState(false);
-
-  useEffect(() => {
-    // Проверяем начальное состояние
-    setIsOnline(navigator.onLine);
-
-    const handleOnline = () => {
-      setIsOnline(true);
-      setIsReconnecting(false);
-      logger.info('Connection restored');
-    };
-
-    const handleOffline = () => {
-      setIsOnline(false);
-      setIsReconnecting(false);
-      logger.warn('Connection lost');
-    };
-
-    // Слушаем изменения состояния сети
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  }, []);
 
   const handleRetry = async () => {
     setIsReconnecting(true);
@@ -45,8 +20,9 @@ export function OfflineIndicator() {
       });
       
       if (response.ok) {
-        setIsOnline(true);
         logger.info('Connection test successful');
+        // Перезагружаем страницу для обновления состояния
+        window.location.reload();
       } else {
         throw new Error('Health check failed');
       }
@@ -62,7 +38,7 @@ export function OfflineIndicator() {
   }
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-red-600 text-neutral-0 shadow-lg">
+    <div className="fixed top-0 left-0 right-0 z-40 bg-red-600 text-neutral-0 shadow-lg">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">

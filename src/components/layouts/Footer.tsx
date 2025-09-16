@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, BookOpen, Users } from "lucide-react";
+import { Mail, Phone, MapPin, BookOpen } from "lucide-react";
 import Image from 'next/image';
 import Link from 'next/link';
 import { withDailyCacheBuster } from '@/lib/cache-buster';
@@ -11,12 +11,12 @@ export function Footer() {
           {/* Про компанію */}
           <section className="space-y-4 md:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-4">
-              <div className="h-14 w-14 rounded-2xl grid place-items-center shadow-md">
+              <div className="h-12 w-12 rounded-xl grid place-items-center">
                 <Image
                   src={withDailyCacheBuster('/logo.svg')}
                   alt="Stefa.books logo"
-                  width={35}
-                  height={36}
+                  width={40}
+                  height={40}
                   priority
                   unoptimized={true}
                 />
@@ -29,17 +29,13 @@ export function Footer() {
               </div>
             </div>
             <p className="text-sm leading-relaxed text-neutral-600 max-w-xs">
-              Книжкова підписка у Миколаєві. Читай більше — плати менше. 
-              Відкривай нові світи разом з нами!
+            Книгарня за підпискою  у Миколаєві. Читайте більше - платіть менше. 
+            Відкривайте нові світи разом з нами!
             </p>
             <div className="space-y-3 text-sm">
               <div className="space-y-1">
                 <p className="font-semibold text-neutral-900">Федорова Анастасія</p>
                 <p className="text-neutral-600">РНОКПП: 1234567890</p>
-              </div>
-              <div className="inline-flex items-center gap-2 text-neutral-600">
-                <MapPin size={14} />
-                вул. Маріупольська 13/2, Миколаїв
               </div>
             </div>
           </section>
@@ -95,10 +91,6 @@ export function Footer() {
                 <BookOpen size={14} />
                 Оренда книг за підпискою
               </li>
-              <li className="inline-flex items-center gap-2 text-sm text-neutral-600">
-                <Users size={14} />
-                Корпоративні підписки
-              </li>
             </ul>
           </nav>
 
@@ -116,8 +108,8 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="block hover:text-[#F7C948] transition-colors"
                 >
-                  <p className="font-medium text-neutral-900">вул. Маріупольська 13/2</p>
-                  <p className="text-neutral-600">Миколаїв, Україна</p>
+                  <p className="font-medium text-neutral-900">Адреса пункту самовивозу</p>
+                  <p className="text-neutral-600">вул. Маріупольська 13/2, Миколаїв</p>
                 </a>
               </div>
               <div className="space-y-2 text-sm">
@@ -128,7 +120,7 @@ export function Footer() {
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone size={14} />
-                  <a href="tel:+380638565414" className="text-neutral-600 hover:text-[#F7C948] transition-colors">+38 (063) 856-54-14</a>
+                  <a href="tel:+380734085660" className="text-neutral-600 hover:text-[#F7C948] transition-colors">+38 (073) 408 56 60</a>
                 </div>
               </div>
             </div>

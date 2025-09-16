@@ -22,7 +22,7 @@ export function Chip({
   ...props
 }: ChipProps) {
   const baseClasses = cn(
-    "inline-flex items-center gap-2 px-3 py-1.5 rounded-2xl text-body-sm font-medium transition-all duration-200",
+    "inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-2xl text-body-sm font-medium transition-all duration-200",
     variant === 'button' && "cursor-pointer hover:scale-105",
     variant === 'status' && "border-2",
     className

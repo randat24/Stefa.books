@@ -7,7 +7,15 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: [
+          '/',
+          '/books/',
+          '/catalog/',
+          '/about',
+          '/contact',
+          '/plans',
+          '/search'
+        ],
         disallow: [
           '/admin/',
           '/api/',
@@ -17,7 +25,15 @@ export default function robots(): MetadataRoute.Robots {
           '*.json',
           '*.xml',
           '/search?*',
-          '/catalog?*'
+          '/catalog?*',
+          '/draft/',
+          '/error',
+          '/404',
+          '/500',
+          '/login',
+          '/logout',
+          '/register',
+          '/reset-password'
         ],
       },
       {
@@ -28,7 +44,11 @@ export default function robots(): MetadataRoute.Robots {
           '/api/',
           '/_next/',
           '/private/',
-          '/temp/'
+          '/temp/',
+          '/draft/',
+          '/error',
+          '/login',
+          '/logout'
         ],
       },
       {
@@ -39,7 +59,26 @@ export default function robots(): MetadataRoute.Robots {
           '/api/',
           '/_next/',
           '/private/',
-          '/temp/'
+          '/temp/',
+          '/draft/',
+          '/error',
+          '/login',
+          '/logout'
+        ],
+      },
+      {
+        userAgent: 'Yandexbot',
+        allow: '/',
+        disallow: [
+          '/admin/',
+          '/api/',
+          '/_next/',
+          '/private/',
+          '/temp/',
+          '/draft/',
+          '/error',
+          '/login',
+          '/logout'
         ],
       }
     ],

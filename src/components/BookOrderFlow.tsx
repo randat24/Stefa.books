@@ -362,7 +362,6 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
                 <span className="text-body-sm font-medium">
                   {selectedDelivery === "courier" && "Кур'єром"}
                   {selectedDelivery === "pickup" && "Самовивіз"}
-                  {selectedDelivery === "post" && "Нова Пошта"}
                 </span>
               </div>
               <div className="flex justify-between items-center mt-1">

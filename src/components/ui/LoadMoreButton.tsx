@@ -8,8 +8,6 @@ interface LoadMoreButtonProps {
   onLoadMore?: () => void;
   isLoading?: boolean;
   hasMore?: boolean;
-  loadedCount?: number;
-  totalCount?: number;
   className?: string;
 }
 
@@ -18,34 +16,15 @@ export function LoadMoreButton({
   onLoadMore,
   isLoading = false,
   hasMore = true,
-  loadedCount = 0,
-  totalCount,
   className = ''
 }: LoadMoreButtonProps) {
   const handleClick = onClick || onLoadMore;
   if (!hasMore) {
-    return (
-      <div className={`text-center py-8 ${className}`}>
-        <div className="text-body-sm text-neutral-600">
-          Показано всі {loadedCount} книг
-        </div>
-      </div>
-    );
+    return null;
   }
 
   return (
     <div className={`text-center py-8 space-y-4 ${className}`}>
-      {/* Информация о загруженных книгах */}
-      <div className="text-body-sm text-neutral-600">
-        Показано <span className="font-medium text-neutral-900">{loadedCount}</span>
-        {totalCount && (
-          <>
-            {' '}з <span className="font-medium text-neutral-900">{totalCount}</span>
-          </>
-        )}{' '}
-        книг
-      </div>
-
       {/* Кнопка загрузки */}
       <button
         onClick={handleClick}
@@ -65,22 +44,6 @@ export function LoadMoreButton({
         )}
       </button>
 
-      {/* Индикатор прогресса (если известен общий count) */}
-      {totalCount && (
-        <div className="w-full max-w-md mx-auto">
-          <div className="bg-neutral-200 rounded-2xl h-2">
-            <div
-              className="bg-accent h-2 rounded-2xl transition-all duration-300"
-              style={{
-                width: `${Math.min((loadedCount / totalCount) * 100, 100)}%`
-              }}
-            />
-          </div>
-          <div className="text-caption text-neutral-500 mt-2">
-            {Math.round((loadedCount / totalCount) * 100)}% завантажено
-          </div>
-        </div>
-      )}
     </div>
   );
 }

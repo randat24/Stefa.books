@@ -91,8 +91,11 @@ pnpm dev
 
 ## 📖 Документація
 
+### 📚 Повний індекс документації
+- [DOCUMENTATION_INDEX.md](./docs/DOCUMENTATION_INDEX.md) - Повний індекс всієї документації проекту 🔥
+
 ### Основні гіди
-- [Виправлення RLS в продакшені](./PRODUCTION_RLS_FIX_GUIDE.md) 🔥
+- [Виправлення RLS в продакшені](./PRODUCTION_RLS_FIX_GUIDE.md)
 - [Як додати книги](./HOW_TO_ADD_BOOKS.md)
 - [Синхронізація з сайтом](./SYNC_BOOKS_TO_SITE.md)
 - [Налаштування Vercel](./VERCEL_DOCUMENTATION_REPORT.md)
@@ -103,6 +106,12 @@ pnpm dev
 - [API документація](./docs/API_DOCUMENTATION.md)
 - [Документація форм](./docs/FORMS_DOCUMENTATION.md)
 - [Тестування](./TESTING_INSTRUCTIONS.md)
+
+### Документація бази даних
+- [DATABASE_DOCUMENTATION.md](./docs/DATABASE_DOCUMENTATION.md) - Повна документація бази даних
+- [QUICK_DB_GUIDE.md](./docs/QUICK_DB_GUIDE.md) - Швидкий гід по базі даних
+- [INDEXES_GUIDE.md](./docs/INDEXES_GUIDE.md) - Керівництво по індексах
+- [FUNCTION_SECURITY.md](./docs/FUNCTION_SECURITY.md) - Безпека функцій PostgreSQL
 
 ## 🎯 Основні функції
 

@@ -3,25 +3,36 @@ import { Metadata } from 'next';
 import { ChevronRight } from 'lucide-react';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = 'Каталог книг - Stefa.books';
-  const description = 'Перегляньте повний каталог українських дитячих книг. Знайдіть книги за категоріями, авторами або ключовими словами. Великий вибір книг для різних вікових категорій.';
+  const title = 'Каталог дитячих книг у Миколаєві | Оренда та підписка - Stefa.books';
+  const description = 'Перегляньте повний каталог українських дитячих книг з доставкою у Миколаєві. Книги за категоріями, авторами та віком. Оренда від 30 грн, безкоштовна доставка при підписці.';
   
   return {
     title,
     description,
+    keywords: [
+      'дитячі книги Миколаїв',
+      'каталог дитячих книг',
+      'оренда книг',
+      'підписка на книги',
+      'українські книги для дітей',
+      'доставка книг Миколаїв',
+      'дитяча література',
+      'книги за віком',
+      'книги за категоріями'
+    ],
     openGraph: {
       title,
       description,
       type: 'website',
       locale: 'uk_UA',
       url: 'https://stefa-books.com.ua/catalog',
-      siteName: 'Stefa.books',
+      siteName: 'Stefa.books - Дитяча бібліотека',
       images: [
         {
-          url: '/images/og-image.jpg',
+          url: '/images/catalog-og-image.jpg',
           width: 1200,
           height: 630,
-          alt: 'Каталог українських дитячих книг - Stefa.books'
+          alt: 'Каталог українських дитячих книг у Миколаєві - Stefa.books'
         }
       ]
     },
@@ -29,7 +40,9 @@ export async function generateMetadata(): Promise<Metadata> {
       card: 'summary_large_image',
       title,
       description,
-      images: ['/images/og-image.jpg'],
+      images: ['/images/catalog-og-image.jpg'],
+      site: '@stefabooksua',
+      creator: '@stefabooksua',
     }
   };
 }

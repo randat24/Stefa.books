@@ -6,6 +6,7 @@ import type { Book } from '@/lib/supabase';
 import Link from 'next/link';
 import { BookPreviewModal } from '@/components/BookPreviewModal';
 import { BookCover } from '@/components/BookCover';
+import { AgeCategoryBadge } from '@/components/ui/AgeCategoryBadge';
 import { useAnalytics } from '@/hooks/useAnalytics';
 
 export type BookCardProps = {
@@ -131,6 +132,17 @@ export function BookCard({
           >
             {memoizedBook.author}
           </p>
+
+          {/* Возрастная категория */}
+          <div className="mt-2">
+            <AgeCategoryBadge 
+              ageRange={memoizedBook.age_range || undefined}
+              ageCategoryName={(memoizedBook as any).age_category_name}
+              minAge={(memoizedBook as any).min_age}
+              maxAge={(memoizedBook as any).max_age}
+              variant="compact"
+            />
+          </div>
         </div>
       </article>
       

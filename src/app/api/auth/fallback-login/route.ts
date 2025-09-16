@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
 
 // ============================================================================
@@ -17,6 +17,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const supabase = await createSupabaseServerClient();
     // Аутентификация через Supabase Auth
     const { data, error } = await supabase.auth.signInWithPassword({
       email,

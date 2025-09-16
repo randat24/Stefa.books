@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { z } from 'zod';
+import { logger } from '@/lib/logger';
 
 // ============================================================================
 // API ДЛЯ ВХОДУ ПОЛЬЗОВАТЕЛЕЙ
@@ -20,7 +21,8 @@ export async function POST(request: NextRequest) {
     
     const { email, password } = validatedData;
     
-    // Аутентификация через Supabase
+    const supabase = await createSupabaseServerClient();
+    // Аутентификация через Supabase (cookies will be set automatically)
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password

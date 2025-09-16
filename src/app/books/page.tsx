@@ -22,7 +22,7 @@ function BooksPageFallback() {
 
 export default function BooksPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-surface py-8">
+    <div className="min-h-screen py-8">
         {/* Breadcrumbs */}
         <div className="mb-6">
           <nav className="flex items-center space-x-2 text-body-sm text-text-muted">

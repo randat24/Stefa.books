@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
 
 // ============================================================================
@@ -8,22 +8,18 @@ import { logger } from '@/lib/logger';
 
 export async function GET(request: NextRequest) {
   try {
-    // Получаем токен из заголовков
-    const authorization = request.headers.get('authorization');
-    if (!authorization || !authorization.startsWith('Bearer ')) {
-      return NextResponse.json(
-        { 
-          success: false, 
-          error: 'Токен авторизації відсутній' 
-        },
-        { status: 401 }
-      );
+    const supabase = await createSupabaseServerClient();
+
+    // 1) Пытаемся получить пользователя из cookie-сессии (SSR куки)
+    let { data: { user }, error: userError } = await supabase.auth.getUser();
+
+    // 2) Fallback: если не удалось — пробуем из переданного Bearer токена
+    if ((!user || userError) && request.headers.get('authorization')?.startsWith('Bearer ')) {
+      const token = request.headers.get('authorization')!.substring(7);
+      const res = await supabase.auth.getUser(token);
+      user = res.data.user;
+      userError = res.error as any;
     }
-
-    const token = authorization.substring(7); // Remove "Bearer " prefix
-
-    // Получаем пользователя по токену
-    const { data: { user }, error: userError } = await supabase.auth.getUser(token);
 
     if (userError || !user) {
       if (userError?.message === 'Invalid JWT') {
@@ -64,19 +60,23 @@ export async function GET(request: NextRequest) {
         .eq('id', user.id);
       
       if (profileData && profileData.length > 0) {
-        // Конвертируем user_profiles в формат users
+        // Конвертируем user_profiles в формат users (все обязательные поля)
         const profileDataItem = profileData[0];
         profile = {
           id: user.id,
-          name: `${profileDataItem.first_name || ''} ${profileDataItem.last_name || ''}`.trim() || user.email,
           email: profileDataItem.email,
+          name: (`${profileDataItem.first_name || ''} ${profileDataItem.last_name || ''}`.trim()) || user.email || 'Користувач',
           phone: profileDataItem.phone || null,
+          address: null,
+          notes: null,
           role: 'user',
-          subscription_type: 'mini',
           status: 'active',
+          subscription_type: 'mini',
+          subscription_start: null,
+          subscription_end: null,
           created_at: profileDataItem.created_at,
           updated_at: profileDataItem.updated_at
-        };
+        } as any;
         hasProfileError = false;
       }
     }

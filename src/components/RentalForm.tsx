@@ -48,8 +48,7 @@ const RENTAL_PLANS = [
 // Способы доставки
 const DELIVERY_METHODS = [
   { id: 'pickup', name: 'Самовивіз з бібліотеки', price: 0, description: 'Безкоштовно' },
-  { id: 'kyiv', name: 'Доставка по Києву', price: 0, description: 'Безкоштовна доставка' },
-  { id: 'ukraine', name: 'Доставка по Україні', price: 30, description: 'Нова пошта' }
+  { id: 'kyiv', name: 'Доставка по Києву', price: 0, description: 'Безкоштовна доставка' }
 ] as const;
 
 // Способы оплаты

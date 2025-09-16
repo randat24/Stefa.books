@@ -40,7 +40,7 @@ export default function Contacts() {
 									</div>
 									<div>
 										<h4 className="font-semibold text-neutral-900">Телефон</h4>
-										<p className="text-neutral-600">+38 (063) 856-54-14</p>
+										<p className="text-neutral-600">+38 (073) 408 56 60</p>
 										<p className="text-body-sm text-neutral-500">Пн-Пт: 9:00-18:00</p>
 									</div>
 								</div>

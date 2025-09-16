@@ -4,25 +4,36 @@ import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = 'Тарифи підписки - Stefa.books';
-  const description = 'Оберіть зручний тариф підписки на українські дитячі книги. Орендуйте книги онлайн з доставкою. Гнучкі умови скасування підписки.';
+  const title = 'Тарифи підписки на дитячі книги у Миколаєві | від 300 грн/міс';
+  const description = 'Оберіть зручний тариф підписки на українські дитячі книги з безкоштовною доставкою у Миколаєві. Від 300 грн/міс, без прихованих платежів. Гнучкі умови скасування підписки.';
   
   return {
     title,
     description,
+    keywords: [
+      'підписка на дитячі книги',
+      'оренда книг Миколаїв',
+      'тарифи на книги',
+      'дитяча бібліотека',
+      'доставка книг',
+      'українські книги для дітей',
+      'абонемент на книги',
+      'книжковий клуб',
+      'дитяче читання'
+    ],
     openGraph: {
       title,
       description,
       type: 'website',
       locale: 'uk_UA',
       url: 'https://stefa-books.com.ua/plans',
-      siteName: 'Stefa.books',
+      siteName: 'Stefa.books - Дитяча бібліотека',
       images: [
         {
-          url: '/images/og-image.jpg',
+          url: '/images/plans-og-image.jpg',
           width: 1200,
           height: 630,
-          alt: 'Тарифи підписки на дитячі книги - Stefa.books'
+          alt: 'Тарифи підписки на дитячі книги у Миколаєві від 300 грн/міс - Stefa.books'
         }
       ]
     },
@@ -30,7 +41,9 @@ export async function generateMetadata(): Promise<Metadata> {
       card: 'summary_large_image',
       title,
       description,
-      images: ['/images/og-image.jpg'],
+      images: ['/images/plans-og-image.jpg'],
+      site: '@stefabooksua',
+      creator: '@stefabooksua',
     }
   };
 }

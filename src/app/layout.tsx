@@ -4,6 +4,7 @@ import { ErrorBoundary } from "@/components/error-boundary";
 import { ClientLayoutWrapper } from "@/components/layouts/ClientLayoutWrapper";
 import { Metadata } from "next";
 import { OrganizationStructuredData } from "@/components/seo/OrganizationStructuredData";
+import { LocalBusinessStructuredData } from "@/components/seo/LocalBusinessStructuredData";
 import { CanonicalAndHreflang } from "@/components/seo/CanonicalAndHreflang";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import CookieConsent from "@/components/analytics/CookieConsent";
@@ -17,19 +18,23 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
   title: {
-    default: 'Stefa.books - Дитяча бібліотека книг з підпискою та орендою',
-    template: '%s | Stefa.books'
+    default: 'Stefa.books - Оренда дитячих книг у Миколаєві | Дитяча бібліотека з підпискою',
+    template: '%s | Stefa.books - Дитяча бібліотека'
   },
-  description: 'Орендуйте та читайте українські дитячі книги онлайн. Великий каталог українських дитячих книг для різних вікових категорій. Підписка та окрема оренда книг.',
+  description: 'Орендуй книги легко й вигідно в онлайн-бібліотеці з великим вибором жанрів. Економ на покупці та відкривай нові історії щодня. Безкоштовна доставка по Миколаєву.',
   keywords: [
     'дитячі книги',
     'українські книги',
-    'оренда книг',
+    'оренда книг Миколаїв',
     'підписка на книги',
     'читання для дітей',
     'українська література',
     'дитяча бібліотека',
-    'книги для дітей'
+    'книги для дітей',
+    'доставка книг',
+    'книги українською',
+    'розвиток дитини',
+    'дитяче читання'
   ],
   authors: [{ name: 'Stefa.books Team' }],
   creator: 'Stefa.books',
@@ -49,23 +54,25 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'uk_UA',
     url: 'https://stefa-books.com.ua',
-    title: 'Stefa.books - Дитяча бібліотека книг з підпискою та орендою',
-    description: 'Орендуйте та читайте українські дитячі книги онлайн. Великий каталог українських дитячих книг для різних вікових категорій. Підписка та окрема оренда книг.',
-    siteName: 'Stefa.books',
+    title: 'Stefa.books - Оренда дитячих книг у Миколаєві | Дитяча бібліотека з підпискою',
+    description: 'Орендуй книги легко й вигідно в онлайн-бібліотеці з великим вибором жанрів. Економ на покупці та відкривай нові історії щодня. Безкоштовна доставка по Миколаєву.',
+    siteName: 'Stefa.books - Дитяча бібліотека',
     images: [
       {
         url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Stefa.books - Дитяча бібліотека книг'
+        alt: 'Stefa.books - Оренда дитячих книг у Миколаєві'
       }
     ]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Stefa.books - Дитяча бібліотека книг з підпискою та орендою',
-    description: 'Орендуйте та читайте українські дитячі книги онлайн. Великий каталог українських дитячих книг для різних вікових категорій. Підписка та окрема оренда книг.',
+    title: 'Stefa.books - Оренда дитячих книг у Миколаєві | Дитяча бібліотека з підпискою',
+    description: 'Орендуй книги легко й вигідно в онлайн-бібліотеці з великим вибором жанрів. Економ на покупці та відкривай нові історії щодня.',
     images: ['/images/og-image.jpg'],
+    site: '@stefabooksua',
+    creator: '@stefabooksua',
   },
 };
 
@@ -84,6 +91,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </ErrorBoundary>
         <ErrorBoundary>
           <OrganizationStructuredData />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <LocalBusinessStructuredData />
         </ErrorBoundary>
         <ErrorBoundary>
           <CanonicalAndHreflang 

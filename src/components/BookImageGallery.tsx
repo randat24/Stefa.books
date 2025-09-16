@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { BookCover } from "@/components/BookCover";
-import { ChevronLeft, ChevronRight, BookOpen, ZoomIn } from "lucide-react";
+import { ChevronLeft, ChevronRight, BookOpen, Search } from "lucide-react";
 
 interface BookImageGalleryProps {
   title: string;
@@ -72,7 +72,7 @@ export function BookImageGallery({ title, cover_url, images = [] }: BookImageGal
             className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity"
             onClick={() => setIsZoomed(!isZoomed)}
           >
-            <ZoomIn className="h-4 w-4" />
+            <Search className="h-4 w-4" />
           </Button>
           
           {/* Navigation arrows (only if multiple images) */}

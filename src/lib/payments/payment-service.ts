@@ -134,48 +134,51 @@ class PaymentService {
    * Get available subscription plans
    */
   async getSubscriptionPlans(): Promise<SubscriptionPlan[]> {
-    // In a real implementation, this would fetch plans from the database
+    // Актуальні тарифи Stefa.Books
     return [
       {
-        id: 'basic_monthly',
-        name: 'Базовий план',
-        description: 'Доступ до 5 книг на місяць',
-        price: 299,
+        id: 'mini',
+        name: 'Mini',
+        description: '1 книга за раз на місяць',
+        price: 300,
         currency: 'UAH',
         duration: 'month',
         features: [
-          '5 книг на місяць',
-          'Безкоштовна доставка',
-          'Підтримка українською'
+          '1 книга за раз',
+          'Безкоштовна доставка по Україні',
+          'Підтримка українською',
+          'Можливість обміну на іншу книгу'
         ]
       },
       {
-        id: 'premium_monthly',
-        name: 'Преміум план',
-        description: 'Необмежений доступ до всіх книг',
-        price: 499,
+        id: 'maxi',
+        name: 'Maxi',
+        description: 'До 2 книг за раз на місяць',
+        price: 500,
         currency: 'UAH',
         duration: 'month',
         features: [
-          'Необмежена кількість книг',
-          'Безкоштовна доставка',
+          'До 2 книг за раз',
+          'Безкоштовна доставка по Україні',
           'Пріоритетна підтримка',
+          'Можливість обміну на інші книги',
           'Доступ до нових надходжень'
         ]
       },
       {
-        id: 'premium_yearly',
-        name: 'Преміум річний план',
-        description: 'Необмежений доступ зі знижкою',
-        price: 4990, // 10 months price for 12 months
+        id: 'premium_half_year',
+        name: 'Premium півроку',
+        description: 'До 2 книг зі знижкою на півроку',
+        price: 2500, // економія 500 грн (2500 замість 3000)
         currency: 'UAH',
-        duration: 'year',
+        duration: 'quarter', // використовуємо quarter для 6 місяців (будемо множити на 2)
         features: [
-          'Необмежена кількість книг',
-          'Безкоштовна доставка',
+          'До 2 книг за раз',
+          'Безкоштовна доставка по Україні',
           'Пріоритетна підтримка',
+          'Можливість обміну на інші книги',
           'Доступ до нових надходжень',
-          '17% знижка'
+          'Економія 500 грн за півроку'
         ]
       }
     ];
@@ -208,7 +211,12 @@ class PaymentService {
           endDate.setMonth(endDate.getMonth() + 1);
           break;
         case 'quarter':
-          endDate.setMonth(endDate.getMonth() + 3);
+          // Для плану premium_half_year це буде 6 місяців
+          if (plan.id === 'premium_half_year') {
+            endDate.setMonth(endDate.getMonth() + 6);
+          } else {
+            endDate.setMonth(endDate.getMonth() + 3);
+          }
           break;
         case 'year':
           endDate.setFullYear(endDate.getFullYear() + 1);

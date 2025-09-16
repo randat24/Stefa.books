@@ -148,7 +148,7 @@ export default function TermsPage() {
                   <p className="font-semibold text-neutral-900">Stefa.books</p>
                   <div className="space-y-2 text-neutral-700">
                     <p><span className="font-medium">Email:</span> info@stefa.books</p>
-                    <p><span className="font-medium">Телефон:</span> +38 (063) 856-54-14</p>
+                    <p><span className="font-medium">Телефон:</span> +38 (073) 408 56 60</p>
                     <p><span className="font-medium">Адреса:</span> м. Миколаїв, вул. Маріупольська 13/2, Україна</p>
                     <p><span className="font-medium">ФОП:</span> Федорова Анастасія Віталіївна</p>
                     <p><span className="font-medium">РНОКПП:</span> 1234567890</p>

@@ -59,7 +59,7 @@ export async function POST() {
     // 4. Вставляем авторов в таблицу authors
     const authorsToInsert = uniqueAuthors.map(authorName => ({
       name: authorName,
-      biography: null,
+      bio: null,
       birth_year: null,
       nationality: null
     }));

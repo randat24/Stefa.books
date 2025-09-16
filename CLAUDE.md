@@ -12,11 +12,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 npm run dev         # Start development server on http://localhost:3000
 npm run build       # Production build
+npm run build:fix   # Production build with fixes
 npm run start       # Start production server
 npm run type-check  # TypeScript type checking without build
 npm run lint        # ESLint checking
 npm run lint:fix    # Auto-fix linting issues
 npm run clean       # Clean build artifacts
+npm run ts:restart  # Restart TypeScript server
+npm run fix:react-types # Fix React type issues
 ```
 
 ### Testing
@@ -80,10 +83,20 @@ vercel                       # Preview deployment
 vercel --prod                # Production deployment
 ```
 
+### Emergency & Troubleshooting
+```bash
+npm run emergency           # Emergency fix script
+npm run emergency:quick     # Quick emergency fixes
+npm run emergency:full      # Full emergency fixes with rebuild
+npm run emergency:rollback  # Rollback to previous working state
+npm run pre-commit          # Run pre-commit checks manually
+npm run dev:workflow        # Development workflow script
+```
+
 ## Architecture & Key Concepts
 
 ### Core Technologies
-- **Next.js 15.5.2** with App Router (Server Components by default)
+- **Next.js 15.5.3** with App Router (Server Components by default)
 - **React 19.1.1** with new concurrent features
 - **TypeScript 5.5.4** in strict mode - avoid `any`, use proper typing
 - **Supabase** - PostgreSQL with Row Level Security (RLS) enabled
@@ -183,11 +196,18 @@ Based on shadcn/ui with custom variants:
 - **UsersTable** - User management interface
 - **RentalsTable** - Rental request management
 
+#### Specialized Component Directories
+- **Accessibility** (`src/components/accessibility/`) - ARIA, keyboard navigation, screen reader support
+- **Analytics** (`src/components/analytics/`) - Tracking and metrics components
+- **Auth** (`src/components/auth/`) - Authentication flows and user management
+- **Animations** (`src/components/animations/`) - Framer Motion animation components
+
 ### API Structure
 
 #### Public APIs (`src/app/api/`)
 - `GET /api/books` - Book catalog with filtering (category, search, availability, pagination)
 - `GET /api/categories` - Category hierarchy
+- `GET /api/age-categories` - Age category management
 - `POST /api/subscribe` - Subscription requests
 - `POST /api/rent` - Rental requests
 - `GET /api/sitemap` - Dynamic XML sitemap generation for SEO
@@ -195,6 +215,8 @@ Based on shadcn/ui with custom variants:
 - `POST|GET /api/markdown` - HTML to Markdown conversion service with mdream
 - `GET /api/books/[id]/markdown` - Generate markdown version of book pages
 - `GET /api/llms.txt` - AI discoverability file generation
+- `GET /api/cache` - Cache management and monitoring
+- `GET /api/analytics` - Analytics data and metrics
 
 #### Payment APIs (`src/app/api/payments/`)
 - `POST /api/payments/monobank` - Create Monobank payment
@@ -354,7 +376,7 @@ ADMIN_EMAIL=admin_email
 2. Если не помогает: `npm run clean:full`
 3. В крайнем случае: удалите `node_modules` и `.next` вручную, затем `npm install`
 
-#### Recently Fixed Issues (2025-09-05)
+#### Recently Fixed Issues (2025-09-16)
 - **Major TypeScript Cleanup**: Resolved 76+ TypeScript errors across the entire codebase
 - **Database Schema Mismatches**: Fixed inconsistent field names (amount_uah→amount, payment_date→created_at, returned_at→return_date)
 - **Button Component Enhancement**: Added missing size variant "sm" and "destructive" variant

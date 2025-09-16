@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { NextResponse } from 'next/server';
+import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
 
 // ============================================================================
@@ -9,9 +9,10 @@ import { logger } from '@/lib/logger';
 /**
  * POST /api/auth/logout - Logout user
  */
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
-    // Sign out from Supabase
+    // Sign out from Supabase (clears cookies)
+    const supabase = await createSupabaseServerClient();
     const { error } = await supabase.auth.signOut();
     
     if (error) {

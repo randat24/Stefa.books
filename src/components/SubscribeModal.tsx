@@ -40,9 +40,10 @@ import type { Book } from '@/lib/types/rental'
 
 const subscribeFormSchema = z.object({
 	name: z.string()
-		.min(2, 'Ім&apos;я повинно містити мінімум 2 символи')
-		.max(50, 'Ім&apos;я занадто довге'),
+		.min(2, 'Ім\'я повинно містити мінімум 2 символи')
+		.max(50, 'Ім\'я занадто довге'),
 	phone: z.string()
+		.min(1, 'Телефон обов\'язковий')
 		.regex(/^\+380\d{9}$/, 'Неправильний формат телефону (+380XXXXXXXXX)'),
 	email: z.string()
 		.email('Неправильний формат email'),
@@ -82,16 +83,16 @@ const PLAN_CONFIG = {
 		price: '300 ₴/міс',
 		color: 'border-green-500 bg-green-50',
 		textColor: 'text-green-900',
-		description: 'До 2 книг одночасно',
-		features: ['2 книги одночасно', 'Безкоштовна доставка', 'Обмін книг']
+		description: 'До 1 книги одночасно',
+		features: ['1 книга одночасно', 'Самовивіз', 'Обмін книг']
 	},
 	maxi: {
 		label: 'Maxi',
 		price: '500 ₴/міс',
 		color: 'border-accent bg-yellow-50',
 		textColor: 'text-yellow-900',
-		description: 'До 4 книг одночасно',
-		features: ['4 книги одночасно', 'Пріоритетна доставка', 'Ексклюзивні книги', 'Персональний менеджер']
+		description: 'До 2 книг одночасно',
+		features: ['2 книги одночасно', 'Самовивіз', 'Ексклюзивні книги', 'Персональний менеджер']
 	}
 } as const
 
@@ -141,7 +142,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 	const watchedPrivacyConsent = watch('privacyConsent')
 
 	// Modal control
-	const modalRef = useRef<HTMLDivElement>(null)
+  const modalRef = useRef<HTMLDivElement | null>(null)
 
 	const handleClose = useCallback(() => {
 		reset()
@@ -198,7 +199,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 		}
 	}
 
-	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: { target: { files?: FileList } }) => {
 		const file = e.target.files?.[0]
 		if (file) {
 			// Validate file size (max 5MB)
@@ -408,13 +409,13 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 												</div>
 												<div>
 													<p className={cn(
-														"font-semibold text-sm",
+														"font-bold text-lg",
 														watchedPlan === key ? config.textColor : 'text-neutral-700'
 													)}>
 														{config.label}
 													</p>
 													<p className={cn(
-														"text-xs",
+														"text-sm font-medium",
 														watchedPlan === key ? config.textColor : 'text-neutral-500'
 													)}>
 														{config.price}
@@ -524,7 +525,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 										id="social"
 										type="text"
 										className="pl-10"
-										placeholder="@username"
+										placeholder="@username (опціонально)"
 									/>
 								</div>
 								{errors.social && (
@@ -553,7 +554,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 											name="payment"
 											value={option.value}
 											checked={watchedPayment === option.value}
-											onChange={(e) => setValue('payment', e.target.value as 'Онлайн оплата' | 'Переказ на карту')}
+											onChange={(e: { target: { value: string } }) => setValue('payment', e.target.value as 'Онлайн оплата' | 'Переказ на карту')}
 											className="h-4 w-4 text-brand-accent-light focus:ring-brand-accent border-neutral-300"
 										/>
 										<Label htmlFor={option.value} className="flex items-center gap-2 cursor-pointer">
@@ -642,7 +643,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 									id="note"
 									rows={3}
 									className="pl-10"
-									placeholder="Додаткові побажання або запитання"
+									placeholder="Додаткові побажання або запитання (опціонально)"
 								/>
 							</div>
 							{errors.note && (
@@ -690,13 +691,14 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 							</div>
 						)}
 
+
 						{/* Submit Button */}
 						<div className="flex gap-3">
 							<Button
 								type="button"
 								variant="outline"
 								onClick={handleClose}
-								className="flex-1"
+								className="flex-1 border-neutral-300 text-neutral-700 hover:bg-neutral-50"
 								disabled={isSubmitting}
 							>
 								Скасувати
@@ -704,7 +706,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 							<Button
 								type="submit"
 								disabled={isSubmitting || !isValid}
-								className="flex-1 bg-accent hover:bg-accent-dark text-neutral-900"
+								className="flex-1 bg-brand-accent-light hover:bg-brand-accent text-white font-semibold disabled:bg-neutral-300 disabled:text-neutral-500"
 							>
 								{isSubmitting ? (
 									<>

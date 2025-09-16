@@ -12,60 +12,45 @@ export default function Hero() {
 					<div className="relative grid items-start gap-6 md:gap-8 md:grid-cols-1 lg:grid-cols-[1.2fr,1fr]">
 						{/* LEFT */}
 						<div className="grid gap-6 md:px-4 lg:pl-6 lg:pr-0">
-							<Badge>
-								<BookOpen className="w-3 h-3 mr-1 text-[var(--brand)]" />
-								Книжкова оренда у Миколаєві
-							</Badge>
+							<div className="flex flex-col gap-3">
+								<Badge className="w-fit self-start inline-flex items-center gap-2 rounded-full border-2 px-5 py-2 bg-[#FFF7E6] border-[#F5C242] text-[#D97706] shadow-sm">
+									<BookOpen className="w-4 h-4 text-[#D97706]" />
+									Хто багато читає — той багато знає
+								</Badge>
+							</div>
 
-							<h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight">
-								Читай легко. Оформлюй підписку та забирай книги зручно.
+							<h1 className="text-h1 font-bold leading-tight tracking-tight">
+								Книгарня за підпискою у Миколаєві
 							</h1>
 
 							<p className="lead">
-								Вітаємо у книгарні за підпискою. Обирай план, шукай улюблені книжки і залишай заявку на оренду.
-								Самовивіз з точки: вул. Маріупольська 13/2, Миколаїв.
+								Вітаємо у книгарні за підпискою. Обирайте план, шукайте улюблені книжки і залишайте заявку на підписку. Самовивіз у самому центрі міста: вул.Маріупольська 13/2 (Cімейне кафе Family Palace)
 							</p>
-
-							{/* Краткая статистика */}
-							<div className="grid grid-cols-3 border-y border-[var(--line)] gap-4 py-4">
-								<div className="text-center">
-									<div className="h3 font-bold">500+</div>
-									<div className="small">книг</div>
-								</div>
-								<div className="text-center border-x border-[var(--line)]">
-									<div className="h3 font-bold">300₴</div>
-									<div className="small">1 книжка / міс</div>
-								</div>
-								<div className="text-center">
-									<div className="h3 font-bold">500₴</div>
-									<div className="small">1 - 2 книжки</div>
-								</div>
-							</div>
 
 							<div className="flex flex-col sm:flex-row gap-4">
 								<Link 
 									href="#subscribe" 
-									className="inline-flex items-center justify-center rounded-2xl font-semibold h-12 px-6 bg-[#F7C948] text-[#111827] hover:bg-[#E0AE22] transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F7C948] focus-visible:ring-offset-2"
+									className="btn-primary btn-lg"
 								>
 									Оформити підписку
 								</Link>
 								<Link 
 									href="/books" 
-									className="inline-flex items-center justify-center rounded-2xl font-semibold h-12 px-6 bg-white text-[#111827] border border-gray-300 hover:bg-gray-50 hover:border-gray-400 transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-300 focus-visible:ring-offset-2"
+									className="btn-secondary btn-lg"
 								>
 									Перейти до каталогу
 								</Link>
 							</div>
 
 							{/* Дополнительная информация */}
-							<div className="flex items-center small gap-6 pt-2">
+							<div className="flex items-center gap-6 pt-2">
 								<div className="flex items-center gap-2">
-									<div className="size-2 rounded-2xl bg-[var(--brand)]" />
-									Самовивіз з точки
+									<div className="size-2 rounded-2xl bg-brand" />
+									<span className="text-small">Самовивіз з точки</span>
 								</div>
 								<div className="flex items-center gap-2">
-									<div className="size-2 rounded-2xl bg-[var(--brand)]" />
-									Легкий обмін книг
+									<div className="size-2 rounded-2xl bg-brand" />
+									<span className="text-small">Легкий обмін книг</span>
 								</div>
 							</div>
 						</div>

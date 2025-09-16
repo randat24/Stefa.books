@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
         email: email,
         name: name,
         role: 'admin',
-        phone: '+38 (063) 856-54-14',
+        phone: '+38 (073) 408 56 60',
         subscription_type: 'premium',
         status: 'active',
         notes: 'Администратор системы',

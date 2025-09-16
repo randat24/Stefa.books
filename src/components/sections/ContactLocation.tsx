@@ -4,7 +4,6 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   MapPin,
-  Package,
   RefreshCw,
   Info,
   Clock,
@@ -12,7 +11,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 
-type Mode = "pickup" | "nova_poshta" | "exchange";
+type Mode = "pickup" | "exchange";
 
 type GetBooksProps = {
   hasActiveSubscription?: boolean;
@@ -29,9 +28,7 @@ type GetBooksProps = {
     courier: {
       note?: string;
     };
-    novaPoshta: {
-      note?: string;
-    };
+    // novaPoshta removed
     exchange: {
       note?: string;
     };
@@ -42,8 +39,8 @@ type GetBooksProps = {
 const DEFAULT_DATA: NonNullable<GetBooksProps["data"]> = {
   pickup: {
     address: "м. Миколаїв, вул. Маріупольська 13/2",
-    schedule: "Пн–Пт 9:00–18:00, Сб 10:00–16:00 (Нд — вихідний)",
-    phone: "+38 (063) 856-54-14",
+    schedule: "Графік роботи пункту самовивозу 10.00-20.00",
+    phone: "+38 (073) 408 56 60",
     email: "info@stefa.books",
     instagram: "@stefa.books",
     mapEmbedSrc:
@@ -53,10 +50,6 @@ const DEFAULT_DATA: NonNullable<GetBooksProps["data"]> = {
   courier: {
     note:
       "Доставка в день замовлення або наступного дня за домовленістю. Повернення можливе курʼєром або у пункті самовивозу.",
-  },
-  novaPoshta: {
-    note:
-      "Відправляємо протягом 24 годин. Трекінг надсилаємо у повідомленні. Можливий гарантійний депозит згідно правил підписки.",
   },
   exchange: {
     note:
@@ -98,25 +91,14 @@ export default function ContactLocation({
           ],
           cta: hasActiveSubscription ? "Запланувати візит" : "Оформити підписку",
         };
-      case "nova_poshta":
-        return {
-          icon: Package,
-          name: "Нова пошта / Поштомат",
-          bullets: ["Цей спосіб доставки поки що в розробці та невдовзі буде доступний."],
-          important: [
-            "Функція ще не активна.",
-            "Будемо повідомляти про запуск у соціальних мережах.",
-          ],
-          cta: "Поки недоступно",
-        };
-      case "exchange":
+       case "exchange":
         return {
           icon: RefreshCw,
           name: "Обмін книги",
           bullets: [data.exchange.note ?? ""],
           important: hasActiveSubscription ? [
             "Обмін доступний лише з активною підпискою.",
-            "Оберіть спосіб: самовивіз або Нова пошта.",
+            "Оберіть спосіб: самовивіз.",
           ] : [
             "Потрібна активна підписка для обміну книг.",
             "Mini (300₴/міс) - обміняйте 1 книгу на іншу.",
@@ -138,10 +120,6 @@ export default function ContactLocation({
   const Icon = view.icon;
 
   const handleCTA = () => {
-    if (mode === "nova_poshta") {
-      // Нова пошта недоступна
-      return;
-    }
     if (!hasActiveSubscription) {
       router.push("/subscribe"); // страница подписки
       return;
@@ -173,13 +151,7 @@ export default function ContactLocation({
               <Tab active={mode === "pickup"} onClick={() => setMode("pickup")} icon={<MapPin className="h-4 w-4" />}>
                 Самовивіз
               </Tab>
-              <Tab
-                active={mode === "nova_poshta"}
-                onClick={() => setMode("nova_poshta")}
-                icon={<Package className="h-4 w-4" />}
-              >
-                Нова пошта
-              </Tab>
+              {/* Нова пошта удалена */}
               <Tab
                 active={mode === "exchange"}
                 onClick={() => setMode("exchange")}
@@ -244,12 +216,7 @@ export default function ContactLocation({
                 <div className="flex flex-wrap items-center gap-3">
                   <button
                     onClick={handleCTA}
-                    disabled={mode === "nova_poshta"}
-                    className={`rounded-2xl px-6 py-3 font-semibold transition shadow-md hover:shadow-lg ${
-                      mode === "nova_poshta"
-                        ? "bg-neutral-300 text-neutral-500 cursor-not-allowed"
-                        : "bg-[#F7C948] text-neutral-900 hover:bg-[#E0AE22]"
-                    }`}
+                    className={"rounded-2xl px-6 py-3 font-semibold transition shadow-md hover:shadow-lg bg-[#F7C948] text-neutral-900 hover:bg-[#E0AE22]"}
                   >
                     {view.cta}
                   </button>

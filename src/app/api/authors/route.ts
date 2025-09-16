@@ -16,7 +16,7 @@ export async function GET() {
 
     const { data: authors, error } = await supabase
       .from('authors')
-      .select('id, name, biography, birth_year, nationality')
+      .select('id, name, bio, birth_year, nationality')
       .order('name', { ascending: true });
 
     if (error) {
@@ -54,7 +54,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, biography, birth_year, nationality } = body;
+    const { name, bio, birth_year, nationality } = body;
 
     if (!name?.trim()) {
       return NextResponse.json(
@@ -73,7 +73,7 @@ export async function POST(request: Request) {
       .from('authors')
       .insert({
         name: name.trim(),
-        biography: biography?.trim() || null,
+        bio: bio?.trim() || null,
         birth_year: birth_year || null,
         nationality: nationality?.trim() || null
       })

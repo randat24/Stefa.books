@@ -122,12 +122,12 @@ export default function HomePage() {
 				</Suspense>
 			</LazySection>
 
-			{/* Social Proof - Below the fold, lazy load */}
-			<LazySection>
+			{/* Social Proof - Hidden per user request */}
+			{/* <LazySection>
 				<Suspense fallback={<div className="h-48 bg-surface animate-pulse rounded-lg" />}>
 					<SocialProof />
 				</Suspense>
-			</LazySection>
+			</LazySection> */}
 
 			{/* Contact Location - Below the fold, lazy load */}
 			<LazySection>

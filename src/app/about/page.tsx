@@ -3,11 +3,26 @@ import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { BookOpen, Users, Heart, Shield } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Про нас | Stefa.books",
-  description: "Дізнайтеся більше про Stefa.books - платформу для оренди та підписки на українські дитячі книги.",
+  title: "Про нас - Дитяча бібліотека Stefa.books у Миколаєві",
+  description: "Дізнайтеся більше про Stefa.books - платформу для оренди та підписки на українські дитячі книги. Великий асортимент, сімейний сервіс, безпечна доставка по Миколаєву.",
+  keywords: [
+    'дитяча бібліотека Миколаїв',
+    'оренда книг',
+    'українські книги для дітей',
+    'підписка на дитячі книги',
+    'доставка книг Миколаїв'
+  ],
   openGraph: {
-    title: "Про нас | Stefa.books",
-    description: "Дізнайтеся більше про Stefa.books - платформу для оренди та підписки на українські дитячі книги.",
+    title: "Про нас - Дитяча бібліотека Stefa.books у Миколаєві",
+    description: "Дізнайтеся більше про Stefa.books - платформу для оренди та підписки на українські дитячі книги. Великий асортимент, сімейний сервіс, безпечна доставка по Миколаєву.",
+    images: [
+      {
+        url: '/images/about-us-og.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Stefa.books - Дитяча бібліотека у Миколаєві'
+      }
+    ],
   },
 };
 
@@ -120,10 +135,10 @@ export default function AboutPage() {
               Зв&apos;язатися з нами
             </a>
             <a
-              href="tel:+380638565414"
+              href="tel:+380734085660"
               className="inline-flex items-center px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200"
             >
-              +38 (063) 856-54-14
+              +38 (073) 408 56 60
             </a>
           </div>
         </div>

@@ -6,7 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { HeaderSearch } from '@/components/search/HeaderSearch';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { AdminStatus } from '@/components/auth/AdminStatus';
-import { SubscriptionModal } from '@/components/subscribe/SubscriptionModal';
+import SubscribeModal from '@/components/SubscribeModal';
 import { Button } from '@/components/ui/button';
 import { User, Heart, BookOpen, Menu, X } from 'lucide-react';
 // Animation components removed for build fix
@@ -203,7 +203,7 @@ export function Header() {
         onClose={() => setIsAuthModalOpen(false)} 
       />
       
-      <SubscriptionModal 
+      <SubscribeModal 
         isOpen={isSubscriptionModalOpen} 
         onClose={() => setIsSubscriptionModalOpen(false)} 
       />

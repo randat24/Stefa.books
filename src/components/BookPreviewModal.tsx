@@ -6,9 +6,10 @@ import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/Badge";
 import { FavoriteButton } from "@/components/favorites/FavoriteButton";
-import { Star, Share2, Check, Copy } from "lucide-react";
+import { Star, Share2, Check, Copy, BookOpen } from "lucide-react";
 import type { Book } from "@/lib/supabase";
 import Link from "next/link";
+import { useUserSubscription } from "@/lib/hooks/useUserSubscription";
 
 interface BookPreviewModalProps {
   book: Book | null;
@@ -20,6 +21,7 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
   const [shareSuccess, setShareSuccess] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
   const [isSharing, setIsSharing] = useState(false);
+  const userSubscription = useUserSubscription();
   
   // Move the hook call outside of conditional logic
   const handleShare = useCallback(async () => {
@@ -178,19 +180,65 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
 
           {/* Action buttons */}
           <div>
-            {/* Subscription and Details buttons */}
+            {/* Conditional buttons based on user subscription status */}
             <div className="grid grid-cols-2 gap-4">
-              <Link href="/subscription" className="w-full">
-                <Button className="w-full bg-[var(--brand)] text-[#111827] hover:bg-[var(--brand-600)]">
-                  Оформити підписку
-                </Button>
-              </Link>
+              {userSubscription.hasActiveSubscription ? (
+                // Пользователь с активной подпиской видит кнопку аренды
+                <>
+                  {userSubscription.canRent && book.is_active ? (
+                    <Link href={`/books/${book.id}/rent`} className="w-full">
+                      <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
+                        <BookOpen className="w-4 h-4 mr-2" />
+                        Взяти в оренду
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Button disabled className="w-full bg-gray-300 text-gray-500 cursor-not-allowed">
+                      {!book.is_active ? 'Книга недоступна' :
+                       userSubscription.currentRentals >= userSubscription.maxRentals ?
+                       'Ліміт аренди вичерпано' : 'Недоступно'}
+                    </Button>
+                  )}
+                </>
+              ) : (
+                // Неавторизованный пользователь или без подписки видит кнопку подписки
+                <Link href="/subscription" className="w-full">
+                  <Button className="w-full bg-[var(--brand)] text-[#111827] hover:bg-[var(--brand-600)]">
+                    {userSubscription.isAuthenticated ? 'Оформити підписку' : 'Увійти та підписатися'}
+                  </Button>
+                </Link>
+              )}
+
               <Link href={`/books/${book.id}`} className="w-full">
                 <Button variant="secondary" className="w-full">
                   Детальніше про книгу
                 </Button>
               </Link>
             </div>
+
+            {/* Показываем информацию о статусе подписки */}
+            {userSubscription.hasActiveSubscription && (
+              <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="text-sm text-blue-800">
+                  <p className="font-medium">
+                    Підписка {userSubscription.subscriptionType?.toUpperCase()} активна
+                  </p>
+                  <p className="text-blue-600">
+                    Орендовано: {userSubscription.currentRentals} з {userSubscription.maxRentals} книг
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Показываем информацию о загрузке */}
+            {userSubscription.isLoading && (
+              <div className="mt-3 text-center">
+                <div className="inline-flex items-center gap-2 text-sm text-gray-500">
+                  <div className="h-4 w-4 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin" />
+                  Перевіряємо статус підписки...
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

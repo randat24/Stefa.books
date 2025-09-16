@@ -23,7 +23,7 @@ export interface AdminDashboardData {
 export interface AuthorRow {
   id: string
   name: string
-  biography?: string | null
+  bio?: string | null
   birth_year?: number | null
   nationality?: string | null
   created_at?: string

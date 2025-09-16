@@ -24,9 +24,9 @@ export async function GET(request: NextRequest) {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     
-    // Временно используем моковые данные для разработки
+    // Проверяем, можем ли мы подключиться к Supabase
     if (!supabaseUrl || !supabaseKey || supabaseUrl === 'your_supabase_url_here') {
-      logger.warn('Missing Supabase environment variables, returning mock data');
+      logger.warn('Missing Supabase configuration, using mock data for books API');
       
       // Fallback: возвращаем моковые данные
       const mockBooks = [
@@ -262,7 +262,7 @@ export async function GET(request: NextRequest) {
     // }
 
     // Преобразуем результаты в нужный формат
-    const mappedBooks = (books || []).map(book => {
+    const mappedBooks = (books || []).map((book: any) => {
       // Создаем безопасную копию объекта с проверкой полей
       return {
         id: book.id || '',

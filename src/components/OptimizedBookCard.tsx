@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { BookPreviewModal } from '@/components/BookPreviewModal';
 import { BookCoverImage } from '@/components/ui/OptimizedImage';
 import { useAnalytics } from '@/hooks/useAnalytics';
+import { useUserSubscription } from '@/lib/hooks/useUserSubscription';
+import { Button } from '@/components/ui/button';
 
 export type OptimizedBookCardProps = {
   book: Book;
@@ -16,14 +18,15 @@ export type OptimizedBookCardProps = {
 }
 
 // Мемоизированный компонент для предотвращения лишних ре-рендеров
-export const OptimizedBookCard = memo(function OptimizedBookCard({ 
-  book, 
+export const OptimizedBookCard = memo(function OptimizedBookCard({
+  book,
   showActions = true,
   priorityLoading = false,
   className = ''
 }: OptimizedBookCardProps) {
   const [showPreview, setShowPreview] = useState(false);
   const { trackBookView } = useAnalytics();
+  const userSubscription = useUserSubscription();
 
   // Мемоизируем обработчики событий
   const handleQuickView = useMemo(() => (e: React.MouseEvent) => {
@@ -65,7 +68,7 @@ export const OptimizedBookCard = memo(function OptimizedBookCard({
         <Link 
           href={`/books/${book.id}`}
           onClick={handleBookClick}
-          className="block relative overflow-hidden rounded-t-lg rounded-b-none bg-surface-2"
+          className="block relative overflow-hidden rounded-t-lg rounded-b-none"
         >
           <BookCoverImage
             src={book.cover_url || '/images/book-placeholder.jpg'}
@@ -110,7 +113,7 @@ export const OptimizedBookCard = memo(function OptimizedBookCard({
         </Link>
 
         {/* Информация о книге */}
-        <div className="px-4 pt-4 pb-6 space-y-1 min-h-[72px]">
+        <div className="px-4 pt-4 pb-6 space-y-1 min-h-[120px]">
           <h3 
             id={`book-title-${book.id}`}
             className="font-semibold text-accent line-clamp-2 group-hover:text-brand-accent transition-colors"
@@ -149,7 +152,42 @@ export const OptimizedBookCard = memo(function OptimizedBookCard({
           {/* Категория */}
           {/* Убираем лишние пустые блоки; категорию не показываем для компактности */}
 
-          {/* Кнопка аренды убрана для компактности карточки */}
+          {/* Кнопка действия в зависимости от статуса пользователя */}
+          <div className="mt-3">
+            {userSubscription.hasActiveSubscription ? (
+              // Пользователь с активной подпиской
+              userSubscription.canRent && book.is_active ? (
+                <Link href={`/books/${book.id}/rent`} className="w-full">
+                  <Button
+                    size="sm"
+                    className="w-full bg-green-600 hover:bg-green-700 text-white"
+                  >
+                    <BookOpen className="w-3 h-3 mr-1" />
+                    Взяти в оренду
+                  </Button>
+                </Link>
+              ) : (
+                <Button
+                  size="sm"
+                  disabled
+                  className="w-full bg-gray-200 text-gray-400 cursor-not-allowed"
+                >
+                  {!book.is_active ? 'Недоступна' : 'Ліміт вичерпано'}
+                </Button>
+              )
+            ) : (
+              // Неавторизованный пользователь или без подписки
+              <Link href="/subscription" className="w-full">
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="w-full"
+                >
+                  Оформити підписку
+                </Button>
+              </Link>
+            )}
+          </div>
         </div>
       </article>
 

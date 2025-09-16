@@ -11,7 +11,7 @@ export function OrganizationStructuredData() {
     "logo": "https://stefa-books.com.ua/logo.svg",
     "contactPoint": {
       "@type": "ContactPoint",
-      "telephone": "+38-063-856-54-14",
+      "telephone": "+38-073-408-56-60",
       "contactType": "customer service"
     },
     "address": {
@@ -29,7 +29,14 @@ export function OrganizationStructuredData() {
     document.head.appendChild(script);
 
     return () => {
-      document.head.removeChild(script);
+      // Safely remove only if the node is still connected to the DOM
+      if (script && (script as any).isConnected) {
+        script.remove();
+        return;
+      }
+      if (script.parentNode && script.parentNode.contains(script)) {
+        script.parentNode.removeChild(script);
+      }
     };
   }, [jsonLd]);
 

@@ -12,6 +12,7 @@ import { BooksTable } from "./components/BooksTable"
 import ExportData from "@/components/admin/ExportData"
 import CacheManager from "@/components/admin/CacheManager"
 import MonobankTest from "@/components/admin/MonobankTest"
+import AdminAuth from "@/components/admin/AdminAuth"
 import type { BookRow, UserRow } from "@/lib/types/admin"
 
 // ============================================================================
@@ -28,6 +29,8 @@ export default function AdminPage() {
   const [error, setError] = useState<string | null>(null)
   const [, setRefreshing] = useState(false)
   const [activeTab, setActiveTab] = useState<'overview' | 'books' | 'users' | 'rentals' | 'analytics' | 'export' | 'cache' | 'monobank'>('overview')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [authToken, setAuthToken] = useState<string | null>(null)
 
   // ============================================================================
   // ЗАВАНТАЖЕННЯ ДАНИХ
@@ -89,8 +92,22 @@ export default function AdminPage() {
     loadData()
   }
 
-  useEffect(() => {
+  const handleAuthSuccess = (token: string) => {
+    setAuthToken(token)
+    setIsAuthenticated(true)
     loadData()
+  }
+
+  useEffect(() => {
+    // Проверяем, есть ли токен в localStorage
+    const savedToken = localStorage.getItem('admin_token')
+    if (savedToken) {
+      setAuthToken(savedToken)
+      setIsAuthenticated(true)
+      loadData()
+    } else {
+      setLoading(false)
+    }
   }, [])
 
   // ============================================================================
@@ -127,6 +144,11 @@ export default function AdminPage() {
   // ============================================================================
   // РЕНДЕР
   // ============================================================================
+
+  // Показываем форму авторизации, если пользователь не авторизован
+  if (!isAuthenticated) {
+    return <AdminAuth onAuthSuccess={handleAuthSuccess} />
+  }
 
   if (loading) {
     return (
@@ -169,12 +191,12 @@ export default function AdminPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
-                <div className="size-8 rounded-xl bg-surface flex items-center justify-center">
-                  <FileText className="size-4 text-text-muted" />
+                <div className="size-8 rounded-xl bg-amber-100 flex items-center justify-center">
+                  <FileText className="size-4 text-amber-600" />
                 </div>
                 <div>
                   <div className="text-body-sm text-text-muted font-medium">Адмін‑панель</div>
-                  <h1 className="text-h1 tracking-tight text-text">
+                  <h1 className="text-h4 tracking-tight text-text">
                     Stefa.books — Управління
                   </h1>
                 </div>
@@ -186,15 +208,6 @@ export default function AdminPage() {
                 <span className="hidden sm:inline">Система працює</span>
                 <span className="sm:hidden">ОК</span>
               </Badge>
-              <Button
-                variant="outline"
-                size="md"
-                onClick={handleRefresh}
-                className="hidden sm:flex"
-              >
-                <RefreshCw className="size-4 mr-2" />
-                Оновити
-              </Button>
             </div>
           </div>
         </div>
@@ -297,7 +310,7 @@ export default function AdminPage() {
 
           {/* Таб експорту */}
           <TabsContent value="export" className="space-y-4">
-            <ExportData />
+            <ExportData authToken={authToken || undefined} />
           </TabsContent>
 
           {/* Таб кешу */}

@@ -12,11 +12,11 @@ const QA = [
   },
   {
     q: "Як оплатити підписку?",
-    a: "Переказ на карту Monobank або готівка при отриманні. Реквізити карти показуються у формі підписки. При переказі потрібно надіслати скриншот."
+    a: "Оплата здійснюється на рахунок ФОП. Переказ на карту Monobank або готівка при отриманні. Реквізити карти показуються у формі підписки. При переказі потрібно надіслати скриншот."
   },
   {
-    q: "На скільки часу я орендую книги?",
-    a: "Термін оренди залежить від тарифу: на місяць для Mini/Maxi або на півроку для Premium. Міняти книги можна у будь-який час протягом періоду підписки."
+    q: "Який термін дії підписки?",
+    a: "Підписка діє протягом місяця. Змінювати книги можна декілька раз, без обмежень. Для Premium тарифу термін дії - 6 місяців."
   },
   {
     q: "Чи потрібна застава за книги?",
@@ -24,7 +24,7 @@ const QA = [
   },
   {
     q: "Які книги є в каталозі?",
-    a: "У нас понад 1000 українських дитячих книг: новинки, казки, дитяча література та фентезі. Каталог постійно поповнюється новими виданнями."
+    a: "Наш каталог налічує багато книг різних жанрів. Ми постійно оновлюємо асортимент книгарні."
   },
   {
     q: "Що робити, якщо потрібної книги немає?",
@@ -40,28 +40,32 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0); // First item open by default
   return (
     <section className="section">
-      <h2 className="text-h1 text-neutral-900 text-center mb-4">Часті питання про оренду дитячих книг</h2>
-      <p className="text-body-lg text-neutral-600 text-center mb-8">Відповіді на найпоширеніші питання про підписку на дитячі книги, оренду та доставку в Миколаєві. Отримайте всю необхідну інформацію.</p>
+      <div className="container">
+        <div className="text-center mb-16">
+          <h2 className="text-h1 text-neutral-900 mb-4">Часті питання про оренду дитячих книг</h2>
+          <p className="text-body-lg text-neutral-600 max-w-2xl mx-auto">Відповіді на найпоширеніші питання про підписку на дитячі книги, оренду та доставку в Миколаєві. Отримайте всю необхідну інформацію.</p>
+        </div>
 
-      <div className="grid gap-3 max-w-3xl mx-auto">
-        {QA.map((item, i) => {
-          const active = open === i;
-          return (
-            <div key={i} className="card-soft">
-              <button
-                className="w-full text-left px-5 py-4 font-medium flex items-center justify-between text-[var(--accent)] hover:bg-[var(--surface-2)] transition"
-                onClick={() => setOpen(active ? null : i)}
-                aria-expanded={active}
-              >
-                {item.q}
-                <span className={`transition text-2xl ${active ? "rotate-45" : ""}`}>+</span>
-              </button>
-              {active && (
-                <div className="px-5 pb-5 text-[var(--text-muted)]">{item.a}</div>
-              )}
-            </div>
-          );
-        })}
+        <div className="grid gap-3 max-w-3xl mx-auto">
+          {QA.map((item, i) => {
+            const active = open === i;
+            return (
+              <div key={i} className="card-soft">
+                <button
+                  className="w-full text-left px-5 py-4 font-medium flex items-center justify-between text-accent hover:bg-surface-2 transition-colors rounded-lg"
+                  onClick={() => setOpen(active ? null : i)}
+                  aria-expanded={active}
+                >
+                  {item.q}
+                  <span className={`transition-transform text-2xl ${active ? "rotate-45" : ""}`}>+</span>
+                </button>
+                {active && (
+                  <div className="px-5 pb-5 text-text-muted leading-relaxed">{item.a}</div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

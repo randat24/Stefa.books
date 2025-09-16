@@ -147,14 +147,21 @@ export class MonobankService {
         reference: paymentData.reference,
       });
 
-      // Зберігаємо платіж в базі даних
-      await this.savePayment({
-        invoiceId: data.invoiceId,
-        reference: paymentData.reference,
-        amount: paymentData.amount,
-        description: paymentData.description,
-        status: 'pending'
-      });
+      // Пробуємо зберегти платіж в базі даних (не критично якщо не вийде)
+      try {
+        await this.savePayment({
+          invoiceId: data.invoiceId,
+          reference: paymentData.reference,
+          amount: paymentData.amount,
+          description: paymentData.description,
+          status: 'pending'
+        });
+      } catch (dbError) {
+        logger.warn('Failed to save payment to database, but payment was created successfully', {
+          invoiceId: data.invoiceId,
+          error: dbError
+        });
+      }
 
       return {
         status: 'success',
@@ -491,10 +498,6 @@ export class MonobankService {
           payment_status: paymentData.status,
           payment_method: 'monobank',
           currency: 'UAH',
-          metadata: {
-            reference: paymentData.reference,
-            provider: 'monobank'
-          },
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString()
         });

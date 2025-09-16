@@ -1,21 +1,20 @@
 // SEO Head Components
-export { SEOHead, BookSEOHead, CatalogSEOHead } from './SEOHead';
+export { SEOHead } from './SEOHead';
 
 // Structured Data Components
-export { 
-  OrganizationStructuredData, 
-  WebsiteStructuredData, 
-  BookStructuredData, 
-  CatalogStructuredData, 
-  FAQStructuredData, 
-  ReviewStructuredData 
-} from './StructuredData';
+export { OrganizationStructuredData } from './OrganizationStructuredData';
+export { LocalBusinessStructuredData } from './LocalBusinessStructuredData';
+export { BookStructuredData } from './BookStructuredData';
+export { FAQStructuredData } from './FAQStructuredData';
+export { BreadcrumbStructuredData } from './BreadcrumbStructuredData';
+export { CategoryStructuredData } from './CategoryStructuredData';
+export { SubscriptionStructuredData } from './SubscriptionStructuredData';
 
-// Sitemap and Meta Tags
-export { 
-  SitemapGenerator, 
-  RobotsTxtGenerator, 
-  SocialMetaTags, 
-  NavigationStructuredData, 
-  SearchEngineMetaTags 
-} from './SitemapGenerator';
+// Canonical and Hreflang
+export { CanonicalAndHreflang } from './CanonicalAndHreflang';
+
+// Sitemap Generator
+export { SitemapGenerator } from './SitemapGenerator';
+
+// Structured Data Wrapper
+export { StructuredData } from './StructuredData';

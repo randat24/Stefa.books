@@ -104,8 +104,7 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
 
   const deliveryMethodNames = {
     courier: "Кур'єр",
-    pickup: "Самовивіз",
-    post: "Нова Пошта"
+    pickup: "Самовивіз"
   };
 
   if (submitSuccess) {

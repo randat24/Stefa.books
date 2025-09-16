@@ -1,5 +1,5 @@
-import { supabase } from '@/lib/supabase';
-import type { User } from '@supabase/supabase-js/dist/module/index';
+import type { User } from '@supabase/supabase-js'
+import { createSupabaseServerClient } from '@/lib/supabase/server'
 
 export interface ServerSession {
   user: User | null;
@@ -11,7 +11,8 @@ export interface ServerSession {
  */
 export async function getServerSession(): Promise<ServerSession> {
   try {
-    const { data: { session } } = await supabase.auth.getSession();
+    const supabase = await createSupabaseServerClient()
+    const { data: { session } } = await supabase.auth.getSession()
     
     return {
       user: session?.user || null

@@ -17,7 +17,7 @@ export default function Steps() {
       id: 1,
       icon: BookOpen,
       title: 'Обрати книгу з каталогу',
-      description: 'Переглянь каталог і вибери те, що хочеться читати. Вибір з понад 1000 книг різних жанрів.',
+      description: 'Перегляньте каталог та оберіть книгу. У нас є дитячі книги від 2 років до підліткового віку, а також книги для дорослих.',
       action: 'Перейти до каталогу →',
       targetId: 'catalog',
       color: 'yellow',
@@ -27,7 +27,7 @@ export default function Steps() {
       id: 2,
       icon: FileText,
       title: 'Заповнити заявку на підписку',
-      description: 'Коротка форма — 1–2 хвилини. Вкажи контакти та обраний план. Ми зв\'яжемося для підтвердження.',
+      description: 'Заповніть заявку на підписку. Приділіть декілька хвилин часу для оформлення оренди. Ми зв\'яжемось з Вами для підтвердження.',
       action: 'Заповнити форму',
       targetId: 'subscribe',
       color: 'yellow',
@@ -50,7 +50,7 @@ export default function Steps() {
       <div className="container">
         <header className="text-center mb-16">
           <h2 id="steps-title" className="text-h1 text-neutral-900 mb-4">
-            Як оформити підписку на дитячі книги за 3 кроки
+            Як оформити підписку за 3 кроки
           </h2>
           <p className="text-body-lg text-neutral-600 max-w-2xl mx-auto">
             Швидко та зручно отримайте доступ до великої бібліотеки українських дитячих книг. Простий процес оформлення підписки на книжкову оренду в Миколаєві.
@@ -120,11 +120,7 @@ export default function Steps() {
                             e.stopPropagation();
                             scrollToId(step.targetId);
                           }}
-                          className={`inline-flex items-center gap-2 px-4 py-2 rounded-2xl text-sm font-medium transition-all duration-300 hover:scale-[1.03] ${
-                            step.isPrimary
-                              ? 'bg-[var(--brand)] text-[var(--accent)] hover:bg-[var(--brand)]/90 shadow-sm'
-                              : 'border border-[var(--line)] text-[var(--text)] hover:bg-[var(--surface)]'
-                          }`}
+                          className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl text-sm font-medium transition-all duration-300 hover:scale-[1.03] border border-black text-black hover:bg-black hover:text-white"
                         >
                           {step.action}
                         </button>

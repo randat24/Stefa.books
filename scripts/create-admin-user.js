@@ -37,9 +37,9 @@ async function createAdminUser() {
   console.log(`📧 Email: ${adminEmail}`);
   
   try {
-    // Сначала проверить, есть ли пользователь в user_profiles
+    // Сначала проверить, есть ли пользователь в profiles
     const { data: profileData, error: profileError } = await supabase
-      .from('user_profiles')
+      .from('profiles')
       .select('id, email, role')
       .eq('email', adminEmail)
       .single();
@@ -59,7 +59,7 @@ async function createAdminUser() {
       
       // Обновить роль на admin
       const { error: updateError } = await supabase
-        .from('user_profiles')
+        .from('profiles')
         .update({ role: 'admin', updated_at: new Date().toISOString() })
         .eq('email', adminEmail);
         
@@ -73,14 +73,14 @@ async function createAdminUser() {
       return;
     }
     
-    // Если пользователь не найден в user_profiles, попробуем найти в auth.users
+    // Если пользователь не найден в profiles, попробуем найти в auth.users
     // через SQL запрос (так как admin API может быть недоступен)
-    console.log('🔍 Пользователь не найден в user_profiles, проверяем auth.users...');
+    console.log('🔍 Пользователь не найден в profiles, проверяем auth.users...');
     
     // Попробуем создать профиль с случайным ID (если пользователь существует в auth.users)
     // Это безопасно, так как foreign key constraint проверит существование
     const { data: insertData, error: insertError } = await supabase
-      .from('user_profiles')
+      .from('profiles')
       .insert({
         id: '00000000-0000-0000-0000-000000000000', // Временный ID
         email: adminEmail,

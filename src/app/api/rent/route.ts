@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { supabase } from '@/lib/supabase';
+import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { logger } from '@/lib/logger';
 
 const rentalSchema = z.object({
@@ -24,14 +25,53 @@ const rentalSchema = z.object({
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    
+
     logger.info('Rental API: Request received', {
       body: body,
       bookId: body.book_id
     });
-    
+
     // Validate input
     const validatedData = rentalSchema.parse(body);
+
+    // Проверяем аутентификацию пользователя
+    const supabaseServer = await createSupabaseServerClient();
+    const { data: { user: authUser }, error: authError } = await supabaseServer.auth.getUser();
+
+    let userId = '00000000-0000-0000-0000-000000000000'; // Anonymous user по умолчанию
+    let maxRentals = 0; // Неавторизованные пользователи не могут брать в аренду
+
+    if (authUser) {
+      // Проверяем подписку пользователя
+      const userSubscription = await checkUserSubscription(authUser.id);
+      if (userSubscription.isActive) {
+        userId = authUser.id;
+        maxRentals = userSubscription.maxRentals;
+
+        // Проверяем текущие активные аренды
+        const activeRentals = await countActiveRentals(authUser.id);
+        if (activeRentals >= maxRentals) {
+          return NextResponse.json(
+            {
+              success: false,
+              error: `Ви вже маєте максимальну кількість активних орендованих книг (${maxRentals}). Поверніть одну з книг, щоб орендувати нову.`
+            },
+            { status: 400 }
+          );
+        }
+      } else {
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'У вас немає активної підписки. Будь ласка, оформіть підписку для оренди книг.'
+          },
+          { status: 403 }
+        );
+      }
+    } else {
+      // Неавторизованный пользователь - создаем анонимную заявку
+      logger.info('Anonymous rental request', { bookId: validatedData.book_id });
+    }
     
     logger.info('Rental API: Data validated', {
       validatedData: validatedData
@@ -69,16 +109,18 @@ export async function POST(request: NextRequest) {
     }
 
     // Create rental record
+    const rentalData = {
+      book_id: validatedData.book_id,
+      user_id: userId,
+      rental_date: new Date().toISOString(),
+      return_date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(), // 14 days from now
+      status: authUser ? 'active' : 'pending', // Авторизованные пользователи получают активную аренду сразу
+      notes: `Customer: ${validatedData.customer_info.first_name} ${validatedData.customer_info.last_name}, Email: ${validatedData.customer_info.email}, Phone: ${validatedData.customer_info.phone}, Plan: ${validatedData.plan}, Delivery: ${validatedData.delivery_method}, Payment: ${validatedData.payment_method}, Total: ${validatedData.total_price}₴${validatedData.customer_info.address ? `, Address: ${validatedData.customer_info.address}` : ''}${validatedData.customer_info.notes ? `, Notes: ${validatedData.customer_info.notes}` : ''}`
+    };
+
     const { data: rental, error: rentalError } = await supabase
       .from('rentals')
-      .insert({
-        book_id: validatedData.book_id,
-        user_id: '00000000-0000-0000-0000-000000000000', // Anonymous user UUID
-        rental_date: new Date().toISOString(),
-        return_date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(), // 14 days from now
-        status: 'active',
-        notes: `Customer: ${validatedData.customer_info.first_name} ${validatedData.customer_info.last_name}, Email: ${validatedData.customer_info.email}, Phone: ${validatedData.customer_info.phone}, Plan: ${validatedData.plan}, Delivery: ${validatedData.delivery_method}, Payment: ${validatedData.payment_method}, Total: ${validatedData.total_price}₴${validatedData.customer_info.address ? `, Address: ${validatedData.customer_info.address}` : ''}${validatedData.customer_info.notes ? `, Notes: ${validatedData.customer_info.notes}` : ''}`
-      })
+      .insert(rentalData)
       .select()
       .single();
 
@@ -221,5 +263,68 @@ export async function GET(request: NextRequest) {
       { success: false, error: 'Внутрішня помилка сервера' },
       { status: 500 }
     );
+  }
+}
+
+/**
+ * Проверяет подписку пользователя и возвращает информацию о лимитах
+ */
+async function checkUserSubscription(authUserId: string): Promise<{
+  isActive: boolean;
+  subscriptionType: string | null;
+  maxRentals: number;
+}> {
+  try {
+    // Ищем пользователя по auth_id
+    const { data: user, error } = await supabase
+      .from('users')
+      .select('subscription_type, status, subscription_status')
+      .eq('auth_id', authUserId)
+      .single();
+
+    if (error || !user) {
+      logger.warn('User not found in users table', { authUserId, error });
+      return { isActive: false, subscriptionType: null, maxRentals: 0 };
+    }
+
+    const isActive =
+      user.status === 'active' &&
+      user.subscription_status === 'active' &&
+      ['mini', 'maxi'].includes(user.subscription_type);
+
+    const maxRentals = user.subscription_type === 'mini' ? 1 :
+                      user.subscription_type === 'maxi' ? 2 : 0;
+
+    return {
+      isActive,
+      subscriptionType: user.subscription_type,
+      maxRentals
+    };
+  } catch (error) {
+    logger.error('Error checking user subscription', { authUserId, error });
+    return { isActive: false, subscriptionType: null, maxRentals: 0 };
+  }
+}
+
+/**
+ * Подсчитывает количество активных аренд пользователя
+ */
+async function countActiveRentals(authUserId: string): Promise<number> {
+  try {
+    const { count, error } = await supabase
+      .from('rentals')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', authUserId)
+      .eq('status', 'active');
+
+    if (error) {
+      logger.error('Error counting active rentals', { authUserId, error });
+      return 999; // В случае ошибки возвращаем большое число для блокировки
+    }
+
+    return count || 0;
+  } catch (error) {
+    logger.error('Error counting active rentals', { authUserId, error });
+    return 999;
   }
 }

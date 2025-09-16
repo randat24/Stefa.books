@@ -100,7 +100,7 @@ export default function ResourcePreloader({
       const preconnectLinks = document.querySelectorAll('link[rel="preconnect"]')
       
       ;[...preloadLinks, ...prefetchLinks, ...preconnectLinks].forEach(link => {
-        if (link.parentNode) {
+        if (link.parentNode && link.parentNode.contains(link)) {
           link.parentNode.removeChild(link)
         }
       })

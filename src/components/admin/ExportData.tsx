@@ -5,12 +5,14 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Download, FileText, Users, BookOpen, Tag, Calendar, Mail } from 'lucide-react'
 import { toast } from 'sonner'
+import { supabase } from '@/lib/supabase'
 
 interface ExportDataProps {
   className?: string
+  authToken?: string
 }
 
-export default function ExportData({ className }: ExportDataProps) {
+export default function ExportData({ className, authToken }: ExportDataProps) {
   const [isExporting, setIsExporting] = useState(false)
   const [exportType, setExportType] = useState<string | null>(null)
 
@@ -64,21 +66,24 @@ export default function ExportData({ className }: ExportDataProps) {
       setIsExporting(true)
       setExportType(type)
 
-      // Получаем токен из localStorage
-      const authToken = localStorage.getItem('supabase.auth.token')
-      const token = authToken ? JSON.parse(authToken).access_token : null
+      // Используем переданный токен или получаем из localStorage
+      const token = authToken || localStorage.getItem('admin_token')
 
       if (!token) {
         toast.error('Необходимо войти в систему')
         return
       }
 
+      // Получаем API ключ
+      const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
       // Выполняем экспорт
       const response = await fetch(`/api/admin/export?type=${type}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'apikey': supabaseKey || ''
         }
       })
 
@@ -130,12 +135,16 @@ export default function ExportData({ className }: ExportDataProps) {
         return
       }
 
+      // Получаем API ключ
+      const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+      
       // Экспортируем все данные
       const response = await fetch('/api/admin/export?type=all', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'apikey': supabaseKey || ''
         }
       })
 

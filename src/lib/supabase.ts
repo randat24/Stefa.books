@@ -16,7 +16,13 @@ const createFallbackClient = () => {
 export const supabase = (supabaseUrl && supabaseKey) 
   ? createClient<Database>(supabaseUrl, supabaseKey, {
       auth: {
-        persistSession: false, // Since we're not using authentication yet
+        persistSession: true,
+        autoRefreshToken: true,
+      },
+      global: {
+        headers: {
+          'apikey': supabaseKey,
+        },
       },
     })
   : createFallbackClient();

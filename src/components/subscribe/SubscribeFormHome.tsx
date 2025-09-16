@@ -1,5 +1,7 @@
 "use client";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -8,16 +10,38 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import { logger } from "@/lib/logger"; 
 
-type FormData = {
-  name: string;
-  phone: string;
-  email: string;
-  social: string;
-  subscription_type: "mini" | "maxi";
-  payment_method: "Онлайн оплата" | "Переказ на карту";
-  notes?: string;
-  screenshot?: FileList;
-};
+const subscribeFormSchema = z.object({
+  name: z.string()
+    .min(2, 'Ім\'я повинно містити мінімум 2 символи')
+    .max(50, 'Ім\'я занадто довге'),
+  phone: z.string()
+    .min(1, 'Телефон обов\'язковий')
+    .regex(/^\+380\d{9}$/, 'Неправильний формат телефону (+380XXXXXXXXX)'),
+  email: z.string()
+    .email('Неправильний формат email'),
+  social: z.string()
+    .optional()
+    .refine((val) => {
+      if (!val || val.trim() === '') return true
+      return val.length >= 3 && val.length <= 50 && /^@?[a-zA-Z0-9_]+$/.test(val)
+    }, 'Неправильний формат ніка (використовуйте @username або username)'),
+  subscription_type: z.enum(['mini', 'maxi'], {
+    required_error: 'Оберіть план підписки'
+  }),
+  payment_method: z.enum(['Онлайн оплата', 'Переказ на карту'], {
+    required_error: 'Оберіть спосіб оплати'
+  }),
+  notes: z.string()
+    .optional()
+    .refine((val) => {
+      if (!val || val.trim() === '') return true
+      return val.length <= 500
+    }, 'Повідомлення занадто довге'),
+  privacyConsent: z.boolean()
+    .refine((val) => val === true, 'Необхідно підтвердити згоду на обробку даних')
+});
+
+type FormData = z.infer<typeof subscribeFormSchema>;
 
 interface SubscribeFormHomeProps {
   defaultPlan?: 'mini' | 'maxi';
@@ -26,7 +50,7 @@ interface SubscribeFormHomeProps {
 function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
   const [sent, setSent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [cardNumber] = useState('5408 8100 4185 0776'); // Номер карты для перевода
+  const [cardNumber] = useState('4149 4993 5699 6777'); // Номер карты для перевода
   const [cardCopied, setCardCopied] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [uploadPreview, setUploadPreview] = useState<string | null>(null);
@@ -44,7 +68,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
   };
 
   // Функция обработки загрузки файла
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (e: { target: { files?: FileList } }) => {
     const file = e.target.files?.[0];
     if (file) {
       // Проверяем тип файла
@@ -84,11 +108,15 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
   const {
     register, handleSubmit, formState: { errors }, watch, setValue, trigger
   } = useForm<FormData>({
+    resolver: zodResolver(subscribeFormSchema),
     mode: 'onChange',
     defaultValues: {
       subscription_type: defaultPlan || "mini",
       payment_method: "Онлайн оплата",
       phone: "+380",
+      social: "",
+      notes: "",
+      privacyConsent: false
     }
   });
 
@@ -123,7 +151,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
   }, [searchParams, setValue, defaultPlan]);
 
   // авто-префікс + маска для UA
-  const onPhoneInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onPhoneInput = (e: { currentTarget: { value: string } }) => {
     let v = e.currentTarget.value.replace(/\s+/g, "");
     if (!v.startsWith("+380")) v = "+380";
     // Разрешаем только + и цифры, ограничим до +380 + 9 цифр
@@ -264,10 +292,10 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
           </p>
           <div className="mt-4 inline-flex items-center gap-4 text-base">
             <span className="inline-flex items-center gap-2 rounded-[var(--radius-lg)] bg-[var(--success)]/10 px-4 py-2 text-[var(--success)]">
-              Mini — 300 ₴/міс
+              Mini — 300 ₴/міс (1 книга)
             </span>
             <span className="inline-flex items-center gap-2 rounded-[var(--radius-lg)] bg-[var(--brand)]/10 px-4 py-2 text-[var(--accent)]">
-              Maxi — 500 ₴/міс
+              Maxi — 500 ₴/міс (2 книги)
             </span>
           </div>
         </div>
@@ -277,11 +305,11 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
             {/* Основные поля в компактном виде */}
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="name" className="label">
+                <label htmlFor="name" className="label font-semibold">
                   Ім&apos;я та прізвище *
                 </label>
                 <input
-                  {...register("name")}
+                  {...register("name", { required: "Ім'я обов'язкове" })}
                   id="name"
                   type="text"
                   className="field"
@@ -293,7 +321,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
               </div>
 
               <div>
-                <label htmlFor="phone" className="label">
+                <label htmlFor="phone" className="label font-semibold">
                   Телефон *
                 </label>
                 <input
@@ -314,11 +342,11 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
 
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="email" className="label">
+                <label htmlFor="email" className="label font-semibold">
                   Email *
                 </label>
                 <input
-                  {...register("email")}
+                  {...register("email", { required: "Email обов'язковий" })}
                   id="email"
                   type="email"
                   className="field"
@@ -330,15 +358,15 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
               </div>
 
               <div>
-                <label htmlFor="social" className="label">
-                  Нік в Telegram/Instagram *
+                <label htmlFor="social" className="label font-semibold">
+                  Нік в Telegram/Instagram
                 </label>
                 <input
                   {...register("social")}
                   id="social"
                   type="text"
                   className="field"
-                  placeholder="@username"
+                  placeholder="@username (опціонально)"
                 />
                 {errors.social && (
                   <p className="help is-error">{errors.social.message}</p>
@@ -348,7 +376,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
 
             {/* План подписки */}
             <div>
-              <label className="label">
+              <label className="label font-semibold">
                 План підписки *
               </label>
               <div className="grid grid-cols-2 gap-3">
@@ -372,6 +400,9 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
                       </p>
                       <p className={`tiny ${watch("subscription_type") === 'mini' ? 'text-[var(--success)]' : 'text-[var(--text-muted)]'}`}>
                         300 ₴/міс
+                      </p>
+                      <p className={`tiny ${watch("subscription_type") === 'mini' ? 'text-[var(--success)]' : 'text-[var(--text-muted)]'}`}>
+                        1 книга одночасно
                       </p>
                     </div>
                   </div>
@@ -398,6 +429,9 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
                       <p className={`tiny ${watch("subscription_type") === 'maxi' ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}`}>
                         500 ₴/міс
                       </p>
+                      <p className={`tiny ${watch("subscription_type") === 'maxi' ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'}`}>
+                        2 книги одночасно
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -407,7 +441,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
 
             {/* Способ оплаты */}
             <div>
-              <label className="block text-body font-semibold text-neutral-700 mb-2">
+              <label className="label font-semibold">
                 Спосіб оплати *
               </label>
               <div className="grid grid-cols-2 gap-3">
@@ -506,7 +540,11 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
                         type="file"
                         id="screenshot"
                         accept="image/*"
-                        onChange={handleFileUpload}
+                        onChange={(e) => {
+                          if (e.target.files) {
+                            handleFileUpload({ target: { files: e.target.files } });
+                          }
+                        }}
                         className="hidden"
                       />
                       <label
@@ -580,7 +618,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
 
             {/* Дополнительная информация */}
             <div>
-              <label htmlFor="notes" className="label">
+              <label htmlFor="notes" className="label font-semibold">
                 Додаткова інформація (опціонально)
               </label>
               <textarea
@@ -592,10 +630,31 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
               />
             </div>
 
+            {/* Согласие на обработку данных */}
+            <div className="flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="privacyConsent"
+                {...register("privacyConsent", { required: true })}
+                className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              />
+              <label htmlFor="privacyConsent" className="text-sm text-gray-600 leading-relaxed">
+                Я погоджуюся з обробкою моїх персональних даних відповідно до{' '}
+                <Link href="/privacy" className="text-blue-600 hover:text-blue-800 underline">
+                  політики конфіденційності
+                </Link>
+                {errors.privacyConsent && (
+                  <span className="text-red-600 text-xs mt-1 block">
+                    Необхідно підтвердити згоду на обробку даних
+                  </span>
+                )}
+              </label>
+            </div>
+
             {/* Кнопка отправки */}
             <Button
               type="submit"
-              disabled={isSubmitting || !watch("subscription_type") || !watch("payment_method")}
+              disabled={isSubmitting || !watch("name") || !watch("phone") || !watch("email") || !watch("subscription_type") || !watch("payment_method") || !watch("privacyConsent")}
               className="btn btn-primary btn-lg btn-block"
             >
               {isSubmitting ? 'Відправляємо...' : 'Оформити підписку'}

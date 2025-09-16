@@ -206,7 +206,7 @@ function RentalSuccessContent() {
 										</div>
 										<div>
 											<p className="font-semibold text-neutral-900">Телефон</p>
-											<p className="text-neutral-600">+38 (063) 856-54-14</p>
+											<p className="text-neutral-600">+38 (073) 408 56 60</p>
 											<p className="text-caption text-neutral-500">Пн-Пт: 9:00-18:00</p>
 										</div>
 									</div>

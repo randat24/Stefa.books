@@ -127,7 +127,7 @@
 
   /* BookCard стили */
   .book-card {
-    @apply relative bg-card rounded-xl hover:shadow-lg transition-all duration-300 overflow-hidden border border-line h-full flex flex-col hover:-translate-y-1;
+    @apply relative rounded-xl hover:shadow-lg transition-all duration-300 overflow-hidden border border-line h-full flex flex-col hover:-translate-y-1;
     min-height: 400px;
   }
 
@@ -197,6 +197,7 @@
   .btn-primary {
     background: linear-gradient(135deg, var(--brand) 0%, #E0AE22 100%);
     color: #111827;
+    border-radius: var(--radius-xl);
     box-shadow: 
       0 4px 14px rgba(247, 201, 72, 0.3),
       0 2px 4px rgba(0, 0, 0, 0.1),
@@ -238,6 +239,7 @@
     background: var(--surface);
     color: var(--text);
     border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-sm);
   }
   
@@ -245,11 +247,13 @@
     background: transparent;
     color: var(--accent);
     border: 1.5px solid var(--accent);
+    border-radius: var(--radius-xl);
   }
   
   .btn-ghost {
     background: transparent;
-		color: var(--text);
+    color: var(--text);
+    border-radius: var(--radius-xl);
   }
   
   .btn-sm { padding: 12px 16px; font-size: 0.9rem; }
@@ -368,9 +372,18 @@
 		}
 	}
 	
-	/* Утилиты для отступов */
+  /* Утилиты для отступов */
 	.gap-fluid {
     gap: clamp(1rem, 2vw, 2rem);
+	}
+
+	/* Утилиты для цветов */
+	.bg-brand {
+		background-color: var(--brand);
+	}
+
+	.text-small {
+		font-size: var(--fs-small);
 	}
 	
 	.p-fluid {

@@ -1,8 +1,8 @@
 "use client";
 
-import { Truck, MapPin, Package, Clock, CheckCircle } from "lucide-react";
+import { Truck, MapPin, Clock, CheckCircle } from "lucide-react";
 
-type DeliveryMethod = "courier" | "pickup" | "post";
+type DeliveryMethod = "courier" | "pickup";
 
 interface DeliveryOption {
   id: DeliveryMethod;
@@ -41,19 +41,6 @@ const deliveryOptions: DeliveryOption[] = [
       "SMS повідомлення про готовність"
     ]
   },
-  {
-    id: "post",
-    name: "Нова Пошта",
-    description: "Відправимо на відділення Нової Пошти",
-    icon: <Package className="h-6 w-6" />,
-    timeframe: "1-3 робочих дні",
-    price: "Безкоштовно",
-    features: [
-      "Доставка в будь-яке місто України",
-      "Більше 9000 відділень",
-      "SMS повідомлення про доставку"
-    ]
-  }
 ];
 
 interface DeliveryMethodSelectorProps {

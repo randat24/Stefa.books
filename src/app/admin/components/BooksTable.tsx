@@ -103,7 +103,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
     }
   }
 
-  function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleSearchChange(e: { target: { value: string } }) {
     setSearchTerm(e.target.value)
     setCurrentPage(1) // Скидаємо на першу сторінку при пошуку
   }
@@ -196,8 +196,8 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
         <CardHeader className="pb-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-neutral-900 rounded-xl flex items-center justify-center">
-                <BookOpen className="size-6 text-neutral-0" />
+              <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
+                <BookOpen className="size-6 text-amber-600" />
               </div>
               <div>
                 <CardTitle className="text-body-lg text-neutral-900">Управління книгами</CardTitle>
@@ -330,7 +330,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {paginatedBooks.map((book, index) => (
+                  {paginatedBooks.map((book: BookRow, index: number) => (
                     <TableRow 
                       key={book.id} 
                       className={`group hover:bg-neutral-50 transition-all duration-200 border-b border-neutral-100 ${
@@ -498,27 +498,27 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
 
                       {/* Дії */}
                       <TableCell className="w-44 bg-neutral-50 p-4">
-                        <div className="flex items-center justify-center gap-2">
+                        <div className="flex items-center justify-center gap-1.5">
                           <button
-                            className="group w-9 h-9 rounded-xl bg-neutral-600 text-neutral-0 hover:bg-neutral-700 transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 hover:-translate-y-0.5"
+                            className="group w-8 h-8 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-md hover:scale-105 active:scale-95"
                             onClick={() => handleViewBook(book)}
                             title="Переглянути деталі"
                           >
-                            <Eye className="size-4 group-hover:scale-110 transition-transform" />
+                            <Eye className="size-3.5" />
                           </button>
                           <button
-                            className="group w-9 h-9 rounded-xl bg-neutral-500 text-neutral-0 hover:bg-neutral-600 transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 hover:-translate-y-0.5"
+                            className="group w-8 h-8 rounded-lg bg-amber-500 text-white hover:bg-amber-600 transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-md hover:scale-105 active:scale-95"
                             onClick={() => handleEditBook(book)}
                             title="Редагувати"
                           >
-                            <Edit className="size-4 group-hover:scale-110 transition-transform" />
+                            <Edit className="size-3.5" />
                           </button>
                           <button
-                            className="group w-9 h-9 rounded-xl bg-neutral-800 text-neutral-0 hover:bg-neutral-900 transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl hover:scale-110 hover:-translate-y-0.5"
+                            className="group w-8 h-8 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow-md hover:scale-105 active:scale-95"
                             onClick={() => handleDeleteBook(book)}
                             title="Видалити"
                           >
-                            <Trash2 className="size-4 group-hover:scale-110 transition-transform" />
+                            <Trash2 className="size-3.5" />
                           </button>
                         </div>
                       </TableCell>

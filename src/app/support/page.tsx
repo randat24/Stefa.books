@@ -21,7 +21,7 @@ const supportChannels = [
     icon: Phone,
     title: "Телефонна підтримка",
     description: "Швидка допомога по телефону",
-    contact: "+38 (063) 856-54-14",
+    contact: "+38 (073) 408 56 60",
     availability: "Пн-Пт: 9:00-18:00"
   },
   {
@@ -178,7 +178,7 @@ export default function SupportPage() {
                 Зв&apos;язатися з нами
               </a>
               <a
-                href="tel:+380638565414"
+                href="tel:+380734085660"
                 className="inline-block w-full border border-amber-600 text-amber-600 py-2 px-4 rounded-lg hover:bg-amber-50 transition-colors text-center"
               >
                 Подзвонити

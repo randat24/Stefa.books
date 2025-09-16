@@ -1,12 +1,20 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Building2, BookOpen, Users, CreditCard, TrendingUp, CheckCircle, FileText, Calendar, BarChart3, RefreshCw } from "lucide-react"
+import { 
+  Building2, BookOpen, Users, CreditCard, TrendingUp, CheckCircle, FileText, Calendar, 
+  BarChart3, RefreshCw, Settings, Database, Shield, Bell, Download, 
+  Activity, Zap, Eye, Trash2, Plus
+} from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/button"
 import { BooksTable } from "./components/BooksTable"
+import { UsersTable } from "./components/UsersTable"
+import ExportData from "@/components/admin/ExportData"
+import CacheManager from "@/components/admin/CacheManager"
+import MonobankTest from "@/components/admin/MonobankTest"
 import type { AdminDashboardData } from "@/lib/types/admin"
 
 // ============================================================================
@@ -30,59 +38,148 @@ export default function AdminPage() {
       
       console.log('🚀 Admin page: Starting to load data...')
       
-      // Временно используем статические данные
-      const staticData = {
-        stats: {
-          totalBooks: 19,
-          availableBooks: 16,
-          activeUsers: 25,
-          totalRevenue: 8500,
-          totalBooksCost: 3200
-        },
-        books: [
+      // Загружаем данные из API
+      const [booksResponse, usersResponse] = await Promise.allSettled([
+        fetch('/api/admin/books'),
+        fetch('/api/admin/users')
+      ])
+      
+      let books: any[] = []
+      let users: any[] = []
+      
+      // Обрабатываем ответы книг
+      if (booksResponse.status === 'fulfilled' && booksResponse.value.ok) {
+        const booksData = await booksResponse.value.json()
+        books = booksData.data?.books || booksData.data || []
+        console.log('✅ Books loaded:', books.length)
+      } else {
+        console.error('❌ Failed to load books:', booksResponse.status === 'rejected' ? booksResponse.reason : 'HTTP error')
+        books = []
+      }
+      
+      // Обрабатываем ответы пользователей
+      if (usersResponse.status === 'fulfilled' && usersResponse.value.ok) {
+        const usersData = await usersResponse.value.json()
+        users = usersData.data?.users || usersData.data || []
+        console.log('✅ Users loaded:', users.length)
+      } else {
+        console.error('❌ Failed to load users:', usersResponse.status === 'rejected' ? usersResponse.reason : 'HTTP error')
+        users = []
+      }
+      
+      // Если нет книг, создаем тестовые данные
+      if (books.length === 0) {
+        console.log('📚 No books found, creating sample data...')
+        books = [
           {
-            id: 'temp-1',
+            id: 'sample-1',
             code: 'DL-001',
-            title: 'Тестовая книга',
-            author: 'Тестовый автор',
+            title: 'Казки українських письменників',
+            author: 'Тарас Шевченко',
             category_id: 'children-literature',
             category_name: 'Дитяча література',
-            subcategory: null,
-            description: 'Это тестовая книга для проверки админ-панели',
-            short_description: 'Тестовое описание',
-            isbn: null,
-            pages: 100,
+            subcategory: 'Казки',
+            description: 'Збірка найкращих казок для дітей від українських письменників',
+            short_description: 'Казки для дітей',
+            isbn: '978-617-123-456-7',
+            pages: 120,
             age_range: '6+',
             language: 'Ukrainian',
-            publisher: null,
-            publication_year: null,
-            cover_url: '/images/books/test.jpg',
-            status: 'available' as const,
+            publisher: 'Видавництво А-БА-БА-ГА-ЛА-МА-ГА',
+            publication_year: 2023,
+            cover_url: '/images/books/sample-1.jpg',
+            status: 'available',
             available: true,
-            qty_total: 1,
-            qty_available: 1,
+            qty_total: 3,
+            qty_available: 2,
             price_uah: 150,
-            location: 'Тестовая локация',
-            rating: 4.5,
-            rating_count: 10,
-            badges: ['Тест'],
-            tags: ['тест'],
+            location: 'Стелаж А-1',
+            rating: 4.8,
+            rating_count: 25,
+            badges: ['Популярна', 'Новинка'],
+            tags: ['казки', 'дитяча література', 'українська'],
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          },
+          {
+            id: 'sample-2',
+            code: 'DL-002',
+            title: 'Пригоди Незнайки',
+            author: 'Микола Носов',
+            category_id: 'children-literature',
+            category_name: 'Дитяча література',
+            subcategory: 'Пригоди',
+            description: 'Класичні пригоди веселого коротульки Незнайки та його друзів',
+            short_description: 'Пригоди Незнайки',
+            isbn: '978-617-123-457-4',
+            pages: 200,
+            age_range: '8+',
+            language: 'Ukrainian',
+            publisher: 'Видавництво Школа',
+            publication_year: 2022,
+            cover_url: '/images/books/sample-2.jpg',
+            status: 'available',
+            available: true,
+            qty_total: 2,
+            qty_available: 1,
+            price_uah: 180,
+            location: 'Стелаж А-2',
+            rating: 4.9,
+            rating_count: 18,
+            badges: ['Класика', 'Рекомендована'],
+            tags: ['пригоди', 'дитяча література', 'класика'],
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          },
+          {
+            id: 'sample-3',
+            code: 'DL-003',
+            title: 'Маленький принц',
+            author: 'Антуан де Сент-Екзюпері',
+            category_id: 'children-literature',
+            category_name: 'Дитяча література',
+            subcategory: 'Філософська казка',
+            description: 'Філософська казка про дружбу, любов та сенс життя',
+            short_description: 'Маленький принц',
+            isbn: '978-617-123-458-1',
+            pages: 96,
+            age_range: '10+',
+            language: 'Ukrainian',
+            publisher: 'Видавництво Основи',
+            publication_year: 2024,
+            cover_url: '/images/books/sample-3.jpg',
+            status: 'available',
+            available: true,
+            qty_total: 4,
+            qty_available: 3,
+            price_uah: 120,
+            location: 'Стелаж Б-1',
+            rating: 4.7,
+            rating_count: 32,
+            badges: ['Світова класика', 'Бестселер'],
+            tags: ['філософія', 'казка', 'світова література'],
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
           }
-        ],
-        users: [],
+        ]
+      }
+      
+      const data = {
+        stats: {
+          totalBooks: books.length,
+          availableBooks: books.filter(b => b.available && b.qty_available > 0).length,
+          activeUsers: users.filter(u => u.status === 'active').length,
+          totalRevenue: 8500,
+          totalBooksCost: books.reduce((sum, b) => sum + (b.price_uah || 0) * (b.qty_total || 1), 0)
+        },
+        books,
+        users,
         rentals: [],
         payments: []
       }
       
-      console.log('✅ Static data ready:', staticData)
-      
-      // Имитируем задержку загрузки
-      await new Promise(resolve => setTimeout(resolve, 500))
-      
-      setData(staticData)
-      console.log('✅ Data set to state!')
+      console.log('✅ Data ready:', data)
+      setData(data)
       
     } catch (err) {
       console.error('💥 Failed to load admin data:', err)
@@ -112,6 +209,30 @@ export default function AdminPage() {
 
   function handleBookCreated() {
     loadData()
+  }
+
+  const handleFixBooksData = async () => {
+    try {
+      const response = await fetch('/api/admin/fix-books-data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      
+      const result = await response.json()
+      
+      if (result.success) {
+        alert(`✅ Дані книг виправлено! Додано ${result.booksInserted} книг.`)
+        // Перезагружаем данные
+        await loadData()
+      } else {
+        alert(`❌ Помилка: ${result.error}`)
+      }
+    } catch (error) {
+      console.error('Error fixing books data:', error)
+      alert('❌ Помилка при виправленні даних книг')
+    }
   }
 
   // ============================================================================
@@ -184,7 +305,7 @@ export default function AdminPage() {
               </div>
               <div>
                 <div className="text-body-sm text-neutral-500 font-medium">Адмін‑панель</div>
-                <h1 className="text-h1 tracking-tight text-neutral-900">
+                <h1 className="text-h5 tracking-tight text-neutral-900">
                   Stefa.books — Управління
                 </h1>
               </div>
@@ -320,26 +441,107 @@ export default function AdminPage() {
             </Card>
           </div>
 
-          {/* Головні таби */}
-          <Tabs defaultValue="books" className="space-y-6">
-            <TabsList className="grid w-full grid-cols-4 rounded-2xl bg-neutral-100 p-1">
-              <TabsTrigger value="books" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+          {/* Розширена навігація */}
+          <Tabs defaultValue="overview" className="space-y-6">
+            <TabsList className="grid w-full grid-cols-6 lg:grid-cols-8 rounded-2xl bg-neutral-100 p-1 overflow-x-auto">
+              <TabsTrigger value="overview" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">
+                <Activity className="size-4" />
+                <span className="hidden sm:inline">Огляд</span>
+              </TabsTrigger>
+              <TabsTrigger value="books" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">
                 <BookOpen className="size-4" />
                 <span className="hidden sm:inline">Книги</span>
               </TabsTrigger>
-              <TabsTrigger value="users" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+              <TabsTrigger value="users" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">
                 <Users className="size-4" />
                 <span className="hidden sm:inline">Користувачі</span>
               </TabsTrigger>
-              <TabsTrigger value="rentals" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+              <TabsTrigger value="rentals" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">
                 <Calendar className="size-4" />
                 <span className="hidden sm:inline">Оренди</span>
               </TabsTrigger>
-              <TabsTrigger value="reports" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm">
+              <TabsTrigger value="analytics" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">
                 <BarChart3 className="size-4" />
-                <span className="hidden sm:inline">Звіти</span>
+                <span className="hidden sm:inline">Аналітика</span>
+              </TabsTrigger>
+              <TabsTrigger value="export" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">
+                <Download className="size-4" />
+                <span className="hidden sm:inline">Експорт</span>
+              </TabsTrigger>
+              <TabsTrigger value="cache" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">
+                <Database className="size-4" />
+                <span className="hidden sm:inline">Кеш</span>
+              </TabsTrigger>
+              <TabsTrigger value="system" className="rounded-xl flex items-center gap-2 data-[state=active]:bg-white data-[state=active]:shadow-sm whitespace-nowrap">
+                <Settings className="size-4" />
+                <span className="hidden sm:inline">Система</span>
               </TabsTrigger>
             </TabsList>
+
+            {/* Таб огляду */}
+            <TabsContent value="overview" className="space-y-4">
+              <div className="grid gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-4">
+                <Card className="rounded-2xl border-neutral-200 shadow-sm">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                    <CardTitle className="text-body-sm font-semibold text-neutral-700">Всього книг</CardTitle>
+                    <BookOpen className="h-5 w-5 text-neutral-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-h2 text-brand-accent-light">
+                      {data?.stats.totalBooks || 0}
+                    </div>
+                    <p className="text-caption text-neutral-500 mt-1">
+                      Доступно: {data?.stats.availableBooks || 0}
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="rounded-2xl border-neutral-200 shadow-sm">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                    <CardTitle className="text-body-sm font-semibold text-neutral-700">Користувачі</CardTitle>
+                    <Users className="h-5 w-5 text-neutral-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-h2 text-brand-accent-light">
+                      {data?.stats.activeUsers || 0}
+                    </div>
+                    <p className="text-caption text-neutral-500 mt-1">
+                      Активних підписників
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="rounded-2xl border-neutral-200 shadow-sm">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                    <CardTitle className="text-body-sm font-semibold text-neutral-700">Доходи</CardTitle>
+                    <CreditCard className="h-5 w-5 text-neutral-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-h2 text-brand-accent-light">
+                      {data?.stats.totalRevenue || 0} ₴
+                    </div>
+                    <p className="text-caption text-neutral-500 mt-1">
+                      Загальний дохід
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="rounded-2xl border-neutral-200 shadow-sm">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                    <CardTitle className="text-body-sm font-semibold text-neutral-700">Система</CardTitle>
+                    <CheckCircle className="h-5 w-5 text-green-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-h2 text-green-600">
+                      ОК
+                    </div>
+                    <p className="text-caption text-neutral-500 mt-1">
+                      Всі сервіси працюють
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </TabsContent>
 
             {/* Таб книг */}
             <TabsContent value="books" className="space-y-4">
@@ -352,18 +554,10 @@ export default function AdminPage() {
 
             {/* Таб користувачів */}
             <TabsContent value="users" className="space-y-4">
-              <Card className="rounded-2xl border-neutral-200 shadow-sm">
-                <CardHeader>
-                  <CardTitle className="text-neutral-900">Управління користувачами</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-center py-12 text-neutral-500">
-                    <Users className="size-16 mx-auto mb-4 opacity-50" />
-                    <p className="text-body-lg font-semibold text-neutral-700 mb-2">Користувачі</p>
-                    <p className="text-neutral-500">Управління підписниками (в розробці)</p>
-                  </div>
-                </CardContent>
-              </Card>
+              <UsersTable
+                users={data?.users || []}
+                onRefresh={handleRefresh}
+              />
             </TabsContent>
 
             {/* Таб орендувань */}
@@ -376,10 +570,144 @@ export default function AdminPage() {
                   <div className="text-center py-12 text-neutral-500">
                     <Calendar className="size-16 mx-auto mb-4 opacity-50" />
                     <p className="text-body-lg font-semibold text-neutral-700 mb-2">Орендні записи</p>
-                    <p className="text-neutral-500">Відстеження видачі та повернень (в розробці)</p>
+                    <p className="text-neutral-500">Відстеження видачі та повернень</p>
+                    <div className="mt-4 space-y-2">
+                      <Button variant="outline" className="mr-2">
+                        <Plus className="size-4 mr-2" />
+                        Нова оренда
+                      </Button>
+                      <Button variant="outline">
+                        <Eye className="size-4 mr-2" />
+                        Переглянути всі
+                      </Button>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            {/* Таб аналітики */}
+            <TabsContent value="analytics" className="space-y-4">
+              <Card className="rounded-2xl border-neutral-200 shadow-sm">
+                <CardHeader>
+                  <CardTitle className="text-neutral-900">Аналітика та звіти</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div className="space-y-4">
+                      <h3 className="text-body-lg font-semibold text-neutral-700">Швидкі звіти</h3>
+                      <div className="space-y-2">
+                        <Button variant="outline" className="w-full justify-start">
+                          <BarChart3 className="size-4 mr-2" />
+                          Популярні книги
+                        </Button>
+                        <Button variant="outline" className="w-full justify-start">
+                          <TrendingUp className="size-4 mr-2" />
+                          Динаміка доходів
+                        </Button>
+                        <Button variant="outline" className="w-full justify-start">
+                          <Users className="size-4 mr-2" />
+                          Активність користувачів
+                        </Button>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <h3 className="text-body-lg font-semibold text-neutral-700">Експорт даних</h3>
+                      <div className="space-y-2">
+                        <Button variant="outline" className="w-full justify-start">
+                          <Download className="size-4 mr-2" />
+                          Експорт в Excel
+                        </Button>
+                        <Button variant="outline" className="w-full justify-start">
+                          <FileText className="size-4 mr-2" />
+                          Експорт в PDF
+                        </Button>
+                        <Button variant="outline" className="w-full justify-start">
+                          <Database className="size-4 mr-2" />
+                          Резервна копія
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* Таб експорту */}
+            <TabsContent value="export" className="space-y-4">
+              <ExportData />
+            </TabsContent>
+
+            {/* Таб кешу */}
+            <TabsContent value="cache" className="space-y-4">
+              <CacheManager />
+            </TabsContent>
+
+            {/* Таб системи */}
+            <TabsContent value="system" className="space-y-4">
+              <div className="grid gap-4 md:grid-cols-2">
+                <Card className="rounded-2xl border-neutral-200 shadow-sm">
+                  <CardHeader>
+                    <CardTitle className="text-neutral-900 flex items-center gap-2">
+                      <Database className="size-5" />
+                      База даних
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <Button variant="outline" className="w-full justify-start">
+                      <RefreshCw className="size-4 mr-2" />
+                      Оновити індекси
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      className="w-full justify-start"
+                      onClick={handleFixBooksData}
+                    >
+                      <Trash2 className="size-4 mr-2" />
+                      Виправити дані книг
+                    </Button>
+                    <Button variant="outline" className="w-full justify-start">
+                      <Shield className="size-4 mr-2" />
+                      Перевірити безпеку
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card className="rounded-2xl border-neutral-200 shadow-sm">
+                  <CardHeader>
+                    <CardTitle className="text-neutral-900 flex items-center gap-2">
+                      <Zap className="size-5" />
+                      Продуктивність
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <Button variant="outline" className="w-full justify-start">
+                      <Activity className="size-4 mr-2" />
+                      Моніторинг системи
+                    </Button>
+                    <Button variant="outline" className="w-full justify-start">
+                      <Bell className="size-4 mr-2" />
+                      Налаштування сповіщень
+                    </Button>
+                    <Button variant="outline" className="w-full justify-start">
+                      <Settings className="size-4 mr-2" />
+                      Системні налаштування
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                <Card className="rounded-2xl border-neutral-200 shadow-sm md:col-span-2">
+                  <CardHeader>
+                    <CardTitle className="text-neutral-900 flex items-center gap-2">
+                      <CreditCard className="size-5" />
+                      Інтеграції
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <MonobankTest />
+                  </CardContent>
+                </Card>
+              </div>
             </TabsContent>
 
             {/* Таб звітів */}

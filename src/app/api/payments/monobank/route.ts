@@ -152,8 +152,8 @@ export async function GET(request: NextRequest) {
       status: statusResult.data!.status,
       amount: statusResult.data!.amount / 100, // Конвертуємо з копійок в гривні
       currency: statusResult.data!.ccy === 980 ? 'UAH' : 'OTHER',
-      created_at: new Date(statusResult.data!.createdDate * 1000).toISOString(),
-      modified_at: new Date(statusResult.data!.modifiedDate * 1000).toISOString(),
+      created_at: (statusResult.data!.createdDate && statusResult.data!.createdDate > 0) ? new Date(statusResult.data!.createdDate * 1000).toISOString() : new Date().toISOString(),
+      modified_at: (statusResult.data!.modifiedDate && statusResult.data!.modifiedDate > 0) ? new Date(statusResult.data!.modifiedDate * 1000).toISOString() : new Date().toISOString(),
       reference: statusResult.data!.reference
     };
 

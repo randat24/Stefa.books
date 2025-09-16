@@ -55,15 +55,11 @@ export default function HeroStepsCard() {
 
   return (
     <aside className="card relative mx-auto max-w-md md:ml-0 md:max-w-none lg:ml-auto lg:max-w-md xl:mr-[-1.2rem] 2xl:mr-[0.3rem]">
-      {/* Заголовок с ценами */}
-      <div className="text-center border-b border-[var(--line)] p-3">
-        <h3 className="text-xl font-semibold mb-2">
+      {/* Заголовок */}
+      <div className="text-center border-b border-[var(--line)] px-4 pt-3 pb-4">
+        <h3 className="text-lg font-bold text-neutral-900 leading-tight">
           Як почати читати
         </h3>
-        <div className="inline-flex items-center gap-2 rounded-full bg-[#FFFBEB] border border-[#FCD34D] px-4 py-2 text-sm font-medium text-[#D97706]">
-          <Wallet className="size-3 text-[#D97706]" />
-          <span>Mini 300₴ • Maxi 500₴</span>
-        </div>
       </div>
 
       {/* Timeline Steps */}

@@ -155,10 +155,10 @@ export default function FAQPage() {
                 Зв&apos;язатися з нами
               </a>
               <a
-                href="tel:+380638565414"
+                href="tel:+380734085660"
                 className="inline-flex items-center px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors duration-200"
               >
-                +38 (063) 856-54-14
+                +38 (073) 408 56 60
               </a>
             </div>
           </div>
