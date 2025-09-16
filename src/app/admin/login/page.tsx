@@ -156,7 +156,7 @@ export default function AdminLoginPage() {
             <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
               <p className="text-body-sm font-medium text-blue-800">Тестові дані для входу:</p>
               <p className="text-caption text-blue-600 mt-1">
-                Email: <span className="font-mono">admin@stefabooks.com.ua</span>
+                Email: <span className="font-mono">admin@stefa-books.com.ua</span>
               </p>
               <p className="text-caption text-blue-600">
                 Password: <span className="font-mono">oqP_Ia5VMO2wy46p</span>

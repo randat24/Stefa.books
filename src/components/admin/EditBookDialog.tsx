@@ -25,8 +25,8 @@ import {
   Tag, 
   Hash, 
   CreditCard, 
-  MapPin, 
-  Save,
+  MapPin,
+  Check,
   X
 } from 'lucide-react'
 import type { BookRow } from '@/lib/types/admin'
@@ -42,7 +42,7 @@ interface BookFormData {
   code: string
   title: string
   author: string
-  category_id: string | null
+  category: string | null
   category_name: string
   subcategory: string
   description: string
@@ -69,7 +69,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
     code: '',
     title: '',
     author: '',
-    category_id: null,
+    category: null,
     category_name: '',
     subcategory: '',
     description: '',
@@ -109,7 +109,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
         code: book.code || '',
         title: book.title || '',
         author: book.author || '',
-        category_id: book.category_id || null,
+        category: book.category_id || null,
         category_name: book.category_name || '',
         subcategory: book.subcategory || '',
         description: book.description || '',
@@ -156,12 +156,12 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
     const category = categories.find(cat => cat.id === categoryId)
     setFormData(prev => ({
       ...prev,
-      category_id: categoryId,
+      category: categoryId,
       category_name: category?.name || ''
     }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (!book) return
 
@@ -228,7 +228,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               <Input
                 id="code"
                 value={formData.code}
-                onChange={(e) => handleInputChange('code', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('code', e.target.value)}
                 placeholder="DL-001"
                 required
               />
@@ -242,7 +242,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               <Input
                 id="title"
                 value={formData.title}
-                onChange={(e) => handleInputChange('title', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('title', e.target.value)}
                 placeholder="Назва книги"
                 required
               />
@@ -258,7 +258,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               <Input
                 id="author"
                 value={formData.author}
-                onChange={(e) => handleInputChange('author', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('author', e.target.value)}
                 placeholder="Ім'я автора"
                 required
               />
@@ -270,7 +270,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
                 Категорія
               </Label>
               <Select
-                value={formData.category_id || ''}
+                value={formData.category || ''}
                 onValueChange={handleCategoryChange}
               >
                 <SelectTrigger>
@@ -293,7 +293,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
             <Textarea
               id="description"
               value={formData.description}
-              onChange={(e) => handleInputChange('description', e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleInputChange('description', e.target.value)}
               placeholder="Повний опис книги"
               rows={3}
             />
@@ -304,7 +304,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
             <Textarea
               id="short_description"
               value={formData.short_description}
-              onChange={(e) => handleInputChange('short_description', e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleInputChange('short_description', e.target.value)}
               placeholder="Короткий опис для картки"
               rows={2}
             />
@@ -317,7 +317,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               <Input
                 id="isbn"
                 value={formData.isbn}
-                onChange={(e) => handleInputChange('isbn', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('isbn', e.target.value)}
                 placeholder="978-0-123456-78-9"
               />
             </div>
@@ -328,7 +328,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
                 id="pages"
                 type="number"
                 value={formData.pages || ''}
-                onChange={(e) => handleInputChange('pages', e.target.value ? parseInt(e.target.value) : null)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('pages', e.target.value ? parseInt(e.target.value) : null)}
                 placeholder="200"
               />
             </div>
@@ -338,7 +338,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               <Input
                 id="age_range"
                 value={formData.age_range}
-                onChange={(e) => handleInputChange('age_range', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('age_range', e.target.value)}
                 placeholder="6+"
               />
             </div>
@@ -350,7 +350,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               <Input
                 id="publisher"
                 value={formData.publisher}
-                onChange={(e) => handleInputChange('publisher', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('publisher', e.target.value)}
                 placeholder="Назва видавництва"
               />
             </div>
@@ -361,7 +361,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
                 id="publication_year"
                 type="number"
                 value={formData.publication_year || ''}
-                onChange={(e) => handleInputChange('publication_year', e.target.value ? parseInt(e.target.value) : null)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('publication_year', e.target.value ? parseInt(e.target.value) : null)}
                 placeholder="2024"
               />
             </div>
@@ -376,7 +376,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
                 type="number"
                 min="1"
                 value={formData.qty_total}
-                onChange={(e) => handleInputChange('qty_total', parseInt(e.target.value) || 1)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('qty_total', parseInt(e.target.value) || 1)}
                 required
               />
             </div>
@@ -388,7 +388,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
                 type="number"
                 min="0"
                 value={formData.qty_available}
-                onChange={(e) => handleInputChange('qty_available', parseInt(e.target.value) || 0)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('qty_available', parseInt(e.target.value) || 0)}
                 required
               />
             </div>
@@ -403,7 +403,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
                 type="number"
                 step="0.01"
                 value={formData.price_uah || ''}
-                onChange={(e) => handleInputChange('price_uah', e.target.value ? parseFloat(e.target.value) : null)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('price_uah', e.target.value ? parseFloat(e.target.value) : null)}
                 placeholder="150.00"
               />
             </div>
@@ -437,7 +437,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               <Input
                 id="location"
                 value={formData.location}
-                onChange={(e) => handleInputChange('location', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('location', e.target.value)}
                 placeholder="Полиця А-1"
               />
             </div>
@@ -449,7 +449,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
             <Input
               id="cover_url"
               value={formData.cover_url}
-              onChange={(e) => handleInputChange('cover_url', e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('cover_url', e.target.value)}
               placeholder="https://res.cloudinary.com/..."
             />
           </div>
@@ -468,7 +468,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               type="submit"
               disabled={loading}
             >
-              <Save className="size-4 mr-2" />
+              <Check className="size-4 mr-2" />
               {loading ? 'Збереження...' : 'Зберегти зміни'}
             </Button>
           </DialogFooter>

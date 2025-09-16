@@ -5,7 +5,7 @@ import { stringify } from 'csv-stringify/sync'
 // import { jwtVerify } from 'jose'
 import { logger } from '@/lib/logger'
 
-const JWT_SECRET = process.env.ADMIN_JWT_SECRET || 'fallback-secret'
+// const JWT_SECRET = process.env.ADMIN_JWT_SECRET || 'fallback-secret'
 
 export async function GET(request: NextRequest) {
   try {

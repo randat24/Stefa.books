@@ -2,7 +2,12 @@
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { Search, X, BookOpen, Loader2 } from 'lucide-react';
-import OptimizedBookCard from '@/components/OptimizedBookCard';
+import SimplifiedBookCard, { type SimplifiedBookCardProps } from '@/components/SimplifiedBookCard';
+
+// Wrapper component to handle the key prop
+const BookCardWrapper = ({ book, ...props }: SimplifiedBookCardProps & { key?: string }) => {
+  return <SimplifiedBookCard book={book} {...props} />;
+};
 import { fetchNewBooks, fetchCategories, getCategoriesFromBooks } from '@/lib/api/books';
 import type { Book } from '@/lib/supabase';
 
@@ -82,7 +87,7 @@ export function Catalog() {
         filtered = books.slice(0, 12);
       } else {
         filtered = filtered.filter(book => 
-          book.category_id === selectedCategory
+          book.category === selectedCategory
         );
       }
     }
@@ -93,7 +98,7 @@ export function Catalog() {
       filtered = filtered.filter(book => 
         book.title.toLowerCase().includes(query) ||
         book.author.toLowerCase().includes(query) ||
-        (book.category_id && book.category_id.toLowerCase().includes(query)) ||
+        (book.category && book.category.toLowerCase().includes(query)) ||
         (book.description && book.description.toLowerCase().includes(query))
       );
     }
@@ -144,26 +149,34 @@ export function Catalog() {
         
         {/* Категорії */}
         {!loading && categories.length > 0 && (
-          <div className="flex justify-center gap-3 mb-8 max-w-6xl mx-auto overflow-x-auto">
-            {categories.slice(0, 8).map((category) => {
-              return (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(selectedCategory === category ? '' : category)}
-                  className={`inline-flex items-center px-4 py-3 rounded-[var(--radius-lg)] border transition-all duration-200 whitespace-nowrap ${
-                    selectedCategory === category
-                      ? 'bg-[var(--accent)] text-[var(--surface)] border-[var(--accent)] shadow-lg'
-                      : 'bg-[var(--surface)] text-[var(--text)] border-[var(--line)] hover:border-[var(--text-muted)] hover:shadow-md'
-                  }`}
-                >
-                  <span className={`font-medium small whitespace-nowrap ${
-                    selectedCategory === category ? 'text-[var(--surface)]' : 'text-[var(--text)]'
-                  }`}>
-                    {category}
-                  </span>
-                </button>
-              );
-            })}
+          <div className="mb-8 max-w-6xl mx-auto">
+            <div className="flex gap-3 overflow-x-auto pb-2 px-2 scrollbar-thin scrollbar-thumb-[var(--line)] scrollbar-track-transparent hover:scrollbar-thumb-[var(--text-muted)]">
+              {categories.map((category) => {
+                return (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(selectedCategory === category ? '' : category)}
+                    className={`inline-flex items-center px-4 py-3 rounded-[var(--radius-lg)] border transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
+                      selectedCategory === category
+                        ? 'bg-[var(--accent)] text-[var(--surface)] border-[var(--accent)] shadow-lg'
+                        : 'bg-[var(--surface)] text-[var(--text)] border-[var(--line)] hover:border-[var(--text-muted)] hover:shadow-md'
+                    }`}
+                  >
+                    <span className={`font-medium small whitespace-nowrap ${
+                      selectedCategory === category ? 'text-[var(--surface)]' : 'text-[var(--text)]'
+                    }`}>
+                      {category}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            {/* Индикатор прокрутки */}
+            {categories.length > 6 && (
+              <div className="text-center mt-2">
+                <span className="text-xs text-[var(--text-muted)]">← прокрутіть для перегляду всіх категорій →</span>
+              </div>
+            )}
           </div>
         )}
       </header>
@@ -199,27 +212,34 @@ export function Catalog() {
       {!loading && !error && items.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {items.map((b) => (
-            <OptimizedBookCard key={b.id} book={b} />
+            <BookCardWrapper 
+              key={b.id} 
+              book={b} 
+              priorityLoading={false}
+            />
           ))}
         </div>
       )}
 
       {/* Пусто */}
       {!loading && !error && items.length === 0 && books && books.length > 0 && (
-        <div className="text-center py-12">
-          <p className="h3 text-[var(--text-muted)] mb-4">Книги не знайдені</p>
-          <p className="small text-[var(--text-muted)] mb-4">Спробуйте змінити пошуковий запит або обрати іншу категорію</p>
-          {(searchQuery || selectedCategory) && (
-            <button
-              onClick={() => {
-                setSearchQuery('');
-                setSelectedCategory('');
-              }}
-              className="btn btn-primary"
-            >
-              Скинути фільтри
-            </button>
-          )}
+        <div className="text-center py-16">
+          <div className="max-w-md mx-auto">
+            <BookOpen className="w-16 h-16 text-[var(--text-muted)] mx-auto mb-6" />
+            <h3 className="h3 text-[var(--text)] mb-4">Книги не знайдені</h3>
+            <p className="text-body text-[var(--text-muted)] mb-8">Спробуйте змінити пошуковий запит або обрати іншу категорію</p>
+            {(searchQuery || selectedCategory) && (
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedCategory('');
+                }}
+                className="btn btn-primary btn-lg"
+              >
+                Скинути фільтри
+              </button>
+            )}
+          </div>
         </div>
       )}
 
@@ -233,14 +253,18 @@ export function Catalog() {
       )}
       
       {/* Показуємо кількість знайдених книг */}
-      {(searchQuery || selectedCategory) && (
-        <div className="mt-8 text-center text-body-sm text-neutral-500">
-          Показано {items.length} з {filteredBooks.length} книг
-          {filteredBooks.length > 8 && (
-            <span className="block mt-2">
-              Переглядьте весь каталог для перегляду всіх результатів
+      {(searchQuery || selectedCategory) && items.length > 0 && (
+        <div className="mt-8 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[var(--surface)] border border-[var(--line)] rounded-[var(--radius-lg)] shadow-sm">
+            <span className="text-body-sm text-[var(--text)]">
+              Показано <span className="font-semibold text-[var(--accent)]">{items.length}</span> з <span className="font-semibold">{filteredBooks.length}</span> книг
             </span>
-          )}
+            {filteredBooks.length > 8 && (
+              <span className="text-xs text-[var(--text-muted)] ml-2">
+                • Перегляньте весь каталог для всіх результатів
+              </span>
+            )}
+          </div>
         </div>
       )}
     </section>

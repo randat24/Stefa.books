@@ -113,7 +113,7 @@ export function EnhancedSearch({ onSearchResults }: EnhancedSearchProps) {
     if (filters.categories.length > 0) {
       filtered = filtered.filter(book => 
         filters.categories.some(category => 
-          book.category_id?.toLowerCase().includes(category.toLowerCase()) ||
+          book.category?.toLowerCase().includes(category.toLowerCase()) ||
           book.title.toLowerCase().includes(category.toLowerCase())
         )
       );

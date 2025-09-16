@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { HeadphonesIcon, MessageCircle, Phone, Mail } from "lucide-react";
+// @ts-expect-error - Lucide React icon types not properly recognized
+import { HeadphonesIcon, MessageSquare, Phone, Mail } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Підтримка | Stefa.books",
@@ -25,7 +26,7 @@ const supportChannels = [
     availability: "Пн-Пт: 9:00-18:00"
   },
   {
-    icon: MessageCircle,
+    icon: MessageSquare,
     title: "Чат підтримки",
     description: "Онлайн чат з нашими операторами",
     contact: "Натисніть кнопку 'Чат' у правому нижньому куті",

@@ -1,3 +1,4 @@
+// @ts-expect-error - Lucide React icon types not properly recognized
 import { Star, Calendar, BookOpen, Award } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
 import { BookCover } from '@/components/BookCover';
@@ -53,9 +54,9 @@ export function BookRentalInfo({ book }: BookRentalInfoProps) {
 
           {/* Badges */}
           <div className="flex flex-wrap gap-2 mb-4">
-            {book.category_id && (
+            {book.category && (
               <Badge variant="secondary" className="text-xs">
-                {book.category_id}
+                {book.category}
               </Badge>
             )}
             {book.age_range && (

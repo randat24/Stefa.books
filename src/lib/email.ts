@@ -78,7 +78,7 @@ class EmailService {
     
     // Admin notification
     const adminEmailSent = await this.sendEmail({
-      to: process.env.ADMIN_EMAIL || 'admin@stefa-books.com',
+      to: process.env.ADMIN_EMAIL || 'admin@stefa-books.com.ua',
       subject: `Нова заявка на підписку - ${customerData.plan}`,
       html: `
         <h2>Нова заявка на підписку</h2>
@@ -116,7 +116,7 @@ class EmailService {
     
     // Admin notification
     const adminEmailSent = await this.sendEmail({
-      to: process.env.ADMIN_EMAIL || 'admin@stefa-books.com',
+      to: process.env.ADMIN_EMAIL || 'admin@stefa-books.com.ua',
       subject: `Нова заявка на оренду книги`,
       html: `
         <h2>Нова заявка на оренду</h2>

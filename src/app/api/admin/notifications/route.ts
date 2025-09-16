@@ -41,7 +41,7 @@ export async function GET() {
         books:book_id (title, code)
       `)
       .eq('status', 'overdue')
-      .lt('due_date', today.toISOString().split('T')[0])
+      .lt('return_date', today.toISOString().split('T')[0])
 
     if (overdueRentalsError) {
       console.error('Error fetching overdue rentals:', overdueRentalsError)
@@ -97,7 +97,7 @@ export async function GET() {
 
     // Уведомления о просроченных арендах
     overdueRentals?.forEach((rental: any) => {
-      const daysOverdue = Math.ceil((today.getTime() - new Date(rental.due_date).getTime()) / (1000 * 60 * 60 * 24))
+      const daysOverdue = Math.ceil((today.getTime() - new Date(rental.return_date).getTime()) / (1000 * 60 * 60 * 24))
       notifications.push({
         id: `rental_overdue_${rental.id}`,
         type: 'rental_overdue',
@@ -111,7 +111,7 @@ export async function GET() {
           user_phone: rental.users?.phone,
           book_title: rental.books?.title,
           book_code: rental.books?.code,
-          due_date: rental.due_date
+          return_date: rental.return_date
         },
         daysOverdue,
         createdAt: new Date().toISOString()

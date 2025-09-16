@@ -18,7 +18,7 @@ const testBook: Book = {
   title: 'Тестова книга для перевірки системи',
   author: 'Тестовий автор',
   category: 'Дитячі книги',
-  cover_url: '/images/book-placeholder.jpg',
+  cover_url: '/images/book-placeholder.svg',
   price_uah: 299,
   is_active: true,
   status: 'available',

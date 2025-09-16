@@ -39,6 +39,11 @@ declare namespace JSX {
     path: React.SVGProps<SVGPathElement>;
     textarea: React.DetailedHTMLProps<React.TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>;
     strong: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+    aside: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+    iframe: React.DetailedHTMLProps<React.IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement>;
+    details: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDetailsElement>, HTMLDetailsElement>;
+    summary: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement>;
+    pre: React.DetailedHTMLProps<React.HTMLAttributes<HTMLPreElement>, HTMLPreElement>;
   }
 }
 
@@ -57,8 +62,8 @@ declare module 'react' {
     stopPropagation(): void;
   };
   export type DependencyList = ReadonlyArray<any>;
-  export type FC<P = {}> = FunctionComponent<P>;
-  export interface FunctionComponent<P = {}> {
+  export type FC<P = Record<string, unknown>> = FunctionComponent<P>;
+  export interface FunctionComponent<P = Record<string, unknown>> {
     (props: P, context?: any): ReactElement<any, any> | null;
     displayName?: string;
   }
@@ -275,8 +280,6 @@ declare module 'lucide-react' {
 
 // UI Components
 declare module '@/components/ui/Badge' {
-  import { VariantProps } from 'class-variance-authority';
-  
   export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
     variant?: string;
     className?: string;
@@ -374,7 +377,7 @@ declare module '@supabase/supabase-js' {
     [key: string]: any;
   }
 
-  export function createClient<T = any>(
+  export function createClient(
     url: string, 
     key: string, 
     options?: SupabaseClientOptions

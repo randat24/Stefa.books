@@ -9,6 +9,8 @@ interface LoadMoreButtonProps {
   isLoading?: boolean;
   hasMore?: boolean;
   className?: string;
+  loadedCount?: number;
+  totalCount?: number;
 }
 
 export function LoadMoreButton({
@@ -16,8 +18,12 @@ export function LoadMoreButton({
   onLoadMore,
   isLoading = false,
   hasMore = true,
-  className = ''
+  className = '',
+  loadedCount,
+  totalCount
 }: LoadMoreButtonProps) {
+  // Use loadedCount and totalCount for display if provided
+  const showCount = loadedCount !== undefined && totalCount !== undefined;
   const handleClick = onClick || onLoadMore;
   if (!hasMore) {
     return null;
@@ -40,6 +46,11 @@ export function LoadMoreButton({
           <>
             <Plus className="w-4 h-4" />
             Завантажити ще
+            {showCount && (
+              <span className="text-sm text-neutral-500 ml-2">
+                ({loadedCount}/{totalCount})
+              </span>
+            )}
           </>
         )}
       </button>
@@ -99,7 +110,7 @@ export function useLoadMore<T>(
   const [items, setItems] = React.useState<T[]>(initialItems);
   const [isLoading, setIsLoading] = React.useState(false);
   const [hasMore, setHasMore] = React.useState(true);
-  const [totalCount, setTotalCount] = React.useState<number | undefined>();
+  const [totalCount, setTotalCount] = React.useState<number | undefined>(undefined);
   const [error, setError] = React.useState<string | null>(null);
 
   const loadMore = React.useCallback(async () => {

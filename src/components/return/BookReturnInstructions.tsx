@@ -110,7 +110,7 @@ export function BookReturnInstructions() {
           <h4 className="font-semibold text-neutral-900 mb-2">Контакти</h4>
           <div className="text-body-sm text-neutral-600 space-y-1">
             <p><strong>Телефон:</strong> +380 (44) 123-45-67</p>
-            <p><strong>Email:</strong> returns@stefa-books.com.ua</p>
+            <p><strong>Email:</strong> info@stefa-books.com.ua</p>
             <p><strong>Графік роботи:</strong> Пн-Пт 9:00-18:00, Сб 10:00-16:00</p>
           </div>
         </div>

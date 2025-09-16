@@ -32,14 +32,12 @@ export function OrganizationStructuredData() {
     }
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData)
-      }}
-    />
-  );
+  return (React as any).createElement('script', {
+    type: 'application/ld+json',
+    dangerouslySetInnerHTML: {
+      __html: JSON.stringify(structuredData)
+    }
+  });
 }
 
 /**
@@ -66,14 +64,12 @@ export function WebsiteStructuredData() {
     }
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData)
-      }}
-    />
-  );
+  return (React as any).createElement('script', {
+    type: 'application/ld+json',
+    dangerouslySetInnerHTML: {
+      __html: JSON.stringify(structuredData)
+    }
+  });
 }
 
 /**
@@ -101,7 +97,7 @@ interface BookStructuredDataProps {
 export function BookStructuredData({ book }: BookStructuredDataProps) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://stefa-books.com.ua';
   const bookUrl = `${baseUrl}/books/${book.id}`;
-  const ogImage = book.cover_url || '/images/book-placeholder.jpg';
+  const ogImage = book.cover_url || '/images/book-placeholder.svg';
   const fullOgImage = ogImage.startsWith('http') ? ogImage : `${baseUrl}${ogImage}`;
 
   const structuredData = {
@@ -155,14 +151,12 @@ export function BookStructuredData({ book }: BookStructuredDataProps) {
     }
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData)
-      }}
-    />
-  );
+  return (React as any).createElement('script', {
+    type: 'application/ld+json',
+    dangerouslySetInnerHTML: {
+      __html: JSON.stringify(structuredData)
+    }
+  });
 }
 
 /**
@@ -187,9 +181,7 @@ export function CatalogStructuredData({
   books,
   category,
   author,
-  searchQuery,
-  currentPage = 1,
-  totalPages = 1
+  searchQuery
 }: CatalogStructuredDataProps) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://stefa-books.com.ua';
   
@@ -229,7 +221,7 @@ export function CatalogStructuredData({
           "url": `${baseUrl}/books/${book.id}`,
           "image": book.cover_url ? 
             (book.cover_url.startsWith('http') ? book.cover_url : `${baseUrl}${book.cover_url}`) : 
-            `${baseUrl}/images/book-placeholder.jpg`,
+            `${baseUrl}/images/book-placeholder.svg`,
           "description": book.description
         }
       }))
@@ -265,14 +257,12 @@ export function CatalogStructuredData({
     }
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData)
-      }}
-    />
-  );
+  return (React as any).createElement('script', {
+    type: 'application/ld+json',
+    dangerouslySetInnerHTML: {
+      __html: JSON.stringify(structuredData)
+    }
+  });
 }
 
 /**
@@ -299,14 +289,12 @@ export function FAQStructuredData({ faqs }: FAQStructuredDataProps) {
     }))
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData)
-      }}
-    />
-  );
+  return (React as any).createElement('script', {
+    type: 'application/ld+json',
+    dangerouslySetInnerHTML: {
+      __html: JSON.stringify(structuredData)
+    }
+  });
 }
 
 /**
@@ -325,8 +313,6 @@ interface ReviewStructuredDataProps {
 }
 
 export function ReviewStructuredData({ reviews, itemName, itemType = 'Book' }: ReviewStructuredDataProps) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://stefa-books.com.ua';
-  
   const structuredData = {
     "@context": "https://schema.org",
     "@type": itemType,
@@ -355,12 +341,10 @@ export function ReviewStructuredData({ reviews, itemName, itemType = 'Book' }: R
     }))
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(structuredData)
-      }}
-    />
-  );
+  return (React as any).createElement('script', {
+    type: 'application/ld+json',
+    dangerouslySetInnerHTML: {
+      __html: JSON.stringify(structuredData)
+    }
+  });
 }

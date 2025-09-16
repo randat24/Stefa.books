@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Download, FileText, Users, BookOpen, Tag, Calendar, Mail } from 'lucide-react'
 import { toast } from 'sonner'
-import { supabase } from '@/lib/supabase'
+// import { supabase } from '@/lib/supabase'
 
 interface ExportDataProps {
   className?: string
@@ -107,7 +107,10 @@ export default function ExportData({ className, authToken }: ExportDataProps) {
       link.download = filename
       document.body.appendChild(link)
       link.click()
-      document.body.removeChild(link)
+      // Safely remove the link element
+      if (link.parentNode) {
+        link.parentNode.removeChild(link)
+      }
       window.URL.revokeObjectURL(url)
 
       toast.success(`Данные ${type === 'all' ? 'экспортированы' : 'экспортированы'} успешно`)
@@ -161,7 +164,10 @@ export default function ExportData({ className, authToken }: ExportDataProps) {
       link.download = `full_database_export_${new Date().toISOString().split('T')[0]}.csv`
       document.body.appendChild(link)
       link.click()
-      document.body.removeChild(link)
+      // Safely remove the link element
+      if (link.parentNode) {
+        link.parentNode.removeChild(link)
+      }
       window.URL.revokeObjectURL(url)
 
       toast.success('Все данные экспортированы успешно')

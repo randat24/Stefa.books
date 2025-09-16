@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/Badge';
 import { 
-  AlertTriangle, 
+  AlertCircle as AlertTriangle, 
   AlertCircle, 
   Info, 
   XCircle, 
@@ -69,7 +69,10 @@ export default function ErrorMonitoringPage() {
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
+      // Safely remove the link element
+      if (a.parentNode) {
+        a.parentNode.removeChild(a);
+      }
     } catch (error) {
       console.error('Failed to export errors:', error);
       alert('Failed to export errors. Please try again.');

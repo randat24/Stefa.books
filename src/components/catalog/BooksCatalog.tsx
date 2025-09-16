@@ -3,7 +3,12 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
-import { OptimizedBookCard } from '@/components/OptimizedBookCard';
+import { OptimizedBookCard, type OptimizedBookCardProps } from '@/components/OptimizedBookCard';
+
+// Wrapper component to handle the key prop
+const BookCardWrapper = ({ book, ...props }: OptimizedBookCardProps & { key?: string }) => {
+  return <OptimizedBookCard book={book} {...props} />;
+};
 import { PaginationControls, PaginationInfo, calculateTotalPages } from '@/components/ui/PaginationControls';
 import { LoadMoreButton } from '@/components/ui/LoadMoreButton';
 import { CatalogSearchFilter } from './CatalogSearchFilter';
@@ -55,7 +60,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
   // Initialize categories and authors from initialBooks
   useEffect(() => {
     if (initialBooks.length > 0) {
-      const categories = [...new Set(initialBooks.map(book => book.category_id).filter(Boolean) as string[])].sort();
+      const categories = [...new Set(initialBooks.map(book => book.category).filter(Boolean) as string[])].sort();
       const authors = [...new Set(initialBooks.map(book => book.author).filter(Boolean))].sort();
       setAllCategories(categories);
       setAllAuthors(authors);
@@ -121,7 +126,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
 
           // Extract categories and authors for filters only on first load or when search is empty
           if (response.data.length > 0 && !effectiveFilters.search) {
-            const categories = [...new Set(response.data.map(book => book.category_id).filter(Boolean) as string[])].sort();
+            const categories = [...new Set(response.data.map(book => book.category).filter(Boolean) as string[])].sort();
             const authors = [...new Set(response.data.map(book => book.author).filter(Boolean))].sort();
             setAllCategories(categories);
             setAllAuthors(authors);
@@ -162,7 +167,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
     }
     
     const newUrl = params.toString() ? `?${params.toString()}` : '';
-    router.push(`/books${newUrl}`, { scroll: true });
+    router.push(`/books${newUrl}`); // Using scroll option is not supported in Next.js 15
     
     // Scroll to top when page changes
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -204,7 +209,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
       const params = new URLSearchParams(searchParams || '');
       params.delete('page');
       const newUrl = params.toString() ? `?${params.toString()}` : '';
-      router.push(`/books${newUrl}`, { scroll: false });
+      router.push(`/books${newUrl}`); // Using scroll option is not supported in Next.js 15
     }
   }, [currentPage, searchParams, router]);
 
@@ -280,7 +285,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
         aria-busy={loading}
       >
         {books.map((book) => (
-          <OptimizedBookCard key={book.id} book={book} />
+          <BookCardWrapper key={book.id} book={book} />
         ))}
       </div>
 

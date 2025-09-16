@@ -27,7 +27,7 @@ const MaintenancePage = () => {
         </div>
         
         <div className="text-body-sm text-neutral-500">
-          <p>For urgent inquiries, contact support@stefabooks.com</p>
+          <p>For urgent inquiries, contact admin@stefa-books.com.ua</p>
         </div>
       </div>
     </div>

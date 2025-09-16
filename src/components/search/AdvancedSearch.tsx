@@ -1,11 +1,17 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Search, Filter, X, SlidersHorizontal, Clock, TrendingUp, BookOpen, User, Tag } from 'lucide-react';
+import { Search, Filter, X, Settings as SlidersHorizontal, Clock, TrendingUp, BookOpen, User, Tag } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useSearch } from './SearchProvider';
 import { useDebounce } from '@/hooks/useDebounce';
 import { searchService } from '@/lib/search/searchService';
-import { OptimizedBookCard } from '@/components/OptimizedBookCard';
+import { OptimizedBookCard, type OptimizedBookCardProps } from '@/components/OptimizedBookCard';
+
+// Wrapper component to handle the key prop
+const BookCardWrapper = ({ book, ...props }: OptimizedBookCardProps & { key?: string }) => {
+  return <OptimizedBookCard book={book} {...props} />;
+};
 import { Badge } from '@/components/ui/Badge';
 import type { Book } from '@/lib/supabase';
 import type { SearchResponse, SearchSuggestion, SearchFilters as SupabaseSearchFilters } from '@/lib/search/searchService';
@@ -36,8 +42,8 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
   const [supabaseResults, setSupabaseResults] = useState<SearchResponse | null>(null);
   
   const debouncedQuery = useDebounce(query, 300);
-  const inputRef = useRef<HTMLInputElement>(null);
-  const suggestionsRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const suggestionsRef = useRef<HTMLDivElement | null>(null);
   
   const [filters, setFilters] = useState<SearchFilters>({
     categories: [],
@@ -154,7 +160,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
       // Load suggestions for mock search
       if (isInitialized) {
         const mockSuggestions = getSuggestions(debouncedQuery);
-        setSupabaseSuggestions(mockSuggestions.map(s => ({ text: s, type: 'title' as const, count: 1 })));
+        setSupabaseSuggestions(mockSuggestions.map((s: string) => ({ text: s, type: 'title' as const, count: 1 })));
         setShowSuggestions(true);
       }
     } else {
@@ -186,7 +192,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
     
     if (filters.categories.length > 0) {
       filteredBooks = filteredBooks.filter(book => 
-        book.category_id && filters.categories.includes(book.category_id)
+        book.category && filters.categories.includes(book.category)
       );
     }
     
@@ -209,7 +215,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
 
   // Extract filter options from books
   const filterOptions = {
-    categories: [...new Set(books.map(book => book.category_id).filter(Boolean) as string[])].sort(),
+    categories: [...new Set(books.map(book => book.category).filter(Boolean) as string[])].sort(),
     authors: [...new Set(books.map(book => book.author))].sort(),
     maxPrice: 1000 // Default max price since books don't have price field currently
   };
@@ -534,16 +540,20 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
             {/* Search Mode */}
             <div>
               <label className="block text-body-sm font-medium mb-2">Режим пошуку</label>
-              <select
+              <Select
                 value={filters.searchMode}
-                onChange={(e) => updateFilter('searchMode', e.target.value as SearchFilters['searchMode'])}
-                className="w-full p-2 border rounded-md bg-background"
+                onValueChange={(value) => updateFilter('searchMode', value as SearchFilters['searchMode'])}
                 disabled={isSupabaseSearch}
               >
-                <option value="hybrid">Гібридний (рекомендований)</option>
-                <option value="fuzzy">Нечіткий пошук</option>
-                <option value="semantic">Семантичний пошук</option>
-              </select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Режим пошуку" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="hybrid">Гібридний (рекомендований)</SelectItem>
+                  <SelectItem value="fuzzy">Нечіткий пошук</SelectItem>
+                  <SelectItem value="semantic">Семантичний пошук</SelectItem>
+                </SelectContent>
+              </Select>
               {isSupabaseSearch && (
                 <p className="text-caption text-muted-foreground mt-1">
                   AI пошук використовує оптимальний режим автоматично
@@ -568,16 +578,20 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
             {/* Rating Filter */}
             <div>
               <label className="block text-body-sm font-medium mb-2">Мінімальний рейтинг</label>
-              <select
-                value={filters.minRating}
-                onChange={(e) => updateFilter('minRating', Number(e.target.value))}
-                className="w-full p-2 border rounded-md bg-background"
+              <Select
+                value={filters.minRating.toString()}
+                onValueChange={(value) => updateFilter('minRating', Number(value))}
               >
-                <option value={0}>Будь-який рейтинг</option>
-                <option value={3}>3+ зірки</option>
-                <option value={4}>4+ зірки</option>
-                <option value={4.5}>4.5+ зірки</option>
-              </select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Мінімальний рейтинг" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="0">Будь-який рейтинг</SelectItem>
+                  <SelectItem value="3">3+ зірки</SelectItem>
+                  <SelectItem value="4">4+ зірки</SelectItem>
+                  <SelectItem value="4.5">4.5+ зірки</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Categories */}
@@ -665,17 +679,17 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
           if (query) {
             if (isSupabaseSearch && supabaseResults) {
               return supabaseResults.results.map(result => (
-                <OptimizedBookCard key={result.book.id} book={result.book} />
+                <BookCardWrapper book={result.book} key={result.book.id} />
               ));
             } else if (!isSupabaseSearch && searchResults) {
-              return searchResults.map(book => (
-                <OptimizedBookCard key={book.id} book={book} />
+              return searchResults.map((book: Book) => (
+                <BookCardWrapper book={book} key={book.id} />
               ));
             }
             return [];
           } else {
             return displayedBooks.map(book => (
-              <OptimizedBookCard key={book.id} book={book} />
+              <BookCardWrapper book={book} key={book.id} />
             ));
           }
         })()}

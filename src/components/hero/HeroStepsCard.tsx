@@ -1,11 +1,12 @@
 "use client";
 import Link from "next/link";
-import { BookOpen, ListChecks, Wallet, CheckCircle2 } from "lucide-react";
+// @ts-expect-error - Lucide React icon types not properly recognized
+import { BookOpen, ListChecks, CreditCard, CheckCircle } from "lucide-react";
 import { useState } from "react";
 
 type Step = {
   n: number;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: any;
   title: string;
   text: string;
   href?: string;
@@ -17,7 +18,7 @@ type Step = {
 const steps: Step[] = [
   { 
     n: 1, 
-    icon: Wallet, 
+    icon: CreditCard, 
     title: 'Обери план', 
     text: 'Mini або Maxi - залежно від кількості книг', 
     href: "/subscribe", 
@@ -41,7 +42,7 @@ const steps: Step[] = [
   },
   { 
     n: 4, 
-    icon: CheckCircle2, 
+    icon: CheckCircle, 
     title: 'Забери книги', 
     text: 'У зручній точці видачі в центрі міста', 
     href: "#pickup-location", 

@@ -1,15 +1,15 @@
 import { 
-  Globe, 
+  Search as Globe, 
   FileText, 
   Calendar, 
   Building, 
   Hash, 
   Users, 
   MapPin, 
-  Layers, 
+  BookOpen as Layers, 
   Tag, 
   Clock, 
-  Truck
+  Package as Truck
 } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import type { Book } from "@/lib/supabase";
@@ -131,22 +131,22 @@ export function BookSpecifications({ book }: BookSpecificationsProps) {
       </div>
 
       {/* Categories and Tags */}
-      {(book.category_id || book.subcategory || book.tags?.length) && (
+      {(book.category || book.subcategory || book.tags?.length) && (
         <div>
           <h3 className="text-body-lg font-semibold text-neutral-900 mb-4 flex items-center gap-2">
             <Layers className="h-5 w-5" />
             Категорії та теги
           </h3>
           <div className="space-y-3">
-            {(book.category_id || book.subcategory) && (
+            {(book.category || book.subcategory) && (
               <div className="flex items-start gap-2">
                 <Tag className="h-4 w-4 text-neutral-500 mt-0.5" />
                 <div>
                   <span className="text-neutral-600">Категорія:</span>
                   <div className="flex gap-2 mt-1">
-                    {book.category_id && (
+                    {book.category && (
                       <Badge variant="secondary" className="text-xs">
-                        {book.category_id}
+                        {book.category}
                       </Badge>
                     )}
                     {book.subcategory && (

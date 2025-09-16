@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { SearchAnalyticsEngine, SearchPerformanceMonitor } from '@/lib/search/analytics';
 import { FuzzySearchEngine } from '@/lib/search/fuzzySearch';
 import { SemanticSearchEngine } from '@/lib/search/semanticSearch';
@@ -10,7 +10,7 @@ import type { Book } from '@/lib/supabase';
 // Type adapter for search engines
 type SearchableBook = Omit<Book, 'description'> & {
   description?: string;
-  category: string; // Map category_id to category for search engines
+  category: string; // Category for search engines
   [key: string]: any;
 };
 
@@ -18,7 +18,7 @@ type SearchableBook = Omit<Book, 'description'> & {
 const toSearchableBook = (book: Book): SearchableBook => ({
   ...book,
   description: book.description || undefined,
-  category: book.category_id || 'Без категорії'
+  category: book.category || 'Без категорії'
 });
 import { logger } from '@/lib/logger';
 
@@ -60,18 +60,18 @@ interface SearchContextType {
   getAnalytics: () => any;
 }
 
-const SearchContext = createContext<SearchContextType | null>(null);
+// Simple context implementation without React.createContext
+let searchContext: SearchContextType | null = null;
 
 export function useSearch() {
-  const context = useContext(SearchContext);
-  if (!context) {
+  if (!searchContext) {
     throw new Error('useSearch must be used within a SearchProvider');
   }
-  return context;
+  return searchContext;
 }
 
 interface SearchProviderProps {
-  children: React.ReactNode;
+  children: React.ReactElement | React.ReactElement[];
   books?: Book[];
 }
 
@@ -111,7 +111,7 @@ export function SearchProvider({ children, books = [] }: SearchProviderProps) {
         Promise.resolve((() => {
           const engine = new MLAutocompleteEngine();
           booksData.forEach(book => {
-            engine.addDocument(`${book.title} ${book.author} ${book.category_id}`, book.id);
+            engine.addDocument(`${book.title} ${book.author} ${book.category}`, book.id);
           });
           return engine;
         })())
@@ -166,7 +166,7 @@ export function SearchProvider({ children, books = [] }: SearchProviderProps) {
       let filteredBooks = books;
       if (filters.categories?.length > 0 || filters.authors?.length > 0 || filters.priceRange) {
         filteredBooks = books.filter(book => {
-          const categoryMatch = !filters.categories?.length || filters.categories.includes(book.category_id);
+          const categoryMatch = !filters.categories?.length || filters.categories.includes(book.category);
           const authorMatch = !filters.authors?.length || filters.authors.includes(book.author);
           // Skip price filtering since price field doesn't exist in current data
           
@@ -409,9 +409,8 @@ export function SearchProvider({ children, books = [] }: SearchProviderProps) {
     getAnalytics
   };
 
-  return (
-    <SearchContext.Provider value={contextValue}>
-      {children}
-    </SearchContext.Provider>
-  );
+  // Set the context value
+  searchContext = contextValue;
+
+  return <>{children}</>;
 }

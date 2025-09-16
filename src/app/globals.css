@@ -129,15 +129,15 @@
   .book-card {
     @apply relative rounded-xl hover:shadow-lg transition-all duration-300 overflow-hidden border border-line h-full flex flex-col hover:-translate-y-1;
     min-height: 400px;
+    display: flex;
+    flex-direction: column;
   }
 
   .book-card-image {
     @apply relative w-full h-48 bg-surface-2 overflow-hidden;
   }
 
-  /* Показывать overlay/кнопки только при наведении */
-  .book-card .group-hover\:opacity-100 { opacity: 0; }
-  .book-card.group:hover .group-hover\:opacity-100 { opacity: 1; }
+  /* Hover эффекты для кнопок в карточках книг - теперь обрабатываются через Tailwind CSS */
 
   .book-card-content {
     @apply flex-1 p-4 flex flex-col;

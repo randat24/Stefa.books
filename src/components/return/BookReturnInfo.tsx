@@ -61,9 +61,9 @@ export function BookReturnInfo({ book }: BookReturnInfoProps) {
               <AlertCircle className="h-3 w-3 mr-1" />
               Потребує повернення
             </Badge>
-            {book.category_id && (
+            {book.category && (
               <Badge variant="secondary" className="text-xs">
-                {book.category_id}
+                {book.category}
               </Badge>
             )}
             {book.age_range && (

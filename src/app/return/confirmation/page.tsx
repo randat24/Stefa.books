@@ -295,7 +295,7 @@ export default function ReturnConfirmationPage() {
                 Маєте питання? Зв&apos;яжіться з нами:
               </p>
               <p className="font-medium">📞 +380 (44) 123-45-67</p>
-              <p className="font-medium">📧 returns@stefa-books.com.ua</p>
+              <p className="font-medium">📧 info@stefa-books.com.ua</p>
             </CardContent>
           </Card>
         </div>

@@ -34,7 +34,7 @@ export function OrganizationStructuredData() {
         script.remove();
         return;
       }
-      if (script.parentNode && script.parentNode.contains(script)) {
+      if (script && script.parentNode && script.parentNode.contains(script)) {
         script.parentNode.removeChild(script);
       }
     };

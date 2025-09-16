@@ -117,7 +117,7 @@ export function generateBookStructuredData(book: {
 }) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://stefa-books.com.ua';
   const bookUrl = `${baseUrl}/books/${book.id}`;
-  const ogImage = book.cover_url || '/images/book-placeholder.jpg';
+  const ogImage = book.cover_url || '/images/book-placeholder.svg';
   const fullOgImage = ogImage.startsWith('http') ? ogImage : `${baseUrl}${ogImage}`;
 
   return {
@@ -224,7 +224,7 @@ export function generateCatalogStructuredData({
           "url": `${baseUrl}/books/${book.id}`,
           "image": book.cover_url ? 
             (book.cover_url.startsWith('http') ? book.cover_url : `${baseUrl}${book.cover_url}`) : 
-            `${baseUrl}/images/book-placeholder.jpg`,
+            `${baseUrl}/images/book-placeholder.svg`,
           "description": book.description
         }
       }))

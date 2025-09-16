@@ -3,6 +3,7 @@ import { supabase } from '@/lib/supabase';
 import { createClient } from '@supabase/supabase-js';
 import { logger } from '@/lib/logger';
 import { monobankService } from '@/lib/services/monobank';
+import { AutoRegistrationService } from '@/lib/auth/auto-registration-service';
 
 export async function POST(request: NextRequest) {
   try {
@@ -47,8 +48,8 @@ export async function POST(request: NextRequest) {
     const userId = reference.replace('sub_', '').split('_')[0];
 
     if (body.status === 'success') {
-      // Активируем пользователя при успешной оплате
-      await activateUserAfterPayment(userId, supabase);
+      // Автоматически регистрируем пользователя при успешной оплате
+      await autoRegisterUserAfterPayment(userId, reference, body, supabase);
     }
 
     // Обновляем статус заявки в таблице users
@@ -86,97 +87,112 @@ export async function POST(request: NextRequest) {
 }
 
 /**
- * Активирует пользователя после успешной оплаты
- * Создает аккаунт в Supabase Auth и устанавливает метаданные подписки
+ * Автоматически регистрирует пользователя после успешной оплаты
+ * Использует новый AutoRegistrationService для создания аккаунта и отправки email
  */
-async function activateUserAfterPayment(userId: string, supabase: any) {
+async function autoRegisterUserAfterPayment(
+  userId: string,
+  reference: string,
+  paymentData: any,
+  supabase: any
+) {
   try {
-    // Получаем данные пользователя
-    const { data: user, error: userError } = await supabase
-      .from('users')
-      .select('name, email, phone, subscription_type')
-      .eq('id', userId)
+    // Находим заявку на подписку по reference
+    const subscriptionRequestId = reference.replace('sub_', '').split('_')[0];
+
+    // Получаем данные заявки на подписку
+    const { data: subscriptionRequest, error: requestError } = await supabase
+      .from('subscription_requests')
+      .select('*')
+      .eq('id', subscriptionRequestId)
       .single();
 
-    if (userError || !user) {
-      logger.error('Failed to fetch user data for activation', {
-        userId,
-        error: userError
+    if (requestError || !subscriptionRequest) {
+      logger.error('Failed to fetch subscription request for auto-registration', {
+        subscriptionRequestId,
+        reference,
+        error: requestError
       });
       return;
     }
 
-    // Создаем аккаунт в Supabase Auth с service role
-    const supabaseServiceUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-
-    const supabaseAdmin = createClient(supabaseServiceUrl, supabaseServiceKey, {
-      auth: {
-        persistSession: false,
-        autoRefreshToken: false
-      }
-    });
-
-    // Генерируем временный пароль
-    const tempPassword = `temp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-
-    // Создаем пользователя в auth.users
-    const { data: authUser, error: authError } = await supabaseAdmin.auth.admin.createUser({
-      email: user.email,
-      password: tempPassword,
-      email_confirm: true, // Автоматически подтверждаем email
-      user_metadata: {
-        name: user.name,
-        phone: user.phone,
-        subscription_type: user.subscription_type,
-        subscription_status: 'active',
-        activated_at: new Date().toISOString(),
-        max_concurrent_rentals: user.subscription_type === 'mini' ? 1 : 2,
-        created_via: 'payment'
-      }
-    });
-
-    if (authError) {
-      logger.error('Failed to create auth user', {
-        userId,
-        email: user.email,
-        error: authError
+    // Проверяем, что это онлайн-платеж
+    if (subscriptionRequest.payment_method !== 'online') {
+      logger.warn('Received webhook for non-online payment method', {
+        subscriptionRequestId,
+        paymentMethod: subscriptionRequest.payment_method
       });
       return;
     }
 
-    // Обновляем запись пользователя с auth_id
-    const { error: linkError } = await supabase
-      .from('users')
-      .update({
-        auth_id: authUser.user.id,
-        status: 'active',
-        subscription_status: 'active',
-        activated_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      })
-      .eq('id', userId);
-
-    if (linkError) {
-      logger.error('Failed to link user with auth record', {
-        userId,
-        authId: authUser.user.id,
-        error: linkError
-      });
-    }
-
-    logger.info('User activated successfully after payment', {
-      userId,
-      authId: authUser.user.id,
-      email: user.email,
-      subscriptionType: user.subscription_type,
-      maxRentals: user.subscription_type === 'mini' ? 1 : 2
+    // Автоматически регистрируем пользователя
+    const registrationResult = await AutoRegistrationService.registerWithTemporaryPassword({
+      email: subscriptionRequest.email,
+      name: subscriptionRequest.name,
+      phone: subscriptionRequest.phone,
+      plan: subscriptionRequest.plan,
+      paymentMethod: 'online',
+      subscriptionRequestId: subscriptionRequest.id
     });
 
-    // TODO: Отправить email с инструкциями по входу
-    // await sendActivationEmail(user.email, user.name, tempPassword);
+    if (registrationResult.success) {
+      logger.info('User auto-registered after payment webhook', {
+        subscriptionRequestId,
+        userId: registrationResult.user?.id,
+        email: subscriptionRequest.email,
+        invoiceId: paymentData.invoiceId,
+        reference
+      });
+
+      // Создаем запись о платеже
+      const { error: paymentRecordError } = await supabase
+        .from('payments')
+        .insert({
+          invoice_id: paymentData.invoiceId,
+          user_id: registrationResult.user?.id,
+          amount: paymentData.amount || (subscriptionRequest.plan === 'mini' ? 300 : 500),
+          currency: 'UAH',
+          status: 'completed',
+          payment_method: 'monobank',
+          reference: reference,
+          payment_data: paymentData,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        });
+
+      if (paymentRecordError) {
+        logger.error('Failed to create payment record', {
+          userId: registrationResult.user?.id,
+          invoiceId: paymentData.invoiceId,
+          error: paymentRecordError
+        });
+      }
+
+    } else {
+      logger.error('Failed to auto-register user after payment', {
+        subscriptionRequestId,
+        email: subscriptionRequest.email,
+        error: registrationResult.error,
+        invoiceId: paymentData.invoiceId,
+        reference
+      });
+
+      // Обновляем заявку статусом "paid_registration_failed"
+      await supabase
+        .from('subscription_requests')
+        .update({
+          status: 'paid_registration_failed',
+          admin_notes: `Оплата підтверджена (${paymentData.invoiceId}), але реєстрація не вдалася: ${registrationResult.error}`,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', subscriptionRequestId);
+    }
 
   } catch (error) {
-    logger.error('Error during user activation', { userId, error });
+    logger.error('Error during auto-registration after payment', {
+      userId,
+      reference,
+      error: error instanceof Error ? error.message : String(error)
+    });
   }
 }

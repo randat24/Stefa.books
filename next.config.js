@@ -30,6 +30,16 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
+    localPatterns: [
+      {
+        pathname: '/logo.svg',
+        search: '?v=*',
+      },
+      {
+        pathname: '/**',
+        search: '',
+      },
+    ],
     // Оптимизация изображений
     formats: ['image/webp', 'image/avif'],
     minimumCacheTTL: 60 * 60 * 24 * 7, // 7 дней кеширования

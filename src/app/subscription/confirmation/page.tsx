@@ -307,7 +307,7 @@ export default function SubscriptionConfirmationPage() {
                 Маєте питання щодо підписки?
               </p>
               <p className="font-medium">📞 +380 (44) 123-45-67</p>
-              <p className="font-medium">📧 support@stefa-books.com.ua</p>
+              <p className="font-medium">📧 info@stefa-books.com.ua</p>
             </CardContent>
           </Card>
         </div>

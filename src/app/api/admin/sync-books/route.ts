@@ -73,7 +73,7 @@ export async function POST() {
     }
 
     // Логируем статистику
-    const availableBooks = books.filter(book => book.status === 'available').length
+    const availableBooks = books.filter((book: any) => book.status === 'available').length
     const totalBooks = books.length
     const totalCategories = categories.length
 
@@ -81,7 +81,7 @@ export async function POST() {
       totalBooks,
       availableBooks,
       totalCategories,
-      booksWithCovers: books.filter(book => book.cover_url).length
+      booksWithCovers: books.filter((book: any) => book.cover_url).length
     })
 
     return NextResponse.json({
@@ -91,7 +91,7 @@ export async function POST() {
         books: {
           total: totalBooks,
           available: availableBooks,
-          withCovers: books.filter(book => book.cover_url).length
+          withCovers: books.filter((book: any) => book.cover_url).length
         },
         categories: {
           total: totalCategories

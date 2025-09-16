@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { z } from 'zod';
 import { logger } from '@/lib/logger';
+import { AutoRegistrationService } from '@/lib/auth/auto-registration-service';
 
 // Схема валидации для заявки на подписку (адаптирована под существующую структуру БД)
 const subscriptionRequestSchema = z.object({
@@ -180,16 +181,64 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Автоматическая регистрация пользователя для банковских переводов
+    // (для онлайн-оплаты регистрация произойдет после успешного платежа через webhook)
+    let registrationResult = null;
+    if (validatedData.paymentMethod === 'Переказ на карту') {
+      try {
+        registrationResult = await AutoRegistrationService.registerWithTemporaryPassword({
+          email: validatedData.email,
+          name: validatedData.name,
+          phone: validatedData.phone,
+          plan: validatedData.plan,
+          paymentMethod: validatedData.paymentMethod,
+          subscriptionRequestId: data.id
+        });
+
+        if (registrationResult.success) {
+          logger.info('User auto-registered after bank transfer subscription', {
+            requestId: data.id,
+            userId: registrationResult.user?.id,
+            email: validatedData.email
+          });
+        } else {
+          logger.warn('Failed to auto-register user for bank transfer', {
+            requestId: data.id,
+            email: validatedData.email,
+            error: registrationResult.error
+          });
+        }
+      } catch (autoRegError) {
+        logger.error('Auto-registration error', {
+          requestId: data.id,
+          email: validatedData.email,
+          error: autoRegError
+        });
+      }
+    }
+
     // TODO: Отправить уведомление администратору
     // await sendAdminNotification(data);
 
+    // Подготовка ответа с учетом регистрации
+    const baseMessage = paymentData
+      ? 'Заявку успішно надіслано! Ви будете перенаправлені на сторінку оплати.'
+      : 'Заявку успішно надіслано! Ми зв\'яжемося з вами найближчим часом.';
+
+    const registrationMessage = registrationResult?.success
+      ? ' Аккаунт створено автоматично, тимчасовий пароль надіслано на вашу пошту.'
+      : '';
+
     return NextResponse.json({
       success: true,
-      message: paymentData 
-        ? 'Заявку успішно надіслано! Ви будете перенаправлені на сторінку оплати.'
-        : 'Заявку успішно надіслано! Ми зв\'яжемося з вами найближчим часом.',
+      message: baseMessage + registrationMessage,
       requestId: data.id,
-      payment: paymentData
+      payment: paymentData,
+      autoRegistration: registrationResult ? {
+        success: registrationResult.success,
+        hasAccount: registrationResult.success,
+        error: registrationResult.error
+      } : null
     });
 
   } catch (error) {

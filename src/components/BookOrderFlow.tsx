@@ -268,9 +268,9 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
                   <Hash className="h-3 w-3" />
                   {book.code}
                 </span>
-                {book.category_id && (
+                {book.category && (
                   <Badge variant="secondary" className="text-xs">
-                    {book.category_id}
+                    {book.category}
                   </Badge>
                 )}
               </div>
