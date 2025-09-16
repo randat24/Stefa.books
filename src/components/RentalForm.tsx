@@ -1,7 +1,7 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { Info, CreditCard, Building2, Copy, Check } from "lucide-react";
+// Удалены неиспользуемые импорты
 import { logger } from "@/lib/logger";
 import { z } from "zod";
 
@@ -65,7 +65,7 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
   const [selectedDelivery, setSelectedDelivery] = useState<'pickup' | 'kyiv' | 'ukraine'>('kyiv');
   const [selectedPayment, setSelectedPayment] = useState<'card' | 'cash' | 'bank'>('card');
   
-  const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm<FormData>({
+  const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm<FormData>({
     mode: 'onChange',
     defaultValues: { 
       book_id: bookId || '',
