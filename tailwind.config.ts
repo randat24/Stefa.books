@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss";
 import forms from "@tailwindcss/forms";
-import scrollbar from "tailwind-scrollbar";
 
 export default {
   content: ["./src/**/*.{ts,tsx}"],
@@ -91,6 +90,5 @@ export default {
     forms({
       strategy: 'class',
     }),
-    scrollbar,
   ],
 } satisfies Config;
