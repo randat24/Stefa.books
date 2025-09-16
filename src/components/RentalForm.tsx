@@ -331,7 +331,7 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
                 <input 
                   id="address" 
                   className="input px-3 py-2 text-body w-full" 
-                  placeholder="вул. Хрещатик, 1" 
+                  placeholder="вул. Маріупольська 13/2, Миколаїв" 
                   {...register("address")}
                 />
                 {errors.address && <span className="text-caption text-red-600 mt-1">{errors.address.message}</span>}

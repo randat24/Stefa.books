@@ -310,8 +310,8 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
               </span>
             </div>
             <div className="mt-2 text-body-sm text-neutral-600">
-              <p>м. Київ, вул. Хрещатик, 1</p>
-              <p>Пн-Пт: 10:00-19:00, Сб: 10:00-16:00</p>
+              <p>вул. Маріупольська 13/2, Миколаїв</p>
+              <p>Графік роботи: 10:00-20:00</p>
             </div>
           </div>
 

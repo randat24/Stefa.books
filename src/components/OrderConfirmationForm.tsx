@@ -332,8 +332,8 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
             
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
             <h4 className="font-semibold text-blue-900 mb-2">Адреса пункту видачі:</h4>
-            <p className="text-blue-800 mb-2">м. Київ, вул. Хрещатик, 1</p>
-            <p className="text-blue-800 mb-2">Пн-Пт: 10:00-19:00, Сб: 10:00-16:00</p>
+            <p className="text-blue-800 mb-2">вул. Маріупольська 13/2, Миколаїв</p>
+            <p className="text-blue-800 mb-2">Графік роботи: 10:00-20:00</p>
             <p className="text-blue-800 text-sm">
               Після оформлення замовлення ми надішлемо SMS з деталями про готовність книги до видачі.
             </p>
