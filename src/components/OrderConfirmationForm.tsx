@@ -17,7 +17,7 @@ import {
 import MonobankPayment from "@/components/payment/MonobankPayment";
 import type { Book } from "@/lib/supabase";
 
-type DeliveryMethod = "courier" | "pickup" | "post";
+type DeliveryMethod = "pickup";
 
 interface SubscriptionPlan {
   id: "mini" | "maxi";
@@ -37,9 +37,6 @@ const orderSchema = z.object({
   lastName: z.string().min(2, "Прізвище повинно містити мінімум 2 символи"),
   email: z.string().email("Некоректна електронна пошта"),
   phone: z.string().min(10, "Номер телефону повинен містити мінімум 10 цифр"),
-  address: z.string().min(10, "Введіть повну адресу").optional(),
-  city: z.string().min(2, "Введіть назву міста").optional(),
-  novaPoshtaNumber: z.string().min(1, "Введіть номер відділення").optional(),
   agreeToTerms: z.boolean().refine(val => val === true, {
     message: "Ви повинні погодитись з умовами використання"
   }),
@@ -103,7 +100,6 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
   };
 
   const deliveryMethodNames = {
-    courier: "Кур'єр",
     pickup: "Самовивіз"
   };
 
@@ -125,8 +121,8 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
           <ul className="text-body-sm text-blue-800 space-y-1">
             <li>• Активуємо вашу підписку</li>
             <li>• Перевіримо наявність книги</li>
-            <li>• Підготуємо до відправлення</li>
-            <li>• Повідомимо про доставку</li>
+            <li>• Підготуємо до видачі</li>
+            <li>• Надішлемо SMS про готовність</li>
           </ul>
         </div>
       </div>
@@ -327,103 +323,22 @@ export function OrderConfirmationForm({ book, plan, deliveryMethod }: OrderConfi
           </div>
         </div>
 
-        {/* Delivery Address */}
-        {deliveryMethod !== "pickup" && (
+        {/* Pickup Information */}
           <div className="card p-6">
             <h3 className="text-body-lg font-semibold text-neutral-900 mb-4 flex items-center">
               <MapPin className="h-5 w-5 mr-2" />
-              {deliveryMethod === "courier" ? "Адреса доставки" : "Відділення Нової Пошти"}
+            Інформація про самовивіз
             </h3>
             
-            {deliveryMethod === "courier" && (
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-body-sm font-medium text-neutral-700 mb-2">
-                    Місто *
-                  </label>
-                  <input
-                    type="text"
-                    {...register("city")}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
-                      errors.city ? "border-red-300" : "border-neutral-300"
-                    }`}
-                    placeholder="Київ"
-                  />
-                  {errors.city && (
-                    <p className="mt-1 text-body-sm text-red-600 flex items-center">
-                      <AlertCircle className="h-4 w-4 mr-1" />
-                      {errors.city.message}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-body-sm font-medium text-neutral-700 mb-2">
-                    Повна адреса *
-                  </label>
-                  <textarea
-                    {...register("address")}
-                    rows={3}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
-                      errors.address ? "border-red-300" : "border-neutral-300"
-                    }`}
-                    placeholder="вул. Хрещатик, 1, кв. 10"
-                  />
-                  {errors.address && (
-                    <p className="mt-1 text-body-sm text-red-600 flex items-center">
-                      <AlertCircle className="h-4 w-4 mr-1" />
-                      {errors.address.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {deliveryMethod === "post" && (
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-body-sm font-medium text-neutral-700 mb-2">
-                    Місто *
-                  </label>
-                  <input
-                    type="text"
-                    {...register("city")}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
-                      errors.city ? "border-red-300" : "border-neutral-300"
-                    }`}
-                    placeholder="Київ"
-                  />
-                  {errors.city && (
-                    <p className="mt-1 text-body-sm text-red-600 flex items-center">
-                      <AlertCircle className="h-4 w-4 mr-1" />
-                      {errors.city.message}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-body-sm font-medium text-neutral-700 mb-2">
-                    Номер відділення *
-                  </label>
-                  <input
-                    type="text"
-                    {...register("novaPoshtaNumber")}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-brand-accent ${
-                      errors.novaPoshtaNumber ? "border-red-300" : "border-neutral-300"
-                    }`}
-                    placeholder="№1, №2, №15..."
-                  />
-                  {errors.novaPoshtaNumber && (
-                    <p className="mt-1 text-body-sm text-red-600 flex items-center">
-                      <AlertCircle className="h-4 w-4 mr-1" />
-                      {errors.novaPoshtaNumber.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-            )}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <h4 className="font-semibold text-blue-900 mb-2">Адреса пункту видачі:</h4>
+            <p className="text-blue-800 mb-2">м. Київ, вул. Хрещатик, 1</p>
+            <p className="text-blue-800 mb-2">Пн-Пт: 10:00-19:00, Сб: 10:00-16:00</p>
+            <p className="text-blue-800 text-sm">
+              Після оформлення замовлення ми надішлемо SMS з деталями про готовність книги до видачі.
+            </p>
           </div>
-        )}
+        </div>
 
         {/* Terms and Conditions */}
         <div className="card p-6">

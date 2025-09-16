@@ -1,33 +1,21 @@
 "use client";
 
-import { Truck, MapPin, Clock, CheckCircle } from "lucide-react";
+import React from "react";
+import { MapPin, Clock, CheckCircle } from "lucide-react";
 
-type DeliveryMethod = "courier" | "pickup";
+type DeliveryMethod = "pickup";
 
 interface DeliveryOption {
   id: DeliveryMethod;
   name: string;
   description: string;
-  icon: React.ReactNode;
+  icon: any;
   timeframe: string;
   price: string;
   features: string[];
 }
 
 const deliveryOptions: DeliveryOption[] = [
-  {
-    id: "courier",
-    name: "Доставка кур'єром",
-    description: "Доставимо книгу прямо до ваших дверей",
-    icon: <Truck className="h-6 w-6" />,
-    timeframe: "1-2 робочих дні",
-    price: "Безкоштовно",
-    features: [
-      "Доставка за адресою",
-      "Контактний дзвінок перед доставкою", 
-      "Гнучкий графік доставки"
-    ]
-  },
   {
     id: "pickup",
     name: "Самовивіз",
@@ -49,6 +37,13 @@ interface DeliveryMethodSelectorProps {
 }
 
 export function DeliveryMethodSelector({ selected, onSelect }: DeliveryMethodSelectorProps) {
+  // Автоматически выбираем единственный доступный вариант
+  React.useEffect(() => {
+    if (!selected && deliveryOptions.length === 1) {
+      onSelect(deliveryOptions[0].id);
+    }
+  }, [selected, onSelect]);
+
   return (
     <div className="space-y-4">
       {deliveryOptions.map((option) => (

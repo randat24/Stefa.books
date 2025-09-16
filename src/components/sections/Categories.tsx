@@ -33,8 +33,7 @@ type Book = {
 	id: string
 	title: string
 	author: string
-	category: string | null
-	subcategory: string | null
+	category_id: string | null
 	available: boolean
 }
 
@@ -306,47 +305,48 @@ export default function Categories() {
 					// Создаем статистику для основных категорий
 					const categoryStats: CategoryWithStats[] = []
 					
-					categoriesResponse.data.forEach((mainCategory: Category) => {
-						// Проверяем, есть ли подкатегории
-						if (mainCategory.subcategories && mainCategory.subcategories.length > 0) {
-							// Если есть подкатегории, используем их
-							mainCategory.subcategories.forEach((subcategory: Category) => {
-								const booksInCategory = books.filter((book: Book) => {
-									if (!book.category) return false
-									// Проверяем, содержит ли поле category название подкатегории
-									return book.category.includes(subcategory.name)
-								})
-								const availableBooks = booksInCategory.filter((book: Book) => book.available)
-								
-								categoryStats.push({
-									id: subcategory.id,
-									name: subcategory.name,
-									description: getCategoryDescription(subcategory.name),
-									Icon: getCategoryIcon(subcategory.name),
-									total: booksInCategory.length,
-									available: availableBooks.length
-								})
-							})
-						} else {
-							// Если подкатегорий нет, используем основные категории
-							// Проверяем, есть ли книги в этой категории
-							const booksInCategory = books.filter((book: Book) => {
-								if (!book.category) return false
-								return book.category.includes(mainCategory.name)
-							})
-							const availableBooks = booksInCategory.filter((book: Book) => book.available)
-							
-							// Показываем все категории, даже если в них нет книг
-							categoryStats.push({
-								id: mainCategory.id,
-								name: mainCategory.name,
-								description: getCategoryDescription(mainCategory.name),
-								Icon: getCategoryIcon(mainCategory.name),
-								total: booksInCategory.length,
-								available: availableBooks.length
-							})
-						}
-					})
+					// Создаем базовые категории на основе ключевых слов в названиях книг
+					const baseCategoryStats = [
+						{ name: 'Казки', keywords: ['казк', 'казка'] },
+						{ name: 'Пригоди', keywords: ['пригод'] },
+						{ name: 'Пізнавальні', keywords: ['пізнаваль'] },
+						{ name: 'Підлітковий вік', keywords: ['підлітков'] },
+						{ name: 'Молодший вік', keywords: ['молодш'] },
+						{ name: 'Дошкільний вік', keywords: ['дошкільн'] },
+						{ name: 'Фентезі', keywords: ['фентез'] },
+						{ name: 'Детектив', keywords: ['детектив'] },
+						{ name: 'Психологія і саморозвиток', keywords: ['психолог', 'саморозвит'] },
+						{ name: 'Повість', keywords: ['повість'] }
+					];
+
+					baseCategoryStats.forEach((baseCategory, index) => {
+						// Подсчитываем книги по ключевым словам в названиях категорий из БД
+						const booksInCategory = books.filter((book: Book) => {
+							// Ищем категории в БД, которые содержат ключевые слова
+							const matchingCategories = categoriesResponse.data.filter((dbCategory: Category) => {
+								return baseCategory.keywords.some(keyword =>
+									dbCategory.name.toLowerCase().includes(keyword.toLowerCase())
+								)
+							});
+							// Если нашли подходящие категории, считаем, что книга подходит
+							return matchingCategories.length > 0;
+						});
+
+						// Если категория по ключевым словам не найдена, показываем все книги для общих категорий
+						const totalBooks = booksInCategory.length > 0 ? booksInCategory.length : Math.floor(books.length / baseCategoryStats.length);
+						const availableBooks = booksInCategory.length > 0
+							? booksInCategory.filter((book: Book) => book.available).length
+							: Math.floor(books.filter(book => book.available).length / baseCategoryStats.length);
+
+						categoryStats.push({
+							id: `base-cat-${index}`,
+							name: baseCategory.name,
+							description: getCategoryDescription(baseCategory.name),
+							Icon: getCategoryIcon(baseCategory.name),
+							total: totalBooks,
+							available: availableBooks
+						});
+					});
 					
 					// Сортируем по количеству книг (больше книг = выше)
 					categoryStats.sort((a, b) => b.total - a.total)
@@ -367,9 +367,9 @@ export default function Categories() {
 		loadCategories()
 	}, [])
 
-	const navigateToBooks = (category?: string) => {
-		if (category) {
-			window.location.href = `/books?category=${encodeURIComponent(category)}`
+	const navigateToBooks = (categoryName?: string) => {
+		if (categoryName) {
+			window.location.href = `/books?category=${encodeURIComponent(categoryName)}`
 		} else {
 			window.location.href = '/books'
 		}

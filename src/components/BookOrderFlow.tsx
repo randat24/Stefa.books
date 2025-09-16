@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useUIStore } from "@/store/ui";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/Badge";
-import { DeliveryMethodSelector } from "@/components/DeliveryMethodSelector";
 import { OrderConfirmationForm } from "@/components/OrderConfirmationForm";
 import { 
   BookOpen, 
@@ -20,8 +19,8 @@ interface BookOrderFlowProps {
   book: Book;
 }
 
-type OrderStep = "subscription" | "delivery" | "confirmation";
-type DeliveryMethod = "courier" | "pickup" | "post";
+type OrderStep = "subscription" | "confirmation";
+type DeliveryMethod = "pickup";
 
 interface SubscriptionPlan {
   id: "mini" | "maxi";
@@ -40,7 +39,7 @@ const subscriptionPlans: SubscriptionPlan[] = [
     booksLimit: 1,
     features: [
       "1 книга за раз",
-      "Безкоштовна доставка",
+      "Самовивіз з пункту видачі",
       "Можна змінювати книги",
       "Скасування в будь-який час"
     ]
@@ -52,7 +51,7 @@ const subscriptionPlans: SubscriptionPlan[] = [
     booksLimit: 2,
     features: [
       "2 книги за раз",
-      "Безкоштовна доставка",
+      "Самовивіз з пункту видачі",
       "Можна змінювати книги",
       "Скасування в будь-який час",
       "Пріоритетна підтримка"
@@ -64,27 +63,22 @@ const subscriptionPlans: SubscriptionPlan[] = [
 export function BookOrderFlow({ book }: BookOrderFlowProps) {
   const { selectedPlan, setSelectedPlan } = useUIStore();
   const [currentStep, setCurrentStep] = useState<OrderStep>("subscription");
-  const [selectedDelivery, setSelectedDelivery] = useState<DeliveryMethod | null>(null);
+  const [selectedDelivery] = useState<DeliveryMethod>("pickup"); // Автоматически выбираем самовывоз
 
   const goToNextStep = () => {
     if (currentStep === "subscription" && selectedPlan) {
-      setCurrentStep("delivery");
-    } else if (currentStep === "delivery" && selectedDelivery) {
       setCurrentStep("confirmation");
     }
   };
 
   const goToPrevStep = () => {
-    if (currentStep === "delivery") {
+    if (currentStep === "confirmation") {
       setCurrentStep("subscription");
-    } else if (currentStep === "confirmation") {
-      setCurrentStep("delivery");
     }
   };
 
   const canProceed = () => {
     if (currentStep === "subscription") return selectedPlan !== null;
-    if (currentStep === "delivery") return selectedDelivery !== null;
     return false;
   };
 
@@ -115,36 +109,11 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
 
           <div className="flex items-center space-x-4">
             <div className={`flex items-center justify-center w-8 h-8 rounded-2xl text-body-sm font-medium ${
-              currentStep === "subscription"
-                ? "bg-neutral-200 text-neutral-500"
-                : currentStep === "delivery"
-                ? "bg-brand-accent-light text-neutral-0"
-                : "bg-green-600 text-neutral-0"
-            }`}>
-              {currentStep === "confirmation" ? <CheckCircle className="h-5 w-5" /> : "2"}
-            </div>
-            <span className={`text-body-sm font-medium ${
-              currentStep === "subscription"
-                ? "text-neutral-500"
-                : currentStep === "delivery"
-                ? "text-brand-accent-light"
-                : "text-green-600"
-            }`}>
-              Доставка
-            </span>
-          </div>
-
-          <div className={`h-px flex-1 mx-4 ${
-            currentStep === "confirmation" ? "bg-green-600" : "bg-neutral-200"
-          }`} />
-
-          <div className="flex items-center space-x-4">
-            <div className={`flex items-center justify-center w-8 h-8 rounded-2xl text-body-sm font-medium ${
               currentStep === "confirmation"
                 ? "bg-brand-accent-light text-neutral-0"
                 : "bg-neutral-200 text-neutral-500"
             }`}>
-              3
+              {currentStep === "confirmation" ? "2" : <CheckCircle className="h-5 w-5" />}
             </div>
             <span className={`text-body-sm font-medium ${
               currentStep === "confirmation" ? "text-brand-accent-light" : "text-neutral-500"
@@ -218,34 +187,6 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
           </div>
         )}
 
-        {currentStep === "delivery" && (
-          <div className="space-y-6">
-            <div className="flex items-center space-x-4">
-              <Button
-                variant="outline"
-                size="md"
-                onClick={goToPrevStep}
-                className="flex items-center"
-              >
-                <ChevronLeft className="h-4 w-4 mr-1" />
-                Назад
-              </Button>
-              <div>
-                <h2 className="text-h2 text-neutral-900">
-                  Спосіб отримання
-                </h2>
-                <p className="text-neutral-600">
-                  Оберіть як ви хочете отримати книгу
-                </p>
-              </div>
-            </div>
-
-            <DeliveryMethodSelector
-              selected={selectedDelivery}
-              onSelect={setSelectedDelivery}
-            />
-          </div>
-        )}
 
         {currentStep === "confirmation" && (
           <div className="space-y-6">
@@ -355,23 +296,24 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
           )}
 
           {/* Delivery Method */}
-          {selectedDelivery && (
-            <div className="border-t pt-4">
-              <div className="flex justify-between items-center">
-                <span className="text-body-sm text-neutral-600">Доставка</span>
-                <span className="text-body-sm font-medium">
-                  {selectedDelivery === "courier" && "Кур'єром"}
-                  {selectedDelivery === "pickup" && "Самовивіз"}
-                </span>
-              </div>
-              <div className="flex justify-between items-center mt-1">
-                <span className="text-body-sm text-neutral-600">Вартість</span>
-                <span className="text-body-sm font-medium text-green-600">
-                  Безкоштовно
-                </span>
-              </div>
+          <div className="border-t pt-4">
+            <div className="flex justify-between items-center">
+              <span className="text-body-sm text-neutral-600">Спосіб отримання</span>
+              <span className="text-body-sm font-medium">
+                Самовивіз
+              </span>
             </div>
-          )}
+            <div className="flex justify-between items-center mt-1">
+              <span className="text-body-sm text-neutral-600">Вартість</span>
+              <span className="text-body-sm font-medium text-green-600">
+                Безкоштовно
+              </span>
+            </div>
+            <div className="mt-2 text-body-sm text-neutral-600">
+              <p>м. Київ, вул. Хрещатик, 1</p>
+              <p>Пн-Пт: 10:00-19:00, Сб: 10:00-16:00</p>
+            </div>
+          </div>
 
           {/* Features */}
           <div className="border-t pt-4">
@@ -381,7 +323,7 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
             <ul className="space-y-2">
               <li className="flex items-center text-caption text-neutral-600">
                 <CheckCircle className="h-3 w-3 text-green-500 mr-2 flex-shrink-0" />
-                Безкоштовна доставка
+                Самовивіз з пункту видачі
               </li>
               <li className="flex items-center text-caption text-neutral-600">
                 <CheckCircle className="h-3 w-3 text-green-500 mr-2 flex-shrink-0" />

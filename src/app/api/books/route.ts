@@ -3,13 +3,42 @@ import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
 // Supabase client is imported from @/lib/supabase
 
+// Функция для получения ключевых слов по названию категории
+function getCategoryKeywords(categoryName: string): string[] {
+  const keywordMap: Record<string, string[]> = {
+    'Казки': ['казк', 'казка', 'принцес', 'король', 'чарівн'],
+    'Пригоди': ['пригод', 'подорож', 'мандр'],
+    'Фентезі': ['фентез', 'магі', 'чарів', 'дракон', 'лицар'],
+    'Детектив': ['детектив', 'загадк', 'таємнич', 'злочин'],
+    'Психологія': ['психолог', 'саморозвит', 'емоці', 'відносин', 'ключ'],
+    'Пізнавальні': ['енциклопеді', 'пізнаваль', 'навчальн', 'знанн', 'космос', 'чомусик'],
+    'Романтика': ['романтик', 'кохан', 'серц'],
+    'Підлітковий вік': ['підлітк', 'мортіна']
+  };
+
+  // Поиск по точному совпадению
+  if (keywordMap[categoryName]) {
+    return keywordMap[categoryName];
+  }
+
+  // Поиск по частичному совпадению
+  for (const [key, keywords] of Object.entries(keywordMap)) {
+    if (key.toLowerCase().includes(categoryName.toLowerCase()) ||
+        categoryName.toLowerCase().includes(key.toLowerCase())) {
+      return keywords;
+    }
+  }
+
+  return [];
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     
     // Параметры запроса
     const query = searchParams.get('q') || searchParams.get('search') || '';
-    const category = searchParams.get('category') || '';
+    const category = searchParams.get('category') || searchParams.get('category_id') || '';
     const author = searchParams.get('author') || '';
     const available = searchParams.get('available') === 'true' || searchParams.get('available_only') === 'true';
     const limit = parseInt(searchParams.get('limit') || '20');
@@ -209,7 +238,15 @@ export async function GET(request: NextRequest) {
     }
 
     if (category) {
-      queryBuilder = queryBuilder.ilike('category_id', `%${category}%`);
+      // Временное решение: поиск по ключевым словам категории в названии книги
+      const categoryKeywords = getCategoryKeywords(category);
+      if (categoryKeywords.length > 0) {
+        // Объединяем условия через OR для каждого ключевого слова
+        const orConditions = categoryKeywords.map(keyword =>
+          `title.ilike.%${keyword}%`
+        ).join(',');
+        queryBuilder = queryBuilder.or(orConditions);
+      }
     }
 
     if (author) {
