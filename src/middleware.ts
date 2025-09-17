@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
 
     // Создаем базовый ответ
-    const response = NextResponse.next();
+    const response = NextResponse.next({ request });
 
     // Проверяем, идет ли запрос к API (исключая админ)
     if (pathname.startsWith('/api/') && !pathname.startsWith('/api/admin/')) {
@@ -28,7 +28,7 @@ export function middleware(request: NextRequest) {
   } catch (error) {
     // В случае ошибки, просто продолжаем без модификации
     console.error('Middleware error:', error);
-    return NextResponse.next();
+    return NextResponse.next({ request });
   }
 }
 

@@ -3,17 +3,17 @@
  */
 
 import { supabase } from '@/lib/supabase';
-import { Logger } from '@/lib/logger';
+import { logger } from '@/lib/logger';
 import type {
   Subscription,
   SubscriptionType,
   CreateSubscriptionRequest,
   SubscriptionPlan,
-  SUBSCRIPTION_PLANS
 } from '@/lib/types/subscription';
+import { SUBSCRIPTION_PLANS } from '@/lib/types/subscription';
 
 export class SubscriptionService {
-  private static logger = new Logger('SubscriptionService');
+  private static logger = logger;
 
   /**
    * Получить план подписки
