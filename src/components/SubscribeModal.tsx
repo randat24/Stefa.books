@@ -47,23 +47,20 @@ const subscribeFormSchema = z.object({
 		.regex(/^\+380\d{9}$/, 'Неправильний формат телефону (+380XXXXXXXXX)'),
 	email: z.string()
 		.email('Неправильний формат email'),
-	social: z.string()
-		.optional()
-		.transform((val) => val || '')
-		.refine((val) => {
-			if (val.trim() === '') return true
-			return val.length >= 3 && val.length <= 50 && /^@?[a-zA-Z0-9_]+$/.test(val.trim())
-		}, 'Неправильний формат ніка (використовуйте @username або username)'),
+	social: z.union([
+		z.string().length(0),
+		z.string().min(3).max(50).regex(/^@?[a-zA-Z0-9_]+$/, 'Неправильний формат ніка (використовуйте @username або username)')
+	]).optional(),
 	plan: z.enum(['mini', 'maxi'], {
 		required_error: 'Оберіть план підписки'
 	}),
 	payment: z.enum(['Онлайн оплата', 'Переказ на карту'], {
 		required_error: 'Оберіть спосіб оплати'
 	}),
-	note: z.string()
-		.optional()
-		.transform((val) => val || '')
-		.refine((val) => val.length <= 500, 'Повідомлення занадто довге (максимум 500 символів)'),
+	note: z.union([
+		z.string().length(0),
+		z.string().max(500, 'Повідомлення занадто довге (максимум 500 символів)')
+	]).optional(),
 	screenshot: z.instanceof(File)
 		.optional(),
 	privacyConsent: z.boolean()

@@ -57,14 +57,14 @@ export class MonobankPaymentService {
       if (!this.apiToken) {
         logger.warn('MonobankPaymentService: No API token available, using test mode');
         
-        // В тестовом режиме возвращаем фиктивную ссылку на оплату
-        const testPaymentUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'https://stefa-books.com.ua'}/test-payment?amount=${request.amount}&description=${encodeURIComponent(request.description)}`;
+        // В тестовом режиме возвращаем ссылку на реальную страницу оплаты
+        const paymentUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'https://stefa-books.com.ua'}/payment?amount=${request.amount}&description=${encodeURIComponent(request.description)}&plan=mini&name=&email=&phone=+380`;
         
         return {
           status: 'success',
           data: {
             invoiceId: `test_${Date.now()}`,
-            pageUrl: testPaymentUrl
+            pageUrl: paymentUrl
           }
         };
       }
