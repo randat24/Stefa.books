@@ -222,34 +222,65 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 	const handleSubmitForm = async (data: SubscribeFormData) => {
 		setIsSubmitting(true)
 		setUploadProgress(0)
-		
+
 		try {
+			// If online payment is selected, redirect to payment page
+			if (data.payment === 'Онлайн оплата') {
+				// Create URL parameters for payment page
+				const paymentParams = new URLSearchParams({
+					plan: data.plan,
+					name: data.name,
+					email: data.email,
+					phone: data.phone,
+				});
+
+				// Add optional parameters if they exist
+				if (data.social) {
+					paymentParams.append('social', data.social);
+				}
+				if (data.note) {
+					paymentParams.append('note', data.note);
+				}
+
+				// Log the redirect attempt
+				logger.info('Redirecting to payment page', {
+					plan: data.plan,
+					email: data.email,
+					payment_method: 'online'
+				});
+
+				// Redirect to payment page
+				window.location.href = `/payment?${paymentParams.toString()}`;
+				return;
+			}
+
+			// Continue with traditional flow for bank transfer
 			let screenshotUrl = ''
-			
+
 			// Upload screenshot if provided
 			if (data.screenshot && data.screenshot instanceof File) {
 				setUploadProgress(25)
-				
+
 				const uploadFormData = new FormData()
 				uploadFormData.append('screenshot', data.screenshot)
-				
+
 				try {
 					const uploadResponse = await fetch('/api/subscribe/upload-screenshot', {
 						method: 'POST',
 						body: uploadFormData
 					})
-					
+
 					setUploadProgress(50)
-					
+
 					if (!uploadResponse.ok) {
 						const uploadError = await uploadResponse.json()
 						throw new Error(uploadError.error || 'Помилка завантаження скриншота')
 					}
-					
+
 					const uploadResult = await uploadResponse.json()
 					screenshotUrl = uploadResult.secure_url
 					setUploadProgress(75)
-					
+
 					logger.info('Screenshot uploaded to Cloudinary', {
 						url: screenshotUrl,
 						public_id: uploadResult.public_id
@@ -259,12 +290,12 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 					throw new Error('Помилка завантаження скриншота')
 				}
 			}
-			
+
 			setUploadProgress(90)
-			
+
 			// Submit to API
-			const response = await fetch('/api/subscribe', { 
-				method: 'POST', 
+			const response = await fetch('/api/subscribe', {
+				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
 					name: data.name,
@@ -283,17 +314,17 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 			setUploadProgress(100)
 
 			if (response.ok) {
-				logger.info('Subscription form submitted successfully', { 
-					submissionId: result.submissionId, 
+				logger.info('Subscription form submitted successfully', {
+					submissionId: result.submissionId,
 					plan: data.plan,
-					bookTitle: book?.title 
+					bookTitle: book?.title
 				})
 				setSent(true)
 				if (fileRef.current) fileRef.current.value = ""
 			} else {
 				throw new Error(result.error || 'Server error')
 			}
-			
+
 		} catch (error) {
 			logger.error('Subscription form error', error)
 			alert(`Помилка відправки форми: ${error instanceof Error ? error.message : 'Невідома помилка'}`)
