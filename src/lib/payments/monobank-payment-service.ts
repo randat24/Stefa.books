@@ -41,12 +41,17 @@ export class MonobankPaymentService {
   private apiToken: string;
 
   constructor() {
-    this.apiUrl = process.env.MONOBANK_API_URL || 'https://api.monobank.ua';
+    this.apiUrl = 'https://api.monobank.ua';
     this.apiToken = process.env.MONOBANK_TOKEN || '';
-    
+
     if (!this.apiToken) {
-      logger.warn('MonobankPaymentService: MONOBANK_TOKEN not provided');
+      throw new Error('MONOBANK_TOKEN обов\'язковий для роботи системи оплати! Система не може працювати без нього.');
     }
+
+    logger.info('MonobankPaymentService initialized', {
+      hasToken: !!this.apiToken,
+      apiUrl: this.apiUrl
+    });
   }
 
   /**
@@ -54,25 +59,11 @@ export class MonobankPaymentService {
    */
   async createPayment(request: MonobankPaymentRequest): Promise<MonobankPaymentResponse> {
     try {
-      if (!this.apiToken) {
-        logger.warn('MonobankPaymentService: No API token available, using test mode');
-        
-        // В тестовом режиме возвращаем ссылку на реальную страницу оплаты
-        const paymentUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'https://stefa-books.com.ua'}/payment?amount=${request.amount}&description=${encodeURIComponent(request.description)}&plan=mini&name=&email=&phone=+380`;
-        
-        return {
-          status: 'success',
-          data: {
-            invoiceId: `test_${Date.now()}`,
-            pageUrl: paymentUrl
-          }
-        };
-      }
 
       const payload = {
         amount: request.amount * 100, // Convert to kopecks
         ccy: 980, // UAH
-        description: request.description,
+        description: `Stefa.Books - ${request.description}`,
         reference: request.reference,
         redirectUrl: request.redirectUrl,
         webhookUrl: request.webhookUrl
@@ -136,13 +127,6 @@ export class MonobankPaymentService {
    */
   async checkPaymentStatus(invoiceId: string): Promise<MonobankPaymentStatus> {
     try {
-      if (!this.apiToken) {
-        logger.error('MonobankPaymentService: No API token available');
-        return {
-          status: 'error',
-          error: 'API token not configured'
-        };
-      }
 
       logger.info('MonobankPaymentService: Checking payment status', { invoiceId });
 
