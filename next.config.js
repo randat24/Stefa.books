@@ -22,7 +22,7 @@ const nextConfig = {
     }
   },
   // Настройки для Netlify деплоя
-  trailingSlash: true,
+  trailingSlash: false,
   images: {
     unoptimized: true,
     remotePatterns: [
