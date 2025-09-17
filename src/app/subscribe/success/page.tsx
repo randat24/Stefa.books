@@ -1,120 +1,63 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { CheckCircle } from 'lucide-react';
 import Link from 'next/link';
-import { CheckCircle, XCircle, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-export default function SubscribeSuccessPage() {
-  const searchParams = useSearchParams();
-  const [status, setStatus] = useState<'loading' | 'success' | 'error' | 'pending'>('loading');
-  const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    if (!searchParams) return;
-    
-    const requestId = searchParams.get('requestId');
-    const statusParam = searchParams.get('status');
-    
-    if (statusParam === 'success') {
-      setStatus('success');
-      setMessage('Оплата успішно проведена! Ваша підписка активована.');
-    } else if (statusParam === 'error') {
-      setStatus('error');
-      setMessage('Помилка при проведенні оплати. Спробуйте ще раз.');
-    } else if (statusParam === 'pending') {
-      setStatus('pending');
-      setMessage('Оплата в обробці. Ми повідомимо вас про результат.');
-    } else {
-      setStatus('success');
-      setMessage('Заявку успішно надіслано! Ми зв\'яжемося з вами найближчим часом.');
-    }
-  }, [searchParams]);
-
-  const getStatusIcon = () => {
-    switch (status) {
-      case 'success':
-        return <CheckCircle className="h-16 w-16 text-green-600" />;
-      case 'error':
-        return <XCircle className="h-16 w-16 text-red-600" />;
-      case 'pending':
-        return <Clock className="h-16 w-16 text-yellow-600" />;
-      default:
-        return <CheckCircle className="h-16 w-16 text-green-600" />;
-    }
+interface SuccessPageProps {
+  searchParams: {
+    requestId?: string;
   };
+}
 
-  const getStatusColor = () => {
-    switch (status) {
-      case 'success':
-        return 'bg-green-50 border-green-200';
-      case 'error':
-        return 'bg-red-50 border-red-200';
-      case 'pending':
-        return 'bg-yellow-50 border-yellow-200';
-      default:
-        return 'bg-green-50 border-green-200';
-    }
-  };
-
-  if (status === 'loading') {
-    return (
-      <div className="section-sm">
-        <div className="container">
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-brand-accent mx-auto mb-4"></div>
-            <p className="text-text-muted">Завантаження...</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+export default function SubscribeSuccessPage({ searchParams }: SuccessPageProps) {
+  const requestId = searchParams.requestId;
 
   return (
-    <div className="section-sm">
-      <div className="container">
-        <div className="max-w-2xl mx-auto">
-          <Card className={`${getStatusColor()}`}>
-            <CardHeader className="text-center">
-              <div className="flex justify-center mb-4">
-                {getStatusIcon()}
-              </div>
-              <CardTitle className="text-2xl">
-                {status === 'success' && 'Оплата успішна!'}
-                {status === 'error' && 'Помилка оплати'}
-                {status === 'pending' && 'Оплата в обробці'}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-center space-y-6">
-              <p className="text-lg text-text-muted">
-                {message}
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center p-4">
+      <div className="max-w-md w-full">
+        <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
+          {/* Success Icon */}
+          <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
+            <CheckCircle className="h-12 w-12 text-green-600" />
+          </div>
+
+          {/* Success Message */}
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+            Оплата успішна! 🎉
+          </h1>
+          
+          <p className="text-gray-600 mb-6">
+            Ваша підписка активована. Дякуємо за довіру!
+          </p>
+
+          {requestId && (
+            <div className="bg-gray-50 rounded-lg p-4 mb-6">
+              <p className="text-sm text-gray-500">
+                ID заявки: <span className="font-mono text-gray-700">{requestId}</span>
               </p>
-              
-              <div className="space-y-4">
-                <Button asChild className="w-full">
-                  <Link href="/books">
-                    Переглянути каталог книг
-                  </Link>
-                </Button>
-                
-                <Button variant="outline" asChild className="w-full">
-                  <Link href="/profile">
-                    Перейти до профілю
-                  </Link>
-                </Button>
-                
-                {status === 'error' && (
-                  <Button variant="outline" asChild className="w-full">
-                    <Link href="/subscribe">
-                      Спробувати ще раз
-                    </Link>
-                  </Button>
-                )}
-              </div>
-            </CardContent>
-          </Card>
+            </div>
+          )}
+
+          {/* Action Buttons */}
+          <div className="space-y-3">
+            <Button asChild className="w-full">
+              <Link href="/catalog">
+                Переглянути каталог
+              </Link>
+            </Button>
+            
+            <Button variant="outline" asChild className="w-full">
+              <Link href="/">
+                На головну
+              </Link>
+            </Button>
+          </div>
+
+          {/* Additional Info */}
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <p className="text-sm text-gray-500">
+              Якщо у вас виникли питання, звертайтесь до нашої служби підтримки
+            </p>
+          </div>
         </div>
       </div>
     </div>

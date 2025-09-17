@@ -7,6 +7,7 @@ import { HeaderSearch } from '@/components/search/HeaderSearch';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { AdminStatus } from '@/components/auth/AdminStatus';
 import SubscribeModal from '@/components/SubscribeModal';
+import CacheClearButton from '@/components/ui/CacheClearButton';
 import { Button } from '@/components/ui/button';
 import { User, Heart, BookOpen, Menu, X } from 'lucide-react';
 // Animation components removed for build fix
@@ -47,6 +48,11 @@ export function Header() {
             <Link href="/books" className="px-3 py-2 text-body-sm font-medium text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition">
               Каталог
             </Link>
+            
+            {/* Кнопка очистки кеша (только в development) */}
+            {process.env.NODE_ENV === 'development' && (
+              <CacheClearButton />
+            )}
             
             {isAuthenticated ? (
               <>

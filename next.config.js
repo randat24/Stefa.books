@@ -6,7 +6,7 @@ const generateBuildId = () => {
   return `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
 };
 
-const BUILD_ID = generateBuildId();
+const BUILD_ID = '20250917-082115';
 
 const nextConfig = {
   // Generate a consistent build ID for the current build
@@ -18,10 +18,13 @@ const nextConfig = {
   },
   experimental: {
     serverActions: {
-      allowedOrigins: ['localhost:3000', 'localhost:3001', 'stefa-books.vercel.app', 'stefa-books.com.ua']
+      allowedOrigins: ['localhost:3000', 'localhost:3001', 'stefa-books.vercel.app', 'stefa-books.com.ua', 'stefa-books.netlify.app', '*.netlify.app']
     }
   },
+  // Настройки для Netlify деплоя
+  trailingSlash: true,
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -53,7 +56,37 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Build-ID',
+            value: BUILD_ID,
+          },
+          {
+            key: 'Cache-Control',
+            value: 'no-cache, no-store, must-revalidate, max-age=0',
+          },
+          {
+            key: 'Pragma',
+            value: 'no-cache',
+          },
+          {
+            key: 'Expires',
+            value: '0',
+          },
+        ],
+      },
+      {
         source: '/images/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/_next/static/:path*',
         headers: [
           {
             key: 'Cache-Control',
@@ -66,7 +99,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=300, s-maxage=300',
+            value: 'no-cache, no-store, must-revalidate',
           },
         ],
       },

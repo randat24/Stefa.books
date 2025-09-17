@@ -6,15 +6,15 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 // Create a fallback client if environment variables are missing
 const createFallbackClient = () => {
-  return createClient<Database>('https://placeholder.supabase.co', 'placeholder-key', {
+  return createClient('https://placeholder.supabase.co', 'placeholder-key', {
     auth: {
       persistSession: false,
     },
   });
 };
 
-export const supabase = (supabaseUrl && supabaseKey) 
-  ? createClient<Database>(supabaseUrl, supabaseKey, {
+export const supabase = (supabaseUrl && supabaseKey)
+  ? createClient(supabaseUrl, supabaseKey, {
       auth: {
         persistSession: true,
         autoRefreshToken: true,
@@ -31,7 +31,6 @@ export const supabase = (supabaseUrl && supabaseKey)
 export type Book = Database['public']['Tables']['books']['Row'];
 export type BookInsert = Database['public']['Tables']['books']['Insert'];
 export type BookUpdate = Database['public']['Tables']['books']['Update'];
-export type Author = Database['public']['Tables']['authors']['Row'];
 
 // User types
 export type User = Database['public']['Tables']['users']['Row'];
@@ -40,20 +39,45 @@ export type UserUpdate = Database['public']['Tables']['users']['Update'];
 
 // Extended book type with author and category relations
 export type BookWithAuthor = Book & {
-  authors?: Author | null;
+  author_info?: {
+    id: string;
+    name: string;
+  } | null;
   category_info?: {
     id: string;
     name: string;
   } | null;
   subcategory_info?: {
-    id: string; 
+    id: string;
     name: string;
   } | null;
 };
-export type Category = Database['public']['Tables']['categories']['Row'];
-export type CategoryInsert = Database['public']['Tables']['categories']['Insert'];
-export type CategoryUpdate = Database['public']['Tables']['categories']['Update'];
-export type SearchQuery = Database['public']['Tables']['search_queries']['Row'];
+// Простые типы вместо database типов для несуществующих таблиц
+export type Category = {
+  id: string;
+  name: string;
+  slug: string;
+  parent_id?: string | null;
+  sort_order?: number | null;
+  is_active?: boolean | null;
+  created_at?: string | null;
+  updated_at?: string | null;
+};
+
+export type CategoryInsert = Omit<Category, 'id' | 'created_at' | 'updated_at'> & {
+  id?: string;
+  created_at?: string;
+  updated_at?: string;
+};
+
+export type CategoryUpdate = Partial<CategoryInsert>;
+
+export type SearchQuery = {
+  id: string;
+  query: string;
+  count: number;
+  created_at: string;
+};
 
 // Extended types for category hierarchy
 export type CategoryWithParent = Category & {

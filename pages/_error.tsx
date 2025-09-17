@@ -1,4 +1,4 @@
-import { NextPageContext } from 'next'
+import { NextPageContext } from 'next/dist/shared/lib/utils'
 
 interface ErrorProps {
   statusCode?: number

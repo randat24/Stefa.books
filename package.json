@@ -60,7 +60,17 @@
     "emergency": "./scripts/emergency-fix.sh",
     "emergency:quick": "./scripts/emergency-fix.sh quick",
     "emergency:full": "./scripts/emergency-fix.sh full",
-    "emergency:rollback": "./scripts/emergency-fix.sh rollback"
+    "emergency:rollback": "./scripts/emergency-fix.sh rollback",
+    "clear-cache": "node scripts/clear-cache.js",
+    "force-cache-clear": "node scripts/force-cache-clear.js",
+    "predeploy": "npm run force-cache-clear",
+    "deploy:force-cache-clear": "npm run force-cache-clear && npm run build && npm run deploy:prod",
+    "deploy:no-cache": "npm run force-cache-clear && npm run build && npm run deploy:prod",
+    "netlify:deploy": "./scripts/netlify-deploy.sh",
+    "netlify:deploy:prod": "./scripts/netlify-deploy.sh production",
+    "netlify:deploy:preview": "./scripts/netlify-deploy.sh preview",
+    "netlify:status": "netlify status",
+    "netlify:open": "netlify open"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.61.0",

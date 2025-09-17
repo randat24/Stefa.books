@@ -8,7 +8,7 @@ import { logger } from '../logger';
 // Adapter to convert Book to SearchableItem
 const toSearchableItem = (book: Book) => ({
   ...book,
-  category: book.category_id || 'Без категорії'
+  category: book.category || 'Без категорії'
 });
 
 export interface IntegratedSearchOptions {
@@ -338,7 +338,7 @@ class IntegratedSearchSystem {
     let filtered = books;
 
     if (filters.categories?.length) {
-      filtered = filtered.filter(book => book.category_id && filters.categories!.includes(book.category_id));
+      filtered = filtered.filter(book => book.category && filters.categories!.includes(book.category));
     }
 
     if (filters.authors?.length) {

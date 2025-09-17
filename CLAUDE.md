@@ -83,6 +83,29 @@ vercel                       # Preview deployment
 vercel --prod                # Production deployment
 ```
 
+### Netlify Deployment (Current Production)
+```bash
+# Netlify CLI commands
+netlify status               # Check site and deployment status
+netlify deploy               # Deploy preview
+netlify deploy --prod        # Deploy to production
+netlify build               # Build locally with Netlify environment
+
+# Environment management
+netlify env:list            # List environment variables
+netlify env:set KEY "value" # Set environment variable
+netlify env:unset KEY       # Remove environment variable
+
+# Site management
+netlify open:site           # Open deployed site
+netlify open:admin          # Open Netlify dashboard
+netlify logs                # View function logs
+
+# Domain management
+netlify domains:list        # List domains
+netlify domains:create      # Add custom domain
+```
+
 ### Emergency & Troubleshooting
 ```bash
 npm run emergency           # Emergency fix script
@@ -578,9 +601,17 @@ import { MonobankInfo } from '@/components/payment/MonobankInfo';
 
 ## Deployment Architecture
 
-### Production Environment
-- **Platform**: Vercel
+### Production Environment (Netlify) - Active
+- **Platform**: Netlify
 - **Domain**: https://stefa-books.com.ua
+- **Netlify URL**: https://stefabooks.netlify.app
+- **Project ID**: cb75fb42-cc85-41da-a68b-f5a69f892c66
+- **Build Configuration**: Next.js with SSR support via @netlify/plugin-nextjs
+- **Environment Variables**: Configured via Netlify CLI and dashboard
+- **DNS**: Managed via NIC.UA registrar
+
+### Alternative Environment (Vercel) - Backup
+- **Platform**: Vercel
 - **Build Configuration**: TypeScript errors ignored during build (resolved via next.config.js)
 - **Environment Variables**: All critical variables configured in Vercel dashboard
 - **Automatic Deployment**: Triggered on push to main branch
@@ -600,3 +631,9 @@ import { MonobankInfo } from '@/components/payment/MonobankInfo';
 ### Package Manager
 - **Current**: npm (standard Node.js package manager)
 - **Scripts**: All package.json scripts use npm commands
+### Netlify Deployment Documentation
+- **Deployment Report**: `NETLIFY_DEPLOYMENT_REPORT.md` (полный отчет по деплою на Netlify)
+- **Workflow Guide**: `NETLIFY_WORKFLOW_GUIDE.md` (инструкция по работе с проектом на Netlify)
+- **Configuration**: `netlify.toml` (конфигурация Netlify)
+- **Deploy Script**: `scripts/netlify-deploy.sh` (скрипт автоматического деплоя)
+

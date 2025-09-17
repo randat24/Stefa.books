@@ -1,8 +1,7 @@
-import type { User } from '@supabase/supabase-js'
 import { createSupabaseServerClient } from '@/lib/supabase/server'
 
 export interface ServerSession {
-  user: User | null;
+  user: any | null;
 }
 
 /**

@@ -140,16 +140,23 @@ export async function POST(request: NextRequest) {
     let paymentData = null;
     if (validatedData.paymentMethod === 'Онлайн оплата') {
       try {
-        const { monobankService } = await import('@/lib/services/monobank');
+        logger.info('Creating online payment for subscription', {
+          requestId: data.id,
+          plan: validatedData.plan,
+          amount: validatedData.plan === 'mini' ? 300 : 500
+        }, 'Payment');
+        
+        const { monobankPaymentService } = await import('@/lib/payments/monobank-payment-service');
         
         const amount = validatedData.plan === 'mini' ? 300 : 500; // Сумма в гривнах
         const description = `Підписка ${validatedData.plan.toUpperCase()} - ${amount} ₴`;
-        const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}/subscribe/success?requestId=${data.id}`;
-        const webhookUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/payment/webhook`;
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || `${request.nextUrl.protocol}//${request.nextUrl.host}`;
+        const redirectUrl = `${baseUrl}/subscribe/success?requestId=${data.id}`;
+        const webhookUrl = `${baseUrl}/api/payment/webhook`;
         
         const reference = `sub_${data.id}_${Date.now()}`;
         
-        const paymentResult = await monobankService.createPayment({
+        const paymentResult = await monobankPaymentService.createPayment({
           amount,
           description,
           reference,
@@ -164,13 +171,25 @@ export async function POST(request: NextRequest) {
             reference,
           };
           
+          logger.info('Payment created successfully', {
+            requestId: data.id,
+            invoiceId: paymentResult.data.invoiceId,
+            paymentUrl: paymentResult.data.pageUrl,
+            reference
+          }, 'Payment');
+          
           // Обновляем заявку с данными платежа
           await supabase
-            .from('users')
+            .from('subscription_requests')
             .update({
               notes: `Payment created: ${paymentResult.data.invoiceId}`
             })
             .eq('id', data.id);
+        } else {
+          logger.error('Payment creation failed', {
+            requestId: data.id,
+            paymentResult
+          }, 'Payment');
         }
       } catch (paymentError) {
         logger.error('Payment creation failed', { 

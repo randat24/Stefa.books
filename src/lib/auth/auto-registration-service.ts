@@ -2,7 +2,7 @@ import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
 import { PasswordService } from './password-service';
 import { EmailService } from '@/lib/services/email-service';
-import type { User as SupabaseUser } from '@supabase/supabase-js';
+// Removed User import as it's not available in current Supabase version
 
 export interface AutoRegistrationData {
   email: string;
@@ -15,7 +15,7 @@ export interface AutoRegistrationData {
 
 export interface AutoRegistrationResult {
   success: boolean;
-  user?: SupabaseUser;
+  user?: any;
   temporaryPassword?: string;
   setupToken?: string;
   error?: string;

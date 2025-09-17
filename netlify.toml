@@ -1,0 +1,72 @@
+[build]
+  # Команда для сборки проекта
+  command = "npm run build"
+  
+  # Директория с собранным проектом
+  publish = ".next"
+  
+  # Директория с функциями (если используем)
+  functions = "netlify/functions"
+
+[build.environment]
+  # Версия Node.js
+  NODE_VERSION = "20"
+  
+  # Переменные окружения для сборки
+  NPM_FLAGS = "--production=false"
+
+# Настройки для Next.js
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Перенаправления для Next.js
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200
+  force = false
+
+# Заголовки безопасности
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-DNS-Prefetch-Control = "on"
+
+# Кеширование статических файлов
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# API роуты без кеширования
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+# Настройки для форм
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+# Настройки для деплоя
+[build.processing.images]
+  compress = true

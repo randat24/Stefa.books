@@ -1,402 +1,143 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
-import { logger } from '@/lib/logger';
-// Supabase client is imported from @/lib/supabase
+import { NextRequest, NextResponse } from 'next/server'
+import { supabase } from '@/lib/supabase'
+import { logger } from '@/lib/logger'
 
-// API тепер працює напряму з полем category в БД
-
+// GET /api/books - получение всех книг
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
-    
-    // Параметры запроса
-    const query = searchParams.get('q') || searchParams.get('search') || '';
-    const category = searchParams.get('category') || searchParams.get('category_id') || '';
-    const author = searchParams.get('author') || '';
-    const available = searchParams.get('available') === 'true' || searchParams.get('available_only') === 'true';
-    const limit = parseInt(searchParams.get('limit') || '20');
-    const offset = parseInt(searchParams.get('offset') || '0');
-    const sortBy = searchParams.get('sort') || 'title';
-    const sortOrder = searchParams.get('order') || 'asc';
-    
-    // Новые параметры для структурированных категорий (временно отключены)
-    // TODO: Восстановить когда будет настроена структура категорий
+    const { searchParams } = new URL(request.url)
+    const category = searchParams.get('category')
+    const author = searchParams.get('author')
+    const search = searchParams.get('search')
+    const limit = parseInt(searchParams.get('limit') || '20')
+    const offset = parseInt(searchParams.get('offset') || '0')
+    const available = searchParams.get('available')
 
-    // Проверяем наличие переменных окружения для Supabase
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-    
-    // Проверяем, можем ли мы подключиться к Supabase
-    if (!supabaseUrl || !supabaseKey || supabaseUrl === 'your_supabase_url_here') {
-      logger.warn('Missing Supabase configuration, using mock data for books API');
-      
-      // Fallback: возвращаем моковые данные
-      const mockBooks = [
-        {
-          id: '1',
-          code: 'MOCK001',
-          title: 'Казка про принцесу',
-          author: 'Анна Іванова',
-          category_id: 'fairy-tales',
-          category_name: 'Казки',
-          subcategory: 'Дитячі казки',
-          pages: 32,
-          status: 'available',
-          available: true,
-          rating: 4.5,
-          rating_count: 12,
-          badges: ['Популярна', 'Новинка'],
-          description: 'Чарівна казка про принцесу, яка навчилася бути доброю та мудрою.',
-          short_description: 'Казка про принцесу',
-          age_range: '3-6',
-          cover_url: '/images/book-placeholder.svg',
-          language: 'uk',
-          created_at: '2024-01-15T10:00:00Z',
-          updated_at: '2024-01-15T10:00:00Z'
-        },
-        {
-          id: '2',
-          code: 'MOCK002',
-          title: 'Пригоди маленького мисливця',
-          author: 'Петро Петренко',
-          category_id: 'adventures',
-          category_name: 'Пригоди',
-          subcategory: 'Дитячі пригоди',
-          pages: 48,
-          status: 'available',
-          available: true,
-          rating: 4.2,
-          rating_count: 8,
-          badges: ['Пригоди'],
-          description: 'Захоплююча історія про маленького хлопчика, який вирушив у подорож.',
-          short_description: 'Пригоди маленького мисливця',
-          age_range: '6-9',
-          cover_url: '/images/book-placeholder.svg',
-          language: 'uk',
-          created_at: '2024-01-16T10:00:00Z',
-          updated_at: '2024-01-16T10:00:00Z'
-        },
-        {
-          id: '3',
-          code: 'MOCK003',
-          title: 'Математика для дошкільнят',
-          author: 'Олена Коваленко',
-          category_id: 'educational',
-          category_name: 'Пізнавальні',
-          subcategory: 'Математика',
-          pages: 64,
-          status: 'available',
-          available: true,
-          rating: 4.8,
-          rating_count: 15,
-          badges: ['Освіта', 'Розвиток'],
-          description: 'Цікаві завдання з математики для дітей дошкільного віку.',
-          short_description: 'Математика для дошкільнят',
-          age_range: '4-6',
-          cover_url: '/images/book-placeholder.svg',
-          language: 'uk',
-          created_at: '2024-01-17T10:00:00Z',
-          updated_at: '2024-01-17T10:00:00Z'
-        },
-        {
-          id: '4',
-          code: 'MOCK004',
-          title: 'Фентезійний світ',
-          author: 'Михайло Соколов',
-          category_id: 'fantasy',
-          category_name: 'Фентезі',
-          subcategory: 'Дитяче фентезі',
-          pages: 120,
-          status: 'available',
-          available: true,
-          rating: 4.6,
-          rating_count: 22,
-          badges: ['Фентезі', 'Магія'],
-          description: 'Подорож у неймовірний світ магії та чарівництва.',
-          short_description: 'Фентезійний світ',
-          age_range: '8-12',
-          cover_url: '/images/book-placeholder.svg',
-          language: 'uk',
-          created_at: '2024-01-18T10:00:00Z',
-          updated_at: '2024-01-18T10:00:00Z'
-        },
-        {
-          id: '5',
-          code: 'MOCK005',
-          title: 'Психологія для дітей',
-          author: 'Ірина Мельник',
-          category_id: 'psychology',
-          category_name: 'Психологія і саморозвиток',
-          subcategory: 'Дитяча психологія',
-          pages: 80,
-          status: 'available',
-          available: true,
-          rating: 4.4,
-          rating_count: 18,
-          badges: ['Психологія', 'Розвиток'],
-          description: 'Книга допоможе дітям зрозуміти свої емоції та навчитися ними керувати.',
-          short_description: 'Психологія для дітей',
-          age_range: '6-10',
-          cover_url: '/images/book-placeholder.svg',
-          language: 'uk',
-          created_at: '2024-01-19T10:00:00Z',
-          updated_at: '2024-01-19T10:00:00Z'
-        }
-      ];
+    logger.info('📚 Fetching books', { category, author, search, limit, offset, available })
 
-      // Применяем фильтры к моковым данным
-      let filteredBooks = mockBooks;
+    // Используем прямые запросы к таблицам
+    let query = supabase
+      .from('books')
+      .select(`
+        *,
+        categories:category_id (
+          id,
+          name,
+          slug
+        ),
+        authors:author_id (
+          id,
+          name
+        )
+      `, { count: 'exact' })
 
-      if (query) {
-        const searchQuery = query.toLowerCase();
-        filteredBooks = filteredBooks.filter(book => 
-          book.title.toLowerCase().includes(searchQuery) ||
-          book.author.toLowerCase().includes(searchQuery) ||
-          book.category_id.toLowerCase().includes(searchQuery) ||
-          book.description.toLowerCase().includes(searchQuery)
-        );
-      }
-
-      if (category) {
-        filteredBooks = filteredBooks.filter(book => 
-          book.category_id.toLowerCase().includes(category.toLowerCase())
-        );
-      }
-
-      if (author) {
-        filteredBooks = filteredBooks.filter(book => 
-          book.author.toLowerCase().includes(author.toLowerCase())
-        );
-      }
-
-      if (available) {
-        filteredBooks = filteredBooks.filter(book => book.available);
-      }
-
-      // Применяем пагинацию
-      const paginatedBooks = filteredBooks.slice(offset, offset + limit);
-
-      return NextResponse.json({
-        success: true,
-        data: paginatedBooks,
-        books: paginatedBooks,
-        pagination: {
-          total: filteredBooks.length,
-          limit,
-          offset,
-          hasMore: (offset + limit) < filteredBooks.length
-        },
-        filters: {
-          query,
-          category,
-          author,
-          available
-        }
-      });
-    }
-
-    // Используем импортированный клиент supabase из @/lib/supabase
-    
-    // Базовый запрос - только существующие поля
-  let queryBuilder = supabase
-    .from('books')
-    .select('*')
-    .order(sortBy, { ascending: sortOrder === 'asc' })
-    .range(offset, offset + limit - 1);
-
-    // Применяем фильтры
-    if (query) {
-      // Используем поиск по подстроке в названии, авторе и описании
-      queryBuilder = queryBuilder.or(`title.ilike.%${query}%,author.ilike.%${query}%,description.ilike.%${query}%`);
-    }
-
+    // Фильтрация по категории
     if (category) {
-      // Прямой поиск по полю category в БД
-      queryBuilder = queryBuilder.ilike('category', `%${category}%`);
+      query = query.eq('category_id', category)
     }
 
+    // Фильтрация по автору
     if (author) {
-      queryBuilder = queryBuilder.ilike('author', `%${author}%`);
+      query = query.eq('author_id', author)
     }
 
-    if (available) {
-      queryBuilder = queryBuilder.eq('status', 'available');
+    // Поиск по названию и описанию
+    if (search) {
+      query = query.or(`title.ilike.%${search}%,description.ilike.%${search}%`)
     }
-    
-    // Выполняем запрос
-    const { data: books, error, count } = await queryBuilder;
+
+    // Фильтрация по доступности
+    if (available !== null) {
+      query = query.eq('is_active', available === 'true')
+    }
+
+    // Сортировка и пагинация
+    const { data, error, count } = await query
+      .order('created_at', { ascending: false })
+      .range(offset, offset + limit - 1)
 
     if (error) {
-      logger.error('Database error when fetching books', error);
+      logger.error('Error fetching books', error)
       return NextResponse.json(
-        { error: 'Ошибка при получении книг' },
+        { success: false, data: [], error: error.message },
         { status: 500 }
-      );
+      )
     }
 
-    // Получаем общее количество для пагинации
-    let totalCount = count;
-    if (!count) {
-      const { count: total } = await supabase
-        .from('books')
-        .select('*', { count: 'exact', head: true });
-      totalCount = total;
-    }
-
-    // Логируем поисковый запрос для аналитики (временно отключено)
-    // if (query || category || author) {
-    //   try {
-    //     await supabase
-    //       .from('search_queries')
-    //       .insert({
-    //         query: query || '',
-    //         results_count: books?.length || 0,
-    //         filters: {
-    //           category,
-    //           author,
-    //           available,
-    //           sortBy,
-    //           sortOrder
-    //         }
-    //       });
-    //   } catch (err) {
-    //     logger.warn('Failed to log search query', { error: err });
-    //   }
-    // }
-
-    // Преобразуем результаты в полный формат со всеми доступными полями
-    const mappedBooks = (books || []).map((book: any) => {
-      return {
-        // Основные поля
-        id: book.id || '',
-        title: book.title || '',
-        author: book.author || '',
-        category: book.category || '',
-        description: book.description || '',
-        short_description: book.short_description || '',
-
-        // Медиа
-        cover_url: book.cover_url || '',
-        file_url: book.file_url || '',
-
-        // Статус и доступность
-        status: book.status || 'unavailable',
-        available: book.status === 'available' || book.is_active === true,
-        is_active: book.is_active || false,
-
-        // Физические характеристики
-        pages: book.pages || null,
-        isbn: book.isbn || '',
-        publisher: book.publisher || '',
-        publication_year: book.publication_year || null,
-        language: book.language || 'uk',
-
-        // Возрастная группа
-        age_range: book.age_range || '',
-
-        // Цены и количество
-        price_uah: book.price_uah || null,
-        price_daily: book.price_daily || null,
-        price_weekly: book.price_weekly || null,
-        price_monthly: book.price_monthly || null,
-        qty_total: book.qty_total || 1,
-        qty_available: book.qty_available || 1,
-
-        // Рейтинг и отзывы
-        rating: book.rating || null,
-        rating_count: book.rating_count || 0,
-
-        // Метаданные
-        tags: book.tags || [],
-        badges: book.badges || [],
-        code: book.code || '',
-        location: book.location || '',
-
-        // Даты
-        created_at: book.created_at || '',
-        updated_at: book.updated_at || ''
-      };
-    });
-
+    logger.info(`✅ Fetched ${data?.length || 0} books`)
     return NextResponse.json({
       success: true,
-      data: mappedBooks,
-      books: mappedBooks,
+      data: data || [],
+      count: count || 0,
       pagination: {
-        total: totalCount || 0,
         limit,
         offset,
-        hasMore: (offset + limit) < (totalCount || 0)
-      },
-      filters: {
-        query,
-        category,
-        author,
-        available
+        total: count || 0
       }
-    });
+    })
 
   } catch (error) {
-    logger.error('Unexpected error in books API', error);
+    const message = error instanceof Error ? error.message : 'Unknown error'
+    logger.error('Unexpected error in books GET', { error: message })
     return NextResponse.json(
-      { error: 'Внутрішня помилка сервера' },
+      { success: false, data: [], error: message },
       { status: 500 }
-    );
+    )
   }
 }
 
-// Получение одной книги по ID
+// POST /api/books - создание новой книги (только для админов)
 export async function POST(request: NextRequest) {
   try {
-    const { id } = await request.json();
+    const body = await request.json()
+    const { title, description, author, category, cover_url, isbn, pages, language, is_active } = body
+
+    logger.info('📚 Creating new book', { title, author, category })
     
-    if (!id) {
+    // Валидация обязательных полей
+    if (!title || !author || !category) {
       return NextResponse.json(
-        { error: 'ID книги обязателен' },
+        { success: false, error: 'Missing required fields: title, author, category' },
         { status: 400 }
-      );
+      )
     }
 
-    // Используем импортированный клиент supabase из @/lib/supabase
-
-    const { data: book, error } = await supabase
+    const { data, error } = await supabase
       .from('books')
-      .select('*')
-      .eq('id', id)
-      .single();
+      .insert({
+        title,
+        description: description || null,
+        author,
+        category,
+        cover_url: cover_url || null,
+        isbn: isbn || null,
+        pages: pages || null,
+        language: language || 'uk',
+        is_active: is_active !== false // по умолчанию активна
+      })
+      .select()
+      .single()
 
     if (error) {
-      logger.error('Database error when fetching book', { error, bookId: id });
+      logger.error('Error creating book', error)
       return NextResponse.json(
-        { error: 'Книга не найдена' },
-        { status: 404 }
-      );
+        { success: false, data: null, error: error.message },
+        { status: 500 }
+      )
     }
 
-    // Преобразуем книгу в безопасный формат
-    const safeBook = book ? {
-      id: book.id || '',
-      title: book.title || '',
-      author: book.author || '',
-      description: book.description || '',
-      cover_url: book.cover_url || '',
-      status: book.status || 'unavailable',
-      available: book.status === 'available',
-      created_at: book.created_at || '',
-      updated_at: book.updated_at || '',
-      // Добавляем другие поля, которые могут быть в базе
-      ...(book.category_id ? { category_id: book.category_id } : {}),
-      ...(book.pages ? { pages: book.pages } : {}),
-      ...(book.price_uah ? { price_uah: book.price_uah } : {})
-    } : null;
-    
-    return NextResponse.json({ book: safeBook });
+    logger.info(`✅ Created book: ${data?.title || 'unknown'}`)
+    return NextResponse.json({
+      success: true,
+      data
+    })
 
   } catch (error) {
-    logger.error('Unexpected error in book detail API', error);
+    const message = error instanceof Error ? error.message : 'Unknown error'
+    logger.error('Unexpected error in books POST', { error: message })
     return NextResponse.json(
-      { error: 'Внутрішня помилка сервера' },
+      { success: false, data: null, error: message },
       { status: 500 }
-    );
+    )
   }
 }

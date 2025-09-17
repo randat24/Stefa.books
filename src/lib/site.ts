@@ -28,10 +28,7 @@ export const siteConfig = {
 };
 
 export const defaultMetadata: Metadata = {
-  title: {
-    default: siteConfig.title,
-    template: `%s | ${siteConfig.siteName}`
-  },
+  title: `${siteConfig.siteName} - ${siteConfig.title}`,
   description: siteConfig.description,
   keywords: siteConfig.keywords,
   authors: [{ name: 'Stefa.books Team' }],

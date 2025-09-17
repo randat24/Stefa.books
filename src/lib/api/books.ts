@@ -359,8 +359,8 @@ export function getCategoriesFromBooks(books: Book[]): string[] {
   const categories = new Set<string>()
   
   books.forEach(book => {
-    if (book.category_id) {
-      categories.add(book.category_id)
+    if (book.category) {
+      categories.add(book.category)
     }
   })
   

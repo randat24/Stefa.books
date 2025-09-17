@@ -95,5 +95,22 @@ export function hasModeratorPermission(user: User | null, profile?: UserProfile 
  * Check if user can access admin panel
  */
 export function canAccessAdminPanel(user: User | null, profile?: UserProfile | null): boolean {
-  return isAdmin(user, profile);
+  if (!user) return false;
+  
+  // Check email-based admin access
+  if (user.email === 'admin@stefa-books.com.ua' || user.email === 'admin@stefabooks.com.ua') {
+    return true;
+  }
+  
+  // Check profile-based admin access
+  if (profile?.role === 'admin') {
+    return true;
+  }
+  
+  // Check metadata-based admin access
+  if (user.user_metadata?.role === 'admin' || user.app_metadata?.role === 'admin') {
+    return true;
+  }
+  
+  return false;
 }

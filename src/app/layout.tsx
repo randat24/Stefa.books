@@ -13,6 +13,7 @@ import { OfflineIndicator } from "@/components/offline/OfflineIndicator";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { CacheInvalidator } from "@/components/cache/CacheInvalidator";
 import { MetaRefresh } from "@/components/cache/MetaRefresh";
+import UpdateNotification from "@/components/ui/UpdateNotification";
 
 // Force dynamic rendering to prevent static generation issues
 export const dynamic = 'force-dynamic';
@@ -119,10 +120,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <MetaRefresh />
         </ErrorBoundary>
         <ErrorBoundary>
+          <UpdateNotification />
+        </ErrorBoundary>
+        <ErrorBoundary>
           <Providers>
             <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
           </Providers>
         </ErrorBoundary>
+        <script src="/cache-clear.js" async></script>
       </body>
     </html>
   );

@@ -29,17 +29,53 @@ export async function POST(request: NextRequest) {
     });
 
     if (error) {
-      logger.error('Login failed', { error }, 'Auth');
+      // Более детальное логирование ошибок
+      logger.error('Login failed', { 
+        error: error.message,
+        code: error.status,
+        email: email // Логируем email для отладки
+      }, 'Auth');
+      
+      // Разные сообщения для разных типов ошибок
+      let errorMessage = 'Неправильний email або пароль';
+      
+      if (error.message.includes('Invalid login credentials')) {
+        errorMessage = 'Неправильний email або пароль';
+      } else if (error.message.includes('Email not confirmed')) {
+        errorMessage = 'Потрібно підтвердити email';
+      } else if (error.message.includes('Too many requests')) {
+        errorMessage = 'Забагато спроб входу. Спробуйте пізніше';
+      }
+      
       return NextResponse.json(
         { 
           success: false, 
-          error: 'Неправильний email або пароль' 
+          error: errorMessage 
         },
         { status: 401 }
       );
     }
 
-    logger.info('User logged in successfully', { userId: data.user.id }, 'Auth');
+    // Проверяем, что пользователь и сессия существуют
+    if (!data.user || !data.session) {
+      logger.error('Login succeeded but no user/session returned', { 
+        hasUser: !!data.user,
+        hasSession: !!data.session 
+      }, 'Auth');
+      
+      return NextResponse.json(
+        { 
+          success: false, 
+          error: 'Помилка створення сесії' 
+        },
+        { status: 500 }
+      );
+    }
+
+    logger.info('User logged in successfully', { 
+      userId: data.user.id,
+      email: data.user.email 
+    }, 'Auth');
 
     return NextResponse.json({
       success: true,

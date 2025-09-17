@@ -98,7 +98,7 @@ export async function getBooks(): Promise<BookRow[]> {
       title: book.title,
       author: book.author,
       author_id: undefined, // Field doesn't exist yet
-      category_id: book.category_id,
+      category_id: book.category,
       category_name: book.category_name,
       subcategory: book.subcategory,
       description: book.description,
@@ -267,10 +267,10 @@ export async function getDashboardStats() {
       supabase
         .from('books')
         .select('id, available')
-        .then(({ data, error }) => {
+        .then(({ data, error }: { data: { id: string; available: boolean }[] | null, error: any }) => {
           if (error) throw error
           const total = data?.length || 0
-          const available = data?.filter((book: any) => book.available).length || 0
+          const available = data?.filter((book) => book.available).length || 0
           return { total, available }
         }),
 
@@ -278,9 +278,9 @@ export async function getDashboardStats() {
       supabase
         .from('users')
         .select('id, status')
-        .then(({ data, error }) => {
+        .then(({ data, error }: { data: { id: string; status: string }[] | null, error: any }) => {
           if (error) throw error
-          const active = data?.filter((user: any) => user.status === 'active').length || 0
+          const active = data?.filter((user) => user.status === 'active').length || 0
           return { active }
         }),
 

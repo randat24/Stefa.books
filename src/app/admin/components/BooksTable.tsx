@@ -54,7 +54,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
       book.title.toLowerCase().includes(search) ||
       book.author.toLowerCase().includes(search) ||
       book.code.toLowerCase().includes(search) ||
-      (book.category_id?.toLowerCase().includes(search) || false) ||
+      (book.category?.toLowerCase().includes(search) || false) ||
       (book.description?.toLowerCase().includes(search) || false)
     )
   }, [books, searchTerm])

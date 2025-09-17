@@ -170,3 +170,5 @@ cloudinary-uploads/
 
 # Local development
 .local
+# Local Netlify folder
+.netlify

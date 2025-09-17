@@ -35,7 +35,7 @@ export async function analyzeBookContent(book: Book): Promise<BookAnalysisResult
 Название: ${book.title}
 Автор: ${book.author}
 Описание: ${book.description || 'Описание отсутствует'}
-Текущая категория: ${book.category_id}
+Текущая категория: ${book.category}
 Цена: ${book.price_uah} грн
 Возрастная группа: ${book.age_range || 'Не указана'}
 
@@ -75,7 +75,7 @@ export async function analyzeBookContent(book: Book): Promise<BookAnalysisResult
     console.error('Error parsing book analysis:', error);
     // Fallback analysis
     return {
-      category: book.category_id || 'Загальна література',
+      category: book.category || 'Загальна література',
       ageGroup: book.age_range || '4-10',
       keywords: [book.title.split(' ')[0], book.author.split(' ')[0], 'діти', 'книга'],
       shortDescription: book.description?.slice(0, 80) + '...' || 'Цікава дитяча книга.',
@@ -92,7 +92,7 @@ export async function improveBookContent(book: Book): Promise<BookContentImprove
 Название: ${book.title}
 Автор: ${book.author}
 Текущее описание: ${book.description || 'Описание отсутствует'}
-Категория: ${book.category_id}
+Категория: ${book.category}
 Возраст: ${book.age_range || 'Не указан'}
 
 Создай:
@@ -155,7 +155,7 @@ export async function generatePersonalizedRecommendations(
     id: book.id,
     title: book.title,
     author: book.author,
-    category: book.category_id,
+    category: book.category,
     ageGroup: book.age_range,
     description: book.description?.slice(0, 200),
     available: (book.qty_available || 0) > 0 && book.is_active,

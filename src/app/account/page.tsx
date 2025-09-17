@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { 
-  User, 
-  CreditCard, 
-  Settings, 
+import {
+  User,
+  CreditCard,
+  Settings,
   BookOpen,
   Bell,
-  LogOut
+  LogOut as LogOutIcon
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -122,7 +122,7 @@ export default function AccountPage() {
                 Каталог
               </Button>
               <Button variant="outline" size="sm" onClick={handleLogout}>
-                <LogOut className="h-4 w-4 mr-2" />
+                <LogOutIcon className="h-4 w-4 mr-2" />
                 Вийти
               </Button>
             </div>

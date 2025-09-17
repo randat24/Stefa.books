@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { ChevronRight } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 export async function generateMetadata(): Promise<Metadata> {
   const title = 'Каталог дитячих книг у Миколаєві | Оренда та підписка - Stefa.books';
@@ -48,24 +49,22 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function CatalogPage() {
-	// Загружаем категории через API, который правильно обрабатывает структуру БД
+	// Загружаем категории напрямую из Supabase
 	let categories: any[] = [];
 	let error: string | null = null;
 	
 	try {
-		const response = await fetch('/api/categories', {
-			cache: 'no-store'
-		});
-		
-		if (response.ok) {
-			const data = await response.json();
-			if (data.success) {
-				categories = data.data;
-			} else {
-				error = data.error || 'Помилка завантаження категорій';
-			}
+		const { data, error: supabaseError } = await supabase
+			.from('categories')
+			.select('*')
+			.eq('is_active', true)
+			.order('sort_order')
+			.order('name');
+
+		if (supabaseError) {
+			error = supabaseError.message;
 		} else {
-			error = `HTTP ${response.status}: ${response.statusText}`;
+			categories = data || [];
 		}
 	} catch (err) {
 		error = err instanceof Error ? err.message : 'Невідома помилка';
