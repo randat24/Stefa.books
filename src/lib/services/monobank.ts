@@ -36,28 +36,28 @@ export class MonobankService {
     } else {
       // Заглушка для розробки
       this.config = {
-        apiUrl: 'https://api.monobank.ua',
+        apiUrl: 'https://api.monobank.ua/api/merchant',
         publicKey: '',
         privateKey: '',
         merchantId: '' };
-      logger.warn('Monobank API not configured - using DEMO mode', {
+      logger.warn('Monobank token not configured - using DEMO mode', {
         reason: !token ? 'token is empty' : 'token is invalid'
       });
     }
   }
 
   /**
-   * Перевіряє чи налаштований API для створення платежів
+   * Перевіряє чи налаштований токен для створення платежів
    */
-  private isMerchantAPIAvailable(): boolean {
+  private isMerchantTokenAvailable(): boolean {
     const token = process.env.MONOBANK_TOKEN?.trim();
     return !!token && token.length > 0;
   }
 
   /**
-   * Перевіряє чи налаштований особистий API
+   * Перевіряє чи налаштований токен для особистих операцій
    */
-  private isPersonalAPIAvailable(): boolean {
+  private isPersonalTokenAvailable(): boolean {
     const token = process.env.MONOBANK_TOKEN?.trim();
     return !!token && token.length > 0;
   }
@@ -79,9 +79,9 @@ export class MonobankService {
     redirectUrl: string;
     webhookUrl: string;
   }): Promise<MonobankPaymentResponse> {
-    // Якщо немає API токену - повертаємо демо-дані
-    if (!this.isMerchantAPIAvailable()) {
-      logger.info('Creating demo payment (API not configured)', {
+    // Якщо немає токену - повертаємо демо-дані
+    if (!this.isMerchantTokenAvailable()) {
+      logger.info('Creating demo payment (token not configured)', {
         reference: paymentData.reference,
         amount: paymentData.amount });
       
@@ -174,10 +174,10 @@ export class MonobankService {
     data?: any;
     errText?: string;
   }> {
-    if (!this.isPersonalAPIAvailable()) {
+    if (!this.isPersonalTokenAvailable()) {
       return {
         status: 'error',
-        errText: 'Personal API token not configured'
+        errText: 'Personal token not configured'
       };
     }
 
@@ -214,10 +214,10 @@ export class MonobankService {
     data?: any[];
     errText?: string;
   }> {
-    if (!this.isPersonalAPIAvailable()) {
+    if (!this.isPersonalTokenAvailable()) {
       return {
         status: 'error',
-        errText: 'Personal API token not configured'
+        errText: 'Personal token not configured'
       };
     }
 
@@ -272,10 +272,10 @@ export class MonobankService {
       };
     }
 
-    if (!this.isMerchantAPIAvailable()) {
+    if (!this.isMerchantTokenAvailable()) {
       return {
         status: 'error',
-        errText: 'Merchant API not configured'
+        errText: 'Merchant token not configured'
       };
     }
     try {
