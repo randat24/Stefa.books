@@ -49,6 +49,7 @@ const subscribeFormSchema = z.object({
 		.email('Неправильний формат email'),
 	social: z.string()
 		.optional()
+		.or(z.literal(''))
 		.refine((val) => {
 			if (!val || val.trim() === '') return true
 			return val.length >= 3 && val.length <= 50 && /^@?[a-zA-Z0-9_]+$/.test(val)
@@ -61,6 +62,7 @@ const subscribeFormSchema = z.object({
 	}),
 	note: z.string()
 		.optional()
+		.or(z.literal(''))
 		.refine((val) => {
 			if (!val || val.trim() === '') return true
 			return val.length <= 500
@@ -133,6 +135,10 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 			plan: defaultPlan || 'mini',
 			payment: 'Онлайн оплата',
 			phone: '+380',
+			name: '',
+			email: '',
+			social: '',
+			note: '',
 			privacyConsent: false,
 		}
 	})
@@ -738,6 +744,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 								type="submit"
 								disabled={isSubmitting || !isValid}
 								className="flex-1 bg-brand-accent-light hover:bg-brand-accent text-white font-semibold disabled:bg-neutral-300 disabled:text-neutral-500"
+								title={`Form valid: ${isValid}, Errors: ${JSON.stringify(Object.keys(errors))}`}
 							>
 								{isSubmitting ? (
 									<>
