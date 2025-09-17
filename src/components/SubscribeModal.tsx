@@ -49,10 +49,10 @@ const subscribeFormSchema = z.object({
 		.email('Неправильний формат email'),
 	social: z.string()
 		.optional()
-		.or(z.literal(''))
+		.transform((val) => val || '')
 		.refine((val) => {
-			if (!val || val.trim() === '') return true
-			return val.length >= 3 && val.length <= 50 && /^@?[a-zA-Z0-9_]+$/.test(val)
+			if (val.trim() === '') return true
+			return val.length >= 3 && val.length <= 50 && /^@?[a-zA-Z0-9_]+$/.test(val.trim())
 		}, 'Неправильний формат ніка (використовуйте @username або username)'),
 	plan: z.enum(['mini', 'maxi'], {
 		required_error: 'Оберіть план підписки'
@@ -62,11 +62,8 @@ const subscribeFormSchema = z.object({
 	}),
 	note: z.string()
 		.optional()
-		.or(z.literal(''))
-		.refine((val) => {
-			if (!val || val.trim() === '') return true
-			return val.length <= 500
-		}, 'Повідомлення занадто довге'),
+		.transform((val) => val || '')
+		.refine((val) => val.length <= 500, 'Повідомлення занадто довге (максимум 500 символів)'),
 	screenshot: z.instanceof(File)
 		.optional(),
 	privacyConsent: z.boolean()
