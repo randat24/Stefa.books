@@ -26,15 +26,12 @@ export function useSupabase() {
       const client = createClient<Database>(supabaseUrl, supabaseKey, {
         auth: {
           persistSession: true,
-          autoRefreshToken: true,
-        },
+          autoRefreshToken: true },
         global: {
           headers: {
             'apikey': supabaseKey,
             ...(token ? { 'Authorization': `Bearer ${token}` } : {})
-          },
-        },
-      });
+          } } });
 
       setSupabase(client);
       setIsLoading(false);

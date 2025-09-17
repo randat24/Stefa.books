@@ -22,8 +22,7 @@ export async function GET(request: NextRequest) {
             justifyContent: 'center',
             backgroundColor: '#fef3c7',
             backgroundImage: 'linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%)',
-            fontFamily: 'system-ui, sans-serif',
-          }}
+            fontFamily: 'system-ui, sans-serif' }}
         >
           {/* Background Pattern */}
           <div
@@ -33,8 +32,7 @@ export async function GET(request: NextRequest) {
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundImage: 'radial-gradient(circle at 25% 25%, rgba(251, 191, 36, 0.1) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(251, 191, 36, 0.1) 0%, transparent 50%)',
-            }}
+              backgroundImage: 'radial-gradient(circle at 25% 25%, rgba(251, 191, 36, 0.1) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(251, 191, 36, 0.1) 0%, transparent 50%)' }}
           />
           
           {/* Main Content */}
@@ -46,8 +44,7 @@ export async function GET(request: NextRequest) {
               justifyContent: 'center',
               padding: '60px',
               textAlign: 'center',
-              maxWidth: '1000px',
-            }}
+              maxWidth: '1000px' }}
           >
             {/* Logo/Icon */}
             <div
@@ -60,14 +57,12 @@ export async function GET(request: NextRequest) {
                 backgroundColor: '#f59e0b',
                 borderRadius: '50%',
                 marginBottom: '40px',
-                boxShadow: '0 20px 40px rgba(245, 158, 11, 0.3)',
-              }}
+                boxShadow: '0 20px 40px rgba(245, 158, 11, 0.3)' }}
             >
               <div
                 style={{
                   fontSize: '60px',
-                  color: 'white',
-                }}
+                  color: 'white' }}
               >
                 📚
               </div>
@@ -82,8 +77,7 @@ export async function GET(request: NextRequest) {
                 marginBottom: '20px',
                 lineHeight: 1.2,
                 textAlign: 'center',
-                maxWidth: '900px',
-              }}
+                maxWidth: '900px' }}
             >
               {title}
             </div>
@@ -96,8 +90,7 @@ export async function GET(request: NextRequest) {
                 marginBottom: '40px',
                 lineHeight: 1.4,
                 textAlign: 'center',
-                maxWidth: '800px',
-              }}
+                maxWidth: '800px' }}
             >
               {description}
             </div>
@@ -110,16 +103,14 @@ export async function GET(request: NextRequest) {
                 gap: '12px',
                 fontSize: '24px',
                 color: '#f59e0b',
-                fontWeight: '600',
-              }}
+                fontWeight: '600' }}
             >
               <div
                 style={{
                   width: '8px',
                   height: '8px',
                   backgroundColor: '#f59e0b',
-                  borderRadius: '50%',
-                }}
+                  borderRadius: '50%' }}
               />
               Stefa.books
               <div
@@ -127,8 +118,7 @@ export async function GET(request: NextRequest) {
                   width: '8px',
                   height: '8px',
                   backgroundColor: '#f59e0b',
-                  borderRadius: '50%',
-                }}
+                  borderRadius: '50%' }}
               />
             </div>
           </div>
@@ -136,8 +126,7 @@ export async function GET(request: NextRequest) {
       ),
       {
         width: 1200,
-        height: 630,
-      }
+        height: 630 }
     )
   } catch (error) {
     console.error('Error generating OG image:', error)

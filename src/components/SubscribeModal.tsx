@@ -47,20 +47,24 @@ const subscribeFormSchema = z.object({
 		.regex(/^\+380\d{9}$/, 'Неправильний формат телефону (+380XXXXXXXXX)'),
 	email: z.string()
 		.email('Неправильний формат email'),
-	social: z.union([
-		z.string().length(0),
-		z.string().min(3).max(50).regex(/^@?[a-zA-Z0-9_]+$/, 'Неправильний формат ніка (використовуйте @username або username)')
-	]).optional(),
+	social: z.string()
+		.optional()
+		.refine((val) => {
+			if (!val || val.trim() === '') return true
+			return val.length >= 3 && val.length <= 50 && /^@?[a-zA-Z0-9_]+$/.test(val)
+		}, 'Неправильний формат ніка (використовуйте @username або username)'),
 	plan: z.enum(['mini', 'maxi'], {
 		required_error: 'Оберіть план підписки'
 	}),
 	payment: z.enum(['Онлайн оплата', 'Переказ на карту'], {
 		required_error: 'Оберіть спосіб оплати'
 	}),
-	note: z.union([
-		z.string().length(0),
-		z.string().max(500, 'Повідомлення занадто довге (максимум 500 символів)')
-	]).optional(),
+	note: z.string()
+		.optional()
+		.refine((val) => {
+			if (!val || val.trim() === '') return true
+			return val.length <= 500
+		}, 'Повідомлення занадто довге (максимум 500 символів)'),
 	screenshot: z.instanceof(File)
 		.optional(),
 	privacyConsent: z.boolean()
@@ -112,7 +116,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [copiedCard, setCopiedCard] = useState(false)
 	const [uploadProgress, setUploadProgress] = useState(0)
-	const fileRef = useRef<HTMLInputElement | null>(null)
+	const fileRef = useRef<HTMLInputElement | null | null | null>(null)
 
 	const {
 		register,
@@ -133,16 +137,27 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 			email: '',
 			social: '',
 			note: '',
-			privacyConsent: false,
-		}
-	})
+			privacyConsent: false }
+	});
+
+	// Функция для проверки валидности только обязательных полей
+	const isRequiredFieldsValid = () => {
+		const name = watch("name");
+		const phone = watch("phone");
+		const email = watch("email");
+		const plan = watch("plan");
+		const payment = watch("payment");
+		const privacyConsent = watch("privacyConsent");
+
+		return !!(name && phone && email && plan && payment && privacyConsent);
+	};
 
 	const watchedPlan = watch('plan')
 	const watchedPayment = watch('payment')
 	const watchedPrivacyConsent = watch('privacyConsent')
 
 	// Modal control
-  const modalRef = useRef<HTMLDivElement | null>(null)
+  const modalRef = useRef<HTMLDivElement | null | null | null>(null)
 
 	const handleClose = useCallback(() => {
 		reset()
@@ -199,7 +214,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 		}
 	}
 
-  const handleFileChange = (e: { target: { files?: FileList } }) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0]
 		if (file) {
 			// Validate file size (max 5MB)
@@ -231,8 +246,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 					plan: data.plan,
 					name: data.name,
 					email: data.email,
-					phone: data.phone,
-				});
+					phone: data.phone });
 
 				// Add optional parameters if they exist
 				if (data.social) {
@@ -736,7 +750,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 							</Button>
 							<Button
 								type="submit"
-								disabled={isSubmitting || !isValid}
+								disabled={isSubmitting || !isRequiredFieldsValid()}
 								className="flex-1 bg-brand-accent-light hover:bg-brand-accent text-white font-semibold disabled:bg-neutral-300 disabled:text-neutral-500"
 								title={`Form valid: ${isValid}, Errors: ${JSON.stringify(Object.keys(errors))}`}
 							>

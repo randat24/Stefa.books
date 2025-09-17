@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/button"
-import { Bell, AlertTriangle, Clock, User, BookOpen, Phone, Mail, RefreshCw, CheckCircle } from "lucide-react"
+import { Bell, AlertTriangleIcon, Clock, User, BookOpen, Phone, Mail, RefreshCw, CheckCircle } from "lucide-react"
 
 interface Notification {
   id: string
@@ -101,7 +101,7 @@ export function NotificationsPanel({ }: NotificationsPanelProps) {
   const getTypeIcon = (type: string) => {
     switch (type) {
       case 'subscription_expiring': return <Clock className="size-4" />
-      case 'subscription_overdue': return <AlertTriangle className="size-4" />
+      case 'subscription_overdue': return <AlertTriangleIcon className="size-4" />
       case 'rental_overdue': return <BookOpen className="size-4" />
       default: return <Bell className="size-4" />
     }

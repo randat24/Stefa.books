@@ -11,7 +11,7 @@ import {
   Zap, 
   Clock, 
   Download, 
-  AlertTriangle,
+  AlertTriangleIcon,
   CheckCircle,
   RefreshCw,
   BarChart3,
@@ -378,7 +378,7 @@ export default function PerformancePage() {
               <Card key={index}>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    {rec.type === 'warning' && <AlertTriangle className="h-5 w-5 text-yellow-500" />}
+                    {rec.type === 'warning' && <AlertTriangleIcon className="h-5 w-5 text-yellow-500" />}
                     {rec.type === 'info' && <Settings className="h-5 w-5 text-blue-500" />}
                     {rec.type === 'success' && <CheckCircle className="h-5 w-5 text-green-500" />}
                     {rec.title}

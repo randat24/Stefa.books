@@ -15,8 +15,7 @@ const mockRentals = [
     rentedDate: '2023-10-15',
     dueDate: '2023-11-15',
     returnedDate: null,
-    status: 'active',
-  },
+    status: 'active' },
   {
     id: '2',
     bookTitle: 'To Kill a Mockingbird',
@@ -24,8 +23,7 @@ const mockRentals = [
     rentedDate: '2023-09-20',
     dueDate: '2023-10-20',
     returnedDate: '2023-10-18',
-    status: 'returned',
-  },
+    status: 'returned' },
   {
     id: '3',
     bookTitle: '1984',
@@ -33,8 +31,7 @@ const mockRentals = [
     rentedDate: '2023-08-05',
     dueDate: '2023-09-05',
     returnedDate: '2023-09-03',
-    status: 'returned',
-  },
+    status: 'returned' },
   {
     id: '4',
     bookTitle: 'Pride and Prejudice',
@@ -42,8 +39,7 @@ const mockRentals = [
     rentedDate: '2023-07-10',
     dueDate: '2023-08-10',
     returnedDate: '2023-08-12',
-    status: 'overdue',
-  },
+    status: 'overdue' },
 ];
 
 export default function OrdersPage() {
@@ -72,7 +68,7 @@ export default function OrdersPage() {
     <div className="container py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
         <div>
-          <h1 className="text-h1">Rental History</h1>
+          <h1 className="text-h1">Rental HistoryIcon</h1>
           <p className="text-neutral-500">View your book rental history and current rentals</p>
         </div>
       </div>

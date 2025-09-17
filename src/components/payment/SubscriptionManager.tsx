@@ -48,8 +48,7 @@ export function SubscriptionManager() {
       
       toast({
         title: "Успіх",
-        description: "Підписка успішно скасована",
-      });
+        description: "Підписка успішно скасована" });
     } catch {
       // Error is handled in the hook
     }

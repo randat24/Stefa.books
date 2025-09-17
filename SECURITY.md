@@ -1,111 +1,185 @@
-# 🔒 БЕЗПЕКА ПРОЕКТУ STEFA.BOOKS
+# 🔒 Security Policy
 
-## ⚠️ КРИТИЧНО - Перед розгортанням
+## Supported Versions
 
-### 1. Змінні середовища (.env файли)
+We currently support the following versions of Stefa.Books:
 
-**❌ НЕ РОБИТИ:**
-- Не комітьте файл `.env.local` з реальними ключами
-- Не використовуйте тестові/дефолтні ключі у продакшені
-- Не залишайте реальні API ключі в `.env.local.example`
+| Version | Supported          | Status |
+| ------- | ------------------ | ------ |
+| 1.0.x   | :white_check_mark: | Active |
+| 0.9.x   | :white_check_mark: | Maintenance |
+| < 0.9   | :x:                | End of Life |
 
-**✅ ПРАВИЛЬНО:**
-```bash
-# Використовуйте .env.local.example як шаблон
-cp .env.local.examle .env.local
+## Security Features
 
-# Замініть всі YOUR_* значення на реальні
-NEXT_PUBLIC_SUPABASE_URL="https://your-project.supabase.co"
-CLOUDINARY_API_SECRET="your-real-secret"
-ADMIN_JWT_SECRET="generate-strong-jwt-secret"
-```
+### Authentication & Authorization
+- **Supabase Auth**: Secure user authentication
+- **Row Level Security (RLS)**: Database-level access control
+- **JWT Tokens**: Secure session management
+- **Role-based Access**: Admin and user permissions
 
-### 2. Cloudinary безпека
+### Data Protection
+- **Input Validation**: Zod schemas for all user inputs
+- **SQL Injection Prevention**: Parameterized queries
+- **XSS Protection**: Content sanitization
+- **CSRF Protection**: SameSite cookies and CSRF tokens
 
-**Налаштування Upload Preset:**
-1. Увійдіть в [Cloudinary Console](https://cloudinary.com/console)
-2. Settings → Upload → Add upload preset
-3. Створіть preset `stefa_books_upload`:
-   - **Signing Mode**: Unsigned
-   - **Folder**: `stefa-books/screenshots`
-   - **Max file size**: 5MB
-   - **Allowed formats**: jpg,png,jpeg,webp
+### Infrastructure Security
+- **HTTPS Only**: All communications encrypted
+- **Environment Variables**: Sensitive data protection
+- **Database Security**: RLS policies and secure connections
+- **CDN Security**: Cloudflare protection
 
-### 3. Supabase RLS (Row Level Security)
+### Code Security
+- **Dependency Scanning**: Regular security audits
+- **Type Safety**: TypeScript strict mode
+- **Linting**: ESLint security rules
+- **Code Review**: Mandatory security review
 
-**✅ Налаштовано правильно:**
-- Всі таблиці мають увімкнений RLS
-- Публічний доступ тільки для читання каталогу книг
-- Адміністративні функції захищені
+## Reporting a Vulnerability
 
-**Перевірка RLS:**
-```sql
--- Перевірити статус RLS
-SELECT schemaname, tablename, rowsecurity 
-FROM pg_tables 
-WHERE schemaname = 'public';
-```
+### How to Report
 
-### 4. Next.js Security Headers
+If you discover a security vulnerability, please report it responsibly:
 
-**Налаштовано в `next.config.js`:**
-```javascript
-// Захисні заголовки
-headers: [
-  { key: 'X-Frame-Options', value: 'DENY' },
-  { key: 'X-Content-Type-Options', value: 'nosniff' },
-  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' }
-]
-```
+1. **DO NOT** create a public GitHub issue
+2. **DO** email us at: security@stefa-books.com.ua
+3. **DO** include detailed information about the vulnerability
+4. **DO** allow us time to respond before public disclosure
 
-### 5. Адміністративний доступ
+### What to Include
 
-**Аутентифікація через middleware:**
-- Development: відкритий доступ на localhost
-- Production: JWT токен в cookie `admin_token`
+Please include the following information in your report:
 
-**Генерація JWT секрету:**
-```bash
-node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
-```
+- **Description**: Clear description of the vulnerability
+- **Impact**: Potential impact and affected systems
+- **Steps to Reproduce**: Detailed steps to reproduce
+- **Environment**: Browser, OS, and version information
+- **Proof of Concept**: If possible, include a PoC
+- **Suggested Fix**: If you have ideas for fixing the issue
 
-## 🚨 Виявлені вразливості (ВИПРАВЛЕНО)
+### Response Timeline
 
-### ✅ Хардкод URL-ів - ВИПРАВЛЕНО
-- **Було**: `'https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/image/upload'`
-- **Стало**: `process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME`
+- **Initial Response**: Within 24 hours
+- **Status Update**: Within 72 hours
+- **Resolution**: Within 30 days (depending on severity)
 
-### ✅ Відкриті API ключі - ЗАХИЩЕНО
-- Реальні ключі переміщені з `.env.local.examle`
-- Створено безпечний шаблон з плейсхолдерами
+### Recognition
 
-## 📋 Чеклист безпеки перед деплоєм
+We appreciate security researchers who help us improve our security:
 
-- [ ] Згенеровано нові JWT секрети
-- [ ] Замінено всі тестові API ключі
-- [ ] Налаштовано Cloudinary upload presets
-- [ ] Перевірено RLS політики в Supabase
-- [ ] Встановлено HTTPS домен для продакшену
-- [ ] Налаштовано CORS для API endpoints
-- [ ] Перевірено CSP заголовки
+- **Hall of Fame**: Security researchers will be listed in our security hall of fame
+- **Responsible Disclosure**: We follow responsible disclosure practices
+- **Credit**: Proper credit will be given for valid reports
 
-## 🔐 Регулярне обслуговування
+## Security Best Practices
 
-### Щомісяця:
-- Ротація API ключів Cloudinary
-- Перевірка логів безпеки Supabase
-- Оновлення залежностей з `npm audit`
+### For Users
+- Use strong, unique passwords
+- Enable two-factor authentication when available
+- Keep your browser updated
+- Be cautious with personal information
+- Report suspicious activity immediately
 
-### Щоквартально:
-- Аудит RLS політик
-- Перегляд JWT токенів
-- Backup security налаштувань
+### For Developers
+- Follow secure coding practices
+- Keep dependencies updated
+- Use environment variables for secrets
+- Implement proper input validation
+- Regular security audits and testing
 
-## 📞 Контакти у випадку інциденту
+### For Administrators
+- Regular security updates
+- Monitor access logs
+- Implement least privilege principle
+- Regular backup verification
+- Incident response planning
 
-**Адміністратор безпеки:** [Ваш контакт]
-**Incident Response:** [План дій при інциденті]
+## Security Audit
+
+### Regular Audits
+- **Monthly**: Dependency vulnerability scanning
+- **Quarterly**: Security code review
+- **Annually**: Full security audit
+- **As Needed**: Incident response
+
+### Tools Used
+- **Snyk**: Dependency vulnerability scanning
+- **ESLint Security**: Code security linting
+- **OWASP ZAP**: Web application security testing
+- **Manual Review**: Expert security review
+
+## Incident Response
+
+### Security Incident Process
+1. **Detection**: Monitor and detect security incidents
+2. **Assessment**: Evaluate the scope and impact
+3. **Containment**: Isolate affected systems
+4. **Investigation**: Determine root cause
+5. **Recovery**: Restore normal operations
+6. **Lessons Learned**: Improve security measures
+
+### Contact Information
+- **Security Team**: security@stefa-books.com.ua
+- **Emergency**: +380-XX-XXX-XXXX
+- **General Support**: support@stefa-books.com.ua
+
+## Compliance
+
+### Data Protection
+- **GDPR**: European General Data Protection Regulation compliance
+- **CCPA**: California Consumer Privacy Act compliance
+- **Ukrainian Data Protection**: Local data protection laws
+
+### Privacy
+- **Data Minimization**: Collect only necessary data
+- **Purpose Limitation**: Use data only for stated purposes
+- **Storage Limitation**: Retain data only as long as necessary
+- **User Rights**: Respect user privacy rights
+
+## Security Updates
+
+### Update Policy
+- **Critical**: Immediate patching (within 24 hours)
+- **High**: Patching within 7 days
+- **Medium**: Patching within 30 days
+- **Low**: Patching within 90 days
+
+### Communication
+- **Security Advisories**: Published for significant issues
+- **Release Notes**: Include security fixes
+- **User Notifications**: Direct communication for critical issues
+
+## Third-Party Security
+
+### Dependencies
+- **Regular Updates**: Keep all dependencies current
+- **Vulnerability Scanning**: Automated security scanning
+- **License Compliance**: Ensure proper licensing
+
+### Integrations
+- **Monobank**: Secure payment processing
+- **Cloudinary**: Secure image storage
+- **Supabase**: Secure database hosting
+- **Vercel**: Secure hosting platform
+
+## Security Training
+
+### Team Training
+- **Security Awareness**: Regular security training
+- **Secure Coding**: Development best practices
+- **Incident Response**: Response procedures
+- **Privacy Protection**: Data protection training
+
+### Resources
+- **OWASP Top 10**: Web application security risks
+- **NIST Guidelines**: Cybersecurity framework
+- **Security Documentation**: Internal security guides
+- **External Training**: Professional security courses
 
 ---
-*Останнє оновлення: 28.08.2025*
-*Версія документу: 1.0*
+
+**Last Updated**: January 9, 2025  
+**Next Review**: April 9, 2025
+
+For questions about this security policy, contact: security@stefa-books.com.ua

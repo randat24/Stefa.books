@@ -18,8 +18,7 @@ jest.mock('next/image', () => {
 
 // Mock recentViews
 jest.mock('@/lib/recentViews', () => ({
-  addToRecentViews: jest.fn(),
-}));
+  addToRecentViews: jest.fn() }));
 
 const mockBook: Book = {
   id: 'test-book-1',
@@ -51,8 +50,7 @@ const mockBook: Book = {
   search_vector: null,
   search_text: null,
   created_at: new Date().toISOString(),
-  updated_at: new Date().toISOString(),
-};
+  updated_at: new Date().toISOString() };
 
 describe('BookCard Integration Tests', () => {
   beforeEach(() => {

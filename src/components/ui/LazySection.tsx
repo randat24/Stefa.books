@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef , ReactNode } from 'react';
 import { observeElement } from '@/lib/intersection-observer';
 
 interface LazySectionProps {
@@ -21,7 +21,7 @@ export function LazySection({
   // threshold = 0.1 // Will be used for intersection observer configuration
 }: LazySectionProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement | null | null>(null);
 
   useEffect(() => {
     // For immediate loading (fallback), set a timeout

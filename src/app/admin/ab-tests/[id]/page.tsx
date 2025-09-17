@@ -26,13 +26,11 @@ const mockAbTest = {
       count: 58, 
       rate: 4.7,
       description: 'Alternative green CTA button'
-    },
-  },
+    } },
   results: {
     winner: 'variantB',
     significance: 0.95,
-    improvement: 38.2,
-  }
+    improvement: 38.2 }
 };
 
 export default function AbTestDetailsPage() {

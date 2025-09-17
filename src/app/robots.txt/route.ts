@@ -30,7 +30,5 @@ Crawl-delay: 1
 
   return new Response(robotsTxt, {
     headers: {
-      'Content-Type': 'text/plain',
-    },
-  })
+      'Content-Type': 'text/plain' } })
 }

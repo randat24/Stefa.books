@@ -30,8 +30,7 @@ interface SubscriptionPaymentProps {
 const CustomerInfoSchema = z.object({
   name: z.string().min(2, 'Ім\'я повинно містити принаймні 2 символи'),
   email: z.string().email('Невірний формат email'),
-  phone: z.string().min(10, 'Невірний формат телефону').optional(),
-});
+  phone: z.string().min(10, 'Невірний формат телефону').optional() });
 
 export default function SubscriptionPayment({
   defaultPlan,
@@ -259,7 +258,7 @@ export default function SubscriptionPayment({
               <Input
                 id="name"
                 value={customerInfo.name}
-                onChange={(e) => setCustomerInfo(prev => ({ ...prev, name: e.target.value }))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCustomerInfo(prev => ({ ...prev, name: e.target.value }))}
                 placeholder="Введіть ваше ім'я"
                 className={errors.name ? 'border-red-500' : ''}
               />
@@ -272,7 +271,7 @@ export default function SubscriptionPayment({
                 id="email"
                 type="email"
                 value={customerInfo.email}
-                onChange={(e) => setCustomerInfo(prev => ({ ...prev, email: e.target.value }))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCustomerInfo(prev => ({ ...prev, email: e.target.value }))}
                 placeholder="your@email.com"
                 className={errors.email ? 'border-red-500' : ''}
               />
@@ -284,7 +283,7 @@ export default function SubscriptionPayment({
               <Input
                 id="phone"
                 value={customerInfo.phone}
-                onChange={(e) => setCustomerInfo(prev => ({ ...prev, phone: e.target.value }))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCustomerInfo(prev => ({ ...prev, phone: e.target.value }))}
                 placeholder="+380XXXXXXXXX"
                 className={errors.phone ? 'border-red-500' : ''}
               />

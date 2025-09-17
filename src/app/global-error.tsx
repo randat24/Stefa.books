@@ -4,8 +4,7 @@
 export const dynamic = 'force-dynamic';
 
 export default function GlobalError({
-  reset,
-}: {
+  reset }: {
   error: Error & { digest?: string };
   reset: () => void;
 }) {

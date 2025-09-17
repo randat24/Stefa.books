@@ -43,8 +43,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       images: ['/images/plans-og-image.jpg'],
       site: '@stefabooksua',
-      creator: '@stefabooksua',
-    }
+      creator: '@stefabooksua' }
   };
 }
 

@@ -42,8 +42,7 @@ export async function connectToGoogleSheets(config?: GoogleSheetsConfig): Promis
   const auth = new JWT({
     email: clientEmail,
     key: privateKey,
-    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-  });
+    scopes: ['https://www.googleapis.com/auth/spreadsheets'] });
 
   const doc = new GoogleSpreadsheet(spreadsheetId, auth);
   await doc.loadInfo();
@@ -237,8 +236,7 @@ function bookToSheetRow(book: Book): Record<string, any> {
     badges: Array.isArray(book.badges) ? book.badges.join(', ') : '',
     tags: Array.isArray(book.tags) ? book.tags.join(', ') : '',
     created_at: book.created_at || '',
-    updated_at: book.updated_at || '',
-  };
+    updated_at: book.updated_at || '' };
 }
 
 function sheetRowToBook(row: any): Partial<Book> {
@@ -274,8 +272,7 @@ function sheetRowToBook(row: any): Partial<Book> {
     rating: parseFloatOrNull(row.get('rating')) || 0,
     rating_count: parseIntOrNull(row.get('rating_count')) || 0,
     badges: parseArrayFromString(row.get('badges')),
-    tags: parseArrayFromString(row.get('tags')),
-  };
+    tags: parseArrayFromString(row.get('tags')) };
 }
 
 function parseIntOrNull(value: string): number | null {
@@ -520,5 +517,4 @@ export const GoogleSheetsService = {
   import: importBooksFromSheets,
   importUkrainian: importBooksFromUkrainianSheets,
   getStatus: getSyncStatus,
-  config: getGoogleSheetsConfig,
-};
+  config: getGoogleSheetsConfig };

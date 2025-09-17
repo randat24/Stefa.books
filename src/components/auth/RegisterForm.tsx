@@ -57,7 +57,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
       errors.email = 'Введіть коректну електронну пошту';
     }
     
-    if (phone && !/^[\+]?[0-9\s\-\(\)]{10,}$/.test(phone)) {
+    if (phone && !/^[\+]?[0-9\s\-\(\)]{10 }$/.test(phone)) {
       errors.phone = 'Введіть коректний номер телефону';
     }
     
@@ -160,7 +160,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
                 <Input
                   id="firstName"
                   value={firstName}
-                  onChange={(e) => {
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setFirstName(e.target.value);
                     if (fieldErrors.firstName) {
                       setFieldErrors(prev => ({ ...prev, firstName: undefined }));
@@ -183,7 +183,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
                 <Input
                   id="lastName"
                   value={lastName}
-                  onChange={(e) => {
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setLastName(e.target.value);
                     if (fieldErrors.lastName) {
                       setFieldErrors(prev => ({ ...prev, lastName: undefined }));
@@ -208,7 +208,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
               id="email"
               type="email"
               value={email}
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setEmail(e.target.value);
                 if (fieldErrors.email) {
                   setFieldErrors(prev => ({ ...prev, email: undefined }));
@@ -232,7 +232,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
               id="phone"
               type="tel"
               value={phone}
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setPhone(e.target.value);
                 if (fieldErrors.phone) {
                   setFieldErrors(prev => ({ ...prev, phone: undefined }));
@@ -257,7 +257,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
                 id="password"
                 type={showPassword ? "text" : "password"}
                 value={password}
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setPassword(e.target.value);
                   if (fieldErrors.password) {
                     setFieldErrors(prev => ({ ...prev, password: undefined }));
@@ -295,7 +295,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
                 id="confirmPassword"
                 type={showConfirmPassword ? "text" : "password"}
                 value={confirmPassword}
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setConfirmPassword(e.target.value);
                   if (fieldErrors.confirmPassword) {
                     setFieldErrors(prev => ({ ...prev, confirmPassword: undefined }));

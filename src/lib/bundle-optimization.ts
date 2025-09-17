@@ -20,8 +20,7 @@ export const dynamicImports = {
   // Admin components (lazy load for admin routes)
   BooksTable: () => import('@/app/admin/components/BooksTable'),
   AddBookDialog: () => import('@/app/admin/components/AddBookDialog'),
-  EditBookDialog: () => import('@/app/admin/components/EditBookDialog'),
-};
+  EditBookDialog: () => import('@/app/admin/components/EditBookDialog') };
 
 // Preload critical components
 export function preloadCriticalComponents() {
@@ -59,8 +58,7 @@ export function preloadForRoute(route: string) {
     '/books': ['BookCard', 'Catalog', 'Categories'],
     '/admin': ['BooksTable', 'AddBookDialog', 'EditBookDialog'],
     '/subscribe': ['SubscribeFormHome'],
-    '/': ['Hero', 'BookRecommendations'],
-  };
+    '/': ['Hero', 'BookRecommendations'] };
 
   const componentsToPreload = routePreloadMap[route] || [];
   
@@ -101,8 +99,7 @@ export function optimizeTreeShaking() {
   const iconImports = {
     Search: () => import('lucide-react').then(m => ({ default: m.Search })),
     Heart: () => import('lucide-react').then(m => ({ default: m.Heart })),
-    BookOpen: () => import('lucide-react').then(m => ({ default: m.BookOpen })),
-  };
+    BookOpen: () => import('lucide-react').then(m => ({ default: m.BookOpen })) };
 
   return iconImports;
 }
@@ -124,8 +121,7 @@ export function optimizeMemoryUsage() {
         logger.warn('High memory usage detected', {
           used: `${used.toFixed(2)}MB`,
           total: `${total.toFixed(2)}MB`,
-          limit: `${limit.toFixed(2)}MB`,
-        }, 'Memory');
+          limit: `${limit.toFixed(2)}MB` }, 'Memory');
       }
     }, 30000); // Check every 30 seconds
   }

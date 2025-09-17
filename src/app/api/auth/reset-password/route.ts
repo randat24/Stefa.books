@@ -12,8 +12,7 @@ const resetPasswordSchema = z.object({
   confirmPassword: z.string().min(6, 'Підтвердження пароля обов\'язкове')
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Паролі не співпадають",
-  path: ["confirmPassword"],
-});
+  path: ["confirmPassword"] });
 
 export async function POST(request: NextRequest) {
   try {

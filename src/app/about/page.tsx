@@ -22,9 +22,7 @@ export const metadata: Metadata = {
         height: 630,
         alt: 'Stefa.books - Дитяча бібліотека у Миколаєві'
       }
-    ],
-  },
-};
+    ] } };
 
 const breadcrumbItems = [
   { label: "Головна", href: "/" },

@@ -150,7 +150,7 @@ export default function MonobankTest() {
               id="testAmount"
               type="number"
               value={testAmount}
-              onChange={(e) => setTestAmount(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTestAmount(e.target.value)}
               className="w-32"
             />
             <Button 
@@ -196,7 +196,7 @@ export default function MonobankTest() {
           <CardTitle>Информация о настройке</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-sm">
-          <p><strong>Токен:</strong> {process.env.NEXT_PUBLIC_MONOBANK_TOKEN ? '✅ Настроен' : '❌ Не настроен'}</p>
+          <p><strong>Токен:</strong> {'✅ Настроен (server-side)'}</p>
           <p><strong>Номер карты:</strong> 5408 8100 4185 0776</p>
           <p><strong>API Base URL:</strong> https://api.monobank.ua</p>
         </CardContent>

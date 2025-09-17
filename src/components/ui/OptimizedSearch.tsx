@@ -1,6 +1,7 @@
 'use client'
 
-import { memo, useState, useCallback, useMemo, useEffect } from 'react'
+import { useState, useCallback, useMemo, useEffect } from 'react';
+import {  } from 'react'
 import { Search, X, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/cn'
 
@@ -14,15 +15,14 @@ interface OptimizedSearchProps {
   loading?: boolean
 }
 
-const OptimizedSearch = memo(function OptimizedSearch({
+const OptimizedSearch = (function OptimizedSearch({
   onSearch,
   placeholder = 'Пошук книг...',
   className = '',
   debounceMs = 300,
   minLength = 2,
   showClearButton = true,
-  loading = false,
-}: OptimizedSearchProps) {
+  loading = false }: OptimizedSearchProps) {
   const [query, setQuery] = useState('')
   const [debouncedQuery, setDebouncedQuery] = useState('')
 

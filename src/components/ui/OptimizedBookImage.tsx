@@ -29,7 +29,7 @@ export function OptimizedBookImage({
   const [imgSrc, setImgSrc] = useState<string>(src);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement | null | null>(null);
   const hasLoadedRef = useRef(false);
 
   // Optimize the image URL

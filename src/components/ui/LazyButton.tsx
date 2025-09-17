@@ -1,6 +1,6 @@
 'use client'
 
-import { lazy, Suspense, ComponentType } from 'react'
+import { lazy, Suspense, ComponentType , ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
 // Ленивая загрузка иконок
@@ -24,14 +24,12 @@ const buttonVariants = {
   default: 'bg-primary text-primary-foreground hover:bg-primary/90',
   outline: 'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
   ghost: 'hover:bg-accent hover:text-accent-foreground',
-  destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-}
+  destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90' }
 
 const buttonSizes = {
   sm: 'h-8 px-3 text-sm',
   md: 'h-10 px-4 py-2',
-  lg: 'h-12 px-6 text-lg',
-}
+  lg: 'h-12 px-6 text-lg' }
 
 export default function LazyButton({
   iconName,
@@ -42,8 +40,7 @@ export default function LazyButton({
   disabled = false,
   loading = false,
   onClick,
-  type = 'button',
-}: LazyButtonProps) {
+  type = 'button' }: LazyButtonProps) {
   const LazyIcon = iconName ? createLazyIcon(iconName) : null
 
   return (

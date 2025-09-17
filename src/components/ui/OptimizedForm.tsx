@@ -1,6 +1,7 @@
 'use client'
 
-import { memo, useCallback, useState, useRef, useEffect } from 'react'
+import { useCallback, useState, useRef, useEffect } from 'react';
+import {  } from 'react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
 
@@ -19,7 +20,7 @@ interface FormFieldProps {
   className?: string
 }
 
-const FormField = memo(function FormField({
+const FormField = (function FormField({
   name,
   label,
   type = 'text',
@@ -31,10 +32,9 @@ const FormField = memo(function FormField({
   required = false,
   disabled = false,
   options = [],
-  className = '',
-}: FormFieldProps) {
+  className = '' }: FormFieldProps) {
   const [isFocused, setIsFocused] = useState(false)
-  const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(null)
+  const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null | null>(null)
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     onChange(e.target.value)
@@ -163,15 +163,14 @@ interface OptimizedFormProps {
   className?: string
 }
 
-const OptimizedForm = memo(function OptimizedForm({
+const OptimizedForm = (function OptimizedForm({
   onSubmit,
   fields,
   initialValues = {},
   validation,
   submitText = 'Відправити',
   loading = false,
-  className = '',
-}: OptimizedFormProps) {
+  className = '' }: OptimizedFormProps) {
   const [values, setValues] = useState<Record<string, string>>(initialValues)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [touched, setTouched] = useState<Record<string, boolean>>({})

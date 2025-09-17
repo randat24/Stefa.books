@@ -22,19 +22,16 @@ export function Skeleton({
     text: 'h-4 rounded',
     circular: 'rounded-2xl',
     rectangular: '',
-    rounded: 'rounded-lg',
-  };
+    rounded: 'rounded-lg' };
 
   const animationClasses = {
     pulse: 'animate-pulse',
     wave: 'animate-pulse bg-gradient-to-r from-neutral-200 via-gray-100 to-neutral-200 bg-[length:200%_100%]',
-    none: '',
-  };
+    none: '' };
 
   const style = {
     width: width,
-    height: height,
-  };
+    height: height };
 
   return (
     <div

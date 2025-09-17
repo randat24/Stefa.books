@@ -1,6 +1,6 @@
 'use client';
 
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/cn';
 
@@ -18,7 +18,7 @@ interface AccessibleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEle
 /**
  * Доступная кнопка с поддержкой состояний загрузки и иконок
  */
-export const AccessibleButton = forwardRef<HTMLButtonElement, AccessibleButtonProps>(
+export const AccessibleButton = (
   ({
     variant = 'primary',
     size = 'md',
@@ -127,7 +127,7 @@ interface ToggleButtonProps extends Omit<AccessibleButtonProps, 'children'> {
   unpressedIcon?: React.ReactNode;
 }
 
-export const ToggleButton = forwardRef<HTMLButtonElement, ToggleButtonProps>(
+export const ToggleButton = (
   ({
     pressed,
     pressedText,
@@ -202,7 +202,7 @@ interface DropdownButtonProps extends AccessibleButtonProps {
   children: React.ReactNode;
 }
 
-export const DropdownButton = forwardRef<HTMLButtonElement, DropdownButtonProps>(
+export const DropdownButton = (
   ({
     isOpen,
     onToggle,

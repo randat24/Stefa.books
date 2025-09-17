@@ -18,7 +18,7 @@ export function Footer() {
                   height={28}
                   className="text-neutral-700"
                   unoptimized={true}
-                  onError={(e) => {
+                  onError={(e: React.ChangeEvent<HTMLInputElement>) => {
                     // Fallback to a simple div with text if image fails to load
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';

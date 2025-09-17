@@ -14,8 +14,7 @@ const mockCategory = {
   id: '1',
   name: 'Fiction',
   description: 'Novels and fictional works',
-  slug: 'fiction',
-};
+  slug: 'fiction' };
 
 export default function EditCategoryPage() {
   const params = useParams();
@@ -27,8 +26,7 @@ export default function EditCategoryPage() {
   const [formData, setFormData] = useState({
     name: category.name,
     description: category.description,
-    slug: category.slug,
-  });
+    slug: category.slug });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;

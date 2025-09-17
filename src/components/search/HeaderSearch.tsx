@@ -20,7 +20,7 @@ export function HeaderSearch() {
   const [searchResults, setSearchResults] = useState<SearchResults | null>(null);
   const [isSearching, setIsSearching] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement | null | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -175,7 +175,7 @@ export function HeaderSearch() {
                   ref={inputRef}
                   type="text"
                   value={query}
-                  onChange={(e) => handleInputChange(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Пошук книг за назвою, автором, категорією..."
                   className="flex-1 bg-transparent text-neutral-900 placeholder-slate-500 text-body-lg outline-none"
@@ -220,7 +220,7 @@ export function HeaderSearch() {
                           </button>
                         </div>
                         <div className="space-y-3">
-                          {searchResults.books.slice(0, 3).map((book) => (
+                          {searchResults.books.slice(0, 3).map((book: any) => (
                             <button
                               key={book.id}
                               onClick={() => {

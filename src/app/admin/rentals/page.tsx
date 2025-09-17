@@ -390,8 +390,8 @@ export default function AdminRentalsPage() {
 										id="search"
 										placeholder="Имя, email, телефон..."
 										value={searchQuery}
-										onChange={(e) => setSearchQuery(e.target.value)}
-										onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+										onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
+										onKeyDown={(e: React.ChangeEvent<HTMLInputElement>) => e.key === 'Enter' && handleSearch()}
 										className="pl-10"
 									/>
 								</div>
@@ -665,7 +665,7 @@ export default function AdminRentalsPage() {
 									<Textarea
 										id="editNote"
 										value={editNote}
-										onChange={(e) => setEditNote(e.target.value)}
+										onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEditNote(e.target.value)}
 										placeholder="Добавить заметку..."
 										rows={3}
 									/>

@@ -1,6 +1,7 @@
 'use client'
 
-import { memo, useMemo, useCallback, useState, useEffect } from 'react'
+import { useMemo, useCallback, useState, useEffect } from 'react';
+import {  } from 'react'
 import { BookCard } from '@/components/BookCard'
 // import { BookListSkeleton } from '@/components/ui/LazyComponent' // TODO: Use when implementing skeleton loading
 import type { Book } from '@/lib/supabase'
@@ -15,15 +16,14 @@ interface VirtualizedBookListProps {
   priorityLoading?: boolean
 }
 
-const VirtualizedBookList = memo(function VirtualizedBookList({
+const VirtualizedBookList = (function VirtualizedBookList({
   books,
   className = '',
   itemHeight = 400,
   containerHeight = 600,
   overscan = 5,
   showActions = true,
-  priorityLoading = false,
-}: VirtualizedBookListProps) {
+  priorityLoading = false }: VirtualizedBookListProps) {
   const [scrollTop, setScrollTop] = useState(0)
   const [containerRef, setContainerRef] = useState<HTMLDivElement | null>(null)
 
@@ -37,8 +37,7 @@ const VirtualizedBookList = memo(function VirtualizedBookList({
     
     return {
       startIndex: Math.max(0, startIndex - overscan),
-      endIndex,
-    }
+      endIndex }
   }, [scrollTop, itemHeight, containerHeight, overscan, books.length])
 
   // Получаем видимые книги
@@ -82,8 +81,7 @@ const VirtualizedBookList = memo(function VirtualizedBookList({
       <div
         style={{
           height: books.length * itemHeight,
-          position: 'relative',
-        }}
+          position: 'relative' }}
       >
         <div
           style={{
@@ -91,8 +89,7 @@ const VirtualizedBookList = memo(function VirtualizedBookList({
             position: 'absolute',
             top: 0,
             left: 0,
-            right: 0,
-          }}
+            right: 0 }}
         >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4">
             {visibleBooks.map((book, index) => (

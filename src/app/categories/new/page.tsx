@@ -12,8 +12,7 @@ export default function NewCategoryPage() {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
-    slug: '',
-  });
+    slug: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;

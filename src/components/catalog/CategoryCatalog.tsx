@@ -86,7 +86,7 @@ export function CategoryCatalog({
         {!hasChildren ? (
           <Link
             href={`/books?category=${category.slug || category.name}`}
-            onClick={(e) => handleCategoryClick(category, e)}
+            onClick={(e: React.MouseEvent<HTMLInputElement>) => handleCategoryClick(category, e)}
             className="flex items-center gap-3 p-4 rounded-xl hover:bg-neutral-50 transition-colors group"
             style={{ 
               backgroundColor: category.color ? `${category.color}20` : '#F8FAFC',
@@ -130,7 +130,7 @@ export function CategoryCatalog({
                 <Link
                   key={subcategory.id}
                   href={`/books?category=${subcategory.slug || subcategory.name}`}
-                  onClick={(e) => handleCategoryClick(subcategory, e)}
+                  onClick={(e: React.MouseEvent<HTMLInputElement>) => handleCategoryClick(subcategory, e)}
                   className="flex items-center gap-3 p-3 rounded-lg hover:bg-neutral-50 transition-colors group"
                 >
                   <span className="w-6 h-6 flex items-center justify-center text-neutral-400 group-hover:text-neutral-600">

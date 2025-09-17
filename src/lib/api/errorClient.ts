@@ -104,10 +104,8 @@ class ErrorTrackingClient {
       const response = await fetch(this.baseUrl, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ error, context, metadata }),
-      });
+          'Content-Type': 'application/json' },
+        body: JSON.stringify({ error, context, metadata }) });
       
       const result = await response.json();
       if (!result.success) {
@@ -126,8 +124,7 @@ class ErrorTrackingClient {
   async clearAllErrors(): Promise<void> {
     try {
       const response = await fetch(`${this.baseUrl}?action=clear-all`, {
-        method: 'DELETE',
-      });
+        method: 'DELETE' });
       
       const result = await response.json();
       if (!result.success) {

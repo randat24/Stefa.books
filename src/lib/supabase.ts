@@ -8,23 +8,17 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const createFallbackClient = () => {
   return createClient('https://placeholder.supabase.co', 'placeholder-key', {
     auth: {
-      persistSession: false,
-    },
-  });
+      persistSession: false } });
 };
 
 export const supabase = (supabaseUrl && supabaseKey)
   ? createClient(supabaseUrl, supabaseKey, {
       auth: {
         persistSession: true,
-        autoRefreshToken: true,
-      },
+        autoRefreshToken: true },
       global: {
         headers: {
-          'apikey': supabaseKey,
-        },
-      },
-    })
+          'apikey': supabaseKey } } })
   : createFallbackClient();
 
 // Type-safe database types

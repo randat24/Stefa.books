@@ -1,6 +1,7 @@
 'use client'
 
-import { memo, useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState , ReactNode } from 'react';
+import { ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 import { BookListSkeleton } from './LazyComponent'
 
@@ -19,7 +20,7 @@ interface OptimizedInfiniteScrollProps<T> {
   onRetry?: () => void
 }
 
-const OptimizedInfiniteScroll = memo(function OptimizedInfiniteScroll<T>({
+const OptimizedInfiniteScroll = (function OptimizedInfiniteScroll<T>({
   data,
   hasMore,
   loading,
@@ -31,12 +32,11 @@ const OptimizedInfiniteScroll = memo(function OptimizedInfiniteScroll<T>({
   threshold = 0.1,
   rootMargin = '100px',
   error,
-  onRetry,
-}: OptimizedInfiniteScrollProps<T>) {
+  onRetry }: OptimizedInfiniteScrollProps<T>) {
   const [isIntersecting, setIsIntersecting] = useState(false)
   const [hasLoaded, setHasLoaded] = useState(false)
-  const observerRef = useRef<IntersectionObserver | null>(null)
-  const sentinelRef = useRef<HTMLDivElement>(null)
+  const observerRef = useRef<IntersectionObserver | null | null | null>(null)
+  const sentinelRef = useRef<HTMLDivElement | null | null>(null)
 
   // Создаем Intersection Observer
   useEffect(() => {
@@ -48,8 +48,7 @@ const OptimizedInfiniteScroll = memo(function OptimizedInfiniteScroll<T>({
       },
       {
         threshold,
-        rootMargin,
-      }
+        rootMargin }
     )
 
     return () => {

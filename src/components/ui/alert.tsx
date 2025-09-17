@@ -15,13 +15,9 @@ const alertVariants = cva(
         warning:
           "bg-yellow-50 border-yellow-200 text-yellow-800 [&>svg]:text-yellow-600",
         info:
-          "bg-blue-50 border-blue-200 text-blue-800 [&>svg]:text-blue-600",
-      },
-    },
+          "bg-blue-50 border-blue-200 text-blue-800 [&>svg]:text-blue-600" } },
     defaultVariants: {
-      variant: "default",
-    },
-  }
+      variant: "default" } }
 )
 
 const Alert = React.forwardRef<
@@ -35,7 +31,7 @@ const Alert = React.forwardRef<
     {...props}
   />
 ))
-Alert.displayName = "Alert"
+Alert
 
 const AlertDescription = React.forwardRef<
   HTMLParagraphElement,
@@ -47,6 +43,6 @@ const AlertDescription = React.forwardRef<
     {...props}
   />
 ))
-AlertDescription.displayName = "AlertDescription"
+AlertDescription
 
 export { Alert, AlertDescription }

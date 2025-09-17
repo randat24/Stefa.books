@@ -1,6 +1,7 @@
 'use client'
 
-import { memo, useCallback, useState, useRef } from 'react'
+import { useCallback, useState, useRef } from 'react';
+import {  } from 'react'
 import { Upload, X, Image as ImageIcon, AlertCircle } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
@@ -20,7 +21,7 @@ interface OptimizedImageUploadProps {
   error?: string
 }
 
-const OptimizedImageUpload = memo(function OptimizedImageUpload({
+const OptimizedImageUpload = (function OptimizedImageUpload({
   onUpload,
   onRemove,
   currentImage,
@@ -32,12 +33,11 @@ const OptimizedImageUpload = memo(function OptimizedImageUpload({
   quality = 0.8,
   disabled = false,
   loading = false,
-  error,
-}: OptimizedImageUploadProps) {
+  error }: OptimizedImageUploadProps) {
   const [dragActive, setDragActive] = useState(false)
   const [preview, setPreview] = useState<string | null>(currentImage || null)
   const [uploadError, setUploadError] = useState<string | null>(error || null)
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const fileInputRef = useRef<HTMLInputElement | null | null>(null)
 
   // Обработка загрузки файла
   const handleFile = useCallback(async (file: File) => {
@@ -58,7 +58,7 @@ const OptimizedImageUpload = memo(function OptimizedImageUpload({
     try {
       // Создаем превью
       const reader = new FileReader()
-      reader.onload = (e) => {
+      reader.onload = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPreview(e.target?.result as string)
       }
       reader.readAsDataURL(file)
@@ -114,8 +114,7 @@ const OptimizedImageUpload = memo(function OptimizedImageUpload({
             if (blob) {
               const optimizedFile = new File([blob], file.name, {
                 type: file.type,
-                lastModified: Date.now(),
-              })
+                lastModified: Date.now() })
               resolve(optimizedFile)
             } else {
               reject(new Error('Failed to optimize image'))

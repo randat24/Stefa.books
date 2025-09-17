@@ -9,9 +9,7 @@ global.fetch = mockFetch
 jest.mock('@/lib/logger', () => ({
   logger: {
     info: jest.fn(),
-    error: jest.fn(),
-  },
-}))
+    error: jest.fn() } }))
 
 describe('OptimizedImage', () => {
   beforeEach(() => {
@@ -37,8 +35,7 @@ describe('OptimizedImage', () => {
     
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ optimized_url: mockOptimizedUrl }),
-    })
+      json: async () => ({ optimized_url: mockOptimizedUrl }) })
 
     render(
       <OptimizedImage
@@ -78,8 +75,7 @@ describe('OptimizedImage', () => {
   it('should render error state when API returns error', async () => {
     mockFetch.mockResolvedValueOnce({
       ok: false,
-      json: async () => ({ error: 'API Error' }),
-    })
+      json: async () => ({ error: 'API Error' }) })
 
     render(
       <OptimizedImage
@@ -98,8 +94,7 @@ describe('OptimizedImage', () => {
   it('should render "not found" state when no URL is returned', async () => {
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ optimized_url: '' }),
-    })
+      json: async () => ({ optimized_url: '' }) })
 
     render(
       <OptimizedImage
@@ -121,8 +116,7 @@ describe('OptimizedImage', () => {
     
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ optimized_url: mockOptimizedUrl }),
-    })
+      json: async () => ({ optimized_url: mockOptimizedUrl }) })
 
     render(
       <OptimizedImage
@@ -151,8 +145,7 @@ describe('OptimizedImage', () => {
     
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ optimized_url: mockOptimizedUrl }),
-    })
+      json: async () => ({ optimized_url: mockOptimizedUrl }) })
 
     render(
       <OptimizedImage
@@ -181,8 +174,7 @@ describe('OptimizedImage', () => {
     
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ optimized_url: mockOptimizedUrl }),
-    })
+      json: async () => ({ optimized_url: mockOptimizedUrl }) })
 
     render(
       <OptimizedImage
@@ -204,9 +196,7 @@ describe('OptimizedImage', () => {
           body: JSON.stringify({
             public_id: 'test-image',
             transformations: [customTransformations],
-            preset: 'custom',
-          }),
-        })
+            preset: 'custom' }) })
       )
     })
   })
@@ -216,8 +206,7 @@ describe('OptimizedImage', () => {
     
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ optimized_url: mockOptimizedUrl }),
-    })
+      json: async () => ({ optimized_url: mockOptimizedUrl }) })
 
     render(
       <WebOptimizedImage
@@ -240,8 +229,7 @@ describe('OptimizedImage', () => {
     
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ optimized_url: mockOptimizedUrl }),
-    })
+      json: async () => ({ optimized_url: mockOptimizedUrl }) })
 
     render(
       <MobileOptimizedImage
@@ -264,8 +252,7 @@ describe('OptimizedImage', () => {
     
     mockFetch.mockResolvedValueOnce({
       ok: true,
-      json: async () => ({ optimized_url: mockOptimizedUrl }),
-    })
+      json: async () => ({ optimized_url: mockOptimizedUrl }) })
 
     render(
       <OptimizedImage

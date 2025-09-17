@@ -4,8 +4,7 @@ import { ssrCache } from './ssr-cache';
 jest.mock('./api/books', () => ({
   fetchBooks: jest.fn(),
   fetchCategories: jest.fn(),
-  fetchBook: jest.fn(),
-}));
+  fetchBook: jest.fn() }));
 
 // Mock the regular caches
 jest.mock('./cache', () => ({
@@ -15,21 +14,17 @@ jest.mock('./cache', () => ({
     createKey: jest.fn((prefix, filters) => {
       const sortedKeys = Object.keys(filters || {}).sort();
       return `${prefix}:${sortedKeys.map(key => `${key}=${filters[key]}`).join('&')}`;
-    }),
-  },
+    }) },
   categoriesCache: {
     get: jest.fn(),
-    set: jest.fn(),
-  },
+    set: jest.fn() },
   searchCache: {
     get: jest.fn(),
     set: jest.fn(),
     createKey: jest.fn((prefix, filters) => {
       const sortedKeys = Object.keys(filters || {}).sort();
       return `${prefix}:${sortedKeys.map(key => `${key}=${filters[key]}`).join('&')}`;
-    }),
-  },
-}));
+    }) } }));
 
 describe('SSRCacheService', () => {
   const { fetchBooks, fetchCategories, fetchBook } = jest.requireMock('./api/books');
@@ -50,8 +45,7 @@ describe('SSRCacheService', () => {
       (ssrCache as any).ssrCache.set('books_test', {
         data: mockBooks,
         timestamp: Date.now(),
-        expiresAt: Date.now() + 10000,
-      });
+        expiresAt: Date.now() + 10000 });
 
       const result = await ssrCache.getBooks({ limit: 10 }, 'books_test');
       
@@ -63,8 +57,7 @@ describe('SSRCacheService', () => {
       const mockResponse = {
         success: true,
         data: [{ id: '1', title: 'Test Book' }],
-        count: 1,
-      };
+        count: 1 };
 
       // Mock regular cache hit
       (booksCache.get as jest.Mock).mockReturnValue(mockResponse);
@@ -82,8 +75,7 @@ describe('SSRCacheService', () => {
       const mockResponse = {
         success: true,
         data: [{ id: '1', title: 'Test Book' }],
-        count: 1,
-      };
+        count: 1 };
 
       // Mock cache misses and API response
       (booksCache.get as jest.Mock).mockReturnValue(null);
@@ -104,8 +96,7 @@ describe('SSRCacheService', () => {
       (booksCache.get as jest.Mock).mockReturnValue(null);
       (fetchBooks as jest.Mock).mockResolvedValue({
         success: false,
-        error: 'API Error',
-      });
+        error: 'API Error' });
 
       const result = await ssrCache.getBooks({ limit: 10 });
       
@@ -120,8 +111,7 @@ describe('SSRCacheService', () => {
       (ssrCache as any).ssrCache.set('categories', {
         data: mockCategories,
         timestamp: Date.now(),
-        expiresAt: Date.now() + 10000,
-      });
+        expiresAt: Date.now() + 10000 });
 
       const result = await ssrCache.getCategories();
       
@@ -133,8 +123,7 @@ describe('SSRCacheService', () => {
       const mockResponse = {
         success: true,
         data: ['Fiction', 'Non-Fiction'],
-        count: 2,
-      };
+        count: 2 };
 
       // Mock cache misses and API response
       (categoriesCache.get as jest.Mock).mockReturnValue(null);
@@ -157,8 +146,7 @@ describe('SSRCacheService', () => {
       (ssrCache as any).ssrCache.set('book_1', {
         data: mockBook,
         timestamp: Date.now(),
-        expiresAt: Date.now() + 10000,
-      });
+        expiresAt: Date.now() + 10000 });
 
       const result = await ssrCache.getBook('1');
       
@@ -169,8 +157,7 @@ describe('SSRCacheService', () => {
     it('should fetch book from API and cache it', async () => {
       const mockResponse = {
         success: true,
-        data: { id: '1', title: 'Test Book' },
-      };
+        data: { id: '1', title: 'Test Book' } };
 
       // Mock cache misses and API response
       (booksCache.get as jest.Mock).mockReturnValue(null);
@@ -193,8 +180,7 @@ describe('SSRCacheService', () => {
       (ssrCache as any).ssrCache.set('search_test_20', {
         data: mockBooks,
         timestamp: Date.now(),
-        expiresAt: Date.now() + 10000,
-      });
+        expiresAt: Date.now() + 10000 });
 
       const result = await ssrCache.getSearchResults('test', 20);
       
@@ -206,8 +192,7 @@ describe('SSRCacheService', () => {
       const mockResponse = {
         success: true,
         data: [{ id: '1', title: 'Test Book' }],
-        count: 1,
-      };
+        count: 1 };
 
       // Mock cache misses and API response
       (searchCache.get as jest.Mock).mockReturnValue(null);
@@ -230,8 +215,7 @@ describe('SSRCacheService', () => {
       (ssrCache as any).ssrCache.set('test_key', {
         data: 'test_data',
         timestamp: Date.now(),
-        expiresAt: Date.now() + 10000,
-      });
+        expiresAt: Date.now() + 10000 });
 
       expect((ssrCache as any).ssrCache.size).toBe(1);
       
@@ -245,13 +229,11 @@ describe('SSRCacheService', () => {
       (ssrCache as any).ssrCache.set('key1', {
         data: 'data1',
         timestamp: Date.now(),
-        expiresAt: Date.now() + 10000,
-      });
+        expiresAt: Date.now() + 10000 });
       (ssrCache as any).ssrCache.set('key2', {
         data: 'data2',
         timestamp: Date.now(),
-        expiresAt: Date.now() + 10000,
-      });
+        expiresAt: Date.now() + 10000 });
 
       const stats = ssrCache.getSSRStats();
       

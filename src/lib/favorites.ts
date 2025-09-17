@@ -26,5 +26,4 @@ export const useFavorites = create<FavStore>((set, get) => ({
     set({ ids });
     if (typeof window !== "undefined") localStorage.setItem("stefa_favs", JSON.stringify(Array.from(ids)));
   },
-  has: (id) => get().ids.has(id),
-}));
+  has: (id) => get().ids.has(id) }));

@@ -42,8 +42,7 @@ export default function CheckoutPage() {
     zipCode: '',
     cardNumber: '',
     expiryDate: '',
-    cvv: '',
-  });
+    cvv: '' });
   
   // In a real app, you would fetch the book data based on bookId
   const book = mockBook;

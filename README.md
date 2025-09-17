@@ -1,232 +1,271 @@
-# 📚 Stefa.Books - Дитяча бібліотека
+# 📚 Stefa.Books - Ukrainian Children's Library
 
-Сучасна платформа для оренди дитячих книг з адмін-панеллю, AI інтеграцією та повною інтеграцією з базою даних.
+> Modern children's book rental platform with subscription system, admin panel, and AI integration
 
-## 🚀 Статус проекту
+[![Deploy Status](https://img.shields.io/badge/deploy-success-brightgreen)](https://stefa-books.com.ua)
+[![TypeScript](https://img.shields.io/badge/TypeScript-0%20errors-blue)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-15.5.3-black)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.1.1-blue)](https://reactjs.org/)
 
-- **✅ Розробка завершена** - Всі основні функції реалізовані
-- **✅ Деплой виконано** - Сайт доступний за адресою https://stefa-books.com.ua
-- **✅ Стилі виправлені** - Дизайн-система відновлена та стабілізована
-- **✅ AI інтеграція** - Groq Llama 3 70B працює
-- **✅ TypeScript** - 0 помилок компіляції
-- **✅ Tailwind CSS** - Стабільна версія 3.4.17
+## 🚀 Live Site
 
-## 🌐 Живий сайт
+**Production**: [https://stefa-books.com.ua](https://stefa-books.com.ua)
 
-**Основна адреса**: https://stefa-books.com.ua
+- **API Health**: [/api/health](https://stefa-books.com.ua/api/health)
+- **API Books**: [/api/books](https://stefa-books.com.ua/api/books)
+- **Admin Panel**: [/admin](https://stefa-books.com.ua/admin)
+- **AI API**: [/api/llms.txt](https://stefa-books.com.ua/api/llms.txt)
 
-- **API Health**: https://stefa-books.com.ua/api/health ✅
-- **API Books**: https://stefa-books.com.ua/api/books ✅
-- **Адмін панель**: https://stefa-books.com.ua/admin ✅
-- **AI API**: https://stefa-books.com.ua/api/llms.txt ✅
+## ✨ Features
 
-## 🛠 Технології
+### 👶 For Children & Parents
+- 📖 Browse 105+ children's books
+- 🔍 Smart search and filtering
+- 📱 Mobile-friendly interface
+- 🎨 Child-friendly design
+- 📦 Book rental system
 
-- **Frontend**: Next.js 15.5.2, React 19.1.1, TypeScript 5.5.4
-- **UI**: Tailwind CSS 3.4.17, shadcn/ui, Lucide React
-- **Backend**: Supabase (PostgreSQL + Edge Functions)
-- **Хостинг**: Vercel
-- **Зображення**: Cloudinary
-- **Пакетний менеджер**: pnpm 10.15.1
-- **AI Integration**: Groq Llama 3 70B (безкоштовна модель)
-- **Анімації**: Framer Motion 12.23.12
+### 👨‍💼 For Administrators
+- 📊 Complete admin dashboard
+- 📚 Book management system
+- 👥 User management
+- 📈 Analytics and reports
+- 🖼️ Cover upload to Cloudinary
 
-## 📦 Встановлення
+### 🤖 AI Integration
+- 🧠 Groq Llama 3 70B integration
+- 📝 Markdown generation
+- 🔍 AI discoverability
+- 💬 Intelligent recommendations
 
-### ⚡ Швидкий старт
+## 🛠️ Tech Stack
+
+| Category | Technology | Version |
+|----------|------------|---------|
+| **Framework** | Next.js | 15.5.3 |
+| **Frontend** | React | 19.1.1 |
+| **Language** | TypeScript | 5.5.4 |
+| **Styling** | Tailwind CSS | 3.4.17 |
+| **UI Components** | shadcn/ui | Latest |
+| **Database** | Supabase (PostgreSQL) | Latest |
+| **Hosting** | Netlify + Vercel | - |
+| **Images** | Cloudinary | Latest |
+| **Package Manager** | pnpm | 10.15.1 |
+| **AI** | Groq Llama 3 70B | Latest |
+| **Animations** | Framer Motion | 12.23.12 |
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+
+- pnpm (recommended) or npm
+
+### Installation
+
 ```bash
-# Клонуйте репозиторій
-git clone <your-repo-url>
-cd Stefa.books.com.ua
+# Clone the repository
+git clone https://github.com/your-username/stefa-books.git
+cd stefa-books
 
-# Автоматична настройка (рекомендуется)
-./setup-local.sh
-```
-
-### 🔧 Ручна настройка
-
-1. **Клонуйте репозиторій**
-```bash
-git clone <your-repo-url>
-cd Stefa.books.com.ua
-git checkout Lklhost  # Переключитесь на ветку разработки
-```
-
-2. **Встановіть залежності**
-```bash
-# Встановіть pnpm глобально (якщо ще не встановлено)
-npm install -g pnpm
-
-# Встановіть залежності проекту
+# Install dependencies
 pnpm install
-```
 
-3. **Налаштуйте змінні середовища**
-```bash
-# Створіть файл .env.local
-touch .env.local
+# Set up environment variables
+cp .env.example .env.local
+# Fill in your environment variables
 
-# Заповніть змінні (див. QUICK_START.md)
-```
-
-4. **Запустіть проект**
-```bash
+# Run the development server
 pnpm dev
 ```
 
-### 📖 Детальна інструкція
-- [QUICK_START.md](./QUICK_START.md) - Швидкий старт
-- [LOCAL_SETUP_GUIDE.md](./LOCAL_SETUP_GUIDE.md) - Повне керівництво
-- [DATABASE_DOCUMENTATION.md](./DATABASE_DOCUMENTATION.md) - Документація БД
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## 🔧 Налаштування бази даних
+## 📖 Documentation
 
-### Швидке налаштування
-1. Відкрийте [Supabase Dashboard](https://supabase.com/dashboard)
-2. Перейдіть в SQL Editor
-3. Виконайте SQL скрипт з файлу `fix_rls_users_policy.sql`
-
-### Детальна інструкція
-Дивіться [PRODUCTION_RLS_FIX_GUIDE.md](./PRODUCTION_RLS_FIX_GUIDE.md)
-
-## 📖 Документація
-
-### 📚 Повний індекс документації
-- [DOCUMENTATION_INDEX.md](./docs/DOCUMENTATION_INDEX.md) - Повний індекс всієї документації проекту 🔥
-
-### Основні гіди
-- [Виправлення RLS в продакшені](./PRODUCTION_RLS_FIX_GUIDE.md)
-- [Як додати книги](./HOW_TO_ADD_BOOKS.md)
-- [Синхронізація з сайтом](./SYNC_BOOKS_TO_SITE.md)
-- [Налаштування Vercel](./VERCEL_DOCUMENTATION_REPORT.md)
-
-### Технічна документація
-- [Структура проекту](./PROJECT_STRUCTURE.md)
-- [Стандарти коду](./docs/development/CODING_STANDARDS.md)
-- [API документація](./docs/API_DOCUMENTATION.md)
-- [Документація форм](./docs/FORMS_DOCUMENTATION.md)
-- [Тестування](./TESTING_INSTRUCTIONS.md)
-
-### Документація бази даних
-- [DATABASE_DOCUMENTATION.md](./docs/DATABASE_DOCUMENTATION.md) - Повна документація бази даних
-- [QUICK_DB_GUIDE.md](./docs/QUICK_DB_GUIDE.md) - Швидкий гід по базі даних
-- [INDEXES_GUIDE.md](./docs/INDEXES_GUIDE.md) - Керівництво по індексах
-- [FUNCTION_SECURITY.md](./docs/FUNCTION_SECURITY.md) - Безпека функцій PostgreSQL
-
-## 🎯 Основні функції
-
-### Для користувачів
-- ✅ Перегляд каталогу книг (105+ книг)
-- ✅ Пошук та фільтрація
-- ✅ Перегляд деталей книги
-- ✅ Система оренди
-- ✅ Реєстрація та авторизація
-
-### Для адміністраторів
-- ✅ Управління книгами
-- ✅ Синхронізація з базою даних
-- ✅ Аналітика та звіти
-- ✅ Управління користувачами
-- ✅ Завантаження обкладинок
-
-## 📊 Статистика
-
-- **105+ книг** в базі даних
-- **27 категорій** книг
-- **99+ доступних** книг для оренди
-- **88+ книг** з обкладинками Cloudinary
-- **3 адміністратори** в системі
-  - admin@stefa-books.com.ua (Головний Адміністратор)
-  - anastasia@stefa-books.com.ua (Анастасія)
-  - randat24@gmail.com (Розробник)
-
-## 🎨 Дизайн-система
-
-- **✅ Відновлена** - Повністю функціональна дизайн-система
-- **✅ Стабільна** - Tailwind CSS 3.4.17 (стабільна версія)
-- **✅ Документована** - Повна документація в DESIGN_SYSTEM.md
-- **✅ Виправлена** - Всі проблеми з іконками та стилями вирішені
-
-## 🚀 Деплой
-
-### Автоматичний деплой
-Проект налаштований для автоматичного деплою на Vercel при push в гілку `main`.
-
-### Ручний деплой
-```bash
-# Перевірка готовності до деплою
-pnpm run build
-
-# Деплой на production
-vercel --prod
+### 📁 Documentation Structure
+```
+docs/
+├── guides/           # User guides and tutorials
+├── deployment/       # Deployment documentation
+├── archive/          # Archived materials
+│   ├── reports/      # Historical reports
+│   ├── fixes/        # Fix documentation
+│   ├── legacy/       # Legacy documentation
+│   ├── setup/        # Old setup guides
+│   └── books-loading/ # Book loading history
 ```
 
-### Перевірка після деплою
-```bash
-# Перевірка API
-curl https://stefa-books.com.ua/api/health
+### 📚 Key Documentation
+- **[CLAUDE.md](./CLAUDE.md)** - Claude Code instructions
+- **[DEVELOPMENT_RULES.md](./DEVELOPMENT_RULES.md)** - Development standards
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - How to contribute
+- **[CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)** - Community guidelines
+- **[SECURITY.md](./SECURITY.md)** - Security policies
+- **[CHANGELOG.md](./CHANGELOG.md)** - Project history
+- **[PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md)** - Project architecture
+- **[TECHNICAL_OVERVIEW.md](./TECHNICAL_OVERVIEW.md)** - Technical details
 
-# Перевірка книг (після виправлення RLS)
-curl https://stefa-books.com.ua/api/books
+### 🔧 Setup Guides
+- **[Local Setup](./docs/guides/LOCAL_SETUP_GUIDE.md)** - Complete local setup
+- **[Admin Authentication](./docs/guides/ADMIN_AUTHENTICATION_GUIDE.md)** - Admin setup
+- **[Monobank Integration](./docs/guides/MONOBANK_INTEGRATION_GUIDE.md)** - Payment setup
+- **[Supabase Setup](./docs/guides/SUPABASE_SETUP_GUIDE.md)** - Database setup
+
+### 🚀 Deployment
+- **[Deployment Documentation](./docs/deployment/DEPLOYMENT_DOCUMENTATION.md)** - Complete deployment guide
+- **[Deployment Checklist](./docs/deployment/DEPLOYMENT_READY_CHECKLIST.md)** - Pre-deployment checks
+- **[Netlify Deployment](./docs/deployment/NETLIFY_DEPLOY.md)** - Netlify-specific guide
+
+## 🔧 Development
+
+### Available Scripts
+
+```bash
+# Development
+pnpm dev              # Start development server
+pnpm build            # Build for production
+pnpm start            # Start production server
+pnpm type-check       # TypeScript type checking
+pnpm lint             # Run ESLint
+pnpm lint:fix         # Auto-fix linting issues
+
+# Testing
+pnpm test             # Run unit tests
+pnpm test:watch       # Run tests in watch mode
+pnpm test:coverage    # Generate coverage report
+pnpm test:e2e         # Run E2E tests
+
+# Database & Data
+pnpm insert-books     # Insert books to database
+pnpm check-books      # Check book data integrity
+
+# Deployment
+pnpm deploy:check     # Pre-deployment checks
+pnpm deploy           # Deploy preview
+pnpm deploy:prod      # Deploy to production
+
+# Performance
+pnpm analyze:bundle   # Analyze bundle size
 ```
 
-## 🔧 Розробка
+### Environment Variables
 
-### Основні команди
-```bash
-pnpm dev              # Запуск dev сервера
-pnpm build            # Збірка проекту
-pnpm start            # Запуск production сервера
-pnpm type-check       # Перевірка TypeScript
-pnpm lint             # Перевірка коду
-pnpm test             # Запуск тестів
+Create `.env.local` with the following variables:
+
+```env
+# Core Services
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+
+# Image Storage
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloudinary_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+
+# Payment System (Monobank)
+MONOBANK_TOKEN=your_monobank_token
+
+# Site Configuration
+NEXT_PUBLIC_SITE_URL=your_site_url
+ADMIN_JWT_SECRET=your_jwt_secret
+ADMIN_EMAIL=admin_email
 ```
 
-### Перевірка підключення до БД
-```bash
-node check_site_database_connection.mjs
-```
+## 📊 Project Statistics
 
-### AI Integration (mdream)
-```bash
-# Генерація markdown версії сторінки книги
-curl https://stefa-books.com.ua/books/[id].md
+- **📚 105+ books** in database
+- **📂 27 categories** of books
+- **✅ 99+ available** books for rental
+- **🖼️ 88+ books** with Cloudinary covers
+- **👥 3 administrators** in system
+- **📝 0 TypeScript errors**
+- **✅ 70% test coverage** threshold
 
-# AI discoverability файл
-curl https://stefa-books.com.ua/api/llms.txt
+## 🎨 Design System
 
-# HTML to Markdown API
-curl -X POST https://stefa-books.com.ua/api/markdown -d '{"html":"<h1>Test</h1>"}'
-```
+- **Tailwind CSS 3.4.17** - Stable version with custom design tokens
+- **shadcn/ui components** - Professional UI components
+- **Child-friendly design** - Optimized for young users
+- **Mobile-first approach** - Responsive design
+- **Accessibility** - ARIA support and keyboard navigation
 
-## 🐛 Відомі проблеми
+## 🚀 Architecture
 
-### Вирішені ✅
-- ✅ Помилки збірки Next.js
-- ✅ TypeScript помилки (0 помилок)
-- ✅ ESLint помилки
-- ✅ Деплой на Vercel
-- ✅ RLS політики в Supabase
-- ✅ API Books працює
-- ✅ Стилі та дизайн-система
-- ✅ Черні іконки виправлені
-- ✅ Tailwind CSS конфлікти
+### Frontend
+- **Next.js 15 App Router** - Modern React framework
+- **Server Components** - Default pattern for performance
+- **TypeScript** - Strict mode for type safety
+- **Tailwind CSS** - Utility-first styling
 
-### Поточний стан
-- **🟢 Всі системи працюють** - Проект повністю функціональний
-- **🟢 AI інтеграція** - Groq Llama 3 70B працює стабільно
-- **🟢 Дизайн-система** - Відновлена та стабілізована
+### Backend
+- **Supabase** - PostgreSQL with Row Level Security (RLS)
+- **Edge Functions** - Server-side logic
+- **Real-time subscriptions** - Live data updates
 
-## 📝 Ліцензія
+### Deployment
+- **Netlify** - Primary hosting platform
+- **Vercel** - Secondary hosting option
+- **Cloudinary** - Image optimization and delivery
+- **CDN** - Global content delivery
 
-MIT License
+## 🔐 Security
 
-## 👥 Автори
+- **Row Level Security (RLS)** - Database-level security
+- **Authentication** - Secure user authentication
+- **API Protection** - Rate limiting and validation
+- **Environment Variables** - Secure configuration management
 
-Stefa.Books Team
+## 🧪 Testing
+
+- **Vitest** - Fast unit testing framework
+- **Playwright** - End-to-end testing
+- **Testing Library** - Component testing utilities
+- **70% Coverage** - Minimum coverage threshold
+
+## 📈 Performance
+
+- **Core Web Vitals** - Optimized performance metrics
+- **Image Optimization** - Cloudinary integration
+- **Lazy Loading** - Intersection Observer API
+- **Bundle Analysis** - Webpack bundle analyzer
+- **Caching** - Multi-layer caching strategy
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+See [DEVELOPMENT_RULES.md](./DEVELOPMENT_RULES.md) for coding standards.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👥 Team
+
+**Stefa.Books Development Team**
+- Product Owner & Designer
+- Frontend Developer
+- Backend Developer
+- DevOps Engineer
+
+## 🆘 Support
+
+For questions and support:
+- 📧 Email: contact@stefa-books.com.ua
+- 🐛 Issues: [GitHub Issues](https://github.com/your-username/stefa-books/issues)
+- 📖 Documentation: [Project Docs](./docs/)
 
 ---
 
-**Проект готовий до використання!** 🎉
+<div align="center">
 
-**Наступний крок**: Виправити RLS політики в Supabase для повної функціональності.
+**🎉 Ready for Production!**
+
+[Visit Live Site](https://stefa-books.com.ua) • [View Documentation](./docs/) • [Admin Panel](https://stefa-books.com.ua/admin)
+
+</div>

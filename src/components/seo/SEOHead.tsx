@@ -22,8 +22,7 @@ export function SEOHead({
   ogType = "website",
   canonicalUrl,
   noIndex = false,
-  cityName = "Миколаєві",
-}: SEOHeadProps) {
+  cityName = "Миколаєві" }: SEOHeadProps) {
   const pathname = usePathname();
   const baseUrl = "https://stefa-books.com.ua";
   const fullUrl = canonicalUrl || `${baseUrl}${pathname}`;

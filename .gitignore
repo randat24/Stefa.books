@@ -1,52 +1,102 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ===========================================
+# Stefa.Books - Professional .gitignore
+# ===========================================
 
-# dependencies
+# Dependencies
+# ===========================================
 /node_modules
+/node_modules/
+**/node_modules/
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+.pnpm-debug.log*
 
-# testing
+# Build outputs
+# ===========================================
+/.next/
+/out/
+/build
+/dist
+*.tsbuildinfo
+next-env.d.ts
+
+# Testing
+# ===========================================
 /coverage
 /test-results
 /playwright-report
 /blob-report
 /playwright/.cache
+*.test.js.snap
+*.test.ts.snap
 
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
+# Environment & Secrets
+# ===========================================
+.env
+.env*.local
+.env.development
+.env.production
+.env.staging
+.env.testing
 *.pem
+*.key
+*.crt
 
-# debug
+# Logs
+# ===========================================
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+lerna-debug.log*
+*.log
+server.log
+logs/
 
-# local env files
-.env*.local
-.env
-.env.development
-.env.production
+# Runtime & Cache
+# ===========================================
+.cache/
+.parcel-cache/
+.turbo/
+.next/cache/
+node_modules/.cache/
+*.pid
+*.seed
+*.pid.lock
 
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-# IDE
-.vscode/
-.idea/
+# OS & Editor
+# ===========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 *.swp
 *.swo
+*~
+
+# IDE & Editors
+# ===========================================
+.vscode/settings.json
+.vscode/launch.json
+.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Temporary files
+# ===========================================
+tmp/
+temp/
+*.tmp
+*.temp
+*.backup
+*.bak
 
 # OS
 Thumbs.db
@@ -170,5 +220,51 @@ cloudinary-uploads/
 
 # Local development
 .local
+
 # Local Netlify folder
 .netlify
+
+# Project-specific ignores
+# Documentation exports
+export_*.csv
+export_*.json
+export_report_*.md
+
+# Performance analysis
+performance-analysis.json
+bundle-analysis-report.json
+
+# Test outputs
+test-results/
+playwright-report/
+coverage/
+
+# Temporary scripts
+temp-scripts/
+*.temp.js
+*.temp.ts
+
+# Archive and backup directories (keep structure but ignore content)
+docs/archive/**/*.md
+!docs/archive/.gitkeep
+
+# Environment-specific configs
+.env.staging
+.env.testing
+
+# Editor and OS specific
+*.code-workspace
+.history/
+.nova/
+
+# Build artifacts and analysis
+webpack-stats.json
+stats.html
+
+# AI and automation temp files
+ai-temp/
+claude-temp/
+
+# Database and migration temp files
+migrations-backup/
+*.sql.backup

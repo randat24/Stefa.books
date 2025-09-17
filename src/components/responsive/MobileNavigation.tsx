@@ -30,7 +30,7 @@ export function MobileNavigation({
   const [isOpen, setIsOpen] = useState(false);
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
   const { isMobile } = useBreakpoint();
-  const menuRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement | null | null>(null);
 
   // Закрываем меню при клике вне его
   useEffect(() => {

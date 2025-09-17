@@ -107,8 +107,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
   async function handleOldCoverDelete(publicId: string) {
     try {
       const response = await fetch(`/api/admin/upload/cover?public_id=${publicId}`, {
-        method: 'DELETE',
-      })
+        method: 'DELETE' })
 
       if (!response.ok) {
         const result = await response.json()
@@ -243,7 +242,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
                   id="edit-code"
                   placeholder="DL-001"
                   value={form.code}
-                  onChange={(e) => handleCodeChange(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleCodeChange(e.target.value)}
                   disabled={submitting}
                   className="flex-1"
                 />
@@ -270,7 +269,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
                 id="edit-title"
                 placeholder="Назва книги"
                 value={form.title}
-                onChange={(e) => setForm(prev => ({ ...prev, title: e.target.value }))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm(prev => ({ ...prev, title: e.target.value }))}
                 disabled={submitting}
               />
             </div>
@@ -307,7 +306,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
                 type="number"
                 min="1"
                 value={form.qty_total}
-                onChange={(e) => setForm(prev => ({ ...prev, qty_total: parseInt(e.target.value) || 1 }))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm(prev => ({ ...prev, qty_total: parseInt(e.target.value) || 1 }))}
                 disabled={submitting}
               />
             </div>
@@ -320,7 +319,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
                 step="0.01"
                 placeholder="180.00"
                 value={form.price_uah || ''}
-                onChange={(e) => setForm(prev => ({ ...prev, price_uah: parseFloat(e.target.value) || undefined }))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm(prev => ({ ...prev, price_uah: parseFloat(e.target.value) || undefined }))}
                 disabled={submitting}
               />
             </div>
@@ -350,7 +349,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               id="edit-location"
               placeholder="вул. Маріупольська 13/2, Кафе 'Книжкова'"
               value={form.location}
-              onChange={(e) => setForm(prev => ({ ...prev, location: e.target.value }))}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm(prev => ({ ...prev, location: e.target.value }))}
               disabled={submitting}
             />
           </div>
@@ -363,7 +362,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               className="min-h-[100px] resize-none"
               placeholder="Короткий опис змісту, вік читачів, особливості..."
               value={form.description}
-              onChange={(e) => setForm(prev => ({ ...prev, description: e.target.value }))}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm(prev => ({ ...prev, description: e.target.value }))}
               disabled={submitting}
             />
           </div>

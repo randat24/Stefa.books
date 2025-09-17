@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react'
+import { X, CheckCircle, AlertCircle, Info, AlertTriangleIcon } from 'lucide-react'
 import { cn } from '@/lib/cn'
 
 interface NotificationProps {
@@ -35,7 +35,7 @@ const notificationVariants = {
     border: 'border-yellow-200',
     text: 'text-yellow-800',
     icon: 'text-yellow-600',
-    iconComponent: AlertTriangle
+    iconComponent: AlertTriangleIcon
   },
   info: {
     bg: 'bg-blue-50',

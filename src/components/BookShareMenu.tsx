@@ -8,7 +8,7 @@ import {
   Facebook, 
   Twitter, 
   Mail, 
-  MessageCircle,
+  MessageCircleIcon,
   Check
 } from "lucide-react";
 
@@ -101,7 +101,7 @@ export function BookShareMenu({ title, author, url }: BookShareMenuProps) {
               className="w-full justify-start h-9 text-brand-accent hover:text-brand-accent-light"
               onClick={() => window.open(shareVia.telegram, '_blank')}
             >
-              <MessageCircle className="h-4 w-4 mr-2" />
+              <MessageCircleIcon className="h-4 w-4 mr-2" />
               Telegram
             </Button>
             

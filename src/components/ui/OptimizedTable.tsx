@@ -1,7 +1,8 @@
 'use client'
 
-import { memo, useCallback, useState, useMemo } from 'react'
-import { ChevronUp, ChevronDown, MoreHorizontal } from 'lucide-react'
+import { useCallback, useState, useMemo , ReactNode } from 'react';
+import { ReactNode } from 'react'
+import { ChevronUp, ChevronDown, MoreHorizontalIcon } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
 
@@ -31,7 +32,7 @@ interface OptimizedTableProps<T> {
   onPageChange?: (page: number) => void
 }
 
-const OptimizedTable = memo(function OptimizedTable<T>({
+const OptimizedTable = (function OptimizedTable<T>({
   data,
   columns,
   className = '',
@@ -45,8 +46,7 @@ const OptimizedTable = memo(function OptimizedTable<T>({
   getRowKey = (item: T) => (item as any).id || Math.random().toString(),
   pageSize = 10,
   currentPage = 1,
-  onPageChange,
-}: OptimizedTableProps<T>) {
+  onPageChange }: OptimizedTableProps<T>) {
   const [sortKey, setSortKey] = useState<keyof T | null>(null)
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
   const [selectedRows, setSelectedRows] = useState<Set<string | number>>(new Set())
@@ -138,7 +138,7 @@ const OptimizedTable = memo(function OptimizedTable<T>({
       <div className={cn('w-full', className)}>
         <div className="text-center py-12">
           <div className="w-16 h-16 bg-neutral-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <MoreHorizontal className="w-8 h-8 text-neutral-400" />
+            <MoreHorizontalIcon className="w-8 h-8 text-neutral-400" />
           </div>
           <p className="text-neutral-500 text-lg">{emptyMessage}</p>
         </div>
@@ -160,7 +160,7 @@ const OptimizedTable = memo(function OptimizedTable<T>({
                     ref={(input) => {
                       if (input) input.indeterminate = isPartiallySelected
                     }}
-                    onChange={(e) => handleSelectAll(e.target.checked)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSelectAll(e.target.checked)}
                     className="rounded border-neutral-300 text-blue-600 focus:ring-blue-500"
                   />
                 </th>
@@ -215,8 +215,8 @@ const OptimizedTable = memo(function OptimizedTable<T>({
                       <input
                         type="checkbox"
                         checked={isSelected}
-                        onChange={(e) => handleRowSelect(item, e.target.checked)}
-                        onClick={(e) => e.stopPropagation()}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleRowSelect(item, e.target.checked)}
+                        onClick={(e: React.MouseEvent<HTMLInputElement>) => e.stopPropagation()}
                         className="rounded border-neutral-300 text-blue-600 focus:ring-blue-500"
                       />
                     </td>

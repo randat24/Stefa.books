@@ -8,8 +8,7 @@ const createPaymentSchema = z.object({
   subscriptionRequestId: z.string().uuid(),
   amount: z.number().positive(),
   description: z.string().min(1),
-  redirectUrl: z.string().url(),
-});
+  redirectUrl: z.string().url() });
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,8 +26,7 @@ export async function POST(request: NextRequest) {
     logger.info('Creating payment', {
       subscriptionRequestId: validatedData.subscriptionRequestId,
       amount: validatedData.amount,
-      reference,
-    });
+      reference });
 
     // Создаем платеж в Монобанке
     const paymentResult = await monobankService.createPayment({
@@ -36,14 +34,12 @@ export async function POST(request: NextRequest) {
       description: validatedData.description,
       reference,
       redirectUrl: validatedData.redirectUrl,
-      webhookUrl,
-    });
+      webhookUrl });
 
     if (paymentResult.status === 'error') {
       logger.error('Payment creation failed', {
         error: paymentResult.errText,
-        subscriptionRequestId: validatedData.subscriptionRequestId,
-      });
+        subscriptionRequestId: validatedData.subscriptionRequestId });
       
       return NextResponse.json(
         { 
@@ -57,17 +53,14 @@ export async function POST(request: NextRequest) {
 
     logger.info('Payment created successfully', {
       invoiceId: paymentResult.data?.invoiceId,
-      reference,
-    });
+      reference });
 
     return NextResponse.json({
       success: true,
       data: {
         invoiceId: paymentResult.data?.invoiceId,
         paymentUrl: paymentResult.data?.pageUrl,
-        reference,
-      },
-    });
+        reference } });
 
   } catch (error) {
     logger.error('Payment creation error', error);

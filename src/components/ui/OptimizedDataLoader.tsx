@@ -1,6 +1,7 @@
 'use client'
 
-import { memo, useCallback, useState, useEffect, useRef } from 'react'
+import { useCallback, useState, useEffect, useRef , ReactNode } from 'react';
+import { ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 import { BookListSkeleton, FormSkeleton, TableSkeleton } from './LazyComponent'
 
@@ -31,10 +32,9 @@ function OptimizedDataLoader<T>({
   className = '',
   itemClassName = '',
   onRetry,
-  retryText = 'Спробувати знову',
-}: OptimizedDataLoaderProps<T>) {
+  retryText = 'Спробувати знову' }: OptimizedDataLoaderProps<T>) {
   const [isVisible, setIsVisible] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement | null | null>(null)
 
   // Intersection Observer для ленивой загрузки
   useEffect(() => {

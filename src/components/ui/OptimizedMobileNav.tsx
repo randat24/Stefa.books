@@ -1,6 +1,7 @@
 'use client'
 
-import { memo, useCallback, useState, useEffect, useRef } from 'react'
+import { useCallback, useState, useEffect, useRef , ReactNode } from 'react';
+import { ReactNode } from 'react'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
@@ -18,15 +19,14 @@ interface OptimizedMobileNavProps {
   onItemClick?: (href: string) => void
 }
 
-const OptimizedMobileNav = memo(function OptimizedMobileNav({
+const OptimizedMobileNav = (function OptimizedMobileNav({
   items,
   className = '',
-  onItemClick,
-}: OptimizedMobileNavProps) {
+  onItemClick }: OptimizedMobileNavProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null)
-  const navRef = useRef<HTMLDivElement>(null)
-  const buttonRef = useRef<HTMLButtonElement>(null)
+  const navRef = useRef<HTMLDivElement | null | null>(null)
+  const buttonRef = useRef<HTMLButtonElement | null | null>(null)
 
   const handleToggle = useCallback(() => {
     setIsOpen(prev => !prev)

@@ -232,7 +232,7 @@ export async function getPayments(): Promise<PaymentRow[]> {
       id: payment.id,
       user_id: payment.user_id,
       amount_uah: payment.amount_uah,
-      currency: 'UAH' as const,
+      currency: payment.currency || 'UAH' as const,
       payment_method: payment.payment_method as 'monobank' | 'online' | 'cash',
       status: payment.status as 'pending' | 'completed' | 'failed' | 'refunded',
       transaction_id: payment.transaction_id,
@@ -270,7 +270,7 @@ export async function getDashboardStats() {
         .then(({ data, error }: { data: { id: string; available: boolean }[] | null, error: any }) => {
           if (error) throw error
           const total = data?.length || 0
-          const available = data?.filter((book) => book.available).length || 0
+          const available = data?.filter((book: any) => book.available).length || 0
           return { total, available }
         }),
 
@@ -280,7 +280,7 @@ export async function getDashboardStats() {
         .select('id, status')
         .then(({ data, error }: { data: { id: string; status: string }[] | null, error: any }) => {
           if (error) throw error
-          const active = data?.filter((user) => user.status === 'active').length || 0
+          const active = data?.filter((user: any) => user.status === 'active').length || 0
           return { active }
         }),
 

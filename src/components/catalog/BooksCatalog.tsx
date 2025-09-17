@@ -284,7 +284,7 @@ export function BooksCatalog({ initialBooks = [], className = '' }: BooksCatalog
         aria-live="polite"
         aria-busy={loading}
       >
-        {books.map((book) => (
+        {books.map((book: any) => (
           <BookCardWrapper key={book.id} book={book} />
         ))}
       </div>

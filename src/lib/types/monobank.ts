@@ -48,15 +48,12 @@ export interface MonobankConfig {
 
 // Константы для Монобанка
 export const MONOBANK_CURRENCY = {
-  UAH: 980,
-} as const;
+  UAH: 980 } as const;
 
 export const MONOBANK_PAYMENT_TYPES = {
-  DEBIT: 'debit',
-} as const;
+  DEBIT: 'debit' } as const;
 
 export const MONOBANK_STATUS = {
   SUCCESS: 'success',
   FAILURE: 'failure',
-  PROCESS: 'process',
-} as const;
+  PROCESS: 'process' } as const;

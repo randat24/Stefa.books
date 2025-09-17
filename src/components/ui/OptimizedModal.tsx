@@ -1,6 +1,7 @@
 'use client'
 
-import { memo, useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef , ReactNode } from 'react';
+import { ReactNode } from 'react'
 import { X } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
@@ -23,10 +24,9 @@ const modalSizes = {
   md: 'max-w-lg',
   lg: 'max-w-2xl',
   xl: 'max-w-4xl',
-  full: 'max-w-full mx-4',
-}
+  full: 'max-w-full mx-4' }
 
-const OptimizedModal = memo(function OptimizedModal({
+const OptimizedModal = (function OptimizedModal({
   isOpen,
   onClose,
   title,
@@ -36,10 +36,9 @@ const OptimizedModal = memo(function OptimizedModal({
   showCloseButton = true,
   closeOnOverlayClick = true,
   closeOnEscape = true,
-  preventScroll = true,
-}: OptimizedModalProps) {
-  const modalRef = useRef<HTMLDivElement>(null)
-  const previousActiveElement = useRef<HTMLElement | null>(null)
+  preventScroll = true }: OptimizedModalProps) {
+  const modalRef = useRef<HTMLDivElement | null | null>(null)
+  const previousActiveElement = useRef<HTMLElement | null | null | null>(null)
 
   // Обработка клавиши Escape
   const handleKeyDown = useCallback((e: KeyboardEvent) => {

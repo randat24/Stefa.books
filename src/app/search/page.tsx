@@ -51,8 +51,7 @@ export async function generateMetadata({ searchParams }: {
     robots: {
       index: true,
       follow: true,
-      noarchive: false,
-    },
+      noarchive: false },
     openGraph: {
       title,
       description,
@@ -73,8 +72,7 @@ export async function generateMetadata({ searchParams }: {
       card: 'summary_large_image',
       title,
       description,
-      images: ['/images/og-image.jpg'],
-    },
+      images: ['/images/og-image.jpg'] },
     alternates: {
       canonical: 'https://stefa-books.com.ua/search'
     }

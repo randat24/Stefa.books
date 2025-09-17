@@ -52,7 +52,7 @@ export function OptimizedImage({
   const [imageLoaded, setImageLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [currentSrc, setCurrentSrc] = useState(src);
-  const imageRef = useRef<HTMLImageElement>(null);
+  const imageRef = useRef<HTMLImageElement | null | null>(null);
 
   // Обработка ошибки загрузки
   const handleError = () => {

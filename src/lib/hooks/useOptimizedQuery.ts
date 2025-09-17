@@ -23,8 +23,7 @@ export function useOptimizedQuery<T>({
   refetchOnWindowFocus = false,
   refetchOnMount = true,
   retry = 3,
-  retryDelay = 1000,
-}: UseOptimizedQueryOptions<T>) {
+  retryDelay = 1000 }: UseOptimizedQueryOptions<T>) {
   const queryClient = useQueryClient();
 
   const query = useQuery({
@@ -36,8 +35,7 @@ export function useOptimizedQuery<T>({
     refetchOnWindowFocus,
     refetchOnMount,
     retry,
-    retryDelay,
-  });
+    retryDelay });
 
   // Prefetch related data
   const prefetchRelated = useCallback((relatedKeys: string[]) => {
@@ -67,8 +65,7 @@ export function useOptimizedQuery<T>({
       logger.debug('Query completed', {
         queryKey,
         duration: query.dataUpdatedAt - query.dataUpdatedAt,
-        dataSize: JSON.stringify(query.data).length,
-      }, 'Query');
+        dataSize: JSON.stringify(query.data).length }, 'Query');
     }
   }, [query.data, query.isLoading, query.dataUpdatedAt, queryKey]);
 
@@ -76,8 +73,7 @@ export function useOptimizedQuery<T>({
     ...query,
     prefetchRelated,
     updateOptimistically,
-    invalidateAndRefetch,
-  };
+    invalidateAndRefetch };
 }
 
 // Specialized hooks for common use cases
@@ -111,6 +107,5 @@ export function useBookQuery(id: string) {
       return fetchBook(id);
     },
     staleTime: 5 * 60 * 1000, // 5 minutes for individual books
-    enabled: !!id,
-  });
+    enabled: !!id });
 }

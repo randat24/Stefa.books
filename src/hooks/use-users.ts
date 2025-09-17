@@ -88,18 +88,15 @@ export function useUsers(): UseUsersReturn {
       const response = await fetch('/api/admin/users', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
+          'Content-Type': 'application/json' },
+        body: JSON.stringify(userData) });
       
       const result = await response.json();
       
       if (result.success) {
         toast({
           title: "Успіх",
-          description: "Користувача успішно створено",
-        });
+          description: "Користувача успішно створено" });
         return true;
       } else {
         throw new Error(result.error || 'Failed to create user');
@@ -126,18 +123,15 @@ export function useUsers(): UseUsersReturn {
       const response = await fetch(`/api/admin/users/${userId}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
+          'Content-Type': 'application/json' },
+        body: JSON.stringify(userData) });
       
       const result = await response.json();
       
       if (result.success) {
         toast({
           title: "Успіх",
-          description: "Користувача успішно оновлено",
-        });
+          description: "Користувача успішно оновлено" });
         return true;
       } else {
         throw new Error(result.error || 'Failed to update user');
@@ -162,16 +156,14 @@ export function useUsers(): UseUsersReturn {
     
     try {
       const response = await fetch(`/api/admin/users/${userId}`, {
-        method: 'DELETE',
-      });
+        method: 'DELETE' });
       
       const result = await response.json();
       
       if (result.success) {
         toast({
           title: "Успіх",
-          description: "Користувача успішно видалено",
-        });
+          description: "Користувача успішно видалено" });
         return true;
       } else {
         throw new Error(result.error || 'Failed to delete user');

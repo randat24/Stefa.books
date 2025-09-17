@@ -30,7 +30,7 @@ export function ResponsiveContainer({
 }: ResponsiveContainerProps) {
   const [currentBreakpoint, setCurrentBreakpoint] = useState<string>('xl');
   const [isClient, setIsClient] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement | null | null>(null);
 
   useEffect(() => {
     setIsClient(true);

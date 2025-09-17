@@ -1,6 +1,7 @@
 'use client'
 
-import { memo, useCallback, useState, useMemo } from 'react'
+import { useCallback, useState, useMemo , ReactNode } from 'react';
+import { ReactNode } from 'react'
 import { Filter, Grid, List, RefreshCw, Settings } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
@@ -67,7 +68,7 @@ interface OptimizedDataViewProps<T> {
   }
 }
 
-const OptimizedDataView = memo(function OptimizedDataView<T>({
+const OptimizedDataView = (function OptimizedDataView<T>({
   data,
   renderItem,
   className = '',
@@ -98,9 +99,7 @@ const OptimizedDataView = memo(function OptimizedDataView<T>({
     showFilters: true,
     showViewMode: true,
     showRefresh: true,
-    showClearAll: true,
-  },
-}: OptimizedDataViewProps<T>) {
+    showClearAll: true } }: OptimizedDataViewProps<T>) {
   const [searchQuery, setSearchQuery] = useState('')
   const [filterValues, setFilterValues] = useState<Record<string, any>>({})
   const [showFiltersPanel, setShowFiltersPanel] = useState(false)
@@ -114,8 +113,7 @@ const OptimizedDataView = memo(function OptimizedDataView<T>({
     async () => data,
     {
       ttl: cacheTTL,
-      fallback: data,
-    }
+      fallback: data }
   )
 
   // Обработка поиска
@@ -290,8 +288,7 @@ const OptimizedDataView = memo(function OptimizedDataView<T>({
     const gridClasses = {
       grid: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6',
       list: 'space-y-4',
-      table: 'space-y-2',
-    }
+      table: 'space-y-2' }
 
     return (
       <div className={gridClasses[currentViewMode]}>
@@ -409,7 +406,7 @@ const OptimizedDataView = memo(function OptimizedDataView<T>({
               </label>
               <select
                 value={currentViewMode}
-                onChange={(e) => handleViewModeChange(e.target.value as 'grid' | 'list' | 'table')}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleViewModeChange(e.target.value as 'grid' | 'list' | 'table')}
                 className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="grid">Сітка</option>

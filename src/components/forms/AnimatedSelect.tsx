@@ -35,7 +35,7 @@ export function AnimatedSelect({
 }: AnimatedSelectProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
-  const selectRef = useRef<HTMLDivElement>(null)
+  const selectRef = useRef<HTMLDivElement | null | null>(null)
 
   const hasValue = value.length > 0
   const hasError = !!error

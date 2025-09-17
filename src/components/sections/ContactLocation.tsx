@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState , ReactNode } from 'react';
 import { useRouter } from "next/navigation";
 import {
   MapPin,
@@ -8,8 +8,7 @@ import {
   Info,
   Clock,
   Phone,
-  ExternalLink,
-} from "lucide-react";
+  ExternalLink } from "lucide-react";
 
 type Mode = "pickup" | "exchange";
 
@@ -45,22 +44,17 @@ const DEFAULT_DATA: NonNullable<GetBooksProps["data"]> = {
     instagram: "@stefa.books",
     mapEmbedSrc:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2719.8234567890123!2d31.9946!3d46.9658!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c5c16a12345678%3A0x1234567890abcdef!2z0LLRg9C7LiDQnNCw0YDRltGD0L_QvtC70YzRgdGM0LrQsCwgMTMvMiwg0JzQuNC60L7Qu9Cw0ZfQsiwg0KPQutGA0LDRl9C90LA!5e0!3m2!1suk!2sua!4v1234567890123!5m2!1suk!2sua",
-    note: "Видаємо готові замовлення та оформлюємо обмін.",
-  },
+    note: "Видаємо готові замовлення та оформлюємо обмін." },
   courier: {
     note:
-      "Доставка в день замовлення або наступного дня за домовленістю. Повернення можливе курʼєром або у пункті самовивозу.",
-  },
+      "Доставка в день замовлення або наступного дня за домовленістю. Повернення можливе курʼєром або у пункті самовивозу." },
   exchange: {
     note:
-      "Залишаєте попередню книгу — отримуєте нову. Доступні способи: самовивіз.",
-  },
-};
+      "Залишаєте попередню книгу — отримуєте нову. Доступні способи: самовивіз." } };
 
 export default function ContactLocation({
   hasActiveSubscription = false,
-  data = DEFAULT_DATA,
-}: GetBooksProps) {
+  data = DEFAULT_DATA }: GetBooksProps) {
   const router = useRouter();
   const [mode, setMode] = useState<Mode>("pickup");
 
@@ -89,8 +83,7 @@ export default function ContactLocation({
             "Maxi (500₴/міс) - до 2 книг за раз на місяць.",
             "Попередньо зателефонуйте для уточнення деталей.",
           ],
-          cta: hasActiveSubscription ? "Запланувати візит" : "Оформити підписку",
-        };
+          cta: hasActiveSubscription ? "Запланувати візит" : "Оформити підписку" };
        case "exchange":
         return {
           icon: RefreshCw,
@@ -104,16 +97,14 @@ export default function ContactLocation({
             "Mini (300₴/міс) - обміняйте 1 книгу на іншу.",
             "Maxi (500₴/міс) - обміняйте до 2 книг на інші.",
           ],
-          cta: hasActiveSubscription ? "Оформити обмін" : "Оформити підписку",
-        };
+          cta: hasActiveSubscription ? "Оформити обмін" : "Оформити підписку" };
       default:
         return {
           icon: MapPin,
           name: "Самовивіз",
           bullets: [],
           important: [],
-          cta: "Оформити підписку",
-        };
+          cta: "Оформити підписку" };
     }
   }, [mode, hasActiveSubscription, data]);
 
@@ -282,8 +273,7 @@ function Tab({
   active,
   onClick,
   children,
-  icon,
-}: {
+  icon }: {
   active: boolean;
   onClick: () => void;
   children: React.ReactNode;

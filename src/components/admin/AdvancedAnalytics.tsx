@@ -184,7 +184,7 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
                 <span className="text-body-sm text-neutral-600">Період:</span>
                 <select
                   value={timeRange}
-                  onChange={(e) => setTimeRange(e.target.value as '7d' | '30d' | '90d')}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTimeRange(e.target.value as '7d' | '30d' | '90d')}
                   className="px-3 py-1.5 border border-neutral-200 rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-accent"
                 >
                   <option value="7d">7 днів</option>

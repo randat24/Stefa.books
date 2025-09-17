@@ -10,7 +10,7 @@ import {
   Settings,
   Bell,
   CreditCard,
-  History,
+  HistoryIcon,
   RefreshCw,
   AlertCircle
 } from 'lucide-react';
@@ -19,7 +19,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/Badge';
 import { Progress } from '@/components/ui/progress';
-import type { User, ActiveRental, RentalHistory, UserSubscription } from '@/types/user';
+import type { User, ActiveRental, RentalHistoryIcon, UserSubscription } from '@/types/user';
 
 interface UserDashboardProps {
   className?: string;
@@ -29,7 +29,7 @@ interface DashboardData {
   user: User;
   subscription: UserSubscription | null;
   activeRentals: ActiveRental[];
-  rentalHistory: RentalHistory[];
+  rentalHistoryIcon: RentalHistoryIcon[];
   stats: {
     totalBooksRead: number;
     currentRentals: number;
@@ -132,7 +132,7 @@ export default function UserDashboard({ className = '' }: UserDashboardProps) {
 
   if (!data) return null;
 
-  const { user, subscription, activeRentals, rentalHistory, stats } = data;
+  const { user, subscription, activeRentals, rentalHistoryIcon, stats } = data;
 
   return (
     <div className={`space-y-6 ${className}`}>
@@ -187,7 +187,7 @@ export default function UserDashboard({ className = '' }: UserDashboardProps) {
         <Card>
           <CardContent className="p-6">
             <div className="flex items-center">
-              <History className="h-8 w-8 text-purple-600" />
+              <HistoryIcon className="h-8 w-8 text-purple-600" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-neutral-600">Всього оренд</p>
                 <p className="text-2xl font-bold text-neutral-900">{stats.totalRentals}</p>
@@ -324,23 +324,23 @@ export default function UserDashboard({ className = '' }: UserDashboardProps) {
         </CardContent>
       </Card>
 
-      {/* Recent History */}
+      {/* Recent HistoryIcon */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <History className="h-5 w-5" />
-            Останні оренди ({rentalHistory.length})
+            <HistoryIcon className="h-5 w-5" />
+            Останні оренди ({rentalHistoryIcon.length})
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {rentalHistory.length === 0 ? (
+          {rentalHistoryIcon.length === 0 ? (
             <div className="text-center py-8 text-neutral-500">
-              <History className="h-12 w-12 mx-auto mb-4 text-neutral-300" />
+              <HistoryIcon className="h-12 w-12 mx-auto mb-4 text-neutral-300" />
               <p>Історія оренд порожня</p>
             </div>
           ) : (
             <div className="space-y-3">
-              {rentalHistory.slice(0, 5).map((rental) => (
+              {rentalHistoryIcon.slice(0, 5).map((rental) => (
                 <div key={rental.id} className="flex items-center gap-4 p-3 border rounded-lg">
                   <Image 
                     src={rental.book_cover_url || '/placeholder-book.jpg'}

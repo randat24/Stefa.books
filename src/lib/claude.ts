@@ -8,15 +8,13 @@ async function initializeClients() {
   if (!USE_FREE_MODEL && !anthropic) {
     const Anthropic = (await import('@anthropic-ai/sdk')).default;
     anthropic = new Anthropic({
-      apiKey: process.env.ANTHROPIC_API_KEY,
-    });
+      apiKey: process.env.ANTHROPIC_API_KEY });
   } else if (USE_FREE_MODEL && !groq) {
     // Инициализируем бесплатный Groq API
     const { Groq } = await import('groq-sdk');
     groq = new Groq({
       // Groq имеет бесплатный тариф без ключа для многих моделей
-      apiKey: process.env.GROQ_API_KEY || 'free-tier', 
-    });
+      apiKey: process.env.GROQ_API_KEY || 'free-tier' });
   }
 }
 
@@ -33,8 +31,7 @@ export const AI_MODELS = {
   GROQ_LLAMA_3_70B: 'llama3-70b-8192',
   GROQ_LLAMA_3_8B: 'llama3-8b-8192',
   GROQ_MIXTRAL: 'mixtral-8x7b-32768',
-  GROQ_GEMMA_7B: 'gemma-7b-it',
-} as const;
+  GROQ_GEMMA_7B: 'gemma-7b-it' } as const;
 
 export type AIModel = typeof AI_MODELS[keyof typeof AI_MODELS];
 
@@ -52,8 +49,7 @@ export const CLAUDE_MODELS = {
   OPUS_4: AI_MODELS.CLAUDE_OPUS_4,
   SONNET_4: AI_MODELS.CLAUDE_SONNET_4,
   SONNET_35: AI_MODELS.CLAUDE_SONNET_35,
-  HAIKU_35: AI_MODELS.CLAUDE_HAIKU_35,
-} as const;
+  HAIKU_35: AI_MODELS.CLAUDE_HAIKU_35 } as const;
 
 export type ClaudeModel = typeof CLAUDE_MODELS[keyof typeof CLAUDE_MODELS];
 
@@ -85,8 +81,7 @@ export async function callClaude({
   model = DEFAULT_MODEL,
   max_tokens = DEFAULT_MAX_TOKENS,
   temperature = 0.1,
-  thinking = false,
-}: ClaudeRequest): Promise<ClaudeResponse> {
+  thinking = false }: ClaudeRequest): Promise<ClaudeResponse> {
   try {
     // Инициализируем клиенты при первом вызове
     await initializeClients();
@@ -109,16 +104,13 @@ export async function callClaude({
         ],
         model: groqModel,
         max_tokens,
-        temperature,
-      });
+        temperature });
 
       const result: ClaudeResponse = {
         content: response.choices[0]?.message?.content || '',
         usage: {
           input_tokens: response.usage?.prompt_tokens || 0,
-          output_tokens: response.usage?.completion_tokens || 0,
-        },
-      };
+          output_tokens: response.usage?.completion_tokens || 0 } };
 
       return result;
 
@@ -129,8 +121,7 @@ export async function callClaude({
         max_tokens,
         temperature,
         system,
-        messages,
-      };
+        messages };
 
       // Enable thinking mode for Opus models if requested
       if (thinking && (model === CLAUDE_MODELS.OPUS_41 || model === CLAUDE_MODELS.OPUS_4)) {
@@ -145,9 +136,7 @@ export async function callClaude({
           content: response.content[0].text,
           usage: {
             input_tokens: response.usage.input_tokens,
-            output_tokens: response.usage.output_tokens,
-          },
-        };
+            output_tokens: response.usage.output_tokens } };
 
         // Handle thinking content if present
         if ('thinking' in response && response.thinking) {
@@ -179,9 +168,7 @@ export async function callClaude({
 📊 Система: ${system || 'Загальний помічник'}`,
         usage: {
           input_tokens: 50,
-          output_tokens: 150,
-        },
-      };
+          output_tokens: 150 } };
 
       return simulatedResponse;
     }
@@ -202,9 +189,7 @@ export async function callClaude({
 Використовується безкоштовна модель: ${USE_FREE_MODEL ? 'Так' : 'Ні'}`,
       usage: {
         input_tokens: 0,
-        output_tokens: 0,
-      },
-    };
+        output_tokens: 0 } };
   }
 }
 
@@ -216,8 +201,7 @@ export async function generateText(
   const response = await callClaude({
     system: systemPrompt,
     messages: [{ role: 'user', content: prompt }],
-    model,
-  });
+    model });
   
   return response.content;
 }
@@ -231,8 +215,7 @@ export async function analyzeContent(
     summary: 'Создай краткое резюме предоставленного контента на украинском языке.',
     translate: 'Переведи текст на украинский язык, сохраняя стиль и смысл.',
     improve: 'Улучши предоставленный текст, исправив грамматику и стиль.',
-    analyze: 'Проанализируй предоставленный контент и дай рекомендации.',
-  };
+    analyze: 'Проанализируй предоставленный контент и дай рекомендации.' };
 
   return generateText(content, systemPrompts[analysisType], model);
 }
@@ -243,16 +226,14 @@ export async function callClaudeOpus41({
   messages,
   max_tokens = 32000,
   temperature = 0.1,
-  thinking = false,
-}: Omit<ClaudeRequest, 'model'>): Promise<ClaudeResponse> {
+  thinking = false }: Omit<ClaudeRequest, 'model'>): Promise<ClaudeResponse> {
   return callClaude({
     system,
     messages,
     model: CLAUDE_MODELS.OPUS_41,
     max_tokens,
     temperature,
-    thinking,
-  });
+    thinking });
 }
 
 export async function generateWithThinking(
@@ -264,14 +245,12 @@ export async function generateWithThinking(
     system: systemPrompt,
     messages: [{ role: 'user', content: prompt }],
     max_tokens: maxTokens,
-    thinking: true,
-  });
+    thinking: true });
 
   return {
     content: response.content,
     thinking: response.thinking_content,
-    usage: response.usage,
-  };
+    usage: response.usage };
 }
 
 export async function analyzeCodebase(
@@ -282,15 +261,13 @@ export async function analyzeCodebase(
     refactor: 'Ты експерт по рефакторингу коду. Проанализируй предоставленный код и предложи улучшения для читабельности, производительности и поддерживаемости. Используй лучшие практики TypeScript и React.',
     optimize: 'Ты експерт по оптимизации производительности. Проанализируй код и найди возможности для улучшения производительности, уменьшения размера бандла и оптимизации рендеринга.',
     review: 'Ты Senior разработчик. Проведи полный код-ревью предоставленного кода. Найди потенциальные баги, проблемы безопасности, нарушения лучших практик и предложи улучшения.',
-    debug: 'Ты експерт по отладке. Найди и проанализируй потенциальные баги в коде. Объясни причины проблем и предложи решения.',
-  };
+    debug: 'Ты експерт по отладке. Найди и проанализируй потенциальные баги в коде. Объясни причины проблем и предложи решения.' };
 
   const response = await callClaudeOpus41({
     system: systemPrompts[analysisType],
     messages: [{ role: 'user', content: codeContent }],
     thinking: true,
-    max_tokens: 24000,
-  });
+    max_tokens: 24000 });
 
   return response.content;
 }
@@ -337,8 +314,7 @@ ${preserveLogic ? 'ВАЖНО: Сохрани всю функциональну�
   return {
     refactoredCode: codeMatch?.[1] || content,
     explanation: explanationMatch?.[1]?.trim() || content,
-    thinking: response.thinking,
-  };
+    thinking: response.thinking };
 }
 
 export async function generateBookRecommendations(
@@ -375,5 +351,4 @@ export const claude = {
   generateBookRecommendations,
   
   // Constants
-  MODELS: CLAUDE_MODELS,
-};
+  MODELS: CLAUDE_MODELS };

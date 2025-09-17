@@ -16,12 +16,10 @@ const mockLocalStorage = {
   getItem: jest.fn(),
   setItem: jest.fn(),
   removeItem: jest.fn(),
-  clear: jest.fn(),
-};
+  clear: jest.fn() };
 
 Object.defineProperty(window, 'localStorage', {
-  value: mockLocalStorage,
-});
+  value: mockLocalStorage });
 
 const mockBook1: Book = {
   id: '1',
@@ -53,8 +51,7 @@ const mockBook1: Book = {
   search_vector: null,
   search_text: null,
   created_at: new Date().toISOString(),
-  updated_at: new Date().toISOString(),
-};
+  updated_at: new Date().toISOString() };
 
 const mockBook2: Book = {
   id: '2',
@@ -86,8 +83,7 @@ const mockBook2: Book = {
   search_vector: null,
   search_text: null,
   created_at: new Date().toISOString(),
-  updated_at: new Date().toISOString(),
-};
+  updated_at: new Date().toISOString() };
 
 describe('Recent Views', () => {
   beforeEach(() => {
@@ -112,8 +108,7 @@ describe('Recent Views', () => {
           title: 'Test Book',
           author: 'Test Author',
           cover: '/test.jpg',
-          viewedAt: '2023-01-01T00:00:00.000Z',
-        }
+          viewedAt: '2023-01-01T00:00:00.000Z' }
       ];
       mockLocalStorage.getItem.mockReturnValue(JSON.stringify(mockData));
       
@@ -158,8 +153,7 @@ describe('Recent Views', () => {
         title: 'Test Book 1',
         author: 'Test Author 1',
         cover: '/test1.jpg',
-        viewedAt: '2023-01-01T00:00:00.000Z',
-      };
+        viewedAt: '2023-01-01T00:00:00.000Z' };
 
       expect(mockLocalStorage.setItem).toHaveBeenCalledWith(
         'stefa-books-recent-views', 
@@ -174,8 +168,7 @@ describe('Recent Views', () => {
           title: 'Test Book 2',
           author: 'Test Author 2',
           cover: '/test2.jpg',
-          viewedAt: '2023-01-01T00:00:00.000Z',
-        }
+          viewedAt: '2023-01-01T00:00:00.000Z' }
       ];
       mockLocalStorage.getItem.mockReturnValue(JSON.stringify(existingData));
       
@@ -186,8 +179,7 @@ describe('Recent Views', () => {
         title: 'Test Book 1',
         author: 'Test Author 1',
         cover: '/test1.jpg',
-        viewedAt: '2023-01-01T00:00:00.000Z',
-      };
+        viewedAt: '2023-01-01T00:00:00.000Z' };
 
       expect(mockLocalStorage.setItem).toHaveBeenCalledWith(
         'stefa-books-recent-views', 
@@ -202,15 +194,13 @@ describe('Recent Views', () => {
           title: 'Test Book 1',
           author: 'Test Author 1',
           cover_url: '/test1.jpg',
-          viewedAt: '2023-01-01T00:00:00.000Z',
-        },
+          viewedAt: '2023-01-01T00:00:00.000Z' },
         {
           id: '2',
           title: 'Test Book 2',
           author: 'Test Author 2',
           cover_url: '/test2.jpg',
-          viewedAt: '2023-01-01T00:00:00.000Z',
-        }
+          viewedAt: '2023-01-01T00:00:00.000Z' }
       ];
       mockLocalStorage.getItem.mockReturnValue(JSON.stringify(existingData));
       
@@ -221,8 +211,7 @@ describe('Recent Views', () => {
         title: 'Test Book 2',
         author: 'Test Author 2',
         cover: '/test2.jpg',
-        viewedAt: '2023-01-01T00:00:00.000Z',
-      };
+        viewedAt: '2023-01-01T00:00:00.000Z' };
 
       expect(mockLocalStorage.setItem).toHaveBeenCalledWith(
         'stefa-books-recent-views', 
@@ -236,8 +225,7 @@ describe('Recent Views', () => {
         title: `Book ${i + 1}`,
         author: `Author ${i + 1}`,
         cover: `/book${i + 1}.jpg`,
-        viewedAt: '2023-01-01T00:00:00.000Z',
-      }));
+        viewedAt: '2023-01-01T00:00:00.000Z' }));
       mockLocalStorage.getItem.mockReturnValue(JSON.stringify(existingData));
       
       const newBook: Book = {
@@ -247,8 +235,7 @@ describe('Recent Views', () => {
         category: 'Test Category',
         cover: '/new.jpg',
         short: 'New book',
-        available: true,
-      };
+        available: true };
 
       addToRecentViews(newBook);
       
@@ -257,8 +244,7 @@ describe('Recent Views', () => {
         title: 'New Book',
         author: 'New Author',
         cover: '/new.jpg',
-        viewedAt: '2023-01-01T00:00:00.000Z',
-      };
+        viewedAt: '2023-01-01T00:00:00.000Z' };
 
       const expectedData = [newRecentView, ...existingData.slice(0, 4)];
       expect(mockLocalStorage.setItem).toHaveBeenCalledWith(
@@ -300,15 +286,13 @@ describe('Recent Views', () => {
           title: 'Book 1',
           author: 'Author 1',
           cover: '/book1.jpg',
-          viewedAt: '2023-01-01T00:00:00.000Z',
-        },
+          viewedAt: '2023-01-01T00:00:00.000Z' },
         {
           id: '2',
           title: 'Book 2',
           author: 'Author 2',
           cover: '/book2.jpg',
-          viewedAt: '2023-01-01T00:00:00.000Z',
-        }
+          viewedAt: '2023-01-01T00:00:00.000Z' }
       ];
       mockLocalStorage.getItem.mockReturnValue(JSON.stringify(existingData));
       
@@ -327,8 +311,7 @@ describe('Recent Views', () => {
           title: 'Book 1',
           author: 'Author 1',
           cover: '/book1.jpg',
-          viewedAt: '2023-01-01T00:00:00.000Z',
-        }
+          viewedAt: '2023-01-01T00:00:00.000Z' }
       ];
       mockLocalStorage.getItem.mockReturnValue(JSON.stringify(existingData));
       
@@ -357,8 +340,7 @@ describe('Recent Views', () => {
           title: 'Book 1',
           author: 'Author 1',
           cover: '/book1.jpg',
-          viewedAt: '2023-01-01T00:00:00.000Z',
-        }
+          viewedAt: '2023-01-01T00:00:00.000Z' }
       ];
       mockLocalStorage.getItem.mockReturnValue(JSON.stringify(existingData));
       

@@ -20,8 +20,7 @@ export default function RegisterPage() {
     email: '',
     phone: '',
     password: '',
-    confirmPassword: '',
-  });
+    confirmPassword: '' });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [error, setError] = useState('');
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect , ReactNode } from 'react';
 import { ClientHeader } from '@/components/layouts/ClientHeader';
 import { Footer } from '@/components/layouts/Footer';
 import { BackToTop } from '@/components/ui/BackToTop';

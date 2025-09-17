@@ -35,8 +35,7 @@ function sendToAnalytics(metric: WebVitalMetric) {
       event_category: 'Web Vitals',
       event_label: metric.rating,
       value: Math.round(metric.value),
-      non_interaction: true,
-    })
+      non_interaction: true })
   }
 
   // Log for development and send to dashboard

@@ -42,10 +42,10 @@ export class MonobankPaymentService {
 
   constructor() {
     this.apiUrl = process.env.MONOBANK_API_URL || 'https://api.monobank.ua';
-    this.apiToken = process.env.MONOBANK_API_TOKEN || '';
+    this.apiToken = process.env.MONOBANK_TOKEN || '';
     
     if (!this.apiToken) {
-      logger.warn('MonobankPaymentService: No API token provided');
+      logger.warn('MonobankPaymentService: MONOBANK_TOKEN not provided');
     }
   }
 

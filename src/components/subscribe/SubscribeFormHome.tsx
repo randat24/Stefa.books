@@ -87,7 +87,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
       
       // Создаем превью
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = (e: React.ChangeEvent<HTMLInputElement>) => {
         setUploadPreview(e.target?.result as string);
       };
       reader.readAsDataURL(file);
@@ -119,6 +119,18 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
       privacyConsent: false
     }
   });
+
+  // Функция для проверки валидности только обязательных полей
+  const isRequiredFieldsValid = () => {
+    const name = watch("name");
+    const phone = watch("phone");
+    const email = watch("email");
+    const subscription_type = watch("subscription_type");
+    const payment_method = watch("payment_method");
+    const privacyConsent = watch("privacyConsent");
+
+    return !!(name && phone && email && subscription_type && payment_method && privacyConsent);
+  };
 
 
 
@@ -540,7 +552,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
                         type="file"
                         id="screenshot"
                         accept="image/*"
-                        onChange={(e) => {
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                           if (e.target.files) {
                             handleFileUpload({ target: { files: e.target.files } });
                           }
@@ -654,7 +666,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
             {/* Кнопка отправки */}
             <Button
               type="submit"
-              disabled={isSubmitting || !watch("name") || !watch("phone") || !watch("email") || !watch("subscription_type") || !watch("payment_method") || !watch("privacyConsent")}
+              disabled={isSubmitting || !isRequiredFieldsValid()}
               className="btn btn-primary btn-lg btn-block"
             >
               {isSubmitting ? 'Відправляємо...' : 'Оформити підписку'}

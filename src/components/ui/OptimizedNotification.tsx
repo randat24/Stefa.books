@@ -1,7 +1,8 @@
 'use client'
 
-import { memo, useCallback, useEffect, useState, useRef } from 'react'
-import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react'
+import { useCallback, useEffect, useState, useRef } from 'react';
+import {  } from 'react'
+import { X, CheckCircle, AlertCircle, Info, AlertTriangleIcon } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
 
@@ -18,26 +19,23 @@ interface NotificationProps {
 const notificationIcons = {
   success: CheckCircle,
   error: AlertCircle,
-  warning: AlertTriangle,
-  info: Info,
-}
+  warning: AlertTriangleIcon,
+  info: Info }
 
 const notificationStyles = {
   success: 'bg-green-50 border-green-200 text-green-800',
   error: 'bg-red-50 border-red-200 text-red-800',
   warning: 'bg-yellow-50 border-yellow-200 text-yellow-800',
-  info: 'bg-blue-50 border-blue-200 text-blue-800',
-}
+  info: 'bg-blue-50 border-blue-200 text-blue-800' }
 
-const Notification = memo(function Notification({
+const Notification = (function Notification({
   id,
   type,
   title,
   message,
   duration = 5000,
   onClose,
-  className = '',
-}: NotificationProps) {
+  className = '' }: NotificationProps) {
   const [isVisible, setIsVisible] = useState(false)
   const [isLeaving, setIsLeaving] = useState(false)
   const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
@@ -128,20 +126,18 @@ interface NotificationContainerProps {
   className?: string
 }
 
-const NotificationContainer = memo(function NotificationContainer({
+const NotificationContainer = (function NotificationContainer({
   notifications,
   onClose,
   position = 'top-right',
-  className = '',
-}: NotificationContainerProps) {
+  className = '' }: NotificationContainerProps) {
   const positionStyles = {
     'top-right': 'top-4 right-4',
     'top-left': 'top-4 left-4',
     'bottom-right': 'bottom-4 right-4',
     'bottom-left': 'bottom-4 left-4',
     'top-center': 'top-4 left-1/2 transform -translate-x-1/2',
-    'bottom-center': 'bottom-4 left-1/2 transform -translate-x-1/2',
-  }
+    'bottom-center': 'bottom-4 left-1/2 transform -translate-x-1/2' }
 
   if (notifications.length === 0) {
     return null
@@ -194,8 +190,7 @@ export function useNotifications() {
     notifications,
     addNotification,
     removeNotification,
-    clearAll,
-  }
+    clearAll }
 }
 
 export default NotificationContainer

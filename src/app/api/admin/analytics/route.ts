@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
+import { logger } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   try {
@@ -38,7 +39,18 @@ export async function GET(request: NextRequest) {
     const users = usersRes.data || []
     const books = booksRes.data || []
     const rentals = rentalsRes.data || []
-    const payments: Array<{ id: string; amount: number; created_at: string; user_id: string }> = [] // Поки що таблиця payments не існує
+    
+    // Fetch payments from database
+    const { data: paymentsData, error: paymentsError } = await supabase
+      .from('payments')
+      .select('id, amount_uah, created_at, user_id, status')
+      .eq('status', 'completed')
+    
+    if (paymentsError) {
+      logger.error('Error fetching payments for analytics', paymentsError, 'Admin')
+    }
+    
+    const payments = paymentsData || []
 
     // Розрахунок основних метрик
     const totalUsers = users.length
@@ -50,24 +62,24 @@ export async function GET(request: NextRequest) {
     const overdueRentals = rentals.filter((r: any) => r.status === 'overdue').length
 
     // Розрахунок доходів
-    const totalRevenue = payments.reduce((sum, p) => sum + (p.amount || 0), 0)
+    const totalRevenue = payments.reduce((sum: number, p: any) => sum + (p.amount_uah || 0), 0)
     const monthlyRevenue = payments
-      .filter(p => {
+      .filter((p: any) => {
         if (!p.created_at) return false
         const paymentDate = new Date(p.created_at)
         return paymentDate.getMonth() === now.getMonth() && 
                paymentDate.getFullYear() === now.getFullYear()
       })
-      .reduce((sum, p) => sum + (p.amount || 0), 0)
+      .reduce((sum: number, p: any) => sum + (p.amount_uah || 0), 0)
     
     const weeklyRevenue = payments
-      .filter(p => {
+      .filter((p: any) => {
         if (!p.created_at) return false
         const paymentDate = new Date(p.created_at)
         const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
         return paymentDate >= weekAgo
       })
-      .reduce((sum, p) => sum + (p.amount || 0), 0)
+      .reduce((sum: number, p: any) => sum + (p.amount_uah || 0), 0)
 
     // Розрахунок середньої тривалості оренди
     const completedRentals = rentals.filter((r: any) => r.status === 'completed' && r.return_date)
@@ -171,8 +183,8 @@ export async function GET(request: NextRequest) {
       revenueGrowth: Array.from({ length: 30 }, (_, i) => {
         const date = new Date(now.getTime() - (29 - i) * 24 * 60 * 60 * 1000)
         const dayRevenue = payments
-          .filter(p => p.created_at && new Date(p.created_at).toDateString() === date.toDateString())
-          .reduce((sum, p) => sum + (p.amount || 0), 0)
+          .filter((p: any) => p.created_at && new Date(p.created_at).toDateString() === date.toDateString())
+          .reduce((sum: number, p: any) => sum + (p.amount_uah || 0), 0)
         return {
           date: date.toISOString().split('T')[0],
           amount: dayRevenue

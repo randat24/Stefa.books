@@ -12,8 +12,7 @@ const QueryParamsSchema = z.object({
 	email: z.string().email().optional().nullable(),
 	status: z.enum(['active', 'overdue', 'returned', 'lost']).optional().nullable(),
 	page: z.string().transform(val => val ? parseInt(val) : 1).pipe(z.number().min(1)).default('1'),
-	limit: z.string().transform(val => val ? parseInt(val) : 20).pipe(z.number().min(1).max(100)).default('20'),
-})
+	limit: z.string().transform(val => val ? parseInt(val) : 20).pipe(z.number().min(1).max(100)).default('20') })
 
 /**
  * GET /api/my-rentals - Получить аренды пользователя
@@ -27,8 +26,7 @@ export async function GET(request: NextRequest) {
 			email: searchParams.get('email') || undefined,
 			status: searchParams.get('status') || undefined,
 			page: searchParams.get('page') || '1',
-			limit: searchParams.get('limit') || '20',
-		})
+			limit: searchParams.get('limit') || '20' })
 
 		if (!queryParams.success) {
 			logger.warn('Invalid query parameters in my-rentals API', {
@@ -176,8 +174,7 @@ export async function POST(request: NextRequest) {
 			bookId: z.string().uuid('Неправильный ID книги'),
 			userId: z.string().uuid('Неправильный ID пользователя'),
 			dueDate: z.string().datetime('Неправильная дата возврата').optional(),
-			notes: z.string().max(500, 'Заметки слишком длинные').optional(),
-		})
+			notes: z.string().max(500, 'Заметки слишком длинные').optional() })
 
 		const validationResult = rentalDataSchema.safeParse(body)
 		if (!validationResult.success) {
@@ -222,8 +219,7 @@ export async function POST(request: NextRequest) {
 				rental_date: new Date().toISOString(),
 				due_date: dueDate || null,
 				status: 'active',
-				notes: notes || null,
-			})
+				notes: notes || null })
 			.select()
 			.single()
 

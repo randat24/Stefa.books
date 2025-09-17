@@ -24,8 +24,7 @@ const mockAnalytics = {
     { id: '3', title: '1984', author: 'George Orwell', rentals: 35 },
     { id: '4', title: 'Pride and Prejudice', author: 'Jane Austen', rentals: 31 },
     { id: '5', title: 'The Catcher in the Rye', author: 'J.D. Salinger', rentals: 29 },
-  ],
-};
+  ] };
 
 export default function AnalyticsPage() {
   const [timeRange, setTimeRange] = useState('7d'); // 7d, 30d, 90d

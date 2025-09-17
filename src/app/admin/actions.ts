@@ -21,10 +21,8 @@ export async function updateBook(id: string, bookData: any) {
     const response = await fetch(`/api/admin/books/${id}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(bookData),
-    })
+        'Content-Type': 'application/json' },
+      body: JSON.stringify(bookData) })
 
     const result = await response.json()
 
@@ -51,8 +49,7 @@ export async function updateBook(id: string, bookData: any) {
 export async function deleteBook(id: string) {
   try {
     const response = await fetch(`/api/admin/books/${id}`, {
-      method: 'DELETE',
-    })
+      method: 'DELETE' })
 
     const result = await response.json()
 

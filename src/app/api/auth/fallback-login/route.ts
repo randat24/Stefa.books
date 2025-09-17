@@ -21,8 +21,7 @@ export async function POST(request: NextRequest) {
     // Аутентификация через Supabase Auth
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
-      password,
-    });
+      password });
 
     if (error) {
       logger.error('Fallback login failed', { error }, 'Auth');

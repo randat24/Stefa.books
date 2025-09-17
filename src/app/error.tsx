@@ -5,8 +5,7 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 export default function Error({
-  reset,
-}: {
+  reset }: {
   error: Error & { digest?: string }
   reset: () => void
 }) {

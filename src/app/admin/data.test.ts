@@ -5,9 +5,7 @@ jest.mock('@/lib/supabase', () => ({
   supabase: {
     from: jest.fn().mockReturnThis(),
     select: jest.fn().mockReturnThis(),
-    then: jest.fn().mockResolvedValue({ data: [], error: null }),
-  },
-}));
+    then: jest.fn().mockResolvedValue({ data: [], error: null }) } }));
 
 describe('Admin Data Functions', () => {
   describe('getDashboardStats', () => {
@@ -24,8 +22,7 @@ describe('Admin Data Functions', () => {
         monthlyRevenue: 0,
         popularBooks: [],
         userActivity: [],
-        categoryStats: [],
-      });
+        categoryStats: [] });
     });
   });
 });

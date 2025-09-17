@@ -29,10 +29,8 @@ export default function TestAdminPage() {
       const loginResponse = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+          'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }) });
 
       const loginResult = await loginResponse.json();
       setResult({ login: loginResult });
@@ -46,8 +44,7 @@ export default function TestAdminPage() {
             ...(loginResult.session?.access_token && {
               'Authorization': `Bearer ${loginResult.session.access_token}`
             })
-          },
-        });
+          } });
 
         const meResult = await meResponse.json();
         setResult(prev => ({ ...prev, me: meResult }));
@@ -105,7 +102,7 @@ export default function TestAdminPage() {
                 id="email"
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                 placeholder="admin@stefa-books.com.ua"
                 required
               />
@@ -117,7 +114,7 @@ export default function TestAdminPage() {
                 id="password"
                 type="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                 placeholder="Пароль админа"
                 required
               />

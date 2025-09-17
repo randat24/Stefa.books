@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, forwardRef, useCallback, useState } from 'react'
+import { useCallback, useState , ReactNode } from 'react';
 import { Loader2 } from 'lucide-react'
 import { cn } from '@/lib/cn'
 
@@ -14,7 +14,7 @@ interface OptimizedButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElem
   ripple?: boolean
 }
 
-const OptimizedButton = forwardRef<HTMLButtonElement, OptimizedButtonProps>(
+const OptimizedButton = (
   ({
     className,
     variant = 'primary',
@@ -163,7 +163,7 @@ const OptimizedButton = forwardRef<HTMLButtonElement, OptimizedButtonProps>(
 OptimizedButton.displayName = 'OptimizedButton'
 
 // Memoized version for performance
-export const MemoizedButton = memo(OptimizedButton)
+export const MemoizedButton = (OptimizedButton)
 
 // Button group component
 interface ButtonGroupProps {
@@ -202,7 +202,7 @@ interface IconButtonProps extends Omit<OptimizedButtonProps, 'children'> {
   'aria-label': string
 }
 
-export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
+export const IconButton = (
   ({ className, size = 'md', ...props }, ref) => {
     const iconSize = {
       sm: 'h-3 w-3',

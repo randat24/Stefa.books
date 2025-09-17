@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { authService, type AuthResponse, type UserProfile } from '@/lib/auth/auth-service';
 import type { User } from '@supabase/supabase-js/dist/module/index';
 import { logger } from '@/lib/logger';
@@ -18,9 +18,9 @@ interface AuthContextType {
   updatePassword: (newPassword: string) => Promise<{ success: boolean; error?: string }>;
 }
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = React.createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -35,8 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // Get saved session from localStorage
         const savedSession = localStorage.getItem('supabase.auth.token');
         const headers: Record<string, string> = {
-          'Content-Type': 'application/json',
-        };
+          'Content-Type': 'application/json' };
         
         if (savedSession) {
           try {
@@ -52,8 +51,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         
         const response = await fetch('/api/auth/me', {
           method: 'GET',
-          headers,
-        });
+          headers });
 
         if (response.ok) {
           const result = await response.json();
@@ -89,10 +87,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+          'Content-Type': 'application/json' },
+        body: JSON.stringify(data) });
 
       const result = await response.json();
 
@@ -124,10 +120,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+          'Content-Type': 'application/json' },
+        body: JSON.stringify(data) });
 
       const result = await response.json();
 
@@ -149,9 +143,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await fetch('/api/auth/logout', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+          'Content-Type': 'application/json' } });
     } catch (error) {
       logger.error('Logout error', error);
     } finally {
@@ -184,10 +176,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const response = await fetch('/api/auth/forgot-password', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
+          'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }) });
 
       return await response.json();
     } catch (error) {
@@ -221,7 +211,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 }
 
 export function useAuth() {
-  const context = useContext(AuthContext);
+  const context = React.useContext(AuthContext);
   
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');

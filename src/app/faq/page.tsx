@@ -3,7 +3,7 @@ import { FAQStructuredData } from "@/components/seo/FAQStructuredData";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { BreadcrumbStructuredData } from "@/components/seo/BreadcrumbStructuredData";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { HelpCircle, BookOpen, CreditCard, Download } from "lucide-react";
+import { HelpCircleIcon, BookOpen, CreditCard, Download } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Часті питання (FAQ) | Stefa.books",
@@ -19,9 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Часті питання (FAQ) | Stefa.books",
     description: "Відповіді на найчастіші питання про підписку, оренду книг, способи оплати та використання сервісу Stefa.books.",
-    type: "website",
-  },
-};
+    type: "website" } };
 
 const breadcrumbItems = [
   { label: "FAQ", current: true }
@@ -96,7 +94,7 @@ export default function FAQPage() {
           {/* Header */}
           <div className="text-center mb-12">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-amber-100 rounded-full mb-6">
-              <HelpCircle className="w-8 h-8 text-amber-600" />
+              <HelpCircleIcon className="w-8 h-8 text-amber-600" />
             </div>
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
               Часті питання

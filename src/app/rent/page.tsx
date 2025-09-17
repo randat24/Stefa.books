@@ -18,8 +18,7 @@ const mockBooks = [
     category: 'Fiction',
     rating: 4.2,
     available: true,
-    coverImage: '/placeholder-book-cover.jpg',
-  },
+    coverImage: '/placeholder-book-cover.jpg' },
   {
     id: '2',
     title: 'To Kill a Mockingbird',
@@ -27,8 +26,7 @@ const mockBooks = [
     category: 'Fiction',
     rating: 4.5,
     available: true,
-    coverImage: '/placeholder-book-cover.jpg',
-  },
+    coverImage: '/placeholder-book-cover.jpg' },
   {
     id: '3',
     title: '1984',
@@ -36,8 +34,7 @@ const mockBooks = [
     category: 'Dystopian',
     rating: 4.7,
     available: false,
-    coverImage: '/placeholder-book-cover.jpg',
-  },
+    coverImage: '/placeholder-book-cover.jpg' },
   {
     id: '4',
     title: 'Pride and Prejudice',
@@ -45,8 +42,7 @@ const mockBooks = [
     category: 'Romance',
     rating: 4.3,
     available: true,
-    coverImage: '/placeholder-book-cover.jpg',
-  },
+    coverImage: '/placeholder-book-cover.jpg' },
 ];
 
 export default function RentPage() {
@@ -73,14 +69,14 @@ export default function RentPage() {
           id="search"
           placeholder="Search books by title or author..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
           className="max-w-md"
         />
       </div>
       
       {/* Books Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {filteredBooks.map((book) => (
+        {filteredBooks.map((book: any) => (
           <Card key={book.id} className="flex flex-col">
             <div className="relative">
               <Image 

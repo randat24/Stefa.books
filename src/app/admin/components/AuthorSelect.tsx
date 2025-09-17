@@ -148,9 +148,9 @@ export function AuthorSelect({ value, onChange, disabled }: AuthorSelectProps) {
                 <Input
                   id="author-name"
                   value={newAuthorName}
-                  onChange={(e) => setNewAuthorName(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewAuthorName(e.target.value)}
                   placeholder="Введите имя автора"
-                  onKeyDown={(e) => e.key === 'Enter' && handleAddAuthor()}
+                  onKeyDown={(e: React.ChangeEvent<HTMLInputElement>) => e.key === 'Enter' && handleAddAuthor()}
                 />
               </div>
               <div className="flex justify-end gap-2">

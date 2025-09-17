@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef , ReactNode } from 'react'
 import { motion, AnimatePresence } from "framer-motion"
 import { createPortal } from "react-dom"
 
@@ -21,8 +21,8 @@ export function Tooltip({
 }: TooltipProps) {
   const [isVisible, setIsVisible] = useState(false)
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
-  const triggerRef = useRef<HTMLDivElement>(null)
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const triggerRef = useRef<HTMLDivElement | null | null>(null)
+  const timeoutRef = useRef<NodeJS.Timeout | null | null | null>(null)
 
   const showTooltip = () => {
     if (timeoutRef.current) {

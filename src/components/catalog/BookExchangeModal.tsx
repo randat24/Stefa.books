@@ -141,7 +141,7 @@ export default function BookExchangeModal({
             <Input
               placeholder="Пошук книги для обміну..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
               className="pl-10"
             />
           </div>
@@ -169,7 +169,7 @@ export default function BookExchangeModal({
                 </p>
               </div>
             ) : (
-              filteredBooks.map((book) => (
+              filteredBooks.map((book: any) => (
                 <div
                   key={book.id}
                   className={`p-4 border rounded-lg cursor-pointer transition-colors ${

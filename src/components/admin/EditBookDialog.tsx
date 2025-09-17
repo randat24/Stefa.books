@@ -16,8 +16,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+  SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { 
   BookOpen, 
@@ -172,8 +171,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
       const response = await fetch(`/api/admin/books/${book.id}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       })
 

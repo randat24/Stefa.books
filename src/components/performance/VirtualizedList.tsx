@@ -27,7 +27,7 @@ export function VirtualizedList<T>({
   onVisibleRangeChange
 }: VirtualizedListProps<T>) {
   const [scrollTop, setScrollTop] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement | null | null>(null);
 
   // Вычисляем видимый диапазон
   const visibleRange = useMemo(() => {
@@ -125,7 +125,7 @@ export function VirtualizedGrid<T>({
 }: VirtualizedGridProps<T>) {
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement | null | null>(null);
 
   // Вычисляем количество колонок
   const columnsPerRow = Math.floor(containerWidth / itemWidth);
@@ -294,7 +294,7 @@ export function InfiniteScroll<T>({
   threshold = 100
 }: InfiniteScrollProps<T>) {
   const [scrollTop, setScrollTop] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement | null | null>(null);
 
   // Проверяем, нужно ли загружать больше элементов
   const checkLoadMore = useCallback(() => {

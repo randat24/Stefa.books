@@ -250,9 +250,9 @@ export function CategorySelect({
                   <Input
                     id="main-category-name"
                     value={newCategoryName}
-                    onChange={(e) => setNewCategoryName(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewCategoryName(e.target.value)}
                     placeholder="Введите название категории"
-                    onKeyDown={(e) => e.key === 'Enter' && handleAddMainCategory()}
+                    onKeyDown={(e: React.ChangeEvent<HTMLInputElement>) => e.key === 'Enter' && handleAddMainCategory()}
                   />
                 </div>
                 <div className="flex justify-end gap-2">
@@ -333,9 +333,9 @@ export function CategorySelect({
                   <Input
                     id="subcategory-name"
                     value={newSubcategoryName}
-                    onChange={(e) => setNewSubcategoryName(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewSubcategoryName(e.target.value)}
                     placeholder="Введите название подкатегории"
-                    onKeyDown={(e) => e.key === 'Enter' && handleAddSubcategory()}
+                    onKeyDown={(e: React.ChangeEvent<HTMLInputElement>) => e.key === 'Enter' && handleAddSubcategory()}
                   />
                 </div>
                 <div className="text-body-sm text-muted-foreground">

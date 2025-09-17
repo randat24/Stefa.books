@@ -79,8 +79,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
       const response = await fetch('/api/rent', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json' },
         body: JSON.stringify({
           book_id: book.id,
           plan: formData.plan,

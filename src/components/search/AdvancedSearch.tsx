@@ -42,8 +42,8 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
   const [supabaseResults, setSupabaseResults] = useState<SearchResponse | null>(null);
   
   const debouncedQuery = useDebounce(query, 300);
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const suggestionsRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null | null | null>(null);
+  const suggestionsRef = useRef<HTMLDivElement | null | null | null>(null);
   
   const [filters, setFilters] = useState<SearchFilters>({
     categories: [],
@@ -389,8 +389,8 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
             ref={inputRef}
             type="text"
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSearch(query)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+            onKeyDown={(e: React.ChangeEvent<HTMLInputElement>) => e.key === 'Enter' && handleSearch(query)}
             onFocus={() => setShowSuggestions(true)}
             placeholder={isSupabaseSearch ? "Пошук з AI-індексацією..." : "Пошук книг за назвою, автором, категорією..."}
             className="w-full h-14 pl-12 pr-32 rounded-2xl border-2 border-border bg-background text-foreground placeholder:text-muted-foreground focus:border-accent focus:outline-none transition-colors"
@@ -568,7 +568,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
                 <input
                   type="checkbox"
                   checked={filters.availableOnly}
-                  onChange={(e) => updateFilter('availableOnly', e.target.checked)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFilter('availableOnly', e.target.checked)}
                   className="rounded border-border"
                 />
                 <span className="text-sm">Тільки доступні книги</span>
@@ -603,7 +603,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
                     <input
                       type="checkbox"
                       checked={filters.categories.includes(category)}
-                      onChange={(e) => {
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         const newCategories = e.target.checked
                           ? [...filters.categories, category]
                           : filters.categories.filter(c => c !== category);
@@ -626,7 +626,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
                     <input
                       type="checkbox"
                       checked={filters.authors.includes(author)}
-                      onChange={(e) => {
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         const newAuthors = e.target.checked
                           ? [...filters.authors, author]
                           : filters.authors.filter(a => a !== author);

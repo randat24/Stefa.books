@@ -175,7 +175,7 @@ export default function ProfilePage() {
       }
 
       // Validate phone format (if provided)
-      if (formData.phone && !/^[\+]?[0-9\s\-\(\)]{10,}$/.test(formData.phone)) {
+      if (formData.phone && !/^[\+]?[0-9\s\-\(\)]{10 }$/.test(formData.phone)) {
         setError('Невірний формат телефону');
         return;
       }
@@ -339,7 +339,7 @@ export default function ProfilePage() {
                   <Input
                     id="first_name"
                     value={formData.first_name}
-                    onChange={(e) => handleInputChange('first_name', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('first_name', e.target.value)}
                     disabled={!editing}
                     className="mt-1"
                   />
@@ -349,7 +349,7 @@ export default function ProfilePage() {
                   <Input
                     id="last_name"
                     value={formData.last_name}
-                    onChange={(e) => handleInputChange('last_name', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('last_name', e.target.value)}
                     disabled={!editing}
                     className="mt-1"
                   />
@@ -363,7 +363,7 @@ export default function ProfilePage() {
                     id="email"
                     type="email"
                     value={formData.email}
-                    onChange={(e) => handleInputChange('email', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('email', e.target.value)}
                     disabled={!editing}
                     className="mt-1"
                   />
@@ -374,7 +374,7 @@ export default function ProfilePage() {
                     id="phone"
                     type="tel"
                     value={formData.phone}
-                    onChange={(e) => handleInputChange('phone', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('phone', e.target.value)}
                     disabled={!editing}
                     placeholder="+380 (XX) XXX-XX-XX"
                     className="mt-1"
@@ -387,7 +387,7 @@ export default function ProfilePage() {
                 <Input
                   id="address"
                   value={formData.address}
-                  onChange={(e) => handleInputChange('address', e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('address', e.target.value)}
                   disabled={!editing}
                   placeholder="Вулиця, будинок, квартира"
                   className="mt-1"
@@ -400,7 +400,7 @@ export default function ProfilePage() {
                   <Input
                     id="city"
                     value={formData.city}
-                    onChange={(e) => handleInputChange('city', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('city', e.target.value)}
                     disabled={!editing}
                     className="mt-1"
                   />
@@ -410,7 +410,7 @@ export default function ProfilePage() {
                   <Input
                     id="postal_code"
                     value={formData.postal_code}
-                    onChange={(e) => handleInputChange('postal_code', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('postal_code', e.target.value)}
                     disabled={!editing}
                     className="mt-1"
                   />
@@ -423,7 +423,7 @@ export default function ProfilePage() {
                   id="birth_date"
                   type="date"
                   value={formData.birth_date}
-                  onChange={(e) => handleInputChange('birth_date', e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('birth_date', e.target.value)}
                   disabled={!editing}
                   className="mt-1"
                 />
@@ -579,7 +579,7 @@ export default function ProfilePage() {
                         id="current_password"
                         type={showPassword ? 'text' : 'password'}
                         value={formData.current_password}
-                        onChange={(e) => handleInputChange('current_password', e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('current_password', e.target.value)}
                         className="pr-10"
                       />
                       <button
@@ -603,7 +603,7 @@ export default function ProfilePage() {
                         id="new_password"
                         type={showPassword ? 'text' : 'password'}
                         value={formData.new_password}
-                        onChange={(e) => handleInputChange('new_password', e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('new_password', e.target.value)}
                         className="pr-10"
                       />
                     </div>
@@ -616,7 +616,7 @@ export default function ProfilePage() {
                         id="confirm_password"
                         type={showPassword ? 'text' : 'password'}
                         value={formData.confirm_password}
-                        onChange={(e) => handleInputChange('confirm_password', e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('confirm_password', e.target.value)}
                         className="pr-10"
                       />
                     </div>
@@ -657,7 +657,7 @@ export default function ProfilePage() {
                   <input
                     type="checkbox"
                     checked={notificationSettings.email_notifications}
-                    onChange={(e) => handleNotificationChange('email_notifications', e.target.checked)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleNotificationChange('email_notifications', e.target.checked)}
                     className="h-4 w-4 text-brand-accent"
                   />
                 </div>
@@ -670,7 +670,7 @@ export default function ProfilePage() {
                   <input
                     type="checkbox"
                     checked={notificationSettings.sms_notifications}
-                    onChange={(e) => handleNotificationChange('sms_notifications', e.target.checked)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleNotificationChange('sms_notifications', e.target.checked)}
                     className="h-4 w-4 text-brand-accent"
                   />
                 </div>
@@ -683,7 +683,7 @@ export default function ProfilePage() {
                   <input
                     type="checkbox"
                     checked={notificationSettings.rental_reminders}
-                    onChange={(e) => handleNotificationChange('rental_reminders', e.target.checked)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleNotificationChange('rental_reminders', e.target.checked)}
                     className="h-4 w-4 text-brand-accent"
                   />
                 </div>
@@ -696,7 +696,7 @@ export default function ProfilePage() {
                   <input
                     type="checkbox"
                     checked={notificationSettings.return_reminders}
-                    onChange={(e) => handleNotificationChange('return_reminders', e.target.checked)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleNotificationChange('return_reminders', e.target.checked)}
                     className="h-4 w-4 text-brand-accent"
                   />
                 </div>
@@ -709,7 +709,7 @@ export default function ProfilePage() {
                   <input
                     type="checkbox"
                     checked={notificationSettings.promotional_emails}
-                    onChange={(e) => handleNotificationChange('promotional_emails', e.target.checked)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleNotificationChange('promotional_emails', e.target.checked)}
                     className="h-4 w-4 text-brand-accent"
                   />
                 </div>
@@ -722,7 +722,7 @@ export default function ProfilePage() {
                   <input
                     type="checkbox"
                     checked={notificationSettings.newsletter}
-                    onChange={(e) => handleNotificationChange('newsletter', e.target.checked)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleNotificationChange('newsletter', e.target.checked)}
                     className="h-4 w-4 text-brand-accent"
                   />
                 </div>

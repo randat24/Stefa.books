@@ -29,9 +29,7 @@ const createMockRequest = (method: string, body?: any, searchParams?: Record<str
 const mockJson = jest.fn();
 jest.mock('next/server', () => ({
   NextResponse: {
-    json: mockJson,
-  },
-}));
+    json: mockJson } }));
 
 // Mock getServerSession
 jest.mock('@/lib/auth/session', () => ({

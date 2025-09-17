@@ -10,7 +10,7 @@ import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import CookieConsent from "@/components/analytics/CookieConsent";
 import WebVitalsTracker from "@/components/performance/WebVitalsTracker";
 import { OfflineIndicator } from "@/components/offline/OfflineIndicator";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+// SpeedInsights removed - using Netlify
 import { CacheInvalidator } from "@/components/cache/CacheInvalidator";
 import { MetaRefresh } from "@/components/cache/MetaRefresh";
 import UpdateNotification from "@/components/ui/UpdateNotification";
@@ -20,10 +20,7 @@ export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'),
-  title: {
-    default: 'Stefa.books - Оренда дитячих книг у Миколаєві | Дитяча бібліотека з підпискою',
-    template: '%s | Stefa.books - Дитяча бібліотека'
-  },
+  title: 'Stefa.books - Оренда дитячих книг у Миколаєві | Дитяча бібліотека з підпискою',
   description: 'Орендуй книги легко й вигідно в онлайн-бібліотеці з великим вибором жанрів. Економ на покупці та відкривай нові історії щодня. Безкоштовна доставка по Миколаєву.',
   keywords: [
     'дитячі книги',
@@ -50,8 +47,7 @@ export const metadata: Metadata = {
       follow: true,
       'max-video-preview': -1,
       'max-image-preview': 'large',
-      'max-snippet': -1,
-    }
+      'max-snippet': -1 }
   },
   openGraph: {
     type: 'website',
@@ -75,9 +71,7 @@ export const metadata: Metadata = {
     description: 'Орендуй книги легко й вигідно в онлайн-бібліотеці з великим вибором жанрів. Економ на покупці та відкривай нові історії щодня.',
     images: ['/images/og-image.jpg'],
     site: '@stefabooksua',
-    creator: '@stefabooksua',
-  },
-};
+    creator: '@stefabooksua' } };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -111,7 +105,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <OfflineIndicator />
         </ErrorBoundary>
         <ErrorBoundary>
-          <SpeedInsights />
+          {/* SpeedInsights removed - using Netlify */}
         </ErrorBoundary>
         <ErrorBoundary>
           <CacheInvalidator />

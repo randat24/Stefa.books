@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/button"
-import { Calendar, User, BookOpen, Clock, CheckCircle, AlertTriangle, RefreshCw } from "lucide-react"
+import { Calendar, User, BookOpen, Clock, CheckCircle, AlertTriangleIcon, RefreshCw } from "lucide-react"
 
 interface RentalRow {
   id: string
@@ -92,9 +92,9 @@ export function RentalsTable({
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'active': return <Clock className="size-4" />
-      case 'overdue': return <AlertTriangle className="size-4" />
+      case 'overdue': return <AlertTriangleIcon className="size-4" />
       case 'returned': return <CheckCircle className="size-4" />
-      case 'lost': return <AlertTriangle className="size-4" />
+      case 'lost': return <AlertTriangleIcon className="size-4" />
       default: return <Clock className="size-4" />
     }
   }

@@ -10,16 +10,13 @@ global.fetch = mockFetch
 jest.mock('@/lib/logger', () => ({
   logger: {
     info: jest.fn(),
-    error: jest.fn(),
-  },
-}))
+    error: jest.fn() } }))
 
 describe('ImageUpload', () => {
   const defaultProps = {
     uploadEndpoint: '/api/upload/image',
     fieldName: 'file',
-    onImageUploaded: jest.fn(),
-  }
+    onImageUploaded: jest.fn() }
 
   beforeEach(() => {
     jest.clearAllMocks()
@@ -55,8 +52,7 @@ describe('ImageUpload', () => {
         success: true, 
         secure_url: 'https://example.com/test.jpg',
         public_id: 'test-id'
-      }),
-    })
+      }) })
 
     render(<ImageUpload {...defaultProps} />)
     
@@ -67,8 +63,7 @@ describe('ImageUpload', () => {
       '/api/upload/image',
       expect.objectContaining({
         method: 'POST',
-        body: expect.any(FormData),
-      })
+        body: expect.any(FormData) })
     )
   })
 
@@ -81,8 +76,7 @@ describe('ImageUpload', () => {
         success: true, 
         secure_url: 'https://example.com/test.jpg',
         public_id: 'test-id'
-      }),
-    })
+      }) })
 
     render(<ImageUpload {...defaultProps} />)
     
@@ -106,8 +100,7 @@ describe('ImageUpload', () => {
         success: true, 
         secure_url: 'https://example.com/test.jpg',
         public_id: 'test-id'
-      }),
-    })
+      }) })
 
     render(<ImageUpload {...defaultProps} />)
     
@@ -130,8 +123,7 @@ describe('ImageUpload', () => {
         success: true, 
         secure_url: 'https://example.com/test.jpg',
         public_id: 'test-id'
-      }),
-    })
+      }) })
 
     render(
       <ImageUpload 
@@ -154,8 +146,7 @@ describe('ImageUpload', () => {
     
     mockFetch.mockResolvedValueOnce({
       ok: false,
-      json: async () => ({ error: 'Upload failed' }),
-    })
+      json: async () => ({ error: 'Upload failed' }) })
 
     render(<ImageUpload {...defaultProps} />)
     
@@ -286,8 +277,7 @@ describe('ImageUpload', () => {
             success: true, 
             secure_url: 'https://example.com/test.jpg',
             public_id: 'test-id'
-          }),
-        }), 100)
+          }) }), 100)
       )
     )
 

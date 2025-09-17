@@ -1,6 +1,7 @@
 'use client'
 
-import { memo, useCallback, useState, useMemo } from 'react'
+import { useCallback, useState, useMemo } from 'react';
+import {  } from 'react'
 import { Filter, X, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
@@ -31,15 +32,14 @@ interface OptimizedFiltersProps {
   loading?: boolean
 }
 
-const OptimizedFilters = memo(function OptimizedFilters({
+const OptimizedFilters = (function OptimizedFilters({
   filters,
   values,
   onChange,
   className = '',
   showClearAll = true,
   onClearAll,
-  loading = false,
-}: OptimizedFiltersProps) {
+  loading = false }: OptimizedFiltersProps) {
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set())
   const [localValues, setLocalValues] = useState<Record<string, any>>(values)
 
@@ -115,7 +115,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
         return (
           <select
             value={value}
-            onChange={(e) => handleFilterChange(filter.key, e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilterChange(filter.key, e.target.value)}
             className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             disabled={loading}
           >
@@ -137,7 +137,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
                 <input
                   type="checkbox"
                   checked={selectedValues.includes(option.value)}
-                  onChange={(e) => {
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     const newValues = e.target.checked
                       ? [...selectedValues, option.value]
                       : selectedValues.filter(v => v !== option.value)
@@ -164,7 +164,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
                 <input
                   type="number"
                   value={rangeValue.min}
-                  onChange={(e) => handleFilterChange(filter.key, {
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilterChange(filter.key, {
                     ...rangeValue,
                     min: parseInt(e.target.value) || filter.min || 0
                   })}
@@ -180,7 +180,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
                 <input
                   type="number"
                   value={rangeValue.max}
-                  onChange={(e) => handleFilterChange(filter.key, {
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilterChange(filter.key, {
                     ...rangeValue,
                     max: parseInt(e.target.value) || filter.max || 100
                   })}
@@ -206,7 +206,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
                 <input
                   type="checkbox"
                   checked={value === option.value}
-                  onChange={(e) => handleFilterChange(filter.key, e.target.checked ? option.value : '')}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilterChange(filter.key, e.target.checked ? option.value : '')}
                   className="rounded border-neutral-300 text-blue-600 focus:ring-blue-500"
                   disabled={loading}
                 />
@@ -271,7 +271,7 @@ const OptimizedFilters = memo(function OptimizedFilters({
                 <div className="flex items-center gap-2">
                   {isActive && (
                     <button
-                      onClick={(e) => {
+                      onClick={(e: React.MouseEvent<HTMLInputElement>) => {
                         e.stopPropagation()
                         handleClearFilter(filter.key)
                       }}

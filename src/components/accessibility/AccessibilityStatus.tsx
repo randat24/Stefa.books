@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { CheckCircle, AlertTriangle, XCircle, Info } from 'lucide-react';
+import { CheckCircle, AlertTriangleIcon, XCircle, Info } from 'lucide-react';
 import { checkComponentAccessibility } from '@/lib/accessibility';
 
 interface AccessibilityStatusProps {
@@ -55,7 +55,7 @@ export function AccessibilityStatus({
 
   const getScoreIcon = (score: number) => {
     if (score >= 90) return <CheckCircle className="w-5 h-5 text-green-600" />;
-    if (score >= 70) return <AlertTriangle className="w-5 h-5 text-yellow-600" />;
+    if (score >= 70) return <AlertTriangleIcon className="w-5 h-5 text-yellow-600" />;
     return <XCircle className="w-5 h-5 text-red-600" />;
   };
 
@@ -193,7 +193,7 @@ export function DevAccessibilityChecker({
   children: React.ReactNode;
   className?: string;
 }) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement | null | null>(null);
   const [isDev, setIsDev] = useState(false);
 
   useEffect(() => {

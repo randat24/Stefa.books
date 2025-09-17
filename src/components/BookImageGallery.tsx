@@ -40,11 +40,11 @@ export function BookImageGallery({ title, cover_url, images = [] }: BookImageGal
   }
 
   const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % allImages.length);
+    setCurrentImage((prev: any) => (prev + 1) % allImages.length);
   };
 
   const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + allImages.length) % allImages.length);
+    setCurrentImage((prev: any) => (prev - 1 + allImages.length) % allImages.length);
   };
 
   return (

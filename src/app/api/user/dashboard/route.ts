@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from '@/lib/auth/session';
 import { supabase } from '@/lib/supabase';
 import { logger } from '@/lib/logger';
-import type { User, ActiveRental, RentalHistory, UserSubscription } from '@/types/user';
+import type { User, ActiveRental, RentalHistoryIcon, UserSubscription } from '@/types/user';
 
 // ============================================================================
 // USER DASHBOARD API
@@ -62,7 +62,7 @@ export async function GET() {
     }
 
     // Get rental history (last 10)
-    const { data: rentalHistory, error: historyError } = await supabase
+    const { data: rentalHistoryIcon, error: historyError } = await supabase
       .from('rentals')
       .select(`
         id,
@@ -97,7 +97,7 @@ export async function GET() {
       exchanges_per_month: getExchangesForPlan(userData.subscription_type),
       current_rentals: activeRentals?.length || 0,
       exchanges_used_this_month: 0, // TODO: Calculate from database
-      total_books_rented: rentalHistory?.length || 0,
+      total_books_rented: rentalHistoryIcon?.length || 0,
       total_amount_paid: 0, // TODO: Calculate from payments
       auto_renewal: true,
       next_billing_date: userData.subscription_end || undefined
@@ -129,7 +129,7 @@ export async function GET() {
     });
 
     // Format rental history
-    const formattedRentalHistory: RentalHistory[] = (rentalHistory || []).map((rental: any) => {
+    const formattedRentalHistoryIcon: RentalHistoryIcon[] = (rentalHistoryIcon || []).map((rental: any) => {
       const totalDays = rental.return_date
         ? Math.ceil((new Date(rental.return_date).getTime() - new Date(rental.rental_date || new Date()).getTime()) / (1000 * 60 * 60 * 24))
         : 0;
@@ -185,11 +185,11 @@ export async function GET() {
         user,
         subscription,
         activeRentals: formattedActiveRentals,
-        rentalHistory: formattedRentalHistory,
+        rentalHistoryIcon: formattedRentalHistoryIcon,
         stats: {
           totalBooksRead: 0, // TODO: Add books_read_count field to users table
           currentRentals: activeRentals?.length || 0,
-          totalRentals: rentalHistory?.length || 0,
+          totalRentals: rentalHistoryIcon?.length || 0,
           daysActive: Math.ceil((Date.now() - new Date(userData.created_at || '').getTime()) / (1000 * 60 * 60 * 24))
         }
       }

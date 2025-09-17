@@ -552,8 +552,7 @@ class MLAutocompleteEngine {
     return {
       popularQueries: Array.from(this.popularQueries.entries()),
       recentQueries: this.recentQueries,
-      frequencyModel: Array.from(this.frequencyModel.entries()),
-    };
+      frequencyModel: Array.from(this.frequencyModel.entries()) };
   }
 
   // Import learning data (from persistence)

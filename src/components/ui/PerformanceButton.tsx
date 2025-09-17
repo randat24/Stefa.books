@@ -1,6 +1,7 @@
 'use client'
 
-import { memo, useCallback, useState } from 'react'
+import { useCallback, useState , ReactNode } from 'react';
+import { ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
 interface PerformanceButtonProps {
@@ -22,16 +23,14 @@ const buttonVariants = {
   outline: 'border border-neutral-300 bg-white text-neutral-700 hover:bg-neutral-50 focus:ring-gray-500',
   ghost: 'text-neutral-700 hover:bg-neutral-100 focus:ring-gray-500',
   destructive: 'bg-red-600 text-neutral-0 hover:bg-red-700 focus:ring-red-500',
-  primary: 'bg-[var(--brand)] text-[#111827] hover:bg-[var(--brand-600)] focus:ring-[var(--brand)]',
-}
+  primary: 'bg-[var(--brand)] text-[#111827] hover:bg-[var(--brand-600)] focus:ring-[var(--brand)]' }
 
 const buttonSizes = {
   sm: 'px-3 py-1.5 text-sm',
   md: 'px-4 py-2 text-base',
-  lg: 'px-6 py-3 text-lg',
-}
+  lg: 'px-6 py-3 text-lg' }
 
-const PerformanceButton = memo(function PerformanceButton({
+const PerformanceButton = (function PerformanceButton({
   children,
   className,
   variant = 'default',
@@ -42,8 +41,7 @@ const PerformanceButton = memo(function PerformanceButton({
   type = 'button',
   fullWidth = false,
   icon,
-  iconPosition = 'left',
-}: PerformanceButtonProps) {
+  iconPosition = 'left' }: PerformanceButtonProps) {
   const [isPressed, setIsPressed] = useState(false)
 
   const handleClick = useCallback(() => {

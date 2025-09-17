@@ -82,8 +82,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
       const response = await fetch('/api/return', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json' },
         body: JSON.stringify({
           book_id: book.id,
           return_method: formData.returnMethod,
@@ -216,7 +215,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
                 <Input
                   id="firstName"
                   value={formData.firstName}
-                  onChange={(e) => handleInputChange('firstName', e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('firstName', e.target.value)}
                   required
                   className="mt-1"
                 />
@@ -226,7 +225,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
                 <Input
                   id="lastName"
                   value={formData.lastName}
-                  onChange={(e) => handleInputChange('lastName', e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('lastName', e.target.value)}
                   required
                   className="mt-1"
                 />
@@ -240,7 +239,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
                   id="email"
                   type="email"
                   value={formData.email}
-                  onChange={(e) => handleInputChange('email', e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('email', e.target.value)}
                   required
                   className="mt-1"
                 />
@@ -251,7 +250,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
                   id="phone"
                   type="tel"
                   value={formData.phone}
-                  onChange={(e) => handleInputChange('phone', e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('phone', e.target.value)}
                   required
                   className="mt-1"
                 />
@@ -272,7 +271,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
                 <Input
                   id="address"
                   value={formData.address}
-                  onChange={(e) => handleInputChange('address', e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('address', e.target.value)}
                   className="mt-1"
                 />
               </div>
@@ -283,7 +282,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
                   <Input
                     id="city"
                     value={formData.city}
-                    onChange={(e) => handleInputChange('city', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('city', e.target.value)}
                     className="mt-1"
                   />
                 </div>
@@ -292,7 +291,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
                   <Input
                     id="postalCode"
                     value={formData.postalCode}
-                    onChange={(e) => handleInputChange('postalCode', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('postalCode', e.target.value)}
                     className="mt-1"
                   />
                 </div>
@@ -306,7 +305,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
             <Textarea
               id="notes"
               value={formData.notes}
-              onChange={(e) => handleInputChange('notes', e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('notes', e.target.value)}
               placeholder="Будь-які додаткові коментарі щодо повернення книги..."
               className="mt-1"
               rows={3}
@@ -319,7 +318,7 @@ export function BookReturnForm({ book }: BookReturnFormProps) {
               type="checkbox"
               id="agreeToTerms"
               checked={formData.agreeToTerms}
-              onChange={(e) => handleInputChange('agreeToTerms', e.target.checked)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('agreeToTerms', e.target.checked)}
               className="mt-1"
             />
             <Label htmlFor="agreeToTerms" className="text-body-sm text-neutral-600">

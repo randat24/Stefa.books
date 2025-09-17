@@ -41,7 +41,7 @@ export function withMemo<P extends object>(
   Component: React.ComponentType<P>,
   areEqual?: (prevProps: P, nextProps: P) => boolean
 ) {
-  const MemoizedComponent = memo(Component, areEqual);
+  const MemoizedComponent = (Component, areEqual);
   MemoizedComponent.displayName = `Memoized(${Component.displayName || Component.name})`;
   return MemoizedComponent;
 }

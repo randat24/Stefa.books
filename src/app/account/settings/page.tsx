@@ -12,13 +12,11 @@ export default function AccountSettingsPage() {
   const [notifications, setNotifications] = useState({
     email: true,
     push: false,
-    sms: false,
-  });
+    sms: false });
   
   const [privacy, setPrivacy] = useState({
     profileVisible: true,
-    showReadingActivity: true,
-  });
+    showReadingActivity: true });
 
   const handleNotificationChange = (name: string) => {
     setNotifications(prev => ({

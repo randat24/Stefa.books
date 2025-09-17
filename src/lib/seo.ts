@@ -58,8 +58,7 @@ export function generateMetaTags({
         follow: !nofollow,
         'max-video-preview': -1,
         'max-image-preview': 'large',
-        'max-snippet': -1,
-      }
+        'max-snippet': -1 }
     },
     authors: [{ name: author }],
     creator: 'Stefa.books',

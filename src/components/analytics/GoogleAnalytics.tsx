@@ -70,8 +70,7 @@ export function GoogleAnalytics() {
               allow_google_signals: true,
               allow_ad_personalization_signals: false
             });
-          `,
-        }}
+          ` }}
       />
     </>
   )

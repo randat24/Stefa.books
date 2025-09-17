@@ -14,8 +14,7 @@ const mockUser = {
   joinDate: '2023-01-15',
   bio: 'Book lover and avid reader. I enjoy fiction and historical novels.',
   location: 'New York, NY',
-  website: 'https://johndoe.com',
-};
+  website: 'https://johndoe.com' };
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);

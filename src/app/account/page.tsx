@@ -8,7 +8,7 @@ import {
   Settings,
   BookOpen,
   Bell,
-  LogOut as LogOutIcon
+  LogOut
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -122,7 +122,7 @@ export default function AccountPage() {
                 Каталог
               </Button>
               <Button variant="outline" size="sm" onClick={handleLogout}>
-                <LogOutIcon className="h-4 w-4 mr-2" />
+                <LogOut className="h-4 w-4 mr-2" />
                 Вийти
               </Button>
             </div>

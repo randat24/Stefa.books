@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef , ReactNode } from 'react';
 
 interface KeyboardNavigationProps {
   children: React.ReactNode;
@@ -19,7 +19,7 @@ export function KeyboardNavigation({
   onEscape,
   trapFocus = false 
 }: KeyboardNavigationProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement | null | null>(null);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -118,7 +118,7 @@ export function KeyboardNavigation({
  * Хук для управления фокусом
  */
 export function useFocusManagement() {
-  const focusRef = useRef<HTMLElement>(null);
+  const focusRef = useRef<HTMLElement | null | null>(null);
 
   const focusFirst = () => {
     if (focusRef.current) {

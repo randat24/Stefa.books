@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect , ReactNode } from 'react';
 import { registerCacheInvalidationWorker } from '@/lib/cache-buster';
 
 interface CacheInvalidationProviderProps {

@@ -34,8 +34,7 @@ export default function robots(): MetadataRoute.Robots {
           '/logout',
           '/register',
           '/reset-password'
-        ],
-      },
+        ] },
       {
         userAgent: 'Googlebot',
         allow: '/',
@@ -49,8 +48,7 @@ export default function robots(): MetadataRoute.Robots {
           '/error',
           '/login',
           '/logout'
-        ],
-      },
+        ] },
       {
         userAgent: 'Bingbot',
         allow: '/',
@@ -64,8 +62,7 @@ export default function robots(): MetadataRoute.Robots {
           '/error',
           '/login',
           '/logout'
-        ],
-      },
+        ] },
       {
         userAgent: 'Yandexbot',
         allow: '/',
@@ -79,8 +76,7 @@ export default function robots(): MetadataRoute.Robots {
           '/error',
           '/login',
           '/logout'
-        ],
-      }
+        ] }
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
     host: baseUrl

@@ -18,9 +18,7 @@ import {
 	Calendar,
 	Shield,
 	Star,
-	Users,
-	CheckCircle2,
-} from 'lucide-react'
+	Users } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { logger } from '@/lib/logger'
@@ -287,19 +285,19 @@ function RentalSuccessContent() {
 							<CardContent>
 								<ul className="space-y-3 text-body-sm text-neutral-600">
 									<li className="flex items-start gap-2">
-										<CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+										<CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
 										<span>Переконайтеся, що ваш телефон увімкнений для швидкого зв&apos;язку</span>
 									</li>
 									<li className="flex items-start gap-2">
-										<CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+										<CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
 										<span>Перевірте папку &quot;Спам&quot; у вашій поштовій скриньці</span>
 									</li>
 									<li className="flex items-start gap-2">
-										<CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+										<CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
 										<span>Підготуйте документи для підтвердження особи при отриманні</span>
 									</li>
 									<li className="flex items-start gap-2">
-										<CheckCircle2 className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+										<CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
 										<span>Ознайомтеся з умовами оренди та повернення книг</span>
 									</li>
 								</ul>

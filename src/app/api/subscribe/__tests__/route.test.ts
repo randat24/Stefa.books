@@ -5,21 +5,16 @@ import { POST } from '../route'
 const mockSupabase = {
   from: jest.fn(() => ({
     insert: jest.fn(() => Promise.resolve({ data: null, error: null })),
-    select: jest.fn(() => Promise.resolve({ data: [], error: null })),
-  })),
-}
+    select: jest.fn(() => Promise.resolve({ data: [], error: null })) })) }
 
 jest.mock('@/lib/supabase', () => ({
-  supabase: mockSupabase,
-}))
+  supabase: mockSupabase }))
 
 // Mock logger
 jest.mock('@/lib/logger', () => ({
   logger: {
     info: jest.fn(),
-    error: jest.fn(),
-  },
-}))
+    error: jest.fn() } }))
 
 describe('/api/subscribe', () => {
   beforeEach(() => {
@@ -33,8 +28,7 @@ describe('/api/subscribe', () => {
       body: JSON.stringify({
         name: 'Test User',
         // Missing email, phone, plan, paymentMethod
-      }),
-    })
+      }) })
 
     const response = await POST(request)
     const result = await response.json()
@@ -53,9 +47,7 @@ describe('/api/subscribe', () => {
         phone: '+380123456789',
         plan: 'mini',
         paymentMethod: 'card',
-        privacyConsent: true,
-      }),
-    })
+        privacyConsent: true }) })
 
     const response = await POST(request)
     const result = await response.json()
@@ -74,9 +66,7 @@ describe('/api/subscribe', () => {
         phone: 'invalid-phone',
         plan: 'mini',
         paymentMethod: 'card',
-        privacyConsent: true,
-      }),
-    })
+        privacyConsent: true }) })
 
     const response = await POST(request)
     const result = await response.json()
@@ -95,9 +85,7 @@ describe('/api/subscribe', () => {
         phone: '+380123456789',
         plan: 'mini',
         paymentMethod: 'card',
-        privacyConsent: false,
-      }),
-    })
+        privacyConsent: false }) })
 
     const response = await POST(request)
     const result = await response.json()
@@ -116,9 +104,7 @@ describe('/api/subscribe', () => {
         phone: '+380123456789',
         plan: 'mini',
         paymentMethod: 'card',
-        privacyConsent: true,
-      }),
-    })
+        privacyConsent: true }) })
 
     const response = await POST(request)
     const result = await response.json()
@@ -139,9 +125,7 @@ describe('/api/subscribe', () => {
         plan: 'mini',
         paymentMethod: 'bank_transfer',
         screenshot: 'https://example.com/screenshot.jpg',
-        privacyConsent: true,
-      }),
-    })
+        privacyConsent: true }) })
 
     const response = await POST(request)
     const result = await response.json()
@@ -163,9 +147,7 @@ describe('/api/subscribe', () => {
           phone: '+380123456789',
           plan,
           paymentMethod: 'card',
-          privacyConsent: true,
-        }),
-      })
+          privacyConsent: true }) })
 
       const response = await POST(request)
       const result = await response.json()
@@ -188,9 +170,7 @@ describe('/api/subscribe', () => {
           phone: '+380123456789',
           plan: 'mini',
           paymentMethod,
-          privacyConsent: true,
-        }),
-      })
+          privacyConsent: true }) })
 
       const response = await POST(request)
       const result = await response.json()
@@ -212,9 +192,7 @@ describe('/api/subscribe', () => {
         paymentMethod: 'card',
         social: '@testuser',
         message: 'Test message',
-        privacyConsent: true,
-      }),
-    })
+        privacyConsent: true }) })
 
     const response = await POST(request)
     const result = await response.json()
@@ -229,8 +207,7 @@ describe('/api/subscribe', () => {
       insert: jest.fn(() => Promise.resolve({ 
         data: null, 
         error: { message: 'Database error' } 
-      })),
-    })
+      })) })
 
     const request = new NextRequest('http://localhost:3000/api/subscribe', {
       method: 'POST',
@@ -241,9 +218,7 @@ describe('/api/subscribe', () => {
         phone: '+380123456789',
         plan: 'mini',
         paymentMethod: 'card',
-        privacyConsent: true,
-      }),
-    })
+        privacyConsent: true }) })
 
     const response = await POST(request)
     const result = await response.json()
@@ -256,8 +231,7 @@ describe('/api/subscribe', () => {
     const request = new NextRequest('http://localhost:3000/api/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: 'invalid json',
-    })
+      body: 'invalid json' })
 
     const response = await POST(request)
     const result = await response.json()
@@ -276,9 +250,7 @@ describe('/api/subscribe', () => {
         phone: '+380123456789',
         plan: 'invalid_plan',
         paymentMethod: 'card',
-        privacyConsent: true,
-      }),
-    })
+        privacyConsent: true }) })
 
     const response = await POST(request)
     const result = await response.json()
@@ -297,9 +269,7 @@ describe('/api/subscribe', () => {
         phone: '+380123456789',
         plan: 'mini',
         paymentMethod: 'invalid_method',
-        privacyConsent: true,
-      }),
-    })
+        privacyConsent: true }) })
 
     const response = await POST(request)
     const result = await response.json()

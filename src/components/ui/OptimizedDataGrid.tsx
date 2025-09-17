@@ -1,7 +1,8 @@
 'use client'
 
-import { memo, useCallback, useState, useMemo, useEffect } from 'react'
-import { Search, Filter, Grid, List, MoreHorizontal } from 'lucide-react'
+import { useCallback, useState, useMemo, useEffect , ReactNode } from 'react';
+import { ReactNode } from 'react'
+import { Search, Filter, Grid, List, MoreHorizontalIcon } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
 import OptimizedSearch from './OptimizedSearch'
@@ -56,7 +57,7 @@ interface OptimizedDataGridProps<T> {
   onRetry?: () => void
 }
 
-const OptimizedDataGrid = memo(function OptimizedDataGrid<T>({
+const OptimizedDataGrid = (function OptimizedDataGrid<T>({
   data,
   renderItem,
   className = '',
@@ -78,8 +79,7 @@ const OptimizedDataGrid = memo(function OptimizedDataGrid<T>({
   onSelectionChange,
   getRowKey = (item: T) => (item as any).id || Math.random().toString(),
   error,
-  onRetry,
-}: OptimizedDataGridProps<T>) {
+  onRetry }: OptimizedDataGridProps<T>) {
   const [searchQuery, setSearchQuery] = useState('')
   const [filterValues, setFilterValues] = useState<Record<string, any>>({})
   const [showFiltersPanel, setShowFiltersPanel] = useState(false)
@@ -245,8 +245,7 @@ const OptimizedDataGrid = memo(function OptimizedDataGrid<T>({
     const gridClasses = {
       grid: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6',
       list: 'space-y-4',
-      table: 'space-y-2',
-    }
+      table: 'space-y-2' }
 
     return (
       <div className={gridClasses[currentViewMode]}>

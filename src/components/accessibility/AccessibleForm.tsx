@@ -45,7 +45,7 @@ export function FormField({
 }: FormFieldProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement | null | null>(null);
 
   const showError = error && (hasInteracted || isFocused);
   const isValid = !error && hasInteracted && value.length > 0;
@@ -188,7 +188,7 @@ export function TextAreaField({
 }: TextAreaFieldProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement | null | null>(null);
 
   const showError = error && (hasInteracted || isFocused);
   const isValid = !error && hasInteracted && value.length > 0;
@@ -332,7 +332,7 @@ export function SelectField({
 }: SelectFieldProps) {
   const [isFocused, setIsFocused] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
-  const selectRef = useRef<HTMLSelectElement>(null);
+  const selectRef = useRef<HTMLSelectElement | null | null>(null);
 
   const showError = error && (hasInteracted || isFocused);
   const isValid = !error && hasInteracted && value.length > 0;

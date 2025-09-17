@@ -15,8 +15,7 @@ export default function ResetPasswordPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     password: '',
-    confirmPassword: '',
-  });
+    confirmPassword: '' });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [error, setError] = useState('');
 
@@ -81,13 +80,10 @@ export default function ResetPasswordPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${searchParams?.get('access_token')}`,
-        },
+          'Authorization': `Bearer ${searchParams?.get('access_token')}` },
         body: JSON.stringify({
           password: formData.password,
-          confirmPassword: formData.confirmPassword,
-        }),
-      });
+          confirmPassword: formData.confirmPassword }) });
 
       const result = await response.json();
 

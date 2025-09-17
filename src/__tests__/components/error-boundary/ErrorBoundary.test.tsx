@@ -90,8 +90,7 @@ describe('ErrorBoundary', () => {
     expect(onError).toHaveBeenCalledWith(
       expect.any(Error),
       expect.objectContaining({
-        componentStack: expect.any(String),
-      })
+        componentStack: expect.any(String) })
     );
   });
 

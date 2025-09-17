@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { CheckCircle, AlertCircle, Info, X, AlertTriangle } from "lucide-react"
+import { CheckCircle, AlertCircle, Info, X, AlertTriangleIcon } from "lucide-react"
 
 interface ToastProps {
   id: string
@@ -43,7 +43,7 @@ export function Toast({
       case "error":
         return <AlertCircle className="w-5 h-5 text-red-500" />
       case "warning":
-        return <AlertTriangle className="w-5 h-5 text-yellow-500" />
+        return <AlertTriangleIcon className="w-5 h-5 text-yellow-500" />
       case "info":
         return <Info className="w-5 h-5 text-blue-500" />
       default:

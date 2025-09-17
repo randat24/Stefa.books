@@ -267,7 +267,7 @@ export function preloadCloudinaryImage(src: string, width: number, height: numbe
 export function useCloudinaryLazyLoad(src: string, options: IntersectionObserverInit = {}) {
   const [isLoaded, setIsLoaded] = React.useState(false)
   const [isInView, setIsInView] = React.useState(false)
-  const imgRef = React.useRef<HTMLImageElement>(null)
+  const imgRef = React.useRef<HTMLImageElement | null | null>(null)
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(

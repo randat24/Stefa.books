@@ -1,6 +1,7 @@
 
 import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
+import { logger } from '@/lib/logger'
 
 export async function GET() {
   try {
@@ -18,85 +19,96 @@ export async function GET() {
     const users = usersRes.data || []
     const books = booksRes.data || []
     const rentals = rentalsRes.data || []
-    const payments: Array<{ id: string; amount: number; created_at: string; user_id: string }> = [] // Поки що таблиця payments не існує
+    
+    // Fetch payments from database
+    const { data: paymentsData, error: paymentsError } = await supabase
+      .from('payments')
+      .select('id, amount_uah, created_at, user_id, status')
+      .eq('status', 'completed')
+    
+    if (paymentsError) {
+      logger.error('Error fetching payments for dashboard', paymentsError, 'Admin')
+    }
+    
+    const payments = paymentsData || []
 
     const now = new Date()
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
 
     // Розрахунок основних метрик
     const totalUsers = users.length
-    const activeUsers = users.filter(u => u.status === 'active').length
+    const activeUsers = users.filter((u: any) => u.status === 'active').length
     const totalBooks = books.length
-    const availableBooks = books.filter(b => (b.qty_available || 0) > 0 && b.is_active).length
+    const availableBooks = books.filter((b: any) => (b.qty_available || 0) > 0 && b.is_active).length
     const totalRentals = rentals.length
-    const activeRentals = rentals.filter(r => r.status === 'active').length
-    const overdueRentals = rentals.filter(r => r.status === 'overdue').length
+    const activeRentals = rentals.filter((r: any) => r.status === 'active').length
+    const overdueRentals = rentals.filter((r: any) => r.status === 'overdue').length
 
     // Розрахунок доходів
-    const totalRevenue = payments.reduce((sum, p) => sum + (p.amount || 0), 0)
+    const totalRevenue = payments.reduce((sum: number, p: any) => sum + (p.amount_uah || 0), 0)
     const monthlyRevenue = payments
-      .filter(p => {
+      .filter((p: any) => {
         if (!p.created_at) return false
         const paymentDate = new Date(p.created_at)
         return paymentDate.getMonth() === now.getMonth() && 
                paymentDate.getFullYear() === now.getFullYear()
       })
-      .reduce((sum, p) => sum + (p.amount || 0), 0)
+      .reduce((sum: number, p: any) => sum + (p.amount_uah || 0), 0)
     
     const weeklyRevenue = payments
-      .filter(p => {
+      .filter((p: any) => {
         if (!p.created_at) return false
         const paymentDate = new Date(p.created_at)
         const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
         return paymentDate >= weekAgo
       })
-      .reduce((sum, p) => sum + (p.amount || 0), 0)
+      .reduce((sum: number, p: any) => sum + (p.amount_uah || 0), 0)
 
     // Статистика за сьогодні
-    const booksAddedToday = books.filter(b => {
+    const booksAddedToday = books.filter((b: any) => {
       if (!b.created_at) return false
       const bookDate = new Date(b.created_at)
       return bookDate >= today
     }).length
 
-    const usersRegisteredToday = users.filter(u => {
+    const usersRegisteredToday = users.filter((u: any) => {
       if (!u.created_at) return false
       const userDate = new Date(u.created_at)
       return userDate >= today
     }).length
 
-    const rentalsToday = rentals.filter(r => {
+    const rentalsToday = rentals.filter((r: any) => {
       if (!r.created_at) return false
       const rentalDate = new Date(r.created_at)
       return rentalDate >= today
     }).length
 
     const revenueToday = payments
-      .filter(p => {
+      .filter((p: any) => {
         if (!p.created_at) return false
         const paymentDate = new Date(p.created_at)
         return paymentDate >= today
       })
-      .reduce((sum, p) => sum + (p.amount || 0), 0)
+      .reduce((sum: number, p: any) => sum + (p.amount_uah || 0), 0)
 
     // Остання активність
     const recentActivity = [
-      ...rentals.map(rental => ({
+      ...rentals.map((rental: any) => ({
         id: `rental-${rental.id}`,
         type: 'rental' as const,
-        user_name: users.find(u => u.id === rental.user_id)?.name || 'Невідомий',
-        book_title: books.find(b => b.id === rental.book_id)?.title,
-        amount: books.find(b => b.id === rental.book_id)?.price_uah || 0,
+        user_name: users.find((u: any) => u.id === rental.user_id)?.name || 'Невідомий',
+        book_title: books.find((b: any) => b.id === rental.book_id)?.title,
+        amount: books.find((b: any) => b.id === rental.book_id)?.price_uah || 0,
         timestamp: rental.created_at
       })),
-      ...payments.map(payment => ({
+      ...payments.map((payment: any) => ({
         id: `payment-${payment.id}`,
         type: 'payment' as const,
-        user_name: users.find(u => u.id === payment.user_id)?.name || 'Невідомий',
-        amount: payment.amount || 0,
+        user_name: users.find((u: any) => u.id === payment.user_id)?.name || 'Невідомий',
+        amount: payment.amount_uah || 0,
         timestamp: payment.created_at
       })),
-      ...users.map(user => ({
+      ...users.map((user: any) => ({
         id: `user-${user.id}`,
         type: 'user_registration' as const,
         user_name: user.name,
@@ -111,7 +123,13 @@ export async function GET() {
     .slice(0, 10)
 
     // Сповіщення та попередження
-    const alerts = []
+    const alerts: Array<{
+      id: string;
+      type: 'warning' | 'info' | 'success';
+      title: string;
+      message: string;
+      timestamp: string;
+    }> = []
 
     // Перевіряємо просрочені оренди
     if (overdueRentals > 0) {
@@ -125,7 +143,7 @@ export async function GET() {
     }
 
     // Перевіряємо низьку кількість доступних книг
-    const lowStockBooks = books.filter(b => (b.qty_available ?? 0) <= 1).length
+    const lowStockBooks = books.filter((b: any) => (b.qty_available ?? 0) <= 1).length
     if (lowStockBooks > 0) {
       alerts.push({
         id: 'low-stock',

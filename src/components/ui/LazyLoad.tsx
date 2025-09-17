@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState , ReactNode } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/cn';
 
@@ -21,11 +21,10 @@ export function LazyLoad({
   rootMargin = '50px',
   fallback,
   onVisible,
-  placeholder,
-}: LazyLoadProps) {
+  placeholder }: LazyLoadProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement | null | null>(null);
 
   useEffect(() => {
     const currentRef = ref.current;
@@ -46,8 +45,7 @@ export function LazyLoad({
       },
       {
         threshold,
-        rootMargin,
-      }
+        rootMargin }
     );
 
     observer.observe(currentRef);

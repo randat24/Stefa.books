@@ -127,8 +127,7 @@ export default function MonobankInfo() {
     return new Intl.NumberFormat('uk-UA', {
       style: 'currency',
       currency,
-      minimumFractionDigits: 2,
-    }).format(amount / 100);
+      minimumFractionDigits: 2 }).format(amount / 100);
   };
 
   // Форматування дати

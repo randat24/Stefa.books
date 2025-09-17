@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
+import { AlertTriangleIcon, RefreshCw, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { UserFacingError } from '@/lib/error-handler';
 
@@ -37,7 +37,7 @@ export function ErrorDisplay({
   return (
     <div className={`max-w-md w-full space-y-6 text-center ${className}`}>
       <div className="mx-auto w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center">
-        <AlertTriangle className="w-8 h-8 text-red-600" />
+        <AlertTriangleIcon className="w-8 h-8 text-red-600" />
       </div>
       
       <div className="space-y-2">

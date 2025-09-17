@@ -75,7 +75,7 @@ export const useBooksStore = create<BookCacheState>()(
         set({ books, dataHash })
       },
       
-      addBook: (book) => {
+      addBook: (book: any) => {
         const { books } = get()
         const newBooks = [...books, book]
         const dataHash = createDataHash(newBooks)

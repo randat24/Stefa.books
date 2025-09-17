@@ -22,8 +22,7 @@ export class PaymentService {
       const response = await fetch(`${this.baseUrl}/api/payments/monobank`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json' },
         body: JSON.stringify(paymentData)
       });
 
@@ -62,8 +61,7 @@ export class PaymentService {
         {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json',
-          }
+            'Content-Type': 'application/json' }
         }
       );
 

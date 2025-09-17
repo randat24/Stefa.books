@@ -1,7 +1,8 @@
 'use client'
 
-import { memo, useCallback, useState, useMemo, useEffect } from 'react'
-import { Search, Filter, Grid, List, MoreHorizontal, RefreshCw, Settings, Download, Upload, Trash2, Edit, Plus, Monitor, Activity, BarChart3, TrendingUp, Zap, Cpu, Database } from 'lucide-react'
+import { useCallback, useState, useMemo, useEffect , ReactNode } from 'react';
+import { ReactNode } from 'react'
+import { Search, Filter, Grid, List, MoreHorizontalIcon, RefreshCw, Settings, Download, Upload, Trash2, Edit, Plus, Monitor, Activity, BarChart3, TrendingUp, Zap, Cpu, Database } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
 import OptimizedSearch from './OptimizedSearch'
@@ -86,7 +87,7 @@ interface OptimizedDataEngineProps<T> {
   }
 }
 
-const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
+const OptimizedDataEngine = (function OptimizedDataEngine<T>({
   data,
   renderItem,
   className = '',
@@ -136,9 +137,7 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
     showBulkDelete: true,
     showMonitor: true,
     showAnalytics: true,
-    showOptimize: true,
-  },
-}: OptimizedDataEngineProps<T>) {
+    showOptimize: true } }: OptimizedDataEngineProps<T>) {
   const [searchQuery, setSearchQuery] = useState('')
   const [filterValues, setFilterValues] = useState<Record<string, any>>({})
   const [showFiltersPanel, setShowFiltersPanel] = useState(false)
@@ -159,8 +158,7 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
     searchTime: 0,
     filterTime: 0,
     sortTime: 0,
-    optimizationLevel: 0,
-  })
+    optimizationLevel: 0 })
   const [analyticsData, setAnalyticsData] = useState({
     totalViews: 0,
     searchQueries: 0,
@@ -168,8 +166,7 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
     exportCount: 0,
     importCount: 0,
     errorCount: 0,
-    optimizationCount: 0,
-  })
+    optimizationCount: 0 })
   const [optimizationSuggestions, setOptimizationSuggestions] = useState<string[]>([])
 
   // Кэширование данных
@@ -178,8 +175,7 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
     async () => data,
     {
       ttl: cacheTTL,
-      fallback: data,
-    }
+      fallback: data }
   )
 
   // Мониторинг производительности
@@ -194,8 +190,7 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
         ...prev,
         renderTime,
         dataSize: data.length,
-        memoryUsage: (performance as any).memory?.usedJSHeapSize || 0,
-      }))
+        memoryUsage: (performance as any).memory?.usedJSHeapSize || 0 }))
     }
 
     if (data.length > 0) {
@@ -235,13 +230,11 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
     const endTime = performance.now()
     setPerformanceMetrics(prev => ({
       ...prev,
-      searchTime: endTime - startTime,
-    }))
+      searchTime: endTime - startTime }))
     
     setAnalyticsData(prev => ({
       ...prev,
-      searchQueries: prev.searchQueries + 1,
-    }))
+      searchQueries: prev.searchQueries + 1 }))
   }, [onSearch])
 
   // Обработка фильтров
@@ -253,13 +246,11 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
     const endTime = performance.now()
     setPerformanceMetrics(prev => ({
       ...prev,
-      filterTime: endTime - startTime,
-    }))
+      filterTime: endTime - startTime }))
     
     setAnalyticsData(prev => ({
       ...prev,
-      filterUsage: prev.filterUsage + 1,
-    }))
+      filterUsage: prev.filterUsage + 1 }))
   }, [onFilter])
 
   // Обработка изменения режима просмотра
@@ -301,8 +292,7 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
       await onExport(data)
       setAnalyticsData(prev => ({
         ...prev,
-        exportCount: prev.exportCount + 1,
-      }))
+        exportCount: prev.exportCount + 1 }))
     } finally {
       setIsExporting(false)
     }
@@ -317,8 +307,7 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
       await onImport(file)
       setAnalyticsData(prev => ({
         ...prev,
-        importCount: prev.importCount + 1,
-      }))
+        importCount: prev.importCount + 1 }))
     } finally {
       setIsImporting(false)
     }
@@ -372,8 +361,7 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
     
     setAnalyticsData(prev => ({
       ...prev,
-      optimizationCount: prev.optimizationCount + 1,
-    }))
+      optimizationCount: prev.optimizationCount + 1 }))
   }, [showOptimize, onOptimize])
 
   // Подсчет активных фильтров
@@ -412,8 +400,7 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
     if (error) {
       setAnalyticsData(prev => ({
         ...prev,
-        errorCount: prev.errorCount + 1,
-      }))
+        errorCount: prev.errorCount + 1 }))
       
       return (
         <div className="text-center py-12">
@@ -511,8 +498,7 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
     const gridClasses = {
       grid: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6',
       list: 'space-y-4',
-      table: 'space-y-2',
-    }
+      table: 'space-y-2' }
 
     return (
       <div className={gridClasses[currentViewMode]}>
@@ -630,7 +616,7 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
               <input
                 type="file"
                 accept=".json,.csv,.xlsx"
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   const file = e.target.files?.[0]
                   if (file) handleImport(file)
                 }}
@@ -815,7 +801,7 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
               </label>
               <select
                 value={currentViewMode}
-                onChange={(e) => handleViewModeChange(e.target.value as 'grid' | 'list' | 'table')}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleViewModeChange(e.target.value as 'grid' | 'list' | 'table')}
                 className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="grid">Сітка</option>
@@ -830,7 +816,7 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
               </label>
               <select
                 value={pagination?.pageSize || 10}
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   // Обработка изменения размера страницы
                 }}
                 className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -848,7 +834,7 @@ const OptimizedDataEngine = memo(function OptimizedDataEngine<T>({
               </label>
               <select
                 value={virtualization?.enabled ? 'enabled' : 'disabled'}
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   // Обработка включения/выключения виртуализации
                 }}
                 className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"

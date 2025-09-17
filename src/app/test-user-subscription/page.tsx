@@ -23,8 +23,7 @@ const testBook: Book = {
   is_active: true,
   status: 'available',
   created_at: new Date().toISOString(),
-  updated_at: new Date().toISOString(),
-};
+  updated_at: new Date().toISOString() };
 
 export default function TestUserSubscriptionPage() {
   const userSubscription = useUserSubscription();
@@ -168,7 +167,7 @@ export default function TestUserSubscriptionPage() {
                   id="email"
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                   placeholder="test@example.com"
                 />
               </div>
@@ -178,7 +177,7 @@ export default function TestUserSubscriptionPage() {
                   id="password"
                   type="password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                   placeholder="password"
                 />
               </div>

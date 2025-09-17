@@ -269,7 +269,7 @@ export function EnhancedSearch({ onSearchResults }: EnhancedSearchProps) {
             type="text"
             placeholder="Пошук за назвою, автором або описом..."
             value={query}
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value)}
             className="w-full pl-10 pr-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
           />
           {isSearching && (
@@ -410,7 +410,7 @@ export function EnhancedSearch({ onSearchResults }: EnhancedSearchProps) {
         <>
           {/* Books Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {displayedBooks.map((book) => (
+            {displayedBooks.map((book: any) => (
               <BookCard key={book.id} book={book} />
             ))}
           </div>

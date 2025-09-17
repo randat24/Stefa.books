@@ -72,7 +72,7 @@ export default function CategoryPage() {
           id="search"
           placeholder={`Пошук книг в категорії "${categoryName}"...`}
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
           className="max-w-md"
         />
       </div>
@@ -85,7 +85,7 @@ export default function CategoryPage() {
         <>
           {/* Books Grid - matching the books page layout */}
           <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-            {filteredBooks.map((book) => (
+            {filteredBooks.map((book: any) => (
               <OptimizedBookCard key={book.id} book={book} />
             ))}
           </div>

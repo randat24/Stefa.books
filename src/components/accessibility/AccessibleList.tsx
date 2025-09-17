@@ -38,7 +38,7 @@ export function AccessibleList({
 }: AccessibleListProps) {
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
-  const listRef = useRef<HTMLUListElement>(null);
+  const listRef = useRef<HTMLUListElement | null | null>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
     const item = items[index];
@@ -135,7 +135,7 @@ export function AccessibleList({
         <li key={item.id} className="relative">
           <div
             tabIndex={0}
-            onKeyDown={(e) => handleKeyDown(e, index)}
+            onKeyDown={(e: React.ChangeEvent<HTMLInputElement>) => handleKeyDown(e, index)}
             onFocus={() => handleItemFocus(index)}
             className={`
               flex items-center justify-between p-3 rounded-lg

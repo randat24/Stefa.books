@@ -23,9 +23,7 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
             color: 'var(--foreground)',
             border: '1px solid var(--border)',
             boxShadow: '0 12px 28px rgba(15,23,42,0.12)',
-            borderRadius: '18px',
-          },
-        }}
+            borderRadius: '18px' } }}
       />
     </>
   );

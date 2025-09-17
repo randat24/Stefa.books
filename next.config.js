@@ -18,7 +18,7 @@ const nextConfig = {
   },
   experimental: {
     serverActions: {
-      allowedOrigins: ['localhost:3000', 'localhost:3001', 'stefa-books.vercel.app', 'stefa-books.com.ua', 'stefa-books.netlify.app', '*.netlify.app']
+      allowedOrigins: ['localhost:3000', 'localhost:3001', 'stefa-books.com.ua', 'stefa-books.netlify.app', '*.netlify.app']
     }
   },
   // Настройки для Netlify деплоя

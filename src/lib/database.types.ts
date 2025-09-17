@@ -205,45 +205,66 @@ export type Database = {
       }
       payments: {
         Row: {
-          amount: number
+          amount_uah: number
           created_at: string | null
           currency: string | null
           description: string | null
           id: string
-          metadata: Json | null
+          payment_date: string | null
           payment_method: string
-          payment_status: string | null
+          receipt_url: string | null
+          rental_id: string | null
+          status: string
           transaction_id: string | null
           updated_at: string | null
-          user_id: string | null
+          user_id: string
         }
         Insert: {
-          amount: number
+          amount_uah: number
           created_at?: string | null
           currency?: string | null
           description?: string | null
           id?: string
-          metadata?: Json | null
+          payment_date?: string | null
           payment_method: string
-          payment_status?: string | null
+          receipt_url?: string | null
+          rental_id?: string | null
+          status?: string
           transaction_id?: string | null
           updated_at?: string | null
-          user_id?: string | null
+          user_id: string
         }
         Update: {
-          amount?: number
+          amount_uah?: number
           created_at?: string | null
           currency?: string | null
           description?: string | null
           id?: string
-          metadata?: Json | null
+          payment_date?: string | null
           payment_method?: string
-          payment_status?: string | null
+          receipt_url?: string | null
+          rental_id?: string | null
+          status?: string
           transaction_id?: string | null
           updated_at?: string | null
-          user_id?: string | null
+          user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "payments_rental_id_fkey"
+            columns: ["rental_id"]
+            isOneToOne: false
+            referencedRelation: "rentals"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       rentals: {
         Row: {
@@ -675,10 +696,7 @@ export type CompositeTypes<
 
 export const Constants = {
   graphql_public: {
-    Enums: {},
-  },
+    Enums: {} },
   public: {
-    Enums: {},
-  },
-} as const
+    Enums: {} } } as const
 

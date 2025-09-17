@@ -33,8 +33,7 @@ export function addToRecentViews(book: Book): void {
       title: book.title,
       author: book.author,
       cover: book.cover_url || '/images/book-placeholder.svg',
-      viewedAt: new Date().toISOString(),
-    };
+      viewedAt: new Date().toISOString() };
     
     const updated = [newRecentView, ...filtered].slice(0, MAX_RECENT_VIEWS);
     

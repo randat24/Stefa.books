@@ -8,9 +8,7 @@ export const metadata: Metadata = {
   description: "Технічна підтримка та допомога користувачам Stefa.books. FAQ, контакти та корисні ресурси.",
   openGraph: {
     title: "Підтримка | Stefa.books",
-    description: "Технічна підтримка та допомога користувачам Stefa.books.",
-  },
-};
+    description: "Технічна підтримка та допомога користувачам Stefa.books." } };
 
 const breadcrumbItems = [
   { label: "Головна", href: "/" },

@@ -1,6 +1,7 @@
 'use client'
 
-import { memo, useCallback, useState, useMemo, useEffect } from 'react'
+import { useCallback, useState, useMemo, useEffect , ReactNode } from 'react';
+import { ReactNode } from 'react'
 import { Filter, Grid, List, RefreshCw, Settings, Download, Upload, Trash2, Plus, Monitor, BarChart3, TrendingUp, Zap, Shield, Lock } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
@@ -90,7 +91,7 @@ interface OptimizedDataPlatformProps<T> {
   }
 }
 
-const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
+const OptimizedDataPlatform = (function OptimizedDataPlatform<T>({
   data,
   renderItem,
   className = '',
@@ -144,9 +145,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
     showAnalytics: true,
     showOptimize: true,
     showSecurity: true,
-    showPrivacy: true,
-  },
-}: OptimizedDataPlatformProps<T>) {
+    showPrivacy: true } }: OptimizedDataPlatformProps<T>) {
   const [searchQuery, setSearchQuery] = useState('')
   const [filterValues, setFilterValues] = useState<Record<string, any>>({})
   const [showFiltersPanel, setShowFiltersPanel] = useState(false)
@@ -173,8 +172,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
     sortTime: 0,
     optimizationLevel: 0,
     securityLevel: 0,
-    privacyLevel: 0,
-  })
+    privacyLevel: 0 })
   const [analyticsData, setAnalyticsData] = useState({
     totalViews: 0,
     searchQueries: 0,
@@ -184,8 +182,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
     errorCount: 0,
     optimizationCount: 0,
     securityEvents: 0,
-    privacyEvents: 0,
-  })
+    privacyEvents: 0 })
   const [optimizationSuggestions, setOptimizationSuggestions] = useState<string[]>([])
   const [securityAlerts, setSecurityAlerts] = useState<string[]>([])
   const [privacyAlerts, setPrivacyAlerts] = useState<string[]>([])
@@ -196,8 +193,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
     async () => data,
     {
       ttl: cacheTTL,
-      fallback: data,
-    }
+      fallback: data }
   )
 
   // Мониторинг производительности
@@ -212,8 +208,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
         ...prev,
         renderTime,
         dataSize: data.length,
-        memoryUsage: (performance as any).memory?.usedJSHeapSize || 0,
-      }))
+        memoryUsage: (performance as any).memory?.usedJSHeapSize || 0 }))
     }
 
     if (data.length > 0) {
@@ -283,13 +278,11 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
     const endTime = performance.now()
     setPerformanceMetrics(prev => ({
       ...prev,
-      searchTime: endTime - startTime,
-    }))
+      searchTime: endTime - startTime }))
     
     setAnalyticsData(prev => ({
       ...prev,
-      searchQueries: prev.searchQueries + 1,
-    }))
+      searchQueries: prev.searchQueries + 1 }))
   }, [onSearch])
 
   // Обработка фильтров
@@ -301,13 +294,11 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
     const endTime = performance.now()
     setPerformanceMetrics(prev => ({
       ...prev,
-      filterTime: endTime - startTime,
-    }))
+      filterTime: endTime - startTime }))
     
     setAnalyticsData(prev => ({
       ...prev,
-      filterUsage: prev.filterUsage + 1,
-    }))
+      filterUsage: prev.filterUsage + 1 }))
   }, [onFilter])
 
   // Обработка изменения режима просмотра
@@ -349,8 +340,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
       await onExport(data)
       setAnalyticsData(prev => ({
         ...prev,
-        exportCount: prev.exportCount + 1,
-      }))
+        exportCount: prev.exportCount + 1 }))
     } finally {
       setIsExporting(false)
     }
@@ -365,8 +355,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
       await onImport(file)
       setAnalyticsData(prev => ({
         ...prev,
-        importCount: prev.importCount + 1,
-      }))
+        importCount: prev.importCount + 1 }))
     } finally {
       setIsImporting(false)
     }
@@ -420,8 +409,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
     
     setAnalyticsData(prev => ({
       ...prev,
-      optimizationCount: prev.optimizationCount + 1,
-    }))
+      optimizationCount: prev.optimizationCount + 1 }))
   }, [showOptimize, onOptimize])
 
   // Обработка безопасности
@@ -431,8 +419,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
     
     setAnalyticsData(prev => ({
       ...prev,
-      securityEvents: prev.securityEvents + 1,
-    }))
+      securityEvents: prev.securityEvents + 1 }))
   }, [showSecurity, onSecurity])
 
   // Обработка приватности
@@ -442,8 +429,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
     
     setAnalyticsData(prev => ({
       ...prev,
-      privacyEvents: prev.privacyEvents + 1,
-    }))
+      privacyEvents: prev.privacyEvents + 1 }))
   }, [showPrivacy, onPrivacy])
 
   // Подсчет активных фильтров
@@ -482,8 +468,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
     if (error) {
       setAnalyticsData(prev => ({
         ...prev,
-        errorCount: prev.errorCount + 1,
-      }))
+        errorCount: prev.errorCount + 1 }))
       
       return (
         <div className="text-center py-12">
@@ -581,8 +566,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
     const gridClasses = {
       grid: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6',
       list: 'space-y-4',
-      table: 'space-y-2',
-    }
+      table: 'space-y-2' }
 
     return (
       <div className={gridClasses[currentViewMode]}>
@@ -700,7 +684,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
               <input
                 type="file"
                 accept=".json,.csv,.xlsx"
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   const file = e.target.files?.[0]
                   if (file) handleImport(file)
                 }}
@@ -971,7 +955,7 @@ const OptimizedDataPlatform = memo(function OptimizedDataPlatform<T>({
               </label>
               <select
                 value={currentViewMode}
-                onChange={(e) => handleViewModeChange(e.target.value as 'grid' | 'list' | 'table')}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleViewModeChange(e.target.value as 'grid' | 'list' | 'table')}
                 className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="grid">Сітка</option>

@@ -17,8 +17,7 @@ jest.mock('next/image', () => {
 
 // Mock recentViews
 jest.mock('@/lib/recentViews', () => ({
-  addToRecentViews: jest.fn(),
-}));
+  addToRecentViews: jest.fn() }));
 
 const mockBook: Book = {
   id: 'test-book-1',
@@ -50,14 +49,12 @@ const mockBook: Book = {
   search_vector: null,
   search_text: null,
   created_at: new Date().toISOString(),
-  updated_at: new Date().toISOString(),
-};
+  updated_at: new Date().toISOString() };
 
 const mockUnavailableBook: Book = {
   ...mockBook,
   id: 'unavailable-book',
-  available: false,
-};
+  available: false };
 
 describe('BookCard Component', () => {
   beforeEach(() => {
@@ -131,8 +128,7 @@ describe('BookCard Component', () => {
   it('should handle missing optional fields gracefully', () => {
     const bookWithoutShort: Book = {
       ...mockBook,
-      short_description: null,
-    };
+      short_description: null };
 
     render(<BookCard book={bookWithoutShort} />);
 
@@ -144,8 +140,7 @@ describe('BookCard Component', () => {
   it('should handle missing price gracefully', () => {
     const bookWithoutPrice: Book = {
       ...mockBook,
-      price_uah: null,
-    };
+      price_uah: null };
 
     render(<BookCard book={bookWithoutPrice} />);
 
@@ -224,8 +219,7 @@ describe('BookCard Component', () => {
         search_vector: null,
         search_text: null,
         created_at: '2023-01-01T00:00:00Z',
-        updated_at: '2023-01-01T00:00:00Z',
-      } as Book;
+        updated_at: '2023-01-01T00:00:00Z' } as Book;
 
       expect(() => render(<BookCard book={incompleteBook} />)).not.toThrow();
     });
@@ -260,8 +254,7 @@ describe('BookCard Component', () => {
     it('should handle long titles gracefully', () => {
       const bookWithLongTitle: Book = {
         ...mockBook,
-        title: 'This is a very long book title that should be handled gracefully by the component layout',
-      };
+        title: 'This is a very long book title that should be handled gracefully by the component layout' };
 
       render(<BookCard book={bookWithLongTitle} />);
 
@@ -273,8 +266,7 @@ describe('BookCard Component', () => {
     it('should handle long descriptions gracefully', () => {
       const bookWithLongDescription: Book = {
         ...mockBook,
-        short_description: 'This is a very long book description that should be truncated properly to maintain consistent card heights and good visual hierarchy',
-      };
+        short_description: 'This is a very long book description that should be truncated properly to maintain consistent card heights and good visual hierarchy' };
 
       render(<BookCard book={bookWithLongDescription} />);
 

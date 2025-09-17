@@ -72,7 +72,7 @@ export interface ActiveRental {
 }
 
 // История аренды
-export interface RentalHistory {
+export interface RentalHistoryIcon {
   id: string;
   user_id: string;
   book_id: string;

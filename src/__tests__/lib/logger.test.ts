@@ -5,8 +5,7 @@ const mockConsole = {
   debug: jest.fn(),
   info: jest.fn(),
   warn: jest.fn(),
-  error: jest.fn(),
-};
+  error: jest.fn() };
 
 // Mock process.env
 const originalEnv = process.env.NODE_ENV;

@@ -1,6 +1,7 @@
 'use client'
 
-import { memo, useCallback, useState, useMemo } from 'react'
+import { useCallback, useState, useMemo , ReactNode } from 'react';
+import { ReactNode } from 'react'
 import { Filter } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
@@ -56,7 +57,7 @@ interface OptimizedDataTableProps<T> {
   showPagination?: boolean
 }
 
-const OptimizedDataTable = memo(function OptimizedDataTable<T>({
+const OptimizedDataTable = (function OptimizedDataTable<T>({
   data,
   columns,
   className = '',
@@ -80,8 +81,7 @@ const OptimizedDataTable = memo(function OptimizedDataTable<T>({
   totalPages,
   showFilters = true,
   showSearch = true,
-  showPagination = true,
-}: OptimizedDataTableProps<T>) {
+  showPagination = true }: OptimizedDataTableProps<T>) {
   const [searchQuery, setSearchQuery] = useState('')
   const [filterValues, setFilterValues] = useState<Record<string, any>>({})
   const [showFiltersPanel, setShowFiltersPanel] = useState(false)

@@ -40,13 +40,11 @@ export default function TestAutoRegistrationPage() {
       const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
           privacyConsent: true
-        }),
-      });
+        }) });
 
       const data = await response.json();
       setResult(data);
@@ -74,15 +72,13 @@ export default function TestAutoRegistrationPage() {
       const webhookResponse = await fetch('/api/payment/webhook', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json' },
         body: JSON.stringify({
           invoiceId: `test_${Date.now()}`,
           status: 'success',
           amount: formData.plan === 'mini' ? 30000 : 50000, // в копейках
           ccy: 980
-        }),
-      });
+        }) });
 
       const webhookResult = await webhookResponse.json();
       setResult((prev: any) => ({ ...prev, webhook: webhookResult }));

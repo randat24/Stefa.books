@@ -30,8 +30,8 @@ export function AccessibleModal({
   closeOnEscape = true,
   showCloseButton = true
 }: AccessibleModalProps) {
-  const modalRef = useRef<HTMLDivElement>(null);
-  const previousActiveElement = useRef<HTMLElement | null>(null);
+  const modalRef = useRef<HTMLDivElement | null | null>(null);
+  const previousActiveElement = useRef<HTMLElement | null | null | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   // Размеры модального окна

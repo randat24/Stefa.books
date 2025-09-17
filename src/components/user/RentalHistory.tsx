@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { 
-  History, 
+  HistoryIcon, 
   BookOpen, 
   Star, 
   Calendar, 
@@ -18,7 +18,7 @@ import { Badge } from '@/components/ui/Badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-interface RentalHistoryItem {
+interface RentalHistoryIconItem {
   id: string;
   book: {
     id: string;
@@ -40,24 +40,24 @@ interface RentalHistoryItem {
   can_return: boolean;
 }
 
-interface RentalHistoryData {
-  rentals: RentalHistoryItem[];
+interface RentalHistoryIconData {
+  rentals: RentalHistoryIconItem[];
   total: number;
   type: string;
 }
 
-export default function RentalHistory() {
-  const [data, setData] = useState<RentalHistoryData | null>(null);
+export default function RentalHistoryIcon() {
+  const [data, setData] = useState<RentalHistoryIconData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    loadRentalHistory();
+    loadRentalHistoryIcon();
   }, [filter]);
 
-  const loadRentalHistory = async () => {
+  const loadRentalHistoryIcon = async () => {
     try {
       setLoading(true);
       const response = await fetch(`/api/user/rentals?type=${filter}`);
@@ -89,7 +89,7 @@ export default function RentalHistory() {
 
       const result = await response.json();
       if (result.success) {
-        loadRentalHistory(); // Refresh data
+        loadRentalHistoryIcon(); // Refresh data
       }
     } catch (err) {
       console.error('Error returning book:', err);
@@ -113,7 +113,7 @@ export default function RentalHistory() {
 
       const result = await response.json();
       if (result.success) {
-        loadRentalHistory(); // Refresh data
+        loadRentalHistoryIcon(); // Refresh data
       }
     } catch (err) {
       console.error('Error extending rental:', err);
@@ -161,9 +161,9 @@ export default function RentalHistory() {
   if (error) {
     return (
       <div className="text-center py-8">
-        <History className="h-12 w-12 mx-auto mb-4 text-red-500" />
+        <HistoryIcon className="h-12 w-12 mx-auto mb-4 text-red-500" />
         <p className="text-red-600 mb-4">{error}</p>
-        <Button onClick={loadRentalHistory} variant="outline">
+        <Button onClick={loadRentalHistoryIcon} variant="outline">
           Спробувати знову
         </Button>
       </div>
@@ -176,7 +176,7 @@ export default function RentalHistory() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <History className="h-5 w-5" />
+            <HistoryIcon className="h-5 w-5" />
             Історія оренди ({data?.total || 0})
           </CardTitle>
         </CardHeader>
@@ -188,7 +188,7 @@ export default function RentalHistory() {
                 <Input
                   placeholder="Пошук по назві, авторові або категорії..."
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
                   className="pl-10"
                 />
               </div>
@@ -273,7 +273,7 @@ export default function RentalHistory() {
                       </div>
                       {rental.return_date && (
                         <div className="flex items-center gap-2">
-                          <History className="h-4 w-4" />
+                          <HistoryIcon className="h-4 w-4" />
                           <span>
                             Повернено: {new Date(rental.return_date).toLocaleDateString('uk-UA')}
                           </span>

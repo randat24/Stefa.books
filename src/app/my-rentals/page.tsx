@@ -11,7 +11,7 @@ import {
 	BookOpen, 
 	Clock, 
 	CheckCircle, 
-	AlertTriangle,
+	AlertTriangleIcon,
 	XCircle,
 	RefreshCw,
 	ChevronRight
@@ -76,7 +76,7 @@ const STATUS_CONFIG = {
 	overdue: {
 		label: 'Просрочена',
 		color: 'bg-red-100 text-red-800 border-red-200',
-		icon: AlertTriangle,
+		icon: AlertTriangleIcon,
 		description: 'Просрочена дата возврата'
 	},
 	returned: {
@@ -274,8 +274,8 @@ function MyRentalsContent() {
 											type="email"
 											placeholder="your@email.com"
 											value={email}
-											onChange={(e) => setEmail(e.target.value)}
-											onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+											onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+											onKeyDown={(e: React.ChangeEvent<HTMLInputElement>) => e.key === 'Enter' && handleSearch()}
 											className="pl-12 h-12 text-base"
 										/>
 									</div>
@@ -327,7 +327,7 @@ function MyRentalsContent() {
 				{error && (
 					<div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
 						<div className="flex items-center gap-2 text-red-800 text-sm">
-							<AlertTriangle className="h-4 w-4" />
+							<AlertTriangleIcon className="h-4 w-4" />
 							<span className="font-medium">Ошибка:</span>
 							<span>{error}</span>
 						</div>

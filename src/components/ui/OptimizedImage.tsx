@@ -40,7 +40,7 @@ export function OptimizedImage({
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [isInView, setIsInView] = useState(priority);
-  const imgRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLDivElement | null | null>(null);
 
   // Intersection Observer для lazy loading
   useEffect(() => {

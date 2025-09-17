@@ -33,7 +33,7 @@ export function AnimatedInput({
 }: AnimatedInputProps) {
   const [isFocused, setIsFocused] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
-  const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLInputElement | null | null>(null)
 
   const isPassword = type === "password"
   const inputType = isPassword && showPassword ? "text" : type

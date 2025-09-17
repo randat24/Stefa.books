@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
-import { Activity, Zap, Clock, AlertTriangle, CheckCircle, XCircle } from 'lucide-react'
+import { Activity, Zap, Clock, AlertTriangleIcon, CheckCircle, XCircle } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import { initWebVitals, getWebVitals, type WebVitalMetric } from '@/lib/web-vitals'
 
@@ -111,7 +111,7 @@ export function PerformanceMonitor({
       case 'good':
         return <CheckCircle className="h-4 w-4 text-green-500" />
       case 'needs-improvement':
-        return <AlertTriangle className="h-4 w-4 text-yellow-500" />
+        return <AlertTriangleIcon className="h-4 w-4 text-yellow-500" />
       case 'poor':
         return <XCircle className="h-4 w-4 text-red-500" />
       default:

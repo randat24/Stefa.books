@@ -15,7 +15,7 @@ const mockCategories = [
   { id: '4', name: 'Mystery', bookCount: 52, description: 'Detective and thriller novels' },
   { id: '5', name: 'Romance', bookCount: 78, description: 'Love stories and romantic fiction' },
   { id: '6', name: 'Biography', bookCount: 43, description: 'Life stories of notable people' },
-  { id: '7', name: 'History', bookCount: 39, description: 'Historical accounts and events' },
+  { id: '7', name: 'HistoryIcon', bookCount: 39, description: 'Historical accounts and events' },
   { id: '8', name: 'Self-Help', bookCount: 31, description: 'Personal development and advice' },
 ];
 
@@ -43,7 +43,7 @@ export default function CategoriesPage() {
           id="search"
           placeholder="Search categories..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
           className="max-w-md"
         />
       </div>

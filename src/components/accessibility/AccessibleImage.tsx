@@ -51,7 +51,7 @@ export function AccessibleImage({
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [showLongDescription, setShowLongDescription] = useState(false);
-  const imageRef = useRef<HTMLImageElement>(null);
+  const imageRef = useRef<HTMLImageElement | null | null>(null);
 
   const handleLoad = () => {
     setImageLoaded(true);

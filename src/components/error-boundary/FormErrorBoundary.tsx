@@ -2,7 +2,7 @@
 
 import React from "react";
 import { ErrorBoundary } from "./ErrorBoundary";
-import { RefreshCw, AlertTriangle } from "lucide-react";
+import { RefreshCw, AlertTriangleIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface FormErrorFallbackProps {
@@ -14,7 +14,7 @@ function FormErrorFallback({ resetError }: FormErrorFallbackProps) {
     <div className="border border-red-200 bg-red-50 rounded-lg p-6 space-y-4">
       <div className="flex items-center space-x-3">
         <div className="w-10 h-10 bg-red-100 rounded-2xl flex items-center justify-center">
-          <AlertTriangle className="w-5 h-5 text-red-600" />
+          <AlertTriangleIcon className="w-5 h-5 text-red-600" />
         </div>
         <div>
           <h3 className="text-body-lg font-semibold text-red-900">

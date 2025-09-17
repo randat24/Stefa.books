@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Activity, Zap, Eye, Clock, AlertTriangle, TrendingUp, Monitor } from 'lucide-react'
+import { Activity, Zap, Eye, Clock, AlertTriangleIcon, TrendingUp, Monitor } from 'lucide-react'
 
 interface WebVitalData {
   metric: string
@@ -256,7 +256,7 @@ export default function PerformanceDashboard() {
             {/* No Data State */}
             {metrics.webVitals.length === 0 && (
               <div className="text-center py-8">
-                <AlertTriangle className="w-8 h-8 text-neutral-400 mx-auto mb-2" />
+                <AlertTriangleIcon className="w-8 h-8 text-neutral-400 mx-auto mb-2" />
                 <p className="text-body-sm text-neutral-500">
                   No performance data available yet.
                   <br />

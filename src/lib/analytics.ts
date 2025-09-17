@@ -9,8 +9,7 @@ declare global {
 export const pageview = (url: string) => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('config', GA_TRACKING_ID, {
-      page_path: url,
-    })
+      page_path: url })
   }
 }
 
@@ -24,8 +23,7 @@ export const event = ({ action, category, label, value }: {
     window.gtag('event', action, {
       event_category: category,
       event_label: label,
-      value: value,
-    })
+      value: value })
   }
 }
 
@@ -34,8 +32,7 @@ export const trackBookView = (bookId: string, bookTitle: string) => {
   event({
     action: 'view_item',
     category: 'book',
-    label: bookTitle,
-  })
+    label: bookTitle })
 }
 
 export const trackSearch = (query: string, resultsCount: number) => {
@@ -43,30 +40,26 @@ export const trackSearch = (query: string, resultsCount: number) => {
     action: 'search',
     category: 'search',
     label: query,
-    value: resultsCount,
-  })
+    value: resultsCount })
 }
 
 export const trackSubscription = (planName: string) => {
   event({
     action: 'subscribe',
     category: 'subscription',
-    label: planName,
-  })
+    label: planName })
 }
 
 export const trackRental = (bookId: string, bookTitle: string) => {
   event({
     action: 'rent_book',
     category: 'rental',
-    label: bookTitle,
-  })
+    label: bookTitle })
 }
 
 export const trackCategoryView = (categoryName: string) => {
   event({
     action: 'view_category',
     category: 'category',
-    label: categoryName,
-  })
+    label: categoryName })
 }

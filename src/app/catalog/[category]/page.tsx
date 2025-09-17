@@ -58,8 +58,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
         card: 'summary_large_image',
         title,
         description,
-        images: ['/images/og-image.jpg'],
-      },
+        images: ['/images/og-image.jpg'] },
       alternates: {
         canonical: `https://stefa-books.com.ua/catalog/${categorySlug}`
       }

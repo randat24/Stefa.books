@@ -1,6 +1,6 @@
 'use client';
 
-import { Mail, Phone, MapPin, Clock, MessageCircle } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock, MessageCircleIcon } from 'lucide-react'
 
 export default function Contacts() {
   // авто-префікс + маска для UA
@@ -96,7 +96,7 @@ export default function Contacts() {
 								Потрібна допомога з вибором тарифу або маєте технічні питання?
 							</p>
 							<div className="flex items-center space-x-3">
-								<MessageCircle className="w-5 h-5 text-brand-accent-light" />
+								<MessageCircleIcon className="w-5 h-5 text-brand-accent-light" />
 								<span className="text-brand-accent-light font-medium">Онлайн чат доступний 24/7</span>
 							</div>
 						</div>

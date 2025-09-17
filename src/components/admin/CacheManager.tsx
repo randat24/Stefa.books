@@ -56,10 +56,8 @@ export function CacheManager() {
       const response = await fetch('/api/cache/clear', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ type }),
-      })
+          'Content-Type': 'application/json' },
+        body: JSON.stringify({ type }) })
 
       const data = await response.json()
 

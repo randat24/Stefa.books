@@ -16,8 +16,7 @@ export async function POST(request: NextRequest) {
     // Аутентификация через Supabase Auth
     const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
       email,
-      password,
-    });
+      password });
 
     if (authError || !authData.user) {
       logger.error('Authentication failed', authError, 'Auth');
@@ -82,8 +81,7 @@ export async function POST(request: NextRequest) {
     // Создаем сессию
     const { data: sessionData, error: sessionError } = await supabase.auth.setSession({
       access_token: authData.session?.access_token || '',
-      refresh_token: authData.session?.refresh_token || '',
-    });
+      refresh_token: authData.session?.refresh_token || '' });
 
     if (sessionError) {
       logger.error('Failed to set session', sessionError, 'Auth');

@@ -24,8 +24,7 @@ const mockBookAnalytics = {
     { id: '3', title: '1984', author: 'George Orwell', category_id: 'fiction', category_name: 'Fiction', rating: 4.7, rentals: 35 },
     { id: '4', title: 'Pride and Prejudice', author: 'Jane Austen', category_id: 'romance', category_name: 'Romance', rating: 4.3, rentals: 31 },
     { id: '5', title: 'The Catcher in the Rye', author: 'J.D. Salinger', category_id: 'fiction', category_name: 'Fiction', rating: 4.0, rentals: 29 },
-  ],
-};
+  ] };
 
 export default function BookAnalyticsPage() {
   return (
@@ -124,7 +123,7 @@ export default function BookAnalyticsPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {mockBookAnalytics.popularBooks.map((book) => (
+              {mockBookAnalytics.popularBooks.map((book: any) => (
                 <div key={book.id} className="flex items-center justify-between">
                   <div className="flex items-center">
                     <div className="mr-3 h-16 w-12 bg-neutral-200 rounded flex-shrink-0"></div>

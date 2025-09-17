@@ -12,17 +12,13 @@ jest.mock('@/app/admin/data', () => ({
     monthlyRevenue: 1000,
     popularBooks: [],
     userActivity: [],
-    categoryStats: [],
-  }),
-}));
+    categoryStats: [] }) }));
 
 // Mock NextResponse
 const mockJson = jest.fn();
 jest.mock('next/server', () => ({
   NextResponse: {
-    json: mockJson,
-  },
-}));
+    json: mockJson } }));
 
 describe('Analytics API Route', () => {
   beforeEach(() => {
@@ -44,8 +40,6 @@ describe('Analytics API Route', () => {
         monthlyRevenue: 1000,
         popularBooks: [],
         userActivity: [],
-        categoryStats: [],
-      },
-    });
+        categoryStats: [] } });
   });
 });

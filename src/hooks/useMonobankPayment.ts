@@ -56,14 +56,12 @@ export function useMonobankPayment(): UseMonobankPaymentReturn {
       const response = await fetch('/api/payments/monobank', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...data,
           currency: data.currency || 'UAH',
           order_id: data.order_id || `order-${Date.now()}`
-        }),
-      });
+        }) });
 
       const result = await response.json();
 
@@ -180,8 +178,7 @@ export const paymentUtils = {
       style: 'currency',
       currency,
       minimumFractionDigits: 0,
-      maximumFractionDigits: 2,
-    }).format(amount);
+      maximumFractionDigits: 2 }).format(amount);
   },
 
   // Перевірка чи платіж активний

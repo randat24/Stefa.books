@@ -28,7 +28,7 @@ export function LazyLoad({
   const [isVisible, setIsVisible] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [shouldRender, setShouldRender] = useState(false);
-  const elementRef = useRef<HTMLDivElement>(null);
+  const elementRef = useRef<HTMLDivElement | null | null>(null);
 
   useEffect(() => {
     const element = elementRef.current;
@@ -259,7 +259,7 @@ export function LazyList<T>({
   const [visibleItems, setVisibleItems] = useState<T[]>(items.slice(0, batchSize));
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(items.length > batchSize);
-  const loadMoreRef = useRef<HTMLDivElement>(null);
+  const loadMoreRef = useRef<HTMLDivElement | null | null>(null);
 
   useEffect(() => {
     const element = loadMoreRef.current;

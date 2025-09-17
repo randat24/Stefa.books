@@ -33,8 +33,7 @@ export function SubscriptionPlans() {
       // In a real implementation, you might redirect to a success page or update UI
       toast({
         title: "Успіх",
-        description: "Підписка успішно створена!",
-      });
+        description: "Підписка успішно створена!" });
     } catch {
       // Error is handled in the hook
     }

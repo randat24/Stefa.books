@@ -19,8 +19,7 @@ const testRequestSchema = z.object({
     'bookRecommendations',
     'performance'
   ]),
-  testData: z.record(z.any()).optional(),
-});
+  testData: z.record(z.any()).optional() });
 
 // Sample data for testing
 const sampleBook = {
@@ -32,8 +31,7 @@ const sampleBook = {
   age_group: '10-14',
   price_uah: 350,
   available: true,
-  cover_url: '/covers/harry-potter.jpg',
-} as any;
+  cover_url: '/covers/harry-potter.jpg' } as any;
 
 const sampleCodeToAnalyze = `
 import React, { useState, useEffect } from 'react';
@@ -86,8 +84,7 @@ export async function POST(request: NextRequest) {
             role: 'user', 
             content: testData?.prompt || 'Привіт! Протестуй базову функціональність Opus 4.1.' 
           }],
-          max_tokens: 1000,
-        });
+          max_tokens: 1000 });
         break;
 
       case 'thinking':
@@ -126,8 +123,7 @@ export async function POST(request: NextRequest) {
           childAge: 10,
           interests: ['фантастика', 'пригоди'],
           favoriteGenres: ['фентезі', 'пригодницька література'],
-          readingLevel: 'intermediate' as const,
-        };
+          readingLevel: 'intermediate' as const };
         
         const books = testData?.availableBooks || [sampleBook];
         
@@ -146,8 +142,7 @@ export async function POST(request: NextRequest) {
           callClaudeOpus41({
             system: 'Короткий тест',
             messages: [{ role: 'user', content: 'Скажи "тест пройден"' }],
-            max_tokens: 50,
-          }),
+            max_tokens: 50 }),
           generateWithThinking(
             'Какие преимущества дает Opus 4.1 по сравнению с предыдущими моделями?',
             'Отвечай кратко и по существу.',
@@ -160,8 +155,7 @@ export async function POST(request: NextRequest) {
           basicTest: basicTest.content,
           thinkingTest: {
             content: thinkingTest.content,
-            hasThinking: !!thinkingTest.thinking,
-          },
+            hasThinking: !!thinkingTest.thinking },
           bookTest: bookTest.category,
           parallelExecution: 'Success'
         };
@@ -180,14 +174,12 @@ export async function POST(request: NextRequest) {
       performance: {
         executionTimeMs: executionTime,
         model: CLAUDE_MODELS.OPUS_41,
-        timestamp: new Date().toISOString(),
-      },
+        timestamp: new Date().toISOString() },
       opus41Features: {
         thinkingMode: testType === 'thinking' || testType === 'codeAnalysis',
         maxTokens: 32000,
         sweBenchScore: '74.5%',
-        multiFileRefactoring: testType === 'codeRefactor',
-      }
+        multiFileRefactoring: testType === 'codeRefactor' }
     });
 
   } catch (error) {

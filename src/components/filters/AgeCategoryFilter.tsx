@@ -111,7 +111,7 @@ export function AgeCategoryFilter({
           {getSelectedCount() > 0 && (
             <button
               type="button"
-              onClick={(e) => {
+              onClick={(e: React.MouseEvent<HTMLInputElement>) => {
                 e.stopPropagation();
                 handleClearAll();
               }}

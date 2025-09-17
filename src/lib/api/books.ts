@@ -87,7 +87,7 @@ export async function fetchBooks(filters: BooksFilter = {}): Promise<BooksRespon
 
     // Use absolute URL for server-side rendering
     const serverBaseUrl = typeof window === 'undefined' 
-      ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+      ? (process.env.NETLIFY_URL ? `https://${process.env.NETLIFY_URL}` : 'http://localhost:3000')
       : '';
     const baseUrl = `${serverBaseUrl}/api/books`;
     const queryString = searchParams.toString();
@@ -97,14 +97,12 @@ export async function fetchBooks(filters: BooksFilter = {}): Promise<BooksRespon
     const res = await fetch(url, {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
-      },
+        'Content-Type': 'application/json' },
       // Add cache control headers
       cache: 'no-store',
       next: {
         revalidate: 0, // No cache for now
-      },
-    });
+      } });
 
     if (!res.ok) {
       throw new Error(`Failed to fetch books: ${res.status} ${res.statusText}`);
@@ -120,8 +118,7 @@ export async function fetchBooks(filters: BooksFilter = {}): Promise<BooksRespon
       success: false,
       data: [],
       count: 0,
-      error: error instanceof Error ? error.message : 'Unknown error',
-    };
+      error: error instanceof Error ? error.message : 'Unknown error' };
   }
 }
 
@@ -137,7 +134,7 @@ export async function fetchBook(id: string): Promise<BookResponse> {
 
     // Use absolute URL for server-side rendering
     const serverBaseUrl = typeof window === 'undefined' 
-      ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+      ? (process.env.NETLIFY_URL ? `https://${process.env.NETLIFY_URL}` : 'http://localhost:3000')
       : '';
     const url = `${serverBaseUrl}/api/books/${id}`;
 
@@ -198,7 +195,7 @@ export async function fetchCategories(): Promise<CategoriesResponse> {
 
     // Use absolute URL for server-side rendering
     const serverBaseUrl = typeof window === 'undefined' 
-      ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+      ? (process.env.NETLIFY_URL ? `https://${process.env.NETLIFY_URL}` : 'http://localhost:3000')
       : '';
     const url = `${serverBaseUrl}/api/categories`;
 
@@ -243,7 +240,7 @@ export async function fetchCategoriesStats(): Promise<CategoriesStatsResponse> {
   try {
     // Use absolute URL for server-side rendering
     const serverBaseUrl = typeof window === 'undefined' 
-      ? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+      ? (process.env.NETLIFY_URL ? `https://${process.env.NETLIFY_URL}` : 'http://localhost:3000')
       : '';
     const url = `${serverBaseUrl}/api/books`;
 

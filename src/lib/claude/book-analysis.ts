@@ -69,8 +69,7 @@ export async function analyzeBookContent(book: Book): Promise<BookAnalysisResult
     const analysis = JSON.parse(response.content.replace(/```json\n?|\n?```/g, ''));
     return {
       ...analysis,
-      thinking: response.thinking,
-    };
+      thinking: response.thinking };
   } catch (error) {
     console.error('Error parsing book analysis:', error);
     // Fallback analysis
@@ -80,8 +79,7 @@ export async function analyzeBookContent(book: Book): Promise<BookAnalysisResult
       keywords: [book.title.split(' ')[0], book.author.split(' ')[0], 'діти', 'книга'],
       shortDescription: book.description?.slice(0, 80) + '...' || 'Цікава дитяча книга.',
       recommendedFor: ['діти', 'батьки'],
-      thinking: response.thinking,
-    };
+      thinking: response.thinking };
   }
 }
 
@@ -126,8 +124,7 @@ export async function improveBookContent(book: Book): Promise<BookContentImprove
     const improvement = JSON.parse(response.content.replace(/```json\n?|\n?```/g, ''));
     return {
       ...improvement,
-      thinking: response.thinking,
-    };
+      thinking: response.thinking };
   } catch (error) {
     console.error('Error parsing content improvement:', error);
     return {
@@ -135,8 +132,7 @@ export async function improveBookContent(book: Book): Promise<BookContentImprove
       seoKeywords: ['дитяча книга', 'література', book.author, 'читання'],
       metaDescription: `${book.title} - ${book.author}. Цікава дитяча книга у бібліотеці Stefa.Books.`,
       hashtags: ['#дитячікниги', '#читання', '#література', '#stefabooks'],
-      thinking: response.thinking,
-    };
+      thinking: response.thinking };
   }
 }
 
@@ -158,8 +154,7 @@ export async function generatePersonalizedRecommendations(
     category: book.category,
     ageGroup: book.age_range,
     description: book.description?.slice(0, 200),
-    available: (book.qty_available || 0) > 0 && book.is_active,
-  }));
+    available: (book.qty_available || 0) > 0 && book.is_active }));
 
   const prompt = `
 Создай персонализованные рекомендации книг для ребенка:
@@ -247,8 +242,7 @@ ${availableCategories.map((cat, i) => `${i + 1}. ${cat}`).join('\n')}
     system: systemPrompt,
     messages: [{ role: 'user', content: prompt }],
     max_tokens: 2000,
-    thinking: true,
-  });
+    thinking: true });
 
   try {
     const result = JSON.parse(response.content.replace(/```json\n?|\n?```/g, ''));
@@ -258,8 +252,7 @@ ${availableCategories.map((cat, i) => `${i + 1}. ${cat}`).join('\n')}
     return {
       category: availableCategories[0] || 'Загальна література',
       confidence: 0.3,
-      reasoning: 'Автоматична категоризація не вдалась, обрано категорію за замовчуванням.',
-    };
+      reasoning: 'Автоматична категоризація не вдалась, обрано категорію за замовчуванням.' };
   }
 }
 
@@ -267,5 +260,4 @@ export const bookAnalysis = {
   analyzeBookContent,
   improveBookContent, 
   generatePersonalizedRecommendations,
-  categorizeBookAutomatically,
-};
+  categorizeBookAutomatically };

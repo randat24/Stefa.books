@@ -10,14 +10,11 @@ export const metadata: Metadata = {
   description: "Сторінка, яку ви шукаєте, не існує. Поверніться до головної сторінки або знайдіть потрібну книгу в нашому каталозі.",
   robots: {
     index: false,
-    follow: true,
-  },
+    follow: true },
   openGraph: {
     title: "Сторінка не знайдена - 404 | Stefa.books",
     description: "Сторінка, яку ви шукаєте, не існує. Поверніться до головної сторінки або знайдіть потрібну книгу в нашому каталозі.",
-    type: "website",
-  },
-};
+    type: "website" } };
 
 const breadcrumbItems = [
   { label: "Сторінка не знайдена", current: true }

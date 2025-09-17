@@ -23,10 +23,8 @@ function getGoogleAuth() {
     auth: new JWT({
       email: clientEmail,
       key: privateKey,
-      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-    }),
-    spreadsheetId,
-  };
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'] }),
+    spreadsheetId };
 }
 
 // Функция для подключения к Google Sheets
@@ -116,8 +114,7 @@ export async function POST(request: NextRequest) {
         badges: Array.isArray(book.badges) ? book.badges.join(', ') : '',
         tags: Array.isArray(book.tags) ? book.tags.join(', ') : '',
         created_at: book.created_at || '',
-        updated_at: book.updated_at || '',
-      })) || [];
+        updated_at: book.updated_at || '' })) || [];
 
       // Записываем данные в Google Sheets
       if (rowsData.length > 0) {

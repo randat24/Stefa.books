@@ -18,8 +18,7 @@ const mockHealthData = {
   system: {
     cpu: 42,
     memory: 68,
-    disk: 24,
-  }
+    disk: 24 }
 };
 
 export default function HealthPage() {
@@ -32,8 +31,7 @@ export default function HealthPage() {
     await new Promise(resolve => setTimeout(resolve, 1000));
     setHealthData({
       ...mockHealthData,
-      timestamp: new Date().toISOString(),
-    });
+      timestamp: new Date().toISOString() });
     setLoading(false);
   };
 

@@ -2,8 +2,7 @@ import React from 'react';
 
 export const metadata = {
   title: 'Maintenance | Stefa.Books',
-  description: 'Site is currently under maintenance',
-};
+  description: 'Site is currently under maintenance' };
 
 const MaintenancePage = () => {
   return (

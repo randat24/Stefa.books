@@ -6,7 +6,7 @@ import OptimizedBookCard from "@/components/OptimizedBookCard";
 import { Button } from "@/components/ui/button";
 import { getRecentViews, clearRecentViews } from "@/lib/recentViews";
 import { fetchBook } from "@/lib/api/books";
-import { History, X, Loader2 } from "lucide-react";
+import { HistoryIcon, X, Loader2 } from "lucide-react";
 import type { Book } from "@/lib/supabase";
 
 interface RecentViewsProps {
@@ -109,7 +109,7 @@ export function RecentViews({
         {/* Header */}
         <div className="text-center mb-8 lg:mb-12 relative">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-neutral-100 text-neutral-700 text-body-sm font-medium mb-4">
-            <History className="h-4 w-4" />
+            <HistoryIcon className="h-4 w-4" />
             Історія перегляду
           </div>
           <h2 className="text-h1 text-neutral-900 mb-4">
@@ -135,7 +135,7 @@ export function RecentViews({
 
         {/* Books grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {recentBooks.map((book) => (
+          {recentBooks.map((book: any) => (
             <OptimizedBookCard 
               key={book.id} 
               book={book} 

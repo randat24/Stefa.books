@@ -7,9 +7,7 @@ export const metadata: Metadata = {
   description: "Зв'яжіться з нами для консультації, підтримки або співпраці. Телефон, email та інші способи зв'язку.",
   openGraph: {
     title: "Контакти | Stefa.books",
-    description: "Зв'яжіться з нами для консультації, підтримки або співпраці.",
-  },
-};
+    description: "Зв'яжіться з нами для консультації, підтримки або співпраці." } };
 
 const breadcrumbItems = [
   { label: "Головна", href: "/" },

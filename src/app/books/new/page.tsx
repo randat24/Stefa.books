@@ -19,8 +19,7 @@ export default function NewBookPage() {
     category: '',
     description: '',
     coverImage: '',
-    price: '',
-  });
+    price: '' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -34,8 +33,7 @@ export default function NewBookPage() {
       const response = await fetch('/api/admin/books', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json' },
         body: JSON.stringify({
           title: formData.title,
           author: formData.author,
@@ -64,8 +62,7 @@ export default function NewBookPage() {
           category: '',
           description: '',
           coverImage: '',
-          price: '',
-        });
+          price: '' });
       } else {
         alert(`Ошибка: ${result.error || 'Не удалось создать книгу'}`);
       }

@@ -23,8 +23,7 @@ export function useUserSubscription(): UserSubscriptionStatus {
     maxRentals: 0,
     currentRentals: 0,
     canRent: false,
-    error: null,
-  });
+    error: null });
 
   useEffect(() => {
     let mounted = true;
@@ -43,8 +42,7 @@ export function useUserSubscription(): UserSubscriptionStatus {
               isLoading: false,
               isAuthenticated: false,
               hasActiveSubscription: false,
-              error: authError?.message || null,
-            }));
+              error: authError?.message || null }));
           }
           return;
         }
@@ -63,8 +61,7 @@ export function useUserSubscription(): UserSubscriptionStatus {
               isLoading: false,
               isAuthenticated: true,
               hasActiveSubscription: false,
-              error: userError?.message || 'User not found in database',
-            }));
+              error: userError?.message || 'User not found in database' }));
           }
           return;
         }
@@ -97,8 +94,7 @@ export function useUserSubscription(): UserSubscriptionStatus {
             maxRentals,
             currentRentals,
             canRent,
-            error: null,
-          });
+            error: null });
         }
 
       } catch (error) {
@@ -106,8 +102,7 @@ export function useUserSubscription(): UserSubscriptionStatus {
           setStatus(prev => ({
             ...prev,
             isLoading: false,
-            error: error instanceof Error ? error.message : 'Unknown error',
-          }));
+            error: error instanceof Error ? error.message : 'Unknown error' }));
         }
       }
     }

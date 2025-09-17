@@ -6,7 +6,7 @@ import {
   Eye, Edit, Trash2, ImageIcon, ExternalLink, CheckCircle, BookOpenCheck, Clock, XCircle,
   BookOpen, FileText, User, Tag, Hash, CreditCard, MapPin, Settings, Search, Filter,
   ChevronLeft, ChevronRight, Building, Package, DollarSign, Plus, Upload, Download,
-  Star, TrendingUp, AlertTriangle, RefreshCw, MoreHorizontal, Copy, Share2
+  Star, TrendingUp, AlertTriangleIcon, RefreshCw, MoreHorizontalIcon, Copy, Share2
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Chip } from "@/components/ui/chip"
@@ -403,7 +403,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
               <Input
                 placeholder="Пошук по назві, автору, коду..."
                 value={filters.search}
-                onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilters(prev => ({ ...prev, search: e.target.value }))}
                 className="pl-10 pr-4 h-11 border-neutral-200 focus:border-neutral-400 focus:ring-gray-400"
               />
             </div>
@@ -421,7 +421,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                   <Label className="text-body-sm font-medium text-neutral-700">Категорія</Label>
                   <select
                     value={filters.category}
-                    onChange={(e) => setFilters(prev => ({ ...prev, category: e.target.value }))}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilters(prev => ({ ...prev, category: e.target.value }))}
                     className="w-full mt-1 px-3 py-2 border border-neutral-200 rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-accent"
                   >
                     <option value="">Всі категорії</option>
@@ -434,7 +434,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                   <Label className="text-body-sm font-medium text-neutral-700">Статус</Label>
                   <select
                     value={filters.status}
-                    onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilters(prev => ({ ...prev, status: e.target.value }))}
                     className="w-full mt-1 px-3 py-2 border border-neutral-200 rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-accent"
                   >
                     <option value="">Всі статуси</option>
@@ -448,7 +448,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                   <Label className="text-body-sm font-medium text-neutral-700">Доступність</Label>
                   <select
                     value={filters.availability}
-                    onChange={(e) => setFilters(prev => ({ ...prev, availability: e.target.value }))}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilters(prev => ({ ...prev, availability: e.target.value }))}
                     className="w-full mt-1 px-3 py-2 border border-neutral-200 rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-accent"
                   >
                     <option value="">Всі</option>
@@ -460,7 +460,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                   <Label className="text-body-sm font-medium text-neutral-700">Сортування</Label>
                   <select
                     value={`${filters.sortBy}-${filters.sortOrder}`}
-                    onChange={(e) => {
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                       const [sortBy, sortOrder] = e.target.value.split('-')
                       setFilters(prev => ({ ...prev, sortBy, sortOrder: sortOrder as 'asc' | 'desc' }))
                     }}

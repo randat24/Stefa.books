@@ -1,7 +1,8 @@
 'use client'
 
-import { memo, useCallback, useMemo } from 'react'
-import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react'
+import { useCallback, useMemo } from 'react';
+import {  } from 'react'
+import { ChevronLeft, ChevronRight, MoreHorizontalIcon } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
 
@@ -15,15 +16,14 @@ interface OptimizedPaginationProps {
   disabled?: boolean
 }
 
-const OptimizedPagination = memo(function OptimizedPagination({
+const OptimizedPagination = (function OptimizedPagination({
   currentPage,
   totalPages,
   onPageChange,
   className = '',
   showFirstLast = true,
   maxVisiblePages = 5,
-  disabled = false,
-}: OptimizedPaginationProps) {
+  disabled = false }: OptimizedPaginationProps) {
   const handlePageChange = useCallback((page: number) => {
     if (page >= 1 && page <= totalPages && !disabled) {
       onPageChange(page)
@@ -102,7 +102,7 @@ const OptimizedPagination = memo(function OptimizedPagination({
       {/* Многоточие в начале */}
       {showFirstEllipsis && (
         <span className="px-2 text-neutral-500">
-          <MoreHorizontal className="w-4 h-4" />
+          <MoreHorizontalIcon className="w-4 h-4" />
         </span>
       )}
 
@@ -149,7 +149,7 @@ const OptimizedPagination = memo(function OptimizedPagination({
       {/* Многоточие в конце */}
       {showLastEllipsis && (
         <span className="px-2 text-neutral-500">
-          <MoreHorizontal className="w-4 h-4" />
+          <MoreHorizontalIcon className="w-4 h-4" />
         </span>
       )}
 

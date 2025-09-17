@@ -108,12 +108,10 @@ async function exportBooks() {
 
   const supabase = createClient(supabaseUrl, supabaseKey, {
     auth: {
-      persistSession: false,
-    },
+      persistSession: false },
     global: {
       headers: {
-        'apikey': supabaseKey,
-      }
+        'apikey': supabaseKey }
     }
   })
 
@@ -238,12 +236,10 @@ async function exportCategories() {
 
   const supabase = createClient(supabaseUrl, supabaseKey, {
     auth: {
-      persistSession: false,
-    },
+      persistSession: false },
     global: {
       headers: {
-        'apikey': supabaseKey,
-      }
+        'apikey': supabaseKey }
     }
   })
 

@@ -65,8 +65,7 @@ export function usePayment() {
       if (result.success) {
         toast({
           title: "Платіж створено",
-          description: "Перенаправлення на сторінку оплати...",
-        });
+          description: "Перенаправлення на сторінку оплати..." });
         return result.data;
       } else {
         throw new Error('Failed to create payment');
@@ -117,8 +116,7 @@ export function usePayment() {
       if (result.success) {
         toast({
           title: "Підписка створена",
-          description: "Ваша підписка успішно активована!",
-        });
+          description: "Ваша підписка успішно активована!" });
         return result.data.subscription;
       } else {
         throw new Error('Failed to create subscription');
@@ -155,8 +153,7 @@ export function usePayment() {
       if (result.success) {
         toast({
           title: "Підписка скасована",
-          description: "Ваша підписка була успішно скасована",
-        });
+          description: "Ваша підписка була успішно скасована" });
         return true;
       } else {
         throw new Error('Failed to cancel subscription');

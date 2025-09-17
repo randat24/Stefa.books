@@ -73,7 +73,7 @@ export default function FavoritesPage() {
         </Card>
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {favorites.map((book) => (
+          {favorites.map((book: any) => (
             <Card key={book.id} className="hover:shadow-lg transition-shadow">
               <CardHeader className="p-4">
                 <div className="flex items-start gap-4">
@@ -84,7 +84,7 @@ export default function FavoritesPage() {
                       width={64}
                       height={85}
                       className="w-full h-full object-cover"
-                      onError={(e) => {
+                      onError={(e: React.ChangeEvent<HTMLInputElement>) => {
                         const target = e.target as HTMLImageElement;
                         target.src = '/images/book-placeholder.svg';
                       }}

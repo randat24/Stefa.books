@@ -123,7 +123,7 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
               id="email"
               type="email"
               value={email}
-              onChange={(e) => {
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setEmail(e.target.value);
                 if (fieldErrors.email) {
                   setFieldErrors(prev => ({ ...prev, email: undefined }));
@@ -160,7 +160,7 @@ export function LoginForm({ onSwitchToRegister, onForgotPassword, onSuccess }: L
                 id="password"
                 type={showPassword ? "text" : "password"}
                 value={password}
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setPassword(e.target.value);
                   if (fieldErrors.password) {
                     setFieldErrors(prev => ({ ...prev, password: undefined }));

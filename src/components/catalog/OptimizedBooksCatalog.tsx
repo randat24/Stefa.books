@@ -27,7 +27,7 @@ function VirtualizedBookGrid({
   loading: boolean;
   hasMore: boolean;
 }) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement | null | null>(null);
   // Constants for grid layout (used implicitly in template)
 
   // Автодогрузка отключена — используем только кнопку "Завантажити ще"
@@ -39,7 +39,7 @@ function VirtualizedBookGrid({
     <div ref={containerRef} className="space-y-6">
       {/* Виртуализированная сетка книг */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-        {visibleBooks.map((book) => (
+        {visibleBooks.map((book: any) => (
           <OptimizedBookCard 
             key={book.id} 
             book={book} 

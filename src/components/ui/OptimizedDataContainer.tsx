@@ -1,6 +1,7 @@
 'use client'
 
-import { memo, useCallback, useState, useMemo } from 'react'
+import { useCallback, useState, useMemo , ReactNode } from 'react';
+import { ReactNode } from 'react'
 import { Filter, Grid, List, RefreshCw, Settings, Download, Upload, Trash2, Plus } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
@@ -80,7 +81,7 @@ interface OptimizedDataContainerProps<T> {
   }
 }
 
-const OptimizedDataContainer = memo(function OptimizedDataContainer<T>({
+const OptimizedDataContainer = (function OptimizedDataContainer<T>({
   data,
   renderItem,
   className = '',
@@ -124,9 +125,7 @@ const OptimizedDataContainer = memo(function OptimizedDataContainer<T>({
     showAdd: true,
     showEdit: true,
     showDelete: true,
-    showBulkDelete: true,
-  },
-}: OptimizedDataContainerProps<T>) {
+    showBulkDelete: true } }: OptimizedDataContainerProps<T>) {
   const [searchQuery, setSearchQuery] = useState('')
   const [filterValues, setFilterValues] = useState<Record<string, any>>({})
   const [showFiltersPanel, setShowFiltersPanel] = useState(false)
@@ -143,8 +142,7 @@ const OptimizedDataContainer = memo(function OptimizedDataContainer<T>({
     async () => data,
     {
       ttl: cacheTTL,
-      fallback: data,
-    }
+      fallback: data }
   )
 
   // Обработка поиска
@@ -372,8 +370,7 @@ const OptimizedDataContainer = memo(function OptimizedDataContainer<T>({
     const gridClasses = {
       grid: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6',
       list: 'space-y-4',
-      table: 'space-y-2',
-    }
+      table: 'space-y-2' }
 
     return (
       <div className={gridClasses[currentViewMode]}>
@@ -491,7 +488,7 @@ const OptimizedDataContainer = memo(function OptimizedDataContainer<T>({
               <input
                 type="file"
                 accept=".json,.csv,.xlsx"
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   const file = e.target.files?.[0]
                   if (file) handleImport(file)
                 }}
@@ -551,7 +548,7 @@ const OptimizedDataContainer = memo(function OptimizedDataContainer<T>({
               </label>
               <select
                 value={currentViewMode}
-                onChange={(e) => handleViewModeChange(e.target.value as 'grid' | 'list' | 'table')}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleViewModeChange(e.target.value as 'grid' | 'list' | 'table')}
                 className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="grid">Сітка</option>

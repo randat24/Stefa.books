@@ -93,9 +93,7 @@ class MonobankService {
       const response = await fetch(`${this.baseUrl}/bank/currency`, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+          'Content-Type': 'application/json' } });
 
       if (!response.ok) {
         throw new Error(`Monobank API error: ${response.status} ${response.statusText}`);
@@ -123,9 +121,7 @@ class MonobankService {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'X-Token': this.token,
-        },
-      });
+          'X-Token': this.token } });
 
       if (!response.ok) {
         throw new Error(`Monobank API error: ${response.status} ${response.statusText}`);
@@ -160,9 +156,7 @@ class MonobankService {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'X-Token': this.token,
-          },
-        }
+            'X-Token': this.token } }
       );
 
       if (!response.ok) {
@@ -191,10 +185,8 @@ class MonobankService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Token': this.token,
-        },
-        body: JSON.stringify({ webHookUrl: webhookUrl }),
-      });
+          'X-Token': this.token },
+        body: JSON.stringify({ webHookUrl: webhookUrl }) });
 
       if (!response.ok) {
         throw new Error(`Monobank API error: ${response.status} ${response.statusText}`);

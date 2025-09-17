@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState , ReactNode } from 'react'
 
 // Component to prevent layout shifts by reserving space for dynamic content
 interface LayoutStabilizerProps {

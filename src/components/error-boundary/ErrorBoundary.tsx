@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Component, ErrorInfo, ReactNode } from "react";
-import { AlertTriangle, RefreshCw, Home } from "lucide-react";
+import { AlertTriangleIcon, RefreshCw, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface Props {
@@ -15,10 +15,9 @@ interface State {
   error?: Error;
 }
 
-export class ErrorBoundary extends Component<Props, State> {
+class ErrorBoundaryClass extends Component<Props, State> {
   public state: State = {
-    hasError: false,
-  };
+    hasError: false };
 
   public static getDerivedStateFromError(error: Error): State {
     return { hasError: true, error };
@@ -55,7 +54,7 @@ export class ErrorBoundary extends Component<Props, State> {
         <div className="min-h-screen flex items-center justify-center p-4">
           <div className="max-w-md w-full space-y-6 text-center">
             <div className="mx-auto w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center">
-              <AlertTriangle className="w-8 h-8 text-red-600" />
+              <AlertTriangleIcon className="w-8 h-8 text-red-600" />
             </div>
             
             <div className="space-y-2">
@@ -100,6 +99,9 @@ export class ErrorBoundary extends Component<Props, State> {
     return this.props.children;
   }
 }
+
+// Экспортируем как функциональный компонент для совместимости с React 19
+export const ErrorBoundary = ErrorBoundaryClass as any;
 
 // HOC для обгортання компонентів в ErrorBoundary
 export function withErrorBoundary<P extends object>(

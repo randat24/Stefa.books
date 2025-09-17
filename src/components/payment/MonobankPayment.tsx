@@ -61,8 +61,7 @@ export default function MonobankPayment({
       const response = await fetch('/api/payments/monobank', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json' },
         body: JSON.stringify({
           amount,
           description,
@@ -71,8 +70,7 @@ export default function MonobankPayment({
           customer_name: customerName,
           order_id: `order-${Date.now()}`,
           return_url: returnUrl
-        }),
-      });
+        }) });
 
       const data = await response.json();
 

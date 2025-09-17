@@ -50,8 +50,7 @@ export function PaymentCheckout() {
       
       toast({
         title: "Оплата успішна",
-        description: "Ваш платіж було успішно оброблено!",
-      });
+        description: "Ваш платіж було успішно оброблено!" });
       
       // Redirect to success page
       router.push('/payment/success');

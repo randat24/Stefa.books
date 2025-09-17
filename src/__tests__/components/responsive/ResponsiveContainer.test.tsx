@@ -11,19 +11,16 @@ const mockInnerWidth = (width: number) => {
   Object.defineProperty(window, 'innerWidth', {
     writable: true,
     configurable: true,
-    value: width,
-  });
+    value: width });
 };
 
 // Mock window.addEventListener
 const mockAddEventListener = jest.fn();
 const mockRemoveEventListener = jest.fn();
 Object.defineProperty(window, 'addEventListener', {
-  value: mockAddEventListener,
-});
+  value: mockAddEventListener });
 Object.defineProperty(window, 'removeEventListener', {
-  value: mockRemoveEventListener,
-});
+  value: mockRemoveEventListener });
 
 describe('ResponsiveContainer', () => {
   beforeEach(() => {

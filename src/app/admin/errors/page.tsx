@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/Badge';
 import { 
-  AlertCircle as AlertTriangle, 
+  AlertCircle as AlertTriangleIcon, 
   AlertCircle, 
   Info, 
   XCircle, 
@@ -103,7 +103,7 @@ export default function ErrorMonitoringPage() {
   const getSeverityIcon = (severity: string) => {
     switch (severity) {
       case 'critical': return <XCircle className="h-4 w-4 text-red-500" />;
-      case 'high': return <AlertTriangle className="h-4 w-4 text-orange-500" />;
+      case 'high': return <AlertTriangleIcon className="h-4 w-4 text-orange-500" />;
       case 'medium': return <AlertCircle className="h-4 w-4 text-accent" />;
       case 'low': return <Info className="h-4 w-4 text-brand-accent" />;
       default: return <AlertCircle className="h-4 w-4 text-neutral-500" />;
@@ -196,7 +196,7 @@ export default function ErrorMonitoringPage() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-body-sm font-medium">High</CardTitle>
-              <AlertTriangle className="h-4 w-4 text-orange-500" />
+              <AlertTriangleIcon className="h-4 w-4 text-orange-500" />
             </CardHeader>
             <CardContent>
               <div className="text-h2">
@@ -249,7 +249,7 @@ export default function ErrorMonitoringPage() {
                   placeholder="Search errors by message, type, or ID..."
                   className="w-full pl-10 pr-4 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-brand-accent focus:border-brand-accent"
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
                 />
               </div>
             </div>

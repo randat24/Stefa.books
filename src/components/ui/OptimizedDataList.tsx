@@ -1,7 +1,8 @@
 'use client'
 
-import { memo, useCallback, useState, useMemo, useEffect } from 'react'
-import { Search, Filter, Grid, List, MoreHorizontal, RefreshCw } from 'lucide-react'
+import { useCallback, useState, useMemo, useEffect , ReactNode } from 'react';
+import { ReactNode } from 'react'
+import { Search, Filter, Grid, List, MoreHorizontalIcon, RefreshCw } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
 import OptimizedSearch from './OptimizedSearch'
@@ -60,7 +61,7 @@ interface OptimizedDataListProps<T> {
   onRefresh?: () => void
 }
 
-const OptimizedDataList = memo(function OptimizedDataList<T>({
+const OptimizedDataList = (function OptimizedDataList<T>({
   data,
   renderItem,
   className = '',
@@ -85,8 +86,7 @@ const OptimizedDataList = memo(function OptimizedDataList<T>({
   onRetry,
   cacheKey,
   cacheTTL = 5 * 60 * 1000, // 5 минут
-  onRefresh,
-}: OptimizedDataListProps<T>) {
+  onRefresh }: OptimizedDataListProps<T>) {
   const [searchQuery, setSearchQuery] = useState('')
   const [filterValues, setFilterValues] = useState<Record<string, any>>({})
   const [showFiltersPanel, setShowFiltersPanel] = useState(false)
@@ -99,8 +99,7 @@ const OptimizedDataList = memo(function OptimizedDataList<T>({
     async () => data,
     {
       ttl: cacheTTL,
-      fallback: data,
-    }
+      fallback: data }
   )
 
   // Обработка поиска
@@ -275,8 +274,7 @@ const OptimizedDataList = memo(function OptimizedDataList<T>({
     const gridClasses = {
       grid: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6',
       list: 'space-y-4',
-      table: 'space-y-2',
-    }
+      table: 'space-y-2' }
 
     return (
       <div className={gridClasses[currentViewMode]}>

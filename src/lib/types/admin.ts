@@ -177,7 +177,7 @@ export interface PaymentRow {
   id: string
   user_id: string
   amount_uah: number
-  currency: 'UAH'
+  currency: string
   payment_method: 'monobank' | 'online' | 'cash'
   status: 'pending' | 'completed' | 'failed' | 'refunded'
   transaction_id?: string | null

@@ -228,7 +228,7 @@ export default function RentalForm({ bookId }: { bookId?: string }) {
                 {...register("email", { 
                   required: "Email обов'язковий",
                   pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2 }$/i,
                     message: "Невірний формат email"
                   }
                 })}

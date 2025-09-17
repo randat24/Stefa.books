@@ -1,6 +1,7 @@
 'use client'
 
-import { memo, useCallback, useState, useEffect, useRef } from 'react'
+import { useCallback, useState, useEffect, useRef , ReactNode } from 'react';
+import { ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
 interface CacheItem<T> {
@@ -42,8 +43,7 @@ function OptimizedCache<T>({
   fallback,
   onError,
   onSuccess,
-  children,
-}: OptimizedCacheProps<T>) {
+  children }: OptimizedCacheProps<T>) {
   const [data, setData] = useState<T | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -72,8 +72,7 @@ function OptimizedCache<T>({
       globalCache.set(key, {
         data: result,
         timestamp: Date.now(),
-        ttl,
-      })
+        ttl })
 
       setData(result)
       setLoading(false)
@@ -153,8 +152,7 @@ export function useOptimizedCache<T>(
       globalCache.set(key, {
         data: result,
         timestamp: Date.now(),
-        ttl: options.ttl || 5 * 60 * 1000,
-      })
+        ttl: options.ttl || 5 * 60 * 1000 })
 
       setData(result)
       setLoading(false)
@@ -197,8 +195,7 @@ export function useOptimizedCache<T>(
     loading,
     error,
     refresh,
-    clearCache,
-  }
+    clearCache }
 }
 
 // Утилиты для управления кэшем
@@ -220,14 +217,12 @@ export const cacheUtils = {
     globalCache.set(key, {
       data,
       timestamp: Date.now(),
-      ttl,
-    })
+      ttl })
   },
   has: (key: string): boolean => {
     const item = globalCache.get(key)
     return item ? Date.now() - item.timestamp < item.ttl : false
   },
-  size: () => globalCache.size,
-}
+  size: () => globalCache.size }
 
 export default OptimizedCache

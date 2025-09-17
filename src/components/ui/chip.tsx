@@ -30,13 +30,10 @@ export function Chip({
 
   const variantClasses = {
     default: "bg-neutral-100 text-neutral-700 border-neutral-200",
-    status: "border-2",
-    button: cn(
-      "border",
-      active
-        ? "bg-neutral-900 text-neutral-0 border-neutral-900 shadow-md"
-        : "bg-white text-neutral-700 border-neutral-200 hover:bg-neutral-50 hover:border-neutral-300"
-    )
+    status: "bg-neutral-100 text-neutral-700",
+    button: active
+      ? "bg-neutral-900 text-neutral-0 border border-neutral-900 shadow-md"
+      : "bg-white text-neutral-700 border border-neutral-200 hover:bg-neutral-50 hover:border-neutral-300"
   };
 
   const Component = as === 'button' ? 'button' : 'div';

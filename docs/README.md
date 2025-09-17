@@ -1,181 +1,179 @@
-# Stefa.Books — Документация проекта
+# 📖 Stefa.Books Documentation
 
-Добро пожаловать в документацию проекта **Stefa.Books** — современного сервиса аренды детских книг в Миколаїві (Украина).
+Welcome to the comprehensive documentation for the Stefa.Books project. This documentation is organized to help developers, administrators, and contributors understand and work with the system effectively.
 
-## 📚 Содержание документации
+## 📁 Documentation Structure
 
-### Полный индекс документации
-- [**`DOCUMENTATION_INDEX.md`**](./DOCUMENTATION_INDEX.md) — 📌 Главный индекс всей документации проекта
-
-### Основные документы проекта
-- [`Project.md`](./Project.md) — Описание проекта, архитектуры, экранов и технических решений
-- [`Tasktracker.md`](./Tasktracker.md) — Единый список задач и журнал выполнения
-- [`Sprints.md`](./Sprints.md) — План спринтов с целями и критериями готовности
-- [`Diary.md`](./Diary.md) — Технический журнал наблюдений и решений
-- [`qa.md`](./qa.md) — Вопросы по продукту и архитектуре
-- [`Branding.md`](./Branding.md) — Руководство по брендингу и иконкам
-- [`../.cursorrules`](../.cursorrules) — Правила разработки и качества кода
-
-### Документация базы данных
-- [DATABASE_DOCUMENTATION.md](./DATABASE_DOCUMENTATION.md) - Полная документация базы данных
-- [QUICK_DB_GUIDE.md](./QUICK_DB_GUIDE.md) - Краткий гид по базе данных
-- [INDEXES_GUIDE.md](./INDEXES_GUIDE.md) - Руководство по индексам
-- [FUNCTION_SECURITY.md](./FUNCTION_SECURITY.md) - Безопасность функций PostgreSQL
-
-## 🚀 Быстрый старт
-
-### Предварительные требования
-- Node.js 20+ LTS
-- pnpm 9+ (рекомендуется)
-- Аккаунты: Vercel, Supabase, Cloudinary
-
-### Установка и запуск
-```bash
-# Установка зависимостей
-pnpm install
-
-# Запуск в режиме разработки
-pnpm dev
-
-# Проверка качества кода
-pnpm type-check
-pnpm lint
-
-# Сборка для продакшена
-pnpm build
+```
+docs/
+├── README.md             # This file - documentation index
+├── guides/               # User guides and tutorials
+├── deployment/           # Deployment documentation
+└── archive/              # Historical documentation
+    ├── reports/          # Development reports
+    ├── fixes/            # Bug fix documentation
+    ├── legacy/           # Legacy documentation
+    ├── setup/            # Historical setup guides
+    └── books-loading/    # Book loading procedures
 ```
 
-### Переменные окружения
-Создайте файл `.env.local` в корне проекта:
+## 🚀 Quick Start
+
+For new developers joining the project:
+
+1. **Start here**: [README.md](../README.md) - Project overview
+2. **Setup**: [Local Setup Guide](./guides/LOCAL_SETUP_GUIDE.md) - Development environment
+3. **Standards**: [DEVELOPMENT_RULES.md](../DEVELOPMENT_RULES.md) - Coding standards
+4. **Architecture**: [PROJECT_STRUCTURE.md](../PROJECT_STRUCTURE.md) - System architecture
+
+## 📚 Core Documentation
+
+### 🔧 Development
+- **[CLAUDE.md](../CLAUDE.md)** - Claude Code AI assistant instructions
+- **[DEVELOPMENT_RULES.md](../DEVELOPMENT_RULES.md)** - Development standards and best practices
+- **[PROJECT_STRUCTURE.md](../PROJECT_STRUCTURE.md)** - Project architecture and organization
+- **[TECHNICAL_OVERVIEW.md](../TECHNICAL_OVERVIEW.md)** - Technical implementation details
+- **[DESIGN_SYSTEM.md](../DESIGN_SYSTEM.md)** - UI design system and components
+- **[GIT_WORKFLOW.md](../GIT_WORKFLOW.md)** - Git workflow and branching strategy
+- **[PULL_REQUEST_TEMPLATE.md](../PULL_REQUEST_TEMPLATE.md)** - PR template and guidelines
+
+## 🔧 Setup & Configuration Guides
+
+### 📋 Essential Setup
+- **[Local Setup Guide](./guides/LOCAL_SETUP_GUIDE.md)** - Complete local development setup
+- **[Admin Authentication](./guides/ADMIN_AUTHENTICATION_GUIDE.md)** - Admin panel access setup
+- **[Supabase Setup](./guides/SUPABASE_SETUP_GUIDE.md)** - Database configuration
+- **[Testing Instructions](./guides/TESTING_INSTRUCTIONS.md)** - Testing framework setup
+
+### 💳 Payment Integration
+- **[Monobank Integration](./guides/MONOBANK_INTEGRATION_GUIDE.md)** - Payment system setup
+- **[Rental System](./guides/RENTAL_SYSTEM_README.md)** - Book rental functionality
+
+## 🚀 Deployment
+
+### 📦 Deployment Guides
+- **[Deployment Documentation](./deployment/DEPLOYMENT_DOCUMENTATION.md)** - Complete deployment guide
+- **[Deployment Checklist](./deployment/DEPLOYMENT_READY_CHECKLIST.md)** - Pre-deployment validation
+- **[Netlify Deployment](./deployment/NETLIFY_DEPLOY.md)** - Netlify-specific deployment
+- **[Monobank Environment Setup](./deployment/MONOBANK_ENV_SETUP.md)** - Payment environment config
+
+## 🛠️ Available Commands
+
+### Development Commands
 ```bash
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+# Development
+pnpm dev              # Start development server
+pnpm build            # Build for production
+pnpm type-check       # TypeScript validation
+pnpm lint             # Code linting
 
-# Cloudinary (для изображений)
-NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your-cloud-name
-CLOUDINARY_API_KEY=your-api-key
-CLOUDINARY_API_SECRET=your-api-secret
+# Testing
+pnpm test             # Run unit tests
+pnpm test:e2e         # Run E2E tests
+pnpm test:coverage    # Generate coverage report
 
-# Сайт
-NEXT_PUBLIC_SITE_URL=https://stefa-books.com.ua
-NEXT_PUBLIC_SITE_NAME=Stefa.Books
+# Deployment
+pnpm deploy:check     # Pre-deployment checks
+pnpm deploy           # Deploy preview
+pnpm deploy:prod      # Deploy to production
 ```
 
-## 🏗️ Архитектура проекта
+### Database Commands
+```bash
+pnpm insert-books     # Insert books to database
+pnpm check-books      # Validate book data
+```
 
-### Технический стек
-- **Frontend**: Next.js 15.5.2 (App Router), React 19.1.1, TypeScript 5.5.4
-- **Styling**: Tailwind CSS 4.1.13, Framer Motion 12.23.12
-- **UI Components**: Radix UI, Lucide React, shadcn/ui
-- **Backend**: Supabase (PostgreSQL + Auth + Edge Functions)
-- **Storage**: Cloudinary (изображения)
-- **Deployment**: Vercel
-- **Testing**: Jest, Playwright, React Testing Library
+## 📊 Project Information
+
+### Tech Stack
+- **Framework**: Next.js 15.5.3
+- **Frontend**: React 19.1.1, TypeScript 5.5.4
+- **Styling**: Tailwind CSS 3.4.17
+- **Database**: Supabase (PostgreSQL)
+- **Hosting**: Netlify + Vercel
 - **Package Manager**: pnpm 10.15.1
-- **AI Integration**: mdream 0.10.1 (HTML to Markdown)
 
-### Структура проекта
-```
-src/
-├── app/                    # Next.js App Router
-│   ├── layout.tsx         # Корневой layout
-│   ├── page.tsx           # Главная страница
-│   ├── catalog/           # Каталог книг
-│   ├── admin/             # Админ-панель
-│   ├── api/               # Route Handlers
-│   └── globals.css        # Глобальные стили
-├── components/            # React компоненты
-│   ├── ui/               # Атомарные UI компоненты
-│   ├── BookCard.tsx      # Карточка книги
-│   ├── BookPreviewModal.tsx # Модальное окно просмотра
-│   ├── RentalForm.tsx    # Форма аренды
-│   └── sections/         # Секции страниц
-├── lib/                  # Утилиты и конфигурация
-│   ├── supabase.ts       # Supabase клиент
-│   ├── database.types.ts # Типы базы данных
-│   ├── mock.ts           # Мок-данные
-│   └── utils/            # Вспомогательные функции
-├── hooks/                # Кастомные хуки
-├── contexts/             # React контексты
-└── store/                # Zustand store
-```
+### Key Features
+- **📚 105+ books** in catalog
+- **🔍 Advanced search** and filtering
+- **📱 Mobile-responsive** design
+- **👥 Admin panel** for management
+- **💳 Payment integration** with Monobank
+- **🤖 AI integration** with Groq Llama 3 70B
+- **🚀 High performance** optimization
 
-## 📋 Статусы задач
+## 📋 Documentation Standards
 
-- **TODO** — задача запланирована
-- **IN-PROGRESS** — задача в работе
-- **BLOCKED** — заблокирована внешними зависимостями
-- **DONE** — выполнена
+### Writing Guidelines
+- Use clear, concise language
+- Include code examples where relevant
+- Maintain consistent formatting
+- Keep documentation up-to-date with code changes
+- Use Ukrainian language for user-facing content
+- Use English for technical documentation
 
-В `Tasktracker.md` используются чек-листы `- [ ]` / `- [x]` и префиксы приоритета: `CRITICAL`, `HIGH`, `MEDIUM`, `LOW`.
+### File Organization
+- **Root level**: Core project documentation
+- **`docs/guides/`**: Step-by-step tutorials and guides
+- **`docs/deployment/`**: Deployment and infrastructure docs
+- **`docs/archive/`**: Historical documentation (not actively maintained)
 
-## 🔄 Рабочий процесс
+## 🔍 Finding Documentation
 
-### Ветки и коммиты
-- **Основная ветка**: `main` (production)
-- **Фичи**: `feat/<кратко>`; фиксы: `fix/<кратко>`
-- **Релизы**: тэги `vX.Y.Z`
-- **Стиль коммитов**: Conventional Commits (`feat:`, `fix:`, `docs:`, `refactor:`, `chore:`)
+### By Topic
+- **Getting Started**: README.md, Local Setup Guide
+- **Development**: DEVELOPMENT_RULES.md, PROJECT_STRUCTURE.md
+- **Deployment**: deployment/ directory
+- **Admin Setup**: Admin Authentication Guide
+- **Payment Setup**: Monobank Integration Guide
+- **Troubleshooting**: Check archive/fixes/ for historical solutions
 
-### Как работать с документами
-1. **Проектирование** — обновляем `Project.md` при изменении архитектуры/экранов
-2. **Планирование** — задачи кладём в `Tasktracker.md`, группируем по спринтам из `Sprints.md`
-3. **Ведение работ** — все важные решения фиксируем в `Diary.md` датированными записями
-4. **Уточнения** — открытые вопросы вносим в `qa.md` и закрываем ссылками на PR
+### By User Role
+- **New Developer**: README.md → Local Setup → Development Rules
+- **DevOps Engineer**: Deployment Documentation → Netlify Guide
+- **Administrator**: Admin Authentication → Admin Panel docs
+- **Designer**: DESIGN_SYSTEM.md → Component documentation
 
-## 🎯 Критерии качества
+## 🆘 Getting Help
 
-### Код
-- Проходит `pnpm type-check` и `pnpm lint` без ошибок
-- Покрытие тестами ≥ 80%
-- Lighthouse ≥ 90 по Performance/Accessibility/SEO
+### Common Issues
+1. **Setup Problems**: Check [Local Setup Guide](./guides/LOCAL_SETUP_GUIDE.md)
+2. **Build Errors**: Verify environment variables and dependencies
+3. **Database Issues**: Review [Supabase Setup](./guides/SUPABASE_SETUP_GUIDE.md)
+4. **Deployment Issues**: Check [Deployment Checklist](./deployment/DEPLOYMENT_READY_CHECKLIST.md)
 
-### Деплой
-- Автоматический деплой на Vercel при push в `main`
-- Preview деплои для PR
-- Зелёные проверки CI/CD
+### Support Channels
+- **GitHub Issues**: Technical problems and bug reports
+- **Documentation**: Comprehensive guides and references
+- **Archive**: Historical solutions in `docs/archive/fixes/`
 
-### Безопасность
-- RLS политики в Supabase (deny-by-default)
-- Валидация входных данных (Zod)
-- Секреты только в переменных окружения
+## 📈 Contributing to Documentation
 
-## 🔗 Полезные ссылки
+### Guidelines
+1. Follow existing documentation structure
+2. Use clear, concise language
+3. Include practical examples
+4. Test all code examples
+5. Update relevant index files
+6. Follow the project's style guide
 
-- **Дизайн-референсы**: см. бриф и Pinterest-борды
-- **База данных**: [Supabase Console](https://supabase.com/dashboard)
-- **Деплой**: [Vercel Dashboard](https://vercel.com/dashboard)
-- **Аналитика**: [Vercel Analytics](https://vercel.com/analytics)
-
-## 📞 Поддержка
-
-При возникновении вопросов:
-1. Проверьте раздел [`qa.md`](./qa.md)
-2. Создайте issue с тегом `question`
-3. Обратитесь к техническому дневнику [`Diary.md`](./Diary.md)
+### Process
+1. Create documentation in appropriate directory
+2. Update this index file if needed
+3. Submit pull request with documentation changes
+4. Ensure documentation builds successfully
 
 ---
 
-## 📈 История изменений
+## 🔗 Quick Links
 
-### v2.1 - Оптимизация и стабилизация (5 сентября 2025)
-- ✅ **Исправлено 76+ ошибок TypeScript** в 18 файлах
-- ✅ **Очищен кэш и переустановлены зависимости**
-- ✅ **Проект успешно собран без ошибок компиляции**
-- ✅ **Локальное тестирование пройдено** - все функции работают корректно
-- ✅ **Tailwind CSS v4.1** - 5x быстрее сборка, CSS-based конфигурация
-- ✅ **pnpm Migration** - 33x быстрее установка пакетов
-- ✅ **mdream Integration** - AI-friendly HTML to Markdown conversion
-- ✅ **Статус**: готов к дальнейшей разработке
-
-**Детали оптимизации**: 
-- [TAILWIND_V4_UPGRADE_REPORT.md](../TAILWIND_V4_UPGRADE_REPORT.md)
-- [PNPM_MIGRATION_REPORT.md](../PNPM_MIGRATION_REPORT.md)
-- [TYPESCRIPT_FIXES_REPORT.md](../TYPESCRIPT_FIXES_REPORT.md)
+- **[🏠 Main README](../README.md)** - Project overview
+- **[🚀 Live Site](https://stefa-books.com.ua)** - Production application
+- **[👨‍💼 Admin Panel](https://stefa-books.com.ua/admin)** - Administrative interface
+- **[📊 API Health](https://stefa-books.com.ua/api/health)** - System status
 
 ---
 
-**Последнее обновление**: 3 сентября 2025  
-**Версия документации**: 1.1.0
+*Last updated: September 2025*
+*This documentation is actively maintained and updated with each release.*

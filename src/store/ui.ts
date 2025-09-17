@@ -11,5 +11,4 @@ type UIState = {
 export const useUIStore = create<UIState>((set) => ({
   selectedPlan: null,
   setSelectedPlan: (p) => set({ selectedPlan: p }),
-  clearPlan: () => set({ selectedPlan: null }),
-}));
+  clearPlan: () => set({ selectedPlan: null }) }));
