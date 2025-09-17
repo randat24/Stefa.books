@@ -19,12 +19,8 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Перенаправления для Next.js
-[[redirects]]
-  from = "/*"
-  to = "/"
-  status = 200
-  force = false
+# Перенаправления для Next.js - убираем глобальное перенаправление
+# API маршруты должны обрабатываться Next.js
 
 # Заголовки безопасности
 [[headers]]
