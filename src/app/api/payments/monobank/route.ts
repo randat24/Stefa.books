@@ -4,6 +4,11 @@ import { logger } from '@/lib/logger';
 import { monobankService } from '@/lib/services/monobank';
 import { v4 as uuidv4 } from 'uuid';
 
+// Перевіряємо наявність токена при старті
+if (!process.env.MONOBANK_TOKEN) {
+  logger.error('MONOBANK_TOKEN не налаштований! Система оплати не буде працювати.');
+}
+
 // Схема для создания платежа
 const createPaymentSchema = z.object({
   amount: z.number().min(1, 'Сума повинна бути більше 0'),

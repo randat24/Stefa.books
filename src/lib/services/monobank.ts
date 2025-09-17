@@ -14,52 +14,43 @@ export class MonobankService {
   private config: MonobankConfig;
 
   constructor() {
-    // Простая конфигурация - только токен
+    // Только реальная конфигурация - демо-режим отключен
     const token = process.env.MONOBANK_TOKEN?.trim();
-    const hasToken = !!token && token.length > 0;
+
+    if (!token || token.length === 0) {
+      throw new Error('MONOBANK_TOKEN обов\'язковий для роботи системи оплати. Будь ласка, налаштуйте змінну середовища.');
+    }
 
     logger.info('Monobank initialization', {
-      hasToken,
-      tokenLength: token ? token.length : 0,
-      tokenStart: token ? token.substring(0, 8) + '...' : 'none',
+      hasToken: true,
+      tokenLength: token.length,
+      tokenStart: token.substring(0, 8) + '...',
       nodeEnv: process.env.NODE_ENV
     });
 
-    if (hasToken) {
-      // Конфігурація для токену Monobank
-      this.config = {
-        apiUrl: 'https://api.monobank.ua/api/merchant',
-        publicKey: '',
-        privateKey: token!,
-        merchantId: '' };
-      logger.info('Monobank initialized with REAL token - production mode enabled');
-    } else {
-      // Заглушка для розробки
-      this.config = {
-        apiUrl: 'https://api.monobank.ua/api/merchant',
-        publicKey: '',
-        privateKey: '',
-        merchantId: '' };
-      logger.warn('Monobank token not configured - using DEMO mode', {
-        reason: !token ? 'token is empty' : 'token is invalid'
-      });
-    }
+    // Конфігурація для реального токену Monobank
+    this.config = {
+      apiUrl: 'https://api.monobank.ua/api/merchant',
+      publicKey: '',
+      privateKey: token,
+      merchantId: ''
+    };
+
+    logger.info('Monobank initialized with REAL token - production mode ONLY');
   }
 
   /**
    * Перевіряє чи налаштований токен для створення платежів
    */
   private isMerchantTokenAvailable(): boolean {
-    const token = process.env.MONOBANK_TOKEN?.trim();
-    return !!token && token.length > 0;
+    return true; // Токен завжди має бути налаштований
   }
 
   /**
    * Перевіряє чи налаштований токен для особистих операцій
    */
   private isPersonalTokenAvailable(): boolean {
-    const token = process.env.MONOBANK_TOKEN?.trim();
-    return !!token && token.length > 0;
+    return true; // Токен завжди має бути налаштований
   }
 
   /**
@@ -79,18 +70,6 @@ export class MonobankService {
     redirectUrl: string;
     webhookUrl: string;
   }): Promise<MonobankPaymentResponse> {
-    // Якщо немає токену - повертаємо демо-дані
-    if (!this.isMerchantTokenAvailable()) {
-      logger.info('Creating demo payment (token not configured)', {
-        reference: paymentData.reference,
-        amount: paymentData.amount });
-      
-      return {
-        status: 'success',
-        data: {
-          invoiceId: `demo_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`,
-          pageUrl: `${paymentData.redirectUrl}?demo=true&amount=${paymentData.amount}&reference=${paymentData.reference}` } };
-    }
     try {
       const request: MonobankPaymentRequest = {
         amount: paymentData.amount * 100, // Конвертируем в копейки
@@ -101,32 +80,40 @@ export class MonobankService {
           basketOrder: [{
             name: paymentData.description,
             qty: 1,
-            sum: paymentData.amount * 100 }] },
+            sum: paymentData.amount * 100
+          }]
+        },
         redirectUrl: paymentData.redirectUrl,
         webHookUrl: paymentData.webhookUrl,
         validity: 24 * 60 * 60, // 24 часа
-        paymentType: MONOBANK_PAYMENT_TYPES.DEBIT };
+        paymentType: MONOBANK_PAYMENT_TYPES.DEBIT
+      };
 
       logger.info('Creating Monobank payment', {
         reference: paymentData.reference,
-        amount: paymentData.amount });
+        amount: paymentData.amount
+      });
 
       const response = await fetch(`${this.config.apiUrl}/invoice/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Token': this.config.privateKey },
-        body: JSON.stringify(request) });
+          'X-Token': this.config.privateKey
+        },
+        body: JSON.stringify(request)
+      });
 
       if (!response.ok) {
         const errorText = await response.text();
         logger.error('Monobank API error', {
           status: response.status,
-          error: errorText });
+          error: errorText
+        });
         
         return {
           status: 'error',
-          errText: `API Error: ${response.status} - ${errorText}` };
+          errText: `API Error: ${response.status} - ${errorText}`
+        };
       }
 
       const data = await response.json();
@@ -156,13 +143,16 @@ export class MonobankService {
         status: 'success',
         data: {
           invoiceId: data.invoiceId,
-          pageUrl: data.pageUrl } };
+          pageUrl: data.pageUrl
+        }
+      };
 
     } catch (error) {
       logger.error('Monobank service error', error);
       return {
         status: 'error',
-        errText: error instanceof Error ? error.message : 'Unknown error' };
+        errText: error instanceof Error ? error.message : 'Unknown error'
+      };
     }
   }
 
@@ -185,24 +175,29 @@ export class MonobankService {
       const response = await fetch(`${this.getPersonalAPIUrl()}/personal/client-info`, {
         method: 'GET',
         headers: {
-          'X-Token': this.config.privateKey } });
+          'X-Token': this.config.privateKey
+        }
+      });
 
       if (!response.ok) {
         const errorText = await response.text();
         return {
           status: 'error',
-          errText: `API Error: ${response.status} - ${errorText}` };
+          errText: `API Error: ${response.status} - ${errorText}`
+        };
       }
 
       const data = await response.json();
       return {
         status: 'success',
-        data };
+        data
+      };
     } catch (error) {
       logger.error('Monobank client info error', { error });
       return {
         status: 'error',
-        errText: error instanceof Error ? error.message : 'Unknown error' };
+        errText: error instanceof Error ? error.message : 'Unknown error'
+      };
     }
   }
 
@@ -226,24 +221,29 @@ export class MonobankService {
       const response = await fetch(`${this.getPersonalAPIUrl()}/personal/statement/${accountId}/${fromDate}${toParam}`, {
         method: 'GET',
         headers: {
-          'X-Token': this.config.privateKey } });
+          'X-Token': this.config.privateKey
+        }
+      });
 
       if (!response.ok) {
         const errorText = await response.text();
         return {
           status: 'error',
-          errText: `API Error: ${response.status} - ${errorText}` };
+          errText: `API Error: ${response.status} - ${errorText}`
+        };
       }
 
       const data = await response.json();
       return {
         status: 'success',
-        data };
+        data
+      };
     } catch (error) {
       logger.error('Monobank statement error', { error });
       return {
         status: 'error',
-        errText: error instanceof Error ? error.message : 'Unknown error' };
+        errText: error instanceof Error ? error.message : 'Unknown error'
+      };
     }
   }
 
@@ -255,52 +255,34 @@ export class MonobankService {
     data?: MonobankWebhookData;
     errText?: string;
   }> {
-    // Якщо це демо-платіж - повертаємо успішний статус
-    if (invoiceId.startsWith('demo_')) {
-      logger.info('Checking demo payment status', { invoiceId });
-      
-      return {
-        status: 'success',
-        data: {
-          invoiceId,
-          status: 'success',
-          amount: 50000, // 500 грн в копійках
-          ccy: 980,
-          reference: 'demo-payment',
-          createdDate: Math.floor(Date.now() / 1000),
-          modifiedDate: Math.floor(Date.now() / 1000) }
-      };
-    }
-
-    if (!this.isMerchantTokenAvailable()) {
-      return {
-        status: 'error',
-        errText: 'Merchant token not configured'
-      };
-    }
     try {
       const response = await fetch(`${this.config.apiUrl}/invoice/status?invoiceId=${invoiceId}`, {
         method: 'GET',
         headers: {
-          'X-Token': this.config.privateKey } });
+          'X-Token': this.config.privateKey
+        }
+      });
 
       if (!response.ok) {
         const errorText = await response.text();
         return {
           status: 'error',
-          errText: `API Error: ${response.status} - ${errorText}` };
+          errText: `API Error: ${response.status} - ${errorText}`
+        };
       }
 
       const data = await response.json();
       return {
         status: 'success',
-        data };
+        data
+      };
 
     } catch (error) {
       logger.error('Monobank status check error', { error, invoiceId });
       return {
         status: 'error',
-        errText: error instanceof Error ? error.message : 'Unknown error' };
+        errText: error instanceof Error ? error.message : 'Unknown error'
+      };
     }
   }
 
@@ -362,7 +344,8 @@ export class MonobankService {
         
         return {
           success: true,
-          message: 'Payment processed successfully' };
+          message: 'Payment processed successfully'
+        };
       } else if (webhookData.status === 'failure') {
         // Платіж невдалий - оновлюємо статус заявки на rejected
         await this.updateSubscriptionStatus(webhookData.reference, 'rejected');
@@ -373,18 +356,21 @@ export class MonobankService {
         
         return {
           success: true,
-          message: 'Payment failed - request rejected' };
+          message: 'Payment failed - request rejected'
+        };
       }
 
       return {
         success: true,
-        message: 'Webhook processed' };
+        message: 'Webhook processed'
+      };
 
     } catch (error) {
       logger.error('Webhook processing error', { error, webhookData });
       return {
         success: false,
-        message: 'Webhook processing failed' };
+        message: 'Webhook processing failed'
+      };
     }
   }
 

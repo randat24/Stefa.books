@@ -72,15 +72,8 @@ npm run deploy:check        # Run comprehensive pre-deployment checks
 npm run deploy              # Deploy preview build
 npm run deploy:prod         # Deploy to production with safety checks
 
-# Legacy Vercel commands (still supported)
-npm run vercel:check        # Check Vercel deployment readiness
-npm run vercel:deploy       # Deploy to Vercel (preview)
-npm run vercel:deploy:prod  # Deploy to production
-npm run vercel:deploy:preview # Deploy preview build
-
-# Manual Vercel CLI
-vercel                       # Preview deployment
-vercel --prod                # Production deployment
+# Legacy deployment commands (deprecated)
+# Note: All deployment now uses Netlify
 ```
 
 ### Netlify Deployment (Current Production)
@@ -332,12 +325,14 @@ NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloudinary_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 
-# Payment System (Monobank)
-MONOBANK_TOKEN=your_monobank_universal_token
-# Optional merchant-specific keys (if separate from token):
-# MONOBANK_PRIVATE_KEY=your_merchant_private_key
-# MONOBANK_PUBLIC_KEY=your_merchant_public_key
-# MONOBANK_MERCHANT_ID=your_merchant_id
+# Payment System (Monobank) - REQUIRED FOR PRODUCTION
+MONOBANK_TOKEN=your_real_monobank_token_here
+
+# ВАЖЛИВО:
+# 1. Токен обов'язковий для роботи системи оплати
+# 2. Отримайте токен в особистому кабінеті Monobank для бізнесу
+# 3. Демо-режим ВІДКЛЮЧЕНО - тільки реальні платежі
+# 4. Без токена система видасть помилку при ініціалізації
 
 # Site Configuration
 NEXT_PUBLIC_SITE_URL=your_site_url
@@ -610,11 +605,10 @@ import { MonobankInfo } from '@/components/payment/MonobankInfo';
 - **Environment Variables**: Configured via Netlify CLI and dashboard
 - **DNS**: Managed via NIC.UA registrar
 
-### Alternative Environment (Vercel) - Backup
-- **Platform**: Vercel
-- **Build Configuration**: TypeScript errors ignored during build (resolved via next.config.js)
-- **Environment Variables**: All critical variables configured in Vercel dashboard
-- **Automatic Deployment**: Triggered on push to main branch
+### Alternative Environment (Vercel) - Deprecated
+- **Status**: Deprecated - All deployment now uses Netlify
+- **Migration**: Complete migration to Netlify completed
+- **Note**: Vercel configuration preserved for emergency fallback only
 
 ### Deployment Scripts & Safety Measures
 - **Pre-deployment Validation**: `scripts/deployment-checklist.sh` verifies git status, dependencies, environment variables, and code quality
@@ -627,6 +621,8 @@ import { MonobankInfo } from '@/components/payment/MonobankInfo';
 2. **Cache Problems**: Resolved via automatic cache cleaning in deployment scripts and `npm run clean:cache` command.
 
 3. **Environment Variables**: Critical variables automatically validated before deployment.
+
+4. **Netlify Deployment**: All production deployment now uses Netlify with optimized build configuration.
 
 ### Package Manager
 - **Current**: npm (standard Node.js package manager)

@@ -282,10 +282,10 @@ pnpm run deploy:prod
 ### 4. МОНИТОРИНГ
 ```bash
 # Проверить логи
-vercel logs
+netlify logs
 
 # Проверить статус
-vercel status
+netlify status
 ```
 
 ---
@@ -298,23 +298,23 @@ vercel status
 git revert HEAD
 git push origin main
 
-# 2. Или откат через Vercel
-vercel rollback
+# 2. Или откат через Netlify
+netlify rollback
 
 # 3. Проверить логи
-vercel logs --follow
+netlify logs --follow
 ```
 
 ### Если админ панель не работает:
 ```bash
 # 1. Проверить логи
-vercel logs
+netlify logs
 
 # 2. Проверить environment variables
-vercel env ls
+netlify env:list
 
 # 3. Перезапустить
-vercel redeploy
+netlify redeploy
 ```
 
 ### Если стили сломались:

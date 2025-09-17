@@ -72,7 +72,7 @@ Supabase (PostgreSQL)
 - **Edge Functions** - Серверна логіка
 
 ### External Services
-- **Vercel** - Хостинг та CDN
+- **Netlify** - Хостинг та CDN
 - **Cloudinary** - Управління зображеннями
 - **Groq** - AI сервіс (Llama 3 70B)
 
@@ -140,7 +140,7 @@ const Catalog = lazy(() => import("@/components/sections/Catalog"));
 - **Static Generation** - Статичні сторінки
 - **ISR** - Incremental Static Regeneration
 - **API Caching** - Кешування API відповідей
-- **CDN** - Vercel Edge Network
+- **CDN** - Netlify Edge Network
 
 ## 🔒 Security Implementation
 
@@ -200,7 +200,7 @@ getTTFB(console.log);
 ### Error Tracking
 - **Error Boundaries** - React error handling
 - **Console Logging** - Development debugging
-- **Production Monitoring** - Vercel Analytics
+- **Production Monitoring** - Netlify Analytics
 
 ## 🧪 Testing Strategy
 
@@ -229,9 +229,9 @@ test('user can browse catalog', async ({ page }) => {
 
 ## 🚀 Deployment Pipeline
 
-### Vercel Configuration
-```json
-{
+### Netlify Configuration
+```toml
+[build]
   "buildCommand": "pnpm build",
   "outputDirectory": ".next",
   "framework": "nextjs",

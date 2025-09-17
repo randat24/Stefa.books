@@ -83,22 +83,22 @@ pnpm run clean:cache
 echo -e "${GREEN}✅ Cache cleaned${NC}"
 echo ""
 
-# Step 3: Check Vercel CLI
-echo -e "${YELLOW}☁️ Step 3: Checking Vercel setup...${NC}"
-if ! command -v vercel &> /dev/null; then
-    echo -e "${RED}❌ Vercel CLI not found. Installing...${NC}"
-    npm install -g vercel
+# Step 3: Check Netlify CLI
+echo -e "${YELLOW}☁️ Step 3: Checking Netlify setup...${NC}"
+if ! command -v netlify &> /dev/null; then
+    echo -e "${RED}❌ Netlify CLI not found. Installing...${NC}"
+    npm install -g netlify-cli
 fi
 
 # Check if logged in
-VERCEL_USER=$(vercel whoami 2>/dev/null || echo "")
-if [ -z "$VERCEL_USER" ]; then
-    echo -e "${YELLOW}⚠️  Not logged in to Vercel. Please log in:${NC}"
-    vercel login
-    VERCEL_USER=$(vercel whoami)
+NETLIFY_USER=$(netlify status --json 2>/dev/null | jq -r '.account.name' 2>/dev/null || echo "")
+if [ -z "$NETLIFY_USER" ] || [ "$NETLIFY_USER" = "null" ]; then
+    echo -e "${YELLOW}⚠️  Not logged in to Netlify. Please log in:${NC}"
+    netlify login
+    NETLIFY_USER=$(netlify status --json 2>/dev/null | jq -r '.account.name' 2>/dev/null || echo "")
 fi
 
-echo -e "${GREEN}✅ Logged in as: $VERCEL_USER${NC}"
+echo -e "${GREEN}✅ Logged in as: $NETLIFY_USER${NC}"
 echo ""
 
 # Step 4: Deploy
@@ -119,10 +119,10 @@ if [ "$DEPLOY_TYPE" = "production" ]; then
     
     echo ""
     echo -e "${BLUE}🚀 Deploying to PRODUCTION...${NC}"
-    DEPLOYMENT_URL=$(vercel --prod 2>&1 | tail -n 1)
+    DEPLOYMENT_URL=$(netlify deploy --prod --json 2>/dev/null | jq -r '.deploy_url' || echo "https://stefa-books.com.ua")
 else
     echo -e "${BLUE}🚀 Deploying PREVIEW build...${NC}"
-    DEPLOYMENT_URL=$(vercel 2>&1 | tail -n 1)
+    DEPLOYMENT_URL=$(netlify deploy --json 2>/dev/null | jq -r '.deploy_url' || echo "Preview URL")
 fi
 
 # Check if deployment was successful
@@ -141,7 +141,7 @@ if [ $? -eq 0 ]; then
         echo -e "${BLUE}🌐 Available URLs:${NC}"
         echo "  🔗 Main: $DEPLOYMENT_URL"
         echo "  🔗 Custom: https://stefa-books.com.ua"
-        echo "  🔗 Vercel: https://stefa-books-next.vercel.app"
+        echo "  🔗 Netlify: https://stefabooks.netlify.app"
         echo ""
     fi
     
@@ -162,8 +162,8 @@ if [ $? -eq 0 ]; then
     echo ""
     echo -e "${BLUE}📖 Next steps:${NC}"
     echo "1. Test the deployment: $DEPLOYMENT_URL"
-    echo "2. Check Vercel dashboard for metrics"
-    echo "3. Monitor logs: vercel logs $DEPLOYMENT_URL"
+    echo "2. Check Netlify dashboard for metrics"
+    echo "3. Monitor logs: netlify logs"
     echo "4. Check performance with Lighthouse"
     
 else
@@ -171,9 +171,9 @@ else
     echo -e "${RED}❌ DEPLOYMENT FAILED!${NC}"
     echo ""
     echo -e "${YELLOW}🔍 Troubleshooting steps:${NC}"
-    echo "1. Check Vercel dashboard for error details"
-    echo "2. Review deployment logs: vercel logs"
-    echo "3. Verify environment variables in Vercel"
+    echo "1. Check Netlify dashboard for error details"
+    echo "2. Review deployment logs: netlify logs"
+    echo "3. Verify environment variables in Netlify"
     echo "4. Check DEPLOYMENT_DOCUMENTATION.md for known issues"
     echo ""
     exit 1

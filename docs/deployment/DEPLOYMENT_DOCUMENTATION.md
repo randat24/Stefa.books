@@ -63,8 +63,8 @@ NODE_ENV=production
 NEXT_TELEMETRY_DISABLED=1
 ```
 
-### Vercel Environment Variables:
-Убедитесь, что все переменные из `.env.local` добавлены в настройки Vercel проекта.
+### Netlify Environment Variables:
+Убедитесь, что все переменные из `.env.local` добавлены в настройки Netlify проекта.
 
 ---
 
@@ -88,30 +88,30 @@ NEXT_TELEMETRY_DISABLED=1
    git push origin main
    ```
 
-2. **Vercel автоматически:**
+2. **Netlify автоматически:**
    - Обнаружит изменения в репозитории
    - Запустит процесс сборки
    - Развернет на production домене
 
-### Метод 2: Ручной деплоймент через Vercel CLI
+### Метод 2: Ручной деплоймент через Netlify CLI
 
-1. **Установка Vercel CLI:**
+1. **Установка Netlify CLI:**
    ```bash
-   npm i -g vercel
+   npm i -g netlify-cli
    ```
 
 2. **Авторизация:**
    ```bash
-   vercel login
+   netlify login
    ```
 
 3. **Деплоймент:**
    ```bash
    # Предварительный просмотр
-   vercel
+   netlify deploy
    
    # Production деплоймент
-   vercel --prod
+   netlify deploy --prod
    ```
 
 ---
@@ -150,7 +150,7 @@ pnpm run build
 **Проблема:** Переменные окружения не загружаются
 **Решение:**
 - Проверьте `.env.local` файл
-- Убедитесь, что переменные добавлены в Vercel
+- Убедитесь, что переменные добавлены в Netlify
 - Перезапустите deployment
 
 ### 4. Supabase Connection
@@ -165,24 +165,24 @@ pnpm run build
 
 ## 📊 Мониторинг деплоймента
 
-### Vercel Dashboard
-- **URL:** https://vercel.com/dashboard
-- **Проект:** stefa-books-next
+### Netlify Dashboard
+- **URL:** https://app.netlify.com/
+- **Проект:** stefabooks
 - **Мониторинг:** Функции, производительность, ошибки
 
 ### Команды для проверки:
 ```bash
 # Список деплойментов
-vercel ls
+netlify status
 
 # Информация о деплойменте
-vercel inspect [url]
+netlify inspect
 
 # Логи деплоймента
-vercel logs [url]
+netlify logs
 
 # Статус проекта
-vercel project ls
+netlify status
 ```
 
 ---
@@ -213,10 +213,9 @@ vercel project ls
 ## 🎯 Текущие URL деплоймента
 
 ### Production URLs:
-- **Main:** https://stefa-books-next-865oojz2g-randat24s-projects.vercel.app
-- **Alias:** https://stefa-books.com.ua
-- **Vercel:** https://stefa-books-next.vercel.app
-- **Alt:** https://stefa-books-next-randat24s-projects.vercel.app
+- **Main:** https://stefa-books.com.ua
+- **Netlify:** https://stefabooks.netlify.app
+- **Admin:** https://stefa-books.com.ua/admin
 
 ### Status: ✅ Ready (последний деплоймент: 8 сентября 2025, 23:17)
 
@@ -227,10 +226,10 @@ vercel project ls
 ### Откат к предыдущей версии:
 ```bash
 # Список деплойментов
-vercel ls
+netlify status
 
 # Промоут предыдущего деплоймента
-vercel promote [previous-deployment-url]
+netlify promote [previous-deployment-url]
 ```
 
 ### Экстренные команды:
@@ -244,9 +243,9 @@ pnpm run build
 git revert HEAD
 git push origin main
 
-# Проверка статуса Vercel
-vercel project ls
-vercel inspect [url]
+# Проверка статуса Netlify
+netlify status
+netlify inspect
 ```
 
 ---
@@ -255,12 +254,12 @@ vercel inspect [url]
 
 ### Документация:
 - [Next.js Deployment](https://nextjs.org/docs/deployment)
-- [Vercel Documentation](https://vercel.com/docs)
+- [Netlify Documentation](https://docs.netlify.com/)
 - [Supabase Docs](https://supabase.io/docs)
 
 ### Внутренние документы:
 - `CLAUDE.md` - Общие инструкции проекта
-- `VERCEL_DEPLOYMENT_GUIDE.md` - Подробное руководство Vercel
+- `NETLIFY_DEPLOYMENT_GUIDE.md` - Подробное руководство Netlify
 - `ADMIN_PANEL_COMPLETE_DOCUMENTATION.md` - Документация админки
 - `DATABASE_DOCUMENTATION.md` - Структура базы данных
 
@@ -284,12 +283,12 @@ vercel inspect [url]
 ## 👥 Контакты и поддержка
 
 **Разработчик:** randat24  
-**Vercel Account:** randat24s-projects  
+**Netlify Account:** stefabooks  
 **Email:** (ваш email)  
 
 **В случае проблем:**
-1. Проверьте Vercel Dashboard
-2. Посмотрите логи: `vercel logs`
+1. Проверьте Netlify Dashboard
+2. Посмотрите логи: `netlify logs`
 3. Проверьте статус Supabase
 4. Обратитесь к этой документации
 

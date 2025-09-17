@@ -61,7 +61,8 @@ export default function MonobankPayment({
       const response = await fetch('/api/payments/monobank', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json' },
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify({
           amount,
           description,
@@ -70,7 +71,8 @@ export default function MonobankPayment({
           customer_name: customerName,
           order_id: `order-${Date.now()}`,
           return_url: returnUrl
-        }) });
+        })
+      });
 
       const data = await response.json();
 
@@ -279,65 +281,31 @@ export default function MonobankPayment({
 
         {(paymentStatus === 'pending' || paymentStatus === 'checking') && (
           <div className="space-y-3">
-            {payment.invoice_id.startsWith('demo_') ? (
-              <div className="space-y-3">
-                <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
-                  <div className="flex items-center gap-2 text-orange-800">
-                    <ExternalLink className="h-4 w-4" />
-                    <span className="text-sm font-medium">Демо-режим</span>
-                  </div>
-                  <p className="text-orange-700 text-xs mt-1">
-                    API не налаштовано. Платіж буде імітований.
-                  </p>
-                </div>
-                <Button 
-                  onClick={() => {
-                    // Імітуємо успішний платіж через 3 секунди
-                    setPaymentStatus('checking');
-                    setTimeout(() => {
-                      setPaymentStatus('success');
-                      onPaymentSuccess?.({
-                        ...payment,
-                        status: 'success',
-                        paid_at: new Date().toISOString()
-                      });
-                    }, 3000);
-                  }}
-                  className="w-full" 
-                  size="lg"
-                >
-                  Імітувати оплату (демо)
-                </Button>
+            <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+              <div className="flex items-center gap-2 text-green-800">
+                <CheckCircle className="h-4 w-4" />
+                <span className="text-sm font-medium">Реальний платіж</span>
               </div>
-            ) : (
-              <div className="space-y-3">
-                <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-                  <div className="flex items-center gap-2 text-green-800">
-                    <CheckCircle className="h-4 w-4" />
-                    <span className="text-sm font-medium">Реальний платіж</span>
-                  </div>
-                  <p className="text-green-700 text-xs mt-1">
-                    Платіж буде оброблений через справжню платіжну систему Monobank.
-                  </p>
-                </div>
-                <Button 
-                  asChild 
-                  className="w-full" 
-                  size="lg"
-                >
-                  <a 
-                    href={payment.payment_url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2"
-                  >
-                    Перейти до оплати Monobank
-                    <ExternalLink className="h-4 w-4" />
-                  </a>
-                </Button>
-              </div>
-            )}
-            
+              <p className="text-green-700 text-xs mt-1">
+                Платіж буде оброблений через справжню платіжну систему Monobank.
+              </p>
+            </div>
+            <Button
+              asChild
+              className="w-full"
+              size="lg"
+            >
+              <a
+                href={payment.payment_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2"
+              >
+                Перейти до оплати Monobank
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            </Button>
+
             <div className="text-center">
               <Button
                 variant="outline"
@@ -364,15 +332,10 @@ export default function MonobankPayment({
               <CheckCircle className="h-5 w-5" />
               <span className="font-semibold">
                 Платіж успішно завершено!
-                {payment?.invoice_id.startsWith('demo_') && ' (демо)'}
               </span>
             </div>
             <p className="text-green-700 text-sm mt-1">
-              {payment?.invoice_id.startsWith('demo_') ? (
-                'Платіж імітовано для тестування.'
-              ) : (
-                'Дякуємо за оплату! Ваш платіж оброблено через Monobank.'
-              )}
+              Дякуємо за оплату! Ваш платіж оброблено через Monobank.
             </p>
           </div>
         )}

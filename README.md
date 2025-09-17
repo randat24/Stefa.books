@@ -48,7 +48,7 @@
 | **Styling** | Tailwind CSS | 3.4.17 |
 | **UI Components** | shadcn/ui | Latest |
 | **Database** | Supabase (PostgreSQL) | Latest |
-| **Hosting** | Netlify + Vercel | - |
+| **Hosting** | Netlify | - |
 | **Images** | Cloudinary | Latest |
 | **Package Manager** | pnpm | 10.15.1 |
 | **AI** | Groq Llama 3 70B | Latest |
@@ -205,7 +205,6 @@ ADMIN_EMAIL=admin_email
 
 ### Deployment
 - **Netlify** - Primary hosting platform
-- **Vercel** - Secondary hosting option
 - **Cloudinary** - Image optimization and delivery
 - **CDN** - Global content delivery
 
