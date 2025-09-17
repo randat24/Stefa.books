@@ -161,13 +161,15 @@ export async function POST(request: NextRequest) {
           description,
           reference,
           redirectUrl,
-          webhookUrl });
+          webhookUrl
+        });
 
         if (paymentResult.status === 'success' && paymentResult.data) {
           paymentData = {
             invoiceId: paymentResult.data.invoiceId,
             paymentUrl: paymentResult.data.pageUrl,
-            reference };
+            reference
+          };
           
           logger.info('Payment created successfully', {
             requestId: data.id,

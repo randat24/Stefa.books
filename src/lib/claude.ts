@@ -121,7 +121,8 @@ export async function callClaude({
         max_tokens,
         temperature,
         system,
-        messages };
+        messages
+      };
 
       // Enable thinking mode for Opus models if requested
       if (thinking && (model === CLAUDE_MODELS.OPUS_41 || model === CLAUDE_MODELS.OPUS_4)) {
@@ -250,7 +251,8 @@ export async function generateWithThinking(
   return {
     content: response.content,
     thinking: response.thinking_content,
-    usage: response.usage };
+    usage: response.usage
+  };
 }
 
 export async function analyzeCodebase(
@@ -314,7 +316,8 @@ ${preserveLogic ? 'ВАЖНО: Сохрани всю функциональну�
   return {
     refactoredCode: codeMatch?.[1] || content,
     explanation: explanationMatch?.[1]?.trim() || content,
-    thinking: response.thinking };
+    thinking: response.thinking
+  };
 }
 
 export async function generateBookRecommendations(
@@ -346,9 +349,10 @@ export const claude = {
   generateWithThinking,
   analyzeCodebase,
   refactorCode,
-  
+
   // Business logic functions
   generateBookRecommendations,
-  
+
   // Constants
-  MODELS: CLAUDE_MODELS };
+  MODELS: CLAUDE_MODELS
+};
