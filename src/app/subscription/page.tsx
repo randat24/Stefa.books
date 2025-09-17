@@ -1,406 +1,115 @@
-'use client';
-
-import { useState, useEffect, useCallback , ReactNode } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/Badge';
-import { 
-  Crown, 
-  CheckCircle, 
-  Star, 
-  Gift, 
-  CreditCard,
-  BookOpen,
-  Users,
-  Zap
-} from 'lucide-react';
+import React from 'react';
+import { Metadata } from 'next';
+import { SubscriptionPurchase } from '@/components/subscription/SubscriptionPurchase';
 import Link from 'next/link';
 
-interface SubscriptionPlan {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  duration: number; // in months
-  features: string[];
-  popular?: boolean;
-  icon: React.ReactNode;
-  color: string;
-}
-
-const SUBSCRIPTION_PLANS: SubscriptionPlan[] = [
-  {
-    id: 'mini',
-    name: 'Mini',
-    description: 'Ідеально для початківців',
-    price: 300,
-    duration: 1,
-    features: [
-      '1 книга з можливістю обміну',
-      'Самовивіз з точки',
-      'Підтримка 24/7',
-      'Мобільний додаток'
-    ],
-    icon: <BookOpen className="h-6 w-6" />,
-    color: 'blue'
-  },
-  {
-    id: 'maxi',
-    name: 'Maxi',
-    description: 'Найпопулярніший вибір',
-    price: 500,
-    duration: 1,
-    features: [
-      '2 книги з можливістю обміну',
-      'Самовивіз з точки',
-      'Пріоритетна підтримка',
-      'Ексклюзивні книги',
-      'Персональний куратор'
-    ],
-    popular: true,
-    icon: <Crown className="h-6 w-6" />,
-    color: 'purple'
-  },
-  {
-    id: 'premium',
-    name: 'Premium',
-    description: 'Для всієї родини',
-    price: 1500,
-    duration: 6,
-    features: [
-      '2 книги з можливістю обміну',
-      'Самовивіз з точки',
-      'VIP підтримка',
-      'Всі категорії книг',
-      'Сімейний кабінет',
-      'Персональні рекомендації',
-      'Економія 500₴ за півроку'
-    ],
-    icon: <Users className="h-6 w-6" />,
-    color: 'green'
+export const metadata: Metadata = {
+  title: 'Підписка на дитячі книги | Stefa Books',
+  description: 'Оформіть підписку на дитячі книги з доставкою додому. Вибирайте між Mini (1 книга) та Maxi (3 книги) планами.',
+  keywords: 'підписка на книги, дитячі книги, доставка книг, оренда книг',
+  openGraph: {
+    title: 'Підписка на дитячі книги | Stefa Books',
+    description: 'Оформіть підписку на дитячі книги з доставкою додому',
+    type: 'website',
   }
-];
-
-const BENEFITS = [
-  {
-    icon: <BookOpen className="h-5 w-5" />,
-    title: 'Великий вибір книг',
-    description: 'Понад 10,000 дитячих книг українською мовою'
-  },
-  {
-    icon: <Zap className="h-5 w-5" />,
-    title: 'Швидка доставка',
-    description: 'Доставляємо книги в день замовлення'
-  },
-  {
-    icon: <Gift className="h-5 w-5" />,
-    title: 'Безкоштовна доставка',
-    description: 'Доставка безкоштовна для всіх підписок'
-  },
-  {
-    icon: <Star className="h-5 w-5" />,
-    title: 'Якісні книги',
-    description: 'Тільки перевірені видавництва та автори'
-  }
-];
+};
 
 export default function SubscriptionPage() {
-  const { user, isAuthenticated } = useAuth();
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
-  const [currentSubscription, setCurrentSubscription] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
-  const fetchCurrentSubscription = useCallback(async () => {
-    try {
-      const response = await fetch(`/api/subscription?email=${user?.email}`);
-      const result = await response.json();
-      
-      if (result.success) {
-        setCurrentSubscription(result.subscription);
-      }
-    } catch (error) {
-      console.error('Error fetching subscription:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, [user?.email]);
-
-  useEffect(() => {
-    if (isAuthenticated && user?.email) {
-      fetchCurrentSubscription();
-    } else {
-      setLoading(false);
-    }
-  }, [isAuthenticated, user?.email, fetchCurrentSubscription]);
-
-  const handleSubscribe = async (planId: string) => {
-    if (!isAuthenticated) {
-      // Redirect to login
-      window.location.href = '/auth/login?redirect=/subscription';
-      return;
-    }
-
-    setSelectedPlan(planId);
-    
-    try {
-      // Создаем платеж через Монобанк
-      const paymentResponse = await fetch('/api/payments/monobank', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          amount: getPlanPrice(planId) * 100, // конвертируем в копейки
-          currency: 'UAH',
-          description: `Підписка Stefa.books - ${planId.toUpperCase()}`,
-          order_id: `sub_${Date.now()}_${planId}`,
-          customer_email: user?.email,
-          customer_name: (user as any)?.name || 'Користувач',
-          return_url: `${window.location.origin}/subscription/success`,
-          webhook_url: `${window.location.origin}/api/payments/monobank/webhook`
-        })
-      });
-
-      const paymentResult = await paymentResponse.json();
-      
-      if (paymentResult.success && paymentResult.payment) {
-        // Сохраняем информацию о платеже
-        localStorage.setItem('pending_payment', JSON.stringify({
-          invoice_id: paymentResult.payment.invoice_id,
-          plan_id: planId,
-          amount: paymentResult.payment.amount
-        }));
-
-        // Перенаправляем на страницу оплаты
-        window.location.href = paymentResult.payment.payment_url;
-      } else {
-        alert(paymentResult.error || 'Помилка при створенні платежу');
-      }
-    } catch (error) {
-      console.error('Error subscribing:', error);
-      alert('Помилка при оформленні підписки');
-    } finally {
-      setSelectedPlan(null);
-    }
-  };
-
-  const getPlanPrice = (planId: string): number => {
-    const prices = {
-      mini: 300,
-      maxi: 500,
-      premium: 1500
-    };
-    return prices[planId as keyof typeof prices] || 0;
-  };
-
-  const getPlanColor = (color: string) => {
-    const colors = {
-      blue: 'border-blue-200 bg-blue-50',
-      purple: 'border-purple-200 bg-purple-50',
-      green: 'border-green-200 bg-green-50'
-    };
-    return colors[color as keyof typeof colors] || colors.blue;
-  };
-
-  const getPlanIconColor = (color: string) => {
-    const colors = {
-      blue: 'text-blue-600',
-      purple: 'text-purple-600',
-      green: 'text-green-600'
-    };
-    return colors[color as keyof typeof colors] || colors.blue;
-  };
-
-  if (loading) {
-    return (
-      <div className="container py-8">
-        <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-2xl h-8 w-8 border-b-2 border-accent"></div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="container py-8">
-      {/* Header */}
-      <div className="text-center mb-12">
-        <h1 className="text-h1 text-text mb-4">
-          Оберіть підписку
-        </h1>
-        <p className="text-body-lg text-text-muted max-w-2xl mx-auto">
-          Отримайте необмежений доступ до нашої бібліотеки дитячих книг
-        </p>
-      </div>
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="container mx-auto px-4">
+        {/* Заголовок страницы */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            Підписка на дитячі книги
+          </h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Оберіть зручний план підписки та отримуйте улюблені дитячі книги прямо додому.
+            Без необхідності купівлі - просто читайте і повертайте.
+          </p>
+        </div>
 
-      {/* Current Subscription */}
-      {currentSubscription && (
-        <Card className="mb-8 border-green-200 bg-green-50">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <CheckCircle className="h-6 w-6 text-green-600" />
-                <div>
-                  <h3 className="font-semibold text-green-900">
-                    Активна підписка: {currentSubscription.plan_name}
-                  </h3>
-                  <p className="text-body-sm text-green-700">
-                    Дійсна до {new Date(currentSubscription.end_date).toLocaleDateString('uk-UA')}
-                  </p>
-                </div>
-              </div>
-              <Badge variant="default" className="bg-green-100 text-green-800">
-                Активна
-              </Badge>
+        {/* Преимущества подписки */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-white p-6 rounded-lg shadow-md text-center">
+            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
             </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Benefits */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-        {BENEFITS.map((benefit, index) => (
-          <div key={index} className="text-center">
-            <div className="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <div className="text-accent">
-                {benefit.icon}
-              </div>
-            </div>
-            <h3 className="font-semibold text-text mb-2">{benefit.title}</h3>
-            <p className="text-body-sm text-text-muted">{benefit.description}</p>
+            <h3 className="text-lg font-semibold mb-2">Велика колекція</h3>
+            <p className="text-gray-600">Понад 1000 дитячих книг різних жанрів та віків</p>
           </div>
-        ))}
-      </div>
 
-      {/* Subscription Plans */}
-      <div className="grid md:grid-cols-3 gap-8 mb-12">
-        {SUBSCRIPTION_PLANS.map((plan) => (
-          <Card 
-            key={plan.id} 
-            className={`relative ${plan.popular ? 'border-accent shadow-lg scale-105' : ''} ${getPlanColor(plan.color)}`}
-          >
-            {plan.popular && (
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                <Badge className="bg-accent text-white px-4 py-1">
-                  Популярний
-                </Badge>
-              </div>
-            )}
-            
-            <CardHeader className="text-center pb-4">
-              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 ${getPlanColor(plan.color)}`}>
-                <div className={getPlanIconColor(plan.color)}>
-                  {plan.icon}
-                </div>
-              </div>
-              <CardTitle className="text-h2">{plan.name}</CardTitle>
-              <p className="text-text-muted">{plan.description}</p>
-            </CardHeader>
-            
-            <CardContent className="space-y-6">
-              <div className="text-center">
-                <div className="text-h1 text-text">
-                  {plan.price}₴
-                </div>
-                <div className="text-text-muted">
-                  {plan.duration === 6 ? 'за півроку' : 'на місяць'}
-                </div>
-                {plan.duration === 6 && (
-                  <div className="text-body-sm text-green-600 mt-1">
-                    Економія 500₴
-                  </div>
-                )}
-              </div>
+          <div className="bg-white p-6 rounded-lg shadow-md text-center">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.1 5M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold mb-2">Безкоштовна доставка</h3>
+            <p className="text-gray-600">Доставляємо книги прямо до ваших дверей</p>
+          </div>
 
-              <ul className="space-y-3">
-                {plan.features.map((feature, index) => (
-                  <li key={index} className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0" />
-                    <span className="text-body-sm text-text">{feature}</span>
-                  </li>
-                ))}
-              </ul>
+          <div className="bg-white p-6 rounded-lg shadow-md text-center">
+            <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold mb-2">Гнучкість</h3>
+            <p className="text-gray-600">Тримайте книги стільки, скільки потрібно</p>
+          </div>
+        </div>
 
-              <Button 
-                className="w-full" 
-                variant={plan.popular ? 'primary' : 'outline'}
-                onClick={() => handleSubscribe(plan.id)}
-                disabled={selectedPlan === plan.id}
-              >
-                {selectedPlan === plan.id ? (
-                  <>
-                    <div className="animate-spin rounded-2xl h-4 w-4 border-b-2 border-white mr-2" />
-                    Оформляємо...
-                  </>
-                ) : (
-                  <>
-                    <CreditCard className="h-4 w-4 mr-2" />
-                    Обрати план
-                  </>
-                )}
-              </Button>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+        {/* Компонент покупки подписки */}
+        <SubscriptionPurchase />
 
-      {/* FAQ */}
-      <div className="max-w-3xl mx-auto">
-        <h2 className="text-h2 text-text text-center mb-8">
-          Часті питання
-        </h2>
-        
-        <div className="space-y-6">
-          <Card>
-            <CardContent className="pt-6">
-              <h3 className="font-semibold text-text mb-2">
+        {/* FAQ */}
+        <div className="mt-16 max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold text-center mb-8">Часті запитання</h2>
+
+          <div className="space-y-6">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-lg font-semibold mb-2">
                 Як працює підписка?
               </h3>
-              <p className="text-text-muted">
-                Ви обираєте план, оплачуєте щомісячну абонплату та отримуєте доступ 
-                до оренди книг згідно з обраним планом. Книги доставляються безкоштовно.
+              <p className="text-gray-600">
+                Після оплати підписки ви можете обирати книги з нашого каталогу та замовляти їх доставку.
+                Кількість книг одночасно залежить від обраного плану.
               </p>
-            </CardContent>
-          </Card>
+            </div>
 
-          <Card>
-            <CardContent className="pt-6">
-              <h3 className="font-semibold text-text mb-2">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-lg font-semibold mb-2">
+                Скільки можна тримати книги?
+              </h3>
+              <p className="text-gray-600">
+                Немає обмеження по часу. Ви можете читати книги в зручному для вас темпі.
+                Коли закінчите - просто поверніть їх і замовте нові.
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-lg font-semibold mb-2">
                 Чи можна скасувати підписку?
               </h3>
-              <p className="text-text-muted">
-                Так, ви можете скасувати підписку в будь-який час. 
-                Підписка діятиме до кінця поточного періоду.
+              <p className="text-gray-600">
+                Так, ви можете скасувати підписку в будь-який час через особистий кабінет.
+                Підписка діятиме до кінця оплаченого періоду.
               </p>
-            </CardContent>
-          </Card>
+            </div>
 
-          <Card>
-            <CardContent className="pt-6">
-              <h3 className="font-semibold text-text mb-2">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-lg font-semibold mb-2">
                 Що робити, якщо книга пошкоджена?
               </h3>
-              <p className="text-text-muted">
-                При незначних пошкодженнях ми не стягуємо додаткових коштів. 
-                При серйозних пошкодженнях стягується вартість книги.
+              <p className="text-gray-600">
+                Ми перевіряємо всі книги перед відправкою. Якщо ви отримали пошкоджену книгу,
+                зв'яжіться з нами і ми безкоштовно замінимо її.
               </p>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-
-      {/* CTA */}
-      <div className="text-center mt-12">
-        <p className="text-text-muted mb-4">
-          Є питання? Зв&apos;яжіться з нами
-        </p>
-        <div className="flex gap-4 justify-center">
-          <Button variant="outline" asChild>
-            <Link href="/contact">Контакти</Link>
-          </Button>
-          <Button asChild>
-            <Link href="/catalog">Переглянути каталог</Link>
-          </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

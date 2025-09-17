@@ -281,15 +281,6 @@ export default function MonobankPayment({
 
         {(paymentStatus === 'pending' || paymentStatus === 'checking') && (
           <div className="space-y-3">
-            <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-              <div className="flex items-center gap-2 text-green-800">
-                <CheckCircle className="h-4 w-4" />
-                <span className="text-sm font-medium">Реальний платіж</span>
-              </div>
-              <p className="text-green-700 text-xs mt-1">
-                Платіж буде оброблений через справжню платіжну систему Monobank.
-              </p>
-            </div>
             <Button
               asChild
               className="w-full"

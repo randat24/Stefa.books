@@ -385,27 +385,27 @@ export default function MonobankInfo() {
         </Card>
       )}
 
-      {/* Інформація про демо-режим */}
-      <Card className="border-orange-200 bg-orange-50">
+      {/* Інформація про продакшн режим */}
+      <Card className="border-green-200 bg-green-50">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-orange-800">
-            <AlertCircle className="h-5 w-5" />
-            Демо-режим платежів
+          <CardTitle className="flex items-center gap-2 text-green-800">
+            <CheckCircle className="h-5 w-5" />
+            Продакшн режим платежів
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-orange-700 space-y-2">
+          <div className="text-green-700 space-y-2">
             <p>
-              Оскільки комерційний API не налаштовано, платежі працюють у демо-режимі:
+              Система налаштована для реальних платежів через Monobank:
             </p>
             <ul className="list-disc list-inside space-y-1 text-sm">
-              <li>Платіжні посилання ведуть на сторінку успіху</li>
-              <li>Всі платежі автоматично вважаються успішними</li>
-              <li>Webhook&apos;и імітуються локально</li>
-              <li>Реальні кошти не списуються</li>
+              <li>Платіжні посилання ведуть на реальну сторінку Monobank</li>
+              <li>Всі платежі обробляються через справжню платіжну систему</li>
+              <li>Webhook&apos;и налаштовані для обробки реальних платежів</li>
+              <li>Кошти списуються з реальних карток клієнтів</li>
             </ul>
             <p className="text-sm font-medium">
-              Для справжніх платежів потрібно налаштувати комерційний API Monobank.
+              Система готова для прийому реальних платежів через Monobank.
             </p>
           </div>
         </CardContent>

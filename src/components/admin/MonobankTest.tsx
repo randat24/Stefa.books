@@ -67,13 +67,13 @@ export default function MonobankTest() {
           action: 'check-payment',
           account: '5408810041850776',
           amount: parseInt(testAmount),
-          description: 'Тестовий платіж'
+          description: 'Перевірка платежу'
         })
       });
       const data = await response.json();
       setResults({ type: 'payment-check', data: data.data });
     } catch (err) {
-      setError('Ошибка проверки платежа');
+      setError('Помилка перевірки платежу');
     } finally {
       setLoading(false);
     }
@@ -106,7 +106,7 @@ export default function MonobankTest() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Badge variant="secondary">Monobank API</Badge>
-            Тест интеграции
+            Статус інтеграції
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -158,7 +158,7 @@ export default function MonobankTest() {
               disabled={loading}
               variant="outline"
             >
-              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Проверить платеж'}
+              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Перевірити платіж'}
             </Button>
           </div>
         </CardContent>
@@ -193,12 +193,13 @@ export default function MonobankTest() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Информация о настройке</CardTitle>
+          <CardTitle>Інформація про налаштування</CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 text-sm">
-          <p><strong>Токен:</strong> {'✅ Настроен (server-side)'}</p>
-          <p><strong>Номер карты:</strong> 5408 8100 4185 0776</p>
+          <p><strong>Токен:</strong> {'✅ Налаштовано (продакшн)'}</p>
+          <p><strong>Номер картки:</strong> 5408 8100 4185 0776</p>
           <p><strong>API Base URL:</strong> https://api.monobank.ua</p>
+          <p><strong>Режим:</strong> <span className="text-green-600 font-semibold">Продакшн</span></p>
         </CardContent>
       </Card>
     </div>

@@ -1,51 +1,51 @@
-# Настройка переменных окружения для Monobank
+# Налаштування змінних середовища для Monobank
 
-## Добавьте в .env.local
+## Додайте в .env.local
 
 ```bash
-# Monobank Configuration
-MONOBANK_TOKEN=uSjulrJT5jqGnzy8lSQoasq04GRtKMo0myvxJk5D0EKY
+# Monobank Configuration (Production)
+MONOBANK_TOKEN=your_production_monobank_token_here
 ```
 
-## Для Vercel (Production)
+## Для Netlify (Production)
 
-1. Перейдите в настройки проекта на Vercel
-2. Откройте раздел "Environment Variables"
-3. Добавьте новую переменную:
-   - **Name:** `MONOBANK_TOKEN`
-   - **Value:** `uSjulrJT5jqGnzy8lSQoasq04GRtKMo0myvxJk5D0EKY`
-   - **Environment:** Production, Preview, Development
+1. Перейдіть в налаштування проекту на Netlify
+2. Відкрийте розділ "Environment Variables"
+3. Додайте нову змінну:
+   - **Key:** `MONOBANK_TOKEN`
+   - **Value:** `your_production_monobank_token_here`
+   - **Environment:** Production, Deploy Previews, Branch Deploys
 
-## Проверка настройки
+## Перевірка налаштування
 
-После добавления переменной:
+Після додавання змінної:
 
-1. Перезапустите сервер разработки: `pnpm dev`
-2. Перейдите в админ панель: `/admin`
-3. Откройте таб "Monobank"
-4. Нажмите "Курсы валют" для проверки API
+1. Перезапустіть сервер розробки: `pnpm dev`
+2. Перейдіть в адмін панель: `/admin`
+3. Відкрийте таб "Monobank"
+4. Натисніть "Курси валют" для перевірки API
 
-## Обновленные номера карт
+## Оновлені номери карток
 
-- **Старый номер:** 5375 4114 0000 0000
-- **Новый номер:** 5408 8100 4185 0776
+- **Старий номер:** 5375 4114 0000 0000
+- **Новий номер:** 5408 8100 4185 0776
 
-Номер обновлен в следующих компонентах:
+Номер оновлено в наступних компонентах:
 - `src/components/subscribe/SubscribeFormHome.tsx`
 - `src/components/RentalForm.tsx`
 
-## Функции Monobank API
+## Функції Monobank API
 
-### Доступные без токена:
-- Получение курсов валют
-- Конвертация валют
+### Доступні без токена:
+- Отримання курсів валют
+- Конвертація валют
 
-### Доступные с токеном:
-- Информация о клиенте
-- Выписка по счету
-- Проверка поступлений
-- Настройка webhook
+### Доступні з токеном:
+- Інформація про клієнта
+- Виписка по рахунку
+- Перевірка надходжень
+- Налаштування webhook
 
-## Тестирование
+## Моніторинг
 
-Используйте компонент `MonobankTest` в админ панели для проверки всех функций API.
+Використовуйте компонент `MonobankTest` в адмін панелі для перевірки статусу інтеграції та функцій API.
