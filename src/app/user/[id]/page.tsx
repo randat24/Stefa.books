@@ -3,11 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { Logger } from '@/lib/logger';
-
-const logger = new Logger('UserProfile');
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { logger } from '@/lib/logger';
 
 interface UserData {
   id: string;

@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo } from 'react';
 import {  } from 'react'
-import { ChevronLeft, ChevronRight, MoreHorizontalIcon } from 'lucide-react'
+import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
 
@@ -102,7 +102,7 @@ const OptimizedPagination = (function OptimizedPagination({
       {/* Многоточие в начале */}
       {showFirstEllipsis && (
         <span className="px-2 text-neutral-500">
-          <MoreHorizontalIcon className="w-4 h-4" />
+          <MoreHorizontal className="w-4 h-4" />
         </span>
       )}
 
@@ -149,7 +149,7 @@ const OptimizedPagination = (function OptimizedPagination({
       {/* Многоточие в конце */}
       {showLastEllipsis && (
         <span className="px-2 text-neutral-500">
-          <MoreHorizontalIcon className="w-4 h-4" />
+          <MoreHorizontal className="w-4 h-4" />
         </span>
       )}
 

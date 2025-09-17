@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useUIStore } from "@/store/ui";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/Badge";
+import { Badge } from "@/components/ui/badge";
 import { OrderConfirmationForm } from "@/components/OrderConfirmationForm";
 import { 
   BookOpen, 

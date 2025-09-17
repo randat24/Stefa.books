@@ -250,7 +250,7 @@ export function CategorySelect({
                   <Input
                     id="main-category-name"
                     value={newCategoryName}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewCategoryName(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setNewCategoryName(e.target.value)}
                     placeholder="Введите название категории"
                     onKeyDown={(e: React.ChangeEvent<HTMLInputElement>) => e.key === 'Enter' && handleAddMainCategory()}
                   />
@@ -333,7 +333,7 @@ export function CategorySelect({
                   <Input
                     id="subcategory-name"
                     value={newSubcategoryName}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewSubcategoryName(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setNewSubcategoryName(e.target.value)}
                     placeholder="Введите название подкатегории"
                     onKeyDown={(e: React.ChangeEvent<HTMLInputElement>) => e.key === 'Enter' && handleAddSubcategory()}
                   />

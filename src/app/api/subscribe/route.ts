@@ -140,56 +140,63 @@ export async function POST(request: NextRequest) {
     let paymentData = null;
     if (validatedData.paymentMethod === 'Онлайн оплата') {
       try {
+        // Определяем сумму в зависимости от плана
+        const planPrices = {
+          mini: 300,
+          maxi: 500,
+          premium: 1500
+        };
+        
+        const amount = planPrices[validatedData.plan] || 300;
+        const description = `Підписка ${validatedData.plan.toUpperCase()} - ${amount} ₴`;
+        
         logger.info('Creating online payment for subscription', {
           requestId: data.id,
           plan: validatedData.plan,
-          amount: validatedData.plan === 'mini' ? 300 : 500
-        }, 'Payment');
+          amount
+        });
         
-        const { monobankPaymentService } = await import('@/lib/payments/monobank-payment-service');
-        
-        const amount = validatedData.plan === 'mini' ? 300 : 500; // Сумма в гривнах
-        const description = `Підписка ${validatedData.plan.toUpperCase()} - ${amount} ₴`;
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || `${request.nextUrl.protocol}//${request.nextUrl.host}`;
-        const redirectUrl = `${baseUrl}/subscribe/success?requestId=${data.id}`;
-        const webhookUrl = `${baseUrl}/api/payment/webhook`;
-        
-        const reference = `sub_${data.id}_${Date.now()}`;
-        
-        const paymentResult = await monobankPaymentService.createPayment({
-          amount,
-          description,
-          reference,
-          redirectUrl,
-          webhookUrl
+        // Создаем платеж через Monobank API
+        const paymentResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'https://stefa-books.com.ua'}/api/payments/monobank`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            amount,
+            description,
+            customer_email: validatedData.email,
+            customer_name: validatedData.name,
+            customer_phone: validatedData.phone,
+            subscription_request_id: data.id
+          })
         });
 
-        if (paymentResult.status === 'success' && paymentResult.data) {
-          paymentData = {
-            invoiceId: paymentResult.data.invoiceId,
-            paymentUrl: paymentResult.data.pageUrl,
-            reference
-          };
+        const paymentResult = await paymentResponse.json();
+
+        if (paymentResult.success && paymentResult.payment) {
+          paymentData = paymentResult.payment;
           
           logger.info('Payment created successfully', {
             requestId: data.id,
-            invoiceId: paymentResult.data.invoiceId,
-            paymentUrl: paymentResult.data.pageUrl,
-            reference
-          }, 'Payment');
+            invoiceId: paymentResult.payment.invoiceId,
+            paymentUrl: paymentResult.payment.paymentUrl,
+            reference: paymentResult.payment.reference
+          });
           
           // Обновляем заявку с данными платежа
           await supabase
             .from('subscription_requests')
             .update({
-              notes: `Payment created: ${paymentResult.data.invoiceId}`
+              admin_notes: `Payment created: ${paymentResult.payment.invoiceId}`,
+              status: 'pending'
             })
             .eq('id', data.id);
         } else {
           logger.error('Payment creation failed', {
             requestId: data.id,
-            paymentResult
-          }, 'Payment');
+            error: paymentResult.error
+          });
         }
       } catch (paymentError) {
         logger.error('Payment creation failed', { 
@@ -202,7 +209,7 @@ export async function POST(request: NextRequest) {
 
     // Автоматическая регистрация пользователя для банковских переводов
     // (для онлайн-оплаты регистрация произойдет после успешного платежа через webhook)
-    let registrationResult = null;
+    let registrationResult: any = null;
     if (validatedData.paymentMethod === 'Переказ на карту') {
       try {
         registrationResult = await AutoRegistrationService.registerWithTemporaryPassword({
@@ -214,7 +221,7 @@ export async function POST(request: NextRequest) {
           subscriptionRequestId: data.id
         });
 
-        if (registrationResult.success) {
+        if (registrationResult && registrationResult.success) {
           logger.info('User auto-registered after bank transfer subscription', {
             requestId: data.id,
             userId: registrationResult.user?.id,
@@ -224,7 +231,7 @@ export async function POST(request: NextRequest) {
           logger.warn('Failed to auto-register user for bank transfer', {
             requestId: data.id,
             email: validatedData.email,
-            error: registrationResult.error
+            error: registrationResult?.error
           });
         }
       } catch (autoRegError) {
@@ -244,7 +251,7 @@ export async function POST(request: NextRequest) {
       ? 'Заявку успішно надіслано! Ви будете перенаправлені на сторінку оплати.'
       : 'Заявку успішно надіслано! Ми зв\'яжемося з вами найближчим часом.';
 
-    const registrationMessage = registrationResult?.success
+    const registrationMessage = registrationResult && registrationResult.success
       ? ' Аккаунт створено автоматично, тимчасовий пароль надіслано на вашу пошту.'
       : '';
 
@@ -254,9 +261,9 @@ export async function POST(request: NextRequest) {
       requestId: data.id,
       payment: paymentData,
       autoRegistration: registrationResult ? {
-        success: registrationResult.success,
-        hasAccount: registrationResult.success,
-        error: registrationResult.error
+        success: registrationResult.success || false,
+        hasAccount: registrationResult.success || false,
+        error: registrationResult.error || null
       } : null
     });
 

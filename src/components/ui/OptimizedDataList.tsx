@@ -1,8 +1,7 @@
 'use client'
 
-import { useCallback, useState, useMemo, useEffect , ReactNode } from 'react';
-import { ReactNode } from 'react'
-import { Search, Filter, Grid, List, MoreHorizontalIcon, RefreshCw } from 'lucide-react'
+import { useCallback, useState, useMemo, useEffect, ReactNode } from 'react';
+import { Search, Filter, Grid3X3, List, MoreHorizontal, RefreshCw } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
 import OptimizedSearch from './OptimizedSearch'
@@ -329,7 +328,7 @@ const OptimizedDataList = (function OptimizedDataList<T>({
               onClick={() => handleViewModeChange('grid')}
               className="px-3 py-2"
             >
-              <Grid className="w-4 h-4" />
+              <Grid3X3 className="w-4 h-4" />
             </PerformanceButton>
             <PerformanceButton
               variant={currentViewMode === 'list' ? 'primary' : 'ghost'}

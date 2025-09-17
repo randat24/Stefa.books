@@ -101,7 +101,7 @@ export function ForgotPasswordForm({ onBackToLogin }: ForgotPasswordFormProps) {
               id="email"
               type="email"
               value={email}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setEmail(e.target.value)}
               required
               disabled={isLoading}
               placeholder="your@email.com"

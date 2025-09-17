@@ -160,7 +160,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
                 <Input
                   id="firstName"
                   value={firstName}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                     setFirstName(e.target.value);
                     if (fieldErrors.firstName) {
                       setFieldErrors(prev => ({ ...prev, firstName: undefined }));
@@ -183,7 +183,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
                 <Input
                   id="lastName"
                   value={lastName}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                     setLastName(e.target.value);
                     if (fieldErrors.lastName) {
                       setFieldErrors(prev => ({ ...prev, lastName: undefined }));
@@ -208,7 +208,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
               id="email"
               type="email"
               value={email}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                 setEmail(e.target.value);
                 if (fieldErrors.email) {
                   setFieldErrors(prev => ({ ...prev, email: undefined }));
@@ -232,7 +232,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
               id="phone"
               type="tel"
               value={phone}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                 setPhone(e.target.value);
                 if (fieldErrors.phone) {
                   setFieldErrors(prev => ({ ...prev, phone: undefined }));
@@ -257,7 +257,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
                 id="password"
                 type={showPassword ? "text" : "password"}
                 value={password}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                   setPassword(e.target.value);
                   if (fieldErrors.password) {
                     setFieldErrors(prev => ({ ...prev, password: undefined }));
@@ -295,7 +295,7 @@ export function RegisterForm({ onSwitchToLogin, onSuccess }: RegisterFormProps) 
                 id="confirmPassword"
                 type={showConfirmPassword ? "text" : "password"}
                 value={confirmPassword}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                   setConfirmPassword(e.target.value);
                   if (fieldErrors.confirmPassword) {
                     setFieldErrors(prev => ({ ...prev, confirmPassword: undefined }));

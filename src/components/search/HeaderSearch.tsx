@@ -175,7 +175,7 @@ export function HeaderSearch() {
                   ref={inputRef}
                   type="text"
                   value={query}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Пошук книг за назвою, автором, категорією..."
                   className="flex-1 bg-transparent text-neutral-900 placeholder-slate-500 text-body-lg outline-none"

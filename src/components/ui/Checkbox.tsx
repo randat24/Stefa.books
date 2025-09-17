@@ -1,33 +1,48 @@
-import * as React from "react"
-import { cn } from "@/lib/cn"
+'use client'
 
-export interface CheckboxProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> { 
-  checked?: boolean
-  onCheckedChange?: (checked: boolean) => void
+import * as React from 'react'
+import { Check } from 'lucide-react'
+import { cn } from '@/lib/cn'
+
+export interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  label?: string
 }
 
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
-  function Checkbox({ className, checked, onCheckedChange, onChange, ...props }, ref) {
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      onCheckedChange?.(e.target.checked)
-      onChange?.(e)
-    }
+  ({ className, label, id, ...props }, ref) => {
+    const checkboxId = id || React.useId()
 
     return (
-      <input
-        type="checkbox"
-        className={cn(
-          "h-4 w-4 rounded border border-neutral-300 text-brand-accent-light focus:ring-2 focus:ring-brand-accent focus:ring-offset-2",
-          className
+      <div className="flex items-center space-x-2">
+        <div className="relative">
+          <input
+            type="checkbox"
+            ref={ref}
+            id={checkboxId}
+            className={cn(
+              "peer h-4 w-4 shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground",
+              className
+            )}
+            {...props}
+          />
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-current opacity-0 peer-checked:opacity-100">
+            <Check className="h-3 w-3" />
+          </div>
+        </div>
+        {label && (
+          <label
+            htmlFor={checkboxId}
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            {label}
+          </label>
         )}
-        ref={ref}
-        checked={checked}
-        onChange={handleChange}
-        {...props}
-      />
+      </div>
     )
   }
 )
 
+Checkbox.displayName = 'Checkbox'
+
 export { Checkbox }
+export default Checkbox

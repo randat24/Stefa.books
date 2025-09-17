@@ -1,6 +1,6 @@
 import { Calendar, MapPin, Clock, CreditCard } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 import type { Book } from '@/lib/supabase';
 
 interface BookRentalPricingProps {

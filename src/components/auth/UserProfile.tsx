@@ -92,7 +92,7 @@ export function UserProfile() {
                   <Input
                     id="firstName"
                     value={firstName}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFirstName(e.target.value)}
                     placeholder="Іван"
                   />
                 </div>
@@ -102,7 +102,7 @@ export function UserProfile() {
                   <Input
                     id="lastName"
                     value={lastName}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setLastName(e.target.value)}
                     placeholder="Петренко"
                   />
                 </div>
@@ -114,7 +114,7 @@ export function UserProfile() {
                   id="phone"
                   type="tel"
                   value={phone}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPhone(e.target.value)}
                   placeholder="+380XXXXXXXXX"
                 />
               </div>

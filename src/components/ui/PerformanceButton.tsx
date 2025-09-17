@@ -1,7 +1,6 @@
 'use client'
 
-import { useCallback, useState , ReactNode } from 'react';
-import { ReactNode } from 'react'
+import { useCallback, useState, ReactNode } from 'react';
 import { cn } from '@/lib/cn'
 
 interface PerformanceButtonProps {

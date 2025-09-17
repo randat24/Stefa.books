@@ -1,8 +1,7 @@
 'use client'
 
-import { useCallback, useState, useMemo, useEffect , ReactNode } from 'react';
-import { ReactNode } from 'react'
-import { Filter, Grid, List, RefreshCw, Settings, Download, Upload, Trash2, Plus, Monitor, BarChart3, TrendingUp, Zap, Shield, Lock } from 'lucide-react'
+import { useCallback, useState, useMemo, useEffect, ReactNode } from 'react';
+import { Filter, Grid3X3, List, RefreshCw, Settings, Download, Upload, Trash2, Plus, Monitor, BarChart3, TrendingUp, Zap, Shield, Lock } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
 import OptimizedSearch from './OptimizedSearch'
@@ -622,7 +621,7 @@ const OptimizedDataPlatform = (function OptimizedDataPlatform<T>({
                 onClick={() => handleViewModeChange('grid')}
                 className="px-3 py-2"
               >
-                <Grid className="w-4 h-4" />
+                <Grid3X3 className="w-4 h-4" />
               </PerformanceButton>
               <PerformanceButton
                 variant={currentViewMode === 'list' ? 'primary' : 'ghost'}
@@ -684,7 +683,7 @@ const OptimizedDataPlatform = (function OptimizedDataPlatform<T>({
               <input
                 type="file"
                 accept=".json,.csv,.xlsx"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                   const file = e.target.files?.[0]
                   if (file) handleImport(file)
                 }}
@@ -955,7 +954,7 @@ const OptimizedDataPlatform = (function OptimizedDataPlatform<T>({
               </label>
               <select
                 value={currentViewMode}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleViewModeChange(e.target.value as 'grid' | 'list' | 'table')}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleViewModeChange(e.target.value as 'grid' | 'list' | 'table')}
                 className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="grid">Сітка</option>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import MonobankPayment from '@/components/payment/MonobankPayment';
@@ -258,7 +258,7 @@ export default function SubscriptionPayment({
               <Input
                 id="name"
                 value={customerInfo.name}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCustomerInfo(prev => ({ ...prev, name: e.target.value }))}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCustomerInfo(prev => ({ ...prev, name: e.target.value }))}
                 placeholder="Введіть ваше ім'я"
                 className={errors.name ? 'border-red-500' : ''}
               />
@@ -271,7 +271,7 @@ export default function SubscriptionPayment({
                 id="email"
                 type="email"
                 value={customerInfo.email}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCustomerInfo(prev => ({ ...prev, email: e.target.value }))}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCustomerInfo(prev => ({ ...prev, email: e.target.value }))}
                 placeholder="your@email.com"
                 className={errors.email ? 'border-red-500' : ''}
               />
@@ -283,7 +283,7 @@ export default function SubscriptionPayment({
               <Input
                 id="phone"
                 value={customerInfo.phone}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCustomerInfo(prev => ({ ...prev, phone: e.target.value }))}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCustomerInfo(prev => ({ ...prev, phone: e.target.value }))}
                 placeholder="+380XXXXXXXXX"
                 className={errors.phone ? 'border-red-500' : ''}
               />

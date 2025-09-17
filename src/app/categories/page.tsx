@@ -43,7 +43,7 @@ export default function CategoriesPage() {
           id="search"
           placeholder="Search categories..."
           value={searchTerm}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSearchTerm(e.target.value)}
           className="max-w-md"
         />
       </div>

@@ -18,7 +18,7 @@ import {
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/Badge'
+import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { cn } from '@/lib/cn'
@@ -274,7 +274,7 @@ function MyRentalsContent() {
 											type="email"
 											placeholder="your@email.com"
 											value={email}
-											onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+											onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setEmail(e.target.value)}
 											onKeyDown={(e: React.ChangeEvent<HTMLInputElement>) => e.key === 'Enter' && handleSearch()}
 											className="pl-12 h-12 text-base"
 										/>

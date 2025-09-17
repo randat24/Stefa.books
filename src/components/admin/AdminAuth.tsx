@@ -101,7 +101,7 @@ export default function AdminAuth({ onAuthSuccess }: AdminAuthProps) {
                   type="email"
                   placeholder="admin@stefa-books.com.ua"
                   value={email}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setEmail(e.target.value)}
                   className="pl-10"
                   required
                 />
@@ -117,7 +117,7 @@ export default function AdminAuth({ onAuthSuccess }: AdminAuthProps) {
                   type="password"
                   placeholder="Введите пароль"
                   value={password}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPassword(e.target.value)}
                   className="pl-10"
                   required
                 />

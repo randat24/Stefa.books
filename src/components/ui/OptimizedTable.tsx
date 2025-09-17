@@ -1,8 +1,7 @@
 'use client'
 
-import { useCallback, useState, useMemo , ReactNode } from 'react';
-import { ReactNode } from 'react'
-import { ChevronUp, ChevronDown, MoreHorizontalIcon } from 'lucide-react'
+import { useCallback, useState, useMemo, ReactNode } from 'react';
+import { ChevronUp, ChevronDown, MoreHorizontal } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
 
@@ -138,7 +137,7 @@ const OptimizedTable = (function OptimizedTable<T>({
       <div className={cn('w-full', className)}>
         <div className="text-center py-12">
           <div className="w-16 h-16 bg-neutral-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <MoreHorizontalIcon className="w-8 h-8 text-neutral-400" />
+            <MoreHorizontal className="w-8 h-8 text-neutral-400" />
           </div>
           <p className="text-neutral-500 text-lg">{emptyMessage}</p>
         </div>
@@ -160,7 +159,7 @@ const OptimizedTable = (function OptimizedTable<T>({
                     ref={(input) => {
                       if (input) input.indeterminate = isPartiallySelected
                     }}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSelectAll(e.target.checked)}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleSelectAll(e.target.checked)}
                     className="rounded border-neutral-300 text-blue-600 focus:ring-blue-500"
                   />
                 </th>
@@ -215,8 +214,8 @@ const OptimizedTable = (function OptimizedTable<T>({
                       <input
                         type="checkbox"
                         checked={isSelected}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleRowSelect(item, e.target.checked)}
-                        onClick={(e: React.MouseEvent<HTMLInputElement>) => e.stopPropagation()}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleRowSelect(item, e.target.checked)}
+                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => e.stopPropagation()}
                         className="rounded border-neutral-300 text-blue-600 focus:ring-blue-500"
                       />
                     </td>

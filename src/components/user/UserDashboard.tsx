@@ -17,7 +17,7 @@ import {
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import type { User, ActiveRental, RentalHistoryIcon, UserSubscription } from '@/types/user';
 

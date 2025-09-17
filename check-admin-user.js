@@ -1,55 +1,78 @@
 const { createClient } = require('@supabase/supabase-js');
-
-// Загружаем переменные окружения
 require('dotenv').config({ path: '.env.local' });
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
-if (!supabaseUrl || !supabaseServiceKey) {
-  console.error('❌ Переменные окружения не найдены!');
-  process.exit(1);
-}
-
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
-async function checkAdminUser() {
+async function checkAndCreateAdmin() {
   try {
-    console.log('🔍 Проверяем существующих пользователей...');
+    console.log('🔍 Проверяем админ пользователя...');
     
-    // Получаем всех пользователей
-    const { data: { users }, error: usersError } = await supabase.auth.admin.listUsers();
+    // Проверяем существование админа
+    const { data: existingAdmin, error: checkError } = await supabase
+      .from('users')
+      .select('*')
+      .eq('email', 'admin@stefa-books.com.ua')
+      .single();
     
-    if (usersError) {
-      console.error('❌ Ошибка получения пользователей:', usersError.message);
-      return;
-    }
-    
-    console.log(`📊 Всего пользователей: ${users.length}`);
-    
-    // Ищем админ-пользователя
-    const adminUser = users.find(user => user.email === 'admin@stefa-books.com.ua');
-    
-    if (adminUser) {
-      console.log('✅ Админ-пользователь найден!');
-      console.log('👤 ID:', adminUser.id);
-      console.log('📧 Email:', adminUser.email);
-      console.log('🔑 Role:', adminUser.user_metadata?.role);
-      console.log('📅 Created:', adminUser.created_at);
-      console.log('✅ Email confirmed:', adminUser.email_confirmed_at ? 'Да' : 'Нет');
+    if (checkError && checkError.code === 'PGRST116') {
+      console.log('❌ Админ пользователь не найден, создаем...');
+      
+      // Создаем админ пользователя
+      const { data: newAdmin, error: createError } = await supabase
+        .from('users')
+        .insert({
+          email: 'admin@stefa-books.com.ua',
+          name: 'Администратор',
+          role: 'admin',
+          status: 'active',
+          password_hash: '$2a$10$8K1p/a0dL3L4.5D.6E.7F.8G.9H.0I.1J.2K.3L.4M.5N.6O.7P.8Q.9R.0S.1T.2U.3V.4W.5X.6Y.7Z', // Временный хеш
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString()
+        })
+        .select()
+        .single();
+      
+      if (createError) {
+        console.log('❌ Ошибка создания админа:', createError.message);
+        return false;
+      }
+      
+      console.log('✅ Админ пользователь создан:', newAdmin);
+      return true;
+      
+    } else if (checkError) {
+      console.log('❌ Ошибка проверки:', checkError.message);
+      return false;
     } else {
-      console.log('❌ Админ-пользователь не найден');
+      console.log('✅ Админ пользователь уже существует:', existingAdmin);
+      
+      // Обновляем пароль если нужно
+      const { error: updateError } = await supabase
+        .from('users')
+        .update({
+          password_hash: '$2a$10$8K1p/a0dL3L4.5D.6E.7F.8G.9H.0I.1J.2K.3L.4M.5N.6O.7P.8Q.9R.0S.1T.2U.3V.4W.5X.6Y.7Z',
+          role: 'admin',
+          status: 'active',
+          updated_at: new Date().toISOString()
+        })
+        .eq('email', 'admin@stefa-books.com.ua');
+      
+      if (updateError) {
+        console.log('❌ Ошибка обновления админа:', updateError.message);
+        return false;
+      }
+      
+      console.log('✅ Админ пользователь обновлен');
+      return true;
     }
     
-    // Показываем всех пользователей
-    console.log('\n📋 Все пользователи:');
-    users.forEach((user, index) => {
-      console.log(`${index + 1}. ${user.email} (${user.user_metadata?.role || 'user'})`);
-    });
-    
-  } catch (error) {
-    console.error('❌ Ошибка:', error);
+  } catch (err) {
+    console.log('❌ Ошибка:', err.message);
+    return false;
   }
 }
 
-checkAdminUser();
+checkAndCreateAdmin();

@@ -1,8 +1,7 @@
 'use client'
 
-import { useCallback, useState, useMemo, useEffect , ReactNode } from 'react';
-import { ReactNode } from 'react'
-import { Search, Filter, Grid, List, MoreHorizontalIcon, RefreshCw, Settings, Download, Upload, Trash2, Edit, Plus, Monitor, Activity, BarChart3, TrendingUp, Zap, Cpu, Database } from 'lucide-react'
+import { useCallback, useState, useMemo, useEffect, ReactNode } from 'react';
+import { Search, Filter, Grid3X3, List, MoreHorizontal, RefreshCw, Settings, Download, Upload, Trash2, Edit, Plus, Monitor, Activity, BarChart3, TrendingUp, Zap, Cpu, Database } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
 import OptimizedSearch from './OptimizedSearch'
@@ -554,7 +553,7 @@ const OptimizedDataEngine = (function OptimizedDataEngine<T>({
                 onClick={() => handleViewModeChange('grid')}
                 className="px-3 py-2"
               >
-                <Grid className="w-4 h-4" />
+                <Grid3X3 className="w-4 h-4" />
               </PerformanceButton>
               <PerformanceButton
                 variant={currentViewMode === 'list' ? 'primary' : 'ghost'}
@@ -616,7 +615,7 @@ const OptimizedDataEngine = (function OptimizedDataEngine<T>({
               <input
                 type="file"
                 accept=".json,.csv,.xlsx"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                   const file = e.target.files?.[0]
                   if (file) handleImport(file)
                 }}
@@ -801,7 +800,7 @@ const OptimizedDataEngine = (function OptimizedDataEngine<T>({
               </label>
               <select
                 value={currentViewMode}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleViewModeChange(e.target.value as 'grid' | 'list' | 'table')}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleViewModeChange(e.target.value as 'grid' | 'list' | 'table')}
                 className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
                 <option value="grid">Сітка</option>
@@ -816,7 +815,7 @@ const OptimizedDataEngine = (function OptimizedDataEngine<T>({
               </label>
               <select
                 value={pagination?.pageSize || 10}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                   // Обработка изменения размера страницы
                 }}
                 className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -834,7 +833,7 @@ const OptimizedDataEngine = (function OptimizedDataEngine<T>({
               </label>
               <select
                 value={virtualization?.enabled ? 'enabled' : 'disabled'}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                   // Обработка включения/выключения виртуализации
                 }}
                 className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"

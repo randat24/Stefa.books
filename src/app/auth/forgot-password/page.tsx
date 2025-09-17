@@ -102,7 +102,7 @@ export default function ForgotPasswordPage() {
                 id="email"
                 type="email"
                 value={email}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setEmail(e.target.value)}
                 placeholder="your@email.com"
                 disabled={isLoading}
               />

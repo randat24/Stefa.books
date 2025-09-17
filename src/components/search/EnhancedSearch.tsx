@@ -7,7 +7,7 @@ import BookCard from '@/components/BookCard';
 import { AdvancedFilters } from '@/components/filters/AdvancedFilters';
 import { LoadMoreButton } from '@/components/ui/LoadMoreButton';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 import { fetchBooks } from '@/lib/api/books';
 import type { Book } from '@/lib/supabase';
 
@@ -269,7 +269,7 @@ export function EnhancedSearch({ onSearchResults }: EnhancedSearchProps) {
             type="text"
             placeholder="Пошук за назвою, автором або описом..."
             value={query}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleSearch(e.target.value)}
             className="w-full pl-10 pr-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:border-transparent"
           />
           {isSearching && (

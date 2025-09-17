@@ -92,7 +92,7 @@ export default function AdminLoginPage() {
                 type="email"
                 placeholder="Введіть email адміністратора"
                 value={email}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setEmail(e.target.value)}
                 required
                 disabled={isLoading}
                 className="h-11"
@@ -107,7 +107,7 @@ export default function AdminLoginPage() {
                   type={showPassword ? 'text' : 'password'}
                   placeholder="Введіть пароль"
                   value={password}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setPassword(e.target.value)}
                   required
                   disabled={isLoading}
                   className="h-11 pr-10"

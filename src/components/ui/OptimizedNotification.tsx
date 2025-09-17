@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState, useRef } from 'react';
 import {  } from 'react'
-import { X, CheckCircle, AlertCircle, Info, AlertTriangleIcon } from 'lucide-react'
+import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
 
@@ -19,7 +19,7 @@ interface NotificationProps {
 const notificationIcons = {
   success: CheckCircle,
   error: AlertCircle,
-  warning: AlertTriangleIcon,
+  warning: AlertTriangle,
   info: Info }
 
 const notificationStyles = {

@@ -54,7 +54,7 @@ export default function CreateAdminPage() {
                 id="email"
                 type="email"
                 value={formData.email}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, email: e.target.value })}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFormData({ ...formData, email: e.target.value })}
                 required
               />
             </div>
@@ -65,7 +65,7 @@ export default function CreateAdminPage() {
                 id="password"
                 type="password"
                 value={formData.password}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, password: e.target.value })}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFormData({ ...formData, password: e.target.value })}
                 required
               />
             </div>
@@ -76,7 +76,7 @@ export default function CreateAdminPage() {
                 id="name"
                 type="text"
                 value={formData.name}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFormData({ ...formData, name: e.target.value })}
                 required
               />
             </div>

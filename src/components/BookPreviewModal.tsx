@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import Image from "next/image";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/Badge";
+import { Badge } from "@/components/ui/badge";
 import { FavoriteButton } from "@/components/favorites/FavoriteButton";
 import { Star, Share2, Check, Copy, BookOpen } from "lucide-react";
 import type { Book } from "@/lib/supabase";

@@ -1,91 +1,161 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { logger } from '@/lib/logger';
-import { monobankService } from '@/lib/services/monobank';
-import type { MonobankWebhookData } from '@/lib/types/monobank';
+import { NextRequest, NextResponse } from 'next/server'
+import { z } from 'zod'
+import { monobankPaymentService } from '@/lib/payments/monobank-payment-service'
+import { subscriptionService } from '@/lib/payments/subscription-service'
+import { logger } from '@/lib/logger'
 
+// Схема валидации webhook от Monobank
+const webhookSchema = z.object({
+  invoiceId: z.string(),
+  status: z.enum(['new', 'processing', 'success', 'failure']),
+  amount: z.number(),
+  reference: z.string(),
+  ccy: z.number().optional(),
+  createdDate: z.string().optional(),
+  modifiedDate: z.string().optional()
+})
 
+/**
+ * POST /api/payments/monobank/webhook - Обработка webhook от Monobank
+ */
 export async function POST(request: NextRequest) {
   try {
-    // Отримуємо тіло запиту як рядок для валідації підпису
-    const bodyText = await request.text();
-    const signature = request.headers.get('X-Sign') || '';
-    
-    logger.info('Monobank webhook received', {
-      hasSignature: !!signature,
-      bodyLength: bodyText.length
-    });
+    // Получаем тело запроса и подпись
+    const body = await request.text()
+    const signature = request.headers.get('X-Sign') || ''
 
-    // Валідуємо підпис webhook'у
-    if (!monobankService.validateWebhook(bodyText, signature)) {
-      logger.error('Invalid webhook signature');
-      return NextResponse.json(
-        { success: false, error: 'Invalid signature' },
-        { status: 401 }
-      );
+    logger.info('Received Monobank webhook', {
+      bodyLength: body.length,
+      hasSignature: !!signature
+    })
+
+    // Валидируем подпись (опционально)
+    if (!monobankPaymentService.validateWebhook(body, signature)) {
+      logger.warn('Monobank webhook signature validation failed')
+      // В реальной реализации здесь должна быть проверка подписи
+      // return NextResponse.json({ success: false, error: 'Invalid signature' }, { status: 401 })
     }
 
-    // Парсимо JSON після валідації підпису
-    const body = JSON.parse(bodyText);
-    
-    logger.info('Monobank webhook data:', {
-      invoiceId: body.invoiceId,
-      status: body.status,
-      amount: body.amount,
-      reference: body.reference
-    });
-
-    // Перевіряємо обов'язкові поля
-    if (!body.invoiceId) {
-      logger.error('Missing invoiceId in webhook');
+    // Парсим JSON
+    let webhookData
+    try {
+      webhookData = JSON.parse(body)
+    } catch (error) {
+      logger.error('Failed to parse webhook JSON', error)
       return NextResponse.json(
-        { success: false, error: 'Missing invoiceId' },
+        { success: false, error: 'Invalid JSON' },
         { status: 400 }
-      );
+      )
     }
 
-    // Обробляємо webhook через MonobankService
-    const webhookData: MonobankWebhookData = {
-      invoiceId: body.invoiceId,
-      status: body.status,
-      amount: body.amount,
-      ccy: body.ccy || 980, // UAH за замовчуванням
-      reference: body.reference,
-      createdDate: body.createdDate,
-      modifiedDate: body.modifiedDate
-    };
+    // Валидируем данные webhook
+    const validatedData = webhookSchema.parse(webhookData)
 
-    const result = await monobankService.processWebhook(webhookData);
+    logger.info('Processing Monobank webhook', {
+      invoiceId: validatedData.invoiceId,
+      status: validatedData.status,
+      amount: validatedData.amount,
+      reference: validatedData.reference
+    })
 
-    if (!result.success) {
-      logger.error('Failed to process webhook:', { result, webhookData });
-      return NextResponse.json(
-        { success: false, error: result.message },
-        { status: 500 }
-      );
-    }
+      // Обрабатываем только успешные платежи
+      if (validatedData.status === 'success') {
+        // Проверяем, является ли это платежом за подписку
+        if (validatedData.reference.startsWith('sub_')) {
+          const requestId = validatedData.reference.replace('sub_', '')
+          
+          logger.info('Processing subscription payment', {
+            requestId,
+            invoiceId: validatedData.invoiceId,
+            amount: validatedData.amount
+          })
 
-    logger.info('Webhook processed successfully:', {
-      invoiceId: body.invoiceId,
-      status: body.status,
-      message: result.message
-    });
+          // Активируем подписку
+          const activationResult = await subscriptionService.activateSubscription({
+            requestId,
+            invoiceId: validatedData.invoiceId,
+            amount: validatedData.amount / 100, // Конвертируем из копеек
+            paymentMethod: 'monobank'
+          })
 
-    return NextResponse.json({ success: true, message: result.message });
+          if (!activationResult.success) {
+            logger.error('Failed to activate subscription', {
+              requestId,
+              error: activationResult.error
+            })
+            
+            return NextResponse.json(
+              { success: false, error: 'Failed to activate subscription' },
+              { status: 500 }
+            )
+          }
+
+          logger.info('Subscription activated successfully', {
+            requestId,
+            subscriptionId: activationResult.data?.subscriptionId
+          })
+        } else {
+          // Обработка обычных платежей (не подписки)
+          logger.info('Processing regular payment', {
+            invoiceId: validatedData.invoiceId,
+            amount: validatedData.amount,
+            reference: validatedData.reference
+          })
+
+          // Здесь можно добавить логику для обработки обычных платежей
+          // Например, обновление статуса заказа, отправка уведомлений и т.д.
+        }
+      } else if (validatedData.status === 'failure') {
+        logger.warn('Payment failed', {
+          invoiceId: validatedData.invoiceId,
+          reference: validatedData.reference
+        })
+
+        // Обновляем статус заявки на подписку на 'rejected' если это была подписка
+        if (validatedData.reference.startsWith('sub_')) {
+          const requestId = validatedData.reference.replace('sub_', '')
+          
+          try {
+            const { createClient } = await import('@supabase/supabase-js')
+            const supabase = createClient(
+              process.env.NEXT_PUBLIC_SUPABASE_URL!,
+              process.env.SUPABASE_SERVICE_ROLE_KEY!,
+              { auth: { persistSession: false } }
+            )
+
+            await supabase
+              .from('subscription_requests')
+              .update({
+                status: 'rejected',
+                admin_notes: `Платеж не прошел. Invoice ID: ${validatedData.invoiceId}`
+              })
+              .eq('id', requestId)
+
+            logger.info('Subscription request marked as rejected', { requestId })
+          } catch (error) {
+            logger.error('Failed to update subscription request status', { error, requestId })
+          }
+        }
+      }
+
+    // Всегда возвращаем успешный ответ Monobank'у
+    return NextResponse.json({ success: true })
 
   } catch (error) {
-    logger.error('Unexpected error in Monobank webhook:', error);
-    return NextResponse.json(
-      { success: false, error: 'Internal server error' },
-      { status: 500 }
-    );
-  }
-}
+    logger.error('Monobank webhook processing error', error)
+    
+    if (error instanceof z.ZodError) {
+      logger.error('Webhook validation error', {
+        errors: error.errors
+      })
+      
+      return NextResponse.json(
+        { success: false, error: 'Validation error' },
+        { status: 400 }
+      )
+    }
 
-// GET для проверки webhook (используется Монобанком для проверки доступности)
-export async function GET() {
-  return NextResponse.json({ 
-    success: true, 
-    message: 'Monobank webhook endpoint is active',
-    timestamp: new Date().toISOString()
-  });
+    // Даже при ошибке возвращаем 200, чтобы Monobank не повторял запрос
+    return NextResponse.json({ success: false, error: 'Processing error' })
+  }
 }

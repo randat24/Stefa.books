@@ -115,7 +115,7 @@ const OptimizedFilters = (function OptimizedFilters({
         return (
           <select
             value={value}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilterChange(filter.key, e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleFilterChange(filter.key, e.target.value)}
             className="w-full px-3 py-2 border border-neutral-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             disabled={loading}
           >
@@ -137,7 +137,7 @@ const OptimizedFilters = (function OptimizedFilters({
                 <input
                   type="checkbox"
                   checked={selectedValues.includes(option.value)}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                     const newValues = e.target.checked
                       ? [...selectedValues, option.value]
                       : selectedValues.filter(v => v !== option.value)
@@ -164,7 +164,7 @@ const OptimizedFilters = (function OptimizedFilters({
                 <input
                   type="number"
                   value={rangeValue.min}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilterChange(filter.key, {
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleFilterChange(filter.key, {
                     ...rangeValue,
                     min: parseInt(e.target.value) || filter.min || 0
                   })}
@@ -180,7 +180,7 @@ const OptimizedFilters = (function OptimizedFilters({
                 <input
                   type="number"
                   value={rangeValue.max}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilterChange(filter.key, {
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleFilterChange(filter.key, {
                     ...rangeValue,
                     max: parseInt(e.target.value) || filter.max || 100
                   })}
@@ -206,7 +206,7 @@ const OptimizedFilters = (function OptimizedFilters({
                 <input
                   type="checkbox"
                   checked={value === option.value}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFilterChange(filter.key, e.target.checked ? option.value : '')}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleFilterChange(filter.key, e.target.checked ? option.value : '')}
                   className="rounded border-neutral-300 text-blue-600 focus:ring-blue-500"
                   disabled={loading}
                 />
@@ -271,7 +271,7 @@ const OptimizedFilters = (function OptimizedFilters({
                 <div className="flex items-center gap-2">
                   {isActive && (
                     <button
-                      onClick={(e: React.MouseEvent<HTMLInputElement>) => {
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                         e.stopPropagation()
                         handleClearFilter(filter.key)
                       }}

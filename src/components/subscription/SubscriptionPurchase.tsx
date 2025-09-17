@@ -4,13 +4,11 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { Logger } from '@/lib/logger';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { logger } from '@/lib/logger';
 import type { SubscriptionType } from '@/lib/types/subscription';
 import { SUBSCRIPTION_PLANS } from '@/lib/types/subscription';
-
-const logger = new Logger('SubscriptionPurchase');
 
 const subscriptionSchema = z.object({
   email: z.string().email('Невірний формат email'),

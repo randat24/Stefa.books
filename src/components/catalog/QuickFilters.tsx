@@ -1,6 +1,6 @@
 'use client';
 
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 import type { Book } from '@/lib/supabase';
 
 interface QuickFiltersProps {

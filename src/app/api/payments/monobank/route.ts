@@ -1,197 +1,156 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { z } from 'zod';
-import { logger } from '@/lib/logger';
-import { monobankService } from '@/lib/services/monobank';
-import { v4 as uuidv4 } from 'uuid';
+import { NextRequest, NextResponse } from 'next/server'
+import { z } from 'zod'
+import { v4 as uuidv4 } from 'uuid'
+import { monobankPaymentService } from '@/lib/payments/monobank-payment-service'
+import { logger } from '@/lib/logger'
 
-// Перевіряємо наявність токена при старті
-if (!process.env.MONOBANK_TOKEN) {
-  logger.error('MONOBANK_TOKEN не налаштований! Система оплати не буде працювати.');
-}
-
-// Схема для создания платежа
+// Схема валидации для создания платежа
 const createPaymentSchema = z.object({
-  amount: z.number().min(1, 'Сума повинна бути більше 0'),
-  currency: z.enum(['UAH', 'USD', 'EUR']).default('UAH'),
-  description: z.string().min(1, 'Опис обов\'язковий'),
-  order_id: z.string().min(1, 'ID замовлення обов\'язковий'),
-  customer_email: z.string().email('Невірний email'),
-  customer_name: z.string().min(1, 'Ім\'я клієнта обов\'язкове'),
-  return_url: z.string().url('Невірний URL повернення').optional(),
-  webhook_url: z.string().url('Невірний webhook URL').optional()
-});
+  amount: z.number().min(1, 'Amount must be greater than 0'),
+  description: z.string().min(1, 'Description is required'),
+  customer_email: z.string().email('Invalid email format'),
+  customer_name: z.string().optional(),
+  customer_phone: z.string().optional(),
+  subscription_request_id: z.string().uuid().optional()
+})
 
-// Схема для проверки статуса платежа
-const checkPaymentSchema = z.object({
-  invoice_id: z.string().min(1, 'ID інвойсу обов\'язковий')
-});
-
+/**
+ * POST /api/payments/monobank - Создать платеж в Monobank
+ */
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
-    
-    // Валидация входных данных
-    const validatedData = createPaymentSchema.parse(body);
-    
-    logger.info('Creating Monobank payment:', {
+    const body = await request.json()
+    const validatedData = createPaymentSchema.parse(body)
+
+    // Генерируем уникальный reference
+    const reference = validatedData.subscription_request_id 
+      ? `sub_${validatedData.subscription_request_id}`
+      : `pay_${uuidv4()}`
+
+    // Получаем базовый URL сайта
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://stefa-books.com.ua'
+    const redirectUrl = `${baseUrl}/payment/success?reference=${reference}`
+    const webhookUrl = `${baseUrl}/api/payments/monobank/webhook`
+
+    logger.info('Creating Monobank payment', {
       amount: validatedData.amount,
-      currency: validatedData.currency,
-      order_id: validatedData.order_id,
-      customer_email: validatedData.customer_email
-    });
+      description: validatedData.description,
+      customer_email: validatedData.customer_email,
+      reference
+    })
 
-    // Створюємо унікальний reference для платежу
-    const reference = uuidv4();
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://stefa-books.com.ua';
-    const redirectUrl = validatedData.return_url || `${baseUrl}/payment/success`;
-    const webhookUrl = `${baseUrl}/api/payments/monobank/webhook`;
-
-    // Створюємо платіж через Monobank API
-    const paymentResult = await monobankService.createPayment({
+    // Создаем платеж в Monobank
+    const result = await monobankPaymentService.createPayment({
       amount: validatedData.amount,
       description: validatedData.description,
       reference,
       redirectUrl,
       webhookUrl
-    });
+    })
 
-    if (paymentResult.status === 'error') {
-      logger.error('Monobank payment creation failed:', {
-        error: paymentResult.errText,
-        amount: validatedData.amount,
-        description: validatedData.description
-      });
+    if (result.status === 'error') {
+      logger.error('Monobank payment creation failed', {
+        error: result.error,
+        reference
+      })
       
-      return NextResponse.json({
-        success: false,
-        error: 'Не вдалося створити платіж',
-        details: paymentResult.errText
-      }, { status: 400 });
-    }
-
-    const payment = {
-      invoice_id: paymentResult.data!.invoiceId,
-      status: 'pending',
-      payment_url: paymentResult.data!.pageUrl,
-      amount: validatedData.amount,
-      currency: validatedData.currency,
-      description: validatedData.description,
-      reference,
-      expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // 24 години
-      created_at: new Date().toISOString()
-    };
-
-    logger.info('Monobank payment created successfully:', {
-      invoice_id: payment.invoice_id,
-      reference: payment.reference,
-      amount: payment.amount
-    });
-
-    return NextResponse.json({
-      success: true,
-      payment,
-      message: 'Платіж створено успішно'
-    });
-
-  } catch (error) {
-    if (error instanceof z.ZodError) {
-      logger.error('Payment validation error:', { errors: error.errors });
       return NextResponse.json(
         { 
           success: false, 
-          error: 'Невірні дані',
-          details: error.errors.map(err => ({
-            field: err.path.join('.'),
-            message: err.message
-          }))
-        },
+          error: result.error 
+        }, 
         { status: 400 }
-      );
+      )
     }
 
-    logger.error('Unexpected error in Monobank payment creation:', error);
+    logger.info('Monobank payment created successfully', {
+      invoiceId: result.data!.invoiceId,
+      reference
+    })
+
+    return NextResponse.json({
+      success: true,
+      payment: {
+        invoiceId: result.data!.invoiceId,
+        paymentUrl: result.data!.pageUrl,
+        reference
+      },
+      message: 'Платіж створено успішно'
+    })
+
+  } catch (error) {
+    logger.error('Monobank payment API error', error)
+    
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { 
+          success: false, 
+          error: 'Validation error',
+          details: error.errors 
+        },
+        { status: 400 }
+      )
+    }
+
     return NextResponse.json(
-      { success: false, error: 'Внутрішня помилка сервера' },
+      { 
+        success: false, 
+        error: 'Internal server error' 
+      },
       { status: 500 }
-    );
+    )
   }
 }
 
+/**
+ * GET /api/payments/monobank - Проверить статус платежа
+ */
 export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url);
-    const invoiceId = searchParams.get('invoice_id');
-    
+    const { searchParams } = new URL(request.url)
+    const invoiceId = searchParams.get('invoice_id')
+
     if (!invoiceId) {
-      return NextResponse.json(
-        { success: false, error: 'ID інвойсу обов\'язковий' },
-        { status: 400 }
-      );
-    }
-
-    // Валидация
-    const validatedData = checkPaymentSchema.parse({ invoice_id: invoiceId });
-
-    logger.info('Checking Monobank payment status:', {
-      invoice_id: validatedData.invoice_id
-    });
-
-    // Перевіряємо статус платежу через Monobank API
-    const statusResult = await monobankService.checkPaymentStatus(validatedData.invoice_id);
-
-    if (statusResult.status === 'error') {
-      logger.error('Failed to check Monobank payment status:', {
-        error: statusResult.errText,
-        invoiceId: validatedData.invoice_id
-      });
-      
-      return NextResponse.json({
-        success: false,
-        error: 'Не вдалося перевірити статус платежу',
-        details: statusResult.errText
-      }, { status: 400 });
-    }
-
-    const paymentStatus = {
-      invoice_id: validatedData.invoice_id,
-      status: statusResult.data!.status,
-      amount: statusResult.data!.amount / 100, // Конвертуємо з копійок в гривні
-      currency: statusResult.data!.ccy === 980 ? 'UAH' : 'OTHER',
-      created_at: (statusResult.data!.createdDate && statusResult.data!.createdDate > 0) ? new Date(statusResult.data!.createdDate * 1000).toISOString() : new Date().toISOString(),
-      modified_at: (statusResult.data!.modifiedDate && statusResult.data!.modifiedDate > 0) ? new Date(statusResult.data!.modifiedDate * 1000).toISOString() : new Date().toISOString(),
-      reference: statusResult.data!.reference
-    };
-
-    logger.info('Monobank payment status retrieved:', {
-      invoice_id: paymentStatus.invoice_id,
-      status: paymentStatus.status,
-      amount: paymentStatus.amount
-    });
-
-    return NextResponse.json({
-      success: true,
-      payment: paymentStatus
-    });
-
-  } catch (error) {
-    if (error instanceof z.ZodError) {
       return NextResponse.json(
         { 
           success: false, 
-          error: 'Невірні дані',
-          details: error.errors.map(err => ({
-            field: err.path.join('.'),
-            message: err.message
-          }))
+          error: 'invoice_id parameter is required' 
         },
         { status: 400 }
-      );
+      )
     }
 
-    logger.error('Unexpected error in Monobank payment status check:', error);
+    logger.info('Checking Monobank payment status', { invoiceId })
+
+    const status = await monobankPaymentService.checkPaymentStatus(invoiceId)
+
+    if (!status) {
+      return NextResponse.json(
+        { 
+          success: false, 
+          error: 'Failed to check payment status' 
+        },
+        { status: 400 }
+      )
+    }
+
+    return NextResponse.json({
+      success: true,
+      status: status.status,
+      amount: status.amount,
+      reference: status.reference,
+      invoiceId: status.invoiceId
+    })
+
+  } catch (error) {
+    logger.error('Monobank status check API error', error)
+    
     return NextResponse.json(
-      { success: false, error: 'Внутрішня помилка сервера' },
+      { 
+        success: false, 
+        error: 'Internal server error' 
+      },
       { status: 500 }
-    );
+    )
   }
 }

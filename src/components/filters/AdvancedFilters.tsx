@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { X, SlidersHorizontal, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 import { fetchCategories } from '@/lib/api/books';
 
 interface FilterOptions {
@@ -304,7 +304,7 @@ export function AdvancedFilters({
                         name="availability"
                         value={option.value}
                         checked={filters.availability === option.value}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleAvailabilityChange(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleAvailabilityChange(e.target.value)}
                         className="text-brand-accent focus:ring-brand-accent"
                       />
                       <span className="text-body-sm text-neutral-700">{option.label}</span>
@@ -344,7 +344,7 @@ export function AdvancedFilters({
                         name="sortBy"
                         value={option.value}
                         checked={filters.sortBy === option.value}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSortChange(e.target.value, filters.sortOrder)}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleSortChange(e.target.value, filters.sortOrder)}
                         className="text-brand-accent focus:ring-brand-accent"
                       />
                       <span className="text-body-sm text-neutral-700">{option.label}</span>
@@ -357,7 +357,7 @@ export function AdvancedFilters({
                         name="sortOrder"
                         value="asc"
                         checked={filters.sortOrder === 'asc'}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSortChange(filters.sortBy, e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleSortChange(filters.sortBy, e.target.value)}
                         className="text-brand-accent focus:ring-brand-accent"
                       />
                       <span className="text-caption text-neutral-600">За зростанням</span>
@@ -368,7 +368,7 @@ export function AdvancedFilters({
                         name="sortOrder"
                         value="desc"
                         checked={filters.sortOrder === 'desc'}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSortChange(filters.sortBy, e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleSortChange(filters.sortBy, e.target.value)}
                         className="text-brand-accent focus:ring-brand-accent"
                       />
                       <span className="text-caption text-neutral-600">За спаданням</span>

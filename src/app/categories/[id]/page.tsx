@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 import { OptimizedBookCard } from '@/components/OptimizedBookCard';
 import { fetchBooksByCategory } from '@/lib/api/books';
 import type { Book } from '@/lib/supabase';
@@ -72,7 +72,7 @@ export default function CategoryPage() {
           id="search"
           placeholder={`Пошук книг в категорії "${categoryName}"...`}
           value={searchTerm}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSearchTerm(e.target.value)}
           className="max-w-md"
         />
       </div>

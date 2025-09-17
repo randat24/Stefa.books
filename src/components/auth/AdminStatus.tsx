@@ -3,7 +3,7 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { canAccessAdminPanel, getUserRole } from '@/lib/auth/roles';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 import { Shield } from 'lucide-react';
 import Link from 'next/link';
 

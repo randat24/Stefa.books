@@ -12,7 +12,7 @@ import { OptimizedBookCard, type OptimizedBookCardProps } from '@/components/Opt
 const BookCardWrapper = ({ book, ...props }: OptimizedBookCardProps & { key?: string }) => {
   return <OptimizedBookCard book={book} {...props} />;
 };
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 import type { Book } from '@/lib/supabase';
 import type { SearchResponse, SearchSuggestion, SearchFilters as SupabaseSearchFilters } from '@/lib/search/searchService';
 import { logger } from '@/lib/logger';
@@ -389,7 +389,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
             ref={inputRef}
             type="text"
             value={query}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setQuery(e.target.value)}
             onKeyDown={(e: React.ChangeEvent<HTMLInputElement>) => e.key === 'Enter' && handleSearch(query)}
             onFocus={() => setShowSuggestions(true)}
             placeholder={isSupabaseSearch ? "Пошук з AI-індексацією..." : "Пошук книг за назвою, автором, категорією..."}
@@ -568,7 +568,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
                 <input
                   type="checkbox"
                   checked={filters.availableOnly}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFilter('availableOnly', e.target.checked)}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateFilter('availableOnly', e.target.checked)}
                   className="rounded border-border"
                 />
                 <span className="text-sm">Тільки доступні книги</span>
@@ -603,7 +603,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
                     <input
                       type="checkbox"
                       checked={filters.categories.includes(category)}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                         const newCategories = e.target.checked
                           ? [...filters.categories, category]
                           : filters.categories.filter(c => c !== category);
@@ -626,7 +626,7 @@ export function AdvancedSearch({ books, onSearchResults }: AdvancedSearchProps) 
                     <input
                       type="checkbox"
                       checked={filters.authors.includes(author)}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                         const newAuthors = e.target.checked
                           ? [...filters.authors, author]
                           : filters.authors.filter(a => a !== author);

@@ -21,7 +21,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/Badge'
+import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
@@ -390,7 +390,7 @@ export default function AdminRentalsPage() {
 										id="search"
 										placeholder="Имя, email, телефон..."
 										value={searchQuery}
-										onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
+										onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSearchQuery(e.target.value)}
 										onKeyDown={(e: React.ChangeEvent<HTMLInputElement>) => e.key === 'Enter' && handleSearch()}
 										className="pl-10"
 									/>
@@ -665,7 +665,7 @@ export default function AdminRentalsPage() {
 									<Textarea
 										id="editNote"
 										value={editNote}
-										onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEditNote(e.target.value)}
+										onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setEditNote(e.target.value)}
 										placeholder="Добавить заметку..."
 										rows={3}
 									/>

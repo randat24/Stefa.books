@@ -1,6 +1,6 @@
 // @ts-expect-error - Lucide React icon types not properly recognized
 import { Star, Calendar, BookOpen, Award } from 'lucide-react';
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 import { BookCover } from '@/components/BookCover';
 import type { Book } from '@/lib/supabase';
 

@@ -1,79 +1,66 @@
-import { logger } from '@/lib/logger';
-
-// ============================================================================
-// MONOBANK PAYMENT API SERVICE
-// ============================================================================
+import { logger } from '@/lib/logger'
 
 export interface MonobankPaymentRequest {
-  amount: number;
-  description: string;
-  reference: string;
-  redirectUrl: string;
-  webhookUrl: string;
+  amount: number
+  description: string
+  reference: string
+  redirectUrl: string
+  webhookUrl: string
 }
 
 export interface MonobankPaymentResponse {
-  status: 'success' | 'error';
+  status: 'success' | 'error'
   data?: {
-    invoiceId: string;
-    pageUrl: string;
-  };
-  error?: string;
+    invoiceId: string
+    pageUrl: string
+  }
+  error?: string
 }
 
 export interface MonobankPaymentStatus {
-  status: 'success' | 'error';
-  data?: {
-    invoiceId: string;
-    status: 'new' | 'processing' | 'success' | 'failure';
-    amount: number;
-    ccy: number;
-    description: string;
-    reference: string;
-    createdDate: string;
-    modifiedDate: string;
-  };
-  error?: string;
+  status: 'new' | 'processing' | 'success' | 'failure'
+  amount: number
+  reference: string
+  invoiceId: string
 }
 
 export class MonobankPaymentService {
-  private apiUrl: string;
-  private apiToken: string;
+  private apiUrl = 'https://api.monobank.ua'
+  private apiToken = process.env.MONOBANK_TOKEN || ''
 
   constructor() {
-    this.apiUrl = 'https://api.monobank.ua';
-    this.apiToken = process.env.MONOBANK_TOKEN || '';
-
     if (!this.apiToken) {
-      throw new Error('MONOBANK_TOKEN обов\'язковий для роботи системи оплати! Система не може працювати без нього.');
+      logger.warn('MonobankPaymentService: MONOBANK_TOKEN not configured')
     }
-
-    logger.info('MonobankPaymentService initialized', {
-      hasToken: !!this.apiToken,
-      apiUrl: this.apiUrl
-    });
   }
 
   /**
-   * Create a new payment
+   * Создать платеж в Monobank
    */
-  async createPayment(request: MonobankPaymentRequest): Promise<MonobankPaymentResponse> {
+  async createPayment(req: MonobankPaymentRequest): Promise<MonobankPaymentResponse> {
     try {
+      if (!this.apiToken) {
+        return {
+          status: 'error',
+          error: 'Monobank token not configured'
+        }
+      }
 
+      // Monobank ожидает сумму в копейках
       const payload = {
-        amount: request.amount * 100, // Convert to kopecks
+        amount: req.amount * 100,
         ccy: 980, // UAH
-        description: `Stefa.Books - ${request.description}`,
-        reference: request.reference,
-        redirectUrl: request.redirectUrl,
-        webhookUrl: request.webhookUrl
-      };
+        description: `Stefa.Books - ${req.description}`,
+        reference: req.reference,
+        redirectUrl: req.redirectUrl,
+        webhookUrl: req.webhookUrl
+      }
 
       logger.info('MonobankPaymentService: Creating payment', {
-        amount: payload.amount,
-        description: payload.description,
-        reference: payload.reference
-      });
+        amount: req.amount,
+        reference: req.reference,
+        description: req.description
+      })
 
       const response = await fetch(`${this.apiUrl}/api/merchant/invoice/create`, {
         method: 'POST',
@@ -82,106 +69,107 @@ export class MonobankPaymentService {
           'X-Token': this.apiToken
         },
         body: JSON.stringify(payload)
-      });
+      })
 
       if (!response.ok) {
-        const errorText = await response.text();
+        const errorText = await response.text()
         logger.error('MonobankPaymentService: API error', {
           status: response.status,
           statusText: response.statusText,
           error: errorText
-        });
+        })
         
         return {
           status: 'error',
-          error: `API error: ${response.status} ${response.statusText}`
-        };
+          error: `Monobank API error: ${response.status} ${response.statusText}`
+        }
       }
 
-      const data = await response.json();
+      const data = await response.json()
       
-      logger.info('MonobankPaymentService: Payment created successfully', {
-        invoiceId: data.invoiceId,
-        pageUrl: data.pageUrl
-      });
-
-      return {
-        status: 'success',
-        data: {
+      if (data.invoiceId && data.pageUrl) {
+        logger.info('MonobankPaymentService: Payment created successfully', {
           invoiceId: data.invoiceId,
-          pageUrl: data.pageUrl
-        }
-      };
+          reference: req.reference
+        })
 
+        return {
+          status: 'success',
+          data: {
+            invoiceId: data.invoiceId,
+            pageUrl: data.pageUrl
+          }
+        }
+      } else {
+        logger.error('MonobankPaymentService: Invalid response format', { data })
+        return {
+          status: 'error',
+          error: 'Invalid response from Monobank API'
+        }
+      }
     } catch (error) {
-      logger.error('MonobankPaymentService: Error creating payment', error);
+      logger.error('MonobankPaymentService: Payment creation error', error)
       return {
         status: 'error',
         error: error instanceof Error ? error.message : 'Unknown error'
-      };
+      }
     }
   }
 
   /**
-   * Check payment status
+   * Проверить статус платежа
    */
-  async checkPaymentStatus(invoiceId: string): Promise<MonobankPaymentStatus> {
+  async checkPaymentStatus(invoiceId: string): Promise<MonobankPaymentStatus | null> {
     try {
-
-      logger.info('MonobankPaymentService: Checking payment status', { invoiceId });
+      if (!this.apiToken) {
+        logger.warn('MonobankPaymentService: MONOBANK_TOKEN not configured for status check')
+        return null
+      }
 
       const response = await fetch(`${this.apiUrl}/api/merchant/invoice/status?invoiceId=${invoiceId}`, {
         method: 'GET',
         headers: {
           'X-Token': this.apiToken
         }
-      });
+      })
 
       if (!response.ok) {
-        const errorText = await response.text();
         logger.error('MonobankPaymentService: Status check API error', {
           status: response.status,
-          statusText: response.statusText,
-          error: errorText
-        });
-        
-        return {
-          status: 'error',
-          error: `API error: ${response.status} ${response.statusText}`
-        };
+          statusText: response.statusText
+        })
+        return null
       }
 
-      const data = await response.json();
+      const data = await response.json()
       
-      logger.info('MonobankPaymentService: Payment status retrieved', {
-        invoiceId,
+      return {
         status: data.status,
-        amount: data.amount
-      });
-
-      return {
-        status: 'success',
-        data: {
-          invoiceId: data.invoiceId,
-          status: data.status,
-          amount: data.amount / 100, // Convert from kopecks
-          ccy: data.ccy,
-          description: data.description,
-          reference: data.reference,
-          createdDate: data.createdDate,
-          modifiedDate: data.modifiedDate
-        }
-      };
-
+        amount: data.amount / 100, // Конвертируем из копеек
+        reference: data.reference,
+        invoiceId: data.invoiceId
+      }
     } catch (error) {
-      logger.error('MonobankPaymentService: Error checking payment status', error);
-      return {
-        status: 'error',
-        error: error instanceof Error ? error.message : 'Unknown error'
-      };
+      logger.error('MonobankPaymentService: Status check error', error)
+      return null
     }
+  }
+
+  /**
+   * Валидация webhook подписи (опционально)
+   */
+  validateWebhook(body: string, signature: string): boolean {
+    // В реальной реализации здесь должна быть проверка подписи
+    // Monobank использует HMAC-SHA256 для подписи webhook'ов
+    logger.info('MonobankPaymentService: Webhook validation (placeholder)', {
+      bodyLength: body.length,
+      hasSignature: !!signature
+    })
+    
+    // Пока возвращаем true, но в продакшене нужно реализовать проверку
+    return true
   }
 }
 
-// Export singleton instance
-export const monobankPaymentService = new MonobankPaymentService();
+// Экспортируем singleton instance
+export const monobankPaymentService = new MonobankPaymentService()

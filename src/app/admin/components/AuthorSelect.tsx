@@ -148,7 +148,7 @@ export function AuthorSelect({ value, onChange, disabled }: AuthorSelectProps) {
                 <Input
                   id="author-name"
                   value={newAuthorName}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewAuthorName(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setNewAuthorName(e.target.value)}
                   placeholder="Введите имя автора"
                   onKeyDown={(e: React.ChangeEvent<HTMLInputElement>) => e.key === 'Enter' && handleAddAuthor()}
                 />

@@ -204,7 +204,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
                 <Input
                   id="firstName"
                   value={formData.firstName}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('firstName', e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('firstName', e.target.value)}
                   required
                   className="mt-1"
                 />
@@ -214,7 +214,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
                 <Input
                   id="lastName"
                   value={formData.lastName}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('lastName', e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('lastName', e.target.value)}
                   required
                   className="mt-1"
                 />
@@ -228,7 +228,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
                   id="email"
                   type="email"
                   value={formData.email}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('email', e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('email', e.target.value)}
                   required
                   className="mt-1"
                 />
@@ -239,7 +239,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
                   id="phone"
                   type="tel"
                   value={formData.phone}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('phone', e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('phone', e.target.value)}
                   required
                   className="mt-1"
                 />
@@ -260,7 +260,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
                 <Input
                   id="address"
                   value={formData.address}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('address', e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('address', e.target.value)}
                   className="mt-1"
                 />
               </div>
@@ -271,7 +271,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
                   <Input
                     id="city"
                     value={formData.city}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('city', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('city', e.target.value)}
                     className="mt-1"
                   />
                 </div>
@@ -280,7 +280,7 @@ export function BookRentalForm({ book }: BookRentalFormProps) {
                   <Input
                     id="postalCode"
                     value={formData.postalCode}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('postalCode', e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('postalCode', e.target.value)}
                     className="mt-1"
                   />
                 </div>

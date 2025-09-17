@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Cloud, Download, Upload, RefreshCw, CheckCircle, Info, ExternalLink, Users, BookOpen, Globe } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/Badge"
+import { Badge } from "@/components/ui/badge"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 
 interface SyncStatus {

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ChevronLeft, ChevronRight, MoreHorizontalIcon } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 
 interface PaginationControlsProps {
   currentPage: number;
@@ -74,7 +74,7 @@ export function PaginationControls({
                 key={`ellipsis-${index}`}
                 className="flex items-center justify-center w-10 h-10 text-neutral-500"
               >
-                <MoreHorizontalIcon className="w-4 h-4" />
+                <MoreHorizontal className="w-4 h-4" />
               </span>
             );
           }

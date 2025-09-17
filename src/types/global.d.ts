@@ -175,7 +175,7 @@ declare module 'lucide-react' {
 }
 
 // UI Components
-declare module '@/components/ui/Badge' {
+declare module '@/components/ui/badge' {
   export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
     variant?: string;
     className?: string;

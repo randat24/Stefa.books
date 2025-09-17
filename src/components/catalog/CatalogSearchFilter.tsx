@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Search, Filter, X, ChevronDown } from 'lucide-react';
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 
 interface SearchFilters {
   search: string;
@@ -104,7 +104,7 @@ export function CatalogSearchFilter({
               ref={searchInputRef}
               type="text"
               value={filters.search}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFilter('search', e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateFilter('search', e.target.value)}
               onKeyDown={handleSearchKeyDown}
               placeholder="Пошук по назві, автору, опису..."
               className="w-full h-12 pl-12 pr-12 rounded-2xl border-2 border-neutral-200 bg-[var(--surface-2)] text-neutral-900 placeholder:text-neutral-500 focus:border-accent-light focus:outline-none transition-colors"
@@ -250,7 +250,7 @@ export function CatalogSearchFilter({
                 <input
                   type="checkbox"
                   checked={filters.availableOnly}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFilter('availableOnly', e.target.checked)}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateFilter('availableOnly', e.target.checked)}
                   className="w-4 h-4 text-accent rounded border-neutral-300 focus:ring-accent"
                 />
                 <span className="text-body-sm text-neutral-700">Тільки доступні</span>
@@ -264,7 +264,7 @@ export function CatalogSearchFilter({
               </label>
               <select
                 value={filters.minRating}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFilter('minRating', Number(e.target.value))}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateFilter('minRating', Number(e.target.value))}
                 className="w-full p-3 border border-neutral-300 rounded-lg bg-[var(--surface-2)] focus:border-accent-light focus:outline-none transition-colors"
               >
                 <option value={0}>Будь-який</option>

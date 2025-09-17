@@ -125,7 +125,7 @@ export function EnhancedForm({
             </label>
             <textarea
               value={value}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange(field.name, e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleFieldChange(field.name, e.target.value)}
               className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent ${
                 error ? 'border-red-300' : 'border-neutral-300'
               }`}
@@ -147,7 +147,7 @@ export function EnhancedForm({
             </label>
             <select
               value={value}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange(field.name, e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleFieldChange(field.name, e.target.value)}
               className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent ${
                 error ? 'border-red-300' : 'border-neutral-300'
               }`}
@@ -190,7 +190,7 @@ export function EnhancedForm({
             <input
               type={field.type}
               value={value}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange(field.name, e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleFieldChange(field.name, e.target.value)}
               className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent ${
                 error ? 'border-red-300' : 'border-neutral-300'
               }`}

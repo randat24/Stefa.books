@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { RefreshCw, Trash2, Image, Database, BarChart3, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/Badge'
+import { Badge } from '@/components/ui/badge'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 
 interface CacheStats {

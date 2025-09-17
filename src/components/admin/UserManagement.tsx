@@ -7,7 +7,7 @@ import {
   CheckCircle, XCircle, AlertTriangleIcon, Clock
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/Badge"
+import { Badge } from "@/components/ui/badge"
 import { 
   Card, CardContent, CardHeader, CardTitle 
 } from "@/components/ui/card"
@@ -309,7 +309,7 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
               <Input
                 placeholder="Пошук по імені, email, телефону..."
                 value={filters.search}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilters(prev => ({ ...prev, search: e.target.value }))}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFilters(prev => ({ ...prev, search: e.target.value }))}
                 className="pl-10 pr-4 h-11 border-neutral-200 focus:border-neutral-400 focus:ring-gray-400"
               />
             </div>
@@ -327,7 +327,7 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                   <Label className="text-body-sm font-medium text-neutral-700">Статус</Label>
                   <select
                     value={filters.status}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilters(prev => ({ ...prev, status: e.target.value }))}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFilters(prev => ({ ...prev, status: e.target.value }))}
                     className="w-full mt-1 px-3 py-2 border border-neutral-200 rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-accent"
                   >
                     <option value="">Всі статуси</option>
@@ -340,7 +340,7 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                   <Label className="text-body-sm font-medium text-neutral-700">Тип підписки</Label>
                   <select
                     value={filters.subscriptionType}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilters(prev => ({ ...prev, subscriptionType: e.target.value }))}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFilters(prev => ({ ...prev, subscriptionType: e.target.value }))}
                     className="w-full mt-1 px-3 py-2 border border-neutral-200 rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-accent"
                   >
                     <option value="">Всі типи</option>
@@ -353,7 +353,7 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                   <Label className="text-body-sm font-medium text-neutral-700">Сортування</Label>
                   <select
                     value={`${filters.sortBy}-${filters.sortOrder}`}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                       const [sortBy, sortOrder] = e.target.value.split('-')
                       setFilters(prev => ({ ...prev, sortBy, sortOrder: sortOrder as 'asc' | 'desc' }))
                     }}

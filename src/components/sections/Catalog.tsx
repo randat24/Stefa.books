@@ -126,7 +126,7 @@ export function Catalog() {
                 type="text"
                 placeholder="Пошук за назвою, автором або категорією..."
                 value={searchQuery}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSearchQuery(e.target.value)}
                 className="field pl-12 pr-12"
               />
               {searchQuery && (

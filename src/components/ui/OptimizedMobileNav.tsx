@@ -1,7 +1,6 @@
 'use client'
 
-import { useCallback, useState, useEffect, useRef , ReactNode } from 'react';
-import { ReactNode } from 'react'
+import { useCallback, useState, useEffect, useRef, ReactNode } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'

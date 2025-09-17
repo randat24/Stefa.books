@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { Star, BookOpen, Calendar, AlertCircle } from 'lucide-react';
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 import type { Book } from '@/lib/supabase';
 
 interface BookReturnInfoProps {

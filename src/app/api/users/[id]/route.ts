@@ -4,9 +4,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
-import { Logger } from '@/lib/logger';
-
-const logger = new Logger('UserAPI');
+import { logger } from '@/lib/logger';
 
 export async function GET(
   request: NextRequest,

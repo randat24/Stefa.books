@@ -33,7 +33,7 @@ export function FormField({
         type={type}
         placeholder={placeholder}
         value={value}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange(e.target.value)}
         disabled={disabled}
         className={`
           w-full px-3 py-2 border rounded-lg transition-colors
@@ -80,7 +80,7 @@ export function SelectField({
       </label>
       <select
         value={value}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange(e.target.value)}
         disabled={disabled}
         className={`
           w-full px-3 py-2 border rounded-lg transition-colors
@@ -136,7 +136,7 @@ export function TextAreaField({
       <textarea
         placeholder={placeholder}
         value={value}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange(e.target.value)}
         disabled={disabled}
         rows={rows}
         className={`

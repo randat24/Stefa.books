@@ -58,7 +58,7 @@ const OptimizedImageUpload = (function OptimizedImageUpload({
     try {
       // Создаем превью
       const reader = new FileReader()
-      reader.onload = (e: React.ChangeEvent<HTMLInputElement>) => {
+      reader.onload = (e: ProgressEvent<FileReader>) => {
         setPreview(e.target?.result as string)
       }
       reader.readAsDataURL(file)

@@ -87,7 +87,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
       
       // Создаем превью
       const reader = new FileReader();
-      reader.onload = (e: React.ChangeEvent<HTMLInputElement>) => {
+      reader.onload = (e: ProgressEvent<FileReader>) => {
         setUploadPreview(e.target?.result as string);
       };
       reader.readAsDataURL(file);
@@ -552,7 +552,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
                         type="file"
                         id="screenshot"
                         accept="image/*"
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
                           if (e.target.files) {
                             handleFileUpload({ target: { files: e.target.files } });
                           }

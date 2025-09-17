@@ -4,20 +4,18 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { SubscriptionService } from '@/lib/services/subscription';
-import { monobankService } from '@/lib/services/monobank';
-import { Logger } from '@/lib/logger';
-import type { SubscriptionType } from '@/lib/types/subscription';
+import { monobankPaymentService } from '@/lib/payments/monobank-payment-service';
+import { logger } from '@/lib/logger';
 
-const logger = new Logger('SubscriptionCreateAPI');
+// Logger is already imported as singleton instance
 
 const createSubscriptionSchema = z.object({
   email: z.string().email('Невірний формат email'),
   name: z.string().min(2, 'Ім\'я повинно містити мінімум 2 символи'),
   phone: z.string().min(10, 'Невірний формат телефону'),
   address: z.string().min(5, 'Адреса повинна містити мінімум 5 символів'),
-  subscription_type: z.enum(['mini', 'maxi'], {
-    errorMap: () => ({ message: 'Оберіть тип підписки: mini або maxi' })
+  subscription_type: z.enum(['mini', 'maxi', 'premium'], {
+    errorMap: () => ({ message: 'Оберіть тип підписки: mini, maxi або premium' })
   })
 });
 
@@ -30,59 +28,79 @@ export async function POST(request: NextRequest) {
     const validatedData = createSubscriptionSchema.parse(body);
     const { email, name, phone, address, subscription_type } = validatedData;
 
-    // Проверяем, нет ли уже пользователя с таким email
-    const existingUser = await SubscriptionService.getUserByEmail(email);
-    if (existingUser) {
-      return NextResponse.json(
-        { error: 'Користувач з таким email вже існує' },
-        { status: 400 }
-      );
-    }
-
-    // Создаем пользователя с подпиской
-    const { userId, subscriptionId } = await SubscriptionService.createUserWithSubscription(
-      email,
-      name,
-      phone,
-      address,
-      subscription_type as SubscriptionType
-    );
-
-    // Получаем план подписки для расчета суммы
-    const plan = SubscriptionService.getSubscriptionPlan(subscription_type as SubscriptionType);
+    // Определяем сумму в зависимости от плана
+    const planPrices = {
+      mini: 300,
+      maxi: 500,
+      premium: 1500
+    };
+    
+    const amount = planPrices[subscription_type] || 300;
+    const description = `Підписка ${subscription_type.toUpperCase()} - ${amount} ₴`;
 
     // Создаем платеж в Monobank
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://stefa-books.com.ua';
-    const payment = await monobankService.createPayment({
-      amount: plan.price,
-      description: `Підписка ${plan.name} - Stefa Books`,
-      reference: `subscription-${subscriptionId}`,
-      redirectUrl: `${siteUrl}/subscription/success?subscription=${subscriptionId}`,
-      webhookUrl: `${siteUrl}/api/payments/monobank/webhook`,
-      customerEmail: email,
-      customerName: name
+    const reference = `sub_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
+    const paymentResult = await monobankPaymentService.createPayment({
+      amount,
+      description,
+      reference,
+      redirectUrl: `${siteUrl}/payment/success?reference=${reference}`,
+      webhookUrl: `${siteUrl}/api/payments/monobank/webhook`
     });
 
-    logger.info(`Создан платеж для подписки ${subscriptionId}: ${payment.invoiceId}`);
+    // Проверяем успешность создания платежа
+    if (paymentResult.status !== 'success' || !paymentResult.data) {
+      logger.error('Ошибка создания платежа в Monobank:', paymentResult.error);
+      return NextResponse.json(
+        { error: 'Помилка створення платежу в Monobank' },
+        { status: 500 }
+      );
+    }
 
-    // Обновляем подписку с ID платежа Monobank
-    await SubscriptionService.updateSubscriptionPayment(subscriptionId, {
-      monobank_invoice_id: payment.invoiceId,
-      payment_url: payment.pageUrl
-    });
+    logger.info(`Создан платеж для подписки: ${paymentResult.data?.invoiceId}`);
+
+    // Создаем заявку на подписку
+    const { createClient } = await import('@supabase/supabase-js');
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.SUPABASE_SERVICE_ROLE_KEY!,
+      { auth: { persistSession: false } }
+    );
+
+    const { data: subscriptionRequest, error: requestError } = await supabase
+      .from('subscription_requests')
+      .insert({
+        name,
+        email,
+        phone,
+        plan: subscription_type,
+        payment_method: 'monobank',
+        status: 'pending',
+        admin_notes: `Payment created: ${paymentResult.data?.invoiceId}`
+      })
+      .select()
+      .single();
+
+    if (requestError || !subscriptionRequest) {
+      logger.error('Ошибка создания заявки на подписку:', requestError);
+      return NextResponse.json(
+        { error: 'Помилка створення заявки на підписку' },
+        { status: 500 }
+      );
+    }
 
     return NextResponse.json({
       success: true,
-      subscription_id: subscriptionId,
-      user_id: userId,
+      subscription_id: subscriptionRequest.id,
       payment: {
-        invoice_id: payment.invoiceId,
-        payment_url: payment.pageUrl,
-        amount: plan.price,
+        invoice_id: paymentResult.data?.invoiceId,
+        payment_url: paymentResult.data?.pageUrl,
+        amount,
         currency: 'UAH'
       },
-      redirect_url: payment.pageUrl,
-      profile_url: `${siteUrl}/user/${userId}`
+      redirect_url: paymentResult.data?.pageUrl
     });
 
   } catch (error) {

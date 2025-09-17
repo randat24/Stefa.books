@@ -3,10 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { Button } from '@/components/ui/Button';
-import { Logger } from '@/lib/logger';
-
-const logger = new Logger('SubscriptionSuccess');
+import { Button } from '@/components/ui/button';
+import { logger } from '@/lib/logger';
 
 export default function SubscriptionSuccessPage() {
   const searchParams = useSearchParams();

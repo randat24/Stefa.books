@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { Search, Filter, X, ChevronDown } from 'lucide-react';
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 
 interface SearchFilters {
   search: string;
@@ -111,7 +111,7 @@ export function CatalogSearchFilter({
               ref={searchInputRef}
               type="text"
               value={filters.search}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFilter('search', e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateFilter('search', e.target.value)}
               onKeyDown={handleSearchKeyDown}
               placeholder="Пошук по назві, автору, опису..."
               className="w-full h-12 pl-12 pr-12 rounded-full border-2 border-gray-200 bg-white text-gray-900 placeholder:text-gray-500 focus:border-brand-yellow-light focus:outline-none transition-colors"
@@ -119,7 +119,7 @@ export function CatalogSearchFilter({
             {filters.search && (
               <button
                 type="button"
-                onClick={(e: React.MouseEvent<HTMLInputElement>) => {
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.preventDefault();
                   e.stopPropagation();
                   updateFilter('search', '');
@@ -158,7 +158,7 @@ export function CatalogSearchFilter({
             {activeFilterCount > 0 && (
               <button
                 type="button"
-                onClick={(e: React.MouseEvent<HTMLInputElement>) => {
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.preventDefault();
                   e.stopPropagation();
                   clearFilters();
@@ -191,7 +191,7 @@ export function CatalogSearchFilter({
                 <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-48 overflow-y-auto">
                   <button
                     type="button"
-                    onClick={(e: React.MouseEvent<HTMLInputElement>) => {
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                       e.preventDefault();
                       e.stopPropagation();
                       handleFilterClick('category', '', () => setShowCategories(false));
@@ -204,7 +204,7 @@ export function CatalogSearchFilter({
                     <button
                       key={category}
                       type="button"
-                      onClick={(e: React.MouseEvent<HTMLInputElement>) => {
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                         e.preventDefault();
                         e.stopPropagation();
                         handleFilterClick('category', category, () => setShowCategories(false));
@@ -240,7 +240,7 @@ export function CatalogSearchFilter({
                 <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-48 overflow-y-auto">
                   <button
                     type="button"
-                    onClick={(e: React.MouseEvent<HTMLInputElement>) => {
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                       e.preventDefault();
                       e.stopPropagation();
                       handleFilterClick('author', '', () => setShowAuthors(false));
@@ -253,7 +253,7 @@ export function CatalogSearchFilter({
                     <button
                       key={author}
                       type="button"
-                      onClick={(e: React.MouseEvent<HTMLInputElement>) => {
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                         e.preventDefault();
                         e.stopPropagation();
                         handleFilterClick('author', author, () => setShowAuthors(false));
@@ -278,7 +278,7 @@ export function CatalogSearchFilter({
                 <input
                   type="checkbox"
                   checked={filters.availableOnly}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFilter('availableOnly', e.target.checked)}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateFilter('availableOnly', e.target.checked)}
                   className="w-4 h-4 text-brand-yellow rounded border-gray-300 focus:ring-brand-yellow"
                 />
                 <span className="text-sm text-gray-700">Тільки доступні</span>
@@ -292,7 +292,7 @@ export function CatalogSearchFilter({
               </label>
               <select
                 value={filters.minRating}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => updateFilter('minRating', Number(e.target.value))}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => updateFilter('minRating', Number(e.target.value))}
                 className="w-full p-3 border border-gray-300 rounded-lg bg-white focus:border-brand-yellow-light focus:outline-none transition-colors"
               >
                 <option value={0}>Будь-який</option>
@@ -311,7 +311,7 @@ export function CatalogSearchFilter({
           {filters.category && (
             <button
               type="button"
-              onClick={(e: React.MouseEvent<HTMLInputElement>) => {
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                 e.preventDefault();
                 e.stopPropagation();
                 updateFilter('category', '');
@@ -325,7 +325,7 @@ export function CatalogSearchFilter({
           {filters.author && (
             <button
               type="button"
-              onClick={(e: React.MouseEvent<HTMLInputElement>) => {
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                 e.preventDefault();
                 e.stopPropagation();
                 updateFilter('author', '');
@@ -339,7 +339,7 @@ export function CatalogSearchFilter({
           {filters.availableOnly && (
             <button
               type="button"
-              onClick={(e: React.MouseEvent<HTMLInputElement>) => {
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                 e.preventDefault();
                 e.stopPropagation();
                 updateFilter('availableOnly', false);
@@ -353,7 +353,7 @@ export function CatalogSearchFilter({
           {filters.minRating > 0 && (
             <button
               type="button"
-              onClick={(e: React.MouseEvent<HTMLInputElement>) => {
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                 e.preventDefault();
                 e.stopPropagation();
                 updateFilter('minRating', 0);

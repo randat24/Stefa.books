@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/Badge';
+import { Badge } from '@/components/ui/badge';
 import UserDashboard from '@/components/user/UserDashboard';
 import SubscriptionManager from '@/components/user/SubscriptionManager';
 import RentalHistory from '@/components/user/RentalHistory';

@@ -226,7 +226,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               <Input
                 id="code"
                 value={formData.code}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('code', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('code', e.target.value)}
                 placeholder="DL-001"
                 required
               />
@@ -240,7 +240,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               <Input
                 id="title"
                 value={formData.title}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('title', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('title', e.target.value)}
                 placeholder="Назва книги"
                 required
               />
@@ -256,7 +256,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               <Input
                 id="author"
                 value={formData.author}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('author', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('author', e.target.value)}
                 placeholder="Ім'я автора"
                 required
               />
@@ -315,7 +315,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               <Input
                 id="isbn"
                 value={formData.isbn}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('isbn', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('isbn', e.target.value)}
                 placeholder="978-0-123456-78-9"
               />
             </div>
@@ -326,7 +326,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
                 id="pages"
                 type="number"
                 value={formData.pages || ''}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('pages', e.target.value ? parseInt(e.target.value) : null)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('pages', e.target.value ? parseInt(e.target.value) : null)}
                 placeholder="200"
               />
             </div>
@@ -336,7 +336,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               <Input
                 id="age_range"
                 value={formData.age_range}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('age_range', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('age_range', e.target.value)}
                 placeholder="6+"
               />
             </div>
@@ -348,7 +348,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               <Input
                 id="publisher"
                 value={formData.publisher}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('publisher', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('publisher', e.target.value)}
                 placeholder="Назва видавництва"
               />
             </div>
@@ -359,7 +359,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
                 id="publication_year"
                 type="number"
                 value={formData.publication_year || ''}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('publication_year', e.target.value ? parseInt(e.target.value) : null)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('publication_year', e.target.value ? parseInt(e.target.value) : null)}
                 placeholder="2024"
               />
             </div>
@@ -374,7 +374,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
                 type="number"
                 min="1"
                 value={formData.qty_total}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('qty_total', parseInt(e.target.value) || 1)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('qty_total', parseInt(e.target.value) || 1)}
                 required
               />
             </div>
@@ -386,7 +386,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
                 type="number"
                 min="0"
                 value={formData.qty_available}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('qty_available', parseInt(e.target.value) || 0)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('qty_available', parseInt(e.target.value) || 0)}
                 required
               />
             </div>
@@ -401,7 +401,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
                 type="number"
                 step="0.01"
                 value={formData.price_uah || ''}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('price_uah', e.target.value ? parseFloat(e.target.value) : null)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('price_uah', e.target.value ? parseFloat(e.target.value) : null)}
                 placeholder="150.00"
               />
             </div>
@@ -435,7 +435,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
               <Input
                 id="location"
                 value={formData.location}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('location', e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('location', e.target.value)}
                 placeholder="Полиця А-1"
               />
             </div>
@@ -447,7 +447,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
             <Input
               id="cover_url"
               value={formData.cover_url}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange('cover_url', e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleInputChange('cover_url', e.target.value)}
               placeholder="https://res.cloudinary.com/..."
             />
           </div>
