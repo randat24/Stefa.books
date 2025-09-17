@@ -8,7 +8,7 @@ import {
 } from '@/lib/types/monobank';
 import { logger } from '@/lib/logger';
 import { supabase } from '@/lib/supabase';
-// Crypto validation disabled for now - will be implemented with proper ECDSA verification
+// Webhook validation simplified - no external dependencies needed
 
 export class MonobankService {
   private config: MonobankConfig;
