@@ -150,7 +150,7 @@ export default function PaymentPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
+          {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between">
             <div>
@@ -162,7 +162,7 @@ export default function PaymentPage() {
               Обновить
             </Button>
           </div>
-        </div>
+          </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
@@ -173,7 +173,7 @@ export default function PaymentPage() {
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600">Всего платежей</p>
                   <p className="text-2xl font-bold text-gray-900">{payments.length}</p>
-                </div>
+              </div>
               </div>
             </CardContent>
           </Card>
@@ -275,8 +275,8 @@ export default function PaymentPage() {
                             </div>
                             <div className="text-sm text-gray-500">
                               ID: {payment.invoiceId}
-                            </div>
-                          </div>
+            </div>
+          </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="text-sm font-medium text-gray-900">
@@ -326,13 +326,13 @@ export default function PaymentPage() {
                                 Чек
                               </Button>
                             )}
-                          </div>
+            </div>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
-              </div>
+          </div>
             )}
           </CardContent>
         </Card>

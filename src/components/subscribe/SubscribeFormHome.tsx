@@ -28,7 +28,7 @@ const subscribeFormSchema = z.object({
   subscription_type: z.enum(['mini', 'maxi'], {
     required_error: 'Оберіть план підписки'
   }),
-  payment_method: z.enum(['Онлайн оплата', 'Переказ на карту'], {
+  payment_method: z.enum(['Переказ на карту'], {
     required_error: 'Оберіть спосіб оплати'
   }),
   notes: z.string()
@@ -112,7 +112,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
     mode: 'onChange',
     defaultValues: {
       subscription_type: defaultPlan || "mini",
-      payment_method: "Онлайн оплата",
+      payment_method: "Переказ на карту",
       phone: "+380",
       social: "",
       notes: "",
@@ -240,11 +240,7 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
           hasPayment: !!result.payment
         });
         
-        // Если есть данные платежа, перенаправляем на оплату
-        if (result.payment && result.payment.paymentUrl) {
-          window.location.href = result.payment.paymentUrl;
-          return;
-        }
+        // Automatically proceed to registration after form submission
         
         setSent(true);
       } else {
@@ -268,9 +264,9 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
             <div className="w-16 h-16 mx-auto mb-2 rounded-[var(--radius-lg)] bg-[var(--success)]/10 flex items-center justify-center">
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
-            <h3 className="h2 mb-2">Заявку надіслано!</h3>
+            <h3 className="h2 mb-2">Вітаємо! Ви зареєстровані!</h3>
             <p className="text-[var(--text-muted)] mb-6">
-              Дякуємо за заявку! Ми зв&apos;яжемося з вами найближчим часом для підтвердження підписки.
+              Дякуємо! Ваша реєстрація пройшла успішно. Адміністратор перевірить ваш чек і підтвердить підписку найближчим часом.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button
@@ -456,52 +452,20 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
               <label className="label font-semibold">
                 Спосіб оплати *
               </label>
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3">
                 <div
-                  className={`relative rounded-lg border-2 p-3 cursor-pointer transition-all ${
-                    watch("payment_method") === 'Онлайн оплата'
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-neutral-200 hover:border-neutral-300'
-                  }`}
-                  onClick={() => setValue('payment_method', 'Онлайн оплата')}
+                  className="relative rounded-lg border-2 p-3 border-green-500 bg-green-50"
                 >
                   <div className="flex items-center gap-2">
-                    <div className={`w-4 h-4 rounded-2xl border-2 flex items-center justify-center ${
-                      watch("payment_method") === 'Онлайн оплата' ? 'border-blue-500 bg-blue-500' : 'border-neutral-300'
-                    }`}>
-                      {watch("payment_method") === 'Онлайн оплата' && <div className="w-1.5 h-1.5 bg-white rounded-2xl" />}
+                    <div className="w-4 h-4 rounded-2xl border-2 flex items-center justify-center border-green-500 bg-green-500">
+                      <div className="w-1.5 h-1.5 bg-white rounded-2xl" />
                     </div>
                     <div>
-                      <p className={`font-semibold text-body ${watch("payment_method") === 'Онлайн оплата' ? 'text-blue-900' : 'text-neutral-700'}`}>
-                        Онлайн оплата
+                      <p className="font-semibold text-body text-green-900">
+                        Переказ на карту Монобанку
                       </p>
-                      <p className={`text-caption ${watch("payment_method") === 'Онлайн оплата' ? 'text-blue-700' : 'text-neutral-500'}`}>
-                        Банківською карткою
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  className={`relative rounded-lg border-2 p-3 cursor-pointer transition-all ${
-                    watch("payment_method") === 'Переказ на карту'
-                      ? 'border-green-500 bg-green-50'
-                      : 'border-neutral-200 hover:border-neutral-300'
-                  }`}
-                  onClick={() => setValue('payment_method', 'Переказ на карту')}
-                >
-                  <div className="flex items-center gap-2">
-                    <div className={`w-4 h-4 rounded-2xl border-2 flex items-center justify-center ${
-                      watch("payment_method") === 'Переказ на карту' ? 'border-green-500 bg-green-500' : 'border-neutral-300'
-                    }`}>
-                      {watch("payment_method") === 'Переказ на карту' && <div className="w-1.5 h-1.5 bg-white rounded-2xl" />}
-                    </div>
-                    <div>
-                      <p className={`font-semibold text-body ${watch("payment_method") === 'Переказ на карту' ? 'text-green-900' : 'text-neutral-700'}`}>
-                        Переказ на карту
-                      </p>
-                      <p className={`text-caption ${watch("payment_method") === 'Переказ на карту' ? 'text-green-700' : 'text-neutral-500'}`}>
-                        Монобанк
+                      <p className="text-caption text-green-700">
+                        Скинь чек після переказу
                       </p>
                     </div>
                   </div>
@@ -613,20 +577,6 @@ function SubscribeFormHomeContent({ defaultPlan }: SubscribeFormHomeProps) {
               </div>
             )}
 
-            {/* Информация об онлайн оплате */}
-            {watch("payment_method") === 'Онлайн оплата' && (
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <p className="text-body font-semibold text-blue-800">
-                    Онлайн оплата через Монобанк
-                  </p>
-                </div>
-                <p className="text-sm text-blue-700">
-                  Після відправки заявки ви будете перенаправлені на сторінку безпечної оплати
-                </p>
-              </div>
-            )}
 
             {/* Дополнительная информация */}
             <div>

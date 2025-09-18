@@ -56,7 +56,7 @@ const subscribeFormSchema = z.object({
 	plan: z.enum(['mini', 'maxi'], {
 		required_error: 'Оберіть план підписки'
 	}),
-	payment: z.enum(['Онлайн оплата', 'Переказ на карту'], {
+	payment: z.enum(['Переказ на карту'], {
 		required_error: 'Оберіть спосіб оплати'
 	}),
 	note: z.string()
@@ -131,7 +131,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 		mode: 'onChange',
 		defaultValues: {
 			plan: defaultPlan || 'mini',
-			payment: 'Онлайн оплата',
+			payment: 'Переказ на карту',
 			phone: '+380',
 			name: '',
 			email: '',
@@ -239,36 +239,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 		setUploadProgress(0)
 
 		try {
-			// If online payment is selected, redirect to payment page
-			if (data.payment === 'Онлайн оплата') {
-				// Create URL parameters for payment page
-				const paymentParams = new URLSearchParams({
-					plan: data.plan,
-					name: data.name,
-					email: data.email,
-					phone: data.phone });
-
-				// Add optional parameters if they exist
-				if (data.social) {
-					paymentParams.append('social', data.social);
-				}
-				if (data.note) {
-					paymentParams.append('note', data.note);
-				}
-
-				// Log the redirect attempt
-				logger.info('Redirecting to payment page', {
-					plan: data.plan,
-					email: data.email,
-					payment_method: 'online'
-				});
-
-				// Redirect to payment page
-				window.location.href = `/payment?${paymentParams.toString()}`;
-				return;
-			}
-
-			// Continue with traditional flow for bank transfer
+			// Only bank transfer payment is available now
 			let screenshotUrl = ''
 
 			// Upload screenshot if provided
@@ -367,10 +338,10 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 						</div>
 						<div>
 							<h3 className="text-body-lg font-semibold text-neutral-900 mb-2">
-								Заявку надіслано!
+								Вітаємо! Ви зареєстровані!
 							</h3>
 							<p className="text-neutral-600">
-								Дякуємо за ваш інтерес! Ми зв&apos;яжемося з вами найближчим часом для оформлення підписки.
+								Ваша реєстрація пройшла успішно. Адміністратор перевірить ваш чек і підтвердить підписку найближчим часом.
 							</p>
 						</div>
 						<div className="flex gap-3">
@@ -589,7 +560,6 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 							</Label>
 							<div className="space-y-3">
 								{[
-									{ value: "Онлайн оплата", label: "Онлайн оплата", icon: CreditCard },
 									{ value: "Переказ на карту", label: "Переказ на карту Монобанку", icon: Building2 }
 								].map((option) => (
 									<div key={option.value} className="flex items-center space-x-3">
@@ -599,7 +569,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 											name="payment"
 											value={option.value}
 											checked={watchedPayment === option.value}
-											onChange={(e: { target: { value: string } }) => setValue('payment', e.target.value as 'Онлайн оплата' | 'Переказ на карту')}
+											onChange={(e: { target: { value: string } }) => setValue('payment', e.target.value as 'Переказ на карту')}
 											className="h-4 w-4 text-brand-accent-light focus:ring-brand-accent border-neutral-300"
 										/>
 										<Label htmlFor={option.value} className="flex items-center gap-2 cursor-pointer">
@@ -651,7 +621,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 						{watchedPayment === "Переказ на карту" && (
 							<div>
 								<Label htmlFor="screenshot" className="block text-body-sm font-semibold text-neutral-700 mb-2">
-									Скріншот переказу
+									Скріншот переказу *
 								</Label>
 								<div className="relative">
 									<Input
@@ -665,7 +635,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 									<Upload className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400 pointer-events-none" />
 								</div>
 								<p className="mt-1 text-caption text-neutral-500">
-									Додайте скріншот підтвердження переказу (максимум 5MB)
+									Обов'язково додайте скріншот підтвердження переказу (максимум 5MB). Адміністратор перевірить чек і активує підписку.
 								</p>
 								{errors.screenshot && (
 									<p className="mt-1 text-body-sm text-red-600 flex items-center gap-1">

@@ -131,7 +131,7 @@ export default function AdminDashboard() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
+            <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Загрузка данных...</p>
         </div>
@@ -181,8 +181,8 @@ export default function AdminDashboard() {
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600">Ожидают обработки</p>
                   <p className="text-2xl font-bold text-gray-900">{stats.pendingRequests}</p>
-                </div>
-              </div>
+            </div>
+          </div>
             </CardContent>
           </Card>
 
@@ -193,8 +193,8 @@ export default function AdminDashboard() {
                 <div className="ml-4">
                   <p className="text-sm font-medium text-gray-600">Всего книг</p>
                   <p className="text-2xl font-bold text-gray-900">{stats.totalBooks}</p>
-                </div>
-              </div>
+        </div>
+      </div>
             </CardContent>
           </Card>
 
@@ -206,17 +206,17 @@ export default function AdminDashboard() {
                   <p className="text-sm font-medium text-gray-600">Доход за месяц</p>
                   <p className="text-2xl font-bold text-gray-900">{stats.monthlyRevenue} ₴</p>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+                </div>
+              </CardContent>
+            </Card>
         </div>
 
         {/* Recent Requests */}
         <Card>
-          <CardHeader>
+              <CardHeader>
             <CardTitle>Последние заявки на подписку</CardTitle>
-          </CardHeader>
-          <CardContent>
+              </CardHeader>
+              <CardContent>
             <div className="overflow-x-auto">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
@@ -288,9 +288,9 @@ export default function AdminDashboard() {
                   ))}
                 </tbody>
               </table>
-            </div>
-          </CardContent>
-        </Card>
+                </div>
+              </CardContent>
+            </Card>
       </div>
     </div>
   )
