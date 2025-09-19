@@ -9,8 +9,8 @@ import { initServiceWorker } from "@/lib/service-worker";
 export const dynamicMode = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = 'Stefa.books - Дитяча бібліотека книг з підпискою та орендою';
-  const description = 'Орендуйте та читайте українські дитячі книги онлайн. Великий каталог українських дитячих книг для різних вікових категорій. Підписка та окрема оренда книг.';
+  const title = 'Stefa.books - Оренда дитячих книг у Миколаєві | Дитяча бібліотека з підпискою';
+  const description = 'Орендуйте українські дитячі книги в Миколаєві з доставкою додому. Перша книжкова підписка в місті. Від 299 грн/місяць. Безкоштовна доставка по Миколаєву.';
 
   return {
     title,

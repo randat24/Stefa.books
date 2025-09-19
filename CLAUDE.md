@@ -605,10 +605,10 @@ import { MonobankInfo } from '@/components/payment/MonobankInfo';
 - **Environment Variables**: Configured via Netlify CLI and dashboard
 - **DNS**: Managed via NIC.UA registrar
 
-### Alternative Environment (Vercel) - Deprecated
+### Alternative Environment (Netlify) - Deprecated
 - **Status**: Deprecated - All deployment now uses Netlify
 - **Migration**: Complete migration to Netlify completed
-- **Note**: Vercel configuration preserved for emergency fallback only
+- **Note**: Netlify configuration preserved for emergency fallback only
 
 ### Deployment Scripts & Safety Measures
 - **Pre-deployment Validation**: `scripts/deployment-checklist.sh` verifies git status, dependencies, environment variables, and code quality

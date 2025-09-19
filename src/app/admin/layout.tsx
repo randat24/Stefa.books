@@ -14,7 +14,7 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   // ВРЕМЕННО: Убрана защита AdminGuard для тестирования v2
-  // Принудительное обновление для сброса кеша Vercel
+  // Принудительное обновление для сброса кеша Netlify
   return (
     <div className="min-h-screen">
       {children}

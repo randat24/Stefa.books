@@ -22,7 +22,7 @@
 - **Иконки**: Lucide React 0.542.0
 - **Изображения**: Next.js Image + Cloudinary
 - **Анимации**: Framer Motion 12.23.12
-- **Развертывание**: Vercel
+- **Развертывание**: Netlify
 - **База данных**: Supabase (PostgreSQL + RLS)
 - **Пакетный менеджер**: pnpm 10.15.1
 - **AI Integration**: Groq Llama 3 70B (бесплатная модель)
@@ -316,7 +316,7 @@ NODE_ENV=development
 
 ### Техническая информация
 - **Домен**: stefa-books.com.ua
-- **Хостинг**: Vercel
+- **Хостинг**: Netlify
 - **CDN**: Cloudinary (изображения)
 - **Аналитика**: Google Analytics (планируется)
 

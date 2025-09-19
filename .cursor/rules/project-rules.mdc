@@ -17,7 +17,7 @@ Backend & Database: Supabase (PostgreSQL + Edge Functions, RLS)
 
 File & Media storage: Cloudinary
 
-Infrastructure: Vercel (deploy, CDN)
+Infrastructure: Netlify (deploy, CDN)
 
 Code Quality: ESLint + Prettier
 

@@ -11,14 +11,14 @@
 MONOBANK_TOKEN=uSjulrJT5jqGnzy8lSQoasq04GRtKMo0myvxJk5D0EKY
 
 # Site URL для webhook'ов
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_SITE_URL=https://stefa-books.com.ua
 ```
 
-### Продакшн (Vercel)
+### Продакшн (Netlify)
 
-В настройках проекта Vercel добавьте переменные окружения:
+В настройках проекта Netlify добавьте переменные окружения:
 
-1. Перейдите в Dashboard Vercel → ваш проект → Settings → Environment Variables
+1. Перейдите в Dashboard Netlify → ваш проект → Settings → Environment Variables
 2. Добавьте следующие переменные:
 
 ```
@@ -79,7 +79,7 @@ ngrok http 3000
 
 Все операции с платежами логируются. Проверьте логи в:
 
-- Vercel Dashboard → Functions → Logs
+- Netlify Dashboard → Functions → Logs
 - Консоль браузера (для клиентских ошибок)
 - Supabase Dashboard → Logs
 
@@ -145,8 +145,8 @@ validateWebhook(body: string, signature: string): boolean {
 # Локально
 npm run dev
 
-# В Vercel
-vercel logs --follow
+# В Netlify
+netlify logs --follow
 ```
 
 ## 9. Обновление

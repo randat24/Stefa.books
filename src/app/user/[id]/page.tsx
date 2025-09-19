@@ -22,7 +22,7 @@ interface UserData {
 
 export default function UserProfilePage() {
   const params = useParams();
-  const userId = params.id as string;
+  const userId = params?.id as string;
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,6 +30,9 @@ export default function UserProfilePage() {
   useEffect(() => {
     if (userId) {
       fetchUserData(userId);
+    } else {
+      setError('ID користувача не знайдено');
+      setLoading(false);
     }
   }, [userId]);
 
@@ -69,7 +72,7 @@ export default function UserProfilePage() {
     }
 
     const planName = userData.subscription_type === 'mini' ? 'Mini' : 'Maxi';
-    return { label: `Підписка ${planName}`, variant: 'primary' as const };
+    return { label: `Підписка ${planName}`, variant: 'default' as const };
   };
 
   if (loading) {
@@ -130,7 +133,7 @@ export default function UserProfilePage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-600">Ім'я</label>
+                  <label className="text-sm font-medium text-gray-600">Ім&apos;я</label>
                   <p className="text-lg">{userData.name}</p>
                 </div>
 

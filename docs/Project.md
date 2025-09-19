@@ -7,7 +7,7 @@
 **Архитектура:**
 - **Frontend**: Пользовательский веб-сайт с каталогом и системой подписки
 - **Backend**: Административная панель для управления контентом, пользователями и операциями
-- **Infrastructure**: Supabase (PostgreSQL + RLS), Cloudinary, Vercel
+- **Infrastructure**: Supabase (PostgreSQL + RLS), Cloudinary, Netlify
 
 **Ключевые цели:**
 - Минимальный путь от просмотра к подписке
@@ -47,7 +47,7 @@
 - Supabase Migrations + RPC функции
 
 **Infrastructure:**
-- Vercel (хостинг, Server Actions)
+- Netlify (хостинг, Server Actions)
 - GitHub Actions (CI/CD)
 - Supabase local (разработка)
 
@@ -190,7 +190,7 @@ src/
 
 **Деплой:**
 - GitHub Actions
-- Vercel автоматический деплой
+- Netlify автоматический деплой
 - Preview деплои для PR
 
 ## 12. Мониторинг и аналитика
@@ -199,7 +199,7 @@ src/
 - Sentry (ошибки)
 - Plausible/GA (аналитика)
 - Supabase Dashboard
-- Vercel Analytics
+- Netlify Analytics
 
 **Метрики:**
 - Core Web Vitals
@@ -316,9 +316,9 @@ interface SubscriptionRequest {
 **GitHub Actions:**
 - Автоматические тесты
 - Линтинг и type-check
-- Сборка и деплой на Vercel
+- Сборка и деплой на Netlify
 
-**Vercel:**
+**Netlify:**
 - Автоматический деплой из main
 - Preview деплои для PR
 - Edge Functions

@@ -1,7 +1,7 @@
 'use client'
 
-import { useCallback, useState, useMemo, useEffect, ReactNode } from 'react';
-import { Search, Filter, Grid3X3, List, MoreHorizontal } from 'lucide-react'
+import { useCallback, useState, useMemo } from 'react';
+import { Filter, BookOpen, Menu } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'
 import OptimizedSearch from './OptimizedSearch'
@@ -16,7 +16,6 @@ interface OptimizedDataGridProps<T> {
   className?: string
   searchable?: boolean
   searchPlaceholder?: string
-  searchFields?: (keyof T)[]
   filters?: Array<{
     key: string
     label: string
@@ -48,9 +47,6 @@ interface OptimizedDataGridProps<T> {
     containerHeight: number
     overscan?: number
   }
-  selectable?: boolean
-  selectedItems?: T[]
-  onSelectionChange?: (items: T[]) => void
   getRowKey?: (item: T) => string | number
   error?: string | null
   onRetry?: () => void
@@ -62,7 +58,6 @@ const OptimizedDataGrid = (function OptimizedDataGrid<T>({
   className = '',
   searchable = true,
   searchPlaceholder = 'Пошук...',
-  searchFields = [],
   filters = [],
   onSearch,
   onFilter,
@@ -73,9 +68,6 @@ const OptimizedDataGrid = (function OptimizedDataGrid<T>({
   pagination,
   infiniteScroll,
   virtualization,
-  selectable = false,
-  selectedItems = [],
-  onSelectionChange,
   getRowKey = (item: T) => (item as any).id || Math.random().toString(),
   error,
   onRetry }: OptimizedDataGridProps<T>) {
@@ -299,7 +291,7 @@ const OptimizedDataGrid = (function OptimizedDataGrid<T>({
               onClick={() => handleViewModeChange('grid')}
               className="px-3 py-2"
             >
-              <Grid3X3 className="w-4 h-4" />
+              <BookOpen className="w-4 h-4" />
             </PerformanceButton>
             <PerformanceButton
               variant={currentViewMode === 'list' ? 'primary' : 'ghost'}
@@ -307,7 +299,7 @@ const OptimizedDataGrid = (function OptimizedDataGrid<T>({
               onClick={() => handleViewModeChange('list')}
               className="px-3 py-2"
             >
-              <List className="w-4 h-4" />
+              <Menu className="w-4 h-4" />
             </PerformanceButton>
           </div>
 

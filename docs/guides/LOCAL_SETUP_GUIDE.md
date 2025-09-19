@@ -176,7 +176,7 @@ pnpm check-books           # Проверка книг в БД
 
 # Администрирование
 pnpm create-admin          # Создание админа
-pnpm vercel:check          # Проверка Vercel
+pnpm netlify:check         # Проверка Netlify
 
 # Анализ производительности
 pnpm analyze:bundle        # Анализ размера бандла
@@ -232,8 +232,8 @@ Stefa.books.com.ua/
 # В терминале где запущен dev сервер
 # Смотрите на ошибки в консоли
 
-# Проверка логов Vercel (если деплоите)
-vercel logs
+# Проверка логов Netlify (если деплоите)
+netlify logs
 ```
 
 ### 2. Проверка базы данных
@@ -264,7 +264,7 @@ curl http://localhost:3000/api/admin/books
 
 - **Supabase Dashboard**: https://supabase.com/dashboard
 - **Cloudinary Console**: https://cloudinary.com/console
-- **Vercel Dashboard**: https://vercel.com/dashboard
+- **Netlify Dashboard**: https://app.netlify.com
 - **Next.js Docs**: https://nextjs.org/docs
 - **Tailwind CSS**: https://tailwindcss.com/docs
 

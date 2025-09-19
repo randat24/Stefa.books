@@ -9,7 +9,7 @@
 - **Анимации**: Framer Motion 12.23.12
 - **Backend & Database**: Supabase (PostgreSQL + Edge Functions, RLS)
 - **File & Media storage**: Cloudinary
-- **Инфраструктура**: Vercel (deploy, CDN)
+- **Инфраструктура**: Netlify (deploy, CDN)
 - **Качество кода**: ESLint + Prettier
 
 ## Основные функции

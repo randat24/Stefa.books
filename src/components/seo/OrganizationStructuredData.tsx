@@ -7,19 +7,58 @@ export function OrganizationStructuredData() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Stefa.books",
+    "alternateName": "Стефа букс",
+    "description": "Оренда дитячих книг у Миколаєві з підпискою та доставкою додому",
     "url": "https://stefa-books.com.ua",
-    "logo": "https://stefa-books.com.ua/logo.svg",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://stefa-books.com.ua/logo-text.svg",
+      "width": "200",
+      "height": "200"
+    },
+    "image": [
+      "https://stefa-books.com.ua/logo-text.svg",
+      "https://stefa-books.com.ua/favicon.ico"
+    ],
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "+38-073-408-56-60",
-      "contactType": "customer service"
+      "contactType": "customer service",
+      "areaServed": "UA",
+      "availableLanguage": "Ukrainian"
     },
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "вул. Маріупольська 13/2",
       "addressLocality": "Миколаїв",
+      "addressRegion": "Миколаївська область",
+      "postalCode": "54000",
       "addressCountry": "UA"
-    }
+    },
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": "46.9659",
+        "longitude": "32.0048"
+      },
+      "geoRadius": "50000"
+    },
+    "founder": {
+      "@type": "Person",
+      "name": "Команда Stefa.books"
+    },
+    "foundingDate": "2024",
+    "slogan": "Читайте більше - платіть менше",
+    "serviceArea": {
+      "@type": "City",
+      "name": "Миколаїв"
+    },
+    "sameAs": [
+      "https://facebook.com/stefabooks",
+      "https://instagram.com/stefa.books",
+      "https://t.me/stefabooks"
+    ]
   }), []);
 
   useEffect(() => {

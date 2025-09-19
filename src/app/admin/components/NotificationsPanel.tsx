@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Bell, AlertTriangleIcon, Clock, User, BookOpen, Phone, Mail, RefreshCw, CheckCircle } from "lucide-react"
+import { Bell, AlertCircle, Clock, User, BookOpen, Phone, Mail, RefreshCw, CheckCircle } from "lucide-react"
 
 interface Notification {
   id: string
@@ -26,7 +26,7 @@ interface Notification {
     user_email: string
     user_phone: string
     book_title: string
-    book_code: string
+    book_article: string
     due_date: string
   }
   daysLeft?: number
@@ -101,7 +101,7 @@ export function NotificationsPanel({ }: NotificationsPanelProps) {
   const getTypeIcon = (type: string) => {
     switch (type) {
       case 'subscription_expiring': return <Clock className="size-4" />
-      case 'subscription_overdue': return <AlertTriangleIcon className="size-4" />
+      case 'subscription_overdue': return <AlertCircle className="size-4" />
       case 'rental_overdue': return <BookOpen className="size-4" />
       default: return <Bell className="size-4" />
     }
@@ -167,7 +167,7 @@ export function NotificationsPanel({ }: NotificationsPanelProps) {
             <Bell className="size-5" />
             Сповіщення ({data.summary.total})
           </CardTitle>
-          <Button onClick={loadNotifications} variant="outline" size="md">
+            <Button onClick={loadNotifications} variant="outline" size="default">
             <RefreshCw className="size-4 mr-2" />
             Оновити
           </Button>
@@ -275,7 +275,7 @@ export function NotificationsPanel({ }: NotificationsPanelProps) {
                       </div>
                       <div className="flex items-center gap-2">
                         <BookOpen className="size-4 text-neutral-500" />
-                        <span>{notification.rental.book_title} ({notification.rental.book_code})</span>
+                        <span>{notification.rental.book_title} ({notification.rental.book_article})</span>
                       </div>
                     </div>
                     <div className="space-y-2 text-neutral-600">

@@ -31,6 +31,7 @@ export function BookCard({
   const handleQuickView = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
+    console.log('Quick view clicked for book:', memoizedBook.title);
     setShowPreview(true);
     // Отслеживание просмотра книги
     trackBookView(memoizedBook.title, memoizedBook.id.toString());

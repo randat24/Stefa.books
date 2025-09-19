@@ -145,27 +145,27 @@ pnpm run build > /tmp/build_log 2>&1
 if [ $? -eq 0 ]; then
     echo -e "${GREEN}✅ PASS${NC}: Local build successful"
 else
-    echo -e "${YELLOW}⚠️  WARN${NC}: Local build failed (this is OK for Vercel deployment)"
-    echo "Build will be attempted on Vercel with TypeScript error ignoring"
+    echo -e "${YELLOW}⚠️  WARN${NC}: Local build failed (this is OK for Netlify deployment)"
+    echo "Build will be attempted on Netlify with TypeScript error ignoring"
 fi
 
 echo ""
-echo "☁️ 7. CHECKING VERCEL SETUP..."
+echo "☁️ 7. CHECKING NETLIFY SETUP..."
 echo "==============================================="
 
-# Check if Vercel CLI is installed
-if command -v vercel &> /dev/null; then
-    echo -e "${GREEN}✅ PASS${NC}: Vercel CLI is installed"
+# Check if Netlify CLI is installed
+if command -v netlify &> /dev/null; then
+    echo -e "${GREEN}✅ PASS${NC}: Netlify CLI is installed"
     
     # Check if user is logged in
-    VERCEL_USER=$(vercel whoami 2>/dev/null || echo "")
-    if [ -n "$VERCEL_USER" ]; then
-        echo -e "${GREEN}✅ PASS${NC}: Logged in as $VERCEL_USER"
+    NETLIFY_USER=$(netlify status 2>/dev/null | grep "Logged in as" || echo "")
+    if [ -n "$NETLIFY_USER" ]; then
+        echo -e "${GREEN}✅ PASS${NC}: $NETLIFY_USER"
     else
-        echo -e "${YELLOW}⚠️  WARN${NC}: Not logged in to Vercel (run 'vercel login')"
+        echo -e "${YELLOW}⚠️  WARN${NC}: Not logged in to Netlify (run 'netlify login')"
     fi
 else
-    echo -e "${YELLOW}⚠️  WARN${NC}: Vercel CLI not installed (install with 'npm i -g vercel')"
+    echo -e "${YELLOW}⚠️  WARN${NC}: Netlify CLI not installed (install with 'npm i -g netlify-cli')"
 fi
 
 echo ""
@@ -179,7 +179,7 @@ echo "✅ Environment variables checked"
 echo "✅ Cache cleaned"
 echo "✅ Code quality checks completed"
 echo "✅ Build process tested"
-echo "✅ Vercel setup verified"
+echo "✅ Netlify setup verified"
 
 echo ""
 echo -e "${GREEN}🚀 READY FOR DEPLOYMENT!${NC}"
@@ -187,7 +187,7 @@ echo ""
 echo "Next steps:"
 echo "1. Commit any remaining changes: git add . && git commit -m 'ready for deployment'"
 echo "2. Push to repository: git push origin main"
-echo "3. Or deploy manually: vercel --prod"
+echo "3. Or deploy manually: netlify deploy --prod"
 echo ""
 echo -e "${YELLOW}📖 For detailed instructions, see: DEPLOYMENT_DOCUMENTATION.md${NC}"
 

@@ -23,7 +23,7 @@
 - Структурированные секции страниц
 
 ✅ **Инфраструктура**
-- Настроенный Vercel деплой
+- Настроенный Netlify деплой
 - ESLint и тестирование
 - Supabase с RLS политиками
 - Cloudinary для изображений
@@ -206,7 +206,7 @@ CREATE POLICY "Public read access" ON books FOR SELECT USING (true);
 
 ### Инструменты
 - [Figma](https://figma.com) — дизайн
-- [Vercel](https://vercel.com) — деплой
+- [Netlify](https://netlify.com) — деплой
 - [Sentry](https://sentry.io) — мониторинг ошибок
 
 ### Сообщество

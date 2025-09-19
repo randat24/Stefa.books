@@ -11,7 +11,7 @@
 
 ### 1. Настройте переменные окружения
 
-**В Vercel Dashboard:**
+**В Netlify Dashboard:**
 - `MONOBANK_TOKEN=uSjulrJT5jqGnzy8lSQoasq04GRtKMo0myvxJk5D0EKY`
 - `NEXT_PUBLIC_SITE_URL=https://stefa-books.com.ua`
 
@@ -92,7 +92,7 @@ LIMIT 10;
 ## 📞 Поддержка
 
 Если что-то не работает:
-1. Проверьте логи в Vercel Dashboard
+1. Проверьте логи в Netlify Dashboard
 2. Проверьте переменные окружения
 3. Проверьте webhook в Monobank
 4. Проверьте базу данных в Supabase

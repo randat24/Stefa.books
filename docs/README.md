@@ -91,7 +91,7 @@ pnpm check-books      # Validate book data
 - **Frontend**: React 19.1.1, TypeScript 5.5.4
 - **Styling**: Tailwind CSS 3.4.17
 - **Database**: Supabase (PostgreSQL)
-- **Hosting**: Netlify + Vercel
+- **Hosting**: Netlify
 - **Package Manager**: pnpm 10.15.1
 
 ### Key Features

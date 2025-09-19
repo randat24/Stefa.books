@@ -161,7 +161,7 @@ We appreciate security researchers who help us improve our security:
 - **Monobank**: Secure payment processing
 - **Cloudinary**: Secure image storage
 - **Supabase**: Secure database hosting
-- **Vercel**: Secure hosting platform
+- **Netlify**: Secure hosting platform
 
 ## Security Training
 

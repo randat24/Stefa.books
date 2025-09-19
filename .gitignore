@@ -204,7 +204,7 @@ performance-audit-report.json
 uploads/
 cloudinary-uploads/
 
-# Vercel
+# Deprecated deployment platforms
 .vercel
 
 # PWA files

@@ -18,6 +18,7 @@ export function Modal({ isOpen, onClose, children, title, className }: ModalProp
     };
 
     if (isOpen) {
+      console.log('Modal opening:', { title, className });
       document.addEventListener("keydown", handleEscape);
       document.body.style.overflow = "hidden";
     }
@@ -26,8 +27,9 @@ export function Modal({ isOpen, onClose, children, title, className }: ModalProp
       document.removeEventListener("keydown", handleEscape);
       document.body.style.overflow = "unset";
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, title, className]);
 
+  console.log('Modal render:', { isOpen, title });
   if (!isOpen) return null;
 
   return (
@@ -42,7 +44,7 @@ export function Modal({ isOpen, onClose, children, title, className }: ModalProp
       <div className={`relative bg-white rounded-2xl shadow-2xl w-full mx-4 max-h-[90vh] overflow-y-auto ${className || 'max-w-2xl'}`}>
         {/* Header */}
         <div className="sticky top-0 bg-white rounded-t-2xl border-b border-gray-200 p-4 flex items-center justify-between">
-          {title && <h2 className="text-body-lg font-semibold text-[--ink]">{title}</h2>}
+          {title && <h2 className="text-body-lg font-semibold text-[--text]">{title}</h2>}
           <button
             onClick={onClose}
             className="ml-auto p-2 hover:bg-gray-100 rounded-2xl transition-colors"

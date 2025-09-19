@@ -20,7 +20,7 @@ MONOBANK_TOKEN=uSjulrJT5jqGnzy8lSQoasq04GRtKMo0myvxJk5D0EKY
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
 
-**В Vercel:**
+**В Netlify:**
 - Dashboard → Settings → Environment Variables
 - Добавьте те же переменные для Production
 
@@ -104,7 +104,7 @@ src/
 
 - **Документация**: `MONOBANK_SETUP.md`
 - **Деплой**: `DEPLOYMENT_GUIDE.md`
-- **Логи**: Vercel Dashboard → Functions → Logs
+- **Логи**: Netlify Dashboard → Functions → Logs
 
 ## ⚠️ Важно
 

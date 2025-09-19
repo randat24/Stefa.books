@@ -3,10 +3,10 @@
 import { useState, useCallback } from "react";
 import Image from "next/image";
 import { Modal } from "@/components/ui/modal";
-import { Button } from "@/components/ui/button";
+import { Button } from "./ui/button";
 import { Badge } from "@/components/ui/badge";
 import { FavoriteButton } from "@/components/favorites/FavoriteButton";
-import { Star, Share2, Check, Copy, BookOpen } from "lucide-react";
+import { Star, ExternalLink, Check, Copy, BookOpen } from "lucide-react";
 import type { Book } from "@/lib/supabase";
 import Link from "next/link";
 import { useUserSubscription } from "@/lib/hooks/useUserSubscription";
@@ -22,6 +22,9 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
   const [copySuccess, setCopySuccess] = useState(false);
   const [isSharing, setIsSharing] = useState(false);
   const userSubscription = useUserSubscription();
+  
+  // Debug logging
+  console.log('BookPreviewModal render:', { isOpen, book: book?.title });
   
   // Move the hook call outside of conditional logic
   const handleShare = useCallback(async () => {
@@ -66,13 +69,10 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
         {/* Book cover */}
         <div className="mx-auto md:mx-0">
           <div className="relative aspect-[3/4] w-full max-w-[250px] rounded-lg overflow-hidden shadow-lg">
-            <Image 
+            <img 
               src={book.cover_url || '/images/book-placeholder.svg'} 
               alt={book.title} 
-              fill 
-              className="object-cover"
-              unoptimized={true}
-              priority
+              className="w-full h-full object-cover"
             />
           </div>
         </div>
@@ -88,9 +88,9 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
             </span>
           </div>
         )}
-              <h3 className="text-h2 text-[--ink] mb-2">{book.title}</h3>
-              <p className="text-body-lg text-[--muted] mb-1">{book.author}</p>
-              <p className="text-body-sm text-[--muted]">
+              <h3 className="text-h2 text-[--text] mb-2">{book.title}</h3>
+              <p className="text-body-lg text-[--text-muted] mb-1">{book.author}</p>
+              <p className="text-body-sm text-[--text-muted]">
                 {book.category}{book.age_range ? ` • ${book.age_range}` : ""}
               </p>
             </div>
@@ -108,7 +108,7 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
                 ) : copySuccess ? (
                   <Copy className="h-5 w-5 text-green-600" />
                 ) : (
-                  <Share2 className="h-5 w-5 text-neutral-700" />
+                  <ExternalLink className="h-5 w-5 text-neutral-700" />
                 )}
               </button>
               <FavoriteButton id={book.id} />
@@ -174,7 +174,7 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
           {/* Short description */}
           {book.short_description && (
             <div className="bg-neutral-50 rounded-lg p-4 border-l-4 border-accent">
-              <p className="text-[--ink] text-body-sm leading-relaxed">{book.short_description}</p>
+              <p className="text-[--text] text-body-sm leading-relaxed">{book.short_description}</p>
             </div>
           )}
 

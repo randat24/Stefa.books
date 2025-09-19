@@ -4,9 +4,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { monobankService } from '@/lib/services/monobank';
-import { Logger } from '@/lib/logger';
-
-const logger = new Logger('TestMonobankAPI');
+import { logger } from '@/lib/logger';
 
 export async function POST(request: NextRequest) {
   try {

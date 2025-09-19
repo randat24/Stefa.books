@@ -59,7 +59,7 @@ const cacheMetaPath = path.join(process.cwd(), 'public', 'cache-meta.json');
 const cacheMeta = {
   buildId: newBuildId,
   timestamp: new Date().toISOString(),
-  version: process.env.VERCEL_GIT_COMMIT_SHA || 'local',
+  version: process.env.COMMIT_REF || process.env.VERCEL_GIT_COMMIT_SHA || 'local',
   environment: process.env.NODE_ENV || 'development',
   cacheBuster: true,
   forceReload: true

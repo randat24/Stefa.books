@@ -76,7 +76,7 @@ stefa-books/
 - **Styling:** Tailwind CSS, shadcn/ui
 - **Backend:** Supabase (PostgreSQL)
 - **Storage:** Cloudinary
-- **Deployment:** Vercel
+- **Deployment:** Netlify
 
 ---
 

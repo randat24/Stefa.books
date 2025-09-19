@@ -41,8 +41,8 @@ check_commands() {
         exit 1
     fi
     
-    if ! command -v vercel &> /dev/null; then
-        warning "vercel CLI не найден. Установите: npm install -g vercel"
+    if ! command -v netlify &> /dev/null; then
+        warning "netlify CLI не найден. Установите: npm install -g netlify-cli"
     fi
     
     log "Все команды найдены ✅"

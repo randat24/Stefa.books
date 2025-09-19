@@ -54,7 +54,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
       book.title.toLowerCase().includes(search) ||
       book.author.toLowerCase().includes(search) ||
       book.code.toLowerCase().includes(search) ||
-      (book.category?.toLowerCase().includes(search) || false) ||
+      (book.category_name?.toLowerCase().includes(search) || false) ||
       (book.description?.toLowerCase().includes(search) || false)
     )
   }, [books, searchTerm])
@@ -558,7 +558,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
               <div className="flex items-center gap-2">
                                  <Button
                    variant="outline"
-                   size="md"
+                   size="default"
                    onClick={() => handlePageChange(currentPage - 1)}
                    disabled={currentPage === 1}
                    className="h-9 px-3"
@@ -583,8 +583,8 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                      return (
                        <Button
                          key={pageNum}
-                         variant={currentPage === pageNum ? "primary" : "outline"}
-                         size="md"
+                         variant={currentPage === pageNum ? "default" : "outline"}
+                         size="default"
                          onClick={() => handlePageChange(pageNum)}
                          className="h-9 w-9 p-0"
                        >
@@ -596,7 +596,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                  
                  <Button
                    variant="outline"
-                   size="md"
+                   size="default"
                    onClick={() => handlePageChange(currentPage + 1)}
                    disabled={currentPage === totalPages}
                    className="h-9 px-3"
@@ -631,7 +631,7 @@ export function BooksTable({ books, onRefresh, onBookCreated }: BooksTableProps)
                       className="rounded-lg object-cover border border-neutral-200 shadow-lg"
                     />
                                           <Button
-                        size="md"
+                        size="default"
                         variant="outline"
                         className="absolute top-2 right-2"
                         onClick={() => selectedBook.cover_url && window.open(selectedBook.cover_url, '_blank')}

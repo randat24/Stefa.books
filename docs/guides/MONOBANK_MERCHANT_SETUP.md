@@ -37,9 +37,9 @@ MONOBANK_API_URL=https://api.monobank.ua/api/merchant  # опционально
 MONOBANK_TOKEN=uSjulrJT5jqGnzy8lSQoasq04GRtKMo0myvxJk5D0EKY
 ```
 
-### 3. Настройка для Vercel (Production)
+### 3. Настройка для Netlify (Production)
 
-В настройках проекта Vercel добавьте переменные:
+В настройках проекта Netlify добавьте переменные:
 
 - `MONOBANK_MERCHANT_ID` = ваш merchant ID
 - `MONOBANK_PRIVATE_KEY` = ваш приватный ключ

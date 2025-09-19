@@ -2,7 +2,7 @@
 
 ## Предварительные требования
 
-1. ✅ Проект настроен на Vercel
+1. ✅ Проект настроен на Netlify
 2. ✅ Supabase подключен и настроен
 3. ✅ Получен токен Monobank
 4. ✅ Созданы необходимые таблицы в базе данных
@@ -22,9 +22,9 @@
 \i supabase/migrations/014_add_subscriptions_table.sql
 ```
 
-### 2. Настройка переменных окружения в Vercel
+### 2. Настройка переменных окружения в Netlify
 
-1. Перейдите в [Vercel Dashboard](https://vercel.com/dashboard)
+1. Перейдите в [Netlify Dashboard](https://app.netlify.com)
 2. Выберите проект `stefa-books-next`
 3. Перейдите в Settings → Environment Variables
 4. Добавьте следующие переменные:
@@ -56,7 +56,7 @@ git merge Lklhost
 git push origin main
 ```
 
-Vercel автоматически задеплоит изменения.
+Netlify автоматически задеплоит изменения.
 
 ### 5. Проверка деплоя
 
@@ -81,7 +81,7 @@ curl "https://stefa-books.com.ua/api/payments/monobank?invoice_id=test_invoice"
 1. Создайте тестовую заявку на подписку
 2. Выберите "Онлайн оплата"
 3. Проверьте, что вы перенаправлены на страницу Monobank
-4. Проверьте логи в Vercel Dashboard
+4. Проверьте логи в Netlify Dashboard
 
 #### 5.3. Проверка базы данных
 
@@ -116,14 +116,14 @@ WHERE tablename IN ('payments', 'subscriptions');
 
 ### 7. Мониторинг
 
-#### 7.1. Логи Vercel
+#### 7.1. Логи Netlify
 
 ```bash
 # Просмотр логов в реальном времени
-vercel logs --follow
+netlify logs --follow
 
-# Просмотр логов конкретной функции
-vercel logs --follow --function=api/payments/monobank
+# Просмотр логов конкретного сайта
+netlify logs --site-id=YOUR_SITE_ID
 ```
 
 #### 7.2. Логи Supabase
@@ -146,13 +146,13 @@ vercel logs --follow --function=api/payments/monobank
 **"Monobank token not configured"**
 ```bash
 # Проверьте переменные окружения
-vercel env ls
+netlify env:list
 ```
 
 **"Webhook not received"**
 - Проверьте URL webhook в Monobank
 - Убедитесь, что сервер доступен извне
-- Проверьте логи Vercel
+- Проверьте логи Netlify
 
 **"Database error"**
 - Проверьте подключение к Supabase
@@ -211,6 +211,6 @@ pg_dump $DATABASE_URL > backup_$(date +%Y%m%d_%H%M%S).sql
 
 ## Контакты
 
-- **Vercel Support**: https://vercel.com/support
+- **Netlify Support**: https://docs.netlify.com/support
 - **Supabase Support**: https://supabase.com/support
 - **Monobank API**: https://api.monobank.ua

@@ -2,7 +2,7 @@
 
 /**
  * Скрипт для принудительной очистки кеша при деплое
- * Запускать перед каждым деплоем на Vercel
+ * Запускать перед каждым деплоем на Netlify
  */
 
 const fs = require('fs');
@@ -38,7 +38,7 @@ const deployMetaPath = path.join(process.cwd(), 'public', 'deploy-meta.json');
 const deployMeta = {
   buildId: newBuildId,
   timestamp: new Date().toISOString(),
-  version: process.env.VERCEL_GIT_COMMIT_SHA || 'local',
+  version: process.env.COMMIT_REF || process.env.VERCEL_GIT_COMMIT_SHA || 'local',
   environment: process.env.NODE_ENV || 'development'
 };
 

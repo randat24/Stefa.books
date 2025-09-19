@@ -4,9 +4,8 @@ import { useState, useMemo, useCallback } from "react"
 import Image from "next/image"
 import { 
   Eye, Edit, Trash2, ImageIcon, ExternalLink, CheckCircle, BookOpenCheck, Clock, XCircle,
-  BookOpen, FileText, User, Tag, Hash, CreditCard, MapPin, Settings, Search, Filter,
-  ChevronLeft, ChevronRight, Building, Package, DollarSign, Plus, Upload, Download,
-  Star, TrendingUp, AlertTriangleIcon, RefreshCw, MoreHorizontalIcon, Copy, Share2
+  BookOpen, FileText, User, Tag, Hash, CreditCard, Settings, Search, Filter,
+  ChevronLeft, ChevronRight, Package, Download
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Chip } from "@/components/ui/chip"
@@ -22,7 +21,7 @@ import {
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { AddBookDialog } from "../admin/AddBookDialog"
+import { AddBookDialog } from "../../app/admin/components/AddBookDialog"
 import { EditBookDialog } from "../admin/EditBookDialog"
 import type { BookRow } from "@/lib/types/admin"
 
@@ -359,32 +358,30 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
             </div>
             <div className="flex items-center gap-3">
               <AddBookDialog 
-                open={false} 
-                onOpenChange={() => {}}
                 onBookCreated={onBookCreated} 
               />
-              <Button onClick={handleExportBooks} variant="outline" size="md">
+              <Button onClick={handleExportBooks} variant="outline" size="default">
                 <Download className="size-4 mr-2" />
                 Експорт
               </Button>
               <Button 
                 onClick={() => setShowFilters(!showFilters)} 
                 variant="outline" 
-                size="md"
+                size="default"
               >
                 <Filter className="size-4 mr-2" />
                 Фільтри
               </Button>
               <div className="flex items-center gap-1 border border-neutral-200 rounded-lg p-1">
                 <Button
-                  variant={viewMode === 'table' ? 'primary' : 'ghost'}
+                  variant={viewMode === 'table' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setViewMode('table')}
                 >
                   <FileText className="size-4" />
                 </Button>
                 <Button
-                  variant={viewMode === 'grid' ? 'primary' : 'ghost'}
+                  variant={viewMode === 'grid' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setViewMode('grid')}
                 >
@@ -403,7 +400,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
               <Input
                 placeholder="Пошук по назві, автору, коду..."
                 value={filters.search}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFilters(prev => ({ ...prev, search: e.target.value }))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilters(prev => ({ ...prev, search: e.target.value }))}
                 className="pl-10 pr-4 h-11 border-neutral-200 focus:border-neutral-400 focus:ring-gray-400"
               />
             </div>
@@ -614,7 +611,6 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                                 alt={`Обкладинка: ${book.title}`}
                                 width={48}
                                 height={64}
-                                unoptimized={true}
                                 className="rounded-lg object-cover border border-neutral-200 shadow-sm transition-transform group-hover/cover:scale-105"
                               />
                               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/cover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
@@ -763,7 +759,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
               <div className="flex items-center gap-2">
                 <Button
                   variant="outline"
-                  size="md"
+                  size="default"
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
                   className="h-9 px-3"
@@ -788,8 +784,8 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                     return (
                       <Button
                         key={pageNum}
-                        variant={currentPage === pageNum ? "primary" : "outline"}
-                        size="md"
+                        variant={currentPage === pageNum ? "default" : "outline"}
+                        size="default"
                         onClick={() => setCurrentPage(pageNum)}
                         className="h-9 w-9 p-0"
                       >
@@ -801,7 +797,7 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                 
                 <Button
                   variant="outline"
-                  size="md"
+                  size="default"
                   onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
                   disabled={currentPage === totalPages}
                   className="h-9 px-3"
@@ -833,11 +829,10 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                       alt={`Обкладинка: ${selectedBook.title}`}
                       width={250}
                       height={375}
-                      unoptimized={true}
                       className="rounded-lg object-cover border border-neutral-200 shadow-lg"
                     />
                     <Button
-                      size="md"
+                      size="default"
                       variant="outline"
                       className="absolute top-2 right-2"
                       onClick={() => selectedBook.cover_url && window.open(selectedBook.cover_url, '_blank')}
@@ -949,7 +944,6 @@ export function EnhancedBooksManager({ books, onRefresh, onBookCreated }: Enhanc
                 alt={`Обкладинка: ${imageViewBook.title}`}
                 width={300}
                 height={450}
-                unoptimized={true}
                 className="rounded-lg object-cover border border-neutral-200 shadow-lg"
               />
               <div className="text-center">

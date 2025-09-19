@@ -51,7 +51,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - React 19.1.1 with Server Components
 - TypeScript 5.5.4 with strict mode
 - Supabase PostgreSQL with RLS
-- Vercel deployment with CDN
+- Netlify deployment with CDN
 - Playwright E2E testing
 - Vitest unit testing
 - ESLint + Prettier code quality

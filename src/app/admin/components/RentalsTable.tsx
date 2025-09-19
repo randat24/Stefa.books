@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Calendar, User, BookOpen, Clock, CheckCircle, AlertTriangleIcon, RefreshCw } from "lucide-react"
+import { Calendar, User, BookOpen, Clock, CheckCircle, AlertCircle, RefreshCw } from "lucide-react"
 
 interface RentalRow {
   id: string
@@ -20,7 +20,7 @@ interface RentalRow {
   user_name?: string
   user_email?: string
   book_title?: string
-  book_code?: string
+  book_article?: string
   users?: {
     name: string
     email: string
@@ -92,9 +92,9 @@ export function RentalsTable({
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'active': return <Clock className="size-4" />
-      case 'overdue': return <AlertTriangleIcon className="size-4" />
+      case 'overdue': return <AlertCircle className="size-4" />
       case 'returned': return <CheckCircle className="size-4" />
-      case 'lost': return <AlertTriangleIcon className="size-4" />
+      case 'lost': return <AlertCircle className="size-4" />
       default: return <Clock className="size-4" />
     }
   }
@@ -160,7 +160,7 @@ export function RentalsTable({
             <Calendar className="size-5" />
             Оренди ({rentals.length})
           </CardTitle>
-          <Button onClick={loadRentals} variant="outline" size="md">
+          <Button onClick={loadRentals} variant="outline" size="default">
             <RefreshCw className="size-4 mr-2" />
             Оновити
           </Button>
@@ -204,7 +204,7 @@ export function RentalsTable({
                         <div className="flex items-center gap-2 text-sm">
                           <BookOpen className="size-4 text-neutral-500" />
                           <span className="font-medium">{rental.books?.title || rental.book_title || 'Невідома книга'}</span>
-                          <span className="text-neutral-500">({rental.books?.code || rental.book_code || 'немає коду'})</span>
+                          <span className="text-neutral-500">({rental.books?.code || rental.book_article || 'немає артикулу'})</span>
                         </div>
                       </div>
                       

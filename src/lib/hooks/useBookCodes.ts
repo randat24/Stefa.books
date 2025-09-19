@@ -1,57 +1,57 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { generateNextBookCode, getCodePrefixForCategory, isValidBookCode } from '@/lib/book-codes'
+import { generateNextBookArticle, getArticlePrefixForCategory, isValidBookArticle } from '@/lib/book-codes'
 
 // ============================================================================
-// ХУК ДЛЯ РАБОТЫ С КОДАМИ КНИГ
+// ХУК ДЛЯ РАБОТЫ С АРТИКУЛАМИ КНИГ
 // ============================================================================
 
-interface UseBookCodesOptions {
-  existingCodes?: string[]
-  onCodeGenerated?: (code: string) => void
+interface UseBookArticlesOptions {
+  existingArticles?: string[]
+  onArticleGenerated?: (article: string) => void
 }
 
-export function useBookCodes(options: UseBookCodesOptions = {}) {
+export function useBookArticles(options: UseBookArticlesOptions = {}) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   // ============================================================================
-  // ГЕНЕРАЦИЯ КОДА ПО КАТЕГОРИИ
+  // ГЕНЕРАЦИЯ АРТИКУЛА ПО КАТЕГОРИИ
   // ============================================================================
 
-  const generateCodeForCategory = useCallback(async (categoryName: string): Promise<string | null> => {
+  const generateArticleForCategory = useCallback(async (categoryName: string): Promise<string | null> => {
     try {
       setLoading(true)
       setError(null)
 
       // Проверяем, поддерживается ли категория
-      const prefix = getCodePrefixForCategory(categoryName)
+      const prefix = getArticlePrefixForCategory(categoryName)
       if (!prefix) {
-        setError(`Категория "${categoryName}" не поддерживает автоматическую генерацию кодов`)
+        setError(`Категория "${categoryName}" не поддерживает автоматическую генерацию артикулов`)
         return null
       }
 
-      // Если есть локальные коды, используем их
-      if (options.existingCodes) {
-        const nextCode = generateNextBookCode(options.existingCodes, categoryName)
-        if (nextCode) {
-          options.onCodeGenerated?.(nextCode)
-          return nextCode
+      // Если есть локальные артикулы, используем их
+      if (options.existingArticles) {
+        const nextArticle = generateNextBookArticle(options.existingArticles, categoryName)
+        if (nextArticle) {
+          options.onArticleGenerated?.(nextArticle)
+          return nextArticle
         }
       }
 
       // Иначе запрашиваем с сервера
-      const response = await fetch(`/api/admin/books/next-code?category=${encodeURIComponent(categoryName)}`)
+      const response = await fetch(`/api/admin/books/next-article?category=${encodeURIComponent(categoryName)}`)
       const result = await response.json()
 
       if (!response.ok) {
-        throw new Error(result.error || 'Ошибка генерации кода')
+        throw new Error(result.error || 'Ошибка генерации артикула')
       }
 
-      if (result.success && result.code) {
-        options.onCodeGenerated?.(result.code)
-        return result.code
+      if (result.success && result.article) {
+        options.onArticleGenerated?.(result.article)
+        return result.article
       }
 
       return null
@@ -59,29 +59,29 @@ export function useBookCodes(options: UseBookCodesOptions = {}) {
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Неизвестная ошибка'
       setError(errorMessage)
-      console.error('Generate code error:', err)
+      console.error('Generate article error:', err)
       return null
     } finally {
       setLoading(false)
     }
-  }, [options.existingCodes, options.onCodeGenerated])
+  }, [options])
 
   // ============================================================================
-  // ВАЛИДАЦИЯ КОДА
+  // ВАЛИДАЦИЯ АРТИКУЛА
   // ============================================================================
 
-  const validateCode = useCallback((code: string): boolean => {
-    return isValidBookCode(code)
+  const validateArticle = useCallback((article: string): boolean => {
+    return isValidBookArticle(article)
   }, [])
 
   // ============================================================================
-  // ПРОВЕРКА КОДА НА УНИКАЛЬНОСТЬ
+  // ПРОВЕРКА АРТИКУЛА НА УНИКАЛЬНОСТЬ
   // ============================================================================
 
-  const isCodeUnique = useCallback((code: string): boolean => {
-    if (!options.existingCodes) return true
-    return !options.existingCodes.includes(code)
-  }, [options.existingCodes])
+  const isArticleUnique = useCallback((article: string): boolean => {
+    if (!options.existingArticles) return true
+    return !options.existingArticles.includes(article)
+  }, [options.existingArticles])
 
   // ============================================================================
   // ОЧИСТКА ОШИБОК
@@ -94,9 +94,20 @@ export function useBookCodes(options: UseBookCodesOptions = {}) {
   return {
     loading,
     error,
-    generateCodeForCategory,
-    validateCode,
-    isCodeUnique,
+    generateArticleForCategory,
+    validateArticle,
+    isArticleUnique,
     clearError
   }
+}
+
+// ============================================================================
+// ОБРАТНАЯ СОВМЕСТИМОСТЬ (DEPRECATED)
+// ============================================================================
+
+/**
+ * @deprecated Используйте useBookArticles вместо useBookCodes
+ */
+export function useBookCodes(options: UseBookArticlesOptions = {}) {
+  return useBookArticles(options)
 }
