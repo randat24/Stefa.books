@@ -1,7 +1,15 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useState, useEffect } from 'react';
+// Временное решение для Next.js 15
+const useParams = () => {
+  if (typeof window !== 'undefined') {
+    const path = window.location.pathname;
+    const match = path.match(/\/user\/([^\/]+)/);
+    return { id: match ? match[1] : null };
+  }
+  return { id: null };
+};
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
