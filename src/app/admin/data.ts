@@ -94,7 +94,7 @@ export async function getBooks(): Promise<BookRow[]> {
 
     return data.map((book: any) => ({
       id: book.id,
-      code: book.code,
+      article: book.article,
       title: book.title,
       author: book.author,
       author_id: undefined, // Field doesn't exist yet
@@ -201,7 +201,7 @@ export async function getRentals(): Promise<RentalRow[]> {
       user_name: rental.users?.name,
       user_email: rental.users?.email,
       book_title: rental.books?.title,
-      book_code: rental.books?.code
+      book_article: rental.books?.article
     }))
   } catch (error) {
     logger.error('Error in getRentals', error, 'Admin')

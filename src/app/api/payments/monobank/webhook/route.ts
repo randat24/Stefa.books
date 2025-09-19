@@ -29,11 +29,10 @@ export async function POST(request: NextRequest) {
       hasSignature: !!signature
     })
 
-    // Валидируем подпись (опционально)
+    // Валидируем подпись
     if (!monobankPaymentService.validateWebhook(body, signature)) {
       logger.warn('Monobank webhook signature validation failed')
-      // В реальной реализации здесь должна быть проверка подписи
-      // return NextResponse.json({ success: false, error: 'Invalid signature' }, { status: 401 })
+      return NextResponse.json({ success: false, error: 'Invalid signature' }, { status: 401 })
     }
 
     // Парсим JSON

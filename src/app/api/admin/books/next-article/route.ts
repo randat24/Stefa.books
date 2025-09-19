@@ -4,7 +4,7 @@ import { logger } from '@/lib/logger'
 import { generateNextBookArticle } from '@/lib/book-codes'
 
 // ============================================================================
-// API ДЛЯ ПОЛУЧЕНИЯ СЛЕДУЮЩЕГО АРТИКУЛА КНИГИ (ОБРАТНАЯ СОВМЕСТИМОСТЬ)
+// API ДЛЯ ПОЛУЧЕНИЯ СЛЕДУЮЩЕГО АРТИКУЛА КНИГИ
 // ============================================================================
 
 export async function GET(request: NextRequest) {
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    logger.info(`Admin: Getting next article for category: ${categoryName} (legacy endpoint)`, undefined, 'API')
+    logger.info(`Admin: Getting next article for category: ${categoryName}`, undefined, 'API')
 
     // Получаем все существующие артикулы книг
     const { data: books, error } = await supabase
@@ -52,8 +52,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      code: nextArticle, // Оставляем code для обратной совместимости
-      article: nextArticle, // Добавляем article для новых клиентов
+      article: nextArticle,
       category: categoryName
     })
 

@@ -13,6 +13,10 @@ export const callClaudeOpus41 = async (prompt: string) => {
   return { error: 'Claude API not implemented' };
 };
 
-export const generateWithThinking = async (prompt: string) => {
-  return { error: 'Claude API not implemented' };
+export const generateWithThinking = async (prompt: string, systemPrompt?: string, maxTokens?: number) => {
+  return {
+    error: 'Claude API not implemented',
+    content: '',
+    thinking: ''
+  };
 };

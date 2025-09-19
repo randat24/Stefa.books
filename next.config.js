@@ -11,11 +11,14 @@ const BUILD_ID = '20250917-082115';
 const nextConfig = {
   // Generate a consistent build ID for the current build
   generateBuildId: () => BUILD_ID,
-  
+
   // Make build ID available in the app
   env: {
     NEXT_PUBLIC_BUILD_ID: BUILD_ID,
   },
+
+  // Default output for Netlify deployment
+  // output: 'standalone',
   experimental: {
     serverActions: {
       allowedOrigins: ['localhost:3000', 'localhost:3001', 'stefa-books.com.ua', 'stefa-books.netlify.app', '*.netlify.app']

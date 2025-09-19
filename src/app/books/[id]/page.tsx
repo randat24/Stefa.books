@@ -4,21 +4,17 @@ import Link from "next/link";
 export const dynamic = 'force-dynamic'
 import { FavoriteButton } from "@/components/favorites/FavoriteButton";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/Badge";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { OptimizedBookCard } from "@/components/OptimizedBookCard";
+import { Badge } from "@/components/ui/badge";
+import { BookCard } from "@/components/BookCard";
 import { BookViewTracker } from "@/components/BookViewTracker";
 import { BookImageGallery } from "@/components/BookImageGallery";
 import { BookSpecifications } from "@/components/BookSpecifications";
-import { BookReviews } from "@/components/BookReviews";
-import { BookReadingSample } from "@/components/BookReadingSample";
-import { 
-  BookOpen, 
-  Award, 
-  Star, 
+import {
+  BookOpen,
+  Award,
+  Star,
   Hash,
   FileText,
-  MessageCircle,
   Heart,
   ShoppingCart
 } from "lucide-react";
@@ -234,6 +230,23 @@ export default async function BookPage({ params }: { params: Params }) {
                 {book.short_description}
               </p>
 
+              {/* Full Description */}
+              {fullDescription && (
+                <div className="mt-6 p-6 bg-neutral-50 rounded-xl border border-neutral-200">
+                  <h3 className="text-h3 text-neutral-900 mb-4 flex items-center gap-2">
+                    <BookOpen className="h-5 w-5" />
+                    Детальний опис
+                  </h3>
+                  <div className="prose prose-slate max-w-none">
+                    {fullDescription.split('\n\n').map((paragraph, i) => (
+                      <p key={i} className="text-readable text-neutral-700 mb-4 last:mb-0">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Order Button */}
               {book.is_active && (
                 <div className="pt-4">
@@ -264,87 +277,41 @@ export default async function BookPage({ params }: { params: Params }) {
           </div>
         </div>
 
-        {/* Tabbed Content */}
-        <div className="card p-8">
-          <Tabs defaultValue="description" className="w-full">
-            <TabsList className="grid w-full grid-cols-5">
-              <TabsTrigger value="description" className="flex items-center gap-2">
-                <BookOpen className="h-4 w-4" />
-                Опис
-              </TabsTrigger>
-              <TabsTrigger value="specifications" className="flex items-center gap-2">
-                <FileText className="h-4 w-4" />
-                Характеристики
-              </TabsTrigger>
-              <TabsTrigger value="reviews" className="flex items-center gap-2">
-                <MessageCircle className="h-4 w-4" />
-                Відгуки
-              </TabsTrigger>
-              <TabsTrigger value="sample" className="flex items-center gap-2">
-                <Star className="h-4 w-4" />
-                Уривок
-              </TabsTrigger>
-              <TabsTrigger value="author" className="flex items-center gap-2">
-                <Heart className="h-4 w-4" />
-                Автор
-              </TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="description" className="mt-6">
-              <div className="prose prose-slate max-w-none">
-                <h2 className="text-h2 text-neutral-900 mb-6 flex items-center gap-2">
-                  <BookOpen className="h-6 w-6" />
-                  Про книгу
-                </h2>
-                {fullDescription.split('\n\n').map((paragraph, i) => (
-                  <p key={i} className="text-readable text-neutral-700 mb-4">
-                    {paragraph}
-                  </p>
-                ))}
+        {/* Additional Information */}
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Specifications */}
+          <div className="card p-8">
+            <h2 className="text-h2 text-neutral-900 mb-6 flex items-center gap-2">
+              <FileText className="h-6 w-6" />
+              Характеристики
+            </h2>
+            <BookSpecifications book={book} />
+          </div>
+
+          {/* Author Info */}
+          <div className="card p-8">
+            <h2 className="text-h2 text-neutral-900 mb-6 flex items-center gap-2">
+              <Heart className="h-6 w-6" />
+              Про автора
+            </h2>
+            <div className="flex items-start gap-6">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center">
+                <span className="text-h2 text-brand-accent-light">
+                  {book.author.charAt(0)}
+                </span>
               </div>
-            </TabsContent>
-            
-            <TabsContent value="specifications" className="mt-6">
-              <BookSpecifications book={book} />
-            </TabsContent>
-            
-            <TabsContent value="reviews" className="mt-6">
-              <BookReviews 
-                rating={book.rating}
-                rating_count={book.rating_count}
-              />
-            </TabsContent>
-            
-            <TabsContent value="sample" className="mt-6">
-              <BookReadingSample title={book.title} />
-            </TabsContent>
-            
-            <TabsContent value="author" className="mt-6">
-              <div>
-                <h2 className="text-h2 text-neutral-900 mb-6 flex items-center gap-2">
-                  <Heart className="h-6 w-6" />
-                  Про автора
-                </h2>
-                <div className="flex items-start gap-6">
-                  <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-purple-100 rounded-2xl flex items-center justify-center">
-                    <span className="text-h2 text-brand-accent-light">
-                      {book.author.charAt(0)}
-                    </span>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-body-lg font-semibold text-neutral-900 mb-2">{book.author}</h3>
-                    <p className="text-neutral-600 leading-relaxed">
-                      Детальна інформація про автора буде додана пізніше. 
-                      Поки що ви можете знайти більше книг цього автора в нашому каталозі.
-                    </p>
-                    <Button variant="outline" size="md" className="mt-3 h-8 text-xs">
-                      Всі книги автора
-                    </Button>
-                  </div>
-                </div>
+              <div className="flex-1">
+                <h3 className="text-body-lg font-semibold text-neutral-900 mb-2">{book.author}</h3>
+                <p className="text-neutral-600 leading-relaxed">
+                  Детальна інформація про автора буде додана пізніше.
+                  Поки що ви можете знайти більше книг цього автора в нашому каталозі.
+                </p>
+                <Button variant="outline" size="md" className="mt-3 h-8 text-xs">
+                  Всі книги автора
+                </Button>
               </div>
-            </TabsContent>
-          </Tabs>
+            </div>
+          </div>
         </div>
 
         {/* Related books */}
@@ -364,7 +331,7 @@ export default async function BookPage({ params }: { params: Params }) {
             
             <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
               {relatedBooks.map((relatedBook) => (
-                <OptimizedBookCard key={relatedBook.id} book={relatedBook} />
+                <BookCard key={relatedBook.id} book={relatedBook} />
               ))}
             </div>
             

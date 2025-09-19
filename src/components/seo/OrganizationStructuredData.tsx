@@ -12,12 +12,12 @@ export function OrganizationStructuredData() {
     "url": "https://stefa-books.com.ua",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://stefa-books.com.ua/logo-text.svg",
+      "url": "https://stefa-books.com.ua/logo.svg",
       "width": "200",
       "height": "200"
     },
     "image": [
-      "https://stefa-books.com.ua/logo-text.svg",
+      "https://stefa-books.com.ua/logo.svg",
       "https://stefa-books.com.ua/favicon.ico"
     ],
     "contactPoint": {

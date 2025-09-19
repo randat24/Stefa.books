@@ -18,7 +18,6 @@ export function Modal({ isOpen, onClose, children, title, className }: ModalProp
     };
 
     if (isOpen) {
-      console.log('Modal opening:', { title, className });
       document.addEventListener("keydown", handleEscape);
       document.body.style.overflow = "hidden";
     }
@@ -29,7 +28,6 @@ export function Modal({ isOpen, onClose, children, title, className }: ModalProp
     };
   }, [isOpen, onClose, title, className]);
 
-  console.log('Modal render:', { isOpen, title });
   if (!isOpen) return null;
 
   return (

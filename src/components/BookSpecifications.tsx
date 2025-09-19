@@ -31,7 +31,7 @@ export function BookSpecifications({ book }: BookSpecificationsProps) {
           <div className="flex items-center gap-2">
             <Hash className="h-4 w-4 text-neutral-500" />
             <span className="text-neutral-600">Код книги:</span>
-            <span className="font-medium font-mono">{book.code}</span>
+            <span className="font-medium font-mono">{book.article}</span>
           </div>
           
           {book.language && (

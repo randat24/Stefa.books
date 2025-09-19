@@ -307,7 +307,7 @@ export class RedisCacheManager {
    * Get overall cache statistics
    */
   async getGlobalStats() {
-    const stats = [];
+    const stats: Array<{ name: string; keyCount: number }> = [];
     for (const [name, cache] of this.caches.entries()) {
       const cacheStats = await cache.getStats();
       stats.push({ name, ...cacheStats });

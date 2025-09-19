@@ -23,8 +23,6 @@ export function BookPreviewModal({ book, isOpen, onClose }: BookPreviewModalProp
   const [isSharing, setIsSharing] = useState(false);
   const userSubscription = useUserSubscription();
   
-  // Debug logging
-  console.log('BookPreviewModal render:', { isOpen, book: book?.title });
   
   // Move the hook call outside of conditional logic
   const handleShare = useCallback(async () => {

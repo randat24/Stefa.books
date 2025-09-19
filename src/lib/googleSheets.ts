@@ -211,11 +211,9 @@ function getBookHeaders(): string[] {
 function bookToSheetRow(book: Book): Record<string, any> {
   return {
     id: book.id,
-    code: book.code || '',
     title: book.title,
     author: book.author,
     category: book.category,
-    subcategory: book.subcategory || '',
     description: book.description || '',
     short_description: book.short_description || '',
     isbn: book.isbn || '',
@@ -249,11 +247,9 @@ function sheetRowToBook(row: any): Partial<Book> {
 
   return {
     id: row.get('id') || undefined,
-    code: row.get('code') || null,
     title,
     author,
     category: row.get('category') || 'Загальна',
-    subcategory: row.get('subcategory') || null,
     description: row.get('description') || null,
     short_description: row.get('short_description') || null,
     isbn: row.get('isbn') || null,
@@ -398,7 +394,7 @@ function parseCategory(categoryString: string): {
   if (category === 'Загальна') category = 'Загальна література';
   
   // Определяем возрастной диапазон
-  let age_range = null;
+  let age_range: string | null = null;
   if (foundAges.length > 0) {
     if (foundAges.includes('найменші')) age_range = '0-3';
     else if (foundAges.includes('дошкільний вік') || foundAges.includes('дошкільний')) age_range = '3-6';
@@ -466,11 +462,9 @@ export async function importBooksFromUkrainianSheets(): Promise<{
           const cover_url = currentCover || generateCoverUrl(title);
           
           const book: Partial<Book> = {
-            code: generateBookCode(parsedCategory.category, index),
             title,
             author: finalAuthor,
             category: parsedCategory.category,
-            subcategory: parsedCategory.subcategory,
             description,
             cover_url,
             publisher,

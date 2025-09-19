@@ -237,7 +237,7 @@ export default function PrivacyPage() {
           <div className="mt-12 text-center">
             <Link 
               href="/" 
-              className="inline-flex items-center justify-center px-8 py-3 bg-accent text-neutral-900 rounded-2xl hover:bg-accent-light transition-colors font-semibold shadow-md hover:shadow-lg"
+              className="inline-flex items-center justify-center px-8 py-3 bg-[var(--brand)] text-neutral-900 rounded-2xl hover:bg-[var(--brand-600)] transition-colors font-semibold shadow-md hover:shadow-lg"
             >
               Повернутися на головну
             </Link>

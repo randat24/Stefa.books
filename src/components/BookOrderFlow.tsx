@@ -266,7 +266,7 @@ export function BookOrderFlow({ book }: BookOrderFlowProps) {
               <div className="flex items-center gap-2 mt-2">
                 <span className="flex items-center gap-1 text-caption text-neutral-500">
                   <Hash className="h-3 w-3" />
-                  {book.code}
+                  {book.article}
                 </span>
                 {book.category && (
                   <Badge variant="secondary" className="text-xs">

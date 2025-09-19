@@ -4,7 +4,7 @@ export type Book = {
   author: string;
   cover: string;
   category: string;
-  code: string;        // напр. "NF-002"
+  article: string;     // напр. "PL-001", "DL-002"
   pages: number;       // 280
   status?: 'В тренді' | 'Бестселер' | 'Нове' | string;
   age?: string;

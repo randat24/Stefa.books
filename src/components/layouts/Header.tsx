@@ -7,8 +7,9 @@ import { HeaderSearch } from '@/components/search/HeaderSearch';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { AdminStatus } from '@/components/auth/AdminStatus';
 import SubscribeModal from '@/components/SubscribeModal';
-import CacheClearButton from '@/components/ui/CacheClearButton';
+import CacheClearButton from '@/components/CacheClearButton';
 import { Button } from '@/components/ui/button';
+import CartIcon from '@/components/cart/CartIcon';
 import { User, Heart, BookOpen, Menu, X } from 'lucide-react';
 // Animation components removed for build fix
 
@@ -32,7 +33,6 @@ export function Header() {
                 alt="Stefa.books logo"
                 width={35}
                 height={36}
-                priority
                 className="sm:w-10 sm:h-10"
               />
             </div>
@@ -49,6 +49,9 @@ export function Header() {
               Каталог
             </Link>
             
+            {/* Иконка корзины */}
+            <CartIcon />
+            
             {/* Кнопка очистки кеша (только в development) */}
             {process.env.NODE_ENV === 'development' && (
               <CacheClearButton />
@@ -64,11 +67,11 @@ export function Header() {
                 </Link>
                 <AdminStatus />
                 <div className="flex items-center gap-2 ml-2">
-                  <Button 
-                    variant="outline" 
-                    size="md"
+                  <Button
+                    variant="outline"
+                    size="default"
                     asChild
-                    className="text-neutral-700 hover:text-neutral-900"
+                    className="text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 border-neutral-300"
                   >
                     <Link href="/profile">
                       <User className="h-4 w-4" />
@@ -79,17 +82,17 @@ export function Header() {
               </>
             ) : (
               <div className="flex items-center gap-2 ml-2">
-                <Button 
-                  variant="outline" 
-                  size="md"
+                <Button
+                  variant="outline"
+                  size="default"
                   onClick={() => setIsAuthModalOpen(true)}
-                  className="text-neutral-700 hover:text-neutral-900"
+                  className="text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 border-neutral-300"
                 >
                   <User className="h-4 w-4" />
                   <span className="ml-1">Увійти</span>
                 </Button>
                 <Button 
-                  size="md"
+                  size="default"
                   onClick={() => setIsSubscriptionModalOpen(true)}
                   className="bg-brand text-neutral-900 hover:bg-brand/90"
                 >
@@ -112,7 +115,7 @@ export function Header() {
             )}
             <Button
               variant="ghost"
-              size="md"
+              size="icon"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2"
               data-testid="mobile-menu-button"
@@ -155,11 +158,11 @@ export function Header() {
                     </Link>
                     
                     <div className="pt-2 border-t border-neutral-200">
-                      <Button 
-                        variant="outline" 
-                        size="md"
+                      <Button
+                        variant="outline"
+                        size="default"
                         asChild
-                        className="w-full text-neutral-700 hover:text-neutral-900"
+                        className="w-full text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 border-neutral-300"
                       >
                         <Link 
                           href="/profile"
@@ -173,20 +176,20 @@ export function Header() {
                   </>
                 ) : (
                   <div className="pt-2 border-t border-neutral-200 space-y-2">
-                    <Button 
-                      variant="outline" 
-                      size="md"
+                    <Button
+                      variant="outline"
+                      size="default"
                       onClick={() => {
                         setIsAuthModalOpen(true);
                         setIsMobileMenuOpen(false);
                       }}
-                      className="w-full text-neutral-700 hover:text-neutral-900"
+                      className="w-full text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 border-neutral-300"
                     >
                       <User className="h-4 w-4 mr-2" />
                       Увійти
                     </Button>
                     <Button 
-                      size="md"
+                      size="default"
                       onClick={() => {
                         setIsSubscriptionModalOpen(true);
                         setIsMobileMenuOpen(false);

@@ -23,7 +23,7 @@ export function useSupabase() {
       const token = authToken ? JSON.parse(authToken).access_token : null;
 
       // Create a new Supabase client with proper headers
-      const client = createClient<Database>(supabaseUrl, supabaseKey, {
+      const client = createClient(supabaseUrl, supabaseKey, {
         auth: {
           persistSession: true,
           autoRefreshToken: true },

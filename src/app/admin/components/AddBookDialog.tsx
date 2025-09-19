@@ -52,10 +52,10 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
   const [mainCategoryId, setMainCategoryId] = useState<string | null>(null)
   const [subcategoryId, setSubcategoryId] = useState<string | null>(null)
 
-  // Хук для работы с кодами книг
-  const { generateCodeForCategory, validateCode, loading: codeLoading } = useBookCodes({
-    onCodeGenerated: (code) => {
-      setForm(prev => ({ ...prev, code }))
+  // Хук для работы с артикулами книг
+  const { generateArticleForCategory, validateArticle, loading: codeLoading } = useBookCodes({
+    onArticleGenerated: (article) => {
+      setForm(prev => ({ ...prev, article }))
     }
   })
 
@@ -74,7 +74,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
 
     // Автогенерация кода при изменении категории
     if (categoryName) {
-      await generateCodeForCategory(categoryName)
+      await generateArticleForCategory(categoryName)
     }
   }
 
@@ -84,7 +84,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
 
   async function handleGenerateCode() {
     if (form.category_name) {
-      await generateCodeForCategory(form.category_name)
+      await generateArticleForCategory(form.category_name)
     }
   }
 
@@ -122,7 +122,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
       }
 
       // Валідація коду книги
-      if (!validateCode(form.code)) {
+      if (!validateArticle(form.code)) {
         alert('Невірний формат коду книги. Використовуйте формат: XX-001')
         return
       }
@@ -220,7 +220,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
                   id="code"
                   placeholder="DL-001"
                   value={form.code}
-                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleCodeChange(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleCodeChange(e.target.value)}
                   disabled={submitting}
                   className="flex-1"
                 />
@@ -252,7 +252,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
                 id="title"
                 placeholder="Назва книги"
                 value={form.title}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setForm(prev => ({ ...prev, title: e.target.value }))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm(prev => ({ ...prev, title: e.target.value }))}
                 disabled={submitting}
               />
             </div>
@@ -289,7 +289,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
                 type="number"
                 min="1"
                 value={form.qty_total}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setForm(prev => ({ ...prev, qty_total: parseInt(e.target.value) || 1 }))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm(prev => ({ ...prev, qty_total: parseInt(e.target.value) || 1 }))}
                 disabled={submitting}
               />
             </div>
@@ -302,7 +302,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
                 step="0.01"
                 placeholder="180.00"
                 value={form.price_uah || ''}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setForm(prev => ({ ...prev, price_uah: parseFloat(e.target.value) || undefined }))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm(prev => ({ ...prev, price_uah: parseFloat(e.target.value) || undefined }))}
                 disabled={submitting}
               />
             </div>
@@ -332,7 +332,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
               id="location"
               placeholder="вул. Маріупольська 13/2, Кафе 'Книжкова'"
               value={form.location}
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setForm(prev => ({ ...prev, location: e.target.value }))}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setForm(prev => ({ ...prev, location: e.target.value }))}
               disabled={submitting}
             />
           </div>
@@ -345,7 +345,7 @@ export function AddBookDialog({ onBookCreated }: AddBookDialogProps) {
               className="min-h-[100px] resize-none"
               placeholder="Короткий опис змісту, вік читачів, особливості..."
               value={form.description}
-              onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setForm(prev => ({ ...prev, description: e.target.value }))}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setForm(prev => ({ ...prev, description: e.target.value }))}
               disabled={submitting}
             />
             <p className="text-caption text-neutral-500">

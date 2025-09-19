@@ -9,6 +9,7 @@ import { BookPreviewModal } from '@/components/BookPreviewModal';
 import { BookCover } from '@/components/BookCover';
 import { AgeCategoryBadge } from '@/components/ui/AgeCategoryBadge';
 import { useAnalytics } from '@/hooks/useAnalytics';
+import AddToCartButton from '@/components/cart/AddToCartButton';
 
 export type BookCardProps = {
   book: Book;
@@ -27,11 +28,9 @@ export function BookCard({
   // Memoize the book data to prevent unnecessary re-renders
   const memoizedBook = useMemo(() => book, [book]);
 
-  // @ts-expect-error - MouseEvent type compatibility issue with React types
   const handleQuickView = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('Quick view clicked for book:', memoizedBook.title);
     setShowPreview(true);
     // Отслеживание просмотра книги
     trackBookView(memoizedBook.title, memoizedBook.id.toString());
@@ -144,6 +143,24 @@ export function BookCard({
               minAge={(memoizedBook as any).min_age}
               maxAge={(memoizedBook as any).max_age}
               variant="compact"
+            />
+          </div>
+
+          {/* Кнопка добавления в корзину */}
+          <div className="mt-3">
+            <AddToCartButton 
+              book={{
+                id: memoizedBook.id.toString(),
+                title: memoizedBook.title,
+                author: memoizedBook.author,
+                article: memoizedBook.article || `AA${memoizedBook.id.toString().padStart(6, '0')}`,
+                cover_url: memoizedBook.cover_url || '/images/book-placeholder.jpg',
+                rental_days: 14, // Дефолт 14 дней
+                price: 0 // Бесплатная аренда по подписке
+              }}
+              size="sm"
+              variant="outline"
+              className="w-full"
             />
           </div>
         </div>

@@ -84,8 +84,8 @@ export default function FavoritesPage() {
                       width={64}
                       height={85}
                       className="w-full h-full object-cover"
-                      onError={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        const target = e.target as HTMLImageElement;
+                      onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                        const target = e.currentTarget;
                         target.src = '/images/book-placeholder.svg';
                       }}
                     />

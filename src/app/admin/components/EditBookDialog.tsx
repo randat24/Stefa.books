@@ -56,9 +56,9 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
   const [subcategoryId, setSubcategoryId] = useState<string | null>(null)
   
   // Хук для работы с кодами книг
-  const { generateCodeForCategory, validateCode, loading: codeLoading } = useBookCodes({
-    onCodeGenerated: (code) => {
-      setForm(prev => ({ ...prev, code }))
+  const { generateArticleForCategory, validateArticle, loading: codeLoading } = useBookCodes({
+    onArticleGenerated: (article) => {
+      setForm(prev => ({ ...prev, code: article }))
     }
   })
 
@@ -70,7 +70,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
     if (book && open) {
       setForm({
         id: book.id,
-        code: book.code,
+        code: book.article || '',
         title: book.title,
         author: book.author,
         author_id: book.author_id || null,

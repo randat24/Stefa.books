@@ -3,11 +3,11 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
-import { OptimizedBookCard, type OptimizedBookCardProps } from '@/components/OptimizedBookCard';
+import { BookCard, type BookCardProps } from '@/components/BookCard';
 
 // Wrapper component to handle the key prop
-const BookCardWrapper = ({ book, ...props }: OptimizedBookCardProps & { key?: string }) => {
-  return <OptimizedBookCard book={book} {...props} />;
+const BookCardWrapper = ({ book, ...props }: BookCardProps & { key?: string }) => {
+  return <BookCard book={book} {...props} />;
 };
 import { PaginationControls, PaginationInfo, calculateTotalPages } from '@/components/ui/PaginationControls';
 import { LoadMoreButton } from '@/components/ui/LoadMoreButton';

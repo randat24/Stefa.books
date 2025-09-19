@@ -79,7 +79,7 @@ export async function analyzeBookContent(book: Book): Promise<BookAnalysisResult
       keywords: [book.title.split(' ')[0], book.author.split(' ')[0], 'діти', 'книга'],
       shortDescription: book.description?.slice(0, 80) + '...' || 'Цікава дитяча книга.',
       recommendedFor: ['діти', 'батьки'],
-      thinking: response.thinking };
+      thinking: response.thinking || '' };
   }
 }
 
@@ -124,7 +124,7 @@ export async function improveBookContent(book: Book): Promise<BookContentImprove
     const improvement = JSON.parse(response.content.replace(/```json\n?|\n?```/g, ''));
     return {
       ...improvement,
-      thinking: response.thinking };
+      thinking: response.thinking || '' };
   } catch (error) {
     console.error('Error parsing content improvement:', error);
     return {
@@ -132,7 +132,7 @@ export async function improveBookContent(book: Book): Promise<BookContentImprove
       seoKeywords: ['дитяча книга', 'література', book.author, 'читання'],
       metaDescription: `${book.title} - ${book.author}. Цікава дитяча книга у бібліотеці Stefa.Books.`,
       hashtags: ['#дитячікниги', '#читання', '#література', '#stefabooks'],
-      thinking: response.thinking };
+      thinking: response.thinking || '' };
   }
 }
 
@@ -238,11 +238,7 @@ ${availableCategories.map((cat, i) => `${i + 1}. ${cat}`).join('\n')}
 Враховуй жанр, вікову групу та тематику книги.
   `.trim();
 
-  const response = await callClaudeOpus41({
-    system: systemPrompt,
-    messages: [{ role: 'user', content: prompt }],
-    max_tokens: 2000,
-    thinking: true });
+  const response = await generateWithThinking(prompt, systemPrompt, 2000);
 
   try {
     const result = JSON.parse(response.content.replace(/```json\n?|\n?```/g, ''));

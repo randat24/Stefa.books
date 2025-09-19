@@ -1,5 +1,5 @@
 // SEO Head Components
-export { SEOHead } from './SEOHead';
+// export { SEOHead } from './SEOHead'; // Removed - not compatible with App Router
 
 // Structured Data Components
 export { OrganizationStructuredData } from './OrganizationStructuredData';

@@ -2,11 +2,11 @@
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { Search, X, BookOpen, Loader2 } from 'lucide-react';
-import SimplifiedBookCard, { type SimplifiedBookCardProps } from '@/components/SimplifiedBookCard';
+import { BookCard, type BookCardProps } from '@/components/BookCard';
 
 // Wrapper component to handle the key prop
-const BookCardWrapper = ({ book, ...props }: SimplifiedBookCardProps & { key?: string }) => {
-  return <SimplifiedBookCard book={book} {...props} />;
+const BookCardWrapper = ({ book, ...props }: BookCardProps & { key?: string }) => {
+  return <BookCard book={book} {...props} />;
 };
 import { fetchNewBooks, fetchCategories, getCategoriesFromBooks } from '@/lib/api/books';
 import type { Book } from '@/lib/supabase';

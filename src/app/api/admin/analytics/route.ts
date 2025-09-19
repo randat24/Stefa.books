@@ -108,7 +108,7 @@ export async function GET(request: NextRequest) {
         id: book.id,
         title: book.title,
         author: book.author,
-        code: book.code,
+        article: book.article,
         rental_count: bookRentalCounts[book.id] || 0,
         revenue: (bookRentalCounts[book.id] || 0) * (book.price_uah || 0),
         rating: Math.random() * 5 // Поки що випадковий рейтинг

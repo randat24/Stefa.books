@@ -38,7 +38,7 @@ export async function GET() {
       .select(`
         *,
         users:user_id (name, email, phone),
-        books:book_id (title, code)
+        books:book_id (title, article)
       `)
       .eq('status', 'overdue')
       .lt('return_date', today.toISOString().split('T')[0])
@@ -110,7 +110,7 @@ export async function GET() {
           user_email: rental.users?.email,
           user_phone: rental.users?.phone,
           book_title: rental.books?.title,
-          book_code: rental.books?.code,
+          book_article: rental.books?.article,
           return_date: rental.return_date
         },
         daysOverdue,

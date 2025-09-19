@@ -142,7 +142,7 @@ export function Footer() {
                 placeholder="Ваш email"
                 className="input w-full text-body-sm h-10 px-3"
               />
-              <button className="inline-flex items-center justify-center rounded-2xl font-semibold w-full h-10 px-4 text-body-sm bg-accent text-neutral-900 hover:bg-accent-light transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2">
+              <button className="inline-flex items-center justify-center rounded-2xl font-semibold w-full h-10 px-4 text-body-sm bg-[var(--brand)] text-neutral-900 hover:bg-[var(--brand-600)] transition-colors shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand)] focus-visible:ring-offset-2">
                 Підписатися
               </button>
             </div>

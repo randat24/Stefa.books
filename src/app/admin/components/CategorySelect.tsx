@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Plus, Folder, FolderOpen } from "lucide-react"
+import { Plus, FileText as Folder, FolderOpen } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -250,9 +250,9 @@ export function CategorySelect({
                   <Input
                     id="main-category-name"
                     value={newCategoryName}
-                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setNewCategoryName(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewCategoryName(e.target.value)}
                     placeholder="Введите название категории"
-                    onKeyDown={(e: React.ChangeEvent<HTMLInputElement>) => e.key === 'Enter' && handleAddMainCategory()}
+                    onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && handleAddMainCategory()}
                   />
                 </div>
                 <div className="flex justify-end gap-2">
@@ -333,9 +333,9 @@ export function CategorySelect({
                   <Input
                     id="subcategory-name"
                     value={newSubcategoryName}
-                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setNewSubcategoryName(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewSubcategoryName(e.target.value)}
                     placeholder="Введите название подкатегории"
-                    onKeyDown={(e: React.ChangeEvent<HTMLInputElement>) => e.key === 'Enter' && handleAddSubcategory()}
+                    onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && handleAddSubcategory()}
                   />
                 </div>
                 <div className="text-body-sm text-muted-foreground">

@@ -105,7 +105,7 @@ export function EditBookDialog({ book, open, onOpenChange, onBookUpdated }: Edit
   useEffect(() => {
     if (book && open) {
       setFormData({
-        code: book.code || '',
+        article: book.article || '',
         title: book.title || '',
         author: book.author || '',
         category: book.category_id || null,

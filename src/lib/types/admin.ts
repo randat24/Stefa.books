@@ -152,7 +152,7 @@ export interface RentalRow {
   user_name?: string
   user_email?: string
   book_title?: string
-  book_code?: string
+  book_article?: string
 }
 
 export interface CreateRentalForm {

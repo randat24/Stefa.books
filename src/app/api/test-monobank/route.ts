@@ -1,67 +1,104 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { monobankPaymentService } from '@/lib/payments/monobank-payment-service'
+import { logger } from '@/lib/logger'
+
 /**
- * Тестовый API для проверки работы Monobank
+ * GET /api/test-monobank - Test Monobank integration
  */
-
-import { NextRequest, NextResponse } from 'next/server';
-import { monobankService } from '@/lib/services/monobank';
-import { logger } from '@/lib/logger';
-
-export async function POST(request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
-    logger.info('Тестируем создание реального платежа Monobank');
+    const searchParams = request.nextUrl.searchParams
+    const testType = searchParams.get('test') || 'config'
 
-    const body = await request.json();
-    const { amount = 1, description = 'Тест реального платежа' } = body;
+    switch (testType) {
+      case 'config':
+        // Test configuration
+        const hasToken = !!process.env.MONOBANK_TOKEN
+        const hasPublicKey = !!process.env.MONOBANK_PUBLIC_KEY
 
-    // Создаем минимальный тестовый платеж (1 гривна)
-    const payment = await monobankService.createPayment({
-      amount: amount, // Тестовая сумма
-      description: description,
-      reference: `test-${Date.now()}`,
-      redirectUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/test-success`,
-      webhookUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/payments/monobank/webhook`
-    });
+        return NextResponse.json({
+          success: true,
+          config: {
+            hasMonobankToken: hasToken,
+            hasPublicKey: hasPublicKey,
+            siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'not set',
+            environment: process.env.NODE_ENV || 'unknown'
+          }
+        })
 
-    logger.info('Результат создания платежа:', payment);
+      case 'webhook-validation':
+        // Test webhook validation logic (without real signature)
+        const testBody = '{"test": "data"}'
+        const testSignature = 'test-signature'
 
-    return NextResponse.json({
-      success: true,
-      message: 'Тест Monobank API выполнен',
-      payment: payment,
-      mode: 'РЕАЛЬНЫЙ РЕЖИМ - НАСТОЯЩИЕ ДЕНЬГИ!',
-      warning: 'Это реальный платеж, будьте осторожны!'
-    });
+        // This will test the validation logic structure
+        const isValid = monobankPaymentService.validateWebhook(testBody, testSignature)
+
+        return NextResponse.json({
+          success: true,
+          validation: {
+            testPerformed: true,
+            validationResult: isValid,
+            note: 'This is a test validation without real Monobank signature'
+          }
+        })
+
+      case 'payment-creation':
+        // Test payment creation with enhanced parameters
+        const testPayment = await monobankPaymentService.createPayment({
+          amount: 100, // 1 грн
+          description: 'Тестовый платеж с улучшенными параметрами',
+          reference: `test-enhanced-${Date.now()}`,
+          redirectUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/test-success`,
+          webhookUrl: `${process.env.NEXT_PUBLIC_SITE_URL}/api/payments/monobank/webhook`,
+          validity: 3600, // 1 час
+          paymentType: 'debit',
+          merchantPaymInfo: {
+            destination: 'Тестування покращеного API',
+            comment: 'Тест з додатковими параметрами',
+            basketOrder: [
+              {
+                name: 'Тестовий товар',
+                qty: 1,
+                sum: 10000, // 100 грн в копейках
+                code: 'TEST001'
+              }
+            ]
+          }
+        })
+
+        return NextResponse.json({
+          success: true,
+          payment: testPayment,
+          features: {
+            retryLogic: 'enabled',
+            enhancedParameters: 'enabled',
+            additionalFields: 'supported'
+          }
+        })
+
+      case 'merchant-info':
+        // Test merchant info retrieval
+        const merchantInfo = await monobankPaymentService.getMerchantInfo()
+
+        return NextResponse.json({
+          success: true,
+          merchantInfo,
+          note: 'This shows merchant account information and configuration'
+        })
+
+      default:
+        return NextResponse.json({
+          success: false,
+          error: 'Unknown test type. Available: config, webhook-validation, payment-creation, merchant-info'
+        }, { status: 400 })
+    }
 
   } catch (error) {
-    logger.error('Ошибка теста Monobank:', error);
-
+    logger.error('Monobank test API error', error)
     return NextResponse.json({
       success: false,
-      error: error instanceof Error ? error.message : 'Неизвестная ошибка',
-      details: 'Проверьте MONOBANK_TOKEN и настройки API'
-    }, { status: 500 });
-  }
-}
-
-export async function GET() {
-  try {
-    // Проверяем информацию о клиенте (личный API)
-    const clientInfo = await monobankService.getClientInfo();
-
-    return NextResponse.json({
-      success: true,
-      message: 'Проверка настроек Monobank',
-      client_info: clientInfo,
-      mode: 'РЕАЛЬНЫЙ РЕЖИМ',
-      api_url: 'https://api.monobank.ua/api/merchant',
-      token_configured: !!process.env.MONOBANK_TOKEN
-    });
-
-  } catch (error) {
-    return NextResponse.json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Ошибка проверки настроек',
-      token_configured: !!process.env.MONOBANK_TOKEN
-    }, { status: 500 });
+      error: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 })
   }
 }

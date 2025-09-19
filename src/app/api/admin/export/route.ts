@@ -139,7 +139,7 @@ async function exportBooks() {
     }
 
     const booksData = books.map((book: any) => ({
-      'Код': book.code,
+      'Артикул': book.article,
       'Назва': book.title,
       'Автор': book.author || '',
       'Видавництво': book.publisher || '',
@@ -308,7 +308,7 @@ async function exportRentals() {
     .from('rentals')
     .select(`
       *,
-      books (title, code),
+      books (title, article),
       users:user_id (name, email)
     `)
     .order('created_at')
@@ -318,7 +318,7 @@ async function exportRentals() {
   const rentalsData = rentals.map((rental: any) => ({
     'ID': rental.id,
     'Книга': rental.books?.title || '',
-    'Код книги': rental.books?.code || '',
+    'Артикул книги': rental.books?.article || '',
     'Користувач': rental.users?.name || '',
     'Email користувача': rental.users?.email || '',
     'Статус': rental.status || '',

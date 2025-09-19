@@ -323,7 +323,7 @@ export function AdvancedAnalytics({ onRefresh }: AdvancedAnalyticsProps) {
                     </div>
                     <div>
                       <h3 className="font-semibold text-neutral-900">{book.title}</h3>
-                      <p className="text-body-sm text-neutral-600">{book.author} • {book.code}</p>
+                      <p className="text-body-sm text-neutral-600">{book.author} • {book.article}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-4 text-sm">

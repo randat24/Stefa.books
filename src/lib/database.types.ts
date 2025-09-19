@@ -81,7 +81,7 @@ export type Database = {
           is_active: boolean | null
           badges: string[] | null
           category: string | null
-          code: string | null
+          article: string | null
           cover_url: string | null
           created_at: string | null
           description: string | null

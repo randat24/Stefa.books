@@ -29,8 +29,8 @@ export const useNotifications = () => {
     return toast.loading(message);
   };
 
-  const dismiss = (toastId?: string | number) => {
-    toast.dismiss(toastId);
+  const dismiss = () => {
+    toast.dismiss();
   };
 
   return {

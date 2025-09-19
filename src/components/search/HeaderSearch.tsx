@@ -333,7 +333,7 @@ export function HeaderSearch() {
                   <div className="border-t border-neutral-100 p-4 bg-white">
                     <button
                       onClick={handleSearch}
-                      className="w-full py-3 bg-accent text-neutral-900 font-medium rounded-2xl hover:bg-accent-light transition flex items-center justify-center gap-2"
+                      className="w-full py-3 bg-[var(--brand)] text-neutral-900 font-medium rounded-2xl hover:bg-[var(--brand-600)] transition flex items-center justify-center gap-2"
                     >
                       Усі результати
                       <Search className="h-4 w-4" />
@@ -352,7 +352,7 @@ export function HeaderSearch() {
                   <div className="border-t border-neutral-100 p-4 bg-white">
                     <button
                       onClick={handleSearch}
-                      className="w-full py-3 bg-accent text-neutral-900 font-medium rounded-2xl hover:bg-accent-light transition flex items-center justify-center gap-2"
+                      className="w-full py-3 bg-[var(--brand)] text-neutral-900 font-medium rounded-2xl hover:bg-[var(--brand-600)] transition flex items-center justify-center gap-2"
                     >
                       Переглянути всі книги
                       <Search className="h-4 w-4" />
@@ -374,7 +374,7 @@ export function HeaderSearch() {
                   <div className="border-t border-neutral-100 p-4 bg-white">
                     <button
                       onClick={handleSearch}
-                      className="w-full py-3 bg-accent text-neutral-900 font-medium rounded-2xl hover:bg-accent-light transition flex items-center justify-center gap-2"
+                      className="w-full py-3 bg-[var(--brand)] text-neutral-900 font-medium rounded-2xl hover:bg-[var(--brand-600)] transition flex items-center justify-center gap-2"
                     >
                       Переглянути каталог
                       <Search className="h-4 w-4" />

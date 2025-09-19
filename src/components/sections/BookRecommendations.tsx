@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { SimplifiedBookCard } from "@/components/SimplifiedBookCard";
+import { BookCard } from "@/components/BookCard";
 import { Button } from "@/components/ui/button";
 import { fetchBooks } from "@/lib/api/books";
 // @ts-expect-error - Lucide React icon types not properly recognized
@@ -220,7 +220,7 @@ export function BookRecommendations({
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {recommendations.map((book: any) => (
             // @ts-expect-error - React key prop is handled internally
-            <SimplifiedBookCard key={book.id} book={book} />
+            <BookCard key={book.id} book={book} />
           ))}
         </div>
 
