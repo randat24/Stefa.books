@@ -18,7 +18,7 @@ const nextConfig = {
   },
 
   // Default output for Netlify deployment
-  // output: 'standalone',
+  // output: 'export', // Disabled due to server actions
   experimental: {
     serverActions: {
       allowedOrigins: ['localhost:3000', 'localhost:3001', 'stefa-books.com.ua', 'stefa-books.netlify.app', '*.netlify.app']
