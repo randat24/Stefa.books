@@ -1,8 +1,6 @@
-// Force dynamic rendering
-export const dynamic = 'force-dynamic';
-export const runtime = 'nodejs';
+import Link from 'next/link'
 
-import Link from 'next/link';
+export const dynamic = 'force-dynamic'
 
 export default function NotFound() {
   return (
@@ -15,5 +13,5 @@ export default function NotFound() {
         </Link>
       </div>
     </div>
-  );
+  )
 }

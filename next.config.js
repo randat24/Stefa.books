@@ -24,6 +24,11 @@ const nextConfig = {
       allowedOrigins: ['localhost:3000', 'localhost:3001', 'stefa-books.com.ua', 'stefa-books.netlify.app', '*.netlify.app']
     }
   },
+  // Skip problematic pages during build
+  onDemandEntries: {
+    maxInactiveAge: 25 * 1000,
+    pagesBufferLength: 2,
+  },
   // Настройки для Netlify деплоя
   trailingSlash: false,
   images: {
