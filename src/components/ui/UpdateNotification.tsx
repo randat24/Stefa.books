@@ -1,28 +1,94 @@
 'use client'
 
-import { useServiceWorker } from '@/lib/hooks/useServiceWorker'
 import { useState, useEffect } from 'react'
 import { RefreshCw, X } from 'lucide-react'
 
 export default function UpdateNotification() {
-  const { updateAvailable, updateServiceWorker, isSupported } = useServiceWorker()
   const [isVisible, setIsVisible] = useState(false)
   const [isUpdating, setIsUpdating] = useState(false)
+  const [newVersion, setNewVersion] = useState<string>('')
 
   useEffect(() => {
-    if (updateAvailable && isSupported) {
-      setIsVisible(true)
+    if ('serviceWorker' in navigator) {
+      // Слушаем сообщения от Service Worker о новой версии
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        if (event.data?.type === 'NEW_VERSION_AVAILABLE') {
+          console.log('🔄 Обнаружена новая версия:', event.data.buildId)
+          setNewVersion(event.data.buildId)
+          setIsVisible(true)
+        }
+      })
+
+      // Проверяем версию при загрузке компонента
+      navigator.serviceWorker.ready.then((registration) => {
+        if (registration.active) {
+          const channel = new MessageChannel()
+          channel.port1.onmessage = (event) => {
+            const currentVersion = process.env.NEXT_PUBLIC_BUILD_ID
+            const swVersion = event.data.version
+
+            console.log('📋 Проверка версий - Текущая:', currentVersion, 'SW:', swVersion)
+
+            if (currentVersion !== swVersion) {
+              setNewVersion(swVersion)
+              setIsVisible(true)
+            }
+          }
+
+          registration.active.postMessage(
+            { type: 'GET_VERSION' },
+            [channel.port2]
+          )
+        }
+      })
     }
-  }, [updateAvailable, isSupported])
+  }, [])
 
   const handleUpdate = async () => {
     setIsUpdating(true)
+    console.log('🔄 Начинаем принудительное обновление...')
+
     try {
-      await updateServiceWorker()
-      // Service Worker автоматически перезагрузит страницу
+      if ('serviceWorker' in navigator) {
+        // Сначала очищаем все кеши через Service Worker
+        const registration = await navigator.serviceWorker.ready
+        if (registration.active) {
+          const channel = new MessageChannel()
+          channel.port1.onmessage = (event) => {
+            if (event.data.success) {
+              console.log('✅ Service Worker кеши очищены')
+              // Дополнительно очищаем browser cache
+              if ('caches' in window) {
+                caches.keys().then(names => {
+                  names.forEach(name => {
+                    console.log('🗑️ Удаляем кеш:', name)
+                    caches.delete(name)
+                  })
+                })
+              }
+
+              // Принудительная перезагрузка с очисткой кеша
+              setTimeout(() => {
+                console.log('🔄 Принудительная перезагрузка страницы...')
+                window.location.reload()
+              }, 500)
+            }
+          }
+
+          registration.active.postMessage(
+            { type: 'CLEAR_ALL_CACHE' },
+            [channel.port2]
+          )
+        }
+      } else {
+        // Если Service Worker не поддерживается
+        console.log('🔄 Service Worker не поддерживается, обычная перезагрузка')
+        window.location.reload()
+      }
     } catch (error) {
-      console.error('Ошибка обновления:', error)
-      setIsUpdating(false)
+      console.error('❌ Ошибка при обновлении:', error)
+      // В случае ошибки просто перезагружаем страницу
+      window.location.reload()
     }
   }
 

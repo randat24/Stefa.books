@@ -6,7 +6,7 @@ const generateBuildId = () => {
   return `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
 };
 
-const BUILD_ID = '20250917-082115';
+const BUILD_ID = '20250919-1841';
 
 const nextConfig = {
   // Generate a consistent build ID for the current build

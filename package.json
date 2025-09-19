@@ -25,6 +25,7 @@
     "setup:dev": "./scripts/setup-local.sh",
     "deploy:staging": "./scripts/netlify-deploy.sh staging",
     "deploy:production": "./scripts/netlify-deploy.sh production",
+    "deploy:cache-bust": "./scripts/deploy-with-cache-bust.sh",
     "deploy:check": "./scripts/deployment-checklist.sh",
     "pre-commit": "./scripts/pre-commit-check.sh",
     "emergency": "./scripts/emergency-fix.sh",

@@ -2,6 +2,7 @@ import "./globals.css";
 import Providers from "@/components/Providers";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { ClientLayoutWrapper } from "@/components/layouts/ClientLayoutWrapper";
+import UpdateNotification from "@/components/ui/UpdateNotification";
 import { Metadata } from "next";
 
 // Force dynamic rendering to prevent static generation issues
@@ -32,9 +33,15 @@ export const metadata: Metadata = {
     telephone: false,
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/favicon-64x64.png', sizes: '64x64', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' }
+    ],
     shortcut: '/favicon.ico',
-    apple: '/apple-icon.png',
+    apple: '/apple-touch-icon.png',
   },
   manifest: '/manifest.json',
   appleWebApp: {
@@ -96,6 +103,7 @@ export default function RootLayout({
             <ClientLayoutWrapper>
               {children}
             </ClientLayoutWrapper>
+            <UpdateNotification />
           </Providers>
         </ErrorBoundary>
       </body>

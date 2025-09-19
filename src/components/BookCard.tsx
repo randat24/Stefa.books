@@ -17,8 +17,8 @@ export type BookCardProps = {
   priorityLoading?: boolean;
 }
 
-export function BookCard({ 
-  book, 
+export function BookCard({
+  book,
   showActions = true,
   priorityLoading = false
 }: BookCardProps) {
