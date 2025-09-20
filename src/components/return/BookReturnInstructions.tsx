@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Package, CheckCircle, AlertTriangleIcon } from 'lucide-react';
+import { MapPin, Package, CheckCircle, AlertTriangle } from 'lucide-react';
 
 export function BookReturnInstructions() {
   return (
@@ -48,7 +48,7 @@ export function BookReturnInstructions() {
         {/* Important Notes */}
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
           <div className="flex items-center gap-2 mb-2">
-            <AlertTriangleIcon className="h-4 w-4 text-yellow-600" />
+            <AlertTriangle className="h-4 w-4 text-yellow-600" />
             <span className="font-semibold text-yellow-900">Важливо!</span>
           </div>
           <ul className="space-y-1 text-body-sm text-yellow-800">

@@ -6,7 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { canAccessAdminPanel } from '@/lib/auth/roles';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Loader2, Shield, AlertTriangleIcon } from 'lucide-react';
+import { Loader2, Shield, AlertTriangle } from 'lucide-react';
 
 interface AdminGuardProps {
   children: React.ReactNode;
@@ -75,7 +75,7 @@ export function AdminGuard({ children }: AdminGuardProps) {
           <CardContent className="space-y-4">
             <div className="rounded-lg bg-muted p-4">
               <div className="flex items-start space-x-2">
-                <AlertTriangleIcon className="h-4 w-4 text-muted-foreground mt-0.5" />
+                <AlertTriangle className="h-4 w-4 text-muted-foreground mt-0.5" />
                 <div className="text-body-sm text-muted-foreground">
                   <p>Для доступу до адмін-панелі потрібні права адміністратора.</p>
                   <p className="mt-1">Зверніться до адміністратора системи.</p>

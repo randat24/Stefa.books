@@ -3,8 +3,8 @@
 import { useState, useMemo, useCallback } from "react"
 import { 
   Users, User, Mail, Phone, Calendar, CreditCard, 
-  Search, Filter, MoreHorizontalIcon, Trash2, Eye, RefreshCw,
-  CheckCircle, XCircle, AlertTriangleIcon, Clock
+  Search, Filter, MoreHorizontal, Trash2, Eye, RefreshCw,
+  CheckCircle, XCircle, AlertTriangle, Clock
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -187,7 +187,7 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
       },
       suspended: {
         label: "Заблокований",
-        icon: <AlertTriangleIcon className="size-3" />,
+        icon: <AlertTriangle className="size-3" />,
         className: "bg-orange-50 text-orange-700 border-orange-200"
       }
     }
@@ -433,7 +433,7 @@ export function UserManagement({ users, onRefresh }: UserManagementProps) {
                     </TableHead>
                     <TableHead className="text-center w-32 bg-neutral-100 font-semibold text-neutral-800 p-4">
                       <div className="flex items-center justify-center gap-2">
-                        <MoreHorizontalIcon className="size-4" />
+                        <MoreHorizontal className="size-4" />
                         Дії
                       </div>
                     </TableHead>

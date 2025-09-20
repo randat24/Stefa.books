@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { 
-  HistoryIcon, 
+  History, 
   BookOpen, 
   Star, 
   Calendar, 
@@ -161,7 +161,7 @@ export default function RentalHistoryIcon() {
   if (error) {
     return (
       <div className="text-center py-8">
-        <HistoryIcon className="h-12 w-12 mx-auto mb-4 text-red-500" />
+        <History className="h-12 w-12 mx-auto mb-4 text-red-500" />
         <p className="text-red-600 mb-4">{error}</p>
         <Button onClick={loadRentalHistoryIcon} variant="outline">
           Спробувати знову
@@ -176,7 +176,7 @@ export default function RentalHistoryIcon() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <HistoryIcon className="h-5 w-5" />
+            <History className="h-5 w-5" />
             Історія оренди ({data?.total || 0})
           </CardTitle>
         </CardHeader>
@@ -273,7 +273,7 @@ export default function RentalHistoryIcon() {
                       </div>
                       {rental.return_date && (
                         <div className="flex items-center gap-2">
-                          <HistoryIcon className="h-4 w-4" />
+                          <History className="h-4 w-4" />
                           <span>
                             Повернено: {new Date(rental.return_date).toLocaleDateString('uk-UA')}
                           </span>

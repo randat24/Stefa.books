@@ -10,7 +10,7 @@ import {
   Settings,
   Bell,
   CreditCard,
-  HistoryIcon,
+  History,
   RefreshCw,
   AlertCircle
 } from 'lucide-react';
@@ -187,7 +187,7 @@ export default function UserDashboard({ className = '' }: UserDashboardProps) {
         <Card>
           <CardContent className="p-6">
             <div className="flex items-center">
-              <HistoryIcon className="h-8 w-8 text-purple-600" />
+              <History className="h-8 w-8 text-purple-600" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-neutral-600">Всього оренд</p>
                 <p className="text-2xl font-bold text-neutral-900">{stats.totalRentals}</p>
@@ -324,18 +324,18 @@ export default function UserDashboard({ className = '' }: UserDashboardProps) {
         </CardContent>
       </Card>
 
-      {/* Recent HistoryIcon */}
+      {/* Recent History */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <HistoryIcon className="h-5 w-5" />
+            <History className="h-5 w-5" />
             Останні оренди ({rentalHistoryIcon.length})
           </CardTitle>
         </CardHeader>
         <CardContent>
           {rentalHistoryIcon.length === 0 ? (
             <div className="text-center py-8 text-neutral-500">
-              <HistoryIcon className="h-12 w-12 mx-auto mb-4 text-neutral-300" />
+              <History className="h-12 w-12 mx-auto mb-4 text-neutral-300" />
               <p>Історія оренд порожня</p>
             </div>
           ) : (

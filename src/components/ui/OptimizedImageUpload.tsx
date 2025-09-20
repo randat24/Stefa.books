@@ -1,7 +1,7 @@
 'use client'
 
-import { useCallback, useState, useRef } from 'react';
-import {  } from 'react'
+import Image from "next/image";
+import { useCallback, useState, useRef } from 'react'
 import { Upload, X, Image as ImageIcon, AlertCircle } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import PerformanceButton from './PerformanceButton'

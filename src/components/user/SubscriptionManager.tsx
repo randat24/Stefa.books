@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { 
   CreditCard, 
   Calendar, 
-  AlertTriangleIcon, 
+  AlertTriangle, 
   CheckCircle, 
   Clock,
   RefreshCw,
@@ -138,7 +138,7 @@ export default function SubscriptionManager() {
   if (error) {
     return (
       <div className="text-center py-8">
-        <AlertTriangleIcon className="h-12 w-12 mx-auto mb-4 text-red-500" />
+        <AlertTriangle className="h-12 w-12 mx-auto mb-4 text-red-500" />
         <p className="text-red-600 mb-4">{error}</p>
         <Button onClick={loadSubscriptionData} variant="outline">
           Спробувати знову
@@ -201,7 +201,7 @@ export default function SubscriptionManager() {
 
             {subscription.is_expired && (
               <div className="flex items-center gap-2 p-3 bg-red-100 rounded-lg">
-                <AlertTriangleIcon className="h-5 w-5 text-red-600" />
+                <AlertTriangle className="h-5 w-5 text-red-600" />
                 <span className="text-red-800">
                   Ваша підписка закінчилася. Продовжіть її для доступу до всіх функцій.
                 </span>

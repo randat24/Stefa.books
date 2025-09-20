@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
-import { AlertTriangleIcon, CheckCircle, Info, X } from "lucide-react"
+import { AlertTriangle, CheckCircle, Info, X } from "lucide-react"
 import { AnimatedButton } from "../forms/AnimatedButton"
 
 interface ConfirmationModalProps {
@@ -30,15 +30,15 @@ export function ConfirmationModal({
   const getIcon = () => {
     switch (type) {
       case "warning":
-        return <AlertTriangleIcon className="w-6 h-6 text-yellow-500" />
+        return <AlertTriangle className="w-6 h-6 text-yellow-500" />
       case "danger":
-        return <AlertTriangleIcon className="w-6 h-6 text-red-500" />
+        return <AlertTriangle className="w-6 h-6 text-red-500" />
       case "info":
         return <Info className="w-6 h-6 text-blue-500" />
       case "success":
         return <CheckCircle className="w-6 h-6 text-green-500" />
       default:
-        return <AlertTriangleIcon className="w-6 h-6 text-yellow-500" />
+        return <AlertTriangle className="w-6 h-6 text-yellow-500" />
     }
   }
 

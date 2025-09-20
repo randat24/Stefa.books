@@ -9,7 +9,7 @@ import {
   Zap, 
   Clock, 
   Download, 
-  AlertTriangleIcon,
+  AlertTriangle,
   CheckCircle,
   RefreshCw
 } from 'lucide-react';
@@ -200,8 +200,8 @@ export default function PerformanceMonitor({
 
   const getScoreIcon = (score: number) => {
     if (score >= 90) return <CheckCircle className="h-4 w-4 text-green-600" />;
-    if (score >= 70) return <AlertTriangleIcon className="h-4 w-4 text-yellow-600" />;
-    return <AlertTriangleIcon className="h-4 w-4 text-red-600" />;
+    if (score >= 70) return <AlertTriangle className="h-4 w-4 text-yellow-600" />;
+    return <AlertTriangle className="h-4 w-4 text-red-600" />;
   };
 
   const refreshMetrics = () => {
@@ -240,7 +240,7 @@ export default function PerformanceMonitor({
         </CardHeader>
         <CardContent>
           <div className="text-center py-4">
-            <AlertTriangleIcon className="h-8 w-8 text-yellow-500 mx-auto mb-2" />
+            <AlertTriangle className="h-8 w-8 text-yellow-500 mx-auto mb-2" />
             <p className="text-text-muted">Не удалось измерить метрики производительности</p>
             <Button onClick={refreshMetrics} className="mt-2">
               <RefreshCw className="h-4 w-4 mr-2" />
@@ -304,7 +304,7 @@ export default function PerformanceMonitor({
 
           <div className="text-center">
             <div className="flex items-center justify-center mb-1">
-              <AlertTriangleIcon className="h-4 w-4 text-purple-500 mr-1" />
+              <AlertTriangle className="h-4 w-4 text-purple-500 mr-1" />
               <span className="text-sm font-medium">CLS</span>
             </div>
             <div className={`text-lg font-bold ${metrics.cls > 0.1 ? 'text-red-600' : metrics.cls > 0.05 ? 'text-yellow-600' : 'text-green-600'}`}>

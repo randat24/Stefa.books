@@ -1,4 +1,4 @@
-import { Star, MessageCircleIcon, ThumbsUp } from "lucide-react";
+import { Star, MessageCircle, ThumbsUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -93,7 +93,7 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
         {/* Write Review Button */}
         <div className="mt-6 pt-6 border-t border-neutral-200">
           <Button variant="outline" className="w-full">
-            <MessageCircleIcon className="h-4 w-4 mr-2" />
+            <MessageCircle className="h-4 w-4 mr-2" />
             Написати відгук
           </Button>
         </div>
@@ -141,7 +141,7 @@ export function BookReviews({ rating, rating_count }: BookReviewsProps) {
                 Корисно ({review.helpful})
               </Button>
               <Button variant="outline" size="md" className="h-8 text-xs">
-                <MessageCircleIcon className="h-3 w-3 mr-1" />
+                <MessageCircle className="h-3 w-3 mr-1" />
                 Відповісти
               </Button>
             </div>

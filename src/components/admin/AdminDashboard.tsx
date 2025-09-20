@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { 
   Building2, BookOpen, Users, CreditCard, TrendingUp, RefreshCw, CheckCircle, 
-  AlertTriangleIcon, Clock, Activity, Zap, BarChart3,
+  AlertTriangle, Clock, Activity, Zap, BarChart3,
   ArrowUpRight, ArrowDownRight, Minus, Bell
 } from "lucide-react"
 // Dynamic import for AdvancedAnalytics as well
@@ -147,8 +147,8 @@ export function AdminDashboard({ books, users, onRefresh, onBookCreated }: Admin
 
   const getAlertIcon = (type: string) => {
     switch (type) {
-      case 'warning': return <AlertTriangleIcon className="size-4 text-orange-600" />
-      case 'error': return <AlertTriangleIcon className="size-4 text-red-600" />
+      case 'warning': return <AlertTriangle className="size-4 text-orange-600" />
+      case 'error': return <AlertTriangle className="size-4 text-red-600" />
       case 'info': return <Clock className="size-4 text-blue-600" />
       case 'success': return <CheckCircle className="size-4 text-green-600" />
       default: return <Bell className="size-4 text-neutral-600" />
