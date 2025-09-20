@@ -1,13 +1,12 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect, useCallback, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { 
 	CheckCircle, 
 	Info, 
-	CreditCard, 
 	Building2, 
 	Copy, 
 	Check, 
@@ -47,6 +46,9 @@ const subscribeFormSchema = z.object({
 		.regex(/^\+380\d{9}$/, 'Неправильний формат телефону (+380XXXXXXXXX)'),
 	email: z.string()
 		.email('Неправильний формат email'),
+	address: z.string()
+		.min(5, 'Адреса повинна містити мінімум 5 символів')
+		.max(200, 'Адреса занадто довга'),
 	social: z.string()
 		.optional()
 		.refine((val) => {
@@ -135,6 +137,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 			phone: '+380',
 			name: '',
 			email: '',
+			address: '',
 			social: '',
 			note: '',
 			privacyConsent: false }
@@ -145,11 +148,12 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 		const name = watch("name");
 		const phone = watch("phone");
 		const email = watch("email");
+		const address = watch("address");
 		const plan = watch("plan");
 		const payment = watch("payment");
 		const privacyConsent = watch("privacyConsent");
 
-		return !!(name && phone && email && plan && payment && privacyConsent);
+		return !!(name && phone && email && address && plan && payment && privacyConsent);
 	};
 
 	const watchedPlan = watch('plan')
@@ -214,7 +218,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 		}
 	}
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0]
 		if (file) {
 			// Validate file size (max 5MB)
@@ -279,16 +283,15 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 			setUploadProgress(90)
 
 			// Submit to API
-			const response = await fetch('/api/subscribe', {
+			const response = await fetch('/api/subscription/create', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
 					name: data.name,
 					email: data.email,
 					phone: data.phone,
-					social: data.social,
-					plan: data.plan,
-					paymentMethod: data.payment,
+					address: data.address,
+					subscription_type: data.plan,
 					message: data.note || (book ? `Зацікавився книгою: ${book.title} - ${book.author}` : ''),
 					screenshot: screenshotUrl,
 					privacyConsent: data.privacyConsent
@@ -300,10 +303,17 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 
 			if (response.ok) {
 				logger.info('Subscription form submitted successfully', {
-					submissionId: result.submissionId,
+					subscriptionId: result.subscription_id,
 					plan: data.plan,
 					bookTitle: book?.title
 				})
+				
+				// If payment URL is provided, redirect to payment
+				if (result.payment?.payment_url) {
+					window.location.href = result.payment.payment_url
+					return
+				}
+				
 				setSent(true)
 				if (fileRef.current) fileRef.current.value = ""
 			} else {
@@ -553,6 +563,29 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 							</div>
 						</div>
 
+						{/* Address Field */}
+						<div>
+							<Label htmlFor="address" className="block text-body-sm font-semibold text-neutral-700 mb-2">
+								Адреса доставки *
+							</Label>
+							<div className="relative">
+								<Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400" />
+								<Input
+									{...register("address")}
+									id="address"
+									type="text"
+									className="pl-10"
+									placeholder="Вулиця, будинок, квартира, місто"
+								/>
+							</div>
+							{errors.address && (
+								<p className="mt-1 text-body-sm text-red-600 flex items-center gap-1">
+									<AlertCircle className="h-4 w-4" />
+									{errors.address.message}
+								</p>
+							)}
+						</div>
+
 						{/* Payment Method */}
 						<div>
 							<Label className="block text-body-sm font-semibold text-neutral-700 mb-3">
@@ -621,7 +654,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 						{watchedPayment === "Переказ на карту" && (
 							<div>
 								<Label htmlFor="screenshot" className="block text-body-sm font-semibold text-neutral-700 mb-2">
-									Скріншот переказу *
+									Скріншот переказу
 								</Label>
 								<div className="relative">
 									<Input
@@ -635,7 +668,7 @@ export default function SubscribeModal({ isOpen, onClose, book, defaultPlan }: S
 									<Upload className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-neutral-400 pointer-events-none" />
 								</div>
 								<p className="mt-1 text-caption text-neutral-500">
-									Обов'язково додайте скріншот підтвердження переказу (максимум 5MB). Адміністратор перевірить чек і активує підписку.
+									Додайте скріншот підтвердження переказу (максимум 5MB). Адміністратор перевірить чек і активує підписку.
 								</p>
 								{errors.screenshot && (
 									<p className="mt-1 text-body-sm text-red-600 flex items-center gap-1">
