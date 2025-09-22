@@ -1,0 +1,28 @@
+{
+  "name": "stefa-books-loader",
+  "version": "1.0.0",
+  "description": "Скрипты для загрузки книг из Google Sheets в базу данных Stefa.Books",
+  "main": "load_105_books.js",
+  "scripts": {
+    "load-books": "node load_105_books.js",
+    "convert-csv": "node convert_csv_to_sql.js",
+    "test": "DRY_RUN=true node load_105_books.js"
+  },
+  "dependencies": {
+    "googleapis": "^128.0.0",
+    "@supabase/supabase-js": "^2.38.0",
+    "csv-parser": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "keywords": [
+    "books",
+    "google-sheets",
+    "supabase",
+    "database",
+    "loader"
+  ],
+  "author": "Stefa.Books Team",
+  "license": "MIT"
+}
